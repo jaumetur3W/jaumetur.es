@@ -2,8 +2,6 @@
 import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
-import CommandPalette from "@/components/command-palette.astro";
-import ScrollIndicator from "@/components/scroll-indicator.astro";
 import EasterEggs from "@/components/easter-eggs.astro";
 import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/inter/index.css";
@@ -259,9 +257,7 @@ const blogPostSchema = isBlogPost ? {
     </div>
     <Footer />
 
-    <!-- Interactive Layer: Command Palette (Cmd+K), Scroll Indicator & Easter Eggs -->
-    <CommandPalette />
-    <ScrollIndicator />
+    <!-- Interactive Layer: Easter Eggs -->
     <EasterEggs />
     <!-- Motion Budget: Lightweight IntersectionObserver for single-pass section reveals -->
     <script is:inline>

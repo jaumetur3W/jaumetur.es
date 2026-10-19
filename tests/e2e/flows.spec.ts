@@ -53,24 +53,18 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     expect(isDark).toBe(false);
   });
 
-  test("Command palette opens on shortcut and filters commands", async ({ page }) => {
+  test("Sticky navbar stays visible at top of viewport on scroll", async ({ page }) => {
     await page.goto("/");
-    const paletteBackdrop = page.locator("#command-palette-backdrop");
-    await expect(paletteBackdrop).toHaveClass(/hidden/);
+    const navHeader = page.locator("#site-header");
+    await expect(navHeader).toBeVisible();
 
-    // Click visible command palette trigger button
-    const triggerBtn = page.locator("[data-command-palette-trigger]:visible");
-    await triggerBtn.click();
-    await expect(paletteBackdrop).not.toHaveClass(/hidden/);
-
-    // Filter input
-    const input = page.locator("#command-palette-input");
-    await input.fill("qualitat");
-    await expect(page.locator('.command-item:not(.hidden)').first()).toContainText("Qualitat");
-
-    // Close with Escape
-    await page.keyboard.press("Escape");
-    await expect(paletteBackdrop).toHaveClass(/hidden/);
+    // Scroll down 600px
+    await page.evaluate(() => window.scrollTo(0, 600));
+    await expect(navHeader).toBeVisible();
+    
+    // Check it is positioned at the top of the viewport
+    const boundingBox = await navHeader.boundingBox();
+    expect(boundingBox?.y).toBeLessThanOrEqual(5);
   });
 
   test("Top navbar displays in-page links only and dropdown opens containing all site links", async ({ page }) => {
