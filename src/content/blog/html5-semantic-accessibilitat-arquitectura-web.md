@@ -89,3 +89,4 @@ L'HTML5 semàntic és la primera línia de defensa per a la qualitat d'una aplic
 ## El nostre compromís amb l'estàndard
 
 A tots els projectes de la nostra cartera, auditem el codi font amb validadors del W3C i eina Lighthouse per garantir que el 100% de la semàntica siga neta, sense dependre de trucs de JavaScript per a la navegació fonamental.
+

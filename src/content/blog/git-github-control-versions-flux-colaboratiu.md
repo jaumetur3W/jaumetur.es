@@ -78,3 +78,4 @@ En els nostres projectes apliquem la convenció de commits estàndard (*Conventi
 * `docs:` Actualització de documentació i guies tècniques.
 * `test:` Afegir o corregir proves automatitzades.
 * `refactor:` Canvis estructurals de codi sense alterar el comportament extern.
+

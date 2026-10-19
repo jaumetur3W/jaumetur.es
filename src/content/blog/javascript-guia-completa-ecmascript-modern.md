@@ -86,3 +86,4 @@ async function carregarDadesEnginyeria(endpoint) {
 ## Per què és imprescindible en el nostre stack?
 
 Al nostre flux de treball, JavaScript és el fonament sobre el qual construïm aplicacions TypeScript rigoroses i interfícies ultra-ràpides. Comprendre a fons el seu model de memòria, la gestió de l'Event Loop i les peculiaritats de coerció de tipus és el que permet crear webs que assoleixen el **100/100 en Core Web Vitals** sense bloquejar el fil d'execució principal.
+

@@ -75,3 +75,4 @@ awk '$9 == 500 {print $1}' "$LOG_FILE" | sort | uniq -c | sort -nr | head -n 5
 ## El nostre ús en enginyeria
 
 Al nostre flux diari de desenvolupament, Linux és tant l'entorn de desplegament dels nostres servidors com el motor sobre el qual s'executen els contenidors i les automatitzacions de desplegament continu.
+

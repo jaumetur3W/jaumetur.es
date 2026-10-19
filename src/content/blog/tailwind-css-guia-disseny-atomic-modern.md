@@ -76,3 +76,4 @@ En lloc de generar un arxiu gegant amb milers de classes i després "purgar-lo",
 ## Conclusió i adopció en el nostre flux de treball
 
 Al nostre portafoli i projectes de producció, Tailwind CSS constitueix la base visual per aconseguir una densitat de disseny homogènia, un contrast WCAG AA certificat i un renderitzat instantani. Combinat amb Astro i TypeScript, proporciona una experiència de desenvolupament àgil i una càrrega de pàgina impecable.
+

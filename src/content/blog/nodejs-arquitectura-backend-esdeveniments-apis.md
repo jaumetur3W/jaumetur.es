@@ -89,3 +89,4 @@ server.listen(3000, () => {
 * **Un sol llenguatge a tot l'stack:** Permet als equips utilitzar JavaScript/TypeScript tant al frontend com al backend, compartint models de dades, validacions i lògica de negoci.
 * **Baix consum de recursos:** Ideal per a entorns continguts en contenidors Docker i microserveis al núvol.
 * **Comunitat massiva:** Milers de biblioteques de codi obert auditades disponibles de forma immediata mitjançant gestors de paquets.
+
