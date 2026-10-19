@@ -11,9 +11,9 @@
     'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-/* Dark mode base styles & transitions */
-html.dark {
-  color-scheme: dark;
+/* Color scheme strictly light */
+:root {
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -22,31 +22,6 @@ html.dark {
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
-}
-
-html.dark .bg-slate-50 {
-  background-color: #0b0f19 !important;
-}
-html.dark .bg-white {
-  background-color: #111827 !important;
-  border-color: #1f2937 !important;
-}
-html.dark .text-slate-900 {
-  color: #f8fafc !important;
-}
-html.dark .text-slate-800 {
-  color: #f1f5f9 !important;
-}
-html.dark .text-slate-700 {
-  color: #cbd5e1 !important;
-}
-html.dark .text-slate-600 {
-  color: #94a3b8 !important;
-}
-html.dark .border-slate-200,
-html.dark .border-slate-200\/90,
-html.dark .border-slate-200\/80 {
-  border-color: #1e293b !important;
 }
 
 /*

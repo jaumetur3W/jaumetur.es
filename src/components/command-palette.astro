@@ -37,11 +37,6 @@ const commands: Command[] = [
   { id: "action-open-cv", title: "Descarregar CV (PDF)", subtitle: "Currículum actualitzat de Jaume Tur", category: "Accions Ràpides", icon: "bx:file", badge: "PDF", actionType: "external", value: "/docs/CV_Jaume_tur.pdf" },
   { id: "action-github", title: "Obrir GitHub", subtitle: "Repositoris i codi de producció @jautur", category: "Accions Ràpides", icon: "bx:bxl-github", actionType: "external", value: "https://github.com/jautur" },
   { id: "action-linkedin", title: "Obrir LinkedIn", subtitle: "Perfil professional de Jaume Tur", category: "Accions Ràpides", icon: "bx:bxl-linkedin", actionType: "external", value: "https://www.linkedin.com/in/jautur/" },
-
-  // Aparença / Tema
-  { id: "theme-light", title: "Canviar a Tema Clar", subtitle: "Fons clar optimitzat per a lectura diürna", category: "Aparença / Tema", icon: "bx:sun", actionType: "theme", value: "light" },
-  { id: "theme-dark", title: "Canviar a Tema Fosc", subtitle: "Mode fosc d'alt contrast per a descansar la vista", category: "Aparença / Tema", icon: "bx:moon", actionType: "theme", value: "dark" },
-  { id: "theme-system", title: "Sincronitzar amb el Sistema", subtitle: "Detecta automàticament la preferència del sistema", category: "Aparença / Tema", icon: "bx:desktop", actionType: "theme", value: "system" },
 ];
 ---
 
@@ -63,7 +58,7 @@ const commands: Command[] = [
       <input
         type="text"
         id="command-palette-input"
-        placeholder="Escriu una comanda o busca una pàgina... (Ex: 'blog', 'tema', 'email')"
+        placeholder="Escriu una comanda o busca una pàgina... (Ex: 'blog', 'projectes', 'email')"
         class="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none font-sans"
         autocomplete="off"
         spellcheck="false"
@@ -244,13 +239,6 @@ const commands: Command[] = [
           }).catch(() => {
             showToast(`Correu: ${value}`);
           });
-        }
-      } else if (action === "theme") {
-        if (typeof window.applyTheme === "function") {
-          window.applyTheme(value);
-          showToast(`Tema canviat a: ${value === "dark" ? "Fosc" : value === "light" ? "Clar" : "Automàtic"}`);
-        } else {
-          closePalette();
         }
       }
     }

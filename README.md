@@ -22,7 +22,7 @@ El lloc web està construït com una prova empírica de qualitat: disseny net ti
 ### Pilars d'Arquitectura
 
 1. **Astro Content Collections & Islands Architecture**: Renderitzat estàtic per defecte (SSG) amb generació de zero JavaScript a la majoria de seccions. Els components interactius (paleta de comandes, selector de tema, Three.js) funcionen com a illes aïllades.
-2. **Motor de Tema Zero-FOUC**: Gestió de tema fosc/clar/automàtic amb sincronització al `localStorage` i preferències del sistema operatiu (`prefers-color-scheme`), injectat al `<head>` abans del renderitzat visual per evitar parpellejos.
+2. **Disseny Visual Lluminós & Alt Contrast**: Interfície cuidada exclusivament en mode clar (Light Mode), optimitzada per a la màxima llegibilitat, compliment WCAG 2.2 AA i rendiment fluid a 60 FPS.
 3. **Casos d'Estudi Verificables**: Col·leccions de contingut per a projectes d'enginyeria (`/projectes/[slug]`) amb dades estructurades `CreativeWork` i `SoftwareSourceCode` validades segons schema.org.
 4. **Paleta de Comandes (`Cmd/Ctrl + K`)**: Modal accessible amb gestió de focus, tancament amb tecla Escape, dreceres de navegació ràpida i canvi d'estat del sistema.
 5. **CI/CD Integral**: Pipeline de GitHub Actions amb etapes paral·leles de comprovació de tipus (`astro check`), linter, proves unitàries (Vitest), proves de cap a cap (Playwright) i auditoria automatitzada amb Lighthouse CI.
@@ -40,7 +40,7 @@ The platform is designed to practice what it preaches: high-density Bento Grid l
 ### Architectural Highlights
 
 1. **Islands Architecture**: Static-first zero-JavaScript default with client islands activated only when interactive behavior is strictly required.
-2. **Zero-FOUC Theme Engine**: Synchronized light/dark/system theme management preventing any visual flash on initial load.
+2. **High-Contrast Light-First UI**: Focused exclusively on an elegant, accessible light theme, optimized for maximum readability, strict WCAG 2.2 AA contrast, and 60 FPS performance.
 3. **Evidence-Based Case Studies**: Content collections located under `/projectes/[slug]` enriched with structured `SoftwareSourceCode` and `CreativeWork` schemas.
 4. **Interactive Command Palette**: Accessible modal dialog offering quick page navigation, theme toggling, and email copying with full keyboard trapping.
 5. **Automated Platform Engineering**: Multi-stage GitHub Actions workflow encompassing static analysis, type checking, unit tests (Vitest), end-to-end tests (Playwright), and performance assertion gates (Lighthouse CI).

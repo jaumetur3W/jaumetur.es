@@ -43,21 +43,14 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.getByText("100", { exact: true }).first()).toBeVisible();
   });
 
-  test("Theme toggle toggles dark mode class on html root", async ({ page }) => {
+  test("Theme is strictly light mode and dark mode toggle is removed", async ({ page }) => {
     await page.goto("/");
     const themeBtn = page.locator("#theme-toggle-btn:visible");
-    await expect(themeBtn).toBeVisible();
+    await expect(themeBtn).toHaveCount(0);
 
     const html = page.locator("html");
-    const initiallyDark = await html.evaluate((el) => el.classList.contains("dark"));
-
-    // Click to toggle and wait for class mutation
-    await themeBtn.click();
-    if (!initiallyDark) {
-      await expect(html).toHaveClass(/dark/);
-    } else {
-      await expect(html).not.toHaveClass(/dark/);
-    }
+    const isDark = await html.evaluate((el) => el.classList.contains("dark"));
+    expect(isDark).toBe(false);
   });
 
   test("Command palette opens on shortcut and filters commands", async ({ page }) => {

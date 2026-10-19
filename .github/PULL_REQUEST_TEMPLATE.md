@@ -18,3 +18,4 @@ Si us plau, resumeix de manera concisa quins canvis introdueix aquest Pull Reque
 - [ ] `npm run build` compila sense avisos crítics.
 - [ ] Es respecta el principi d'accessibilitat WCAG 2.2 AA i `prefers-reduced-motion`.
 - [ ] No s'han introduït emojis en brut (només iconografia SVG estandarditzada).
+

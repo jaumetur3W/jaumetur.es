@@ -100,3 +100,4 @@ Aquest projecte segueix estrictament l'especificació [Conventional Commits](htt
    ```
 3. Fes push i obre un Pull Request a GitHub utilitzant la plantilla de PR.
 4. El pipeline de **GitHub Actions** verificarà automàticament el codi (tipat, proves, E2E i Lighthouse CI).
+

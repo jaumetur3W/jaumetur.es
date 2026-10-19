@@ -39,3 +39,4 @@ body:
       placeholder: "Hauria de mantenir 60 FPS o mostrar el contingut accessible..."
     validations:
       required: true
+
