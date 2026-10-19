@@ -196,3 +196,4 @@ src/app/
 La combinación de **Angular Standalone Components**, **Signals** y la función **`inject()`** elimina la fricción histórica del framework y sitúa a Angular a la vanguardia del desarrollo web empresarial moderno. Obtenemos una arquitectura modular, código fácil de testear y un rendimiento nativo impecable a 60 cuadros por segundo.
 
 Si estás planificando una migración desde una base de código heredada o quieres auditar la arquitectura frontend de tu equipo, no dudes en [contactar conmigo para una sesión de consultoría](/contact).
+

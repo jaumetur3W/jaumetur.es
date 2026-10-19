@@ -63,12 +63,12 @@ Tota la funcionalitat del teu lloc web ha de ser accessible utilitzant exclusiva
 
 El major error d'accessibilitat en CSS és eliminar el contorn de focus sense oferir una alternativa:
 ```css
-/* ❌ ERROR GREU: Mai faces açò */
+/* Incorrecte: Mai faces açò */
 *:focus {
   outline: none;
 }
 
-/* ✅ CORRECTE: Proporciona un focus visible i clar */
+/* Correcte: Proporciona un focus visible i clar */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
@@ -170,3 +170,4 @@ test('La pàgina principal no ha de tenir violacions WCAG AA detectables', async
 L'accessibilitat no és una tasca aïllada: és una cultura de qualitat de codi. Crear aplicacions accessibles millora el SEO, optimitza el rendiment i garanteix que la teua plataforma estiga preparada per a atendre el 100% dels usuaris potencials.
 
 Vols avaluar l'accessibilitat del teu lloc web o preparar la teua plataforma per a la Directiva Europea? [Sol·licita una auditoria d'accessibilitat amb nosaltres](/contact).
+

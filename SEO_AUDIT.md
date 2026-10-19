@@ -79,3 +79,4 @@
 5. [x] Crear eina gratuïta per a desenvolupadors a `/tools/workflow-generator` com a iman d'enllaços.
 6. [x] Crear pàgina `/uses` per atraure trànsit i backlinks orgànics.
 7. [x] Redactar `CONTENT_PLAN.md`, `DISTRIBUCION.md` i `MEDICION.md`.
+

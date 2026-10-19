@@ -205,3 +205,4 @@ L'estratègia es basa en el model **Topic Clusters (Pillar-Cluster)**:
 ## 4. Estratègia d'Actualització i Enllaços Canònics
 - Totes les versions en castellà tindran l'etiqueta `<link rel="alternate" hreflang="es" href="..." />` i `<link rel="alternate" hreflang="ca" href="..." />`.
 - Cada trimestre es farà una revisió dels articles P0 per mantenir la informació alineada amb les últimes versions d'Angular, Astro i estàndards W3C.
+

@@ -160,3 +160,4 @@ Amb l'arquitectura implementada a AVISA vam aconseguir:
 Aquest projecte demostra que triar la pila tecnològica correcta (TypeScript estricte + Angular modern) permet construir eines d'alta disponibilitat preparades per a les situacions més exigents.
 
 Vols desenvolupar una aplicació web complexa o en temps real? [Explica'm el teu projecte](/contact).
+

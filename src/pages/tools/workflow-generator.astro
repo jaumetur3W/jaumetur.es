@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout
@@ -23,7 +23,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
         <!-- Controls Column -->
         <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] space-y-6">
           <div class="flex items-center gap-2 pb-4 border-b border-slate-100">
-            <span class="text-xl" aria-hidden="true">⚙️</span>
+            <Icon name="bx:cog" class="w-5 h-5 text-indigo-600" />
             <h2 class="font-extrabold text-slate-900 text-base">Configuració del Pipeline</h2>
           </div>
 
@@ -37,28 +37,28 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
                 type="button"
                 data-framework="astro"
                 class="framework-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition">
-                <span>🚀</span>
+                <Icon name="simple-icons:astro" class="w-4 h-4 text-orange-500" />
                 <span>Astro (SSG)</span>
               </button>
               <button
                 type="button"
                 data-framework="angular"
                 class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
-                <span>🅰️</span>
+                <Icon name="simple-icons:angular" class="w-4 h-4 text-red-500" />
                 <span>Angular SPA</span>
               </button>
               <button
                 type="button"
                 data-framework="react"
                 class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
-                <span>⚛️</span>
+                <Icon name="simple-icons:react" class="w-4 h-4 text-cyan-500" />
                 <span>React / Vite</span>
               </button>
               <button
                 type="button"
                 data-framework="html"
                 class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
-                <span>🎨</span>
+                <Icon name="simple-icons:html5" class="w-4 h-4 text-amber-500" />
                 <span>HTML & Tailwind</span>
               </button>
             </div>
@@ -74,14 +74,14 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
                 type="button"
                 data-target="pages"
                 class="target-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition">
-                <span>🐙</span>
+                <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-800" />
                 <span>GitHub Pages</span>
               </button>
               <button
                 type="button"
                 data-target="vercel"
                 class="target-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
-                <span>▲</span>
+                <Icon name="simple-icons:vercel" class="w-4 h-4 text-slate-900" />
                 <span>Vercel Edge</span>
               </button>
             </div>
@@ -108,8 +108,9 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
             </div>
           </div>
 
-          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-mono">
-            💡 <strong>Com utilitzar-lo:</strong> Guarda aquest fitxer a <code>.github/workflows/deploy.yml</code> al teu repositori.
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-mono flex items-start gap-2">
+            <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+            <span><strong>Com utilitzar-lo:</strong> Guarda aquest fitxer a <code>.github/workflows/deploy.yml</code> al teu repositori.</span>
           </div>
         </div>
 
@@ -127,7 +128,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
               id="copy-yaml-btn"
               type="button"
               class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-              <EmojiIcon symbol="📋" decorative={true} />
+              <Icon name="bx:copy" class="w-3.5 h-3.5" />
               <span>Copiar YAML</span>
             </button>
           </div>
@@ -141,7 +142,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
       <div class="mt-16 bg-white rounded-3xl border border-slate-200/90 p-8 max-w-4xl mx-auto shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 mb-2 inline-block">
-            🎁 RECURS GRATUÏT PER A DEVS
+            RECURS GRATUÏT PER A DEVS
           </span>
           <h3 class="text-xl font-bold text-slate-900">
             Vols una checklist de Rendiment & WCAG AA per a producció?
@@ -153,7 +154,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
         <a
           href="/blog"
           class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-indigo-600 transition shadow-xs shrink-0">
-          <EmojiIcon symbol="📖" decorative={true} />
+          <Icon name="bx:book-open" class="w-4 h-4 text-white" />
           <span>Llegir al Blog</span>
         </a>
       </div>

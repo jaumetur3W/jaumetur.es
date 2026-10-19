@@ -1,7 +1,7 @@
 ---
 import Container from "@/components/container.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
+import { Icon } from "astro-icon/components";
 
 const menuitems = [
   { title: "Inici", path: "/" },
@@ -19,13 +19,13 @@ const menuitems = [
   <header class="flex flex-col lg:flex-row justify-between items-center my-4 gap-4 relative z-50">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
-        <!-- Interactive Brand Logo with Easter Egg Burst -->
+        <!-- Interactive Brand Logo -->
         <div class="relative group/logo">
           <a
             href="/"
             id="brand-logo-btn"
             class="flex items-center gap-3 group focus-visible:outline-indigo-600 focus-visible:ring-2 rounded-2xl p-1"
-            title="Jaume Tur — Clic per a un toc de màgia ✨">
+            title="Jaume Tur — Inici">
             <div class="relative">
               <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-indigo-600 rounded-full blur-xs opacity-40 group-hover:opacity-75 transition-opacity"></div>
               <img
@@ -35,9 +35,6 @@ const menuitems = [
                 width="40"
                 height="40"
               />
-              <span class="absolute -bottom-1 -right-1 text-[11px] leading-none pointer-events-none group-hover:rotate-12 transition-transform" aria-hidden="true">
-                ✨
-              </span>
             </div>
             
             <div class="flex flex-col">
@@ -57,9 +54,6 @@ const menuitems = [
               </span>
             </div>
           </a>
-
-          <!-- Floating emoji burst container -->
-          <div id="emoji-burst-container" class="absolute inset-0 pointer-events-none overflow-visible z-50"></div>
         </div>
 
         <div class="block lg:hidden">
@@ -90,20 +84,20 @@ const menuitems = [
             target="_blank"
             rel="noopener noreferrer"
             class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
-            <EmojiIcon symbol="📄" decorative={true} />
+            <Icon name="bx:file" class="w-4 h-4 text-indigo-600" />
             <span>Descarregar CV (PDF) ↗</span>
           </a>
           <a
             href="/contact"
             class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
-            <EmojiIcon symbol="💬" decorative={true} />
+            <Icon name="bx:message-square-dots" class="w-4 h-4 text-white" />
             <span>Contactar</span>
           </a>
         </div>
       </MenuItems>
     </Astronav>
 
-    <!-- Desktop Action Buttons with Functional Emojis -->
+    <!-- Desktop Action Buttons with Standardized Icons -->
     <div class="hidden lg:flex items-center gap-2.5">
       <a
         href="/docs/CV_Jaume_tur.pdf"
@@ -111,7 +105,7 @@ const menuitems = [
         rel="noopener noreferrer"
         class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 border border-slate-200/90 hover:border-indigo-300 rounded-xl bg-white hover:bg-slate-50 transition shadow-2xs group"
         title="Obrir currículum en PDF">
-        <EmojiIcon symbol="📄" class="group-hover:-translate-y-0.5 group-hover:rotate-6" decorative={true} />
+        <Icon name="bx:file" class="w-4 h-4 text-slate-600 group-hover:text-indigo-600 transition-colors" />
         <span>CV</span>
         <span class="text-[10px] text-slate-400 font-mono">↗</span>
       </a>
@@ -119,45 +113,9 @@ const menuitems = [
       <a
         href="/contact"
         class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-indigo-600 rounded-xl shadow-xs transition group">
-        <EmojiIcon symbol="💬" class="group-hover:scale-110" decorative={true} />
+        <Icon name="bx:message-square-dots" class="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
         <span>Contactar</span>
       </a>
     </div>
   </header>
 </Container>
-
-<!-- Logo Easter Egg Script: Generates subtle particle emojis upon clicking the logo -->
-<script is:inline>
-  const logoBtn = document.getElementById("brand-logo-btn");
-  const burstContainer = document.getElementById("emoji-burst-container");
-  const emojis = ["⚡", "💻", "🚀", "🎨", "🅰️", "✨", "🧩"];
-
-  if (logoBtn && burstContainer) {
-    logoBtn.addEventListener("click", (e) => {
-      // Don't prevent navigation if clicking on link to home, just spawn delightful celebration
-      for (let i = 0; i < 6; i++) {
-        const particle = document.createElement("span");
-        particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        particle.className = "absolute text-sm select-none pointer-events-none transition-all duration-700 ease-out";
-        particle.style.left = `${20 + (Math.random() * 40 - 20)}px`;
-        particle.style.top = `${10}px`;
-        particle.style.transform = `translate(0, 0) scale(0.6)`;
-        particle.style.opacity = "1";
-        
-        burstContainer.appendChild(particle);
-
-        const targetX = (Math.random() - 0.5) * 80;
-        const targetY = -(40 + Math.random() * 50);
-
-        requestAnimationFrame(() => {
-          particle.style.transform = `translate(${targetX}px, ${targetY}px) scale(1.2)`;
-          particle.style.opacity = "0";
-        });
-
-        setTimeout(() => {
-          particle.remove();
-        }, 750);
-      }
-    });
-  }
-</script>

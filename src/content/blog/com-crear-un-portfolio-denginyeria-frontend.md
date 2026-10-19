@@ -53,7 +53,7 @@ Un portfolio tècnic no ha de ser avorrit o gris com un document de Word dels an
 
 Vam aplicar tres regles visuals:
 - **Tema fosc d'enginyeria (*Engineering Dark Palette*):** Fons en `#030712`, superfícies en `#0b0f19` i vores en `#1f2937` que recorden els terminals de desenvolupament moderns.
-- **Integració dels Emojis com a Objectes d'Interfície:** En lloc d'emojis flotant sense sentit, cadascun s'integra com a icona funcional (🅰️ per a Angular, ⚡ per a rendiment, 🔁 per a CI/CD).
+- **Integració d'Iconografia Tècnica Estandarditzada:** En lloc d'adorns buits, cadascun s'integra com a icona funcional d'enginyeria (Angular, Rendiment 60 FPS, CI/CD).
 - **Memojis 3D amb Propòsit:** Els memojis actuen com a amfitrions visuals: asomen per darrere de les targetes de projectes o sostenen la insígnia de la secció, aportant proximitat humana a un lloc d'alta densitat tècnica.
 
 ---
@@ -79,3 +79,4 @@ Un desenvolupador professional és transparent amb el seu flux de treball:
 El teu portfolio és el projecte més important de la teua carrera: és el que treballa per tu les 24 hores del dia, els 7 dies de la setmana. Tracta'l amb la mateixa exigència, arquitectura i rigor que aplicaries a l'aplicació més crítica del teu client més gran.
 
 Vols millorar la presència digital del teu projecte o necessites suport en desenvolupament frontend? [Contacta amb mi](/contact).
+

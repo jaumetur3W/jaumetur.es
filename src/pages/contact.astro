@@ -4,7 +4,6 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 ---
 
 <Layout
@@ -23,12 +22,12 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
       <!-- Left Channels Column -->
       <div>
         
-        <!-- Header with Memoji 3.png (Clean surface anchor) -->
+        <!-- Header with Memoji 3.png -->
         <div class="flex items-center gap-4 mb-6 bg-white p-4 pr-5 rounded-3xl border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)] relative overflow-visible group">
           <div class="relative group/memoji shrink-0 -my-6 -ml-2 sm:-ml-4 z-20">
             <img
               src="/memojis/3.png"
-              alt="Jaume Tur trucant"
+              alt="Jaume Tur"
               class="relative w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-[0_12px_20px_rgba(15,23,42,0.18)] group-hover/memoji:scale-105 group-hover/memoji:-translate-y-1 transition-transform duration-300"
               width="144"
               height="144"
@@ -41,7 +40,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
             </span>
             <h2 class="font-extrabold text-xl text-slate-900 mt-1 flex items-center gap-1.5">
               <span>Parlem del teu projecte</span>
-              <EmojiIcon symbol="💬" decorative={true} />
+              <Icon name="bx:message-square-dots" class="w-5 h-5 text-indigo-600" />
             </h2>
             <p class="text-xs text-slate-600 mt-0.5">
               Contacta directament o envia un missatge.
@@ -54,8 +53,8 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
           <!-- Email box with 1-click copy -->
           <div class="bg-white border border-slate-200/90 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] group hover:border-indigo-300 transition-colors">
             <div class="flex items-center gap-3 overflow-hidden">
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs text-lg">
-                <span aria-hidden="true">✉️</span>
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs">
+                <Icon name="bx:envelope" class="w-5 h-5" />
               </div>
               <div class="truncate">
                 <span class="text-[10px] font-mono font-bold text-indigo-600 block uppercase tracking-wider">
@@ -73,7 +72,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
               type="button"
               class="shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200/80 text-slate-700 hover:text-indigo-600 transition shadow-2xs flex items-center gap-1"
               title="Copiar correu">
-              <EmojiIcon symbol="📋" decorative={true} />
+              <Icon name="bx:copy" class="w-3.5 h-3.5" />
               <span>Copiar</span>
             </button>
           </div>
@@ -85,8 +84,8 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
             rel="noopener noreferrer"
             class="bg-white border border-slate-200/90 hover:border-slate-800 rounded-2xl p-4 flex items-center justify-between transition group shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-sm text-lg">
-                <span aria-hidden="true">🐙</span>
+              <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <Icon name="bx:bxl-github" class="w-5 h-5" />
               </div>
               <div>
                 <span class="text-[10px] font-mono font-bold text-slate-500 block uppercase tracking-wider">
@@ -107,8 +106,8 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
             rel="noopener noreferrer"
             class="bg-white border border-slate-200/90 hover:border-indigo-300 rounded-2xl p-4 flex items-center justify-between transition group shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs text-lg">
-                <span aria-hidden="true">💼</span>
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs">
+                <Icon name="bx:bxl-linkedin" class="w-5 h-5" />
               </div>
               <div>
                 <span class="text-[10px] font-mono font-bold text-indigo-600 block uppercase tracking-wider">
@@ -124,8 +123,8 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
           <!-- Location -->
           <div class="bg-white border border-slate-200/90 rounded-2xl p-4 flex items-center gap-3 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 text-emerald-600 flex items-center justify-center shrink-0 shadow-2xs text-lg">
-              <span aria-hidden="true">📍</span>
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 text-emerald-600 flex items-center justify-center shrink-0 shadow-2xs">
+              <Icon name="bx:map-pin" class="w-5 h-5" />
             </div>
             <div>
               <span class="text-[10px] font-mono font-bold text-emerald-700 block uppercase tracking-wider">
@@ -143,7 +142,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
       <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
         <div class="flex items-center justify-between mb-5">
           <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-1.5">
-            <EmojiIcon symbol="✍️" decorative={true} />
+            <Icon name="bx:edit" class="w-4 h-4 text-indigo-600" />
             <span>Enviar missatge</span>
           </h3>
           <span class="text-[11px] font-mono font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200/60">

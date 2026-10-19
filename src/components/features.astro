@@ -1,26 +1,25 @@
 ---
 import { Icon } from "astro-icon/components";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const skillCategories = [
   {
     title: "Frontend & UI",
-    emoji: "🎨",
+    icon: "bx:layout",
     skills: ["Angular", "TypeScript", "HTML5 Semàntic", "CSS3 / Grid / Flex", "Components UI", "Responsive Design"],
   },
   {
     title: "Backend & APIs",
-    emoji: "🔌",
+    icon: "bx:server",
     skills: ["Node.js", "RESTful APIs", "JSON Payloads", "Trigger / Executor", "Clean Architecture"],
   },
   {
     title: "DevOps & CI/CD",
-    emoji: "🤖",
+    icon: "bx:git-repo-forked",
     skills: ["GitHub Actions", "Pipelines CI/CD", "Git & GitHub", "Linux Shell / Bash", "npm Tooling"],
   },
   {
     title: "Qualitat & Rendiment",
-    emoji: "🛡️",
+    icon: "bx:shield-quarter",
     skills: ["WCAG AA Accessibilitat", "60 FPS Rendiment", "Tipat Estricte", "Linters estàtics", "SEO Tècnic"],
   },
 ];
@@ -29,7 +28,7 @@ const flowSteps = [
   {
     step: "01",
     label: "Disparador",
-    emoji: "📤",
+    icon: "bx:upload",
     detail: "Git Push / Webhook",
     sub: "Esdeveniment automàtic",
     color: "bg-indigo-950/70 text-indigo-300 border-indigo-700/60 hover:border-indigo-400",
@@ -37,7 +36,7 @@ const flowSteps = [
   {
     step: "02",
     label: "Dades",
-    emoji: "📦",
+    icon: "bx:package",
     detail: "JSON Payload estructurat",
     sub: "Validació d'esquema",
     color: "bg-cyan-950/70 text-cyan-300 border-cyan-700/60 hover:border-cyan-400",
@@ -45,7 +44,7 @@ const flowSteps = [
   {
     step: "03",
     label: "Executor",
-    emoji: "⚙️",
+    icon: "bx:cog",
     detail: "Linters & Build CI/CD",
     sub: "Integració contínua",
     color: "bg-slate-900/90 text-slate-300 border-slate-700/70 hover:border-slate-400",
@@ -53,8 +52,8 @@ const flowSteps = [
   {
     step: "04",
     label: "Publicació",
-    emoji: "🌍",
-    detail: "Producció 60 FPS ⚡",
+    icon: "bx:globe",
+    detail: "Producció 60 FPS",
     sub: "Zero downtime actiu",
     color: "bg-emerald-950/70 text-emerald-300 border-emerald-700/60 hover:border-emerald-400",
   },
@@ -67,7 +66,7 @@ const flowSteps = [
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-14">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3 shadow-2xs">
-        <EmojiIcon symbol="💡" decorative={true} />
+        <Icon name="bx:layer" class="w-3.5 h-3.5 text-indigo-700" />
         <span>Stack & Solucions</span>
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
@@ -84,16 +83,16 @@ const flowSteps = [
         <div class="relative w-20 h-20 sm:w-24 sm:h-24 -my-4 -ml-2 flex items-center justify-center">
           <img
             src="/memojis/5.png"
-            alt="Jaume amb bombeta d'idees"
+            alt="Jaume Tur"
             class="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.18)] group-hover:scale-105 transition-transform"
             width="96"
             height="96"
           />
         </div>
         <div class="text-xs">
-          <span class="font-extrabold text-slate-900 flex items-center gap-1 text-sm leading-tight">
+          <span class="font-extrabold text-slate-900 flex items-center gap-1.5 text-sm leading-tight">
             <span>Arquitectura & Idees</span>
-            <EmojiIcon symbol="💡" class="animate-pulse" decorative={true} />
+            <Icon name="bx:bulb" class="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
           </span>
           <span class="text-indigo-600 font-mono text-[11px] font-bold">Trigger / Executor</span>
         </div>
@@ -110,7 +109,7 @@ const flowSteps = [
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-800 relative z-10">
       <div>
         <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400 flex items-center gap-2">
-          <EmojiIcon symbol="⚡" decorative={true} />
+          <Icon name="bx:bxs-zap" class="w-3.5 h-3.5 text-indigo-400" />
           <span>Patró d'Enginyeria Orientat a Esdeveniments</span>
         </span>
         <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">
@@ -129,8 +128,8 @@ const flowSteps = [
         <div class={`p-5 rounded-2xl border ${f.color} relative backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group/node`}>
           <!-- Node Header -->
           <div class="flex items-center justify-between mb-3">
-            <span class="text-2xl transform-gpu group-hover/node:scale-125 transition-transform" aria-hidden="true">
-              {f.emoji}
+            <span class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center transform-gpu group-hover/node:scale-110 transition-transform">
+              <Icon name={f.icon} class="w-5 h-5" />
             </span>
             <span class="text-xs font-mono font-extrabold text-slate-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">
               {f.step}
@@ -163,19 +162,19 @@ const flowSteps = [
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         <span>Flux automatitzat sense friccions humanes</span>
       </div>
-      <span class="text-indigo-400 font-bold hidden sm:inline">Git Push ➔ Validador ➔ Producció ⚡</span>
+      <span class="text-indigo-400 font-bold hidden sm:inline">Git Push ➔ Validador ➔ Producció</span>
     </div>
   </div>
 
-  <!-- 4 Skills Cards Bento Grid: Header Emojis + Tactile Chips -->
+  <!-- 4 Skills Cards Bento Grid: Header Icons + Chips -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
     {
       skillCategories.map((cat) => (
         <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div>
             <div class="flex items-center gap-3 mb-5">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-indigo-50 border border-indigo-200/60 text-xl shadow-2xs group-hover:scale-110 transition-transform">
-                <span aria-hidden="true">{cat.emoji}</span>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-indigo-50 border border-indigo-200/60 shadow-2xs group-hover:scale-110 transition-transform text-indigo-600">
+                <Icon name={cat.icon} class="w-5 h-5" />
               </div>
               <h3 class="font-bold text-base text-slate-900 group-hover:text-indigo-600 transition-colors">
                 {cat.title}

@@ -217,3 +217,4 @@ export const routes: Routes = [
 La combinació d'**Angular Standalone Components**, **Signals** i la funció **`inject()`** elimina la fricció històrica del framework i situa Angular al capdavant del desenvolupament web empresarial modern. Obtenim una arquitectura més modular, codi més fàcil de testar i un rendiment natiu impecable a 60 fotogrames per segon.
 
 Si estàs planificant una migració des d'una base de codi antiga o vols auditar l'arquitectura frontend del teu equip, no dubtes a [contactar amb mi per a una sessió de consultoria](/contact).
+

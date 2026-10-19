@@ -94,3 +94,4 @@ A `src/layouts/Layout.astro` ja s'ha integrat l'etiqueta amb càrrega diferida:
   - Revisar els Core Web Vitals (LCP, CLS, INP) a l'informe real d'usuaris (CrUX) a GSC.
 - **Trimestral (2 hores):**
   - Auditoria completa de continguts antics: actualitzar versions de llibreries, millorar snippets i afegir nous enllaços interns cap als articles recents.
+

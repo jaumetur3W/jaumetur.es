@@ -98,3 +98,4 @@ Després del llançament de la nova plataforma web:
 Aquest cas demostra que un bon desenvolupament web no és un despesa, sinó el millor comercial que pot tenir un negoci local a peu de carrer.
 
 Tens un negoci a la Comunitat Valenciana i vols renovar la teua imatge digital per a atraure més clients? [Posa't en contacte amb mi](/contact).
+

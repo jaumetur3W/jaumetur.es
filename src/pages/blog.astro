@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
+import { Icon } from "astro-icon/components";
 
 // Filter blog entries with 'draft: false' & date before current date
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
@@ -17,17 +18,17 @@ publishedBlogEntries.sort(function (a, b) {
 // Extract all unique categories
 const categories = ["Tots", ...new Set(publishedBlogEntries.map((post) => post.data.category))];
 
-// Category emoji helper
-const getCategoryEmoji = (category: string) => {
+// Category icon helper (Standardized icons)
+const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
-  if (cat.includes("angular")) return "🅰️";
-  if (cat.includes("rendiment") || cat.includes("performance")) return "⚡";
-  if (cat.includes("ci/cd") || cat.includes("devops")) return "🔁";
-  if (cat.includes("accessibilitat") || cat.includes("wcag")) return "♿";
-  if (cat.includes("typescript")) return "🟦";
-  if (cat.includes("carrera") || cat.includes("portfolio")) return "💼";
-  if (cat.includes("cas d'estudi") || cat.includes("caso")) return "🔍";
-  return "📝";
+  if (cat.includes("angular")) return "simple-icons:angular";
+  if (cat.includes("rendiment") || cat.includes("performance")) return "bx:bxs-zap";
+  if (cat.includes("ci/cd") || cat.includes("devops")) return "bx:git-repo-forked";
+  if (cat.includes("accessibilitat") || cat.includes("wcag")) return "bx:accessibility";
+  if (cat.includes("typescript")) return "simple-icons:typescript";
+  if (cat.includes("carrera") || cat.includes("portfolio")) return "bx:briefcase";
+  if (cat.includes("cas d'estudi") || cat.includes("caso")) return "bx:search-alt";
+  return "bx:file-blank";
 };
 ---
 
@@ -54,13 +55,14 @@ const getCategoryEmoji = (category: string) => {
             <button
               type="button"
               data-category={cat}
-              class={`filter-btn px-3 py-1.5 rounded-lg text-xs font-mono transition-all border ${
+              class={`filter-btn px-3 py-1.5 rounded-lg text-xs font-mono transition-all border flex items-center gap-1.5 ${
                 idx === 0
                   ? "bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-500/20 active"
                   : "bg-gray-900 text-gray-400 border-gray-800 hover:text-white hover:border-gray-700"
               }`}
             >
-              <span>{cat !== "Tots" ? getCategoryEmoji(cat) : "✨"}</span> {cat}
+              <Icon name={cat !== "Tots" ? getCategoryIcon(cat) : "bx:layer"} class="w-3.5 h-3.5" />
+              <span>{cat}</span>
             </button>
           ))}
         </div>
@@ -71,9 +73,9 @@ const getCategoryEmoji = (category: string) => {
             type="text"
             id="blog-search"
             placeholder="Cercar articles o tags..."
-            class="w-full px-3.5 py-1.5 text-xs font-mono rounded-lg bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            class="w-full px-3.5 py-1.5 pl-8 text-xs font-mono rounded-lg bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
           />
-          <span class="absolute right-3 top-2 text-xs text-gray-500 pointer-events-none">🔍</span>
+          <Icon name="bx:search" class="absolute left-2.5 top-2 text-gray-500 w-3.5 h-3.5 pointer-events-none" />
         </div>
       </div>
     </div>
@@ -84,7 +86,7 @@ const getCategoryEmoji = (category: string) => {
         {publishedBlogEntries.map((post) => {
           const wordsCount = post.body ? post.body.trim().split(/\s+/).length : 600;
           const readingMinutes = Math.max(1, Math.round(wordsCount / 200));
-          const emoji = getCategoryEmoji(post.data.category);
+          const iconName = getCategoryIcon(post.data.category);
 
           return (
             <article
@@ -108,14 +110,15 @@ const getCategoryEmoji = (category: string) => {
                 )}
 
                 <div class="p-6">
-                  <!-- Category and Language -->
+                  <!-- Category and Reading Time with Standardized Icons -->
                   <div class="flex items-center justify-between gap-2 mb-3">
                     <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-blue-950/60 border border-blue-500/30 text-blue-300">
-                      <span>{emoji}</span>
+                      <Icon name={iconName} class="w-3.5 h-3.5" />
                       <span>{post.data.category}</span>
                     </span>
-                    <span class="text-xs font-mono text-emerald-400">
-                      ⏱️ ~{readingMinutes} min
+                    <span class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                      <Icon name="bx:time" class="w-3.5 h-3.5 text-emerald-400" />
+                      <span>~{readingMinutes} min</span>
                     </span>
                   </div>
 
@@ -157,16 +160,17 @@ const getCategoryEmoji = (category: string) => {
 
       <!-- No Results State -->
       <div id="no-results" class="hidden text-center py-16">
-        <p class="text-4xl mb-2">🔍</p>
+        <Icon name="bx:search" class="w-12 h-12 text-gray-600 mx-auto mb-2" />
         <p class="text-gray-300 font-bold text-lg">No s'ha trobat cap article</p>
         <p class="text-gray-500 text-sm mt-1">Prova amb altres termes de cerca o una altra categoria.</p>
       </div>
 
-      <!-- Lead Magnet Newsletter Box -->
+      <!-- Lead Magnet Newsletter Box with Standardized Icons -->
       <section class="mt-20 p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950/30 to-gray-950 border border-blue-500/30 relative overflow-hidden">
         <div class="max-w-2xl">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono font-medium bg-blue-950/80 border border-blue-500/40 text-blue-300 mb-4">
-            📬 Newsletter Tècnica: Frontend de Trinxera
+            <Icon name="bx:envelope" class="w-3.5 h-3.5 text-blue-300" />
+            <span>Newsletter Tècnica: Frontend de Trinxera</span>
           </span>
           <h3 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
             Reb un article tècnic al mes sense spam ni postureig.

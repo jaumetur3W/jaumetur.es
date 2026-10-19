@@ -124,3 +124,4 @@ Aplicando esta metodología rigurosa hemos conseguido puntuaciones consistentes 
 - **LCP:** 0.8s | **CLS:** 0.00 | **INP:** < 28ms
 
 El rendimiento no es un accidente: es el resultado directo de un diseño consciente y una ejecución técnica impecable. Si necesitas una auditoría de Core Web Vitals para tu plataforma, [hablemos](/contact).
+

@@ -68,3 +68,4 @@ Les republiques a plataformes de tercers (Dev.to, Hashnode, Medium) es faran sem
 ## 4. Guia d'Estil per a Publicacions Socials
 - **Preservar el Design System:** Quan s'adjunten imatges, utilitzar el format de targeta amb fons `#030712`, accents verds (`#10b981`), blaus (`#3b82f6`) i l'avatar/memoji oficial de Jaume Tur com a signatura visual.
 - **Zero Clickbait buit:** Cada publicació ha d'aportar valor per si mateixa fins i tot si l'usuari no fa clic a l'enllaç. El link a `jaumetur.es` ha de ser la continuació natural per a aprofundir.
+

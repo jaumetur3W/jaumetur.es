@@ -80,41 +80,41 @@ concurrency:
 
 jobs:
   build:
-    name: ⚙️ Build & Validate
+    name: Build & Validate
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Clonar Repositori
+      - name: Clonar Repositori
         uses: actions/checkout@v4
 
-      - name: 🟢 Configurar Node.js (v22 LTS)
+      - name: Configurar Node.js (v22 LTS)
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
 
-      - name: 📦 Instal·lar Dependències Deterministes
+      - name: Instal·lar Dependències Deterministes
         run: npm ci
 
-      - name: 🔍 Verificació Estricta de Tipus TypeScript
+      - name: Verificació Estricta de Tipus TypeScript
         run: npx astro check || npx tsc --noEmit
 
-      - name: 🚀 Compilació de Producció
+      - name: Compilació de Producció
         run: npm run build
 
-      - name: 📤 Pujar artefactes estàtics
+      - name: Pujar artefactes estàtics
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
-    name: 🌍 Desplegament Atòmic
+    name: Desplegament Atòmic
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: 🚀 Desplegar a GitHub Pages
+      - name: Desplegar a GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 ```
@@ -177,3 +177,4 @@ D'aquesta manera, cap línia de codi amb sintaxi incorrecta arriba a la branca p
 L'automatització mitjançant CI/CD transforma completament la seguretat psicològica d'un equip d'enginyeria. Saber que cada canvi passa per una bateria de validacions automàtiques permet lliurar valor contínuament sense por a trencar la producció.
 
 Si vols implementar un pipeline similar a la teua organització o optimitzar els teus temps de desplegament, [pots sol·licitar el nostre servei de consultoria DevOps](/contact).
+

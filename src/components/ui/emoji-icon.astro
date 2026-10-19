@@ -1,32 +1,83 @@
 ---
+import { Icon } from "astro-icon/components";
+
 export interface Props {
-  symbol: string;
+  symbol?: string;
+  name?: string;
   label?: string;
   decorative?: boolean;
   class?: string;
 }
 
 const {
-  symbol,
+  symbol = "",
+  name = "",
   label = "",
   decorative = true,
-  class: className = "",
+  class: className = "w-4 h-4 inline-block",
 } = Astro.props;
+
+// Map legacy emoji symbols to standardized Iconify icons
+const iconMap: Record<string, string> = {
+  "⚡": "bx:bxs-zap",
+  "♿": "bx:accessibility",
+  "🔁": "bx:refresh",
+  "🔄": "bx:refresh",
+  "🧩": "bx:extension",
+  "🚀": "bx:rocket",
+  "📄": "bx:file",
+  "🐙": "bx:bxl-github",
+  "💼": "bx:briefcase",
+  "👋": "bx:hand",
+  "👨‍💻": "bx:terminal",
+  "💻": "bx:code-alt",
+  "💡": "bx:bulb",
+  "🚨": "bx:bell",
+  "🍕": "bx:restaurant",
+  "📊": "bx:line-chart",
+  "🛡️": "bx:shield-quarter",
+  "🌐": "bx:globe",
+  "🟢": "bx:check-circle",
+  "✅": "bx:check",
+  "✓": "bx:check",
+  "✍️": "bx:edit",
+  "✉️": "bx:envelope",
+  "💬": "bx:message-square-dots",
+  "📋": "bx:copy",
+  "📍": "bx:map-pin",
+  "🔝": "bx:up-arrow-alt",
+  "🎨": "bx:palette",
+  "🔌": "bx:server",
+  "🤖": "bx:bot",
+  "📤": "bx:upload",
+  "📦": "bx:package",
+  "⚙️": "bx:cog",
+  "🌍": "bx:globe",
+  "🎓": "bx:bxs-graduation",
+  "🏛️": "bx:compass",
+  "🤙": "bx:phone-call",
+  "✨": "bx:star",
+  "📖": "bx:book-open",
+  "🎁": "bx:gift",
+  "🔍": "bx:search",
+  "⏱️": "bx:time",
+  "📑": "bx:book-content",
+  "🛠️": "bx:wrench",
+  "📬": "bx:envelope",
+  "🔗": "bx:link",
+  "🅰️": "simple-icons:angular",
+  "🟦": "simple-icons:typescript",
+  "⚛️": "simple-icons:react",
+  "👍": "bx:like",
+  "📝": "bx:file-blank",
+};
+
+const iconName = name || iconMap[symbol] || "bx:chevron-right";
 ---
 
-{
-  decorative ? (
-    <span
-      class={`inline-block select-none transform-gpu transition-transform duration-200 ${className}`}
-      aria-hidden="true">
-      {symbol}
-    </span>
-  ) : (
-    <span
-      role="img"
-      aria-label={label}
-      class={`inline-block select-none transform-gpu transition-transform duration-200 ${className}`}>
-      {symbol}
-    </span>
-  )
-}
+<Icon
+  name={iconName}
+  class={className}
+  aria-hidden={decorative ? "true" : undefined}
+  aria-label={!decorative && label ? label : undefined}
+/>

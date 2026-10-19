@@ -2,39 +2,38 @@
 import Link from "@/components/ui/link.astro";
 import { Icon } from "astro-icon/components";
 import ThreeHero from "@/components/three-hero.astro";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const metrics = [
   {
-    emoji: "⚡",
+    icon: "bx:bxs-zap",
     value: "60 FPS",
     label: "Renderitzat fluid",
     color: "text-emerald-700 bg-white border-slate-200/90 hover:border-emerald-300",
-    emojiClass: "group-hover:scale-125 group-hover:rotate-6 text-emerald-600",
+    iconClass: "group-hover:scale-125 group-hover:rotate-6 text-emerald-600",
     badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
   },
   {
-    emoji: "♿",
+    icon: "bx:accessibility",
     value: "WCAG AA",
     label: "Accessibilitat",
     color: "text-indigo-700 bg-white border-slate-200/90 hover:border-indigo-300",
-    emojiClass: "group-hover:scale-125 text-indigo-600",
+    iconClass: "group-hover:scale-125 text-indigo-600",
     badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200/80",
   },
   {
-    emoji: "🔁",
+    icon: "bx:refresh",
     value: "CI/CD",
     label: "Desplegaments continus",
     color: "text-sky-700 bg-white border-slate-200/90 hover:border-sky-300",
-    emojiClass: "group-hover:rotate-180 transition-transform duration-500 text-sky-600",
+    iconClass: "group-hover:rotate-180 transition-transform duration-500 text-sky-600",
     badgeColor: "bg-sky-50 text-sky-700 border-sky-200/80",
   },
   {
-    emoji: "🧩",
+    icon: "simple-icons:typescript",
     value: "TypeScript",
     label: "Tipat estricte",
     color: "text-slate-800 bg-white border-slate-200/90 hover:border-slate-400",
-    emojiClass: "group-hover:scale-125 group-hover:-rotate-12 text-blue-600",
+    iconClass: "group-hover:scale-125 group-hover:-rotate-12 text-blue-600",
     badgeColor: "bg-slate-100 text-slate-800 border-slate-200/80",
   },
 ];
@@ -76,7 +75,7 @@ const metrics = [
         Hola, sóc <strong class="text-slate-900 font-bold">Jaume Tur</strong>. Desenvolupador web especialitzat en arquitectures modulars amb <strong>Angular</strong>, rendiment 60 FPS i fluxos automatitzats de CI/CD.
       </p>
 
-      <!-- Visual Metric Pills with Integrated Emojis (Micro-animations on hover) -->
+      <!-- Visual Metric Pills with Standardized Icons (Micro-animations on hover) -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-xl">
         {metrics.map((m) => (
           <div class={`group p-3 rounded-2xl border ${m.color} shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between cursor-default`}>
@@ -84,7 +83,7 @@ const metrics = [
               <span class="font-extrabold text-sm sm:text-base font-mono leading-none">
                 {m.value}
               </span>
-              <EmojiIcon symbol={m.emoji} class={`text-sm ${m.emojiClass}`} decorative={true} />
+              <Icon name={m.icon} class={`w-4 h-4 ${m.iconClass}`} />
             </div>
             <span class="text-[11px] text-slate-600 font-medium leading-tight">
               {m.label}
@@ -93,12 +92,12 @@ const metrics = [
         ))}
       </div>
 
-      <!-- Action buttons with Functional Emojis & High Contrast -->
+      <!-- Action buttons with Standardized Icons & High Contrast -->
       <div class="mt-8 flex flex-wrap gap-3 items-center">
         <Link
           href="#projectes"
           class="group flex gap-2 items-center justify-center font-bold px-5 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white shadow-sm shadow-slate-900/15 border-0 rounded-xl transition">
-          <EmojiIcon symbol="🚀" class="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" decorative={true} />
+          <Icon name="bx:rocket" class="w-4 h-4 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
           <span>Veure projectes</span>
         </Link>
         
@@ -107,7 +106,7 @@ const metrics = [
           target="_blank"
           rel="noopener noreferrer"
           class="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-slate-800 bg-white border border-slate-200/90 hover:border-slate-800 hover:bg-slate-50 transition shadow-2xs">
-          <EmojiIcon symbol="📄" class="group-hover:-translate-y-0.5 group-hover:rotate-6 transition-transform" decorative={true} />
+          <Icon name="bx:file" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform text-slate-700" />
           <span>Descarregar CV</span>
           <span class="text-[11px] text-slate-400 font-mono">↗</span>
         </a>
@@ -118,7 +117,7 @@ const metrics = [
           rel="noopener noreferrer"
           class="group inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 transition border border-slate-200/90 shadow-2xs"
           title="GitHub de Jaume Tur">
-          <EmojiIcon symbol="🐙" class="group-hover:scale-110 transition-transform" decorative={true} />
+          <Icon name="bx:bxl-github" class="w-4 h-4 group-hover:scale-110 transition-transform" />
           <span>GitHub</span>
         </a>
 
@@ -128,7 +127,7 @@ const metrics = [
           rel="noopener noreferrer"
           class="group inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition border border-indigo-200/80 shadow-2xs"
           title="LinkedIn de Jaume Tur">
-          <EmojiIcon symbol="💼" class="group-hover:scale-110 transition-transform" decorative={true} />
+          <Icon name="bx:bxl-linkedin" class="w-4 h-4 group-hover:scale-110 transition-transform" />
           <span>LinkedIn</span>
         </a>
       </div>
@@ -144,16 +143,16 @@ const metrics = [
         
         <img
           src="/memojis/4.png"
-          alt="Jaume Tur saludant amb la mà"
+          alt="Jaume Tur"
           class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.22)] group-hover:-translate-y-2 group-hover:-rotate-1 transition-transform duration-300 pointer-events-auto"
           loading="eager"
           width="320"
           height="320"
         />
 
-        <!-- Floating speech bubble interacting with waving hand -->
+        <!-- Floating speech bubble with standardized icon -->
         <div class="absolute top-6 right-2 sm:right-4 bg-slate-900 text-white text-xs font-mono font-bold px-3.5 py-1.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1.5 ring-2 ring-white group-hover:scale-110 transition-transform">
-          <EmojiIcon symbol="👋" class="animate-bounce" decorative={true} />
+          <Icon name="bx:smile" class="w-3.5 h-3.5 text-indigo-400" />
           <span>Hola!</span>
         </div>
       </div>
@@ -165,8 +164,8 @@ const metrics = [
             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
-            <span class="text-slate-400 text-[11px] ml-2 flex items-center gap-1">
-              <EmojiIcon symbol="👨‍💻" decorative={true} />
+            <span class="text-slate-400 text-[11px] ml-2 flex items-center gap-1.5">
+              <Icon name="bx:terminal" class="w-3.5 h-3.5 text-slate-400" />
               <span>// developer.profile</span>
             </span>
           </div>

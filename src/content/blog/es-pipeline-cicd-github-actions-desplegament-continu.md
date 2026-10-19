@@ -54,41 +54,41 @@ concurrency:
 
 jobs:
   build:
-    name: ⚙️ Build & Validate
+    name: Build & Validate
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Clonar Repositorio
+      - name: Clonar Repositorio
         uses: actions/checkout@v4
 
-      - name: 🟢 Configurar Node.js (v22 LTS)
+      - name: Configurar Node.js (v22 LTS)
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
 
-      - name: 📦 Instalar Dependencias Deterministas
+      - name: Instalar Dependencias Deterministas
         run: npm ci
 
-      - name: 🔍 Verificación Estricta de Tipos TypeScript
+      - name: Verificación Estricta de Tipos TypeScript
         run: npx astro check || npx tsc --noEmit
 
-      - name: 🚀 Compilación de Producción
+      - name: Compilación de Producción
         run: npm run build
 
-      - name: 📤 Subir artefactos estáticos
+      - name: Subir artefactos estáticos
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
-    name: 🌍 Despliegue Atómico
+    name: Despliegue Atómico
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: 🚀 Desplegar en GitHub Pages
+      - name: Desplegar en GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 ```
@@ -128,3 +128,4 @@ Al desplegar en GitHub Pages con un dominio propio (como `jaumetur.es`), hay que
 La automatización mediante CI/CD transforma la seguridad psicológica de un equipo de ingeniería. Saber que cada cambio pasa por una batería de validaciones automáticas permite entregar valor continuamente sin miedo a romper la producción.
 
 Si quieres implementar un pipeline similar en tu organización o reducir los tiempos de despliegue de tu equipo, [puedes solicitar nuestro servicio de consultoría DevOps](/contact).
+

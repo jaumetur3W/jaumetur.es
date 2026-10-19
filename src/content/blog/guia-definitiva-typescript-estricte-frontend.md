@@ -51,7 +51,7 @@ El primer pas per a escriure codi professional és activar el mode estricte al t
 Un dels majors vicis en la gestió d'estat és declarar un objecte amb múltiples booleans d'estat que poden entrar en contradicció:
 
 ```typescript
-// ❌ MALAMENT: Permet estats impossibles (com isLoading: true i isError: true alhora)
+// Inadequat: Permet estats impossibles (com isLoading: true i isError: true alhora)
 interface EstatPeticio {
   isLoading: boolean;
   isError: boolean;
@@ -63,7 +63,7 @@ interface EstatPeticio {
 Mitjançant les **Unions Discriminades** (*Discriminated Unions*), fem que els estats incompatibles siguen físicament impossibles d'escriure:
 
 ```typescript
-// ✅ CORRECTE: Cada estat té exclusivament les propietats que li corresponen
+// Correcte: Cada estat té exclusivament les propietats que li corresponen
 type EstatPeticio =
   | { readonly tipus: 'inicial' }
   | { readonly tipus: 'carregant' }
@@ -130,7 +130,7 @@ function enviarNotificacio(usuari: UserId, comanda: OrderId) {
 const idUsuari = 'usr_12345' as UserId;
 const idComanda = 'ord_98765' as OrderId;
 
-// ❌ Error de compilació: Type 'OrderId' is not assignable to type 'UserId'
+// Error de compilació previst: Type 'OrderId' is not assignable to type 'UserId'
 // enviarNotificacio(idComanda, idUsuari);
 ```
 
@@ -162,3 +162,4 @@ colorsDisseny.secundari.map(c => c * 2);
 Escriure TypeScript estricte requereix un canvi de mentalitat: els tipus no són un obstacle que cal superar, sinó l'eina de disseny més potent que tenim com a enginyers frontend. Invertir temps en modelar el domini correctament estalvia centenars d'hores de depuració en el futur.
 
 Tens un equip que vol elevar el nivell de TypeScript o auditar el seu codi? [Parlem](/contact).
+

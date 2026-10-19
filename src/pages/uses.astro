@@ -2,12 +2,12 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
+import { Icon } from "astro-icon/components";
 
 const categories = [
   {
     title: "Entorn de Codi & Editor",
-    emoji: "💻",
+    icon: "bx:code-alt",
     items: [
       {
         name: "VS Code (Visual Studio Code)",
@@ -29,7 +29,7 @@ const categories = [
   },
   {
     title: "Stack Frontend & Llibreries",
-    emoji: "⚡",
+    icon: "bx:bxs-zap",
     items: [
       {
         name: "Angular (Signals & Standalone)",
@@ -55,7 +55,7 @@ const categories = [
   },
   {
     title: "DevOps & Automatització",
-    emoji: "🤖",
+    icon: "bx:git-repo-forked",
     items: [
       {
         name: "GitHub Actions",
@@ -73,7 +73,7 @@ const categories = [
   },
   {
     title: "Disseny & Accessibilitat",
-    emoji: "🎨",
+    icon: "bx:palette",
     items: [
       {
         name: "Figma & Apple Human Interface Guidelines",
@@ -105,7 +105,9 @@ const categories = [
           categories.map((cat) => (
             <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
               <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-                <span class="text-2xl" aria-hidden="true">{cat.emoji}</span>
+                <span class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 flex items-center justify-center text-indigo-600">
+                  <Icon name={cat.icon} class="w-5 h-5" />
+                </span>
                 <h2 class="text-xl font-bold text-slate-900 tracking-tight">
                   {cat.title}
                 </h2>
@@ -133,7 +135,7 @@ const categories = [
           <div class="space-y-1 text-center sm:text-left">
             <h3 class="text-lg font-bold flex items-center gap-2 justify-center sm:justify-start">
               <span>Vols automatitzar el teu propi desplegament?</span>
-              <EmojiIcon symbol="⚡" decorative={true} />
+              <Icon name="bx:bxs-zap" class="w-4 h-4 text-indigo-400" />
             </h3>
             <p class="text-xs text-slate-300">
               Utilitza el nostre generador interactiu gratuït per a GitHub Actions.

@@ -1,24 +1,23 @@
 ---
 import { Icon } from "astro-icon/components";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const techStack = [
-  { name: "Angular", emoji: "🅰️", icon: "simple-icons:angular", badge: "hover:border-red-400 hover:bg-red-50/50 text-slate-800" },
-  { name: "TypeScript", emoji: "🟦", icon: "simple-icons:typescript", badge: "hover:border-blue-400 hover:bg-blue-50/50 text-slate-800" },
-  { name: "JavaScript", emoji: "🟨", icon: "simple-icons:javascript", badge: "hover:border-amber-400 hover:bg-amber-50/50 text-slate-800" },
-  { name: "Tailwind CSS", emoji: "🎨", icon: "simple-icons:tailwindcss", badge: "hover:border-cyan-400 hover:bg-cyan-50/50 text-slate-800" },
-  { name: "HTML5 Semàntic", emoji: "🌐", icon: "simple-icons:html5", badge: "hover:border-orange-400 hover:bg-orange-50/50 text-slate-800" },
-  { name: "Node.js", emoji: "🟢", icon: "simple-icons:nodedotjs", badge: "hover:border-emerald-400 hover:bg-emerald-50/50 text-slate-800" },
-  { name: "GitHub Actions", emoji: "🤖", icon: "simple-icons:githubactions", badge: "hover:border-sky-400 hover:bg-sky-50/50 text-slate-800" },
-  { name: "Linux Shell", emoji: "🐧", icon: "simple-icons:linux", badge: "hover:border-slate-500 hover:bg-slate-100 text-slate-800" },
-  { name: "Git & GitHub", emoji: "🔀", icon: "simple-icons:git", badge: "hover:border-rose-400 hover:bg-rose-50/50 text-slate-800" },
+  { name: "Angular", icon: "simple-icons:angular", iconColor: "text-red-500", badge: "hover:border-red-400 hover:bg-red-50/50 text-slate-800" },
+  { name: "TypeScript", icon: "simple-icons:typescript", iconColor: "text-blue-500", badge: "hover:border-blue-400 hover:bg-blue-50/50 text-slate-800" },
+  { name: "JavaScript", icon: "simple-icons:javascript", iconColor: "text-amber-500", badge: "hover:border-amber-400 hover:bg-amber-50/50 text-slate-800" },
+  { name: "Tailwind CSS", icon: "simple-icons:tailwindcss", iconColor: "text-cyan-500", badge: "hover:border-cyan-400 hover:bg-cyan-50/50 text-slate-800" },
+  { name: "HTML5 Semàntic", icon: "simple-icons:html5", iconColor: "text-orange-500", badge: "hover:border-orange-400 hover:bg-orange-50/50 text-slate-800" },
+  { name: "Node.js", icon: "simple-icons:nodedotjs", iconColor: "text-emerald-500", badge: "hover:border-emerald-400 hover:bg-emerald-50/50 text-slate-800" },
+  { name: "GitHub Actions", icon: "simple-icons:githubactions", iconColor: "text-sky-500", badge: "hover:border-sky-400 hover:bg-sky-50/50 text-slate-800" },
+  { name: "Linux Shell", icon: "simple-icons:linux", iconColor: "text-slate-800", badge: "hover:border-slate-500 hover:bg-slate-100 text-slate-800" },
+  { name: "Git & GitHub", icon: "simple-icons:git", iconColor: "text-rose-500", badge: "hover:border-rose-400 hover:bg-rose-50/50 text-slate-800" },
 ];
 ---
 
 <div class="mt-10 pt-8 border-t border-slate-200/80">
   <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5">
     <p class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-      <EmojiIcon symbol="🛠️" decorative={true} />
+      <Icon name="bx:layer" class="w-4 h-4 text-slate-600" />
       <span>Stack Tecnològic Principal</span>
     </p>
     <span class="text-xs font-mono text-slate-400">
@@ -31,12 +30,9 @@ const techStack = [
     {
       techStack.map((tech) => (
         <div
-          class={`group flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200/90 bg-white text-xs font-semibold font-mono transition-all duration-200 shadow-2xs hover:-translate-y-1 hover:shadow-md cursor-default select-none ${tech.badge}`}
+          class={`group flex items-center gap-2 px-3.5 py-2 rounded-xl border border-slate-200/90 bg-white text-xs font-semibold font-mono transition-all duration-200 shadow-2xs hover:-translate-y-1 hover:shadow-md cursor-default select-none ${tech.badge}`}
           title={`${tech.name} — Especialitat tècnica`}>
-          <span class="text-sm transform-gpu group-hover:scale-125 transition-transform" aria-hidden="true">
-            {tech.emoji}
-          </span>
-          <Icon class="size-3.5 shrink-0 text-slate-500 group-hover:text-slate-900 transition-colors" name={tech.icon} />
+          <Icon class={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${tech.iconColor}`} name={tech.icon} />
           <span>{tech.name}</span>
         </div>
       ))

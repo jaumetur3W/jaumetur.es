@@ -3,12 +3,12 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const services = [
   {
     name: "Desenvolupament Frontend SPA",
-    emoji: "🅰️",
+    icon: "simple-icons:angular",
+    iconColor: "text-red-500",
     badge: "Més Sol·licitat",
     badgeColor: "bg-indigo-600 text-white",
     btnTheme: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs",
@@ -23,7 +23,8 @@ const services = [
   },
   {
     name: "Optimització & Refactorització",
-    emoji: "⚡",
+    icon: "bx:bxs-zap",
+    iconColor: "text-emerald-500",
     badge: "Rendiment",
     badgeColor: "bg-slate-900 text-white",
     btnTheme: "bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 hover:border-slate-800 shadow-2xs",
@@ -38,7 +39,8 @@ const services = [
   },
   {
     name: "Arquitectura CI/CD & DevOps",
-    emoji: "🤖",
+    icon: "bx:git-repo-forked",
+    iconColor: "text-blue-500",
     badge: "Automatització",
     badgeColor: "bg-slate-900 text-white",
     btnTheme: "bg-slate-900 hover:bg-indigo-600 text-white shadow-xs",
@@ -65,15 +67,15 @@ const services = [
       </Fragment>
     </Sectionhead>
 
-    <!-- Services Grid: Unified Surface Palette with Integrated Emojis -->
+    <!-- Services Grid: Standardized Icons -->
     <div class="grid md:grid-cols-3 gap-6 mx-auto max-w-6xl mt-12">
       {
         services.map((s) => (
           <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 flex flex-col justify-between shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 group">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl transform-gpu group-hover:scale-125 transition-transform" aria-hidden="true">
-                  {s.emoji}
+                <span class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center transform-gpu group-hover:scale-110 transition-transform">
+                  <Icon name={s.icon} class={`w-5 h-5 ${s.iconColor}`} />
                 </span>
                 <span class={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-2xs ${s.badgeColor}`}>
                   {s.badge}
@@ -98,7 +100,7 @@ const services = [
               <a
                 href="/contact"
                 class={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition group/btn ${s.btnTheme}`}>
-                <EmojiIcon symbol="💬" class="group-hover/btn:scale-110 transition-transform" decorative={true} />
+                <Icon name="bx:message-square-dots" class="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
                 <span>Sol·licitar proposta</span>
                 <span class="text-[11px] font-mono">↗</span>
               </a>
@@ -117,7 +119,7 @@ const services = [
         </span>
         <h4 class="text-xl font-bold flex items-center gap-2">
           <span>Busques un Desenvolupador Frontend per al teu equip?</span>
-          <EmojiIcon symbol="💼" decorative={true} />
+          <Icon name="bx:briefcase" class="w-4 h-4 text-emerald-400" />
         </h4>
         <p class="text-xs text-slate-300 max-w-lg">
           Obert a posicions a jornada completa o col·laboracions en modalitat remota o híbrida des de València.
@@ -130,14 +132,14 @@ const services = [
           target="_blank"
           rel="noopener noreferrer"
           class="group/cv inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition shadow-xs">
-          <EmojiIcon symbol="📄" class="group-hover/cv:-translate-y-0.5 group-hover/cv:rotate-6 transition-transform" decorative={true} />
+          <Icon name="bx:file" class="w-3.5 h-3.5 group-hover/cv:-translate-y-0.5 transition-transform" />
           <span>CV PDF</span>
           <span class="text-[10px] text-slate-400 font-mono">↗</span>
         </a>
         <a
           href="/contact"
           class="group/c inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition shadow-sm">
-          <EmojiIcon symbol="💬" class="group-hover/c:scale-110 transition-transform" decorative={true} />
+          <Icon name="bx:message-square-dots" class="w-3.5 h-3.5 group-hover/c:scale-110 transition-transform" />
           <span>Contactar</span>
         </a>
       </div>

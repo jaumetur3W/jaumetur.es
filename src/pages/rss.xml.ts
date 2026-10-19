@@ -20,3 +20,4 @@ export async function GET(context: { site: URL }) {
     customData: `<language>ca</language><atom:link href="https://jaumetur.es/rss.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom" />`,
   });
 }
+

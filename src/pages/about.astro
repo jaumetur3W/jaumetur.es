@@ -3,31 +3,30 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const pillars = [
   {
     title: "Frontend Modern",
-    emoji: "🎨",
+    icon: "bx:layout",
     points: ["Components modulars amb Angular", "Tipat segur i estricte amb TypeScript", "Maquetació responsive i semàntica"],
   },
   {
     title: "Qualitat & Rendiment",
-    emoji: "🛡️",
+    icon: "bx:shield-quarter",
     points: ["Sense errors en temps d'execució", "Compliment estricte de WCAG AA", "Objectiu de renderitzat fluid a 60 FPS"],
   },
   {
     title: "CI/CD & DevOps",
-    emoji: "🤖",
+    icon: "bx:git-repo-forked",
     points: ["Pipelines automatitzats a GitHub Actions", "Linters estàtics i verificacions contínues", "Desplegaments continus i segurs"],
   },
 ];
 
 const highlights = [
-  { emoji: "🎓", label: "ESTUDIS", val: "CFGS Desenvolupament Web (DAW)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { emoji: "📍", label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { emoji: "⚡", label: "ESPECIALITAT", val: "Arquitectura Frontend SPA", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { emoji: "🟢", label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+  { icon: "bx:bxs-graduation", label: "ESTUDIS", val: "CFGS Desenvolupament Web (DAW)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:map-pin", label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:bxs-zap", label: "ESPECIALITAT", val: "Arquitectura Frontend SPA", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:check-circle", label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
 ];
 ---
 
@@ -50,7 +49,7 @@ const highlights = [
             
             <img
               src="/memojis/1.png"
-              alt="Jaume Tur somrient"
+              alt="Jaume Tur"
               class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.20)] group-hover/memoji:-translate-y-2 transition-transform duration-300"
               width="288"
               height="288"
@@ -65,7 +64,7 @@ const highlights = [
 
         <div class="flex-1 text-left">
           <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md mb-2 border border-indigo-200/60">
-            <EmojiIcon symbol="💻" decorative={true} />
+            <Icon name="bx:terminal" class="w-3.5 h-3.5" />
             <span>Desenvolupador Web · Frontend</span>
           </div>
 
@@ -77,11 +76,13 @@ const highlights = [
             Passió pel desenvolupament frontend estructurat, les interfícies intuïtives i l'automatització. Compromès amb el codi net, la maquetació semàntica i els processos fiables d'entrega de programari.
           </p>
 
-          <!-- Visual highlights pills with Emojis -->
+          <!-- Visual highlights pills with Standardized Icons -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
             {highlights.map((h) => (
               <div class={`p-3 rounded-xl border ${h.color} shadow-2xs flex items-start gap-3 hover:-translate-y-0.5 transition-transform`}>
-                <span class="text-lg shrink-0 mt-0.5" aria-hidden="true">{h.emoji}</span>
+                <div class="w-8 h-8 rounded-lg bg-slate-200/50 flex items-center justify-center shrink-0 text-slate-700 mt-0.5">
+                  <Icon name={h.icon} class="w-4 h-4" />
+                </div>
                 <div>
                   <span class="block text-[10px] font-mono font-bold uppercase tracking-wider opacity-70">
                     {h.label}
@@ -101,14 +102,14 @@ const highlights = [
               target="_blank"
               rel="noopener noreferrer"
               class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
-              <EmojiIcon symbol="📄" class="group-hover/btn:-translate-y-0.5 group-hover/btn:rotate-6 transition-transform" decorative={true} />
+              <Icon name="bx:file" class="w-4 h-4 text-white group-hover/btn:-translate-y-0.5 transition-transform" />
               <span>Descarregar CV Complet (PDF)</span>
               <span class="text-[11px] font-mono text-slate-400">↗</span>
             </a>
             <a
               href="/contact"
               class="group/c inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 transition shadow-2xs">
-              <EmojiIcon symbol="💬" class="group-hover/c:scale-110 transition-transform" decorative={true} />
+              <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-700 group-hover/c:scale-110 transition-transform" />
               <span>Contactar</span>
             </a>
           </div>
@@ -120,7 +121,7 @@ const highlights = [
     <div class="mt-16">
       <div class="text-center max-w-xl mx-auto mb-10">
         <span class="text-xs font-mono uppercase tracking-wider text-indigo-700 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80 flex items-center justify-center gap-1.5 w-max mx-auto">
-          <EmojiIcon symbol="🏛️" decorative={true} />
+          <Icon name="bx:compass" class="w-3.5 h-3.5 text-indigo-700" />
           <span>Principis d'Enginyeria</span>
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2.5">
@@ -133,8 +134,8 @@ const highlights = [
           pillars.map((pillar) => (
             <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between group">
               <div>
-                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50 border border-indigo-200/60 text-2xl shadow-2xs group-hover:scale-110 transition-transform">
-                  <span aria-hidden="true">{pillar.emoji}</span>
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50 border border-indigo-200/60 shadow-2xs group-hover:scale-110 transition-transform text-indigo-600">
+                  <Icon name={pillar.icon} class="w-6 h-6" />
                 </div>
                 <h4 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
                   {pillar.title}
@@ -159,7 +160,7 @@ const highlights = [
       <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
         <div class="space-y-3 max-w-xl">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-            <EmojiIcon symbol="⚡" decorative={true} />
+            <Icon name="bx:bxs-zap" class="w-3.5 h-3.5 text-indigo-300" />
             <span>Arquitectura de Software</span>
           </span>
           <h3 class="text-2xl font-bold tracking-tight text-white">
@@ -175,14 +176,14 @@ const highlights = [
           <div class="relative">
             <img
               src="/memojis/7.png"
-              alt="Jaume Tur programant"
+              alt="Jaume Tur"
               class="relative w-44 h-44 sm:w-52 sm:h-52 object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] group-hover/memoji:-translate-y-1 group-hover/memoji:scale-105 transition-transform duration-300"
               width="208"
               height="208"
             />
           </div>
           <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900 border border-slate-700/80 px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
-            <EmojiIcon symbol="💻" decorative={true} />
+            <Icon name="bx:code-alt" class="w-3.5 h-3.5 text-indigo-400" />
             <span>Codi fiable & CI/CD</span>
           </span>
         </div>

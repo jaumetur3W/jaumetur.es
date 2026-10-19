@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import EmojiIcon from "@/components/ui/emoji-icon.astro";
 ---
 
 <div
@@ -20,35 +19,35 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
     </div>
 
     <h2 class="text-white text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-      Creem alguna cosa <span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-white bg-clip-text text-transparent">extraordinària</span> junts? <EmojiIcon symbol="✨" class="inline-block group-hover:rotate-12 transition-transform" decorative={true} />
+      Creem alguna cosa <span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-white bg-clip-text text-transparent">extraordinària</span> junts?
     </h2>
     
     <p class="text-slate-300 mt-3 text-sm sm:text-base leading-relaxed">
       Tens una proposta de feina, un projecte web o necessites suport en arquitectura frontend? Parlem!
     </p>
 
-    <!-- Visual Tech Chips with Emojis -->
+    <!-- Visual Tech Chips with Standardized Icons -->
     <div class="flex flex-wrap gap-2 mt-5">
       <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10 flex items-center gap-1.5">
-        <EmojiIcon symbol="📍" decorative={true} />
+        <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-indigo-400" />
         <span>València (Remot / Híbrid)</span>
       </span>
       <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10 flex items-center gap-1.5">
-        <EmojiIcon symbol="🅰️" decorative={true} />
+        <Icon name="simple-icons:angular" class="w-3.5 h-3.5 text-red-400" />
         <span>Angular & TypeScript</span>
       </span>
       <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10 flex items-center gap-1.5">
-        <EmojiIcon symbol="🤖" decorative={true} />
+        <Icon name="bx:git-repo-forked" class="w-3.5 h-3.5 text-blue-400" />
         <span>CI/CD GitHub Actions</span>
       </span>
     </div>
 
-    <!-- Action Buttons with Emojis & High Contrast -->
+    <!-- Action Buttons with Standardized Icons -->
     <div class="flex flex-wrap items-center gap-3 mt-8">
       <a
         href="/contact"
         class="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-black/30 hover:scale-[1.02] transition-all">
-        <EmojiIcon symbol="💬" class="group-hover/btn:scale-125 transition-transform" decorative={true} />
+        <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-900 group-hover/btn:scale-110 transition-transform" />
         <span>Contactar ara</span>
       </a>
       <a
@@ -56,19 +55,19 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
         target="_blank"
         rel="noopener noreferrer"
         class="group/cv inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-xs transition text-sm">
-        <EmojiIcon symbol="📄" class="group-hover/cv:-translate-y-0.5 group-hover:rotate-6 transition-transform" decorative={true} />
+        <Icon name="bx:file" class="w-4 h-4 text-white group-hover/cv:-translate-y-0.5 transition-transform" />
         <span>Descarregar CV</span>
         <span class="text-[11px] font-mono text-slate-400">↗</span>
       </a>
     </div>
   </div>
 
-  <!-- Memoji 3.png ("Call me" gesture) - Anchored to telephone pill -->
+  <!-- Memoji 3.png - Anchored to contact pill -->
   <div class="relative z-20 shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 -mt-2 sm:-mt-6 md:-mr-4 group/memoji">
     <div class="relative">
       <img
         src="/memojis/3.png"
-        alt="Jaume fent el gest de telefonar"
+        alt="Jaume Tur"
         class="relative w-52 h-52 sm:w-60 sm:h-60 lg:w-64 lg:h-64 object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] group-hover/memoji:-translate-y-1 group-hover/memoji:scale-105 transition-transform duration-300"
         width="256"
         height="256"
@@ -76,7 +75,7 @@ import EmojiIcon from "@/components/ui/emoji-icon.astro";
     </div>
     
     <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900/95 border border-slate-700/80 px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 group-hover/memoji:border-indigo-400/80 transition-colors">
-      <EmojiIcon symbol="🤙" class="group-hover/memoji:rotate-12 transition-transform" decorative={true} />
+      <Icon name="bx:envelope" class="w-3.5 h-3.5 text-indigo-400" />
       <span>jautursis@alu.edu.gva.es</span>
     </span>
   </div>

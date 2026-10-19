@@ -176,3 +176,4 @@ Aplicant aquesta metodologia rigorosa hem aconseguit puntuacions consistents a *
 - **LCP:** 0.8s | **CLS:** 0.00 | **INP:** < 28ms
 
 El rendiment no és un accident: és el resultat directe d'un disseny conscient i una execució tècnica impecable. Si necessites una auditoria de Core Web Vitals per a la teua plataforma, [parlem](/contact).
+
