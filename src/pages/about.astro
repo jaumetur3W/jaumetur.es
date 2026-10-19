@@ -3,30 +3,31 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const pillars = [
   {
     title: "Frontend Modern",
-    icon: "bx:bxs-window-alt",
+    emoji: "🎨",
     points: ["Components modulars amb Angular", "Tipat segur i estricte amb TypeScript", "Maquetació responsive i semàntica"],
   },
   {
     title: "Qualitat & Rendiment",
-    icon: "bx:bxs-badge-check",
+    emoji: "🛡️",
     points: ["Sense errors en temps d'execució", "Compliment estricte de WCAG AA", "Objectiu de renderitzat fluid a 60 FPS"],
   },
   {
     title: "CI/CD & DevOps",
-    icon: "bx:bxs-bot",
+    emoji: "🤖",
     points: ["Pipelines automatitzats a GitHub Actions", "Linters estàtics i verificacions contínues", "Desplegaments continus i segurs"],
   },
 ];
 
 const highlights = [
-  { label: "ESTUDIS", val: "CFGS Desenvolupament Web (DAW)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { label: "ESPECIALITAT", val: "Arquitectura Frontend SPA", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+  { emoji: "🎓", label: "ESTUDIS", val: "CFGS Desenvolupament Web (DAW)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { emoji: "📍", label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { emoji: "⚡", label: "ESPECIALITAT", val: "Arquitectura Frontend SPA", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { emoji: "🟢", label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
 ];
 ---
 
@@ -38,19 +39,19 @@ const highlights = [
     </Sectionhead>
 
     <!-- Main Profile Card with Memoji 1.png: Unified Surface Palette -->
-    <div class="mt-14 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] relative pt-12 sm:pt-14">
+    <div class="mt-14 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] relative pt-12 sm:pt-14 group">
       
       <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12">
         
         <!-- Memoji 1.png - Overlapping with natural contact shadow -->
-        <div class="shrink-0 flex flex-col items-center -mt-16 sm:-mt-24 relative z-20 group">
+        <div class="shrink-0 flex flex-col items-center -mt-16 sm:-mt-24 relative z-20 group/memoji">
           <div class="relative">
-            <div class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-105 transition-transform"></div>
+            <div class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover/memoji:scale-105 transition-transform"></div>
             
             <img
               src="/memojis/1.png"
               alt="Jaume Tur somrient"
-              class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.20)] group-hover:scale-105 transition-transform duration-300"
+              class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.20)] group-hover/memoji:-translate-y-2 transition-transform duration-300"
               width="288"
               height="288"
             />
@@ -58,13 +59,14 @@ const highlights = [
 
           <span class="relative -mt-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-md">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Disponible per a projectes
+            <span>Disponible per a projectes</span>
           </span>
         </div>
 
         <div class="flex-1 text-left">
           <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md mb-2 border border-indigo-200/60">
-            Desenvolupador Web · Frontend
+            <EmojiIcon symbol="💻" decorative={true} />
+            <span>Desenvolupador Web · Frontend</span>
           </div>
 
           <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -75,16 +77,19 @@ const highlights = [
             Passió pel desenvolupament frontend estructurat, les interfícies intuïtives i l'automatització. Compromès amb el codi net, la maquetació semàntica i els processos fiables d'entrega de programari.
           </p>
 
-          <!-- Visual highlights pills -->
+          <!-- Visual highlights pills with Emojis -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
             {highlights.map((h) => (
-              <div class={`p-3 rounded-xl border ${h.color} shadow-2xs`}>
-                <span class="block text-[10px] font-mono font-bold uppercase tracking-wider opacity-70">
-                  {h.label}
-                </span>
-                <span class="font-bold text-sm mt-0.5 block">
-                  {h.val}
-                </span>
+              <div class={`p-3 rounded-xl border ${h.color} shadow-2xs flex items-start gap-3 hover:-translate-y-0.5 transition-transform`}>
+                <span class="text-lg shrink-0 mt-0.5" aria-hidden="true">{h.emoji}</span>
+                <div>
+                  <span class="block text-[10px] font-mono font-bold uppercase tracking-wider opacity-70">
+                    {h.label}
+                  </span>
+                  <span class="font-bold text-sm mt-0.5 block leading-tight">
+                    {h.val}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -95,14 +100,16 @@ const highlights = [
               href="/docs/CV_Jaume_tur.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
-              <Icon name="bx:bxs-cloud-download" class="w-4 h-4" />
-              Descarregar CV Complet (PDF) ↗
+              class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
+              <EmojiIcon symbol="📄" class="group-hover/btn:-translate-y-0.5 group-hover/btn:rotate-6 transition-transform" decorative={true} />
+              <span>Descarregar CV Complet (PDF)</span>
+              <span class="text-[11px] font-mono text-slate-400">↗</span>
             </a>
             <a
               href="/contact"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 transition shadow-2xs">
-              Contactar
+              class="group/c inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 transition shadow-2xs">
+              <EmojiIcon symbol="💬" class="group-hover/c:scale-110 transition-transform" decorative={true} />
+              <span>Contactar</span>
             </a>
           </div>
         </div>
@@ -112,8 +119,9 @@ const highlights = [
     <!-- 3 Pillars Section: Unified Surface Grid -->
     <div class="mt-16">
       <div class="text-center max-w-xl mx-auto mb-10">
-        <span class="text-xs font-mono uppercase tracking-wider text-indigo-700 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80">
-          Principis d'Enginyeria
+        <span class="text-xs font-mono uppercase tracking-wider text-indigo-700 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80 flex items-center justify-center gap-1.5 w-max mx-auto">
+          <EmojiIcon symbol="🏛️" decorative={true} />
+          <span>Principis d'Enginyeria</span>
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2.5">
           Com enfocament cada projecte
@@ -123,18 +131,18 @@ const highlights = [
       <div class="grid md:grid-cols-3 gap-6">
         {
           pillars.map((pillar) => (
-            <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between">
+            <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between group">
               <div>
-                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50 border border-indigo-200/60 text-indigo-600 shadow-2xs">
-                  <Icon name={pillar.icon} class="w-6 h-6 text-indigo-600" />
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50 border border-indigo-200/60 text-2xl shadow-2xs group-hover:scale-110 transition-transform">
+                  <span aria-hidden="true">{pillar.emoji}</span>
                 </div>
-                <h4 class="text-lg font-bold text-slate-900 mb-3">
+                <h4 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
                   {pillar.title}
                 </h4>
                 <ul class="space-y-2.5 text-xs text-slate-600">
                   {pillar.points.map((pt) => (
                     <li class="flex items-start gap-2.5">
-                      <Icon name="bx:bxs-check-circle" class="w-4 h-4 shrink-0 text-indigo-600 mt-0.5" />
+                      <span class="text-emerald-600 font-bold shrink-0 mt-0.5 select-none" aria-hidden="true">✓</span>
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -147,11 +155,12 @@ const highlights = [
     </div>
 
     <!-- Technical Architecture Visual Card: Dark Tech Surface (#090D16) -->
-    <div class="mt-16 bg-[#090D16] text-white rounded-3xl p-6 sm:p-10 border border-slate-800/90 shadow-xl relative overflow-visible">
+    <div class="mt-16 bg-[#090D16] text-white rounded-3xl p-6 sm:p-10 border border-slate-800/90 shadow-xl relative overflow-visible group">
       <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
         <div class="space-y-3 max-w-xl">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-            Arquitectura de Software
+            <EmojiIcon symbol="⚡" decorative={true} />
+            <span>Arquitectura de Software</span>
           </span>
           <h3 class="text-2xl font-bold tracking-tight text-white">
             Patró Disparador & Executor (Trigger / Executor)
@@ -162,18 +171,19 @@ const highlights = [
         </div>
 
         <!-- Memoji 7.png Overlapping -->
-        <div class="shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 relative z-20 group">
+        <div class="shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 relative z-20 group/memoji">
           <div class="relative">
             <img
               src="/memojis/7.png"
               alt="Jaume Tur programant"
-              class="relative w-44 h-44 sm:w-52 sm:h-52 object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
+              class="relative w-44 h-44 sm:w-52 sm:h-52 object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] group-hover/memoji:-translate-y-1 group-hover/memoji:scale-105 transition-transform duration-300"
               width="208"
               height="208"
             />
           </div>
-          <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900 border border-slate-700/80 px-3 py-0.5 rounded-full shadow-lg">
-            Codi fiable & CI/CD
+          <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900 border border-slate-700/80 px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+            <EmojiIcon symbol="💻" decorative={true} />
+            <span>Codi fiable & CI/CD</span>
           </span>
         </div>
       </div>

@@ -1,0 +1,32 @@
+---
+export interface Props {
+  symbol: string;
+  label?: string;
+  decorative?: boolean;
+  class?: string;
+}
+
+const {
+  symbol,
+  label = "",
+  decorative = true,
+  class: className = "",
+} = Astro.props;
+---
+
+{
+  decorative ? (
+    <span
+      class={`inline-block select-none transform-gpu transition-transform duration-200 ${className}`}
+      aria-hidden="true">
+      {symbol}
+    </span>
+  ) : (
+    <span
+      role="img"
+      aria-label={label}
+      class={`inline-block select-none transform-gpu transition-transform duration-200 ${className}`}>
+      {symbol}
+    </span>
+  )
+}

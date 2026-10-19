@@ -1,44 +1,73 @@
 ---
 import { Icon } from "astro-icon/components";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const skillCategories = [
   {
     title: "Frontend & UI",
-    icon: "bx:bxs-window-alt",
+    emoji: "🎨",
     skills: ["Angular", "TypeScript", "HTML5 Semàntic", "CSS3 / Grid / Flex", "Components UI", "Responsive Design"],
   },
   {
     title: "Backend & APIs",
-    icon: "bx:bxs-data",
+    emoji: "🔌",
     skills: ["Node.js", "RESTful APIs", "JSON Payloads", "Trigger / Executor", "Clean Architecture"],
   },
   {
     title: "DevOps & CI/CD",
-    icon: "bx:bxs-bot",
+    emoji: "🤖",
     skills: ["GitHub Actions", "Pipelines CI/CD", "Git & GitHub", "Linux Shell / Bash", "npm Tooling"],
   },
   {
     title: "Qualitat & Rendiment",
-    icon: "bx:bxs-badge-check",
+    emoji: "🛡️",
     skills: ["WCAG AA Accessibilitat", "60 FPS Rendiment", "Tipat Estricte", "Linters estàtics", "SEO Tècnic"],
   },
 ];
 
 const flowSteps = [
-  { step: "01", label: "Disparador", detail: "Git Push / Webhook", color: "bg-indigo-950/60 text-indigo-300 border-indigo-800/60" },
-  { step: "02", label: "Dades", detail: "JSON Payload estructurat", color: "bg-cyan-950/60 text-cyan-300 border-cyan-800/60" },
-  { step: "03", label: "Executor", detail: "Linters & Build CI/CD", color: "bg-slate-900 text-slate-300 border-slate-700/60" },
-  { step: "04", label: "Publicació", detail: "Producció 60 FPS ⚡", color: "bg-emerald-950/60 text-emerald-300 border-emerald-800/60" },
+  {
+    step: "01",
+    label: "Disparador",
+    emoji: "📤",
+    detail: "Git Push / Webhook",
+    sub: "Esdeveniment automàtic",
+    color: "bg-indigo-950/70 text-indigo-300 border-indigo-700/60 hover:border-indigo-400",
+  },
+  {
+    step: "02",
+    label: "Dades",
+    emoji: "📦",
+    detail: "JSON Payload estructurat",
+    sub: "Validació d'esquema",
+    color: "bg-cyan-950/70 text-cyan-300 border-cyan-700/60 hover:border-cyan-400",
+  },
+  {
+    step: "03",
+    label: "Executor",
+    emoji: "⚙️",
+    detail: "Linters & Build CI/CD",
+    sub: "Integració contínua",
+    color: "bg-slate-900/90 text-slate-300 border-slate-700/70 hover:border-slate-400",
+  },
+  {
+    step: "04",
+    label: "Publicació",
+    emoji: "🌍",
+    detail: "Producció 60 FPS ⚡",
+    sub: "Zero downtime actiu",
+    color: "bg-emerald-950/70 text-emerald-300 border-emerald-700/60 hover:border-emerald-400",
+  },
 ];
 ---
 
 <section id="skills" class="py-20 md:py-28 scroll-mt-12">
   
-  <!-- Section Title with Memoji (5.png Lightbulb) -->
+  <!-- Section Title with Memoji (5.png Lightbulb Idea) -->
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-14">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3 shadow-2xs">
-        <Icon name="bx:bxs-badge-check" class="w-3.5 h-3.5 text-indigo-600" />
+        <EmojiIcon symbol="💡" decorative={true} />
         <span>Stack & Solucions</span>
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
@@ -49,7 +78,7 @@ const flowSteps = [
       </p>
     </div>
 
-    <!-- Guiding thread Memoji: 5.png (Clean card anchor, subtle contact shadow) -->
+    <!-- Guiding thread Memoji: 5.png anchored with lightbulb idea -->
     <div class="relative group self-center sm:self-auto -mb-4 sm:-mb-6 z-20">
       <div class="relative flex items-center gap-3 bg-white border border-slate-200/90 rounded-2xl p-2.5 pr-4 shadow-[0_4px_16px_rgba(15,23,42,0.06)] group-hover:-translate-y-1 transition-transform">
         <div class="relative w-20 h-20 sm:w-24 sm:h-24 -my-4 -ml-2 flex items-center justify-center">
@@ -62,65 +91,101 @@ const flowSteps = [
           />
         </div>
         <div class="text-xs">
-          <span class="font-extrabold text-slate-900 block text-sm leading-tight">Arquitectura & Idees</span>
+          <span class="font-extrabold text-slate-900 flex items-center gap-1 text-sm leading-tight">
+            <span>Arquitectura & Idees</span>
+            <EmojiIcon symbol="💡" class="animate-pulse" decorative={true} />
+          </span>
           <span class="text-indigo-600 font-mono text-[11px] font-bold">Trigger / Executor</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Visual Architecture Flowchart Diagram: Dark Tech Surface (#090D16) -->
-  <div class="bg-[#090D16] text-white p-6 sm:p-8 rounded-3xl border border-slate-800/90 shadow-xl mb-10 overflow-hidden relative z-10">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+  <!-- Visual Architecture Flowchart Diagram: Connected Pipeline with Data Stream Pulse -->
+  <div class="bg-[#090D16] text-white p-6 sm:p-8 rounded-3xl border border-slate-800/90 shadow-xl mb-12 overflow-hidden relative z-10 group">
+    
+    <!-- Background Ambient Glow -->
+    <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-800 relative z-10">
       <div>
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">
-          Patró d'Enginyeria
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400 flex items-center gap-2">
+          <EmojiIcon symbol="⚡" decorative={true} />
+          <span>Patró d'Enginyeria Orientat a Esdeveniments</span>
         </span>
-        <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-0.5">
+        <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">
           Arquitectura: Disparador & Executor (Trigger / Executor)
         </h3>
       </div>
-      <span class="text-xs font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-3 py-1 rounded-full font-bold">
-        EVENT-DRIVEN FLOW
+      <span class="text-xs font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-3 py-1 rounded-full font-bold flex items-center gap-1.5 shadow-2xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>EVENT-DRIVEN FLOW</span>
       </span>
     </div>
 
-    <!-- Visual 4-step diagram pipeline -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- 4 Node Cards Connected in Flow -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
       {flowSteps.map((f, i) => (
-        <div class={`p-4 rounded-xl border ${f.color} relative backdrop-blur-xs`}>
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] font-mono font-bold uppercase opacity-80">{f.label}</span>
-            <span class="text-xs font-mono font-extrabold opacity-60">{f.step}</span>
-          </div>
-          <p class="font-bold text-sm text-white">{f.detail}</p>
-          {i < flowSteps.length - 1 && (
-            <span class="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-slate-500 font-mono text-sm">
-              ➔
+        <div class={`p-5 rounded-2xl border ${f.color} relative backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group/node`}>
+          <!-- Node Header -->
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl transform-gpu group-hover/node:scale-125 transition-transform" aria-hidden="true">
+              {f.emoji}
             </span>
+            <span class="text-xs font-mono font-extrabold text-slate-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">
+              {f.step}
+            </span>
+          </div>
+
+          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 block mb-1">
+            {f.label}
+          </span>
+          <p class="font-bold text-sm text-white leading-snug">
+            {f.detail}
+          </p>
+          <span class="text-[11px] text-slate-400 font-mono mt-2 block">
+            {f.sub}
+          </span>
+
+          <!-- Flow connector arrow for large screens -->
+          {i < flowSteps.length - 1 && (
+            <div class="hidden lg:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-6 h-6 rounded-full bg-slate-900 border border-slate-700 items-center justify-center text-indigo-400 text-xs font-bold shadow-md">
+              ➔
+            </div>
           )}
         </div>
       ))}
     </div>
+
+    <!-- Animated Data Pipeline Pulse Stream Bar -->
+    <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-mono text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Flux automatitzat sense friccions humanes</span>
+      </div>
+      <span class="text-indigo-400 font-bold hidden sm:inline">Git Push ➔ Validador ➔ Producció ⚡</span>
+    </div>
   </div>
 
-  <!-- 4 Skills Cards Grid: Unified Surface Palette (Clean White + Subtle Borders) -->
+  <!-- 4 Skills Cards Bento Grid: Header Emojis + Tactile Chips -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
     {
       skillCategories.map((cat) => (
-        <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div>
             <div class="flex items-center gap-3 mb-5">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-indigo-50 border border-indigo-200/60 text-indigo-600 shadow-2xs">
-                <Icon class="w-5 h-5 text-indigo-600" name={cat.icon} />
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-indigo-50 border border-indigo-200/60 text-xl shadow-2xs group-hover:scale-110 transition-transform">
+                <span aria-hidden="true">{cat.emoji}</span>
               </div>
-              <h3 class="font-bold text-base text-slate-900">{cat.title}</h3>
+              <h3 class="font-bold text-base text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {cat.title}
+              </h3>
             </div>
           </div>
 
           <div class="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100">
             {cat.skills.map((skill) => (
-              <span class="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200/80">
+              <span class="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200/80 group-hover:border-slate-300 transition-colors">
                 {skill}
               </span>
             ))}

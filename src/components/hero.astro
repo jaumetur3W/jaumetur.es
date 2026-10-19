@@ -2,12 +2,41 @@
 import Link from "@/components/ui/link.astro";
 import { Icon } from "astro-icon/components";
 import ThreeHero from "@/components/three-hero.astro";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const metrics = [
-  { value: "60 FPS", label: "Renderitzat fluid", color: "text-emerald-700 bg-emerald-50 border-emerald-200/80" },
-  { value: "WCAG AA", label: "Accessibilitat", color: "text-indigo-700 bg-indigo-50 border-indigo-200/80" },
-  { value: "CI/CD", label: "Desplegaments continus", color: "text-sky-700 bg-sky-50 border-sky-200/80" },
-  { value: "TypeScript", label: "Tipat estricte", color: "text-slate-800 bg-slate-100 border-slate-200/80" },
+  {
+    emoji: "⚡",
+    value: "60 FPS",
+    label: "Renderitzat fluid",
+    color: "text-emerald-700 bg-white border-slate-200/90 hover:border-emerald-300",
+    emojiClass: "group-hover:scale-125 group-hover:rotate-6 text-emerald-600",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
+  },
+  {
+    emoji: "♿",
+    value: "WCAG AA",
+    label: "Accessibilitat",
+    color: "text-indigo-700 bg-white border-slate-200/90 hover:border-indigo-300",
+    emojiClass: "group-hover:scale-125 text-indigo-600",
+    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200/80",
+  },
+  {
+    emoji: "🔁",
+    value: "CI/CD",
+    label: "Desplegaments continus",
+    color: "text-sky-700 bg-white border-slate-200/90 hover:border-sky-300",
+    emojiClass: "group-hover:rotate-180 transition-transform duration-500 text-sky-600",
+    badgeColor: "bg-sky-50 text-sky-700 border-sky-200/80",
+  },
+  {
+    emoji: "🧩",
+    value: "TypeScript",
+    label: "Tipat estricte",
+    color: "text-slate-800 bg-white border-slate-200/90 hover:border-slate-400",
+    emojiClass: "group-hover:scale-125 group-hover:-rotate-12 text-blue-600",
+    badgeColor: "bg-slate-100 text-slate-800 border-slate-200/80",
+  },
 ];
 ---
 
@@ -18,7 +47,7 @@ const metrics = [
   <!-- Interactive Three.js 3D Particle & Constellation Background -->
   <ThreeHero />
 
-  <!-- Subtle ambient indigo glow (soft and technical, non-distracting) -->
+  <!-- Subtle ambient indigo depth -->
   <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none -z-20"></div>
   <div class="absolute top-1/2 -left-24 w-72 h-72 bg-slate-200/30 rounded-full blur-3xl pointer-events-none -z-20"></div>
 
@@ -26,13 +55,13 @@ const metrics = [
     
     <!-- Left text column -->
     <div class="lg:col-span-7">
-      <!-- Status pill with glowing green dot -->
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs mb-6">
+      <!-- Status pill with glowing green dot & live status -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs mb-6">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span>Disponible per a projectes & contractació</span>
+        <span class="font-mono text-[11px] font-bold tracking-tight">DISPONIBLE PER A PROJECTES & CONTRACTACIÓ</span>
       </div>
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
@@ -47,95 +76,103 @@ const metrics = [
         Hola, sóc <strong class="text-slate-900 font-bold">Jaume Tur</strong>. Desenvolupador web especialitzat en arquitectures modulars amb <strong>Angular</strong>, rendiment 60 FPS i fluxos automatitzats de CI/CD.
       </p>
 
-      <!-- Visual Metric Pills (Clean, coherent 8px grid) -->
+      <!-- Visual Metric Pills with Integrated Emojis (Micro-animations on hover) -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-xl">
         {metrics.map((m) => (
-          <div class={`p-3 rounded-2xl border ${m.color} flex flex-col justify-between shadow-2xs`}>
-            <span class="font-extrabold text-sm sm:text-base font-mono leading-none">
-              {m.value}
-            </span>
-            <span class="text-[11px] text-slate-600 font-medium mt-1.5 leading-tight">
+          <div class={`group p-3 rounded-2xl border ${m.color} shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between cursor-default`}>
+            <div class="flex items-center justify-between gap-1 mb-2">
+              <span class="font-extrabold text-sm sm:text-base font-mono leading-none">
+                {m.value}
+              </span>
+              <EmojiIcon symbol={m.emoji} class={`text-sm ${m.emojiClass}`} decorative={true} />
+            </div>
+            <span class="text-[11px] text-slate-600 font-medium leading-tight">
               {m.label}
             </span>
           </div>
         ))}
       </div>
 
-      <!-- Action buttons (High contrast hierarchy) -->
+      <!-- Action buttons with Functional Emojis & High Contrast -->
       <div class="mt-8 flex flex-wrap gap-3 items-center">
         <Link
           href="#projectes"
-          class="flex gap-2 items-center justify-center font-bold px-5 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white shadow-sm shadow-slate-900/15 border-0 rounded-xl transition">
-          <Icon class="text-white w-4 h-4" name="bx:bxs-rocket" />
-          Veure projectes
+          class="group flex gap-2 items-center justify-center font-bold px-5 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white shadow-sm shadow-slate-900/15 border-0 rounded-xl transition">
+          <EmojiIcon symbol="🚀" class="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" decorative={true} />
+          <span>Veure projectes</span>
         </Link>
         
         <a
           href="/docs/CV_Jaume_tur.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-slate-800 bg-white border border-slate-200/90 hover:border-slate-800 hover:bg-slate-50 transition shadow-2xs">
-          <Icon class="text-slate-600 w-4 h-4" name="bx:bxs-cloud-download" />
-          Descarregar CV ↗
+          class="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-slate-800 bg-white border border-slate-200/90 hover:border-slate-800 hover:bg-slate-50 transition shadow-2xs">
+          <EmojiIcon symbol="📄" class="group-hover:-translate-y-0.5 group-hover:rotate-6 transition-transform" decorative={true} />
+          <span>Descarregar CV</span>
+          <span class="text-[11px] text-slate-400 font-mono">↗</span>
         </a>
 
         <a
           href="https://github.com/jautur"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 transition border border-slate-200/90 shadow-2xs"
+          class="group inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 transition border border-slate-200/90 shadow-2xs"
           title="GitHub de Jaume Tur">
-          <Icon class="text-slate-900 w-4 h-4" name="bx:bxl-github" />
-          GitHub
+          <EmojiIcon symbol="🐙" class="group-hover:scale-110 transition-transform" decorative={true} />
+          <span>GitHub</span>
         </a>
 
         <a
           href="https://www.linkedin.com/in/jautur/"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition border border-indigo-200/80 shadow-2xs"
+          class="group inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition border border-indigo-200/80 shadow-2xs"
           title="LinkedIn de Jaume Tur">
-          <Icon class="text-indigo-600 w-4 h-4" name="bx:bxl-linkedin" />
-          LinkedIn
+          <EmojiIcon symbol="💼" class="group-hover:scale-110 transition-transform" decorative={true} />
+          <span>LinkedIn</span>
         </a>
       </div>
     </div>
 
-    <!-- Right visual column: Natural Memoji Integration + Terminal Card -->
+    <!-- Right visual column: Physical Memoji Integration Behind Developer Terminal -->
     <div class="lg:col-span-5 flex flex-col items-center relative pt-8 sm:pt-4">
       
-      <!-- Big Overlapping Memoji: Natural directional cue pointing into the profile -->
+      <!-- Overlapping Memoji 4.png: Peeking directly from behind the code card -->
       <div class="relative z-20 -mb-12 sm:-mb-16 group cursor-pointer">
-        <!-- Subtle soft indigo back-light (harmonizing 3D skin tone) -->
+        <!-- Subtle back-light -->
         <div class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-300"></div>
         
         <img
           src="/memojis/4.png"
-          alt="Jaume Tur saludant"
-          class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.22)] group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-300 pointer-events-auto"
+          alt="Jaume Tur saludant amb la mà"
+          class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.22)] group-hover:-translate-y-2 group-hover:-rotate-1 transition-transform duration-300 pointer-events-auto"
           loading="eager"
           width="320"
           height="320"
         />
 
-        <!-- Floating greeting pill -->
-        <div class="absolute top-6 right-2 sm:right-4 bg-slate-900 text-white text-xs font-mono font-bold px-3.5 py-1.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1.5 ring-2 ring-white">
+        <!-- Floating speech bubble interacting with waving hand -->
+        <div class="absolute top-6 right-2 sm:right-4 bg-slate-900 text-white text-xs font-mono font-bold px-3.5 py-1.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1.5 ring-2 ring-white group-hover:scale-110 transition-transform">
+          <EmojiIcon symbol="👋" class="animate-bounce" decorative={true} />
           <span>Hola!</span>
-          <span>👋</span>
         </div>
       </div>
 
-      <!-- Developer Syntax Card: Corporate Slate-950 Base (#090D16) -->
-      <div class="w-full bg-[#090D16] text-slate-100 rounded-3xl shadow-xl border border-slate-800/90 overflow-hidden font-mono text-xs relative z-10 pt-4 sm:pt-6">
+      <!-- Developer Syntax Card: Corporate Dark Slate-950 (#090D16) -->
+      <div class="w-full bg-[#090D16] text-slate-100 rounded-3xl shadow-xl border border-slate-800/90 overflow-hidden font-mono text-xs relative z-10 pt-4 sm:pt-6 group">
         <div class="bg-slate-900/90 px-5 py-3 flex items-center justify-between border-b border-slate-800/80">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
-            <span class="text-slate-400 text-[11px] ml-2">// developer.profile</span>
+            <span class="text-slate-400 text-[11px] ml-2 flex items-center gap-1">
+              <EmojiIcon symbol="👨‍💻" decorative={true} />
+              <span>// developer.profile</span>
+            </span>
           </div>
-          <span class="px-2.5 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800/80 rounded-full text-[10px] uppercase font-bold tracking-wider">
-            ● ONLINE
+          <span class="px-2.5 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800/80 rounded-full text-[10px] uppercase font-bold tracking-wider flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>ONLINE</span>
           </span>
         </div>
 

@@ -1,10 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const projects = [
   {
     id: "avisa",
     title: "AVISA — Gestió d'Incidències",
+    emojiSeal: "🚨",
+    sealAura: "bg-red-500/10 border-red-500/20 text-red-600",
     badge: "Web App · Prototip UI",
     badgeColor: "bg-indigo-600 text-white",
     summary: "Plataforma per al registre, comunicació i seguiment d'incidències en temps real amb interfície accessible (prototip frontend interactiu).",
@@ -14,14 +17,17 @@ const projects = [
       { text: "Desplegament continu automatitzat a la xarxa edge de Vercel" },
     ],
     tags: ["Angular", "TypeScript", "Vercel", "WCAG AA", "UI Prototype"],
+    statEmoji: "🌐",
     stat: "DEMO EN LÍNIA",
-    statColor: "text-indigo-700 bg-indigo-50 border-indigo-200",
+    statColor: "text-indigo-700 bg-indigo-50 border-indigo-200/80",
     liveUrl: "https://front-project-jjaux-h8pw.vercel.app/",
     githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX",
   },
   {
     id: "pizzeria-xativa",
     title: "Pizzeria a Xàtiva",
+    emojiSeal: "🍕",
+    sealAura: "bg-amber-500/10 border-amber-500/20 text-amber-600",
     badge: "Landing Page · En Producció",
     badgeColor: "bg-slate-900 text-white",
     summary: "Landing page comercial per a pizzeria amb carta interactiva de productes, SEO local i comandes per WhatsApp.",
@@ -31,14 +37,17 @@ const projects = [
       { text: "Optimització de SEO local (etiquetes geogràfiques Xàtiva / La Costera)" },
     ],
     tags: ["Tailwind CSS", "HTML5 Semàntic", "SEO Local", "UX/UI", "WhatsApp API"],
+    statEmoji: "🟢",
     stat: "EN PRODUCCIÓ",
-    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
+    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
     liveUrl: "https://jautur.github.io/margherita_xativa/",
     githubUrl: "https://github.com/jautur/margherita_xativa",
   },
   {
     id: "telemetry",
     title: "Dashboard de Telemetria",
+    emojiSeal: "📊",
+    sealAura: "bg-emerald-500/10 border-emerald-500/20 text-emerald-600",
     badge: "Frontend UI & Mètriques",
     badgeColor: "bg-slate-900 text-white",
     summary: "Panell analític interactiu per a visualitzar mètriques de rendiment web i Core Web Vitals en temps real.",
@@ -48,14 +57,17 @@ const projects = [
       { text: "Mesurament de mètriques clau LCP, FID i CLS sense bloqueig de fil" },
     ],
     tags: ["JavaScript ES6+", "TypeScript", "Performance", "Core Web Vitals"],
+    statEmoji: "⚡",
     stat: "60 FPS FLUID",
-    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
+    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
     liveUrl: "https://jautur.github.io/portfolio/#skills",
     githubUrl: "https://github.com/jautur/portfolio",
   },
   {
     id: "pipeline",
     title: "Pipeline CI/CD Automatitzat",
+    emojiSeal: "🚀",
+    sealAura: "bg-sky-500/10 border-sky-500/20 text-sky-600",
     badge: "DevOps & Automatització",
     badgeColor: "bg-slate-900 text-white",
     summary: "Flux d'integració contínua que valida estàndards de qualitat, linters i publica noves versions automàticament.",
@@ -65,8 +77,9 @@ const projects = [
       { text: "Publicació continuada automatitzada sense interrupcions de servei" },
     ],
     tags: ["GitHub Actions", "CI/CD", "Linters", "Linux Shell", "DevOps"],
+    statEmoji: "🛡️",
     stat: "ZERO DOWNTIME",
-    statColor: "text-sky-700 bg-sky-50 border-sky-200",
+    statColor: "text-sky-700 bg-sky-50 border-sky-200/80",
     liveUrl: "https://github.com/jautur/portfolio/actions",
     githubUrl: "https://github.com/jautur/portfolio",
   },
@@ -79,7 +92,7 @@ const projects = [
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-14">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3 shadow-2xs">
-        <Icon name="bx:bxs-rocket" class="w-3.5 h-3.5 text-indigo-600" />
+        <EmojiIcon symbol="💼" decorative={true} />
         <span>Projectes & Desenvolupament</span>
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
@@ -90,7 +103,7 @@ const projects = [
       </p>
     </div>
 
-    <!-- Guiding thread Memoji: 7.png (Clean card anchor, subtle contact shadow) -->
+    <!-- Guiding thread Memoji: 7.png anchored to the section header -->
     <div class="relative group self-center sm:self-auto -mb-4 sm:-mb-6 z-20">
       <div class="relative flex items-center gap-3 bg-white border border-slate-200/90 rounded-2xl p-2.5 pr-4 shadow-[0_4px_16px_rgba(15,23,42,0.06)] group-hover:-translate-y-1 transition-transform">
         <div class="relative w-20 h-20 sm:w-24 sm:h-24 -my-4 -ml-2 flex items-center justify-center">
@@ -103,26 +116,40 @@ const projects = [
           />
         </div>
         <div class="text-xs">
-          <span class="font-extrabold text-slate-900 block text-sm leading-tight">Desenvolupament Actiu</span>
+          <span class="font-extrabold text-slate-900 flex items-center gap-1.5 text-sm leading-tight">
+            <span>Desenvolupament Actiu</span>
+            <EmojiIcon symbol="💻" decorative={true} />
+          </span>
           <span class="text-indigo-600 font-mono text-[11px] font-bold">Angular · TS · CI/CD</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Projects Grid (Unified Surface Palette: Clean White + Slate-200/80 Border + Subtle Hover Elevation) -->
+  <!-- Projects Grid with Large Emoji Seals & Tactile Actions -->
   <div class="grid md:grid-cols-2 gap-6 md:gap-8">
     {
       projects.map((project) => (
-        <article class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04),0_10px_15px_-3px_rgba(15,23,42,0.02)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between group">
-          <div>
-            <!-- Top pills -->
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <span class={`text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-mono shadow-2xs ${project.badgeColor}`}>
-                {project.badge}
+        <article class="relative bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04),0_10px_15px_-3px_rgba(15,23,42,0.02)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between group overflow-hidden">
+          
+          <!-- Background Ambient Emoji Seal (Tactile stamp watermark in corner) -->
+          <div
+            class={`absolute -right-4 -top-4 w-28 h-28 rounded-full flex items-center justify-center border text-4xl select-none pointer-events-none transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12 opacity-80 ${project.sealAura}`}
+            aria-hidden="true">
+            {project.emojiSeal}
+          </div>
+
+          <div class="relative z-10">
+            <!-- Top pills with integrated emoji badge -->
+            <div class="flex items-center justify-between gap-2 mb-4 pr-12">
+              <span class={`text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-mono shadow-2xs flex items-center gap-1.5 ${project.badgeColor}`}>
+                <EmojiIcon symbol={project.emojiSeal} decorative={true} />
+                <span>{project.badge}</span>
               </span>
-              <span class={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-md border ${project.statColor}`}>
-                {project.stat}
+              
+              <span class={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-md border flex items-center gap-1 ${project.statColor}`}>
+                <EmojiIcon symbol={project.statEmoji} decorative={true} />
+                <span>{project.stat}</span>
               </span>
             </div>
 
@@ -136,11 +163,11 @@ const projects = [
               {project.summary}
             </p>
 
-            <!-- Unboxed highlights list: breathing space, consistent electric indigo bullet -->
+            <!-- Unboxed highlights list with checkmarks -->
             <ul class="mt-5 space-y-2.5 text-xs font-medium text-slate-700">
               {project.highlights.map((h) => (
                 <li class="flex items-start gap-2.5">
-                  <Icon name="bx:bxs-check-circle" class="w-4 h-4 shrink-0 mt-0.5 text-indigo-600" />
+                  <span class="text-emerald-600 font-bold shrink-0 mt-0.5 select-none" aria-hidden="true">✓</span>
                   <span class="leading-normal">{h.text}</span>
                 </li>
               ))}
@@ -156,16 +183,17 @@ const projects = [
             </div>
           </div>
 
-          <!-- Action buttons with clear visual hierarchy (Primary vs Secondary Outline) -->
-          <div class="flex items-center gap-3 mt-8 pt-5 border-t border-slate-100">
+          <!-- Action buttons with Emojis & Contrast Hierarchy -->
+          <div class="relative z-10 flex items-center gap-3 mt-8 pt-5 border-t border-slate-100">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target={project.liveUrl.startsWith("http") ? "_blank" : undefined}
                 rel={project.liveUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition shadow-xs">
+                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition shadow-xs group/btn">
+                <EmojiIcon symbol="⚡" class="group-hover/btn:scale-125 transition-transform" decorative={true} />
                 <span>Veure Demo</span>
-                <span class="text-[11px]">↗</span>
+                <span class="text-[11px] font-mono text-slate-400">↗</span>
               </a>
             )}
             {project.githubUrl && (
@@ -173,10 +201,11 @@ const projects = [
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-white text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition border border-slate-200/90 shadow-2xs"
+                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-white text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition border border-slate-200/90 shadow-2xs group/code"
                 title="Veure codi font a GitHub">
-                <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-700" />
+                <EmojiIcon symbol="🐙" class="group-hover/code:scale-125 transition-transform" decorative={true} />
                 <span>Codi font</span>
+                <span class="text-[11px] text-slate-400 font-mono">↗</span>
               </a>
             )}
           </div>

@@ -1,37 +1,42 @@
 ---
 import { Icon } from "astro-icon/components";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
 
 const techStack = [
-  { name: "Angular", icon: "simple-icons:angular", badge: "bg-red-50 text-red-700 border-red-200/80 hover:bg-red-100 hover:border-red-300" },
-  { name: "TypeScript", icon: "simple-icons:typescript", badge: "bg-blue-50 text-blue-700 border-blue-200/80 hover:bg-blue-100 hover:border-blue-300" },
-  { name: "JavaScript", icon: "simple-icons:javascript", badge: "bg-amber-50 text-amber-800 border-amber-200/80 hover:bg-amber-100 hover:border-amber-300" },
-  { name: "Tailwind CSS", icon: "simple-icons:tailwindcss", badge: "bg-cyan-50 text-cyan-700 border-cyan-200/80 hover:bg-cyan-100 hover:border-cyan-300" },
-  { name: "HTML5", icon: "simple-icons:html5", badge: "bg-orange-50 text-orange-700 border-orange-200/80 hover:bg-orange-100 hover:border-orange-300" },
-  { name: "Node.js", icon: "simple-icons:nodedotjs", badge: "bg-emerald-50 text-emerald-700 border-emerald-200/80 hover:bg-emerald-100 hover:border-emerald-300" },
-  { name: "GitHub Actions", icon: "simple-icons:githubactions", badge: "bg-sky-50 text-sky-700 border-sky-200/80 hover:bg-sky-100 hover:border-sky-300" },
-  { name: "Linux", icon: "simple-icons:linux", badge: "bg-amber-50 text-amber-700 border-amber-200/80 hover:bg-amber-100 hover:border-amber-300" },
-  { name: "Git", icon: "simple-icons:git", badge: "bg-rose-50 text-rose-700 border-rose-200/80 hover:bg-rose-100 hover:border-rose-300" },
+  { name: "Angular", emoji: "🅰️", icon: "simple-icons:angular", badge: "hover:border-red-400 hover:bg-red-50/50 text-slate-800" },
+  { name: "TypeScript", emoji: "🟦", icon: "simple-icons:typescript", badge: "hover:border-blue-400 hover:bg-blue-50/50 text-slate-800" },
+  { name: "JavaScript", emoji: "🟨", icon: "simple-icons:javascript", badge: "hover:border-amber-400 hover:bg-amber-50/50 text-slate-800" },
+  { name: "Tailwind CSS", emoji: "🎨", icon: "simple-icons:tailwindcss", badge: "hover:border-cyan-400 hover:bg-cyan-50/50 text-slate-800" },
+  { name: "HTML5 Semàntic", emoji: "🌐", icon: "simple-icons:html5", badge: "hover:border-orange-400 hover:bg-orange-50/50 text-slate-800" },
+  { name: "Node.js", emoji: "🟢", icon: "simple-icons:nodedotjs", badge: "hover:border-emerald-400 hover:bg-emerald-50/50 text-slate-800" },
+  { name: "GitHub Actions", emoji: "🤖", icon: "simple-icons:githubactions", badge: "hover:border-sky-400 hover:bg-sky-50/50 text-slate-800" },
+  { name: "Linux Shell", emoji: "🐧", icon: "simple-icons:linux", badge: "hover:border-slate-500 hover:bg-slate-100 text-slate-800" },
+  { name: "Git & GitHub", emoji: "🔀", icon: "simple-icons:git", badge: "hover:border-rose-400 hover:bg-rose-50/50 text-slate-800" },
 ];
 ---
 
-<div class="mt-8 pt-8 border-t border-slate-200/70">
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+<div class="mt-10 pt-8 border-t border-slate-200/80">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5">
     <p class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-      Stack Tecnològic Principal
+      <EmojiIcon symbol="🛠️" decorative={true} />
+      <span>Stack Tecnològic Principal</span>
     </p>
     <span class="text-xs font-mono text-slate-400">
-      Tecnologies amb les quals construïsc cada dia
+      Tecnologies nuclears d'ús diari
     </span>
   </div>
 
+  <!-- Interactive Tactile Tech Playground Strip -->
   <div class="flex gap-2.5 sm:gap-3 items-center justify-center sm:justify-start flex-wrap">
     {
       techStack.map((tech) => (
         <div
-          class={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold font-mono transition-all duration-200 shadow-2xs hover:scale-105 cursor-default ${tech.badge}`}
-          title={tech.name}>
-          <Icon class="size-4 shrink-0" name={tech.icon} />
+          class={`group flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200/90 bg-white text-xs font-semibold font-mono transition-all duration-200 shadow-2xs hover:-translate-y-1 hover:shadow-md cursor-default select-none ${tech.badge}`}
+          title={`${tech.name} — Especialitat tècnica`}>
+          <span class="text-sm transform-gpu group-hover:scale-125 transition-transform" aria-hidden="true">
+            {tech.emoji}
+          </span>
+          <Icon class="size-3.5 shrink-0 text-slate-500 group-hover:text-slate-900 transition-colors" name={tech.icon} />
           <span>{tech.name}</span>
         </div>
       ))
