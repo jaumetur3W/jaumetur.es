@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 
-// Generate a new path for every collection entry
+// Generate paths for all blog posts
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
   return blogEntries.map((entry) => ({
@@ -12,51 +12,411 @@ export async function getStaticPaths() {
   }));
 }
 
-// Get the entry directly from the prop on render
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+
+// Estimate reading time (average 200 words/min)
+const wordsCount = entry.body ? entry.body.trim().split(/\s+/).length : 600;
+const readingMinutes = Math.max(1, Math.round(wordsCount / 200));
+
+// Find related posts (same category or common tags, excluding current)
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const relatedPosts = allPosts
+  .filter((post) => post.id !== entry.id && (post.data.category === entry.data.category || post.data.tags.some(t => entry.data.tags.includes(t))))
+  .slice(0, 2);
+
+// Category emoji helper
+const getCategoryEmoji = (category: string) => {
+  const cat = category.toLowerCase();
+  if (cat.includes("angular")) return "🅰️";
+  if (cat.includes("rendiment") || cat.includes("performance")) return "⚡";
+  if (cat.includes("ci/cd") || cat.includes("devops")) return "🔁";
+  if (cat.includes("accessibilitat") || cat.includes("wcag")) return "♿";
+  if (cat.includes("typescript")) return "🟦";
+  if (cat.includes("carrera") || cat.includes("portfolio")) return "💼";
+  if (cat.includes("cas d'estudi") || cat.includes("caso")) return "🔍";
+  return "📝";
+};
+
+const categoryEmoji = getCategoryEmoji(entry.data.category);
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-<Layout title={entry.data.title}>
+<Layout
+  title={entry.data.title}
+  description={entry.data.snippet}
+  image={entry.data.image.src}
+  publishDate={entry.data.publishDate}
+  author={entry.data.author}
+  tags={entry.data.tags}
+  isBlogPost={true}
+  lang={entry.data.lang || "ca"}
+>
+  <!-- Reading Progress Bar -->
+  <div id="reading-progress" aria-hidden="true"></div>
+
   <Container>
-    <div class="mx-auto max-w-3xl mt-14">
-      <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-        {entry.data.category}
-      </span>
-      <h1
-        class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight">
+    <!-- Breadcrumbs -->
+    <nav aria-label="Ruta de navegació" class="pt-8 pb-4 text-xs font-mono text-gray-400 flex items-center gap-2 flex-wrap">
+      <a href="/" class="hover:text-blue-400 transition-colors">Inici</a>
+      <span>/</span>
+      <a href="/blog" class="hover:text-blue-400 transition-colors">Blog</a>
+      <span>/</span>
+      <span class="text-blue-400 font-semibold">{entry.data.category}</span>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="max-w-4xl mx-auto mt-4 mb-8">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-950/60 border border-blue-500/30 text-blue-300">
+          <span>{categoryEmoji}</span>
+          <span>{entry.data.category}</span>
+        </span>
+        {entry.data.lang && entry.data.lang !== 'ca' && (
+          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono bg-purple-950/50 border border-purple-500/30 text-purple-300">
+            🌐 {entry.data.lang.toUpperCase()}
+          </span>
+        )}
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-5">
         {entry.data.title}
       </h1>
-      <div class="flex gap-2 mt-3 items-center flex-wrap md:flex-nowrap">
-        <span class="text-gray-400">
-          {entry.data.author}
-        </span>
-        <span class="text-gray-400">•</span>
-        <time
-          class="text-gray-400"
-          datetime={entry.data.publishDate.toISOString()}>
-          {entry.data.publishDate.toDateString()}
-        </time>
-        <span class="text-gray-400 hidden md:block">•</span>
-        <div class="w-full md:w-auto flex flex-wrap gap-3">
-          {
-            entry.data.tags.map((tag) => (
-              <span class="text-sm text-gray-500">#{tag}</span>
-            ))
-          }
-        </div>
-      </div>
-    </div>
 
-    <div class="mx-auto prose prose-lg mt-6 max-w-3xl">
-      <Content />
-    </div>
-    <div class="text-center mt-8">
-      <a
-        href="/blog"
-        class="bg-gray-100 px-5 py-3 rounded-md hover:bg-gray-200 transition font-medium text-sm text-slate-800"
-        >← Tornar al Blog</a
-      >
+      <p class="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed mb-6">
+        {entry.data.snippet}
+      </p>
+
+      <!-- Metadata Bar -->
+      <div class="flex flex-wrap items-center gap-4 py-4 border-y border-gray-800 text-sm text-gray-400">
+        <div class="flex items-center gap-2">
+          <img
+            src="/memojis/2.png"
+            alt="Jaume Tur"
+            class="w-8 h-8 rounded-full border border-gray-700 bg-gray-900 object-cover"
+          />
+          <span class="font-medium text-gray-200">{entry.data.author}</span>
+        </div>
+        <span class="text-gray-600">•</span>
+        <time datetime={entry.data.publishDate.toISOString()} class="font-mono text-xs">
+          {entry.data.publishDate.toLocaleDateString(entry.data.lang === 'es' ? 'es-ES' : 'ca-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+        <span class="text-gray-600">•</span>
+        <span class="inline-flex items-center gap-1 font-mono text-xs text-emerald-400">
+          ⏱️ {readingMinutes} min de lectura estimada
+        </span>
+      </div>
+    </header>
+
+    <!-- Main Content & Sticky TOC Layout -->
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <!-- Article Content -->
+      <article class="lg:col-span-8 min-w-0">
+        {entry.data.image && entry.data.image.src && (
+          <div class="mb-10 rounded-2xl overflow-hidden border border-gray-800 shadow-2xl bg-gray-900">
+            <img
+              src={entry.data.image.src}
+              alt={entry.data.image.alt}
+              class="w-full h-auto max-h-[440px] object-cover object-center"
+              loading="eager"
+            />
+          </div>
+        )}
+
+        <!-- Mobile Table of Contents -->
+        {filteredHeadings.length > 0 && (
+          <details class="lg:hidden mb-8 p-4 rounded-xl bg-gray-900/90 border border-gray-800">
+            <summary class="font-mono text-sm font-semibold text-gray-200 cursor-pointer flex items-center justify-between">
+              <span>📑 Taula de Continguts</span>
+              <span class="text-xs text-blue-400">Mostrar / Amagar</span>
+            </summary>
+            <nav class="mt-3 space-y-1.5 text-sm">
+              {filteredHeadings.map((h) => (
+                <a
+                  href={`#${h.slug}`}
+                  class={`block py-1 text-gray-400 hover:text-blue-400 transition-colors ${
+                    h.depth === 3 ? "pl-4 text-xs" : "font-medium"
+                  }`}
+                >
+                  {h.text}
+                </a>
+              ))}
+            </nav>
+          </details>
+        )}
+
+        <div class="prose prose-invert prose-blue max-w-none prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline prose-code:text-emerald-300 prose-code:font-mono prose-pre:bg-gray-950 prose-pre:border prose-pre:border-gray-800">
+          <Content />
+        </div>
+
+        <!-- Tags -->
+        <div class="mt-10 pt-6 border-t border-gray-800 flex flex-wrap gap-2 items-center">
+          <span class="text-xs font-mono text-gray-400">Etiquetes:</span>
+          {entry.data.tags.map((tag) => (
+            <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-gray-900 border border-gray-800 text-gray-300 hover:border-gray-700 transition-colors">
+              #{tag}
+            </span>
+          ))}
+        </div>
+
+        <!-- Share & Interaction Bar -->
+        <div class="mt-8 p-5 rounded-xl bg-gray-900/60 border border-gray-800 flex flex-wrap items-center justify-between gap-4">
+          <span class="text-sm font-medium text-gray-300">T'ha resultat útil aquest article?</span>
+          <div class="flex items-center gap-2">
+            <button
+              id="copy-link-btn"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-gray-800 hover:bg-gray-700 text-gray-200 transition-colors border border-gray-700"
+            >
+              <span>🔗</span>
+              <span id="copy-link-text">Copiar Enllaç</span>
+            </button>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(entry.data.title)}&url=${encodeURIComponent(`https://jaumetur.es/blog/${entry.id}`)}&via=jautur`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-[#0f1419] hover:bg-[#1a232e] text-white transition-colors border border-gray-700"
+            >
+              <span>𝕏</span> Compartir
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://jaumetur.es/blog/${entry.id}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-[#0077b5] hover:bg-[#006097] text-white transition-colors"
+            >
+              <span>in</span> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- Author Bio Card -->
+        <div class="mt-10 p-6 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-950 border border-gray-800 flex flex-col sm:flex-row gap-5 items-center sm:items-start text-center sm:text-left">
+          <img
+            src="/memojis/4.png"
+            alt="Jaume Tur Memoji"
+            class="w-20 h-20 rounded-2xl border-2 border-blue-500/30 bg-blue-950/20 p-1 object-contain shrink-0"
+          />
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+              <span>Jaume Tur</span>
+              <span class="text-xs font-mono font-normal px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
+                Frontend & Web Apps
+              </span>
+            </h3>
+            <p class="text-sm text-gray-400 mt-2 leading-relaxed">
+              Desenvolupador web amb base a València especialitzat en Angular, TypeScript, alt rendiment a 60 FPS, accessibilitat WCAG AA i automatització de pipelines CI/CD. Comparteix aprenentatges pràctics del dia a dia en producció.
+            </p>
+            <div class="mt-3 flex items-center justify-center sm:justify-start gap-4 text-xs font-mono text-gray-400">
+              <a href="https://github.com/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">🐙 GitHub</a>
+              <a href="https://x.com/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">𝕏 @jautur</a>
+              <a href="https://linkedin.com/in/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">💼 LinkedIn</a>
+              <a href="/contact" class="hover:text-emerald-400 transition-colors">✉️ Contacte</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lead Magnet: Checklist de Rendiment & Accessibilitat -->
+        <div class="mt-10 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-blue-950/40 via-emerald-950/30 to-gray-900 border border-blue-500/30 relative overflow-hidden">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-medium bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 mb-3">
+              🎁 Recurs Gratuït per a Desenvolupadors
+            </span>
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+              Checklist de Rendiment (60 FPS) i Accessibilitat (WCAG AA)
+            </h3>
+            <p class="text-sm text-gray-300 mb-5 leading-relaxed max-w-xl">
+              Els 25 punts d'auditoria que aplique en producció abans de desplegar qualsevol aplicació web o SPA en Angular/TypeScript.
+            </p>
+            <form
+              action="/contact"
+              method="GET"
+              class="flex flex-col sm:flex-row gap-3 max-w-md"
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="el.teu.correu@empresa.com"
+                required
+                class="px-4 py-2.5 rounded-lg bg-gray-900 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 flex-1 font-mono"
+              />
+              <button
+                type="submit"
+                class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-medium text-sm transition-all shadow-lg shadow-blue-500/20 whitespace-nowrap flex items-center justify-center gap-1.5"
+              >
+                <span>Descarregar Checklist</span>
+                <span>⚡</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Contextual B2B Consulting CTA -->
+        <div class="mt-8 p-6 rounded-2xl bg-gray-900 border border-gray-800 text-center">
+          <h4 class="text-lg font-bold text-white mb-2">
+            Tens un repte similar a la teua empresa o projecte?
+          </h4>
+          <p class="text-sm text-gray-400 mb-4 max-w-lg mx-auto">
+            Puc ajudar el teu equip a auditar rendiment web, modernitzar arquitectures frontend o implementar CI/CD robust.
+          </p>
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-md shadow-blue-600/30"
+          >
+            <span>💬 Sol·licitar Auditoria o Consultoria</span>
+          </a>
+        </div>
+
+        <!-- Related Posts -->
+        {relatedPosts.length > 0 && (
+          <div class="mt-14">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+              <span>📚 Articles Relacionats</span>
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {relatedPosts.map((rel) => (
+                <a
+                  href={`/blog/${rel.id}`}
+                  class="group block p-5 rounded-xl bg-gray-900/60 border border-gray-800 hover:border-blue-500/50 transition-all"
+                >
+                  <span class="text-xs font-mono text-blue-400 uppercase tracking-wider">
+                    {rel.data.category}
+                  </span>
+                  <h4 class="text-base font-bold text-gray-200 group-hover:text-blue-300 transition-colors mt-1 leading-snug">
+                    {rel.data.title}
+                  </h4>
+                  <p class="text-xs text-gray-400 mt-2 line-clamp-2">
+                    {rel.data.snippet}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="text-center mt-12 mb-16">
+          <a
+            href="/blog"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-700 bg-gray-900 hover:bg-gray-800 text-gray-300 font-mono text-xs transition-colors"
+          >
+            <span>← Tornar a tots els articles</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Sticky Table of Contents (Desktop Sidebar) -->
+      <aside class="hidden lg:block lg:col-span-4 sticky top-24 space-y-6">
+        {filteredHeadings.length > 0 && (
+          <div class="p-5 rounded-2xl bg-gray-900/70 border border-gray-800 backdrop-blur-sm">
+            <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
+              <span>📑 Taula de Continguts</span>
+            </h4>
+            <nav class="space-y-2 text-xs">
+              {filteredHeadings.map((h) => (
+                <a
+                  href={`#${h.slug}`}
+                  class={`block text-gray-400 hover:text-blue-400 transition-colors leading-relaxed ${
+                    h.depth === 3 ? "pl-3 text-gray-500" : "font-medium"
+                  }`}
+                >
+                  {h.text}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
+
+        <!-- Quick Info Box -->
+        <div class="p-5 rounded-2xl bg-gray-900/50 border border-gray-800 text-xs text-gray-400 space-y-3 font-mono">
+          <div class="flex items-center justify-between">
+            <span>Tecnologia:</span>
+            <span class="text-gray-200">{entry.data.category}</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Lectura:</span>
+            <span class="text-emerald-400">~{readingMinutes} min</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Estat:</span>
+            <span class="text-emerald-400">🟢 Producció</span>
+          </div>
+        </div>
+
+        <!-- Workflow Tool Promo Pill -->
+        <a
+          href="/tools/workflow-generator"
+          class="block p-4 rounded-2xl bg-gradient-to-br from-blue-950/40 to-gray-900 border border-blue-500/20 hover:border-blue-500/40 transition-all text-xs"
+        >
+          <span class="text-blue-400 font-mono font-semibold block mb-1">🛠️ Eina Gratuïta</span>
+          <p class="text-gray-300 font-medium">Generador de Workflows GitHub Actions</p>
+          <p class="text-gray-500 text-[11px] mt-1">Configura pipelines per a Astro i Angular en 1 clic.</p>
+        </a>
+      </aside>
     </div>
   </Container>
+
+  <!-- Client-side Scripts: Scroll Progress, Code Copy Button Injection, Share Link -->
+  <script is:inline>
+    // 1. Reading Progress Bar
+    const progressBar = document.getElementById("reading-progress");
+    window.addEventListener("scroll", () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      if (progressBar) {
+        progressBar.style.width = scrolled + "%";
+      }
+    }, { passive: true });
+
+    // 2. Dynamic Copy Button for Shiki Code Blocks
+    document.querySelectorAll("pre.astro-code").forEach((preBlock) => {
+      // Prevent duplicate buttons
+      if (preBlock.querySelector(".code-copy-btn")) return;
+
+      const button = document.createElement("button");
+      button.className = "code-copy-btn";
+      button.type = "button";
+      button.setAttribute("aria-label", "Copiar codi al porta-retalls");
+      button.innerHTML = "<span>📋</span><span>Copiar</span>";
+
+      button.addEventListener("click", async () => {
+        const code = preBlock.querySelector("code")?.innerText || preBlock.innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+          button.classList.add("copied");
+          button.innerHTML = "<span>✅</span><span>Copiat!</span>";
+          setTimeout(() => {
+            button.classList.remove("copied");
+            button.innerHTML = "<span>📋</span><span>Copiar</span>";
+          }, 2000);
+        } catch (err) {
+          console.error("Error copiant codi:", err);
+        }
+      });
+
+      preBlock.style.position = "relative";
+      preBlock.appendChild(button);
+    });
+
+    // 3. Copy Link Button
+    const copyLinkBtn = document.getElementById("copy-link-btn");
+    const copyLinkText = document.getElementById("copy-link-text");
+    if (copyLinkBtn && copyLinkText) {
+      copyLinkBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          copyLinkText.innerText = "Copiat!";
+          setTimeout(() => {
+            copyLinkText.innerText = "Copiar Enllaç";
+          }, 2000);
+        } catch (e) {
+          console.error("Error copiant URL:", e);
+        }
+      });
+    }
+  </script>
 </Layout>

@@ -7,53 +7,220 @@ import "@fontsource-variable/bricolage-grotesque";
 import "../styles/global.css";
 
 export interface Props {
-  title: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  publishDate?: Date | string;
+  author?: string;
+  tags?: string[];
+  canonicalURL?: string;
+  lang?: string;
+  isBlogPost?: boolean;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const {
+  title,
+  description = "Portfolio professional i blog tècnic de Jaume Tur, desenvolupador Frontend & Web Apps a València. Especialista en Angular, TypeScript, alt rendiment (60 FPS), accessibilitat WCAG AA i automatització CI/CD.",
+  image = "/jt-logo-dark.png",
+  publishDate,
+  author = "Jaume Tur",
+  tags = [],
+  canonicalURL: customCanonical,
+  lang = "ca",
+  isBlogPost = false,
+} = Astro.props;
 
-const resolvedImageWithDomain = new URL(
-  "/jt-logo-dark.png",
-  Astro.site
-).toString();
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
+const canonicalURL = customCanonical || new URL(Astro.url.pathname, siteUrl).toString();
+const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
-const { title } = Astro.props;
+// Dynamic, keyword-rich title generation
+const isHome = !title || title === "Inici" || title === "Home";
+const makeTitle = isHome
+  ? "Jaume Tur — Desenvolupador Frontend & Web Apps a València | Angular & TypeScript"
+  : `${title} | Jaume Tur`;
 
-const makeTitle = title
-  ? title + " | " + "Jaume Tur"
-  : "Jaume Tur — Desenvolupador Web · Arquitectura Frontend · CI/CD";
+// JSON-LD Structured Data
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#person`,
+  "name": "Jaume Tur",
+  "givenName": "Jaume",
+  "familyName": "Tur",
+  "jobTitle": "Desenvolupador Frontend & Web Apps",
+  "url": siteUrl,
+  "image": `${siteUrl}/jt-logo-dark.png`,
+  "sameAs": [
+    "https://github.com/jautur",
+    "https://www.linkedin.com/in/jautur/",
+    "https://twitter.com/jautur"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "València",
+    "addressRegion": "Comunitat Valenciana",
+    "addressCountry": "ES"
+  },
+  "knowsAbout": [
+    "Angular",
+    "TypeScript",
+    "JavaScript ES6+",
+    "Tailwind CSS",
+    "CI/CD",
+    "GitHub Actions",
+    "Web Performance",
+    "WCAG AA Accessibility"
+  ]
+};
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${siteUrl}/#service`,
+  "name": "Jaume Tur — Desenvolupament Frontend Freelance València",
+  "url": siteUrl,
+  "image": `${siteUrl}/jt-logo-dark.png`,
+  "telephone": "+34-600-000-000",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "València",
+    "addressRegion": "Comunitat Valenciana",
+    "addressCountry": "ES"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.4699,
+    "longitude": -0.3763
+  },
+  "areaServed": [
+    "València",
+    "Comunitat Valenciana",
+    "Espanya",
+    "Remote"
+  ],
+  "serviceArea": "València i Remot"
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  "url": siteUrl,
+  "name": "Jaume Tur",
+  "description": description,
+  "inLanguage": ["ca", "es", "en"],
+  "publisher": {
+    "@id": `${siteUrl}/#person`
+  }
+};
+
+const blogPostSchema = isBlogPost ? {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": resolvedImageWithDomain,
+  "datePublished": publishDate ? new Date(publishDate).toISOString() : undefined,
+  "dateModified": publishDate ? new Date(publishDate).toISOString() : undefined,
+  "author": {
+    "@type": "Person",
+    "name": author,
+    "url": siteUrl
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Jaume Tur",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/jt-logo-dark.png`
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL
+  },
+  "keywords": tags.join(", ")
+} : null;
 ---
 
 <!doctype html>
-<html lang="ca" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- RSS Feed Autodiscovery -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Jaume Tur — Blog Tècnic RSS Feed"
+      href="/rss.xml"
+    />
+
+    <!-- Canonical and Hreflang Tags for i18n -->
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="ca" href={canonicalURL} />
+    <link rel="alternate" hreflang="es" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+    <!-- Google Search Console & Bing Verification Placeholders -->
+    <meta name="google-site-verification" content="GSC_VERIFICATION_TOKEN_PLACEHOLDER" />
+    <meta name="msvalidate.01" content="BING_VERIFICATION_TOKEN_PLACEHOLDER" />
+
+    <!-- SEO & Social OpenGraph -->
     <SEO
       title={makeTitle}
-      description="Portfolio professional de Jaume Tur. Desenvolupament web modern, arquitectures reactives, optimització de rendiment i automatització de desplegaments CI/CD."
+      description={description}
       canonical={canonicalURL}
       twitter={{
         creator: "@jautur",
         site: "@jautur",
         card: "summary_large_image",
+        title: makeTitle,
+        description: description,
+        image: resolvedImageWithDomain,
+        imageAlt: makeTitle,
       }}
       openGraph={{
         basic: {
           url: canonicalURL,
-          type: "website",
+          type: isBlogPost ? "article" : "website",
           title: makeTitle,
           image: resolvedImageWithDomain,
         },
         image: {
-          alt: "Jaume Tur — Desenvolupador Web",
+          alt: makeTitle,
+        },
+        optional: {
+          siteName: "Jaume Tur — Portfolio & Blog Tècnic",
+          description: description,
+          locale: "ca_ES",
         },
       }}
     />
+
+    <!-- Structured Data: JSON-LD Schemas -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    {isBlogPost && blogPostSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
+    )}
+
+    <!-- Privacy-friendly Web Analytics (Plausible / Umami Ready) -->
+    <!-- Documented in MEDICION.md: Activated when domain is configured -->
+    <script
+      defer
+      data-domain="jaumetur.es"
+      src="https://plausible.io/js/script.js"
+    ></script>
   </head>
   <body class="bg-slate-50 text-slate-800 antialiased selection:bg-slate-900 selection:text-white min-h-screen flex flex-col justify-between">
     <div id="top"></div>
@@ -63,7 +230,7 @@ const makeTitle = title
     </div>
     <Footer />
     <style is:global>
-      /* Improve Page speed */
+      /* Core Web Vitals optimization */
       img {
         content-visibility: auto;
       }

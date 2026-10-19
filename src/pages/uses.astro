@@ -1,0 +1,151 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
+
+const categories = [
+  {
+    title: "Entorn de Codi & Editor",
+    emoji: "💻",
+    items: [
+      {
+        name: "VS Code (Visual Studio Code)",
+        desc: "L'editor principal per a frontend, configurat amb linter estricte, formatador automàtic en guardar i mode de renderitzat fluid.",
+      },
+      {
+        name: "Bricolage Grotesque & JetBrains Mono",
+        desc: "Tipografia tipogràfica amb lligadures per a codi font i disseny web d'alt contrast.",
+      },
+      {
+        name: "Extensions Clau",
+        desc: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens i GitHub Actions Linter.",
+      },
+      {
+        name: "Terminal Linux & Bash / Zsh",
+        desc: "Entorn de línia d'ordres natiu per a automatització de scripts, gestió de paquets npm i fluxos de control de versions.",
+      },
+    ],
+  },
+  {
+    title: "Stack Frontend & Llibreries",
+    emoji: "⚡",
+    items: [
+      {
+        name: "Angular (Signals & Standalone)",
+        desc: "Framework reactiu per a aplicacions web corporatives amb arquitectura modular i cicle de vida optimitzat.",
+      },
+      {
+        name: "TypeScript (Strict Mode)",
+        desc: "Tipat estricte sense `any`. Garantia de robustesa, refactorització segura i zero errors no controlats en temps d'execució.",
+      },
+      {
+        name: "Tailwind CSS v4 & PostCSS",
+        desc: "Disseny d'interfícies modular, atòmic i ultralleuger sense fulls d'estil pesats ni dependències innecessàries.",
+      },
+      {
+        name: "Astro 7 (Static Site Generation)",
+        desc: "El framework més ràpid per a portfolios i blogs tècnics: zero JavaScript innecessari i càrrega instantània.",
+      },
+      {
+        name: "Three.js",
+        desc: "Renderitzat 3D WebGL a 60 FPS amb optimització de cicle de bateria mitjançant l'API Page Visibility.",
+      },
+    ],
+  },
+  {
+    title: "DevOps & Automatització",
+    emoji: "🤖",
+    items: [
+      {
+        name: "GitHub Actions",
+        desc: "Canalitzacions CI/CD automatitzades: validació de sintaxi, linters, proves unitàries i desplegament instantani.",
+      },
+      {
+        name: "GitHub Pages & Vercel Edge",
+        desc: "Allotjament distribuït globalment per a lliurament d'actius estàtics i càrrega amb menys de 100ms de latència.",
+      },
+      {
+        name: "Git & GitHub Flow",
+        desc: "Control de versions per branques, commits semàntics (Conventional Commits) i revisió de codi.",
+      },
+    ],
+  },
+  {
+    title: "Disseny & Accessibilitat",
+    emoji: "🎨",
+    items: [
+      {
+        name: "Figma & Apple Human Interface Guidelines",
+        desc: "Prototipatge de sistemes de disseny, contrast cromàtic de capes i maquetació basada en grilles de 8px.",
+      },
+      {
+        name: "Lighthouse & Axe Accessibility Tools",
+        desc: "Auditories continues de compliment WCAG AA, Core Web Vitals (LCP, CLS, INP) i optimització d'actius.",
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="El meu Setup & Eines (/uses)"
+  description="Maquinari, programari, extensions de VS Code, stack frontend i configuracions que utilitze en el meu dia a dia com a desenvolupador frontend.">
+  <Container>
+    <div class="py-12 md:py-16">
+      <Sectionhead>
+        <Fragment slot="title">El meu Setup & Eines (/uses)</Fragment>
+        <Fragment slot="desc">
+          Llista detallada del maquinari, programari, stack frontend i configuracions que utilitze cada dia.
+        </Fragment>
+      </Sectionhead>
+
+      <div class="max-w-4xl mx-auto mt-12 space-y-12">
+        {
+          categories.map((cat) => (
+            <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
+              <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                <span class="text-2xl" aria-hidden="true">{cat.emoji}</span>
+                <h2 class="text-xl font-bold text-slate-900 tracking-tight">
+                  {cat.title}
+                </h2>
+              </div>
+
+              <div class="grid gap-6">
+                {cat.items.map((item) => (
+                  <div>
+                    <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                      <span>{item.name}</span>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed pl-3.5">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+
+        <!-- Community CTA & Tool Generator Link -->
+        <div class="bg-[#090D16] text-white rounded-3xl p-8 border border-slate-800/90 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="space-y-1 text-center sm:text-left">
+            <h3 class="text-lg font-bold flex items-center gap-2 justify-center sm:justify-start">
+              <span>Vols automatitzar el teu propi desplegament?</span>
+              <EmojiIcon symbol="⚡" decorative={true} />
+            </h3>
+            <p class="text-xs text-slate-300">
+              Utilitza el nostre generador interactiu gratuït per a GitHub Actions.
+            </p>
+          </div>
+          <a
+            href="/tools/workflow-generator"
+            class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500 transition shadow-sm shrink-0">
+            Provar Generador CI/CD ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Layout>

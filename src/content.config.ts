@@ -18,6 +18,8 @@ const blogCollection = defineCollection({
     author: z.string().default('Jaume Tur'),
     category: z.string(),
     tags: z.array(z.string()),
+    lang: z.enum(['ca', 'es']).default('ca').optional(),
+    canonicalUrl: z.string().optional(),
   }),
 });
 

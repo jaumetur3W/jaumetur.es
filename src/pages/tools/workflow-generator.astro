@@ -1,0 +1,260 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import EmojiIcon from "@/components/ui/emoji-icon.astro";
+---
+
+<Layout
+  title="Generador de Pipelines CI/CD per a GitHub Actions"
+  description="Eina gratuïta per a desenvolupadors frontend: genera workflows de GitHub Actions per a Astro, Angular, React i Tailwind CSS en segons amb validació de qualitat.">
+  <Container>
+    <div class="py-12 md:py-16">
+      <Sectionhead>
+        <Fragment slot="title">Generador de GitHub Actions CI/CD</Fragment>
+        <Fragment slot="desc">
+          Crea workflows d'integració i desplegament continu optimitzats per a projectes frontend en segons.
+        </Fragment>
+      </Sectionhead>
+
+      <!-- Tool Container -->
+      <div class="max-w-5xl mx-auto mt-12 grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] space-y-6">
+          <div class="flex items-center gap-2 pb-4 border-b border-slate-100">
+            <span class="text-xl" aria-hidden="true">⚙️</span>
+            <h2 class="font-extrabold text-slate-900 text-base">Configuració del Pipeline</h2>
+          </div>
+
+          <!-- Framework Selection -->
+          <div>
+            <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
+              1. Framework / Stack
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                data-framework="astro"
+                class="framework-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition">
+                <span>🚀</span>
+                <span>Astro (SSG)</span>
+              </button>
+              <button
+                type="button"
+                data-framework="angular"
+                class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                <span>🅰️</span>
+                <span>Angular SPA</span>
+              </button>
+              <button
+                type="button"
+                data-framework="react"
+                class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                <span>⚛️</span>
+                <span>React / Vite</span>
+              </button>
+              <button
+                type="button"
+                data-framework="html"
+                class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                <span>🎨</span>
+                <span>HTML & Tailwind</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Target Platform -->
+          <div>
+            <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
+              2. Destí de Desplegament
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                data-target="pages"
+                class="target-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition">
+                <span>🐙</span>
+                <span>GitHub Pages</span>
+              </button>
+              <button
+                type="button"
+                data-target="vercel"
+                class="target-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                <span>▲</span>
+                <span>Vercel Edge</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Feature Toggles -->
+          <div>
+            <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
+              3. Passos de Qualitat & Cache
+            </label>
+            <div class="space-y-2">
+              <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
+                <input type="checkbox" id="check-lint" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+                <span>Incloure linter i comprovació de codi</span>
+              </label>
+              <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
+                <input type="checkbox" id="check-ts" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+                <span>Verificació estricta de tipus (TypeScript check)</span>
+              </label>
+              <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
+                <input type="checkbox" id="check-cache" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+                <span>Cache intel·ligent de dependències npm</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-mono">
+            💡 <strong>Com utilitzar-lo:</strong> Guarda aquest fitxer a <code>.github/workflows/deploy.yml</code> al teu repositori.
+          </div>
+        </div>
+
+        <!-- Output YAML Code Preview Column -->
+        <div class="lg:col-span-7 bg-[#090D16] rounded-3xl border border-slate-800/90 shadow-xl overflow-hidden font-mono text-xs flex flex-col">
+          <div class="bg-slate-900/90 px-5 py-3.5 flex items-center justify-between border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+              <span class="text-slate-400 text-xs ml-2">// .github/workflows/deploy.yml</span>
+            </div>
+            
+            <button
+              id="copy-yaml-btn"
+              type="button"
+              class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+              <EmojiIcon symbol="📋" decorative={true} />
+              <span>Copiar YAML</span>
+            </button>
+          </div>
+
+          <pre class="p-6 text-slate-200 overflow-x-auto text-[12px] leading-relaxed max-h-[580px]"><code id="yaml-code">Carregant configuració...</code></pre>
+        </div>
+
+      </div>
+
+      <!-- Lead Magnet & Community CTA -->
+      <div class="mt-16 bg-white rounded-3xl border border-slate-200/90 p-8 max-w-4xl mx-auto shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 mb-2 inline-block">
+            🎁 RECURS GRATUÏT PER A DEVS
+          </span>
+          <h3 class="text-xl font-bold text-slate-900">
+            Vols una checklist de Rendiment & WCAG AA per a producció?
+          </h3>
+          <p class="text-xs text-slate-600 mt-1 max-w-md">
+            Descarrega la guia pas a pas que utilitze en projectes reals per assegurar 60 FPS i zero errors d'accessibilitat.
+          </p>
+        </div>
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-indigo-600 transition shadow-xs shrink-0">
+          <EmojiIcon symbol="📖" decorative={true} />
+          <span>Llegir al Blog</span>
+        </a>
+      </div>
+
+    </div>
+  </Container>
+</Layout>
+
+<script is:inline>
+  let currentFramework = "astro";
+  let currentTarget = "pages";
+
+  function generateYaml() {
+    const doLint = document.getElementById("check-lint")?.checked;
+    const doTs = document.getElementById("check-ts")?.checked;
+    const doCache = document.getElementById("check-cache")?.checked;
+
+    let yaml = `name: Deploy Pipeline\n\non:\n  push:\n    branches: [ main ]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\nconcurrency:\n  group: "pages"\n  cancel-in-progress: false\n\njobs:\n  build:\n    name: Build & Verify\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v4\n\n`;
+
+    if (currentTarget === "pages") {
+      yaml += `      - name: Setup GitHub Pages\n        uses: actions/configure-pages@v5\n\n`;
+    }
+
+    yaml += `      - name: Setup Node.js\n        uses: actions/setup-node@v4\n        with:\n          node-version: 22\n`;
+    if (doCache) {
+      yaml += `          cache: npm\n`;
+    }
+    yaml += `\n      - name: Install dependencies\n        run: npm ci\n\n`;
+
+    if (doLint) {
+      yaml += `      - name: Code Quality & Linters\n        run: npm run lint --if-present\n\n`;
+    }
+
+    if (doTs) {
+      yaml += `      - name: Strict TypeScript Verification\n        run: npx tsc --noEmit\n\n`;
+    }
+
+    const buildCommand = currentFramework === "angular" ? "npm run build -- --configuration production" : "npm run build";
+    const distPath = currentFramework === "angular" ? "./dist/*/browser" : "./dist";
+
+    yaml += `      - name: Build static output\n        run: ${buildCommand}\n\n`;
+
+    if (currentTarget === "pages") {
+      yaml += `      - name: Upload artifact\n        uses: actions/upload-pages-artifact@v3\n        with:\n          path: ${distPath}\n\n  deploy:\n    name: Deploy to GitHub Pages\n    needs: build\n    runs-on: ubuntu-latest\n    environment:\n      name: github-pages\n      url: \${{ steps.deployment.outputs.page_url }}\n    steps:\n      - name: Deploy to GitHub Pages\n        id: deployment\n        uses: actions/deploy-pages@v4\n`;
+    } else {
+      yaml += `      - name: Deploy to Vercel\n        uses: amondnet/vercel-action@v25\n        with:\n          vercel-token: \${{ secrets.VERCEL_TOKEN }}\n          vercel-org-id: \${{ secrets.VERCEL_ORG_ID }}\n          vercel-project-id: \${{ secrets.VERCEL_PROJECT_ID }}\n          vercel-args: '--prod'\n`;
+    }
+
+    const codeEl = document.getElementById("yaml-code");
+    if (codeEl) {
+      codeEl.textContent = yaml;
+    }
+  }
+
+  // Framework buttons
+  document.querySelectorAll(".framework-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".framework-btn").forEach((b) => {
+        b.className = "framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition";
+      });
+      btn.className = "framework-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition";
+      currentFramework = btn.getAttribute("data-framework") || "astro";
+      generateYaml();
+    });
+  });
+
+  // Target buttons
+  document.querySelectorAll(".target-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".target-btn").forEach((b) => {
+        b.className = "target-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition";
+      });
+      btn.className = "target-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition";
+      currentTarget = btn.getAttribute("data-target") || "pages";
+      generateYaml();
+    });
+  });
+
+  // Checkbox listeners
+  ["check-lint", "check-ts", "check-cache"].forEach((id) => {
+    document.getElementById(id)?.addEventListener("change", generateYaml);
+  });
+
+  // Copy button
+  const copyBtn = document.getElementById("copy-yaml-btn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      const codeEl = document.getElementById("yaml-code");
+      if (codeEl) {
+        navigator.clipboard.writeText(codeEl.textContent || "").then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = "<span>✓ ¡Copiat!</span>";
+          copyBtn.className = "px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm";
+          setTimeout(() => {
+            copyBtn.innerHTML = original;
+            copyBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm";
+          }, 2000);
+        });
+      }
+    });
+  }
+
+  generateYaml();
+</script>

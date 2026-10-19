@@ -1,73 +1,279 @@
 ---
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 
 // Filter blog entries with 'draft: false' & date before current date
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
+  return !data.draft && data.publishDate <= new Date();
 });
 
-// Sort content entries by publication date
+// Sort content entries by publication date (newest first)
 publishedBlogEntries.sort(function (a, b) {
   return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
 });
+
+// Extract all unique categories
+const categories = ["Tots", ...new Set(publishedBlogEntries.map((post) => post.data.category))];
+
+// Category emoji helper
+const getCategoryEmoji = (category: string) => {
+  const cat = category.toLowerCase();
+  if (cat.includes("angular")) return "🅰️";
+  if (cat.includes("rendiment") || cat.includes("performance")) return "⚡";
+  if (cat.includes("ci/cd") || cat.includes("devops")) return "🔁";
+  if (cat.includes("accessibilitat") || cat.includes("wcag")) return "♿";
+  if (cat.includes("typescript")) return "🟦";
+  if (cat.includes("carrera") || cat.includes("portfolio")) return "💼";
+  if (cat.includes("cas d'estudi") || cat.includes("caso")) return "🔍";
+  return "📝";
+};
 ---
 
-<Layout title="Blog Tècnic">
+<Layout
+  title="Blog d'Enginyeria Frontend & Web Apps"
+  description="Articles tècnics, guies pràctiques i casos d'estudi sobre Angular Modern, Signals, optimització de rendiment a 60 FPS, accessibilitat WCAG AA i automatització CI/CD."
+>
   <Container>
-    <Sectionhead>
-      <Fragment slot="title">Blog & Articles Tècnics</Fragment>
-      <Fragment slot="desc">
-        Reflexions i guies sobre desenvolupament frontend modern, TypeScript, arquitectura i CI/CD.
-      </Fragment>
-    </Sectionhead>
-    <main class="mt-16">
-      <ul class="grid gap-16 max-w-4xl mx-auto">
-        {
-          publishedBlogEntries.map((blogPostEntry, index) => (
-            <li>
-              <a href={`/blog/${blogPostEntry.id}`}>
-                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                  <Picture
-                    src={blogPostEntry.data.image.src}
-                    alt={blogPostEntry.data.image.alt}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    width={800}
-                    height={600}
-                    loading={index <= 2 ? "eager" : "lazy"}
-                    decoding={index <= 2 ? "sync" : "async"}
-                    class="w-full rounded-md object-cover object-center bg-white"
-                  />
-                  <div>
-                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
-                      {blogPostEntry.data.category}
+    <div class="mt-8 mb-4">
+      <Sectionhead>
+        <Fragment slot="title">Blog & Recursos d'Enginyeria</Fragment>
+        <Fragment slot="desc">
+          Guies tècniques en profunditat, patrons d'arquitectura frontend i anàlisis de rendiment basades en projectes reals en producció.
+        </Fragment>
+      </Sectionhead>
+    </div>
+
+    <!-- Category Filters & Search -->
+    <div class="max-w-5xl mx-auto my-10">
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-between pb-6 border-b border-gray-800">
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start" id="category-filters">
+          {categories.map((cat, idx) => (
+            <button
+              type="button"
+              data-category={cat}
+              class={`filter-btn px-3 py-1.5 rounded-lg text-xs font-mono transition-all border ${
+                idx === 0
+                  ? "bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-500/20 active"
+                  : "bg-gray-900 text-gray-400 border-gray-800 hover:text-white hover:border-gray-700"
+              }`}
+            >
+              <span>{cat !== "Tots" ? getCategoryEmoji(cat) : "✨"}</span> {cat}
+            </button>
+          ))}
+        </div>
+
+        <!-- Live Search Input -->
+        <div class="relative w-full sm:w-64">
+          <input
+            type="text"
+            id="blog-search"
+            placeholder="Cercar articles o tags..."
+            class="w-full px-3.5 py-1.5 text-xs font-mono rounded-lg bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+          />
+          <span class="absolute right-3 top-2 text-xs text-gray-500 pointer-events-none">🔍</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <main class="max-w-5xl mx-auto mb-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="posts-container">
+        {publishedBlogEntries.map((post) => {
+          const wordsCount = post.body ? post.body.trim().split(/\s+/).length : 600;
+          const readingMinutes = Math.max(1, Math.round(wordsCount / 200));
+          const emoji = getCategoryEmoji(post.data.category);
+
+          return (
+            <article
+              class="post-card group flex flex-col justify-between rounded-2xl bg-gray-900/60 border border-gray-800/80 hover:border-blue-500/50 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-blue-500/5"
+              data-title={post.data.title.toLowerCase()}
+              data-category={post.data.category}
+              data-snippet={post.data.snippet.toLowerCase()}
+              data-tags={post.data.tags.join(" ").toLowerCase()}
+            >
+              <div>
+                {/* Cover Image */}
+                {post.data.image && post.data.image.src && (
+                  <a href={`/blog/${post.id}`} class="block overflow-hidden aspect-[16/9] bg-gray-950 border-b border-gray-800/80">
+                    <img
+                      src={post.data.image.src}
+                      alt={post.data.image.alt}
+                      loading="lazy"
+                      class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </a>
+                )}
+
+                <div class="p-6">
+                  <!-- Category and Language -->
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-blue-950/60 border border-blue-500/30 text-blue-300">
+                      <span>{emoji}</span>
+                      <span>{post.data.category}</span>
                     </span>
-
-                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
-                      {blogPostEntry.data.title}
-                    </h2>
-
-                    <div class="flex gap-2 mt-3">
-                      <span class="text-gray-400">
-                        {blogPostEntry.data.author}
-                      </span>
-                      <span class="text-gray-400">• </span>
-                      <time
-                        class="text-gray-400"
-                        datetime={blogPostEntry.data.publishDate.toISOString()}>
-                        {blogPostEntry.data.publishDate.toDateString()}
-                      </time>
-                    </div>
+                    <span class="text-xs font-mono text-emerald-400">
+                      ⏱️ ~{readingMinutes} min
+                    </span>
                   </div>
+
+                  <!-- Post Title -->
+                  <h2 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors leading-snug mb-3">
+                    <a href={`/blog/${post.id}`}>
+                      {post.data.title}
+                    </a>
+                  </h2>
+
+                  <!-- Snippet -->
+                  <p class="text-sm text-gray-400 line-clamp-3 leading-relaxed mb-4">
+                    {post.data.snippet}
+                  </p>
                 </div>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+              </div>
+
+              <!-- Footer with Tags & Date -->
+              <div class="px-6 pb-6 pt-2 border-t border-gray-800/60 flex items-center justify-between text-xs font-mono text-gray-500">
+                <time datetime={post.data.publishDate.toISOString()}>
+                  {post.data.publishDate.toLocaleDateString("ca-ES", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </time>
+                <a
+                  href={`/blog/${post.id}`}
+                  class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors font-medium"
+                >
+                  <span>Llegir article</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- No Results State -->
+      <div id="no-results" class="hidden text-center py-16">
+        <p class="text-4xl mb-2">🔍</p>
+        <p class="text-gray-300 font-bold text-lg">No s'ha trobat cap article</p>
+        <p class="text-gray-500 text-sm mt-1">Prova amb altres termes de cerca o una altra categoria.</p>
+      </div>
+
+      <!-- Lead Magnet Newsletter Box -->
+      <section class="mt-20 p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950/30 to-gray-950 border border-blue-500/30 relative overflow-hidden">
+        <div class="max-w-2xl">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono font-medium bg-blue-950/80 border border-blue-500/40 text-blue-300 mb-4">
+            📬 Newsletter Tècnica: Frontend de Trinxera
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
+            Reb un article tècnic al mes sense spam ni postureig.
+          </h3>
+          <p class="text-sm text-gray-300 mb-6 leading-relaxed">
+            Patrons d'arquitectura en Angular, trucs per aconseguir 60 FPS estables, CI/CD per a desenvolupadors web i aprenentatges d'auditories reals.
+          </p>
+          <form
+            action="/contact"
+            method="GET"
+            class="flex flex-col sm:flex-row gap-3 max-w-lg"
+          >
+            <input
+              type="email"
+              name="email"
+              placeholder="el.teu.correu@empresa.com"
+              required
+              class="px-4 py-2.5 rounded-lg bg-gray-900 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 flex-1 font-mono"
+            />
+            <button
+              type="submit"
+              class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 whitespace-nowrap"
+            >
+              Subscriure'm de franc
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
   </Container>
+
+  <!-- Client-side Search and Filter Script -->
+  <script is:inline>
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const searchInput = document.getElementById("blog-search");
+    const postCards = document.querySelectorAll(".post-card");
+    const noResults = document.getElementById("no-results");
+
+    let activeCategory = "Tots";
+    let searchQuery = "";
+
+    function applyFilter() {
+      let visibleCount = 0;
+
+      postCards.forEach((card) => {
+        const cardCategory = card.getAttribute("data-category") || "";
+        const title = card.getAttribute("data-title") || "";
+        const snippet = card.getAttribute("data-snippet") || "";
+        const tags = card.getAttribute("data-tags") || "";
+
+        const matchesCategory =
+          activeCategory === "Tots" || cardCategory === activeCategory;
+        const matchesSearch =
+          searchQuery === "" ||
+          title.includes(searchQuery) ||
+          snippet.includes(searchQuery) ||
+          tags.includes(searchQuery);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = "flex";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      if (noResults) {
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
+      }
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => {
+          b.classList.remove(
+            "bg-blue-600",
+            "text-white",
+            "border-blue-500",
+            "shadow-md",
+            "shadow-blue-500/20"
+          );
+          b.classList.add(
+            "bg-gray-900",
+            "text-gray-400",
+            "border-gray-800"
+          );
+        });
+
+        btn.classList.add(
+          "bg-blue-600",
+          "text-white",
+          "border-blue-500",
+          "shadow-md",
+          "shadow-blue-500/20"
+        );
+        btn.classList.remove("bg-gray-900", "text-gray-400", "border-gray-800");
+
+        activeCategory = btn.getAttribute("data-category") || "Tots";
+        applyFilter();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        applyFilter();
+      });
+    }
+  </script>
 </Layout>
