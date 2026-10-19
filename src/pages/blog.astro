@@ -48,17 +48,17 @@ const getCategoryIcon = (category: string) => {
 
     <!-- Category Filters & Search -->
     <div class="max-w-5xl mx-auto my-10">
-      <div class="flex flex-col sm:flex-row gap-4 items-center justify-between pb-6 border-b border-gray-800">
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-between pb-6 border-b border-slate-200/90">
         <!-- Category Filter Pills -->
         <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start" id="category-filters">
           {categories.map((cat, idx) => (
             <button
               type="button"
               data-category={cat}
-              class={`filter-btn px-3 py-1.5 rounded-lg text-xs font-mono transition-all border flex items-center gap-1.5 ${
+              class={`filter-btn px-3 py-1.5 rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer ${
                 idx === 0
-                  ? "bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-500/20 active"
-                  : "bg-gray-900 text-gray-400 border-gray-800 hover:text-white hover:border-gray-700"
+                  ? "bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/20 active"
+                  : "bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs"
               }`}
             >
               <Icon name={cat !== "Tots" ? getCategoryIcon(cat) : "bx:layer"} class="w-3.5 h-3.5" />
@@ -73,9 +73,9 @@ const getCategoryIcon = (category: string) => {
             type="text"
             id="blog-search"
             placeholder="Cercar articles o tags..."
-            class="w-full px-3.5 py-1.5 pl-8 text-xs font-mono rounded-lg bg-gray-900 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            class="w-full px-3.5 py-1.5 pl-8 text-xs font-mono rounded-xl bg-white border border-slate-200/90 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 shadow-2xs transition"
           />
-          <Icon name="bx:search" class="absolute left-2.5 top-2 text-gray-500 w-3.5 h-3.5 pointer-events-none" />
+          <Icon name="bx:search" class="absolute left-2.5 top-2 text-slate-400 w-3.5 h-3.5 pointer-events-none" />
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@ const getCategoryIcon = (category: string) => {
 
           return (
             <article
-              class="post-card group flex flex-col justify-between rounded-2xl bg-gray-900/60 border border-gray-800/80 hover:border-blue-500/50 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-blue-500/5"
+              class="post-card group flex flex-col justify-between rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 transition-all duration-300 overflow-hidden shadow-2xs hover:shadow-lg hover:shadow-indigo-500/5"
               data-title={post.data.title.toLowerCase()}
               data-category={post.data.category}
               data-snippet={post.data.snippet.toLowerCase()}
@@ -99,7 +99,7 @@ const getCategoryIcon = (category: string) => {
               <div>
                 {/* Cover Image */}
                 {post.data.image && post.data.image.src && (
-                  <a href={`/blog/${post.id}`} class="block overflow-hidden aspect-[16/9] bg-gray-950 border-b border-gray-800/80">
+                  <a href={`/blog/${post.id}`} class="block overflow-hidden aspect-[16/9] bg-slate-100 border-b border-slate-100">
                     <img
                       src={post.data.image.src}
                       alt={post.data.image.alt}
@@ -112,32 +112,32 @@ const getCategoryIcon = (category: string) => {
                 <div class="p-6">
                   <!-- Category and Reading Time with Standardized Icons -->
                   <div class="flex items-center justify-between gap-2 mb-3">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-blue-950/60 border border-blue-500/30 text-blue-300">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-indigo-50 border border-indigo-200/80 text-indigo-700">
                       <Icon name={iconName} class="w-3.5 h-3.5" />
                       <span>{post.data.category}</span>
                     </span>
-                    <span class="text-xs font-mono text-emerald-400 flex items-center gap-1">
-                      <Icon name="bx:time" class="w-3.5 h-3.5 text-emerald-400" />
+                    <span class="text-[11px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Icon name="bx:time" class="w-3.5 h-3.5 text-emerald-600" />
                       <span>~{readingMinutes} min</span>
                     </span>
                   </div>
 
                   <!-- Post Title -->
-                  <h2 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors leading-snug mb-3">
+                  <h2 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug mb-3">
                     <a href={`/blog/${post.id}`}>
                       {post.data.title}
                     </a>
                   </h2>
 
                   <!-- Snippet -->
-                  <p class="text-sm text-gray-400 line-clamp-3 leading-relaxed mb-4">
+                  <p class="text-sm text-slate-600 line-clamp-3 leading-relaxed mb-4">
                     {post.data.snippet}
                   </p>
                 </div>
               </div>
 
               <!-- Footer with Tags & Date -->
-              <div class="px-6 pb-6 pt-2 border-t border-gray-800/60 flex items-center justify-between text-xs font-mono text-gray-500">
+              <div class="px-6 pb-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-500">
                 <time datetime={post.data.publishDate.toISOString()}>
                   {post.data.publishDate.toLocaleDateString("ca-ES", {
                     year: "numeric",
@@ -147,7 +147,7 @@ const getCategoryIcon = (category: string) => {
                 </time>
                 <a
                   href={`/blog/${post.id}`}
-                  class="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors font-medium"
+                  class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 transition-colors font-bold"
                 >
                   <span>Llegir article</span>
                   <span>→</span>
@@ -159,23 +159,31 @@ const getCategoryIcon = (category: string) => {
       </div>
 
       <!-- No Results State -->
-      <div id="no-results" class="hidden text-center py-16">
-        <Icon name="bx:search" class="w-12 h-12 text-gray-600 mx-auto mb-2" />
-        <p class="text-gray-300 font-bold text-lg">No s'ha trobat cap article</p>
-        <p class="text-gray-500 text-sm mt-1">Prova amb altres termes de cerca o una altra categoria.</p>
+      <div id="no-results" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-8 max-w-lg mx-auto">
+        <Icon name="bx:search" class="w-12 h-12 text-slate-400 mx-auto mb-3" />
+        <p class="text-slate-900 font-bold text-lg">No s'ha trobat cap article</p>
+        <p class="text-slate-500 text-sm mt-1 mb-5">Prova amb altres termes de cerca o una altra categoria.</p>
+        <button
+          type="button"
+          id="reset-search-btn"
+          class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition shadow-2xs cursor-pointer inline-flex items-center gap-1.5"
+        >
+          <Icon name="bx:reset" class="w-4 h-4" />
+          <span>Restablir filtres i cerca</span>
+        </button>
       </div>
 
       <!-- Lead Magnet Newsletter Box with Standardized Icons -->
-      <section class="mt-20 p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950/30 to-gray-950 border border-blue-500/30 relative overflow-hidden">
-        <div class="max-w-2xl">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono font-medium bg-blue-950/80 border border-blue-500/40 text-blue-300 mb-4">
-            <Icon name="bx:envelope" class="w-3.5 h-3.5 text-blue-300" />
+      <section class="mt-20 p-8 sm:p-10 rounded-3xl bg-[#090D16] text-white border border-slate-800 shadow-2xl relative overflow-hidden">
+        <div class="max-w-2xl relative z-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 mb-4 shadow-2xs">
+            <Icon name="bx:envelope" class="w-3.5 h-3.5 text-indigo-400" />
             <span>Newsletter Tècnica: Frontend de Trinxera</span>
           </span>
           <h3 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
             Reb un article tècnic al mes sense spam ni postureig.
           </h3>
-          <p class="text-sm text-gray-300 mb-6 leading-relaxed">
+          <p class="text-sm text-slate-300 mb-6 leading-relaxed">
             Patrons d'arquitectura en Angular, trucs per aconseguir 60 FPS estables, CI/CD per a desenvolupadors web i aprenentatges d'auditories reals.
           </p>
           <form
@@ -188,11 +196,11 @@ const getCategoryIcon = (category: string) => {
               name="email"
               placeholder="el.teu.correu@empresa.com"
               required
-              class="px-4 py-2.5 rounded-lg bg-gray-900 border border-gray-700 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 flex-1 font-mono"
+              class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 flex-1 font-mono"
             />
             <button
               type="submit"
-              class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 whitespace-nowrap"
+              class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/30 whitespace-nowrap cursor-pointer"
             >
               Subscriure'm de franc
             </button>
@@ -208,6 +216,7 @@ const getCategoryIcon = (category: string) => {
     const searchInput = document.getElementById("blog-search");
     const postCards = document.querySelectorAll(".post-card");
     const noResults = document.getElementById("no-results");
+    const resetBtn = document.getElementById("reset-search-btn");
 
     let activeCategory = "Tots";
     let searchQuery = "";
@@ -242,34 +251,23 @@ const getCategoryIcon = (category: string) => {
       }
     }
 
+    function selectCategory(catName) {
+      activeCategory = catName;
+      filterButtons.forEach((b) => {
+        const isCurrent = (b.getAttribute("data-category") || "") === catName;
+        if (isCurrent) {
+          b.className = "filter-btn px-3 py-1.5 rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/20 active";
+        } else {
+          b.className = "filter-btn px-3 py-1.5 rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs";
+        }
+      });
+      applyFilter();
+    }
+
     filterButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        filterButtons.forEach((b) => {
-          b.classList.remove(
-            "bg-blue-600",
-            "text-white",
-            "border-blue-500",
-            "shadow-md",
-            "shadow-blue-500/20"
-          );
-          b.classList.add(
-            "bg-gray-900",
-            "text-gray-400",
-            "border-gray-800"
-          );
-        });
-
-        btn.classList.add(
-          "bg-blue-600",
-          "text-white",
-          "border-blue-500",
-          "shadow-md",
-          "shadow-blue-500/20"
-        );
-        btn.classList.remove("bg-gray-900", "text-gray-400", "border-gray-800");
-
-        activeCategory = btn.getAttribute("data-category") || "Tots";
-        applyFilter();
+        const cat = btn.getAttribute("data-category") || "Tots";
+        selectCategory(cat);
       });
     });
 
@@ -277,6 +275,14 @@ const getCategoryIcon = (category: string) => {
       searchInput.addEventListener("input", (e) => {
         searchQuery = e.target.value.toLowerCase().trim();
         applyFilter();
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (searchInput) searchInput.value = "";
+        searchQuery = "";
+        selectCategory("Tots");
       });
     }
   </script>

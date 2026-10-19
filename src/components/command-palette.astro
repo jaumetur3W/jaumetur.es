@@ -52,39 +52,39 @@ const commands: Command[] = [
 >
   <div
     id="command-palette-card"
-    class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[80vh] transition-all transform duration-200"
+    class="relative w-full max-w-xl bg-white border border-slate-200/90 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[80vh] transition-all transform duration-200"
   >
     <!-- Search Input Header -->
-    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-slate-200/90 bg-slate-50/70">
       <Icon name="bx:search" class="w-5 h-5 text-slate-400 shrink-0" />
       <input
         type="text"
         id="command-palette-input"
         placeholder="Escriu una comanda o busca una pàgina... (Ex: 'blog', 'projectes', 'email')"
-        class="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none font-sans"
+        class="w-full bg-transparent text-sm sm:text-base text-slate-900 placeholder-slate-400 outline-none font-sans"
         autocomplete="off"
         spellcheck="false"
       />
-      <kbd class="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-500 bg-slate-200/70 dark:bg-slate-800 dark:text-slate-400 rounded border border-slate-300 dark:border-slate-700 select-none">
+      <kbd class="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-500 bg-slate-200/70 rounded border border-slate-300 select-none">
         ESC
       </kbd>
     </div>
 
     <!-- Live Toast / Notification banner inside palette -->
-    <div id="palette-toast" class="hidden px-4 py-2 bg-emerald-50 dark:bg-emerald-950/60 border-b border-emerald-200 dark:border-emerald-800 text-xs font-mono text-emerald-700 dark:text-emerald-300 flex items-center justify-between">
+    <div id="palette-toast" class="hidden px-4 py-2 bg-emerald-50 border-b border-emerald-200 text-xs font-mono text-emerald-700 flex items-center justify-between">
       <span id="palette-toast-text" class="flex items-center gap-1.5">
         <Icon name="bx:check" class="w-4 h-4 text-emerald-500" />
         <span>Correu copiat al portapapers!</span>
       </span>
-      <span class="text-[10px] text-emerald-500">Fet</span>
+      <span class="text-[10px] text-emerald-600 font-bold">Fet</span>
     </div>
 
     <!-- Commands List -->
-    <div id="command-palette-list" class="flex-1 overflow-y-auto p-2 divide-y divide-slate-100 dark:divide-slate-800/50 space-y-1">
+    <div id="command-palette-list" class="flex-1 overflow-y-auto p-2 divide-y divide-slate-100 space-y-1">
       {commands.map((cmd, idx) => (
         <button
           type="button"
-          class="command-item group w-full text-left flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800/80 focus:bg-indigo-50 dark:focus:bg-slate-800/80 transition-colors text-slate-700 dark:text-slate-200 focus:outline-none"
+          class="command-item group w-full text-left flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl hover:bg-indigo-50 focus:bg-indigo-50 transition-colors text-slate-700 focus:outline-none"
           data-id={cmd.id}
           data-title={cmd.title.toLowerCase()}
           data-category={cmd.category.toLowerCase()}
@@ -94,14 +94,14 @@ const commands: Command[] = [
           data-index={idx}
         >
           <div class="flex items-center gap-3 min-w-0">
-            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 group-hover:bg-white dark:group-hover:bg-slate-700 transition-colors shrink-0">
+            <div class="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-600 group-hover:text-indigo-600 group-hover:bg-white transition-colors shrink-0">
               <Icon name={cmd.icon} class="w-4 h-4" />
             </div>
             <div class="truncate">
-              <div class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              <div class="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors">
                 {cmd.title}
               </div>
-              <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              <div class="text-[11px] text-slate-500 truncate">
                 {cmd.subtitle}
               </div>
             </div>
@@ -109,7 +109,7 @@ const commands: Command[] = [
 
           <div class="flex items-center gap-2 shrink-0">
             {cmd.badge && (
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200/60 dark:border-slate-700">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200/60">
                 {cmd.badge}
               </span>
             )}
@@ -119,22 +119,22 @@ const commands: Command[] = [
           </div>
         </button>
       ))}
-      <div id="command-no-results" class="hidden p-8 text-center text-slate-400 text-xs font-mono">
+      <div id="command-no-results" class="hidden p-8 text-center text-slate-500 text-xs font-mono">
         <Icon name="bx:error-circle" class="w-8 h-8 mx-auto mb-2 text-slate-400" />
         No s'han trobat accions que coincideixin amb la cerca.
       </div>
     </div>
 
     <!-- Footer with keyboard shortcuts -->
-    <div class="px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400 select-none">
+    <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-200/90 flex items-center justify-between text-[11px] font-mono text-slate-500 select-none">
       <div class="flex items-center gap-3">
         <span class="flex items-center gap-1">
-          <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-[9px]">↑</kbd>
-          <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-[9px]">↓</kbd>
+          <kbd class="px-1.5 py-0.5 bg-white rounded border border-slate-300 text-[9px]">↑</kbd>
+          <kbd class="px-1.5 py-0.5 bg-white rounded border border-slate-300 text-[9px]">↓</kbd>
           <span>Navegar</span>
         </span>
         <span class="flex items-center gap-1">
-          <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-[9px]">↵</kbd>
+          <kbd class="px-1.5 py-0.5 bg-white rounded border border-slate-300 text-[9px]">↵</kbd>
           <span>Executar</span>
         </span>
       </div>
@@ -174,10 +174,10 @@ const commands: Command[] = [
     function highlightItem(index) {
       visibleItems.forEach((item, idx) => {
         if (idx === index) {
-          item.classList.add("bg-indigo-50", "dark:bg-slate-800/90", "ring-1", "ring-indigo-500/50");
+          item.classList.add("bg-indigo-50", "ring-1", "ring-indigo-500/50");
           item.scrollIntoView({ block: "nearest" });
         } else {
-          item.classList.remove("bg-indigo-50", "dark:bg-slate-800/90", "ring-1", "ring-indigo-500/50");
+          item.classList.remove("bg-indigo-50", "ring-1", "ring-indigo-500/50");
         }
       });
       selectedIndex = index;

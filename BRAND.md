@@ -93,3 +93,4 @@ Els memojis de Jaume Tur aporten proximitat humana sense restar rigor tècnic. S
 * **Targeta Digital de Visita:** Disponible a [`/card`](https://jaumetur.es/card) amb codi QR vectorial i fitxer vCard descarregable (`jaume-tur.vcf`).
 * **Kit de Marca Públic:** Consultable i descarregable directament a [`/marca`](https://jaumetur.es/marca).
 * **Targeta Social OpenGraph:** [`public/og-home.svg`](public/og-home.svg) i versió rasteritzada d'alta definició a [`public/opengraph.jpg`](public/opengraph.jpg).
+

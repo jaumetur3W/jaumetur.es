@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import { Icon } from "astro-icon/components";
+
+// Fetch all project case studies
+const projects = await getCollection("projectes");
+projects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+---
+
+<Layout
+  title="Casos d'Estudi d'Enginyeria Frontend & Web Apps"
+  description="Arquitectures frontend en producció, solucions d'alt rendiment a 60 FPS, accessibilitat WCAG AA i pipelines CI/CD automatitzats per Jaume Tur a València."
+>
+  <Container>
+    <div class="mt-8 mb-4">
+      <Sectionhead>
+        <Fragment slot="title">Casos d'Estudi d'Enginyeria</Fragment>
+        <Fragment slot="desc">
+          Projectes reals desenvolupats des de la definició d'arquitectura fins a la producció contínua, amb mètriques verificables de rendiment i accessibilitat.
+        </Fragment>
+      </Sectionhead>
+    </div>
+
+    <!-- Honest Quality Assurance Banner -->
+    <div class="max-w-4xl mx-auto my-8 p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200/80 flex items-center justify-between flex-wrap gap-3 shadow-2xs">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+          <Icon name="bx:check-shield" class="w-4 h-4" />
+        </div>
+        <p class="text-xs font-mono text-slate-700">
+          <strong class="text-indigo-900 font-bold">Protocol d'Honestedat Tècnica:</strong> Cada afirmació està mesurada amb Lighthouse, DevTools o axe-core.
+        </p>
+      </div>
+      <a
+        href="/qualitat"
+        class="inline-flex items-center gap-1 text-xs font-mono font-bold text-indigo-700 hover:text-indigo-900 transition">
+        <span>Veure /qualitat</span>
+        <span>→</span>
+      </a>
+    </div>
+
+    <!-- Case Studies Bento Grid -->
+    <div class="max-w-5xl mx-auto mb-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+      {projects.map((project) => (
+        <article class="group bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:border-indigo-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden">
+          <div>
+            <!-- Device Mockup / Preview Image -->
+            <a href={`/projectes/${project.id}`} class="block aspect-[16/10] bg-slate-100 overflow-hidden relative border-b border-slate-100">
+              <img
+                src={project.data.image.src}
+                alt={project.data.image.alt}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute top-3 left-3 flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-slate-900/90 text-white backdrop-blur-xs shadow-md">
+                  {project.data.year}
+                </span>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500 text-white shadow-md">
+                  {project.data.statValue}
+                </span>
+              </div>
+            </a>
+
+            <!-- Case Study Meta & Summary -->
+            <div class="p-6 sm:p-7">
+              <div class="flex items-center gap-2 text-xs font-mono text-indigo-600 font-bold mb-2">
+                <Icon name={project.data.icon} class="w-4 h-4 text-indigo-600" />
+                <span>{project.data.role}</span>
+                <span class="text-slate-300">•</span>
+                <span class="text-slate-500">{project.data.client}</span>
+              </div>
+
+              <h2 class="text-2xl font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight mb-3">
+                <a href={`/projectes/${project.id}`}>
+                  {project.data.title}
+                </a>
+              </h2>
+
+              <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-6">
+                {project.data.subtitle}
+              </p>
+
+              <!-- Engineering Stack Pills -->
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                {project.data.stack.map((tech) => (
+                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Bar -->
+          <div class="px-6 sm:px-7 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-500">
+              Verificació: <strong class="text-slate-700">{project.data.verificationMethod.split('&')[0]}</strong>
+            </span>
+            <a
+              href={`/projectes/${project.id}`}
+              class="inline-flex items-center gap-1 font-bold text-indigo-600 hover:text-indigo-800 transition"
+            >
+              <span>Llegir cas complet</span>
+              <span>→</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Container>
+</Layout>
