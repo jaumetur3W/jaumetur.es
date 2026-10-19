@@ -1,0 +1,133 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import { Icon } from "astro-icon/components";
+
+const services = [
+  {
+    name: "Desenvolupament Frontend SPA",
+    badge: "Més Sol·licitat",
+    badgeColor: "bg-indigo-600 text-white",
+    cardTheme: "from-indigo-50/80 via-white to-purple-50/30 border-indigo-200/80 shadow-indigo-500/5",
+    btnTheme: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/20",
+    features: [
+      "Aplicacions completes amb Angular o React",
+      "Tipat estricte amb TypeScript",
+      "Disseny 100% responsive i modern",
+      "Accessibilitat WCAG AA garantida",
+      "Integració fluïda amb REST APIs",
+      "Arquitectura de components modular",
+    ],
+  },
+  {
+    name: "Optimització & Refactorització",
+    badge: "Rendiment",
+    badgeColor: "bg-emerald-600 text-white",
+    cardTheme: "from-emerald-50/80 via-white to-teal-50/30 border-emerald-200/80 shadow-emerald-500/5",
+    btnTheme: "bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-200 hover:border-slate-800 shadow-xs",
+    features: [
+      "Auditoria de rendiment (Core Web Vitals)",
+      "Objectiu 60 FPS i renderitzat fluid",
+      "Migració de JavaScript a TypeScript",
+      "Neteja d'arquitectura de codi",
+      "Millora de SEO tècnic i semàntica",
+      "Informe complet de millores",
+    ],
+  },
+  {
+    name: "Arquitectura CI/CD & DevOps",
+    badge: "Automatització",
+    badgeColor: "bg-sky-600 text-white",
+    cardTheme: "from-sky-50/80 via-white to-blue-50/30 border-sky-200/80 shadow-sky-500/5",
+    btnTheme: "bg-slate-900 hover:bg-slate-800 text-white shadow-md shadow-slate-900/10",
+    features: [
+      "Pipelines automatitzats amb GitHub Actions",
+      "Configuració de Linters i tests de validació",
+      "Desplegament continu a GitHub Pages / VPS",
+      "Arquitectura Trigger & Executor",
+      "Sense interrupcions de servei",
+      "Documentació de manteniment",
+    ],
+  },
+];
+---
+
+<Layout title="Serveis & Col·laboració">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Serveis & Col·laboració</Fragment>
+      <Fragment slot="desc">
+        Modalitats de treball per a projectes web, consultoria frontend i automatització de processos.
+      </Fragment>
+    </Sectionhead>
+
+    <div class="grid md:grid-cols-3 gap-6 mx-auto max-w-6xl mt-10">
+      {
+        services.map((s) => (
+          <div class={`bg-gradient-to-b ${s.cardTheme} rounded-3xl border p-6 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300`}>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-2xs ${s.badgeColor}`}>
+                  {s.badge}
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-4">
+                {s.name}
+              </h3>
+
+              <ul class="space-y-2.5 text-xs text-slate-700 pt-2 border-t border-slate-200/60">
+                {s.features.map((f) => (
+                  <li class="flex items-start gap-2">
+                    <Icon name="bx:bxs-check-circle" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-slate-200/60">
+              <a
+                href="/contact"
+                class={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition ${s.btnTheme}`}>
+                <span>Sol·licitar proposta</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Full-time / Career Callout Banner with Colors -->
+    <div class="mt-14 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white rounded-3xl p-8 max-w-4xl mx-auto border border-indigo-500/30 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 text-center sm:text-left">
+        <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-800">
+          ● INCORPORACIÓ DISPONIBLE
+        </span>
+        <h4 class="text-xl font-bold">
+          Busques un Desenvolupador Frontend per al teu equip?
+        </h4>
+        <p class="text-xs text-slate-300 max-w-lg">
+          Obert a posicions a jornada completa o col·laboracions de llarga durada en modalitat remota o híbrida des de València.
+        </p>
+      </div>
+
+      <div class="flex gap-3 shrink-0">
+        <a
+          href="/docs/CV_Jaume_tur.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition shadow-xs">
+          <Icon name="bx:bxs-cloud-download" class="w-4 h-4" />
+          CV PDF
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition shadow-sm">
+          Contactar
+        </a>
+      </div>
+    </div>
+  </Container>
+</Layout>

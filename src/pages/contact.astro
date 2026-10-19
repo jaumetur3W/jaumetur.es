@@ -1,0 +1,168 @@
+---
+import Contactform from "@/components/contactform.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Layout title="Contacte">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Contacte directe</Fragment>
+      <Fragment slot="desc">
+        Disponible per a ofertes de treball, projectes o col·laboracions tècniques.
+      </Fragment>
+    </Sectionhead>
+
+    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-10 items-start">
+      
+      <!-- Left Channels Column -->
+      <div>
+        
+        <!-- Header with Memoji 3.png (Large & Overlapping) -->
+        <div class="flex items-center gap-4 mb-6 bg-gradient-to-r from-indigo-50/80 via-purple-50/60 to-pink-50/50 p-4 pr-5 rounded-3xl border border-indigo-200/80 shadow-md relative overflow-visible group">
+          <div class="relative group shrink-0 -my-6 -ml-2 sm:-ml-4 z-20">
+            <div class="absolute inset-0 bg-indigo-500/25 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
+            <img
+              src="/memojis/3.png"
+              alt="Jaume Tur trucant"
+              class="relative w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.22)] group-hover:scale-105 transition-transform duration-300"
+              width="144"
+              height="144"
+            />
+          </div>
+          <div class="relative z-10">
+            <span class="inline-flex items-center gap-1.5 text-xs text-emerald-800 font-bold bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300 shadow-2xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Resposta &lt; 24h
+            </span>
+            <h2 class="font-extrabold text-xl text-slate-900 mt-1">
+              Parlem del teu projecte
+            </h2>
+            <p class="text-xs text-slate-600 mt-0.5">
+              Contacta directament o envia un missatge.
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          
+          <!-- Email box with 1-click copy -->
+          <div class="bg-gradient-to-r from-purple-50/60 to-indigo-50/40 border border-purple-200/80 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3 overflow-hidden">
+              <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-purple-500/20">
+                <Icon class="w-5 h-5" name="bx:bxs-envelope" />
+              </div>
+              <div class="truncate">
+                <span class="text-[10px] font-mono font-bold text-purple-700 block uppercase tracking-wider">
+                  Correu Directe
+                </span>
+                <a
+                  href="mailto:jautursis@alu.edu.gva.es"
+                  class="text-sm font-bold text-slate-800 hover:text-purple-700 transition truncate block">
+                  jautursis@alu.edu.gva.es
+                </a>
+              </div>
+            </div>
+            <button
+              id="copy-email-btn"
+              type="button"
+              class="shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-white hover:bg-purple-100 border border-purple-200 text-purple-700 transition shadow-2xs"
+              title="Copiar correu">
+              Copiar
+            </button>
+          </div>
+
+          <!-- GitHub -->
+          <a
+            href="https://github.com/jautur"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-white border border-slate-200 hover:border-slate-800 rounded-2xl p-4 flex items-center justify-between transition group shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <Icon class="w-5 h-5" name="bx:bxl-github" />
+              </div>
+              <div>
+                <span class="text-[10px] font-mono font-bold text-slate-500 block uppercase tracking-wider">
+                  Perfil de GitHub
+                </span>
+                <span class="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                  github.com/jautur
+                </span>
+              </div>
+            </div>
+            <span class="text-slate-400 group-hover:text-slate-900 text-sm font-bold">↗</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a
+            href="https://www.linkedin.com/in/jautur/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-blue-50/50 border border-blue-200/80 hover:border-blue-400 rounded-2xl p-4 flex items-center justify-between transition group shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#0A66C2] text-white flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/20">
+                <Icon class="w-5 h-5" name="bx:bxl-linkedin" />
+              </div>
+              <div>
+                <span class="text-[10px] font-mono font-bold text-blue-600 block uppercase tracking-wider">
+                  Perfil de LinkedIn
+                </span>
+                <span class="text-sm font-bold text-slate-900 group-hover:text-[#0A66C2] transition-colors">
+                  linkedin.com/in/jautur
+                </span>
+              </div>
+            </div>
+            <span class="text-blue-500 group-hover:text-blue-700 text-sm font-bold">↗</span>
+          </a>
+
+          <!-- Location -->
+          <div class="bg-emerald-50/50 border border-emerald-200/80 rounded-2xl p-4 flex items-center gap-3 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/20">
+              <Icon class="w-5 h-5" name="uil:map-marker" />
+            </div>
+            <div>
+              <span class="text-[10px] font-mono font-bold text-emerald-700 block uppercase tracking-wider">
+                Ubicació
+              </span>
+              <span class="text-sm font-bold text-slate-800">
+                València, Espanya (Híbrid / Remot)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact form column -->
+      <div class="bg-gradient-to-b from-slate-50 via-white to-indigo-50/20 rounded-3xl border border-indigo-100 p-6 sm:p-8 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-extrabold text-lg text-slate-900">Enviar missatge</h3>
+          <span class="text-[11px] font-mono font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200">
+            Formulari directe
+          </span>
+        </div>
+        <Contactform />
+      </div>
+
+    </div>
+  </Container>
+</Layout>
+
+<script is:inline>
+  const copyBtn = document.getElementById("copy-email-btn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("jautursis@alu.edu.gva.es").then(() => {
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = "¡Copiat! ✓";
+        copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-800 transition shadow-2xs";
+        setTimeout(() => {
+          copyBtn.innerText = originalText;
+          copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-white hover:bg-purple-100 border border-purple-200 text-purple-700 transition shadow-2xs";
+        }, 2000);
+      });
+    });
+  }
+</script>

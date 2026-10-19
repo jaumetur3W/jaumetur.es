@@ -1,0 +1,190 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import { Icon } from "astro-icon/components";
+
+const pillars = [
+  {
+    title: "Frontend Modern",
+    icon: "bx:bxs-window-alt",
+    theme: "from-indigo-50/80 to-purple-50/30 border-indigo-200/80 text-indigo-600",
+    iconBg: "bg-indigo-600 text-white",
+    points: ["Components modulars amb Angular", "Tipat segur amb TypeScript", "Maquetació responsive i semàntica"],
+  },
+  {
+    title: "Qualitat & Tipat",
+    icon: "bx:bxs-badge-check",
+    theme: "from-emerald-50/80 to-teal-50/30 border-emerald-200/80 text-emerald-600",
+    iconBg: "bg-emerald-600 text-white",
+    points: ["Sense errors en temps d'execució", "Compliment estricte WCAG AA", "Objectiu fluid a 60 FPS"],
+  },
+  {
+    title: "CI/CD & DevOps",
+    icon: "bx:bxs-bot",
+    theme: "from-sky-50/80 to-blue-50/30 border-sky-200/80 text-sky-600",
+    iconBg: "bg-sky-600 text-white",
+    points: ["Pipelines a GitHub Actions", "Linters i proves automàtiques", "Desplegaments continus i segurs"],
+  },
+];
+
+const highlights = [
+  { label: "ESTUDIS", val: "CFGS Desenvolupament Web (DAW)", color: "border-indigo-200 bg-indigo-50/50 text-indigo-900" },
+  { label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-purple-200 bg-purple-50/50 text-purple-900" },
+  { label: "ESPECIALITAT", val: "Arquitectura Frontend SPA", color: "border-sky-200 bg-sky-50/50 text-sky-900" },
+  { label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50/50 text-emerald-900" },
+];
+---
+
+<Layout title="Sobre mi">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Sobre mi</Fragment>
+      <Fragment slot="desc">Trajectòria, principis d'enginyeria i enfocament professional.</Fragment>
+    </Sectionhead>
+
+    <!-- Main Profile Card with Memoji 1.png (Large & Overlapping) -->
+    <div class="mt-14 bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/40 rounded-3xl border border-indigo-200/70 p-6 sm:p-10 shadow-sm relative pt-12 sm:pt-14">
+      
+      <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+        
+        <!-- Memoji 1.png - Large, breaking out of top edge and overlapping -->
+        <div class="shrink-0 flex flex-col items-center -mt-16 sm:-mt-24 relative z-20 group">
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 via-purple-500/30 to-pink-500/25 rounded-full blur-2xl group-hover:scale-110 transition-transform"></div>
+            
+            <img
+              src="/memojis/1.png"
+              alt="Jaume Tur somrient"
+              class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.22)] group-hover:scale-105 transition-transform duration-300"
+              width="288"
+              height="288"
+            />
+          </div>
+
+          <span class="relative -mt-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Disponible per a projectes
+          </span>
+        </div>
+
+        <div class="flex-1 text-left">
+          <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-100/60 px-2.5 py-0.5 rounded-md mb-2">
+            Desenvolupador Web · Frontend
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Jaume Tur
+          </h2>
+
+          <p class="text-base text-slate-600 mt-3 leading-relaxed">
+            Passió pel desenvolupament frontend estructurat, les interfícies intuïtives i l'automatització. Compromès amb el codi net, la maquetació semàntica i els processos fiables d'entrega de programari.
+          </p>
+
+          <!-- Visual highlights pills -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+            {highlights.map((h) => (
+              <div class={`p-3 rounded-xl border ${h.color} shadow-2xs`}>
+                <span class="block text-[10px] font-mono font-bold uppercase tracking-wider opacity-70">
+                  {h.label}
+                </span>
+                <span class="font-bold text-sm mt-0.5 block">
+                  {h.val}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Quick action buttons -->
+          <div class="flex flex-wrap items-center gap-3 mt-6 pt-6 border-t border-slate-200/70">
+            <a
+              href="/docs/CV_Jaume_tur.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
+              <Icon name="bx:bxs-cloud-download" class="w-4 h-4" />
+              Descarregar CV Complet (PDF) ↗
+            </a>
+            <a
+              href="/contact"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border-2 border-slate-300 font-bold text-xs text-slate-800 hover:border-slate-800 transition shadow-2xs">
+              Contactar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Pillars Section (Visual, concise, colored) -->
+    <div class="mt-14">
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="text-xs font-mono uppercase tracking-wider text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
+          Principis d'Enginyeria
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2">
+          Com enfoques cada projecte
+        </h3>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {
+          pillars.map((pillar) => (
+            <div class={`bg-gradient-to-b ${pillar.theme} rounded-2xl border p-6 shadow-xs flex flex-col justify-between`}>
+              <div>
+                <div class={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-md ${pillar.iconBg}`}>
+                  <Icon name={pillar.icon} class="w-6 h-6 text-white" />
+                </div>
+                <h4 class="text-lg font-bold text-slate-900 mb-3">
+                  {pillar.title}
+                </h4>
+                <ul class="space-y-2 text-xs text-slate-600">
+                  {pillar.points.map((pt) => (
+                    <li class="flex items-start gap-2">
+                      <Icon name="bx:bxs-check-circle" class="w-4 h-4 shrink-0 text-emerald-600 mt-0.5" />
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Technical Architecture Visual Card with Memoji 7.png (Large & Overlapping bottom) -->
+    <div class="mt-14 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white rounded-3xl p-6 sm:p-10 border border-indigo-500/30 shadow-xl relative overflow-visible">
+      <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
+        <div class="space-y-3 max-w-xl">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+            Arquitectura de Software
+          </span>
+          <h3 class="text-2xl font-bold tracking-tight text-white">
+            Patró Disparador & Executor (Trigger / Executor)
+          </h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Desenvolupament orientat a esdeveniments: disparadors autònoms (webhooks, git push) que transmeten càrregues JSON a executors de validació, linters i desplegament automàtic sense fallades humanes.
+          </p>
+        </div>
+
+        <!-- Memoji 7.png Overlapping -->
+        <div class="shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 relative z-20 group">
+          <div class="relative">
+            <div class="absolute inset-0 bg-purple-500/30 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
+            <img
+              src="/memojis/7.png"
+              alt="Jaume Tur programant"
+              class="relative w-44 h-44 sm:w-52 sm:h-52 object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
+              width="208"
+              height="208"
+            />
+          </div>
+          <span class="relative -mt-3 text-xs font-mono text-indigo-200 font-bold bg-slate-900 border border-indigo-500/40 px-3 py-0.5 rounded-full shadow-lg">
+            Codi fiable & CI/CD
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </Container>
+</Layout>

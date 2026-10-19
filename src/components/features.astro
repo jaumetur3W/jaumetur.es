@@ -1,0 +1,143 @@
+---
+import { Icon } from "astro-icon/components";
+
+const skillCategories = [
+  {
+    title: "Frontend & UI",
+    icon: "bx:bxs-window-alt",
+    iconBg: "bg-indigo-600 text-white shadow-indigo-500/30",
+    theme: "from-indigo-50/70 via-white to-purple-50/40 border-indigo-200/80",
+    pillBg: "bg-indigo-50 text-indigo-700 border-indigo-200/60",
+    skills: ["Angular", "TypeScript", "HTML5 Semàntic", "CSS3 / Grid / Flex", "Components UI", "Responsive Design"],
+  },
+  {
+    title: "Backend & APIs",
+    icon: "bx:bxs-data",
+    iconBg: "bg-emerald-600 text-white shadow-emerald-500/30",
+    theme: "from-emerald-50/70 via-white to-teal-50/40 border-emerald-200/80",
+    pillBg: "bg-emerald-50 text-emerald-700 border-emerald-200/60",
+    skills: ["Node.js", "RESTful APIs", "JSON Payloads", "Trigger / Executor", "Clean Architecture"],
+  },
+  {
+    title: "DevOps & CI/CD",
+    icon: "bx:bxs-bot",
+    iconBg: "bg-sky-600 text-white shadow-sky-500/30",
+    theme: "from-sky-50/70 via-white to-blue-50/40 border-sky-200/80",
+    pillBg: "bg-sky-50 text-sky-700 border-sky-200/60",
+    skills: ["GitHub Actions", "Pipelines CI/CD", "Git & GitHub", "Linux Shell / Bash", "npm Tooling"],
+  },
+  {
+    title: "Qualitat & Rendiment",
+    icon: "bx:bxs-badge-check",
+    iconBg: "bg-amber-600 text-white shadow-amber-500/30",
+    theme: "from-amber-50/70 via-white to-orange-50/40 border-amber-200/80",
+    pillBg: "bg-amber-50 text-amber-800 border-amber-200/60",
+    skills: ["WCAG AA Accessibilitat", "60 FPS Rendiment", "Tipat Estricte", "html-validate Linters", "SEO Tècnic"],
+  },
+];
+
+const flowSteps = [
+  { step: "01", label: "Disparador", detail: "Git Push / Webhook", color: "bg-indigo-500/20 text-indigo-300 border-indigo-500/40" },
+  { step: "02", label: "Dades", detail: "JSON Payload estructurat", color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40" },
+  { step: "03", label: "Executor", detail: "Linters & Build CI/CD", color: "bg-purple-500/20 text-purple-300 border-purple-500/40" },
+  { step: "04", label: "Publicació", detail: "Producció 60 FPS ⚡", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
+];
+---
+
+<section id="skills" class="pt-20 pb-10 scroll-mt-12">
+  
+  <!-- Section Title with Memoji (5.png Lightbulb) -->
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200/80 mb-3 shadow-2xs">
+        <Icon name="bx:bxs-badge-check" class="w-3.5 h-3.5 text-amber-600" />
+        <span>Stack & Solucions</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+        Habilitats tècniques & <span class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 bg-clip-text text-transparent">Arquitectura</span>
+      </h2>
+    </div>
+
+    <!-- Guiding thread Memoji: 5.png (Much larger, breaking out and overlapping) -->
+    <div class="relative group self-center sm:self-auto -mb-6 sm:-mb-10 z-20">
+      <div class="absolute inset-0 bg-amber-400/25 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
+      
+      <div class="relative flex items-center gap-3 bg-gradient-to-r from-amber-50/90 via-yellow-50/90 to-orange-50/90 border border-amber-200/80 rounded-3xl p-3 pr-5 shadow-lg group-hover:-translate-y-1 transition-transform">
+        <div class="relative w-24 h-24 sm:w-32 sm:h-32 -my-6 sm:-my-8 -ml-3 flex items-center justify-center">
+          <img
+            src="/memojis/5.png"
+            alt="Jaume amb bombeta d'idees"
+            class="w-full h-full object-contain drop-shadow-[0_12px_20px_rgba(245,158,11,0.25)] group-hover:scale-110 transition-transform"
+            width="128"
+            height="128"
+          />
+        </div>
+        <div class="text-xs">
+          <span class="font-extrabold text-slate-900 block text-sm">Arquitectura & Idees</span>
+          <span class="text-amber-700 font-mono text-[11px] font-bold">Trigger / Executor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Architecture Flowchart Diagram (Overlapped by the memoji above) -->
+  <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-6 sm:p-8 rounded-3xl border border-indigo-900/60 shadow-xl mb-10 overflow-hidden relative z-10">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+      <div>
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">
+          Patró d'Enginyeria
+        </span>
+        <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-0.5">
+          Arquitectura: Disparador & Executor (Trigger / Executor)
+        </h3>
+      </div>
+      <span class="text-xs font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800 px-3 py-1 rounded-full font-bold">
+        EVENT-DRIVEN FLOW
+      </span>
+    </div>
+
+    <!-- Visual 4-step diagram pipeline -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {flowSteps.map((f, i) => (
+        <div class={`p-4 rounded-xl border ${f.color} relative backdrop-blur-xs`}>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono font-bold uppercase opacity-80">{f.label}</span>
+            <span class="text-xs font-mono font-extrabold opacity-60">{f.step}</span>
+          </div>
+          <p class="font-bold text-sm text-white">{f.detail}</p>
+          {i < flowSteps.length - 1 && (
+            <span class="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-slate-400 font-mono text-sm">
+              ➔
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- 4 Skills Cards Grid -->
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    {
+      skillCategories.map((cat) => (
+        <div class={`bg-gradient-to-b ${cat.theme} rounded-2xl border p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between`}>
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class={`w-10 h-10 rounded-xl flex items-center justify-center shadow-md ${cat.iconBg}`}>
+                <Icon class="w-5 h-5 text-white" name={cat.icon} />
+              </div>
+              <h3 class="font-bold text-base text-slate-900">{cat.title}</h3>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200/50">
+            {cat.skills.map((skill) => (
+              <span class={`text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md border ${cat.pillBg}`}>
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
