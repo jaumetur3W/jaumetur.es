@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="jt-grad-indigo-dark" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#312E81" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+  </defs>
+
+  <!-- High contrast dark glyph for light surfaces -->
+  <path
+    d="M26 34C26 30.6863 28.6863 28 32 28H88C91.3137 28 94 30.6863 94 34V40C94 43.3137 91.3137 46 88 46H68V78C68 83.5228 63.5228 88 58 88C52.4772 88 48 83.5228 48 78V58C48 55.7909 46.2091 54 44 54C41.7909 54 40 55.7909 40 58V78C40 87.9411 48.0589 96 58 96C67.9411 96 76 87.9411 76 78V46H88C91.3137 46 94 43.3137 94 40"
+    fill="url(#jt-grad-indigo-dark)"
+  />
+  <circle cx="86" cy="74" r="5" fill="#0284C7" />
+</svg>

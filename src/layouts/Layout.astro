@@ -25,7 +25,7 @@ export interface Props {
 const {
   title,
   description = "Portfolio professional i blog tècnic de Jaume Tur, desenvolupador Frontend & Web Apps a València. Especialista en Angular, TypeScript, alt rendiment (60 FPS), accessibilitat WCAG AA i automatització CI/CD.",
-  image = "/jt-logo-dark.png",
+  image = "/opengraph.jpg",
   publishDate,
   author = "Jaume Tur",
   tags = [],
@@ -54,7 +54,7 @@ const personSchema = {
   "familyName": "Tur",
   "jobTitle": "Desenvolupador Frontend & Web Apps",
   "url": siteUrl,
-  "image": `${siteUrl}/jt-logo-dark.png`,
+  "image": `${siteUrl}/jt-monogram.svg`,
   "sameAs": [
     "https://github.com/jautur",
     "https://www.linkedin.com/in/jautur/",
@@ -84,7 +84,7 @@ const localBusinessSchema = {
   "@id": `${siteUrl}/#service`,
   "name": "Jaume Tur — Desenvolupament Frontend Freelance València",
   "url": siteUrl,
-  "image": `${siteUrl}/jt-logo-dark.png`,
+  "image": `${siteUrl}/jt-monogram.svg`,
   "telephone": "+34-600-000-000",
   "priceRange": "€€",
   "address": {
@@ -139,7 +139,7 @@ const blogPostSchema = isBlogPost ? {
     "url": siteUrl,
     "logo": {
       "@type": "ImageObject",
-      "url": `${siteUrl}/jt-logo-dark.png`
+      "url": `${siteUrl}/jt-monogram.svg`
     }
   },
   "mainEntityOfPage": {
@@ -155,9 +155,11 @@ const blogPostSchema = isBlogPost ? {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#4f46e5" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Astro View Transitions Router -->

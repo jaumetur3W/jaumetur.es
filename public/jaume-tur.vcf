@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Jaume Tur
+N:Tur;Jaume;;;
+TITLE:Desenvolupador Frontend & Web Apps
+ORG:Jaume Tur Engineering
+EMAIL;TYPE=INTERNET,WORK:jautursis@alu.edu.gva.es
+URL:https://jaumetur.es
+URL;TYPE=GitHub:https://github.com/jautur
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/jautur/
+ADR;TYPE=WORK:;;València;Comunitat Valenciana;;Espanya
+NOTE:Desenvolupador Frontend especialista en Angular, TypeScript, 60 FPS i CI/CD.
+END:VCARD

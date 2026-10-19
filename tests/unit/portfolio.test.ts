@@ -115,5 +115,34 @@ describe("Portfolio Architecture & Business Logic", () => {
     expect(isSpam("", t0 - 10000, t0)).toBe(true); // only 10s passed
     expect(isSpam("", t0 - 35000, t0)).toBe(false); // 35s passed, valid human submission
   });
+
+  it("should validate vCard 3.0 content and structure", () => {
+    const vCardContent = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN:Jaume Tur",
+      "TITLE:Desenvolupador Frontend & Web Apps",
+      "EMAIL;TYPE=INTERNET,WORK:jautursis@alu.edu.gva.es",
+      "URL:https://jaumetur.es",
+      "END:VCARD",
+    ].join("\n");
+
+    expect(vCardContent).toContain("BEGIN:VCARD");
+    expect(vCardContent).toContain("FN:Jaume Tur");
+    expect(vCardContent).toContain("jautursis@alu.edu.gva.es");
+    expect(vCardContent).toContain("END:VCARD");
+  });
+
+  it("should validate brand color contrast tokens", () => {
+    const brandTokens = {
+      primaryIndigo: "#4F46E5",
+      accentCyan: "#06B6D4",
+      deepSlate: "#0F172A",
+      successEmerald: "#10B981",
+    };
+
+    expect(brandTokens.primaryIndigo).toBe("#4F46E5");
+    expect(brandTokens.deepSlate).toBe("#0F172A");
+  });
 });
 

@@ -1,0 +1,161 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Layout
+  title="Targeta Digital de Visita | Jaume Tur"
+  description="Targeta de contacte digital de Jaume Tur, desenvolupador Frontend & Web Apps. Escaneja el codi QR o descarrega la vCard oficial directament al teu mòbil.">
+  <Container>
+    <div class="min-h-[calc(100vh-14rem)] flex items-center justify-center py-10 px-4">
+      
+      <!-- Targeta Digital Central (Format Wallet / Tech Pass) -->
+      <div class="w-full max-w-sm rounded-[2.5rem] bg-white border border-slate-200/90 shadow-[0_12px_40px_rgba(15,23,42,0.08)] overflow-hidden relative group">
+        
+        <!-- Fons de la Capçalera amb Gradient Brand -->
+        <div class="h-32 bg-gradient-to-tr from-indigo-700 via-indigo-600 to-sky-500 relative p-6 flex justify-between items-start">
+          <div class="flex items-center gap-2">
+            <img src="/jt-monogram.svg" alt="Monograma JT" class="w-8 h-8 rounded-lg shadow-sm" width="32" height="32" />
+            <span class="text-white text-xs font-mono font-bold tracking-wider uppercase">Pass Professional</span>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-white/20 text-white backdrop-blur-xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>DISPONIBLE</span>
+          </span>
+        </div>
+
+        <!-- Cos Principal de la Targeta -->
+        <div class="px-6 pb-8 pt-0 relative">
+          
+          <!-- Avatar Flotant amb Memoji 3.png -->
+          <div class="flex justify-between items-end -mt-14 mb-4">
+            <div class="relative">
+              <div class="w-24 h-24 rounded-3xl bg-white p-1.5 shadow-lg border-2 border-white overflow-hidden flex items-center justify-center">
+                <img
+                  src="/memojis/3.png"
+                  alt="Jaume Tur"
+                  class="w-full h-full object-contain"
+                  width="96"
+                  height="96"
+                />
+              </div>
+            </div>
+            
+            <!-- Botó vCard Principal -->
+            <a
+              href="/jaume-tur.vcf"
+              download="jaume-tur.vcf"
+              id="card-download-vcf"
+              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-sm group/btn cursor-pointer">
+              <Icon name="bx:user-plus" class="w-4 h-4 text-emerald-400 group-hover/btn:scale-110 transition-transform" />
+              <span>Guardar Contacte</span>
+            </a>
+          </div>
+
+          <!-- Informació Professional -->
+          <div class="mb-6">
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">Jaume Tur</h1>
+            <p class="text-xs font-bold text-indigo-600 font-mono mt-0.5">Frontend &amp; Web Apps Engineer</p>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed flex items-center gap-1">
+              <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-slate-400" />
+              <span>València, Espanya (Remot &amp; Presencial)</span>
+            </p>
+          </div>
+
+          <!-- Píndoles de Stack Tècnic -->
+          <div class="flex flex-wrap gap-1.5 mb-6 text-[11px] font-mono font-bold">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700">Angular</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700">TypeScript</span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700">60 FPS</span>
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700">CI/CD</span>
+          </div>
+
+          <!-- Canals Directes de Comunicació -->
+          <div class="space-y-2.5 mb-6 text-xs">
+            <!-- WhatsApp -->
+            <a
+              href="https://wa.me/34600000000?text=Hola%20Jaume,%20he%20escanejat%20la%20teua%20targeta%20digital..."
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 text-emerald-900 font-bold flex items-center justify-between transition">
+              <div class="flex items-center gap-2.5">
+                <Icon name="bx:bxl-whatsapp" class="w-4 h-4 text-emerald-600" />
+                <span>Xat directe per WhatsApp</span>
+              </div>
+              <Icon name="bx:right-arrow-alt" class="w-4 h-4 text-emerald-600" />
+            </a>
+
+            <!-- Correu -->
+            <a
+              href="mailto:jautursis@alu.edu.gva.es?subject=Targeta%20Digital%20-%20Contacte"
+              class="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 text-slate-800 font-bold flex items-center justify-between transition group/mail">
+              <div class="flex items-center gap-2.5 truncate">
+                <Icon name="bx:envelope" class="w-4 h-4 text-indigo-600 shrink-0" />
+                <span class="truncate">jautursis@alu.edu.gva.es</span>
+              </div>
+              <Icon name="bx:right-arrow-alt" class="w-4 h-4 text-slate-400 group-hover/mail:text-indigo-600 shrink-0" />
+            </a>
+
+            <!-- Web Portfolio -->
+            <a
+              href="/"
+              class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold flex items-center justify-between transition">
+              <div class="flex items-center gap-2.5">
+                <Icon name="bx:globe" class="w-4 h-4 text-slate-600" />
+                <span>jaumetur.es (Portfolio Complet)</span>
+              </div>
+              <Icon name="bx:right-arrow-alt" class="w-4 h-4 text-slate-400" />
+            </a>
+          </div>
+
+          <!-- Xarxes Professionals Reals -->
+          <div class="grid grid-cols-2 gap-2 mb-6">
+            <a
+              href="https://github.com/jautur"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-2.5 rounded-xl border border-slate-200 flex items-center justify-center gap-2 font-bold text-xs text-slate-800 hover:bg-slate-50 transition">
+              <Icon name="bx:bxl-github" class="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/jautur/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-2.5 rounded-xl border border-slate-200 flex items-center justify-center gap-2 font-bold text-xs text-indigo-700 hover:bg-indigo-50 transition">
+              <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-indigo-600" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
+
+          <!-- Codi QR de la Targeta -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-center">
+            <span class="text-[10px] font-mono uppercase font-bold text-slate-400 block mb-2">
+              Escaneja per obrir al telèfon
+            </span>
+            <div class="w-32 h-32 mx-auto bg-white p-2 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center">
+              <img src="/qr-jaumetur.svg" alt="Codi QR cap a https://jaumetur.es/" class="w-full h-full" width="128" height="128" />
+            </div>
+            <span class="text-[11px] font-mono text-slate-500 font-bold mt-2 block">
+              jaumetur.es
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </Container>
+</Layout>
+
+<script is:inline>
+  const vcfBtn = document.getElementById("card-download-vcf");
+  if (vcfBtn) {
+    vcfBtn.addEventListener("click", () => {
+      if (typeof window.plausible === "function") {
+        window.plausible("vcard_download", { props: { location: "digital_card" } });
+      }
+    });
+  }
+</script>

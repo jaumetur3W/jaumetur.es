@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="jt-grad-indigo" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="jt-grad-surface" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect width="120" height="120" rx="32" fill="url(#jt-grad-surface)" />
+  <rect x="1" y="1" width="118" height="118" rx="31" stroke="#334155" stroke-width="2" stroke-opacity="0.6" />
+
+  <!-- Monogram Mark "J" and "T" Geometric Architecture -->
+  <!-- Top T-Bar -->
+  <path
+    d="M26 34C26 30.6863 28.6863 28 32 28H88C91.3137 28 94 30.6863 94 34V40C94 43.3137 91.3137 46 88 46H68V78C68 83.5228 63.5228 88 58 88C52.4772 88 48 83.5228 48 78V58C48 55.7909 46.2091 54 44 54C41.7909 54 40 55.7909 40 58V78C40 87.9411 48.0589 96 58 96C67.9411 96 76 87.9411 76 78V46H88C91.3137 46 94 43.3137 94 40"
+    fill="url(#jt-grad-indigo)"
+  />
+
+  <!-- Subtle Accent Dot / Coding Node -->
+  <circle cx="86" cy="74" r="5" fill="#06B6D4" />
+  <path d="M86 63V69M86 79V85" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" opacity="0.6" />
+</svg>

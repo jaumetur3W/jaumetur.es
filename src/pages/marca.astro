@@ -1,0 +1,342 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import { Icon } from "astro-icon/components";
+
+// Paleta de colors oficial
+const brandColors = [
+  {
+    name: "Índigo Primari",
+    role: "Identitat de marca, enllaços clau i focus d'atenció",
+    hex: "#4F46E5",
+    rgb: "79, 70, 229",
+    hsl: "243°, 75%, 59%",
+    contrast: "8.5:1 (WCAG AAA)",
+    textDark: false,
+    bgClass: "bg-[#4F46E5]",
+  },
+  {
+    name: "Cian Tecnològic",
+    role: "Nodes de dades, accents d'enginyeria i gradients",
+    hex: "#06B6D4",
+    rgb: "6, 182, 212",
+    hsl: "189°, 94%, 43%",
+    contrast: "4.7:1 (WCAG AA)",
+    textDark: true,
+    bgClass: "bg-[#06B6D4]",
+  },
+  {
+    name: "Pissarra Tech (Deep Slate)",
+    role: "Tipografia principal, superfícies de codi i terminals",
+    hex: "#0F172A",
+    rgb: "15, 23, 42",
+    hsl: "222°, 47%, 11%",
+    contrast: "16.1:1 (WCAG AAA)",
+    textDark: false,
+    bgClass: "bg-[#0F172A]",
+  },
+  {
+    name: "Verd Maragda (Success)",
+    role: "Estat en línia, fites verificades i tests superats",
+    hex: "#10B981",
+    rgb: "16, 185, 129",
+    hsl: "160°, 84%, 39%",
+    contrast: "4.6:1 (WCAG AA)",
+    textDark: true,
+    bgClass: "bg-[#10B981]",
+  },
+  {
+    name: "Superfície Suau (Slate-50)",
+    role: "Fons del lloc web en mode clar permanent",
+    hex: "#F8FAFC",
+    rgb: "248, 250, 252",
+    hsl: "210°, 40%, 98%",
+    contrast: "Base neutra",
+    textDark: true,
+    bgClass: "bg-[#F8FAFC] border border-slate-200",
+  },
+];
+
+// Matriu de Memojis contextuals
+const memojiGuide = [
+  {
+    pose: "Salutació & Benvinguda",
+    file: "3.png",
+    context: "Pàgina de contacte, missatgeria i targeta digital /card",
+    alt: "Memoji de Jaume Tur saludant amb la mà",
+    size: "112px - 144px",
+  },
+  {
+    pose: "Programador en Acció",
+    file: "2.png",
+    context: "Hero de projectes, secció d'habilitats i càrrega",
+    alt: "Memoji de Jaume Tur treballant amb el portàtil",
+    size: "128px - 180px",
+  },
+  {
+    pose: "Somriure de Perfil",
+    file: "4.png",
+    context: "Capçalera Hero principal sobre la targeta de codi",
+    alt: "Memoji de Jaume Tur somrient",
+    size: "160px - 320px",
+  },
+  {
+    pose: "Pàgina No Trobada (404)",
+    file: "404.png",
+    context: "Pàgina d'error 404 i continguts no localitzats",
+    alt: "Memoji de Jaume Tur cercant la pàgina desconcertat",
+    size: "128px",
+  },
+  {
+    pose: "Analista Tècnic & Docència",
+    file: "blog.png",
+    context: "Blog tècnic, articles d'enginyeria i documentació",
+    alt: "Memoji de Jaume Tur amb ulleres explicant un concepte",
+    size: "96px - 128px",
+  },
+  {
+    pose: "Aprovació & Fita Superada",
+    file: "success.png",
+    context: "Proves superades, subscripció i confirmació de formulari",
+    alt: "Memoji de Jaume Tur amb el polze amunt",
+    size: "96px - 128px",
+  },
+];
+---
+
+<Layout
+  title="Kit de Marca & Identitat Visual | Jaume Tur"
+  description="Guia d'identitat de marca oficial de Jaume Tur: monograma JT, logotip, paleta de colors WCAG AA, tipografies i sistema d'iconografia tècnica.">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Kit de Marca & Identitat Visual</Fragment>
+      <Fragment slot="desc">
+        Recursos gràfics oficials, logotips vectorials, paleta de color auditable i regles d'ús per a col·laboracions, premsa i comunicació tècnica.
+      </Fragment>
+    </Sectionhead>
+
+    <!-- 1. Monograma & Logotip Oficial -->
+    <section class="max-w-5xl mx-auto mt-10 mb-16" aria-labelledby="logo-heading">
+      <div class="flex items-center gap-2 mb-6">
+        <Icon name="bx:badge-check" class="w-6 h-6 text-indigo-600" />
+        <h2 id="logo-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
+          Monograma &amp; Logotip Oficial
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Monograma JT (Emblema) -->
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-8 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block mb-4">
+              Emblema Oficial (Squircle 1:1)
+            </span>
+            <div class="h-44 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center p-6 mb-6">
+              <img src="/jt-monogram.svg" alt="Monograma oficial JT" class="h-28 w-28 object-contain" width="112" height="112" />
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">Monograma "JT"</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Símbol geomètric que entrellaça les inicials "J" i "T" simulant una estructura modular de components i un node de connexió de dades.
+            </p>
+          </div>
+
+          <div class="pt-6 border-t border-slate-100 flex flex-wrap gap-2 mt-6">
+            <a
+              href="/jt-monogram.svg"
+              download="jt-monogram.svg"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-2xs">
+              <Icon name="bx:download" class="w-3.5 h-3.5" />
+              <span>Descarregar SVG</span>
+            </a>
+            <a
+              href="/icon-512.png"
+              download="jt-monogram-512.png"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 bg-white font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
+              <Icon name="bx:image" class="w-3.5 h-3.5" />
+              <span>PNG d'Alta Resolució (512px)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Logotip Horitzontal Complet -->
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-8 shadow-xs flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block mb-4">
+              Wordmark Horitzontal
+            </span>
+            <div class="h-44 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center p-6 mb-6">
+              <img src="/jt-logo.svg" alt="Logotip complet Jaume Tur" class="max-h-20 w-auto object-contain" />
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">Logotip Tipogràfic</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Combinació del monograma oficial amb la tipografia de marca i la menció d'especialitat tècnica ("Frontend & Web Apps").
+            </p>
+          </div>
+
+          <div class="pt-6 border-t border-slate-100 flex flex-wrap gap-2 mt-6">
+            <a
+              href="/jt-logo.svg"
+              download="jt-logo.svg"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-2xs">
+              <Icon name="bx:download" class="w-3.5 h-3.5" />
+              <span>Descarregar SVG Horitzontal</span>
+            </a>
+            <a
+              href="/favicon.svg"
+              download="favicon.svg"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 bg-white font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
+              <Icon name="bx:window" class="w-3.5 h-3.5" />
+              <span>Favicon Oficial</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Paleta de Colors Oficial & Contrast WCAG -->
+    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="colors-heading">
+      <div class="flex items-center gap-2 mb-6">
+        <Icon name="bx:palette" class="w-6 h-6 text-indigo-600" />
+        <h2 id="colors-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
+          Paleta Cromàtica Oficial &amp; Contrast
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {
+          brandColors.map((color) => (
+            <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-2xs group hover:border-indigo-300 transition-all">
+              <div class={`h-28 p-4 flex flex-col justify-end ${color.bgClass}`}>
+                <span class={`font-mono text-xs font-bold ${color.textDark ? 'text-slate-900' : 'text-white'}`}>
+                  {color.hex}
+                </span>
+              </div>
+              <div class="p-5 space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-bold text-slate-900 text-sm">{color.name}</h3>
+                  <span class="font-mono text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">
+                    {color.contrast}
+                  </span>
+                </div>
+                <p class="text-slate-500 leading-relaxed">{color.role}</p>
+                <div class="pt-2 border-t border-slate-100 font-mono text-[11px] text-slate-400 space-y-0.5">
+                  <div>RGB: {color.rgb}</div>
+                  <div>HSL: {color.hsl}</div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 3. Tipografia Oficial -->
+    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="typography-heading">
+      <div class="flex items-center gap-2 mb-6">
+        <Icon name="bx:font" class="w-6 h-6 text-indigo-600" />
+        <h2 id="typography-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
+          Sistema Tipogràfic
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs">
+          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block mb-2">
+            Tipografia de Titulars (Display)
+          </span>
+          <h3 class="text-2xl font-black text-slate-900 tracking-tight mb-2">
+            Bricolage Grotesque
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            Font variable de caràcter contemporani, proporcions humanistes i traços angulats que transmeten personalitat i rigor d'enginyeria.
+          </p>
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1 font-sans">
+            <div class="text-2xl font-extrabold text-slate-900">Aa Bb Cc Dd Ee Ff Gg</div>
+            <div class="text-xs text-slate-500">Ús: H1, H2, H3, titulars de secció i badges de gran impacte.</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs">
+          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block mb-2">
+            Tipografia de Lectura &amp; Codi
+          </span>
+          <h3 class="text-2xl font-bold text-slate-900 tracking-tight mb-2">
+            Inter &amp; JetBrains Mono
+          </h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            Inter per a cossos de text i paràgrafs d'alta densitat de lectura. Fonts monoespaiades del sistema per a mètriques, dades i codi.
+          </p>
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+            <div class="text-sm font-sans text-slate-800">Inter Variable — The quick brown fox jumps over the lazy dog.</div>
+            <div class="text-xs font-mono text-indigo-700">const developer = &#123; fps: 60, wcag: "AA" &#125;;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Sistema de Memojis Contextuals -->
+    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="memojis-heading">
+      <div class="flex items-center gap-2 mb-6">
+        <Icon name="bx:face" class="w-6 h-6 text-indigo-600" />
+        <h2 id="memojis-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
+          Kit de Memojis Contextuals
+        </h2>
+      </div>
+
+      <div class="overflow-x-auto bg-white rounded-3xl border border-slate-200/90 shadow-2xs">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono text-[11px] uppercase tracking-wider">
+            <tr>
+              <th class="py-3 px-5">Il·lustració</th>
+              <th class="py-3 px-5">Pose &amp; Significat</th>
+              <th class="py-3 px-5">Àmbit d'Ús</th>
+              <th class="py-3 px-5">Mida Recomanada</th>
+              <th class="py-3 px-5">Text Alternatiu (A11y)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {
+              memojiGuide.map((m) => (
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                  <td class="py-3 px-5">
+                    <img src={`/memojis/${m.file}`} alt={m.alt} class="w-12 h-12 object-contain" width="48" height="48" />
+                  </td>
+                  <td class="py-3 px-5 font-bold text-slate-900">{m.pose}</td>
+                  <td class="py-3 px-5 text-slate-600">{m.context}</td>
+                  <td class="py-3 px-5 font-mono text-indigo-600 font-bold">{m.size}</td>
+                  <td class="py-3 px-5 text-slate-500 italic">{m.alt}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. Regla d'Or d'Iconografia Estandarditzada -->
+    <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-slate-900 text-slate-100 border border-slate-800 shadow-xl">
+      <div class="flex items-center gap-3 mb-4">
+        <Icon name="bx:info-circle" class="w-6 h-6 text-indigo-400 shrink-0" />
+        <h3 class="text-lg font-bold">Regla d'Or: Iconografia Estandarditzada vs. Emojis</h3>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+        A tot el lloc web de <strong>jaumetur.es</strong> s'aplica una política estricta de <strong>zero emojis Unicode</strong> en elements d'interfície, botons, mètriques i navegació. La iconografia es resol exclusivament mitjançant vectors SVG estandarditzats procedents de <strong>Boxicons</strong> i <strong>Simple Icons</strong> per les següents raons tècniques:
+      </p>
+      <ul class="grid sm:grid-cols-3 gap-4 text-xs font-mono text-slate-400">
+        <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <strong class="text-white block mb-1">1. Consistència Cross-OS:</strong>
+          Els mateixos glifs a iOS, Android, macOS, Windows i Linux.
+        </li>
+        <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <strong class="text-white block mb-1">2. Control de Contrast WCAG:</strong>
+          Els colors dels vectors s'ajusten exactament per complir AA/AAA.
+        </li>
+        <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
+          <strong class="text-white block mb-1">3. Semàntica i Lector de Pantalla:</strong>
+          Suport natiu d'atributs `aria-hidden="true"` sense lectures molestes.
+        </li>
+      </ul>
+    </section>
+  </Container>
+</Layout>

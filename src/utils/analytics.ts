@@ -36,3 +36,4 @@ export function trackConversionEvent(
     // Fail silently to never interrupt user interaction
   }
 }
+

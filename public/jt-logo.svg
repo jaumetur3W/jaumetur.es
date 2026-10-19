@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" fill="none">
+  <defs>
+    <linearGradient id="logo-monogram-grad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="logo-bg-grad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Monogram Emblem -->
+  <g transform="translate(10, 10)">
+    <rect width="80" height="80" rx="22" fill="url(#logo-bg-grad)" />
+    <rect x="0.5" y="0.5" width="79" height="79" rx="21.5" stroke="#334155" stroke-opacity="0.6" />
+    
+    <path
+      d="M17 23C17 20.7909 18.7909 19 21 19H59C61.2091 19 63 20.7909 63 23V27C63 29.2091 61.2091 31 59 31H45V52C45 55.6792 42.0147 58.6645 38.3355 58.6645C34.6563 58.6645 31.671 55.6792 31.671 52V39C31.671 37.5272 30.4783 36.3345 29.0055 36.3345C27.5327 36.3345 26.34 37.5272 26.34 39V52C26.34 58.6274 31.7081 64 38.3355 64C44.9629 64 50.331 58.6274 50.331 52V31H59C61.2091 31 63 29.2091 63 27"
+      fill="url(#logo-monogram-grad)"
+    />
+    <circle cx="58" cy="49" r="3.5" fill="#06B6D4" />
+  </g>
+
+  <!-- Brand Typography -->
+  <g transform="translate(108, 22)">
+    <!-- Wordmark -->
+    <text x="0" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#0F172A" letter-spacing="-0.03em">
+      Jaume Tur
+    </text>
+    <!-- Subtitle / Discipline -->
+    <text x="0" y="52" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#4F46E5" letter-spacing="0.08em">
+      FRONTEND &amp; WEB APPS
+    </text>
+  </g>
+</svg>

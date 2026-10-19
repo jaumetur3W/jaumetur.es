@@ -91,5 +91,18 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.locator("text=Web App SPA amb Angular")).toBeVisible();
     await expect(page.locator("text=Preguntes freqüents")).toBeVisible();
   });
+
+  test("Brand kit page /marca displays official monogram and download links", async ({ page }) => {
+    await page.goto("/marca");
+    await expect(page.locator("h1, h2").filter({ hasText: "Monograma" })).toBeVisible();
+    await expect(page.locator('a[download="jt-monogram.svg"]')).toBeVisible();
+  });
+
+  test("Digital card page /card displays contact pass, QR code and vCard link", async ({ page }) => {
+    await page.goto("/card");
+    await expect(page.locator("h1")).toContainText("Jaume Tur");
+    await expect(page.locator("#card-download-vcf")).toBeVisible();
+    await expect(page.locator('img[src="/qr-jaumetur.svg"]')).toBeVisible();
+  });
 });
 
