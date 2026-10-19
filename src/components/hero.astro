@@ -4,30 +4,30 @@ import { Icon } from "astro-icon/components";
 import ThreeHero from "@/components/three-hero.astro";
 
 const metrics = [
-  { value: "60 FPS", label: "Renderitzat fluid", color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
-  { value: "WCAG AA", label: "Accessibilitat", color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
-  { value: "CI/CD", label: "Desplegaments automàtics", color: "text-sky-600 bg-sky-50 border-sky-200" },
-  { value: "TypeScript", label: "Tipat estricte", color: "text-blue-600 bg-blue-50 border-blue-200" },
+  { value: "60 FPS", label: "Renderitzat fluid", color: "text-emerald-700 bg-emerald-50 border-emerald-200/80" },
+  { value: "WCAG AA", label: "Accessibilitat", color: "text-indigo-700 bg-indigo-50 border-indigo-200/80" },
+  { value: "CI/CD", label: "Desplegaments continus", color: "text-sky-700 bg-sky-50 border-sky-200/80" },
+  { value: "TypeScript", label: "Tipat estricte", color: "text-slate-800 bg-slate-100 border-slate-200/80" },
 ];
 ---
 
 <main
   id="hero"
-  class="relative pt-6 pb-12 md:pt-12 md:pb-20 overflow-hidden">
+  class="relative pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden">
   
   <!-- Interactive Three.js 3D Particle & Constellation Background -->
   <ThreeHero />
 
-  <!-- Subtle ambient gradient background glow -->
-  <div class="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-indigo-200/40 via-purple-200/30 to-pink-200/20 rounded-full blur-3xl pointer-events-none -z-20"></div>
-  <div class="absolute top-1/2 -left-24 w-72 h-72 bg-gradient-to-tr from-sky-200/30 via-emerald-200/20 to-transparent rounded-full blur-3xl pointer-events-none -z-20"></div>
+  <!-- Subtle ambient indigo glow (soft and technical, non-distracting) -->
+  <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none -z-20"></div>
+  <div class="absolute top-1/2 -left-24 w-72 h-72 bg-slate-200/30 rounded-full blur-3xl pointer-events-none -z-20"></div>
 
   <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
     
     <!-- Left text column -->
     <div class="lg:col-span-7">
       <!-- Status pill with glowing green dot -->
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-xs mb-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs mb-6">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -37,35 +37,35 @@ const metrics = [
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
         Desenvolupament <br class="hidden sm:inline" />
-        <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <span class="bg-gradient-to-r from-indigo-600 to-indigo-800 bg-clip-text text-transparent">
           Frontend
         </span>{" "}
         & Web Apps
       </h1>
       
       <p class="text-base sm:text-lg mt-5 text-slate-600 max-w-xl leading-relaxed">
-        Hola, sóc <strong class="text-slate-900 font-bold">Jaume Tur</strong>. Construïsc interfícies web modernes, components modulars amb <strong>Angular</strong> i fluxos de desplegament continu.
+        Hola, sóc <strong class="text-slate-900 font-bold">Jaume Tur</strong>. Desenvolupador web especialitzat en arquitectures modulars amb <strong>Angular</strong>, rendiment 60 FPS i fluxos automatitzats de CI/CD.
       </p>
 
-      <!-- Visual Metric Pills (More visual, less text!) -->
+      <!-- Visual Metric Pills (Clean, coherent 8px grid) -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-xl">
         {metrics.map((m) => (
-          <div class={`p-2.5 rounded-xl border ${m.color} flex flex-col`}>
+          <div class={`p-3 rounded-2xl border ${m.color} flex flex-col justify-between shadow-2xs`}>
             <span class="font-extrabold text-sm sm:text-base font-mono leading-none">
               {m.value}
             </span>
-            <span class="text-[11px] text-slate-600 font-medium mt-1 leading-tight">
+            <span class="text-[11px] text-slate-600 font-medium mt-1.5 leading-tight">
               {m.label}
             </span>
           </div>
         ))}
       </div>
 
-      <!-- Action buttons (Clean, grounded buttons balancing the colorful background) -->
+      <!-- Action buttons (High contrast hierarchy) -->
       <div class="mt-8 flex flex-wrap gap-3 items-center">
         <Link
           href="#projectes"
-          class="flex gap-2 items-center justify-center font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-md shadow-slate-900/15 border-0 rounded-xl transition">
+          class="flex gap-2 items-center justify-center font-bold px-5 py-2.5 bg-slate-900 hover:bg-indigo-600 text-white shadow-sm shadow-slate-900/15 border-0 rounded-xl transition">
           <Icon class="text-white w-4 h-4" name="bx:bxs-rocket" />
           Veure projectes
         </Link>
@@ -74,7 +74,7 @@ const metrics = [
           href="/docs/CV_Jaume_tur.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-slate-800 bg-white border border-slate-300 hover:border-slate-800 hover:bg-slate-50 transition shadow-2xs">
+          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-slate-800 bg-white border border-slate-200/90 hover:border-slate-800 hover:bg-slate-50 transition shadow-2xs">
           <Icon class="text-slate-600 w-4 h-4" name="bx:bxs-cloud-download" />
           Descarregar CV ↗
         </a>
@@ -83,7 +83,7 @@ const metrics = [
           href="https://github.com/jautur"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-sm text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition"
+          class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 transition border border-slate-200/90 shadow-2xs"
           title="GitHub de Jaume Tur">
           <Icon class="text-slate-900 w-4 h-4" name="bx:bxl-github" />
           GitHub
@@ -93,48 +93,48 @@ const metrics = [
           href="https://www.linkedin.com/in/jautur/"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-sm text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 transition border border-blue-200/60"
+          class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition border border-indigo-200/80 shadow-2xs"
           title="LinkedIn de Jaume Tur">
-          <Icon class="text-blue-600 w-4 h-4" name="bx:bxl-linkedin" />
+          <Icon class="text-indigo-600 w-4 h-4" name="bx:bxl-linkedin" />
           LinkedIn
         </a>
       </div>
     </div>
 
-    <!-- Right visual column: Large Overlapping Memoji (fil conductor) + Terminal snippet -->
+    <!-- Right visual column: Natural Memoji Integration + Terminal Card -->
     <div class="lg:col-span-5 flex flex-col items-center relative pt-8 sm:pt-4">
       
-      <!-- Big Overlapping Memoji (Transparent PNG breaking out and overlapping the card below) -->
+      <!-- Big Overlapping Memoji: Natural directional cue pointing into the profile -->
       <div class="relative z-20 -mb-12 sm:-mb-16 group cursor-pointer">
-        <!-- Colorful multi-stop gradient aura behind the memoji -->
-        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 via-purple-500/30 to-pink-500/25 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-300"></div>
+        <!-- Subtle soft indigo back-light (harmonizing 3D skin tone) -->
+        <div class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-300"></div>
         
         <img
           src="/memojis/4.png"
           alt="Jaume Tur saludant"
-          class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.22)] group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-300 pointer-events-auto"
+          class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.22)] group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-300 pointer-events-auto"
           loading="eager"
           width="320"
           height="320"
         />
 
-        <!-- Floating greeting badge next to the waving hand -->
-        <div class="absolute top-6 right-2 sm:right-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white text-xs font-mono font-bold px-3.5 py-1.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1.5 ring-2 ring-white animate-bounce">
+        <!-- Floating greeting pill -->
+        <div class="absolute top-6 right-2 sm:right-4 bg-slate-900 text-white text-xs font-mono font-bold px-3.5 py-1.5 rounded-full shadow-lg whitespace-nowrap flex items-center gap-1.5 ring-2 ring-white">
           <span>Hola!</span>
           <span>👋</span>
         </div>
       </div>
 
-      <!-- Developer Syntax Card (Layered underneath with z-10, overlapped by the memoji) -->
-      <div class="w-full bg-slate-950 text-slate-100 rounded-3xl shadow-2xl border border-slate-800/90 overflow-hidden font-mono text-xs relative z-10 pt-4 sm:pt-6">
-        <div class="bg-slate-900/95 px-5 py-3 flex items-center justify-between border-b border-slate-800">
+      <!-- Developer Syntax Card: Corporate Slate-950 Base (#090D16) -->
+      <div class="w-full bg-[#090D16] text-slate-100 rounded-3xl shadow-xl border border-slate-800/90 overflow-hidden font-mono text-xs relative z-10 pt-4 sm:pt-6">
+        <div class="bg-slate-900/90 px-5 py-3 flex items-center justify-between border-b border-slate-800/80">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
             <span class="text-slate-400 text-[11px] ml-2">// developer.profile</span>
           </div>
-          <span class="px-2.5 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded-full text-[10px] uppercase font-bold tracking-wider">
+          <span class="px-2.5 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800/80 rounded-full text-[10px] uppercase font-bold tracking-wider">
             ● ONLINE
           </span>
         </div>

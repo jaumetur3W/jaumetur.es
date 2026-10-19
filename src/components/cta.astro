@@ -3,14 +3,14 @@ import { Icon } from "astro-icon/components";
 ---
 
 <div
-  class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 p-8 sm:p-12 md:p-14 mt-16 mx-auto max-w-5xl rounded-3xl flex flex-col md:flex-row items-center justify-between text-left gap-8 border border-indigo-500/30 shadow-2xl relative overflow-hidden">
+  class="bg-[#090D16] p-8 sm:p-12 md:p-14 my-16 md:my-24 mx-auto max-w-5xl rounded-3xl flex flex-col md:flex-row items-center justify-between text-left gap-8 border border-slate-800/90 shadow-2xl relative overflow-hidden">
   
-  <!-- Ambient background glow -->
-  <div class="absolute top-0 right-0 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Subtle ambient indigo depth (calibrated, non-distracting) -->
+  <div class="absolute -top-10 -right-10 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-10 -left-10 w-80 h-80 bg-slate-800/20 rounded-full blur-3xl pointer-events-none"></div>
 
   <div class="relative z-10 max-w-xl">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-4 shadow-2xs">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 mb-4 shadow-2xs">
       <span class="relative flex h-2 w-2">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
@@ -19,31 +19,31 @@ import { Icon } from "astro-icon/components";
     </div>
 
     <h2 class="text-white text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-      Creem alguna cosa <span class="bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">extraordinària</span> junts?
+      Creem alguna cosa <span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-white bg-clip-text text-transparent">extraordinària</span> junts?
     </h2>
     
     <p class="text-slate-300 mt-3 text-sm sm:text-base leading-relaxed">
       Tens una proposta de feina, un projecte web o necessites suport en arquitectura frontend? Parlem!
     </p>
 
-    <!-- Visual Tags -->
+    <!-- Visual Tech Chips -->
     <div class="flex flex-wrap gap-2 mt-5">
-      <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/10 text-slate-200 border border-white/15">
+      <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10">
         València (Remot / Híbrid)
       </span>
-      <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/10 text-slate-200 border border-white/15">
+      <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10">
         Angular & TypeScript
       </span>
-      <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/10 text-slate-200 border border-white/15">
+      <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10">
         CI/CD GitHub Actions
       </span>
     </div>
 
-    <!-- Buttons (High contrast with the colorful dark gradient background) -->
-    <div class="flex flex-wrap items-center gap-3 mt-7">
+    <!-- Action Buttons (Clear Visual Hierarchy) -->
+    <div class="flex flex-wrap items-center gap-3 mt-8">
       <a
         href="/contact"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-black/20 hover:scale-[1.02] transition-all">
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-black/30 hover:scale-[1.02] transition-all">
         <Icon name="bx:bxs-envelope" class="w-4 h-4 text-indigo-600" />
         <span>Contactar ara</span>
       </a>
@@ -51,28 +51,26 @@ import { Icon } from "astro-icon/components";
         href="/docs/CV_Jaume_tur.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-xs transition text-sm">
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-xs transition text-sm">
         <Icon name="bx:bxs-cloud-download" class="w-4 h-4 text-slate-300" />
         <span>Descarregar CV ↗</span>
       </a>
     </div>
   </div>
 
-  <!-- Memoji 3.png ("Call me" gesture) - Large & Overlapping the card edge -->
-  <div class="relative z-20 shrink-0 flex flex-col items-center -mb-10 sm:-mb-16 -mt-4 sm:-mt-8 md:-mr-6 group">
+  <!-- Memoji 3.png ("Call me" gesture) - Natural 3D Integration & Directional Contact Shadow -->
+  <div class="relative z-20 shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 -mt-2 sm:-mt-6 md:-mr-4 group">
     <div class="relative">
-      <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-full blur-2xl opacity-40 group-hover:opacity-70 transition-opacity"></div>
-      
       <img
         src="/memojis/3.png"
         alt="Jaume fent el gest de telefonar"
-        class="relative w-52 h-52 sm:w-60 sm:h-60 lg:w-68 lg:h-68 object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
-        width="272"
-        height="272"
+        class="relative w-52 h-52 sm:w-60 sm:h-60 lg:w-64 lg:h-64 object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300"
+        width="256"
+        height="256"
       />
     </div>
     
-    <span class="relative -mt-4 text-xs font-mono text-indigo-200 font-bold bg-slate-900/90 border border-indigo-400/40 px-3.5 py-1 rounded-full shadow-xl">
+    <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900/95 border border-slate-700/80 px-3.5 py-1 rounded-full shadow-lg">
       jautursis@alu.edu.gva.es
     </span>
   </div>

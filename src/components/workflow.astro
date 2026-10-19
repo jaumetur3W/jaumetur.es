@@ -5,100 +5,93 @@ const steps = [
   {
     number: "01",
     title: "Requisits & Arquitectura",
-    desc: "Definició d'abast, model de dades JSON i selecció del stack modular.",
+    desc: "Definició d'abast, model de dades JSON estructurat i selecció del stack modular adequat.",
     tag: "Fase 1",
-    theme: "from-indigo-50/80 via-white to-purple-50/30 border-indigo-200/80",
-    numColor: "text-indigo-600",
     icon: "uil:compass",
   },
   {
     number: "02",
     title: "Disseny & Accessibilitat",
-    desc: "Estructura semàntica HTML5, compliment WCAG AA i responsive design.",
+    desc: "Estructura semàntica HTML5, compliment dels criteris WCAG AA i responsive design fluid.",
     tag: "Fase 2",
-    theme: "from-cyan-50/80 via-white to-sky-50/30 border-cyan-200/80",
-    numColor: "text-cyan-600",
     icon: "uil:layer-group",
   },
   {
     number: "03",
-    title: "Frontend & Tipat",
-    desc: "Desenvolupament net amb Angular, TypeScript i components reutilitzables.",
+    title: "Frontend & Tipat Estricte",
+    desc: "Desenvolupament net amb Angular, TypeScript estricte i components UI reutilitzables.",
     tag: "Fase 3",
-    theme: "from-purple-50/80 via-white to-pink-50/30 border-purple-200/80",
-    numColor: "text-purple-600",
     icon: "uil:brackets-curly",
   },
   {
     number: "04",
     title: "Validació & Desplegament",
-    desc: "Linters automàtics, GitHub Actions i publicació contínua a 60 FPS.",
+    desc: "Linters automàtics, fluxos GitHub Actions i publicació contínua optimitzada a 60 FPS.",
     tag: "Fase 4",
-    theme: "from-emerald-50/80 via-white to-teal-50/30 border-emerald-200/80",
-    numColor: "text-emerald-600",
     icon: "uil:check-circle",
   },
 ];
 ---
 
-<section id="metodologia" class="pt-20 pb-10 scroll-mt-12">
+<section id="metodologia" class="py-20 md:py-28 scroll-mt-12">
   
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-14">
     <div>
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 mb-3 shadow-2xs">
-        <Icon name="bx:bxs-check-circle" class="w-3.5 h-3.5 text-emerald-600" />
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3 shadow-2xs">
+        <Icon name="bx:bxs-check-circle" class="w-3.5 h-3.5 text-indigo-600" />
         <span>Procés d'enginyeria</span>
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-        Flux de treball en <span class="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">4 etapes</span>
+        Flux de treball en <span class="bg-gradient-to-r from-indigo-600 to-indigo-800 bg-clip-text text-transparent">4 etapes</span>
       </h2>
+      <p class="text-sm text-slate-600 mt-2 max-w-xl">
+        Metodologia iterativa enfocada en la qualitat del codi, l'accessibilitat i el rendiment des del primer commit.
+      </p>
     </div>
 
-    <!-- Guiding thread Memoji: 2.png (Much larger, breaking out and overlapping) -->
-    <div class="relative group self-center sm:self-auto -mb-6 sm:-mb-10 z-20">
-      <div class="absolute inset-0 bg-emerald-400/25 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
-      
-      <div class="relative flex items-center gap-3 bg-gradient-to-r from-emerald-50/90 via-teal-50/90 to-cyan-50/90 border border-emerald-200/80 rounded-3xl p-3 pr-5 shadow-lg group-hover:-translate-y-1 transition-transform">
-        <div class="relative w-24 h-24 sm:w-32 sm:h-32 -my-6 sm:-my-8 -ml-3 flex items-center justify-center">
+    <!-- Guiding thread Memoji: 2.png (Clean card anchor, subtle contact shadow) -->
+    <div class="relative group self-center sm:self-auto -mb-4 sm:-mb-6 z-20">
+      <div class="relative flex items-center gap-3 bg-white border border-slate-200/90 rounded-2xl p-2.5 pr-4 shadow-[0_4px_16px_rgba(15,23,42,0.06)] group-hover:-translate-y-1 transition-transform">
+        <div class="relative w-20 h-20 sm:w-24 sm:h-24 -my-4 -ml-2 flex items-center justify-center">
           <img
             src="/memojis/2.png"
             alt="Jaume Tur polze amunt"
-            class="w-full h-full object-contain drop-shadow-[0_12px_20px_rgba(16,185,129,0.22)] group-hover:scale-110 transition-transform"
-            width="128"
-            height="128"
+            class="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.18)] group-hover:scale-105 transition-transform"
+            width="96"
+            height="96"
           />
         </div>
         <div class="text-xs">
-          <span class="font-extrabold text-slate-900 block text-sm">Garantia de Qualitat</span>
-          <span class="text-emerald-700 font-mono text-[11px] font-bold">Codi net & Proves</span>
+          <span class="font-extrabold text-slate-900 block text-sm leading-tight">Garantia de Qualitat</span>
+          <span class="text-indigo-600 font-mono text-[11px] font-bold">Codi net & Proves</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 4 Step Cards -->
+  <!-- 4 Step Cards: Unified Surface Palette -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
     {
       steps.map((step) => (
-        <div class={`bg-gradient-to-b ${step.theme} rounded-2xl border p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group`}>
+        <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class={`text-2xl font-black font-mono ${step.numColor}`}>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-2xl font-black font-mono text-indigo-600">
                 {step.number}
               </span>
-              <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200/60 shadow-2xs">
+              <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200/80">
                 {step.tag}
               </span>
             </div>
-            <h3 class="text-base font-bold text-slate-900 group-hover:text-slate-950 transition-colors">
+            <h3 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
               {step.title}
             </h3>
-            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+            <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">
               {step.desc}
             </p>
           </div>
 
-          <div class="mt-4 pt-3 border-t border-slate-200/50 flex items-center gap-1.5 text-[11px] font-mono text-slate-500">
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-mono text-slate-500">
             <Icon name={step.icon} class="w-4 h-4 text-slate-600" />
             <span>Fase verificada</span>
           </div>

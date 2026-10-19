@@ -5,36 +5,34 @@ const projects = [
   {
     id: "avisa",
     title: "AVISA — Gestió d'Incidències",
-    badge: "Web App · En Producció",
+    badge: "Web App · Prototip UI",
     badgeColor: "bg-indigo-600 text-white",
-    cardTheme: "from-indigo-50/70 via-white to-purple-50/30 border-indigo-200/70 hover:border-indigo-400 hover:shadow-indigo-500/10",
-    summary: "Plataforma per al registre, comunicació i seguiment d'incidències en temps real amb interfície accessible.",
+    summary: "Plataforma per al registre, comunicació i seguiment d'incidències en temps real amb interfície accessible (prototip frontend interactiu).",
     highlights: [
-      { icon: "bx:bxs-check-circle", text: "Arquitectura reactiva amb Angular & TypeScript", color: "text-indigo-600" },
-      { icon: "bx:bxs-check-circle", text: "Integració completa amb REST API i dades JSON", color: "text-indigo-600" },
-      { icon: "bx:bxs-check-circle", text: "Desplegament continu automatitzat a GitHub Pages", color: "text-indigo-600" },
+      { text: "Arquitectura modular de components amb Angular & TypeScript" },
+      { text: "Maquetació d'interfície accessible i flux d'estats interactiu" },
+      { text: "Desplegament continu automatitzat a la xarxa edge de Vercel" },
     ],
-    tags: ["Angular", "TypeScript", "REST API", "WCAG AA", "UX/UI"],
-    stat: "EN PRODUCCIÓ",
-    statColor: "text-emerald-700 bg-emerald-100/80 border-emerald-300",
-    liveUrl: "https://jautur.github.io/AVISA-objectiu/",
+    tags: ["Angular", "TypeScript", "Vercel", "WCAG AA", "UI Prototype"],
+    stat: "DEMO EN LÍNIA",
+    statColor: "text-indigo-700 bg-indigo-50 border-indigo-200",
+    liveUrl: "https://front-project-jjaux-h8pw.vercel.app/",
     githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX",
   },
   {
     id: "margherita",
     title: "La Margherita — Pizzeria a Xàtiva",
     badge: "Landing Page · En Producció",
-    badgeColor: "bg-rose-600 text-white",
-    cardTheme: "from-rose-50/70 via-white to-amber-50/30 border-rose-200/70 hover:border-rose-400 hover:shadow-rose-500/10",
-    summary: "Landing page comercial per a pizzeria artesanal amb carta interactiva, SEO local i comandes per WhatsApp.",
+    badgeColor: "bg-slate-900 text-white",
+    summary: "Landing page comercial per a pizzeria artesanal amb carta interactiva de productes, SEO local i comandes per WhatsApp.",
     highlights: [
-      { icon: "bx:bxs-check-circle", text: "Disseny modern, fluid i responsive amb Tailwind CSS", color: "text-rose-600" },
-      { icon: "bx:bxs-check-circle", text: "Canal directe de comandes integrat amb WhatsApp", color: "text-rose-600" },
-      { icon: "bx:bxs-check-circle", text: "Optimització de SEO local (Geo tags Xàtiva/Costera)", color: "text-rose-600" },
+      { text: "Disseny modern, fluid i responsive implementat amb Tailwind CSS" },
+      { text: "Canal directe de comandes integrat amb l'API de WhatsApp" },
+      { text: "Optimització de SEO local (etiquetes geogràfiques Xàtiva / La Costera)" },
     ],
     tags: ["Tailwind CSS", "HTML5 Semàntic", "SEO Local", "UX/UI", "WhatsApp API"],
     stat: "EN PRODUCCIÓ",
-    statColor: "text-rose-700 bg-rose-100/80 border-rose-300",
+    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
     liveUrl: "https://jautur.github.io/margherita_xativa/",
     githubUrl: "https://github.com/jautur/margherita_xativa",
   },
@@ -42,17 +40,16 @@ const projects = [
     id: "telemetry",
     title: "Dashboard de Telemetria",
     badge: "Frontend UI & Mètriques",
-    badgeColor: "bg-emerald-600 text-white",
-    cardTheme: "from-emerald-50/70 via-white to-teal-50/30 border-emerald-200/70 hover:border-emerald-400 hover:shadow-emerald-500/10",
-    summary: "Panell analític interactiu per a visualitzar mètriques de rendiment web a màxima velocitat.",
+    badgeColor: "bg-slate-900 text-white",
+    summary: "Panell analític interactiu per a visualitzar mètriques de rendiment web i Core Web Vitals en temps real.",
     highlights: [
-      { icon: "bx:bxs-check-circle", text: "Renderitzat fluid garantit a 60 FPS", color: "text-emerald-600" },
-      { icon: "bx:bxs-check-circle", text: "Estructura modular de components desacoblats", color: "text-emerald-600" },
-      { icon: "bx:bxs-check-circle", text: "Optimització de cicle de vida i Core Web Vitals", color: "text-emerald-600" },
+      { text: "Renderitzat fluid garantit a 60 FPS amb cicle de vida optimitzat" },
+      { text: "Estructura modular de components desacoblats i reutilitzables" },
+      { text: "Mesurament de mètriques clau LCP, FID i CLS sense bloqueig de fil" },
     ],
     tags: ["JavaScript ES6+", "TypeScript", "Performance", "Core Web Vitals"],
     stat: "60 FPS FLUID",
-    statColor: "text-indigo-700 bg-indigo-100/80 border-indigo-300",
+    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
     liveUrl: "https://jautur.github.io/portfolio/#skills",
     githubUrl: "https://github.com/jautur/portfolio",
   },
@@ -60,64 +57,64 @@ const projects = [
     id: "pipeline",
     title: "Pipeline CI/CD Automatitzat",
     badge: "DevOps & Automatització",
-    badgeColor: "bg-sky-600 text-white",
-    cardTheme: "from-sky-50/70 via-white to-blue-50/30 border-sky-200/70 hover:border-sky-400 hover:shadow-sky-500/10",
-    summary: "Flux d'integració contínua que valida estàndards de qualitat i publica versions automàticament.",
+    badgeColor: "bg-slate-900 text-white",
+    summary: "Flux d'integració contínua que valida estàndards de qualitat, linters i publica noves versions automàticament.",
     highlights: [
-      { icon: "bx:bxs-check-circle", text: "Execució automàtica per esdeveniment (Git Push)", color: "text-sky-600" },
-      { icon: "bx:bxs-check-circle", text: "Validació amb linters i anàlisi estàtica de codi", color: "text-sky-600" },
-      { icon: "bx:bxs-check-circle", text: "Publicació continuada sense interrupcions", color: "text-sky-600" },
+      { text: "Execució automàtica per esdeveniment de control de versions (Git Push)" },
+      { text: "Validació amb linters estàtics i verificació de sintaxi semàntica" },
+      { text: "Publicació continuada automatitzada sense interrupcions de servei" },
     ],
-    tags: ["GitHub Actions", "CI/CD", "Linters", "Linux Shell"],
+    tags: ["GitHub Actions", "CI/CD", "Linters", "Linux Shell", "DevOps"],
     stat: "ZERO DOWNTIME",
-    statColor: "text-sky-700 bg-sky-100/80 border-sky-300",
+    statColor: "text-sky-700 bg-sky-50 border-sky-200",
     liveUrl: "https://github.com/jautur/portfolio/actions",
     githubUrl: "https://github.com/jautur/portfolio",
   },
 ];
 ---
 
-<section id="projectes" class="pt-20 pb-10 scroll-mt-12">
+<section id="projectes" class="py-20 md:py-28 scroll-mt-12">
   
-  <!-- Header with Memoji (7.png coding on laptop) -->
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+  <!-- Section Header with Memoji (7.png coding on laptop) -->
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-14">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3 shadow-2xs">
         <Icon name="bx:bxs-rocket" class="w-3.5 h-3.5 text-indigo-600" />
-        <span>Projectes en producció</span>
+        <span>Projectes & Desenvolupament</span>
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-        Codi real, <span class="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">resultats mesurables</span>
+        Codi real, <span class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent">resultats mesurables</span>
       </h2>
+      <p class="text-sm text-slate-600 mt-2 max-w-xl">
+        Aplicacions web, interfícies reactives i canalitzacions CI/CD dissenyades amb estàndards de qualitat de codi.
+      </p>
     </div>
 
-    <!-- Guiding thread Memoji: 7.png (Much larger, breaking out and overlapping) -->
-    <div class="relative group self-center sm:self-auto -mb-6 sm:-mb-10 z-20">
-      <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/25 via-purple-500/20 to-pink-500/20 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
-      
-      <div class="relative flex items-center gap-3 bg-gradient-to-r from-indigo-50/90 via-purple-50/90 to-pink-50/90 border border-indigo-200/80 rounded-3xl p-3 pr-5 shadow-lg group-hover:-translate-y-1 transition-transform">
-        <div class="relative w-24 h-24 sm:w-32 sm:h-32 -my-6 sm:-my-8 -ml-3 flex items-center justify-center">
+    <!-- Guiding thread Memoji: 7.png (Clean card anchor, subtle contact shadow) -->
+    <div class="relative group self-center sm:self-auto -mb-4 sm:-mb-6 z-20">
+      <div class="relative flex items-center gap-3 bg-white border border-slate-200/90 rounded-2xl p-2.5 pr-4 shadow-[0_4px_16px_rgba(15,23,42,0.06)] group-hover:-translate-y-1 transition-transform">
+        <div class="relative w-20 h-20 sm:w-24 sm:h-24 -my-4 -ml-2 flex items-center justify-center">
           <img
             src="/memojis/7.png"
             alt="Jaume programant al portàtil"
-            class="w-full h-full object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.18)] group-hover:scale-110 transition-transform"
-            width="128"
-            height="128"
+            class="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.18)] group-hover:scale-105 transition-transform"
+            width="96"
+            height="96"
           />
         </div>
         <div class="text-xs">
-          <span class="font-extrabold text-slate-900 block text-sm">Desenvolupament Actiu</span>
+          <span class="font-extrabold text-slate-900 block text-sm leading-tight">Desenvolupament Actiu</span>
           <span class="text-indigo-600 font-mono text-[11px] font-bold">Angular · TS · CI/CD</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Projects Grid (Balanced 2x2 layout for 4 projects) -->
-  <div class="grid md:grid-cols-2 gap-6">
+  <!-- Projects Grid (Unified Surface Palette: Clean White + Slate-200/80 Border + Subtle Hover Elevation) -->
+  <div class="grid md:grid-cols-2 gap-6 md:gap-8">
     {
       projects.map((project) => (
-        <article class={`bg-gradient-to-b ${project.cardTheme} rounded-3xl border p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group`}>
+        <article class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04),0_10px_15px_-3px_rgba(15,23,42,0.02)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between group">
           <div>
             <!-- Top pills -->
             <div class="flex items-center justify-between gap-2 mb-4">
@@ -129,36 +126,38 @@ const projects = [
               </span>
             </div>
 
+            <!-- Title -->
             <h3 class="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
               {project.title}
             </h3>
 
+            <!-- Summary -->
             <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
               {project.summary}
             </p>
 
-            <!-- Visual bullet points -->
-            <ul class="mt-4 space-y-2 text-xs font-medium text-slate-700 bg-white/70 p-3.5 rounded-2xl border border-slate-200/60">
+            <!-- Unboxed highlights list: breathing space, consistent electric indigo bullet -->
+            <ul class="mt-5 space-y-2.5 text-xs font-medium text-slate-700">
               {project.highlights.map((h) => (
-                <li class="flex items-start gap-2">
-                  <Icon name={h.icon} class={`w-4 h-4 shrink-0 mt-0.5 ${h.color}`} />
-                  <span>{h.text}</span>
+                <li class="flex items-start gap-2.5">
+                  <Icon name="bx:bxs-check-circle" class="w-4 h-4 shrink-0 mt-0.5 text-indigo-600" />
+                  <span class="leading-normal">{h.text}</span>
                 </li>
               ))}
             </ul>
 
-            <!-- Tech stack tags -->
-            <div class="flex flex-wrap gap-1.5 mt-4">
+            <!-- Tech stack tags (Clean monochromatic chips) -->
+            <div class="flex flex-wrap gap-1.5 mt-6">
               {project.tags.map((tag) => (
-                <span class="text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-md bg-white text-slate-700 border border-slate-200 shadow-2xs">
+                <span class="text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200/80">
                   {tag}
                 </span>
               ))}
             </div>
           </div>
 
-          <!-- Action buttons -->
-          <div class="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200/60">
+          <!-- Action buttons with clear visual hierarchy (Primary vs Secondary Outline) -->
+          <div class="flex items-center gap-3 mt-8 pt-5 border-t border-slate-100">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
@@ -174,10 +173,10 @@ const projects = [
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-white text-slate-800 rounded-xl hover:bg-slate-100 transition border border-slate-300 shadow-2xs"
+                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-white text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition border border-slate-200/90 shadow-2xs"
                 title="Veure codi font a GitHub">
-                <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-900" />
-                <span>Codi</span>
+                <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-700" />
+                <span>Codi font</span>
               </a>
             )}
           </div>
