@@ -8,8 +8,6 @@
   },
   "scripts": {
     "sync-memojis": "node -e \"const fs=require('fs'); fs.readdirSync('memojis').filter(f=>f.endsWith('.png')).forEach(f=>fs.copyFileSync('memojis/'+f, 'public/memojis/'+f))\"",
-    "prebuild": "npm run sync-memojis",
-    "predev": "npm run sync-memojis",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
