@@ -38,3 +38,4 @@ for (const file of files) {
 }
 
 console.table(results);
+

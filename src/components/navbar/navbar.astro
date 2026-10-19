@@ -3,15 +3,42 @@ import Container from "@/components/container.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 import { Icon } from "astro-icon/components";
 
-const menuitems = [
-  { title: "Inici", path: "/" },
-  { title: "Sobre mi", path: "/about" },
-  { title: "Projectes", path: "/#projectes" },
-  { title: "Habilitats", path: "/#skills" },
-  { title: "Eines", path: "/tools/workflow-generator" },
-  { title: "Blog", path: "/blog" },
-  { title: "Serveis", path: "/pricing" },
-  { title: "Contacte", path: "/contact" },
+// Enllaços directes a la mateixa pàgina (In-page anchors)
+const inPageItems = [
+  { title: "Projectes", path: "/#projectes", icon: "bx:briefcase" },
+  { title: "Habilitats", path: "/#skills", icon: "bx:layer" },
+  { title: "Metodologia", path: "/#metodologia", icon: "bx:git-commit" },
+  { title: "Contacte", path: "/#contacte", icon: "bx:message-square-dots" },
+];
+
+// Directori complet del lloc web per al menú desplegable
+const fullSiteSections = [
+  { title: "Inici", path: "/", desc: "Capçalera i presentació", icon: "bx:home-alt" },
+  { title: "Projectes", path: "/#projectes", desc: "Casos d'estudi amb mètriques", icon: "bx:briefcase" },
+  { title: "Habilitats & Stack", path: "/#skills", desc: "Arquitectura i tecnologies", icon: "bx:layer" },
+  { title: "Metodologia", path: "/#metodologia", desc: "Flux de treball en 4 etapes", icon: "bx:git-commit" },
+  { title: "Contacte", path: "/#contacte", desc: "Formulari directe i disponibilitat", icon: "bx:message-square-dots" },
+];
+
+const fullSitePages = [
+  { title: "Sobre mi", path: "/about", desc: "Trajectòria i formació DAW / SMX", icon: "bx:user" },
+  { title: "Serveis & Tarifes", path: "/pricing", desc: "4 paquets i condicions clares", icon: "bx:purchase-tag" },
+  { title: "Blog d'Enginyeria", path: "/blog", desc: "16 articles i guies tècniques", icon: "bx:news" },
+  { title: "Tots els Projectes", path: "/projectes", desc: "Directori complet de casos", icon: "bx:folder-open" },
+  { title: "Kit de Marca", path: "/marca", desc: "Logotips oficials 'jaume.www'", icon: "bx:palette" },
+  { title: "Targeta Digital", path: "/card", desc: "Targeta vCard i codi QR", icon: "bx:id-card" },
+  { title: "Qualitat & CWV", path: "/qualitat", desc: "Auditoria 100/100 verificable", icon: "bx:check-shield" },
+  { title: "Eines CI/CD", path: "/tools/workflow-generator", desc: "Generador de workflows GitHub", icon: "bx:cog" },
+  { title: "El meu Setup (/uses)", path: "/uses", desc: "Equipament i programari de treball", icon: "bx:devices" },
+  { title: "Canal RSS", path: "/rss.xml", desc: "Subscripció al feed d'articles", icon: "bx:rss" },
+  { title: "Currículum (PDF)", path: "/docs/CV_Jaume_tur.pdf", desc: "Descarregar CV complet en PDF ↗", icon: "bx:file", external: true },
+];
+
+const fullSiteSocial = [
+  { title: "GitHub", path: "https://github.com/jautur", desc: "Repositoris de codi", icon: "bx:bxl-github" },
+  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", desc: "Perfil professional", icon: "bx:bxl-linkedin" },
+  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", desc: "@jaume.www oficial", icon: "bx:bxl-instagram" },
+  { title: "Correu", path: "mailto:jautursis@alu.edu.gva.es", desc: "Contacte directe", icon: "bx:envelope" },
 ];
 ---
 
@@ -65,10 +92,11 @@ const menuitems = [
       </div>
 
       <MenuItems class="hidden w-full lg:w-auto mt-4 lg:flex lg:mt-0">
+        <!-- Desktop Nav: ONLY in-page links + Dropdown menu button -->
         <nav aria-label="Navegació principal">
           <ul class="flex flex-col lg:flex-row lg:items-center lg:gap-1">
             {
-              menuitems.map((item) => (
+              inPageItems.map((item) => (
                 <li>
                   <a
                     href={item.path}
@@ -78,51 +106,190 @@ const menuitems = [
                 </li>
               ))
             }
+
+            <!-- Dropdown Menu Trigger (All pages & footer links) -->
+            <li class="relative ml-1" id="nav-dropdown-container">
+              <button
+                type="button"
+                id="nav-dropdown-trigger"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls="nav-dropdown-menu"
+                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 bg-slate-100 hover:bg-slate-200/80 transition rounded-xl border border-slate-200/80 cursor-pointer shadow-2xs group">
+                <Icon name="bx:grid-alt" class="w-3.5 h-3.5 text-indigo-600" />
+                <span>Pàgines &amp; Menú</span>
+                <Icon name="bx:chevron-down" id="nav-dropdown-arrow" class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 transition-transform duration-200" />
+              </button>
+
+              <!-- Dropdown Popover Panel -->
+              <div
+                id="nav-dropdown-menu"
+                class="hidden absolute right-0 top-full mt-3 w-[560px] max-w-[92vw] bg-white rounded-3xl border border-slate-200/90 shadow-2xl p-6 z-50 text-left transition-all origin-top-right"
+                role="menu"
+                aria-orientation="vertical"
+                tabindex="-1">
+                <div class="grid sm:grid-cols-2 gap-6">
+                  <!-- Columna 1: Seccions de la Pàgina (Dalt) & Xarxes -->
+                  <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-3 px-2">
+                      <Icon name="bx:compass" class="w-3.5 h-3.5 text-indigo-600" />
+                      <span>Seccions de la Pàgina</span>
+                    </div>
+                    <ul class="space-y-1">
+                      {fullSiteSections.map((sec) => (
+                        <li>
+                          <a
+                            href={sec.path}
+                            class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition group/sec">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover/sec:scale-105 transition-transform">
+                              <Icon name={sec.icon} class="w-4 h-4" />
+                            </div>
+                            <div>
+                              <span class="text-xs font-bold text-slate-900 group-hover/sec:text-indigo-600 transition-colors block">
+                                {sec.title}
+                              </span>
+                              <span class="text-[10px] text-slate-500 font-sans block">{sec.desc}</span>
+                            </div>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <!-- Xarxes i contacte directe -->
+                    <div class="mt-5 pt-4 border-t border-slate-100">
+                      <div class="flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">
+                        <Icon name="bx:share-alt" class="w-3.5 h-3.5 text-indigo-600" />
+                        <span>Xarxes &amp; Contacte</span>
+                      </div>
+                      <div class="grid grid-cols-2 gap-1.5">
+                        {fullSiteSocial.map((soc) => (
+                          <a
+                            href={soc.path}
+                            target={soc.path.startsWith('http') ? '_blank' : undefined}
+                            rel={soc.path.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            class="flex items-center gap-2 p-2 rounded-xl hover:bg-slate-50 transition text-xs font-bold text-slate-700 hover:text-indigo-600 group/soc">
+                            <Icon name={soc.icon} class="w-4 h-4 text-slate-500 group-hover/soc:text-indigo-600 transition-colors shrink-0" />
+                            <span class="truncate">{soc.title}</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Columna 2: Pàgines & Serveis (Tot el del peu de pàgina) -->
+                  <div>
+                    <div class="flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-3 px-2">
+                      <Icon name="bx:layer" class="w-3.5 h-3.5 text-indigo-600" />
+                      <span>Pàgines &amp; Serveis</span>
+                    </div>
+                    <ul class="space-y-1 max-h-[380px] overflow-y-auto pr-1">
+                      {fullSitePages.map((pg) => (
+                        <li>
+                          <a
+                            href={pg.path}
+                            target={pg.external ? '_blank' : undefined}
+                            rel={pg.external ? 'noopener noreferrer' : undefined}
+                            class="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 transition group/pg">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center shrink-0 group-hover/pg:bg-indigo-50 group-hover/pg:text-indigo-600 transition-colors">
+                              <Icon name={pg.icon} class="w-4 h-4" />
+                            </div>
+                            <div class="min-w-0">
+                              <span class="text-xs font-bold text-slate-900 group-hover/pg:text-indigo-600 transition-colors block truncate">
+                                {pg.title}
+                              </span>
+                              <span class="text-[10px] text-slate-500 font-sans block truncate">{pg.desc}</span>
+                            </div>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
           </ul>
         </nav>
 
-        <div class="lg:hidden flex flex-col gap-2 mt-4 pt-4 border-t border-slate-200/80">
-          <button
-            type="button"
-            data-command-palette-trigger
-            class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
-            <Icon name="bx:search" class="w-4 h-4 text-indigo-600" />
-            <span>Cercar / Paleta (⌘K)</span>
-          </button>
-
-          <a
-            href="/docs/CV_Jaume_tur.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
-            <Icon name="bx:file" class="w-4 h-4 text-indigo-600" />
-            <span>Descarregar CV (PDF) ↗</span>
-          </a>
-          <div class="grid grid-cols-2 gap-2">
-            <a
-              href="https://github.com/jautur"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
-              <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-900" />
-              <span>GitHub ↗</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/jautur/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50/50 text-indigo-800 font-bold text-xs hover:bg-indigo-100 transition shadow-2xs">
-              <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-indigo-600" />
-              <span>LinkedIn ↗</span>
-            </a>
+        <!-- Mobile Drawer View -->
+        <div class="lg:hidden flex flex-col gap-4 mt-4 pt-4 border-t border-slate-200/80">
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block mb-2">
+              Seccions de la Pàgina
+            </span>
+            <div class="grid grid-cols-2 gap-2">
+              {inPageItems.map((item) => (
+                <a
+                  href={item.path}
+                  class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200/80 bg-white text-xs font-bold text-slate-800 hover:text-indigo-600 hover:bg-slate-50 transition">
+                  <Icon name={item.icon} class="w-4 h-4 text-indigo-600" />
+                  <span>{item.title}</span>
+                </a>
+              ))}
+            </div>
           </div>
 
-          <a
-            href="/contact"
-            class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
-            <Icon name="bx:message-square-dots" class="w-4 h-4 text-white" />
-            <span>Contactar</span>
-          </a>
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block mb-2">
+              Totes les Pàgines &amp; Serveis
+            </span>
+            <div class="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1">
+              {fullSitePages.map((pg) => (
+                <a
+                  href={pg.path}
+                  target={pg.external ? '_blank' : undefined}
+                  rel={pg.external ? 'noopener noreferrer' : undefined}
+                  class="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-xs font-semibold text-slate-700 hover:text-indigo-600 transition">
+                  <Icon name={pg.icon} class="w-3.5 h-3.5 text-slate-500" />
+                  <span class="truncate">{pg.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2 pt-2 border-t border-slate-100">
+            <button
+              type="button"
+              data-command-palette-trigger
+              class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
+              <Icon name="bx:search" class="w-4 h-4 text-indigo-600" />
+              <span>Cercar / Paleta (⌘K)</span>
+            </button>
+
+            <a
+              href="/docs/CV_Jaume_tur.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
+              <Icon name="bx:file" class="w-4 h-4 text-indigo-600" />
+              <span>Descarregar CV (PDF) ↗</span>
+            </a>
+            
+            <div class="grid grid-cols-2 gap-2">
+              <a
+                href="https://github.com/jautur"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs">
+                <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-900" />
+                <span>GitHub ↗</span>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/jautur/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50/50 text-indigo-800 font-bold text-xs hover:bg-indigo-100 transition shadow-2xs">
+                <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-indigo-600" />
+                <span>LinkedIn ↗</span>
+              </a>
+            </div>
+
+            <a
+              href="/contact"
+              class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
+              <Icon name="bx:message-square-dots" class="w-4 h-4 text-white" />
+              <span>Contactar</span>
+            </a>
+          </div>
         </div>
       </MenuItems>
     </Astronav>
@@ -183,3 +350,57 @@ const menuitems = [
     </div>
   </header>
 </Container>
+
+<script is:inline>
+  function setupNavDropdown() {
+    const trigger = document.getElementById("nav-dropdown-trigger");
+    const menu = document.getElementById("nav-dropdown-menu");
+    const arrow = document.getElementById("nav-dropdown-arrow");
+    const container = document.getElementById("nav-dropdown-container");
+
+    if (!trigger || !menu) return;
+
+    function toggleMenu(forceOpen) {
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : menu.classList.contains("hidden");
+      if (shouldOpen) {
+        menu.classList.remove("hidden");
+        trigger.setAttribute("aria-expanded", "true");
+        if (arrow) arrow.classList.add("rotate-180");
+      } else {
+        menu.classList.add("hidden");
+        trigger.setAttribute("aria-expanded", "false");
+        if (arrow) arrow.classList.remove("rotate-180");
+      }
+    }
+
+    trigger.onclick = function(e) {
+      e.stopPropagation();
+      toggleMenu();
+    };
+
+    document.addEventListener("click", function(e) {
+      if (container && !container.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        toggleMenu(false);
+      }
+    });
+
+    menu.querySelectorAll("a").forEach(function(link) {
+      link.addEventListener("click", function() {
+        toggleMenu(false);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupNavDropdown);
+  } else {
+    setupNavDropdown();
+  }
+  document.addEventListener("astro:page-load", setupNavDropdown);
+</script>
