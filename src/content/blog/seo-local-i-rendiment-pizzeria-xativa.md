@@ -3,7 +3,7 @@ draft: false
 title: "Cas d'Estudi Pizzeria a Xàtiva: Disseny UI/UX, Rendiment i SEO Local per a Hostaleria"
 snippet: "Com vam transformar la presència digital d'un restaurant tradicional a La Costera: arquitectura web lleugera, menú interactiu sense fricció, schema Restaurant i posicionament a Google Maps."
 image: {
-    src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?fit=crop&w=1200&h=630",
+    src: "/img/blog/seo-local-i-rendiment-pizzeria-xativa.webp",
     alt: "Pizzeria artesana i disseny web gastronòmic a Xàtiva"
 }
 publishDate: "2026-03-20 11:00"

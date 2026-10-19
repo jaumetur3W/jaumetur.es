@@ -160,7 +160,7 @@ const blogPostSchema = isBlogPost ? {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#4f46e5" />
+    <meta name="theme-color" content="#090D16" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Astro View Transitions Router -->
@@ -191,9 +191,7 @@ const blogPostSchema = isBlogPost ? {
     <link rel="alternate" hreflang="es" href={canonicalURL} />
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
-    <!-- Google Search Console & Bing Verification Placeholders -->
-    <meta name="google-site-verification" content="GSC_VERIFICATION_TOKEN_PLACEHOLDER" />
-    <meta name="msvalidate.01" content="BING_VERIFICATION_TOKEN_PLACEHOLDER" />
+    <!-- Verificació GSC i Bing: afegir tokens reals a [COMPLETAR] -->
 
     <!-- SEO & Social OpenGraph -->
     <SEO
@@ -237,11 +235,13 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- Privacy-friendly Web Analytics (Plausible / Umami Ready) -->
     <!-- Documented in MEDICION.md: Activated when domain is configured -->
-    <script
-      defer
-      data-domain="jaumetur.es"
-      src="https://plausible.io/js/script.js"
-    ></script>
+    {Astro.url.hostname === "jaumetur.es" && (
+      <script
+        defer
+        data-domain="jaumetur.es"
+        src="https://plausible.io/js/script.js"
+      ></script>
+    )}
   </head>
   <body class="bg-slate-50 text-slate-800 antialiased selection:bg-slate-900 selection:text-white min-h-screen flex flex-col justify-between overflow-x-clip">
     <!-- Accessible Skip Link for Keyboard and Screen Reader Navigation -->
@@ -251,7 +251,7 @@ const blogPostSchema = isBlogPost ? {
       Saltar al contingut principal
     </a>
     <div id="top"></div>
-    <div>
+    <div class="flex-1 w-full flex flex-col">
       <Navbar />
       <main id="main-content" class="outline-none" tabindex="-1">
         <slot />
@@ -263,12 +263,32 @@ const blogPostSchema = isBlogPost ? {
     <CommandPalette />
     <ScrollIndicator />
     <EasterEggs />
+    <!-- Motion Budget: Lightweight IntersectionObserver for single-pass section reveals -->
+    <script is:inline>
+      function initSectionReveals() {
+        const reveals = document.querySelectorAll('.reveal-fade-up');
+        if (!reveals.length) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+          reveals.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
 
-    <style is:global>
-      /* Core Web Vitals optimization */
-      img {
-        content-visibility: auto;
+        reveals.forEach((el) => {
+          if (!el.classList.contains('is-visible')) {
+            observer.observe(el);
+          }
+        });
       }
-    </style>
+      initSectionReveals();
+      document.addEventListener('astro:page-load', initSectionReveals);
+    </script>
   </body>
 </html>

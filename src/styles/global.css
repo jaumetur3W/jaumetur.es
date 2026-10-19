@@ -45,14 +45,9 @@
   color-scheme: light;
   --color-brand-yellow: #FFE600;
   --color-brand-dark: #090D16;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html, body, header, nav, footer, article, section {
-    transition-property: background-color, border-color, color;
-    transition-duration: 200ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-micro: 200ms;
+  --duration-reveal: 400ms;
 }
 
 /*
@@ -200,56 +195,30 @@
   --hero-grid-dark: rgba(99, 102, 241, 0.12);
 }
 
-/* Animacions GPU per a les taques de gradient radial (translate3d/scale) */
-@keyframes heroMeshMove1 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(55px, -35px, 0) scale(1.08); }
-  100% { transform: translate3d(-35px, 25px, 0) scale(0.95); }
+/* Motion Budget: Unified single reveal pattern (fade + translateY 14px) */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--duration-reveal, 400ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)),
+              transform var(--duration-reveal, 400ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1));
+  will-change: opacity, transform;
 }
 
-@keyframes heroMeshMove2 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-45px, 45px, 0) scale(1.06); }
-  100% { transform: translate3d(40px, -25px, 0) scale(0.94); }
+.reveal-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-@keyframes heroMeshMove3 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(35px, 35px, 0) scale(1.1); }
-  100% { transform: translate3d(-40px, -30px, 0) scale(0.92); }
-}
-
-@keyframes heroIconFloatSubtle {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(0, -8px, 0) rotate(3deg); }
-}
-
-.animate-hero-mesh-1 {
-  animation: heroMeshMove1 24s ease-in-out infinite alternate;
-  will-change: transform;
-}
-.animate-hero-mesh-2 {
-  animation: heroMeshMove2 28s ease-in-out infinite alternate;
-  will-change: transform;
-}
-.animate-hero-mesh-3 {
-  animation: heroMeshMove3 22s ease-in-out infinite alternate;
-  will-change: transform;
-}
-.animate-hero-float {
-  animation: heroIconFloatSubtle 9s ease-in-out infinite;
-  will-change: transform;
-}
-
-/* Desactivació estricta d'animacions si prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-hero-mesh-1,
-  .animate-hero-mesh-2,
-  .animate-hero-mesh-3,
-  .animate-hero-float {
-    animation: none !important;
+  .reveal-fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
+
+
+
 
 /* Capa 3: Textura de gra de soroll tècnic (SVG feTurbulence data URI 4% opacitat) */
 .hero-grain-layer {

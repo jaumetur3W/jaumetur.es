@@ -3,7 +3,7 @@ draft: false
 title: "TypeScript Estricte en Projectes Frontend: Patrons Avançats que Salven Vides"
 snippet: "Més enllà del tipatge bàsic: unions discriminades, branded types, narrowing exhaustiu, l'operador satisfies i per què `any` hauria d'estar prohibit en producció."
 image: {
-    src: "https://images.unsplash.com/photo-1516116211227-bbc798547434?fit=crop&w=1200&h=630",
+    src: "/img/blog/guia-definitiva-typescript-estricte-frontend.webp",
     alt: "Codi TypeScript net i arquitectura de tipus estricta"
 }
 publishDate: "2026-03-22 10:00"

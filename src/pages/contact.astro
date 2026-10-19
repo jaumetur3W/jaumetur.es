@@ -39,11 +39,13 @@ import { Icon } from "astro-icon/components";
           <div class="flex items-center gap-4">
             <div class="relative shrink-0 -my-4 -ml-2 z-10">
               <img
-                src="/img/3.png"
+                src="/img/3.webp"
                 alt="Memoji de Jaume Tur saludant"
-                class="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.16)] group-hover:scale-105 transition-transform duration-300"
+                class="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.16)] group-hover:scale-105 transition-transform duration-200"
                 width="112"
                 height="112"
+                loading="eager"
+                fetchpriority="high"
               />
             </div>
             <div>

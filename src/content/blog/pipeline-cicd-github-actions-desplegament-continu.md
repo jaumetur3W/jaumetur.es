@@ -3,7 +3,7 @@ draft: false
 title: "Guia Pas a Pas: CI/CD per a Frontend amb GitHub Actions i Desplegament Automatitzat"
 snippet: "Aprende a dissenyar un pipeline de continuous integration i continuous deployment professional: linter, tests, build optimitzat, cache eficient i zero downtime deployment."
 image: {
-    src: "https://images.unsplash.com/photo-1618401471353-b98aedd04e11?fit=crop&w=1200&h=630",
+    src: "/img/blog/pipeline-cicd-github-actions-desplegament-continu.webp",
     alt: "Pipeline d'automatització i integració contínua CI/CD"
 }
 publishDate: "2026-03-14 09:15"

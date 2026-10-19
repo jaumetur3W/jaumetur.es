@@ -3,7 +3,7 @@ draft: false
 title: "Cas d'Estudi AVISA: Gestió d'Incidències en Temps Real amb Angular i TypeScript"
 snippet: "Anàlisi arquitectònica profunda de la plataforma d'alerta i coordinació d'incidències: reactivitat en temps real, gestió d'estat resilient, mapeig geoespacial i fiabilitat crítica."
 image: {
-    src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?fit=crop&w=1200&h=630",
+    src: "/img/blog/avisa-gestio-incidencies-arquitectura-frontend.webp",
     alt: "Panell de gestió d'incidències i alertes en temps real AVISA"
 }
 publishDate: "2026-03-18 10:45"

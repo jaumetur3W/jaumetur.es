@@ -3,7 +3,7 @@ draft: false
 title: "Accessibilitat Web (WCAG AA): De la Teoria a la Implementació Real amb Exemples"
 snippet: "Guia pràctica d'enginyeria per a complir els criteris WCAG 2.2 nivell AA i la Directiva Europea d'Accessibilitat: gestió de focus, tecles, ARIA, ràtios de contrast i proves automatitzades."
 image: {
-    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?fit=crop&w=1200&h=630",
+    src: "/img/blog/accessibilitat-web-wcag-aa-guia-practica.webp",
     alt: "Accessibilitat digital i disseny web inclusiu"
 }
 publishDate: "2026-03-16 12:00"

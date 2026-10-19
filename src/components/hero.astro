@@ -1,7 +1,7 @@
 ---
 import Link from "@/components/ui/link.astro";
 import { Icon } from "astro-icon/components";
-import ThreeHero from "@/components/three-hero.astro";
+
 
 const metrics = [
   {
@@ -44,29 +44,22 @@ const metrics = [
   aria-labelledby="hero-role-heading"
   class="relative pt-10 pb-16 md:pt-14 md:pb-20 px-6 sm:px-10 lg:px-12 rounded-[2.5rem] overflow-hidden mb-12 bg-[#090D16] border border-indigo-900/50 shadow-[0_8px_45px_rgba(0,0,0,0.5)] hero-theme-dark text-white transition-colors duration-300">
   
-  <!-- FONS OPCIÓ B: Aurora Bioluminiscent + Glassmorphism (Fons Fosc Obsidiana) -->
-  <!-- Capa 1: Aurores bioluminiscents extenses amb difusió alta (blur 120px) en tons índigo, cian elèctric i groc corporatiu (#FFE600) -->
-  <div class="absolute -top-36 left-1/4 w-[38rem] h-[38rem] rounded-full blur-[120px] pointer-events-none -z-20 animate-hero-mesh-1 bg-gradient-to-tr from-indigo-600/50 via-purple-600/40 to-cyan-500/35" aria-hidden="true"></div>
-  <div class="absolute -bottom-36 right-10 w-[34rem] h-[34rem] rounded-full blur-[110px] pointer-events-none -z-20 animate-hero-mesh-2 bg-gradient-to-br from-cyan-500/30 via-teal-500/25 to-[#FFE600]/20" aria-hidden="true"></div>
-  <div class="absolute top-1/2 -left-20 w-[28rem] h-[28rem] rounded-full blur-[100px] pointer-events-none -z-20 animate-hero-mesh-3 bg-gradient-to-tr from-[#FFE600]/15 via-indigo-600/30 to-violet-600/30" aria-hidden="true"></div>
+  <!-- FONS: Obsidian Dark (#090D16) amb gradients radials estàtics i reixeta isomètrica -->
+  <!-- Capa 1: Gradients d'ambient estàtics (sense càrrega contínua GPU) -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_70%_20%,rgba(99,102,241,0.22),transparent_70%),radial-gradient(ellipse_50%_40%_at_20%_80%,rgba(255,230,0,0.06),transparent_60%)] pointer-events-none -z-20" aria-hidden="true"></div>
 
   <!-- Capa 2: Punts de precisió isomètrics de 24x24 px sobre fons fosc amb màscara el·líptica -->
   <div
-    class="absolute inset-0 bg-[radial-gradient(#ffffff25_1.25px,transparent_1.25px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_55%,transparent_100%)] pointer-events-none -z-20"
+    class="absolute inset-0 bg-[radial-gradient(#ffffff18_1.25px,transparent_1.25px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_55%,transparent_100%)] pointer-events-none -z-20"
     aria-hidden="true"
   ></div>
 
-  <!-- Capa 3: Textura de gra de soroll tècnic molt subtil -->
-  <div class="hero-grain-layer absolute inset-0 opacity-40 pointer-events-none -z-10" aria-hidden="true"></div>
+  <!-- Capa 3: Textura de gra de soroll tècnic subtil -->
+  <div class="hero-grain-layer absolute inset-0 opacity-[0.03] pointer-events-none -z-10" aria-hidden="true"></div>
 
-  <!-- Capa 4: Halo especular glassmorphism focalitzat darrere la consola interactiva -->
-  <div class="absolute top-1/4 right-8 w-96 h-96 rounded-3xl backdrop-blur-2xl border border-white/10 bg-white/5 pointer-events-none -z-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]" aria-hidden="true"></div>
+  <!-- Capa 4: Degradat suau de sortida cap a la secció següent -->
+  <div class="absolute bottom-0 inset-x-0 h-20 pointer-events-none -z-10 bg-gradient-to-t from-[#090D16] to-transparent" aria-hidden="true"></div>
 
-  <!-- Capa 5: Degradat suau de sortida cap a la secció següent -->
-  <div class="absolute bottom-0 inset-x-0 h-24 pointer-events-none -z-10 bg-gradient-to-t from-[#090D16] via-[#090D16]/80 to-transparent" aria-hidden="true"></div>
-
-  <!-- Canvas Three.js Particles -->
-  <ThreeHero />
 
   <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
     
@@ -101,7 +94,7 @@ const metrics = [
       <!-- Visual Metric Pills with Standardized Icons (Micro-animations on hover) -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-6 max-w-xl">
         {metrics.map((m) => (
-          <div class={`group p-3 rounded-2xl border ${m.color} shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between cursor-default`}>
+          <div class={`group p-3 rounded-2xl border ${m.color} shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between cursor-default min-h-[72px] sm:min-h-[76px]`}>
             <div class="flex items-center justify-between gap-1 mb-2">
               <span class="font-extrabold text-sm sm:text-base font-mono leading-none text-slate-100">
                 {m.value}
@@ -174,17 +167,18 @@ const metrics = [
       <!-- Overlapping Memoji: Peeking from behind the terminal, reactive to cursor & profile -->
       <div
         id="hero-memoji-wrapper"
-        class="relative z-20 -mb-12 sm:-mb-16 group cursor-pointer transition-transform duration-200 ease-out will-change-transform"
+        class="relative z-20 -mb-12 sm:-mb-16 group cursor-pointer"
       >
         <!-- Ambient radial glow behind memoji -->
-        <div id="hero-memoji-aura" class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-300"></div>
+        <div id="hero-memoji-aura" class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-200"></div>
         
         <img
           id="hero-memoji-img"
-          src="/img/4.png"
+          src="/img/4.webp"
           alt="Jaume Tur interactiu"
-          class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.22)] group-hover:-translate-y-2 transition-all duration-300 pointer-events-auto"
+          class="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.22)] group-hover:-translate-y-1.5 transition-transform duration-200 pointer-events-auto"
           loading="eager"
+          fetchpriority="high"
           width="320"
           height="320"
         />
@@ -295,7 +289,6 @@ const metrics = [
 <script is:inline>
   function setupInteractiveHero() {
     const hero = document.getElementById("hero");
-    const memojiWrapper = document.getElementById("hero-memoji-wrapper");
     const memojiImg = document.getElementById("hero-memoji-img");
     const speechText = document.getElementById("hero-speech-text");
     const roleCycleBtn = document.getElementById("role-cycle-btn");
@@ -317,28 +310,28 @@ const metrics = [
       {
         role: "Backend & APIs",
         stackHtml: '[<span class="text-emerald-400">"Node.js"</span>, <span class="text-blue-300">"TypeScript"</span>, <span class="text-amber-300">"SQL/NoSQL"</span>]',
-        memoji: "/img/4.png",
+        memoji: "/img/4.webp",
         speech: "Arquitectures de servidor escalables!",
         heading: "Backend",
       },
       {
         role: "Sistemes & Servidors (SMX)",
         stackHtml: '[<span class="text-cyan-300">"Linux Server"</span>, <span class="text-emerald-300">"Manteniment Equips"</span>, <span class="text-purple-300">"Xarxes"</span>]',
-        memoji: "/img/7.png",
+        memoji: "/img/7.webp",
         speech: "Administració de servidors i equips!",
         heading: "Sistemes & Servidors",
       },
       {
         role: "DevOps & CI/CD Lead",
         stackHtml: '[<span class="text-sky-300">"GitHub Actions"</span>, <span class="text-slate-300">"Docker"</span>, <span class="text-emerald-300">"Zero Downtime"</span>]',
-        memoji: "/img/2.png",
+        memoji: "/img/2.webp",
         speech: "Desplegaments continus i segurs!",
         heading: "CI/CD & DevOps",
       },
       {
         role: "Frontend & Web Apps",
         stackHtml: '[<span class="text-red-400">"Angular"</span>, <span class="text-purple-300">"Signals"</span>, <span class="text-emerald-300">"60 FPS"</span>]',
-        memoji: "/img/5.png",
+        memoji: "/img/5.webp",
         speech: "Web Apps reactives d'alta fluïdesa!",
         heading: "Frontend & Web Apps",
       },
@@ -431,57 +424,6 @@ const metrics = [
     disponibleBtn.addEventListener("click", () => {
       updateAvailability(!isAvailable);
     });
-
-    // Cursor Parallax Reaction on Memoji
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (!prefersReducedMotion && memojiWrapper) {
-      let rafId = null;
-      let targetX = 0;
-      let targetY = 0;
-      let currentX = 0;
-      let currentY = 0;
-
-      function onMouseMove(e) {
-        const rect = hero.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left - rect.width / 2;
-        const mouseY = e.clientY - rect.top - rect.height / 2;
-        targetX = (mouseX / rect.width) * 16;
-        targetY = (mouseY / rect.height) * 16;
-
-        if (!rafId) {
-          rafId = requestAnimationFrame(updateParallax);
-        }
-      }
-
-      function updateParallax() {
-        currentX += (targetX - currentX) * 0.1;
-        currentY += (targetY - currentY) * 0.1;
-
-        memojiWrapper.style.transform = `perspective(800px) rotateY(${currentX}deg) rotateX(${-currentY}deg) translate3d(${currentX * 0.5}px, ${currentY * 0.5}px, 0)`;
-
-        if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
-          rafId = requestAnimationFrame(updateParallax);
-        } else {
-          rafId = null;
-        }
-      }
-
-      hero.addEventListener("mousemove", onMouseMove);
-      hero.addEventListener("mouseleave", () => {
-        targetX = 0;
-        targetY = 0;
-        if (!rafId) rafId = requestAnimationFrame(updateParallax);
-      });
-
-      // Scroll slight offset
-      window.addEventListener("scroll", () => {
-        const scrollOffset = window.scrollY;
-        if (scrollOffset < 600) {
-          memojiWrapper.style.marginTop = `${scrollOffset * 0.04}px`;
-        }
-      }, { passive: true });
-    }
 
     // Set initial preset active chip
     applyPreset(0);

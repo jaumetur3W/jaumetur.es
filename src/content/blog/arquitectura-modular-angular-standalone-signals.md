@@ -3,7 +3,7 @@ draft: false
 title: "Arquitectura Modular i Escalable en Angular amb Standalone Components i Signals"
 snippet: "Guia exhaustiva d'enginyeria frontend: com dissenyar aplicacions Angular sense NgModules, utilitzant reactivitat basada en Signals, injecció amb inject() i control de flux modern."
 image: {
-    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?fit=crop&w=1200&h=630",
+    src: "/img/blog/arquitectura-modular-angular-standalone-signals.webp",
     alt: "Codi TypeScript en Angular i arquitectura de components"
 }
 publishDate: "2026-03-10 10:00"

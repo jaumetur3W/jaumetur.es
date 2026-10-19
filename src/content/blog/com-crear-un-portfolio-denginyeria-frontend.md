@@ -3,7 +3,7 @@ draft: false
 title: "Com Construir un Portfolio d'Enginyeria Frontend que Destaque: Decisions de Disseny i Codi"
 snippet: "Què busquen realment els Lead Engineers i clients tècnics: arquitectura real, casos d'estudi amb mètriques, rendiment a 60 FPS, accessibilitat i integració de personalitat visual."
 image: {
-    src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?fit=crop&w=1200&h=630",
+    src: "/img/blog/com-crear-un-portfolio-denginyeria-frontend.webp",
     alt: "Escriptori d'un enginyer de programari i disseny de portfolio"
 }
 publishDate: "2026-03-24 10:30"

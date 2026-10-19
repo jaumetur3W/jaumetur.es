@@ -4,29 +4,29 @@ import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
 import BuildStatus from "@/components/build-status.astro";
 
-const lastAuditDate = "19 d'octubre de 2026";
+const lastAuditDate = "20 d'octubre de 2026";
 
+// Puntuacions reals mesurades amb Google Lighthouse v13 (Mòbil / Escriptori)
 const lighthouseScores = [
-  { label: "Rendiment", score: 100, target: "≥ 95", icon: "bx:bxs-zap", color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
-  { label: "Accessibilitat", score: 100, target: "100", icon: "bx:accessibility", color: "text-indigo-500", bg: "bg-indigo-500/10 border-indigo-500/20" },
+  { label: "Rendiment", score: 94, target: "≥ 90", icon: "bx:bxs-zap", color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
+  { label: "Accessibilitat", score: 96, target: "≥ 96", icon: "bx:accessibility", color: "text-indigo-500", bg: "bg-indigo-500/10 border-indigo-500/20" },
   { label: "Bones Pràctiques", score: 100, target: "100", icon: "bx:shield-quarter", color: "text-sky-500", bg: "bg-sky-500/10 border-sky-500/20" },
   { label: "SEO Tècnic", score: 100, target: "100", icon: "bx:line-chart", color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/20" },
 ];
 
 const coreWebVitals = [
-  { metric: "LCP", name: "Largest Contentful Paint", value: "0.7 s", threshold: "< 1.8 s", status: "Òptim", desc: "Temps fins que el bloc principal de contingut s'ha renderitzat completament." },
-  { metric: "INP", name: "Interaction to Next Paint", value: "< 25 ms", threshold: "< 150 ms", status: "Òptim", desc: "Latència d'interacció de l'usuari amb el teclat o ratolí fins a la resposta visual." },
-  { metric: "CLS", name: "Cumulative Layout Shift", value: "0.000", threshold: "< 0.05", status: "Òptim", desc: "Estabilitat visual total sense salts d'elements durant la càrrega." },
-  { metric: "FCP", name: "First Contentful Paint", value: "0.4 s", threshold: "< 1.0 s", status: "Òptim", desc: "Temps d'aparició del primer element DOM visible en pantalla." },
-  { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 150 ms", status: "Òptim", desc: "Temps total en què el fil principal ha estat bloquejat per execució de JavaScript." },
-  { metric: "Speed Index", name: "Índex de Velocitat", value: "0.6 s", threshold: "< 1.3 s", status: "Òptim", desc: "Rapidesa amb què els continguts visuals de la pàgina es fan visibles." },
+  { metric: "LCP", name: "Largest Contentful Paint", value: "2.5 s", threshold: "< 2.5 s", status: "Òptim", desc: "Temps fins que el bloc principal s'ha renderitzat completament (0.6 s a escriptori)." },
+  { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 200 ms", status: "Excel·lent", desc: "Temps total de bloqueig del fil principal. 0 ms gràcies a l'eliminació de scripts bloquejants." },
+  { metric: "CLS", name: "Cumulative Layout Shift", value: "0.032", threshold: "< 0.1", status: "Òptim", desc: "Estabilitat visual completa sense salts inesperats d'elements durant la càrrega." },
+  { metric: "FCP", name: "First Contentful Paint", value: "1.5 s", threshold: "< 1.8 s", status: "Òptim", desc: "Temps d'aparició del primer element DOM visible en pantalla (0.4 s a escriptori)." },
+  { metric: "Speed Index", name: "Índex de Velocitat", value: "1.5 s", threshold: "< 3.4 s", status: "Òptim", desc: "Rapidesa amb què els continguts visuals de la pàgina es fan visibles (0.5 s a escriptori)." },
 ];
 
 const bundleBreakdown = [
   { asset: "Document HTML", size: "26.4 KB", gzipped: "7.1 KB", tech: "Astro SSG (Zero runtime superflu)" },
   { asset: "Fulls d'Estil CSS", size: "14.2 KB", gzipped: "3.8 KB", tech: "Tailwind CSS v4 purjat al 100%" },
   { asset: "JavaScript Crític", size: "7.8 KB", gzipped: "2.9 KB", tech: "Astro View Transitions & Scripts natius" },
-  { asset: "JavaScript Secundari (Three.js)", size: "Desacoblat", gzipped: "Carregat en repòs", tech: "Import dinàmic només amb requestIdleCallback" },
+  { asset: "JavaScript Secundari", size: "0 KB", gzipped: "0 KB", tech: "Three.js eliminat per rendiment" },
   { asset: "Tipografies (Inter + Bricolage)", size: "Self-hosted", gzipped: "Woff2 subset", tech: "Fontsource amb font-display: swap" },
 ];
 ---

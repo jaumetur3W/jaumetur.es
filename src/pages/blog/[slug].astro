@@ -93,9 +93,13 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       <div class="flex flex-wrap items-center gap-4 py-4 border-y border-slate-200/90 text-sm text-slate-600">
         <div class="flex items-center gap-2">
           <img
-            src="/memojis/2.png"
+            src="/img/2.webp"
             alt="Jaume Tur"
             class="w-8 h-8 rounded-full border border-slate-200 bg-white object-cover"
+            width="32"
+            height="32"
+            loading="lazy"
+            decoding="async"
           />
           <span class="font-bold text-slate-800">{entry.data.author}</span>
         </div>
@@ -124,8 +128,11 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
             <img
               src={entry.data.image.src}
               alt={entry.data.image.alt}
-              class="w-full h-auto max-h-[440px] object-cover object-center"
+              class="w-full h-auto max-h-[440px] object-cover object-center aspect-[1200/630]"
               loading="eager"
+              fetchpriority="high"
+              width="1200"
+              height="630"
             />
           </div>
         )}
@@ -204,9 +211,13 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
         <!-- Author Bio Card -->
         <div class="mt-10 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-col sm:flex-row gap-5 items-center sm:items-start text-center sm:text-left">
           <img
-            src="/memojis/4.png"
+            src="/img/4.webp"
             alt="Jaume Tur"
             class="w-20 h-20 rounded-2xl border border-indigo-200 bg-indigo-50/50 p-1 object-contain shrink-0"
+            width="80"
+            height="80"
+            loading="lazy"
+            decoding="async"
           />
           <div>
             <h3 class="text-lg font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2">

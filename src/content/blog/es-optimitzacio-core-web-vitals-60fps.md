@@ -3,7 +3,7 @@ draft: false
 title: "Cómo Optimizar el Rendimiento Frontend a 60 FPS: Métricas Core Web Vitals en la Práctica"
 snippet: "Estrategias avanzadas de ingeniería para alcanzar 60 FPS estables, reducir el LCP a menos de 1 segundo, eliminar el Layout Shift (CLS) y dominar Interaction to Next Paint (INP)."
 image: {
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
+    src: "/img/blog/es-optimitzacio-core-web-vitals-60fps.webp",
     alt: "Gráfico de telemetría y rendimiento de altas prestaciones"
 }
 publishDate: "2026-03-12 11:30"
