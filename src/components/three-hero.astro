@@ -9,8 +9,9 @@
   import * as THREE from "three";
 
   function initThreeHero() {
-    const canvas = document.getElementById("three-hero-canvas") as HTMLCanvasElement | null;
-    if (!canvas) return;
+    try {
+      const canvas = document.getElementById("three-hero-canvas") as HTMLCanvasElement | null;
+      if (!canvas) return;
 
     const parent = canvas.parentElement;
     if (!parent) return;
@@ -249,7 +250,10 @@
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
+  } catch (err) {
+    console.warn("Three.js hero animation could not initialize:", err);
   }
+}
 
   // Run on page load and view transitions
   if (document.readyState === "loading") {
