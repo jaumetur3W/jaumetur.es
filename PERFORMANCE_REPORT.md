@@ -127,3 +127,4 @@ npx @axe-core/cli http://localhost:4321/
 ---
 
 *Informe generat i certificat d'acord amb els estàndards W3C WCAG 2.2 AA i les guies de Google Core Web Vitals.*
+

@@ -1,166 +1,121 @@
-# Astroship - Astro SAAS Starter Website Template
+# jaumetur.es — Portfolio Personal & Playground d'Enginyeria Frontend
 
-Astroship is a free starter astro website template for saas, startups, marketing websites, landing pages & blogs. Built with Astro & TailwindCSS.
+[![CI Pipeline](https://github.com/jautur/jaumetur.es/actions/workflows/ci.yml/badge.svg)](https://github.com/jautur/jaumetur.es/actions/workflows/ci.yml)
+[![GitHub Pages Deploy](https://github.com/jautur/jaumetur.es/actions/workflows/deploy.yml/badge.svg)](https://github.com/jautur/jaumetur.es/actions/workflows/deploy.yml)
+[![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse&logoColor=white)](https://jaumetur.es/qualitat)
+[![WCAG 2.2 AA Compliant](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA-success?logo=w3c&logoColor=white)](https://jaumetur.es/qualitat)
+[![Astro Version](https://img.shields.io/badge/Astro-v5%2Fv7-bc52ee?logo=astro&logoColor=white)](https://astro.build)
+[![TypeScript Strict](https://img.shields.io/badge/TypeScript-Strict-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-This Free Template is sponsored by [Web3Templates](https://web3templates.com)
+---
 
-## Live Demo
+## Català (Catalan)
 
-**[https://astroship.web3templates.com/](https://astroship.web3templates.com/)**
+### Descripció del Projecte
 
-**[Download Astroship Template](https://web3templates.com/templates/astroship-starter-website-template-for-astro)**
+Aquest repositori conté el codi font de **[jaumetur.es](https://jaumetur.es)**, el portfolio personal i laboratori d'enginyeria frontend de **Jaume Tur**, desenvolupador especialitzat en aplicacions web d'alt rendiment, arquitectures modernes amb Astro, Angular, TypeScript i processos d'automatització CI/CD.
 
-## Upgrade to Astroship Pro Version
+El lloc web està construït com una prova empírica de qualitat: disseny net tipus Bento Grid, 60 FPS garantits en animacions, compliment estricte de WCAG 2.2 AA, càrrega instantània amb zero FOUC (*Flash of Unstyled Content*), paleta de comandes per teclat (`Cmd/Ctrl + K`) i una pàgina pública de telemetria i mètriques en viu a [`/qualitat`](https://jaumetur.es/qualitat).
 
-**[https://astroship-pro.web3templates.com/](https://astroship-pro.web3templates.com/)**
+### Pilars d'Arquitectura
 
-**[Purchase Astroship Pro — $49](https://web3templates.com/templates/astroship-pro-astro-saas-website-template)**
+1. **Astro Content Collections & Islands Architecture**: Renderitzat estàtic per defecte (SSG) amb generació de zero JavaScript a la majoria de seccions. Els components interactius (paleta de comandes, selector de tema, Three.js) funcionen com a illes aïllades.
+2. **Motor de Tema Zero-FOUC**: Gestió de tema fosc/clar/automàtic amb sincronització al `localStorage` i preferències del sistema operatiu (`prefers-color-scheme`), injectat al `<head>` abans del renderitzat visual per evitar parpellejos.
+3. **Casos d'Estudi Verificables**: Col·leccions de contingut per a projectes d'enginyeria (`/projectes/[slug]`) amb dades estructurades `CreativeWork` i `SoftwareSourceCode` validades segons schema.org.
+4. **Paleta de Comandes (`Cmd/Ctrl + K`)**: Modal accessible amb gestió de focus, tancament amb tecla Escape, dreceres de navegació ràpida i canvi d'estat del sistema.
+5. **CI/CD Integral**: Pipeline de GitHub Actions amb etapes paral·leles de comprovació de tipus (`astro check`), linter, proves unitàries (Vitest), proves de cap a cap (Playwright) i auditoria automatitzada amb Lighthouse CI.
 
+---
 
-<!-- prettier-ignore -->
-| Feature | Free Version | Pro Version |
-| --- | ------ | --- |
-| Astro v3 | ✅  | ✅ |
-| Content Collections | ✅  | ✅ |
-| Tailwind CSS   | ✅  | ✅ |
-| Mobile Responsive | ✅  | ✅ |
-| Working Contact Page | ✅  | ✅ |
-| Pro Layouts & Features | ❌  | ✅ |
-| Blog with Pagination | ❌ | ✅ |
-| View Transitions | ❌ | ✅ |
-| Advanced Homepage Design | ❌  | ✅ |
-| Features Page | ❌  | ✅ |
-| Integrations Page | ❌  | ✅ |
-| Elegant 404 Page | ❌  | ✅ |
-| 6 Months Support| ❌  | ✅  |
-| Free Updates    | ✅  | ✅  |
-| License         | GPL-2.0 | Commercial |
-| &nbsp; | &nbsp;| &nbsp;|
-| Pricing| Free|**$49**|
-| &nbsp; | [Deploy for free](https://vercel.com/new/surjithctly/clone?demo-description=Starter%20template%20for%20startups%2C%20marketing%20websites%20%26%20blogs%20built%20with%20Astro%20and%20TailwindCSS.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F5dB0dDqBr1BfvIoNOmffVB%2F784984a8d3fe5e3db123e7c655166046%2Fastroship_-_Tony_Sullivan.jpg&demo-title=Astroship&demo-url=https%3A%2F%2Fastroship.web3templates.com%2F&from=templates&project-name=Astroship&repository-name=astroship&repository-url=https%3A%2F%2Fgithub.com%2Fsurjithctly%2Fastroship&skippable-integrations=1) | [Purchase Pro](https://web3templates.com/templates/astroship-pro-astro-saas-website-template) |
+## English
 
-<a href="https://web3templates.com/templates/astroship-pro-astro-saas-website-template">
-<img width="160" alt="Upgrade to Pro" src="https://user-images.githubusercontent.com/1884712/199181300-37c2128e-d033-4145-a906-16fa5263a53b.png">
-</a>
+### Project Overview
 
-## Deploy this template
+This repository hosts the source code for **[jaumetur.es](https://jaumetur.es)**, the technical portfolio and frontend engineering playground of **Jaume Tur**, a Frontend & Web Apps Engineer specializing in high-performance web applications, modern architectures with Astro, Angular, TypeScript, and CI/CD automation pipelines.
 
-You can instantly clone this to your GitHub and deploy the site by clicking the below buttons to deploy to your chosen providers!
+The platform is designed to practice what it preaches: high-density Bento Grid layout, verifiable 60 FPS frame rates, strict WCAG 2.2 AA accessibility, zero-FOUC theme switching, fully accessible keyboard-driven Command Palette (`Cmd/Ctrl + K`), and an auditable live metrics dashboard at [`/qualitat`](https://jaumetur.es/qualitat).
 
-Click here to deploy on Vercel:
+### Architectural Highlights
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsurjithctly%2Fastroship&project-name=astroship&repository-name=astroship&demo-title=Astroship%20-%20Astro%20Starter%20Template&demo-description=Astroship%20is%20a%20starter%20template%20for%20startups%2C%20marketing%20websites%20%26%20landing%20pages.%20Built%20with%20Astro%2C%20TailwindCSS&demo-url=https%3A%2F%2Fastroship.web3templates.com%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F1884712%2F200831799-10ef2456-a02e-4068-b580-4b5326f0b33b.png)
+1. **Islands Architecture**: Static-first zero-JavaScript default with client islands activated only when interactive behavior is strictly required.
+2. **Zero-FOUC Theme Engine**: Synchronized light/dark/system theme management preventing any visual flash on initial load.
+3. **Evidence-Based Case Studies**: Content collections located under `/projectes/[slug]` enriched with structured `SoftwareSourceCode` and `CreativeWork` schemas.
+4. **Interactive Command Palette**: Accessible modal dialog offering quick page navigation, theme toggling, and email copying with full keyboard trapping.
+5. **Automated Platform Engineering**: Multi-stage GitHub Actions workflow encompassing static analysis, type checking, unit tests (Vitest), end-to-end tests (Playwright), and performance assertion gates (Lighthouse CI).
 
-Click here to deploy on Netlify:
+---
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/surjithctly/astroship)
+## Stack Tecnològic / Tech Stack
 
-## Preview
+* **Framework:** [Astro](https://astro.build/) (v5 / v7 core engine)
+* **Estils & Disseny:** [Tailwind CSS v4](https://tailwindcss.com/)
+* **Tipografia:** Bricolage Grotesque & Inter Variable via `@fontsource-variable`
+* **Icones Estabilitzades:** Boxicons (`@iconify-json/bx`), Simple Icons (`@iconify-json/simple-icons`) via `astro-icon` (zero emojis)
+* **Gràfics 3D:** Three.js (canvas de partícules respectuós amb `prefers-reduced-motion`)
+* **Qualitat & Tipus:** TypeScript (mode estricte) + `@astrojs/check`
+* **Testing:** [Vitest](https://vitest.dev/) (unitaris) + [Playwright](https://playwright.dev/) (E2E)
+* **CI/CD & Desplegament:** GitHub Actions + GitHub Pages + Lighthouse CI
 
-![image](https://user-images.githubusercontent.com/1884712/200831799-10ef2456-a02e-4068-b580-4b5326f0b33b.png)
+---
 
+## Comandes Locals / Quickstart
 
-## Pro Version Preview
+### Requisits Previs / Prerequisites
 
-![preview](https://github.com/surjithctly/astroship/assets/1884712/25665c02-d2a7-43dc-89b2-34a8ae37ade9)
+* Node.js `>= 22.12.0`
+* npm `>= 10.x`
 
-
-### Pagespeed Score
-
-[![pagespeed](https://user-images.githubusercontent.com/1884712/210250214-7aa98167-7993-4b90-8138-326b8fa0c223.png)](https://pagespeed.web.dev/report?url=https%3A%2F%2Fastroship.web3templates.com%2F)
-
-
-## Installation
-
-If you are reading this on github, you can click on the "Use this template" button above to create a new repository from astroship to your account. Then you can do a `git clone` to clone it to your local system.
-
-Alternatively, you can clone the project directly from this repo to your local system.
-
-### 1. Clone the repo
+### Instal·lació i Execució / Installation & Development
 
 ```bash
-git clone https://github.com/surjithctly/astroship.git myProjectName
-# or
-git clone https://github.com/surjithctly/astroship.git .
-```
+# 1. Clonar el repositori / Clone repository
+git clone https://github.com/jautur/jaumetur.es.git
+cd jaumetur.es
 
-The `.` will clone it to the current directory so make sure you are inside your project folder first.
+# 2. Instal·lar dependències / Install dependencies
+npm ci
 
-### 2. Install Dependencies
+# 3. Instal·lar navegadors de Playwright / Install Playwright browsers
+npx playwright install chromium
 
-```bash
-npm install
-# or
-yarn install
-# or (recommended)
-pnpm install
-```
-
-### 3. Start development Server
-
-```bash
+# 4. Iniciar el servidor local de desenvolupament / Start local dev server
 npm run dev
-# or
-yarn dev
-# or (recommended)
-pnpm dev
 ```
 
-### Preview & Build
+El servidor local s'iniciarà a:
+`http://localhost:4321/`
 
-```bash
-npm run preview
-npm run build
-# or
-yarn preview
-yarn build
-# or (recommended)
-pnpm preview
-pnpm build
-```
+---
 
-We recommend using [pnpm](https://pnpm.io/) to save disk space on your computer.
+## Scripts Disponibles / Available Scripts
 
-### Other Commands
+| Comanda / Command | Descripció / Description |
+| :--- | :--- |
+| `npm run dev` | Inicia el servidor de desenvolupament local (`http://localhost:4321`). |
+| `npm run build` | Compila l'aplicació per a producció estàtica a `./dist`. |
+| `npm run preview` | Serveix la compilació estàtica de producció en local. |
+| `npm run check` | Executa `astro check` per verificar tipus TypeScript i components Astro. |
+| `npm test` | Executa la suite de proves unitàries amb Vitest. |
+| `npm run test:e2e` | Executa les proves end-to-end de navegació i interacció amb Playwright. |
 
-```bash
-pnpm astro ...
-pnpm astro add
-pnpm astro --help
-```
+---
 
-## Project Structure
+## Pipelines de CI/CD / Continuous Integration
 
-Inside of your Astro project, you'll see the following folders and files:
+Els fluxos de treball s'executen automàticament a cada Pull Request i push a `main`:
 
-```
-/
-├── public/
-│   └── ...
-├── src/
-│   ├── components/
-│   │   └── ...
-│   ├── layouts/
-│   │   └── ...
-│   └── pages/
-│       └── ...
-└── package.json
-```
+* **`quality-and-typecheck`**: Verificació estricta de tipus TypeScript i sintaxi Astro.
+* **`unit-tests`**: Execució de tests de lògica amb Vitest.
+* **`build-and-e2e`**: Compilació estàtica i proves d'integració d'usuari amb Playwright.
+* **`lighthouse-audit`**: Avaluació de rendiment, accessibilitat, bones pràctiques i SEO amb umbrals mínims de 95-100.
+* **`deploy`**: Desplegament automàtic a GitHub Pages amb comprovacions prèvies de salut.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Per a detalls sobre estàndards de contribució i Conventional Commits, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
-## TailwindCSS
+## Llicència / License
 
-TailwindCSS is already configured in this repo, so you can start using it without any installation.
-
-## Credits
-
-[Hero Illustration](https://www.figma.com/community/file/1108400791662599811) by [Streamline](https://www.streamlinehq.com/)
-
-## 👀 Want to learn more?
-
-Feel free to check out [Astro Docs](https://docs.astro.build) or jump into our [Discord Chat](https://web3templates.com/discord).
-
-[![Built with Astro](https://astro.badg.es/v1/built-with-astro.svg)](https://astro.build)
+Distribuït sota llicència MIT. Consulta l'arxiu [LICENSE](LICENSE) per a més informació.

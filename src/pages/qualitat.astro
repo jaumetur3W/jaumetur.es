@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
+import BuildStatus from "@/components/build-status.astro";
 
 const lastAuditDate = "19 d'octubre de 2026";
 
@@ -225,6 +226,12 @@ const bundleBreakdown = [
       </div>
     </section>
 
+    <!-- Live CI/CD Pipeline Status -->
+    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="cicd-heading">
+      <h2 id="cicd-heading" class="sr-only">Estat del Pipeline CI/CD</h2>
+      <BuildStatus variant="card" />
+    </section>
+
     <!-- Reproduce Audit Instructions -->
     <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-slate-950 text-slate-200 border border-slate-800 font-mono text-xs" aria-labelledby="reproduce-heading">
       <div class="flex items-center gap-2 text-indigo-400 font-bold mb-3 text-sm">
@@ -264,3 +271,4 @@ const bundleBreakdown = [
     </section>
   </Container>
 </Layout>
+

@@ -1,6 +1,7 @@
 ---
 import Container from "./container.astro";
 import { Icon } from "astro-icon/components";
+import BuildStatus from "./build-status.astro";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -100,17 +101,20 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <!-- Bottom credits with Standardized Icons -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 text-[11px] text-slate-500 font-mono">
-      <p class="flex items-center gap-1.5 flex-wrap justify-center sm:justify-start">
-        <span>© {currentYear} Jaume Tur</span>
-        <span>·</span>
-        <span>Fet amb</span>
-        <Icon name="simple-icons:astro" class="w-3.5 h-3.5 text-orange-500" />
-        <span>Astro &</span>
-        <Icon name="simple-icons:tailwindcss" class="w-3.5 h-3.5 text-cyan-500" />
-        <span>Tailwind CSS</span>
-      </p>
+    <!-- Bottom credits with Live CI/CD Status Pill -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] text-slate-500 font-mono">
+      <div class="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
+        <BuildStatus variant="pill" />
+        <p class="flex items-center gap-1.5 flex-wrap">
+          <span>© {currentYear} Jaume Tur</span>
+          <span>·</span>
+          <span>Fet amb</span>
+          <Icon name="simple-icons:astro" class="w-3.5 h-3.5 text-orange-500" />
+          <span>Astro &</span>
+          <Icon name="simple-icons:tailwindcss" class="w-3.5 h-3.5 text-cyan-500" />
+          <span>Tailwind CSS</span>
+        </p>
+      </div>
       
       <div class="flex items-center gap-3">
         <span class="text-indigo-600 font-semibold flex items-center gap-1">

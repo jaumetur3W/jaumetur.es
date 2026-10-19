@@ -1,0 +1,31 @@
+name: "Proposta de Millora / Feature Request"
+description: "Suggereix una nova funcionalitat tècnica, article de blog o optimització."
+title: "[FEAT]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Totes les idees i millores que aporten valor a la comunitat són benvingudes!
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problema o necessitat"
+      description: "Quin repte tècnic o de disseny vols resoldre?"
+      placeholder: "M'agradaria veure un cas d'estudi sobre..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Solució proposada"
+      description: "Descripció de com t'agradaria que funcionés."
+      placeholder: "Implementar un nou component o pipeline..."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives considerades"
+      description: "Has explorat altres enfocaments o solucions?"
+      placeholder: "Havia provat una solució amb..."

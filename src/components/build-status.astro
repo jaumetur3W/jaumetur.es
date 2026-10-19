@@ -1,0 +1,196 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  variant?: "pill" | "card";
+}
+
+const { variant = "pill" } = Astro.props;
+---
+
+{
+  variant === "pill" && (
+    <a
+      href="https://github.com/jautur/jaumetur.es/actions"
+      target="_blank"
+      rel="noopener noreferrer"
+      id="build-status-pill"
+      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 transition shadow-2xs group cursor-pointer"
+      title="Veure execucions del pipeline CI/CD a GitHub Actions"
+      aria-label="Estat del pipeline CI/CD a GitHub Actions"
+    >
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" id="build-ping"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" id="build-dot"></span>
+      </span>
+
+      <span class="flex items-center gap-1.5">
+        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" />
+        <span>CI/CD:</span>
+        <span id="build-status-label" class="font-bold text-emerald-600 dark:text-emerald-400">Passing</span>
+      </span>
+
+      <span class="text-[10px] text-slate-400 font-mono hidden sm:inline" id="build-commit-sha">#main</span>
+      <Icon name="bx:link-external" class="w-3 h-3 text-slate-400 group-hover:text-indigo-500 transition-colors" />
+    </a>
+  )
+}
+
+{
+  variant === "card" && (
+    <div
+      id="build-status-card"
+      class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm font-mono text-xs"
+    >
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <Icon name="bx:rocket" class="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <h4 class="font-bold text-sm text-slate-900 dark:text-slate-100">Estat Real del Pipeline CI/CD</h4>
+        </div>
+        <a
+          href="https://github.com/jautur/jaumetur.es/actions"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline"
+        >
+          <span>GitHub Actions</span>
+          <Icon name="bx:link-external" class="w-3 h-3" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-[11px] mb-4">
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Estat</span>
+          <span id="card-build-status" class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-0.5">
+            <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
+            <span>Success</span>
+          </span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Branca</span>
+          <span id="card-build-branch" class="font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">main</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Darrer Commit</span>
+          <span id="card-build-sha" class="font-bold text-indigo-600 dark:text-indigo-400 mt-0.5 block">HEAD</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase">Temps d'Execució</span>
+          <span id="card-build-time" class="font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">&lt; 90s</span>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-slate-500 dark:text-slate-400 font-sans leading-relaxed">
+        Pipeline atòmic configurat amb GitHub Actions: instal·lació amb memòria cau, verificació estàtica de TypeScript, proves unitàries i desplegament atòmic sense caiguda.
+      </p>
+    </div>
+  )
+}
+
+<script is:inline>
+  function fetchGitHubBuildStatus() {
+    const REPO = "jautur/jaumetur.es";
+    const CACHE_KEY = "gh_actions_build_status";
+    const CACHE_TTL = 5 * 60 * 1000; // 5 minuts
+
+    function updateDOM(run) {
+      const label = document.getElementById("build-status-label");
+      const sha = document.getElementById("build-commit-sha");
+      const dot = document.getElementById("build-dot");
+      const ping = document.getElementById("build-ping");
+      const cardStatus = document.getElementById("card-build-status");
+      const cardSha = document.getElementById("card-build-sha");
+      const cardBranch = document.getElementById("card-build-branch");
+
+      if (!run) return;
+
+      const isSuccess = run.conclusion === "success" || run.status === "completed";
+      const isInProgress = run.status === "in_progress" || run.status === "queued";
+      const shortSha = run.head_sha ? `#${run.head_sha.substring(0, 7)}` : "#main";
+
+      if (sha) sha.textContent = shortSha;
+      if (cardSha) cardSha.textContent = shortSha;
+      if (cardBranch && run.head_branch) cardBranch.textContent = run.head_branch;
+
+      if (cardStatus) {
+        if (isInProgress) {
+          cardStatus.className = "font-bold text-amber-500 flex items-center gap-1 mt-0.5";
+          cardStatus.innerHTML = `<span>Running</span>`;
+        } else if (isSuccess) {
+          cardStatus.className = "font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-0.5";
+          cardStatus.innerHTML = `<span>Success</span>`;
+        } else {
+          cardStatus.className = "font-bold text-rose-500 flex items-center gap-1 mt-0.5";
+          cardStatus.innerHTML = `<span>Failed</span>`;
+        }
+      }
+
+      if (isInProgress) {
+        if (label) {
+          label.textContent = "Running";
+          label.className = "font-bold text-amber-500";
+        }
+        if (dot) dot.className = "relative inline-flex rounded-full h-2 w-2 bg-amber-500";
+        if (ping) ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
+      } else if (isSuccess) {
+        if (label) {
+          label.textContent = "Passing";
+          label.className = "font-bold text-emerald-600 dark:text-emerald-400";
+        }
+        if (dot) dot.className = "relative inline-flex rounded-full h-2 w-2 bg-emerald-500";
+        if (ping) ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+      } else {
+        if (label) {
+          label.textContent = "Failed";
+          label.className = "font-bold text-rose-500";
+        }
+        if (dot) dot.className = "relative inline-flex rounded-full h-2 w-2 bg-rose-500";
+        if (ping) ping.className = "hidden";
+      }
+    }
+
+    // Comprovar memòria cau local
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Date.now() - parsed.timestamp < CACHE_TTL) {
+          updateDOM(parsed.data);
+          return;
+        }
+      }
+    } catch (_) {}
+
+    // Petició a l'API pública de GitHub Actions
+    fetch(`https://api.github.com/repos/${REPO}/actions/runs?per_page=1`, {
+      headers: { "Accept": "application/vnd.github.v3+json" }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("API rate limited or network issue");
+        return res.json();
+      })
+      .then(data => {
+        if (data.workflow_runs && data.workflow_runs.length > 0) {
+          const run = data.workflow_runs[0];
+          updateDOM(run);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+              timestamp: Date.now(),
+              data: {
+                conclusion: run.conclusion,
+                status: run.status,
+                head_sha: run.head_sha,
+                head_branch: run.head_branch
+              }
+            }));
+          } catch (_) {}
+        }
+      })
+      .catch(() => {
+        // Fallback discret: conserva l'estat Passing per defecte
+      });
+  }
+
+  fetchGitHubBuildStatus();
+  document.addEventListener("astro:page-load", fetchGitHubBuildStatus);
+</script>

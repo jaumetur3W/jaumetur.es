@@ -26,7 +26,7 @@ const { plan } = Astro.props;
       } -->
     </div><ul class="grid mt-8 text-left gap-y-4">
       {
-        plan.features.map((item) => (
+        plan.features.map((item: string) => (
           <li class="flex items-start gap-3 text-gray-800">
             <Tick class="w-6 h-6" />
             <span>{item}</span>

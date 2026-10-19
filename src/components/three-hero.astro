@@ -159,13 +159,13 @@
     // Animation Loop
     let animationFrameId: number;
     let isRunning = true;
-    let clock = new THREE.Clock();
+    const startTime = performance.now();
 
     function animate() {
       if (!isRunning) return;
       animationFrameId = requestAnimationFrame(animate);
 
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
       // Parallax smooth interpolation
       targetX += (mouseX * 8 - targetX) * 0.04;

@@ -1,0 +1,41 @@
+name: "Informe d'Error / Bug Report"
+description: "Informa d'un problema visual, de rendiment o d'accessibilitat al portfolio."
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gràcies per ajudar a mantenir la qualitat del lloc web! Si us plau, descriu el problema amb el màxim detall possible.
+  - type: input
+    id: environment
+    attributes:
+      label: "Dispositiu i Navegador"
+      description: "Exemple: Chrome 130 a macOS Sonoma, o Firefox a Ubuntu."
+      placeholder: "Navegador, versió i sistema operatiu"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Descripció del problema"
+      description: "Explica clarament què passa."
+      placeholder: "Descripció detallada del comportament anòmal..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Passos per reproduir l'error"
+      description: "1. Anar a '...'\n2. Fer clic a '...'\n3. Observar l'error..."
+      placeholder: "1. Obrir la pàgina principal..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Comportament esperat"
+      description: "Què hauria d'haver passat segons els estàndards del projecte."
+      placeholder: "Hauria de mantenir 60 FPS o mostrar el contingut accessible..."
+    validations:
+      required: true
