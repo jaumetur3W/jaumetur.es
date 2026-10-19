@@ -6,26 +6,26 @@ import { Icon } from "astro-icon/components";
 
 const pillars = [
   {
-    title: "Frontend Modern",
+    title: "Backend & Arquitectura",
+    icon: "bx:server",
+    points: ["APIs REST escalables i serveis robustos amb Node.js & TypeScript", "Modelat i gestió de bases de dades SQL i NoSQL", "Clean architecture, seguretat i integracions de sistemes"],
+  },
+  {
+    title: "Sistemes & Servidors (SMX)",
+    icon: "bx:chip",
+    points: ["Administració de servidors Linux i entorns de xarxa", "Manteniment preventiu, diagnòstic i muntatge d'equips", "Configuració de xarxes locals, seguretat i còpies de suport"],
+  },
+  {
+    title: "Frontend & Web Apps (DAW)",
     icon: "bx:layout",
-    points: ["Components modulars amb Angular", "Tipat segur i estricte amb TypeScript", "Maquetació responsive i semàntica"],
-  },
-  {
-    title: "Qualitat & Rendiment",
-    icon: "bx:shield-quarter",
-    points: ["Sense errors en temps d'execució", "Compliment estricte de WCAG AA", "Objectiu de renderitzat fluid a 60 FPS"],
-  },
-  {
-    title: "CI/CD & DevOps",
-    icon: "bx:git-repo-forked",
-    points: ["Pipelines automatitzats a GitHub Actions", "Linters estàtics i verificacions contínues", "Desplegaments continus i segurs"],
+    points: ["Aplicacions SPA modulars amb Angular i TypeScript", "Rendiment fluid a 60 FPS i accessibilitat WCAG AA", "Automatització de desplegaments amb GitHub Actions CI/CD"],
   },
 ];
 
 const highlights = [
-  { icon: "bx:bxs-graduation", label: "ESTUDIS", val: "CFGS Desenvolupament Web (DAW)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:bxs-graduation", label: "TITULACIONS", val: "CFGS DAW + GM SMX", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
   { icon: "bx:map-pin", label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:bxs-zap", label: "ESPECIALITAT", val: "Arquitectura Frontend SPA", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:server", label: "ESPECIALITAT", val: "Backend, Sistemes & Web Apps", color: "border-indigo-200/90 bg-indigo-50 text-indigo-900" },
   { icon: "bx:check-circle", label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
 ];
 ---
@@ -48,7 +48,7 @@ const highlights = [
             <div class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover/memoji:scale-105 transition-transform"></div>
             
             <img
-              src="/memojis/1.png"
+              src="/img/1.png"
               alt="Jaume Tur"
               class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.20)] group-hover/memoji:-translate-y-2 transition-transform duration-300"
               width="288"
@@ -65,7 +65,7 @@ const highlights = [
         <div class="flex-1 text-left">
           <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md mb-2 border border-indigo-200/60">
             <Icon name="bx:terminal" class="w-3.5 h-3.5" />
-            <span>Desenvolupador Web · Frontend</span>
+            <span>Backend &amp; Sistemes · Web Apps</span>
           </div>
 
           <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -73,7 +73,7 @@ const highlights = [
           </h2>
 
           <p class="text-base text-slate-600 mt-3 leading-relaxed">
-            Passió pel desenvolupament frontend estructurat, les interfícies intuïtives i l'automatització. Compromès amb el codi net, la maquetació semàntica i els processos fiables d'entrega de programari.
+            Desenvolupador de programari especialitzat amb major profunditat en <strong>Backend</strong> i arquitectura de sistemes. Compto amb la titulació de <strong>Grau Mitjà en Sistemes Microinformàtics i Xarxes (SMX)</strong>, que m'aporta sòlides competències en <strong>administració de servidors, xarxes i manteniment d'equips</strong>, complementat amb el <strong>CFGS en Desenvolupament d'Aplicacions Web (DAW)</strong> per al lliurament de solucions web completes i automatitzades.
           </p>
 
           <!-- Visual highlights pills with Standardized Icons -->
@@ -95,7 +95,7 @@ const highlights = [
             ))}
           </div>
 
-          <!-- Quick action buttons -->
+          <!-- Quick action buttons (Prioritat Tècnica: CV, GitHub, LinkedIn, Contacte) -->
           <div class="flex flex-wrap items-center gap-3 mt-6 pt-6 border-t border-slate-100">
             <a
               href="/docs/CV_Jaume_tur.pdf"
@@ -105,6 +105,26 @@ const highlights = [
               <Icon name="bx:file" class="w-4 h-4 text-white group-hover/btn:-translate-y-0.5 transition-transform" />
               <span>Descarregar CV Complet (PDF)</span>
               <span class="text-[11px] font-mono text-slate-400">↗</span>
+            </a>
+            <a
+              href="https://github.com/jautur"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group/gh inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-xs text-slate-800 bg-white hover:bg-slate-50 hover:border-slate-800 transition shadow-2xs"
+              title="Repositoris de codi a GitHub">
+              <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-900 group-hover/gh:scale-110 transition-transform" />
+              <span>GitHub</span>
+              <span class="text-[10px] text-slate-400 font-mono">↗</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/jautur/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group/li inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-indigo-200 font-bold text-xs text-indigo-700 bg-indigo-50/50 hover:bg-indigo-100 transition shadow-2xs"
+              title="Trajectòria professional a LinkedIn">
+              <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-indigo-600 group-hover/li:scale-110 transition-transform" />
+              <span>LinkedIn</span>
+              <span class="text-[10px] text-indigo-400 font-mono">↗</span>
             </a>
             <a
               href="/contact"
@@ -175,7 +195,7 @@ const highlights = [
         <div class="shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 relative z-20 group/memoji">
           <div class="relative">
             <img
-              src="/memojis/7.png"
+              src="/img/7.png"
               alt="Jaume Tur"
               class="relative w-44 h-44 sm:w-52 sm:h-52 object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.5)] group-hover/memoji:-translate-y-1 group-hover/memoji:scale-105 transition-transform duration-300"
               width="208"

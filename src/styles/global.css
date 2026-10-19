@@ -4,16 +4,47 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Roxhead Demo: licencia de prueba, comprar licencia completa antes de producción */
+@font-face {
+  font-family: 'Roxhead Demo';
+  src: url('/fonts/roxhead-demo.woff2') format('woff2'),
+       url('/fonts/Roxhead-Demo.otf') format('opentype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback font override with metrics adjustment to prevent layout shift (CLS) */
+@font-face {
+  font-family: 'Roxhead-Fallback';
+  src: local('system-ui'), local('sans-serif');
+  ascent-override: 96%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+  size-adjust: 102%;
+}
+
 @theme {
   --font-sans:
     Bricolage Grotesque Variable, Inter Variable, Inter, ui-sans-serif,
     system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --font-roxhead: 'Roxhead Demo', 'Roxhead-Fallback', system-ui, sans-serif;
+  --color-brand-yellow: #FFE600;
+  --color-brand-dark: #090D16;
+}
+
+/* Explicit class utility for single-point styling & easy revert */
+.font-roxhead {
+  font-family: var(--font-roxhead, 'Roxhead Demo', 'Roxhead-Fallback', system-ui, sans-serif);
 }
 
 /* Color scheme strictly light */
 :root {
   color-scheme: light;
+  --color-brand-yellow: #FFE600;
+  --color-brand-dark: #090D16;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -144,4 +175,130 @@
   border-color: #10b981;
   background-color: rgba(16, 185, 129, 0.15);
 }
+
+/* ==========================================================================
+   Hero Background System: Tokens, Animations & Decorative Layers
+   - Capa 0: Base sòlida amb tokens de color (claro i oscuro)
+   - Capa 1: Taques de gradient radial difuminades (animació lenta GPU 20-30s)
+   - Capa 2: Reixeta blueprint / enginyeria amb màscara radial
+   - Capa 3: Gra de sorra / soroll tècnic (SVG feTurbulence data URI 4%)
+   - Capa 4: Degradat de sortida suau cap a la següent secció
+   - Capa 5: Icones tècniques flotants amb parallax / oscil·lació subtil
+   ========================================================================== */
+
+:root {
+  --hero-bg-light: #ffffff;
+  --hero-mesh-light-1: rgba(99, 102, 241, 0.22); /* Índigo */
+  --hero-mesh-light-2: rgba(168, 85, 247, 0.18); /* Púrpura */
+  --hero-mesh-light-3: rgba(6, 182, 212, 0.16);  /* Cian */
+  --hero-grid-light: rgba(99, 102, 241, 0.08);
+
+  --hero-bg-dark: #070b14;
+  --hero-mesh-dark-1: rgba(99, 102, 241, 0.35);  /* Índigo elèctric */
+  --hero-mesh-dark-2: rgba(168, 85, 247, 0.28);  /* Violeta */
+  --hero-mesh-dark-3: rgba(6, 182, 212, 0.22);   /* Cian marí */
+  --hero-grid-dark: rgba(99, 102, 241, 0.12);
+}
+
+/* Animacions GPU per a les taques de gradient radial (translate3d/scale) */
+@keyframes heroMeshMove1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(55px, -35px, 0) scale(1.08); }
+  100% { transform: translate3d(-35px, 25px, 0) scale(0.95); }
+}
+
+@keyframes heroMeshMove2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-45px, 45px, 0) scale(1.06); }
+  100% { transform: translate3d(40px, -25px, 0) scale(0.94); }
+}
+
+@keyframes heroMeshMove3 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(35px, 35px, 0) scale(1.1); }
+  100% { transform: translate3d(-40px, -30px, 0) scale(0.92); }
+}
+
+@keyframes heroIconFloatSubtle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -8px, 0) rotate(3deg); }
+}
+
+.animate-hero-mesh-1 {
+  animation: heroMeshMove1 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.animate-hero-mesh-2 {
+  animation: heroMeshMove2 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.animate-hero-mesh-3 {
+  animation: heroMeshMove3 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.animate-hero-float {
+  animation: heroIconFloatSubtle 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Desactivació estricta d'animacions si prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-mesh-1,
+  .animate-hero-mesh-2,
+  .animate-hero-mesh-3,
+  .animate-hero-float {
+    animation: none !important;
+  }
+}
+
+/* Capa 3: Textura de gra de soroll tècnic (SVG feTurbulence data URI 4% opacitat) */
+.hero-grain-layer {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Capa Variant C: Scanlines analògiques de terminal CRT */
+.hero-scanlines-layer {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(6, 182, 212, 0.06) 0px,
+    rgba(6, 182, 212, 0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+/* Assegurança de contrast WCAG AAA per al contingut quan s'activa fons fosc */
+#hero.hero-theme-dark {
+  color: #f8fafc;
+}
+#hero.hero-theme-dark h1 {
+  color: #ffffff;
+}
+#hero.hero-theme-dark p {
+  color: #cbd5e1;
+}
+#hero.hero-theme-dark strong {
+  color: #ffffff;
+}
+#hero.hero-theme-dark .bg-white {
+  background-color: rgba(15, 23, 42, 0.75) !important;
+  border-color: rgba(51, 65, 85, 0.7) !important;
+  color: #f8fafc !important;
+}
+#hero.hero-theme-dark .text-slate-900,
+#hero.hero-theme-dark .text-slate-800,
+#hero.hero-theme-dark .text-slate-700 {
+  color: #f8fafc !important;
+}
+#hero.hero-theme-dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+#hero.hero-theme-dark #hero-status-pill {
+  background-color: rgba(6, 78, 59, 0.4) !important;
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  color: #6ee7b7 !important;
+}
+
 

@@ -41,7 +41,7 @@ const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 // Dynamic, keyword-rich title generation
 const isHome = !title || title === "Inici" || title === "Home";
 const makeTitle = isHome
-  ? "Jaume Tur — Desenvolupador Frontend & Web Apps a València | Angular & TypeScript"
+  ? "Jaume Tur — Desenvolupador Backend & Web Apps a València | Sistemes & Cloud"
   : `${title} | Jaume Tur`;
 
 // JSON-LD Structured Data
@@ -52,12 +52,13 @@ const personSchema = {
   "name": "Jaume Tur",
   "givenName": "Jaume",
   "familyName": "Tur",
-  "jobTitle": "Desenvolupador Frontend & Web Apps",
+  "jobTitle": "Desenvolupador Backend & Web Apps | Administrador de Sistemes",
   "url": siteUrl,
   "image": `${siteUrl}/jt-monogram.svg`,
   "sameAs": [
     "https://github.com/jautur",
     "https://www.linkedin.com/in/jautur/",
+    "https://www.instagram.com/jaume.www/",
     "https://twitter.com/jautur"
   ],
   "address": {
@@ -164,6 +165,7 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- Astro View Transitions Router -->
     <ClientRouter />
+
 
     <!-- Theme Initialization: Permanent Light Mode -->
     <script is:inline>

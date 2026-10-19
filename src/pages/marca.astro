@@ -7,6 +7,16 @@ import { Icon } from "astro-icon/components";
 // Paleta de colors oficial
 const brandColors = [
   {
+    name: "Groc Corporatiu (Brand Yellow)",
+    role: "Identitat oficial 'jaume.www', isotip principal i accents d'alt impacte",
+    hex: "#FFE600",
+    rgb: "255, 230, 0",
+    hsl: "54°, 100%, 50%",
+    contrast: "16.5:1 sobre fosc (AAA)",
+    textDark: true,
+    bgClass: "bg-[#FFE600] border border-amber-300",
+  },
+  {
     name: "Índigo Primari",
     role: "Identitat de marca, enllaços clau i focus d'atenció",
     hex: "#4F46E5",
@@ -194,6 +204,122 @@ const memojiGuide = [
       </div>
     </section>
 
+    <!-- 1.1 Nous Logos i Isotip Corporatius (3 Aplicacions de Color) -->
+    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="new-logos-heading">
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <Icon name="bx:palette" class="w-6 h-6 text-amber-500" />
+          <h2 id="new-logos-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
+            Logotip &amp; Isotip Oficials "jaume.www"
+          </h2>
+        </div>
+        <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+          3 Aplicacions Cromàtiques Oficials
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Aplicació 1: Groc Corporatiu (#FFE600) -->
+        <div class="bg-white rounded-3xl border border-amber-200 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-amber-600 font-bold">
+                Versió Principal (Groc)
+              </span>
+              <span class="text-[10px] font-mono bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded font-bold">
+                #FFE600
+              </span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="rounded-xl overflow-hidden shadow-2xs border border-amber-200 aspect-square flex items-center justify-center bg-[#FFE600]">
+                <img src="/img/jt.LOGO-01.png" alt="Logotip jaume.www sobre groc" class="w-full h-full object-cover" />
+              </div>
+              <div class="rounded-xl overflow-hidden shadow-2xs border border-amber-200 aspect-square flex items-center justify-center bg-[#FFE600]">
+                <img src="/img/jt.LOGO-02.png" alt="Isotip j sobre groc" class="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            <h3 class="font-bold text-slate-900 text-sm mb-1">Logotip &amp; Isotip Groc</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Logotip complet "jaume. www" (LOGO-01) i isotip d'accent amb somriure i ulls XX (LOGO-02).
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex gap-2 mt-4">
+            <a href="/img/jt.LOGO-01.png" download="jt-logo-groc.png" class="flex-1 text-center py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-amber-500 hover:text-slate-950 transition">LOGO-01</a>
+            <a href="/img/jt.LOGO-02.png" download="jt-isotip-groc.png" class="flex-1 text-center py-1.5 rounded-lg border border-slate-200 text-slate-700 bg-white font-bold text-xs hover:bg-slate-50 transition">LOGO-02</a>
+          </div>
+        </div>
+
+        <!-- Aplicació 2: Fons Fosc Obsidiana (#090D16) -->
+        <div class="bg-[#090D16] text-white rounded-3xl border border-slate-800 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+                Versió Dark Mode
+              </span>
+              <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-bold">
+                #090D16
+              </span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-[#090D16]">
+                <img src="/img/jt.LOGO-03.png" alt="Logotip jaume.www fosc" class="w-full h-full object-cover" />
+              </div>
+              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-[#090D16]">
+                <img src="/img/jt.LOGO-04.png" alt="Isotip j fosc" class="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            <h3 class="font-bold text-white text-sm mb-1">Logotip &amp; Isotip Fosc</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Traç blanc d'alt contrast sobre fons obsidiana per a terminals i entorns foscos (LOGO-03 i LOGO-04).
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800 flex gap-2 mt-4">
+            <a href="/img/jt.LOGO-03.png" download="jt-logo-dark.png" class="flex-1 text-center py-1.5 rounded-lg bg-white text-slate-900 font-bold text-xs hover:bg-[#FFE600] transition">LOGO-03</a>
+            <a href="/img/jt.LOGO-04.png" download="jt-isotip-dark.png" class="flex-1 text-center py-1.5 rounded-lg border border-slate-700 text-slate-200 bg-slate-900 font-bold text-xs hover:bg-slate-800 transition">LOGO-04</a>
+          </div>
+        </div>
+
+        <!-- Aplicació 3: Editorial Blanc & Negre (#000000 / #FFFFFF) -->
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 shadow-xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+                Versió Editorial (Light)
+              </span>
+              <span class="text-[10px] font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-bold">
+                Monocrom
+              </span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
+                <img src="/img/jt.LOGO-05.png" alt="Logotip jaume.www blanc i negre" class="w-full h-full object-cover" />
+              </div>
+              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
+                <img src="/img/jt.LOGO-06.png" alt="Isotip j blanc i negre" class="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            <h3 class="font-bold text-slate-900 text-sm mb-1">Logotip &amp; Isotip Monocrom</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Tinta negra pura sobre fons blanc per a impressió i aplicacions netes (LOGO-05 i LOGO-06).
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 flex gap-2 mt-4">
+            <a href="/img/jt.LOGO-05.png" download="jt-logo-mono.png" class="flex-1 text-center py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition">LOGO-05</a>
+            <a href="/img/jt.LOGO-06.png" download="jt-isotip-mono.png" class="flex-1 text-center py-1.5 rounded-lg border border-slate-200 text-slate-700 bg-white font-bold text-xs hover:bg-slate-50 transition">LOGO-06</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 2. Paleta de Colors Oficial & Contrast WCAG -->
     <section class="max-w-5xl mx-auto mb-16" aria-labelledby="colors-heading">
       <div class="flex items-center gap-2 mb-6">
@@ -300,7 +426,7 @@ const memojiGuide = [
               memojiGuide.map((m) => (
                 <tr class="hover:bg-slate-50/50 transition-colors">
                   <td class="py-3 px-5">
-                    <img src={`/memojis/${m.file}`} alt={m.alt} class="w-12 h-12 object-contain" width="48" height="48" />
+                    <img src={`/img/${m.file}`} alt={m.alt} class="w-12 h-12 object-contain" width="48" height="48" />
                   </td>
                   <td class="py-3 px-5 font-bold text-slate-900">{m.pose}</td>
                   <td class="py-3 px-5 text-slate-600">{m.context}</td>
@@ -337,6 +463,66 @@ const memojiGuide = [
           Suport natiu d'atributs `aria-hidden="true"` sense lectures molestes.
         </li>
       </ul>
+    </section>
+
+    <!-- 6. Canals Oficials de Marca & Presència Digital -->
+    <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-white border border-slate-200/90 shadow-xs">
+      <div class="flex items-center gap-2 mb-6">
+        <Icon name="bx:share-alt" class="w-6 h-6 text-indigo-600" />
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+          Identificadors Oficials &amp; Xarxes de Marca
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-4 gap-4 text-xs">
+        <a
+          href="https://www.instagram.com/jaume.www/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 hover:border-amber-400 transition group flex flex-col justify-between">
+          <div>
+            <Icon name="bx:bxl-instagram" class="w-6 h-6 text-amber-500 mb-2 group-hover:scale-110 transition-transform" />
+            <span class="text-[10px] font-mono uppercase text-amber-800 font-bold block">Instagram Oficial</span>
+            <span class="text-sm font-bold text-slate-900">@jaume.www</span>
+          </div>
+          <span class="text-[10px] font-mono text-amber-700 mt-3 block">Canal oficial actiu ↗</span>
+        </a>
+
+        <a
+          href="https://github.com/jautur"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-400 transition group flex flex-col justify-between">
+          <div>
+            <Icon name="bx:bxl-github" class="w-6 h-6 text-slate-900 mb-2 group-hover:scale-110 transition-transform" />
+            <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">GitHub</span>
+            <span class="text-sm font-bold text-slate-900">@jautur</span>
+          </div>
+          <span class="text-[10px] font-mono text-slate-500 mt-3 block">Repositoris de codi ↗</span>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/jautur/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-200 hover:border-indigo-400 transition group flex flex-col justify-between">
+          <div>
+            <Icon name="bx:bxl-linkedin" class="w-6 h-6 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
+            <span class="text-[10px] font-mono uppercase text-indigo-700 font-bold block">LinkedIn</span>
+            <span class="text-sm font-bold text-slate-900">in/jautur</span>
+          </div>
+          <span class="text-[10px] font-mono text-indigo-600 mt-3 block">Xarxa professional ↗</span>
+        </a>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <Icon name="bx:globe" class="w-6 h-6 text-slate-700 mb-2" />
+            <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">Domini Oficial</span>
+            <span class="text-sm font-bold text-slate-900">jaumetur.es</span>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-600 font-bold mt-3 block">SSL &amp; DNS Actiu</span>
+        </div>
+      </div>
     </section>
   </Container>
 </Layout>

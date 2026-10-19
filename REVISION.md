@@ -113,3 +113,4 @@
 
 5. **Commutador d'Idioma sense Runtime (Català / Castellà / Anglès)**
    - *Concepte:* Aprofitant que ja existeixen articles en castellà (`es-*`) i català, implementar rutes estàtiques completes i localitzades (`/ca/`, `/es/`, `/en/`) utilitzant Astro i18n per permetre a reclutadors internacionals llegir els casos d'estudi en anglès.
+

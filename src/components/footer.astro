@@ -12,20 +12,26 @@ const currentYear = new Date().getFullYear();
       
       <!-- Logo + Memoji 6.png (Winking Jaume) -->
       <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-2.5 group">
-          <img
-            src="/jt-monogram.svg"
-            alt="Monograma Jaume Tur"
-            class="w-9 h-9 rounded-xl shadow-xs group-hover:scale-105 transition"
-            width="36"
-            height="36"
-          />
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="relative">
+            <div class="absolute inset-0 bg-[#FFE600] rounded-2xl blur-xs opacity-50 group-hover:opacity-90 transition-opacity"></div>
+            <img
+              src="/img/jt.LOGO-02.png"
+              alt="Logo Jaume Tur"
+              class="relative w-12 h-12 rounded-2xl shadow-xs group-hover:scale-105 transition object-cover ring-1 ring-slate-900/10"
+              width="48"
+              height="48"
+            />
+          </div>
           <div>
-            <span class="font-extrabold text-slate-900 text-sm block group-hover:text-indigo-600 transition-colors">
-              Jaume Tur
-            </span>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-slate-900 text-base block group-hover:text-indigo-600 transition-colors">
+                jaume
+              </span>
+              <span class="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#FFE600] text-slate-950">.www</span>
+            </div>
             <span class="text-[11px] text-slate-500 font-mono">
-              Desenvolupador Web · Frontend
+              Backend &amp; Sistemes · Web Apps
             </span>
           </div>
         </a>
@@ -34,7 +40,7 @@ const currentYear = new Date().getFullYear();
         <div class="group/wink relative flex items-center justify-center cursor-pointer ml-1" title="Gràcies per la visita!">
           <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-200/70 p-1 shadow-2xs group-hover/wink:scale-110 transition-transform flex items-center justify-center">
             <img
-              src="/memojis/6.png"
+              src="/img/6.png"
               alt="Jaume Tur"
               class="w-full h-full object-contain"
               width="36"
@@ -73,14 +79,14 @@ const currentYear = new Date().getFullYear();
         </a>
       </nav>
 
-      <!-- Social Icons with Standardized SVG Icons -->
+      <!-- Social Icons with Standardized SVG Icons (Prioritat Tècnica: GitHub & LinkedIn) -->
       <div class="flex items-center gap-2.5">
         <a
           href="https://github.com/jautur"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white transition text-slate-700 shadow-2xs group"
-          title="GitHub de Jaume Tur"
+          class="p-2 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white transition text-slate-800 shadow-2xs group"
+          title="GitHub de Jaume Tur (Codi i Repositoris)"
           aria-label="GitHub">
           <Icon name="bx:bxl-github" class="w-4 h-4 group-hover:scale-110 transition-transform" />
         </a>
@@ -89,7 +95,7 @@ const currentYear = new Date().getFullYear();
           target="_blank"
           rel="noopener noreferrer"
           class="p-2 rounded-xl bg-blue-50 hover:bg-[#0A66C2] hover:text-white transition text-blue-600 shadow-2xs group"
-          title="LinkedIn de Jaume Tur"
+          title="LinkedIn de Jaume Tur (Perfil Professional)"
           aria-label="LinkedIn">
           <Icon name="bx:bxl-linkedin" class="w-4 h-4 group-hover:scale-110 transition-transform" />
         </a>
@@ -99,6 +105,15 @@ const currentYear = new Date().getFullYear();
           title="Enviar correu electrònic a Jaume Tur"
           aria-label="Correu">
           <Icon name="bx:envelope" class="w-4 h-4 group-hover:scale-110 transition-transform" />
+        </a>
+        <a
+          href="https://www.instagram.com/jaume.www/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl bg-slate-50 hover:bg-amber-100/80 hover:text-amber-800 transition text-slate-400 shadow-2xs group"
+          title="Instagram (@jaume.www)"
+          aria-label="Instagram">
+          <Icon name="bx:bxl-instagram" class="w-4 h-4 group-hover:scale-110 transition-transform" />
         </a>
       </div>
     </div>

@@ -39,7 +39,7 @@ import { Icon } from "astro-icon/components";
           <div class="flex items-center gap-4">
             <div class="relative shrink-0 -my-4 -ml-2 z-10">
               <img
-                src="/memojis/3.png"
+                src="/img/3.png"
                 alt="Memoji de Jaume Tur saludant"
                 class="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.16)] group-hover:scale-105 transition-transform duration-300"
                 width="112"
@@ -48,7 +48,7 @@ import { Icon } from "astro-icon/components";
             </div>
             <div>
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block">
-                Frontend & Web Apps
+                Backend &amp; Sistemes · Web Apps
               </span>
               <h2 class="font-extrabold text-lg text-slate-900 leading-tight mt-0.5">
                 Jaume Tur
@@ -126,17 +126,19 @@ import { Icon } from "astro-icon/components";
           <span class="text-slate-400 group-hover:text-slate-900 text-xs font-mono font-bold">↗</span>
         </a>
 
-        <!-- Xarxes Professionals Reals -->
+        <!-- Xarxes Professionals Reals (Prioritat Tècnica: GitHub & LinkedIn) -->
         <div class="grid grid-cols-2 gap-3 pt-1">
           <a
             href="https://github.com/jautur"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-white border border-slate-200/90 hover:border-slate-900 rounded-2xl p-3 flex items-center gap-2.5 transition group shadow-2xs">
-            <Icon name="bx:bxl-github" class="w-5 h-5 text-slate-900" />
-            <div>
-              <span class="text-[9px] font-mono uppercase text-slate-400 block">GitHub</span>
-              <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">@jautur</span>
+            class="bg-white border border-slate-200/90 hover:border-slate-900 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Icon name="bx:bxl-github" class="w-5 h-5 text-slate-900" />
+            </div>
+            <div class="truncate">
+              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">Codi &amp; Repos</span>
+              <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">GitHub (@jautur)</span>
             </div>
           </a>
 
@@ -144,11 +146,13 @@ import { Icon } from "astro-icon/components";
             href="https://www.linkedin.com/in/jautur/"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-white border border-slate-200/90 hover:border-indigo-400 rounded-2xl p-3 flex items-center gap-2.5 transition group shadow-2xs">
-            <Icon name="bx:bxl-linkedin" class="w-5 h-5 text-indigo-600" />
-            <div>
-              <span class="text-[9px] font-mono uppercase text-slate-400 block">LinkedIn</span>
-              <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">in/jautur</span>
+            class="bg-white border border-slate-200/90 hover:border-indigo-400 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
+            <div class="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <Icon name="bx:bxl-linkedin" class="w-5 h-5 text-indigo-600" />
+            </div>
+            <div class="truncate">
+              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">Trajectòria</span>
+              <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">LinkedIn (in/jautur)</span>
             </div>
           </a>
         </div>

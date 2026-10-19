@@ -7,7 +7,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "sync-memojis": "node -e \"const fs=require('fs'); fs.readdirSync('memojis').filter(f=>f.endsWith('.png')).forEach(f=>fs.copyFileSync('memojis/'+f, 'public/memojis/'+f))\"",
+    "sync-img": "node -e \"const fs=require('fs'); fs.readdirSync('img').forEach(f=>fs.copyFileSync('img/'+f, 'public/img/'+f))\"",
+    "sync-memojis": "node -e \"const fs=require('fs'); fs.readdirSync('img').forEach(f=>fs.copyFileSync('img/'+f, 'public/img/'+f))\"",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -43,6 +44,7 @@
     "@types/three": "^0.186.0",
     "qrcode": "^1.5.4",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "wawoff2": "^2.0.1"
   }
 }
