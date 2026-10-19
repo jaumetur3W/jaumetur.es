@@ -19,9 +19,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm.cmd run preview",
+    command: process.platform === "win32" ? "npm.cmd run preview" : "npm run preview",
     url: "http://localhost:4321",
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
 });
