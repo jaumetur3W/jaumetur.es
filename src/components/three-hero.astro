@@ -6,24 +6,29 @@
 </div>
 
 <script>
-  import * as THREE from "three";
+  async function initThreeHero() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
 
-  function initThreeHero() {
     try {
       const canvas = document.getElementById("three-hero-canvas") as HTMLCanvasElement | null;
       if (!canvas) return;
 
-    const parent = canvas.parentElement;
-    if (!parent) return;
+      const parent = canvas.parentElement;
+      if (!parent) return;
 
-    // Dimensions
-    let width = parent.clientWidth || window.innerWidth;
-    let height = parent.clientHeight || window.innerHeight;
+      // Dynamic import of Three.js to keep critical bundle ultra-light
+      const THREE = await import("three");
 
-    // Scene & Camera
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
-    camera.position.z = 85;
+      // Dimensions
+      let width = parent.clientWidth || window.innerWidth;
+      let height = parent.clientHeight || window.innerHeight;
+
+      // Scene & Camera
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1000);
+      camera.position.z = 85;
 
     // WebGL Renderer with performance optimizations
     const renderer = new THREE.WebGLRenderer({
@@ -255,11 +260,20 @@
   }
 }
 
-  // Run on page load and view transitions
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initThreeHero);
-  } else {
-    initThreeHero();
+  function scheduleThreeInit() {
+    if ("requestIdleCallback" in window) {
+      (window as any).requestIdleCallback(() => initThreeHero(), { timeout: 1500 });
+    } else {
+      setTimeout(initThreeHero, 300);
+    }
   }
+
+  // Run on page load and Astro view transitions
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleThreeInit);
+  } else {
+    scheduleThreeInit();
+  }
+  document.addEventListener("astro:page-load", scheduleThreeInit);
 </script>
 

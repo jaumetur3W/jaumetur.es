@@ -81,7 +81,7 @@ const getCategoryIcon = (category: string) => {
     </div>
 
     <!-- Articles Grid -->
-    <main class="max-w-5xl mx-auto mb-20">
+    <div class="max-w-5xl mx-auto mb-20">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="posts-container">
         {publishedBlogEntries.map((post) => {
           const wordsCount = post.body ? post.body.trim().split(/\s+/).length : 600;
@@ -199,7 +199,7 @@ const getCategoryIcon = (category: string) => {
           </form>
         </div>
       </section>
-    </main>
+    </div>
   </Container>
 
   <!-- Client-side Search and Filter Script -->

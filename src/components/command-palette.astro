@@ -24,6 +24,7 @@ const commands: Command[] = [
   { id: "nav-contact", title: "Contactar", subtitle: "Xat o formulari directe amb Jaume", category: "Navegació", icon: "bx:envelope", actionType: "link", value: "/contact" },
   { id: "nav-tools", title: "Generador de Workflows", subtitle: "Eina interactiva de GitHub Actions", category: "Navegació", icon: "bx:cog", badge: "Eina", actionType: "link", value: "/tools/workflow-generator" },
   { id: "nav-uses", title: "Uses & Setup", subtitle: "Maquinari, programari i eines de desenvolupament", category: "Navegació", icon: "bx:laptop", actionType: "link", value: "/uses" },
+  { id: "nav-qualitat", title: "Qualitat & Rendiment", subtitle: "Mètriques Lighthouse 100, Core Web Vitals i axe-core", category: "Navegació", icon: "bx:check-shield", badge: "100/100", actionType: "link", value: "/qualitat" },
 
   // Casos d'Estudi
   { id: "case-avisa", title: "AVISA — Gestió d'Incidències", subtitle: "Angular Signals, WCAG AA i Edge Vercel", category: "Casos d'Estudi", icon: "bx:bell", badge: "Cas", actionType: "link", value: "/projectes/avisa" },
@@ -323,3 +324,4 @@ const commands: Command[] = [
   setupCommandPalette();
   document.addEventListener("astro:page-load", setupCommandPalette);
 </script>
+

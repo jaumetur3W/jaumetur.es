@@ -245,10 +245,18 @@ const blogPostSchema = isBlogPost ? {
     ></script>
   </head>
   <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased selection:bg-slate-900 selection:text-white dark:selection:bg-indigo-500 dark:selection:text-white min-h-screen flex flex-col justify-between transition-colors duration-200">
+    <!-- Accessible Skip Link for Keyboard and Screen Reader Navigation -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-indigo-600 focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transition">
+      Saltar al contingut principal
+    </a>
     <div id="top"></div>
     <div>
       <Navbar />
-      <slot />
+      <main id="main-content" class="outline-none" tabindex="-1">
+        <slot />
+      </main>
     </div>
     <Footer />
 
