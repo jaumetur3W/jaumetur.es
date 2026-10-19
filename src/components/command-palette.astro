@@ -1,0 +1,325 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Command {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: "Navegació" | "Casos d'Estudi" | "Accions Ràpides" | "Aparença / Tema";
+  icon: string;
+  badge?: string;
+  actionType: "link" | "external" | "copy" | "theme";
+  value: string;
+}
+
+const commands: Command[] = [
+  // Navegació
+  { id: "nav-home", title: "Inici", subtitle: "Pàgina principal del portfolio", category: "Navegació", icon: "bx:home-alt", actionType: "link", value: "/" },
+  { id: "nav-about", title: "Sobre mi", subtitle: "Trajectòria, formació i perfil professional", category: "Navegació", icon: "bx:user", actionType: "link", value: "/about" },
+  { id: "nav-projects", title: "Projectes", subtitle: "Casos d'estudi i projectes destacats", category: "Navegació", icon: "bx:briefcase", actionType: "link", value: "/#projectes" },
+  { id: "nav-skills", title: "Habilitats Tècniques", subtitle: "Angular, TypeScript, CI/CD i Rendiment", category: "Navegació", icon: "bx:code-alt", actionType: "link", value: "/#skills" },
+  { id: "nav-workflow", title: "Flux CI/CD", subtitle: "Diagrama Trigger/Executor pas a pas", category: "Navegació", icon: "bx:git-branch", actionType: "link", value: "/#workflow" },
+  { id: "nav-blog", title: "Blog Tècnic", subtitle: "Articles sobre Frontend, WCAG AA i 60 FPS", category: "Navegació", icon: "bx:news", badge: "Articles", actionType: "link", value: "/blog" },
+  { id: "nav-pricing", title: "Serveis i Tarifes", subtitle: "Desenvolupament web i consultoria freelance", category: "Navegació", icon: "bx:dollar-circle", actionType: "link", value: "/pricing" },
+  { id: "nav-contact", title: "Contactar", subtitle: "Xat o formulari directe amb Jaume", category: "Navegació", icon: "bx:envelope", actionType: "link", value: "/contact" },
+  { id: "nav-tools", title: "Generador de Workflows", subtitle: "Eina interactiva de GitHub Actions", category: "Navegació", icon: "bx:cog", badge: "Eina", actionType: "link", value: "/tools/workflow-generator" },
+  { id: "nav-uses", title: "Uses & Setup", subtitle: "Maquinari, programari i eines de desenvolupament", category: "Navegació", icon: "bx:laptop", actionType: "link", value: "/uses" },
+
+  // Casos d'Estudi
+  { id: "case-avisa", title: "AVISA — Gestió d'Incidències", subtitle: "Angular Signals, WCAG AA i Edge Vercel", category: "Casos d'Estudi", icon: "bx:bell", badge: "Cas", actionType: "link", value: "/projectes/avisa" },
+  { id: "case-pizzeria", title: "Pizzeria a Xàtiva", subtitle: "SEO Local, 85KB HTML i comandes WhatsApp", category: "Casos d'Estudi", icon: "bx:restaurant", badge: "Cas", actionType: "link", value: "/projectes/pizzeria-xativa" },
+  { id: "case-telemetria", title: "Dashboard de Telemetria", subtitle: "Rendiment a 60 FPS i Core Web Vitals", category: "Casos d'Estudi", icon: "bx:line-chart", badge: "Cas", actionType: "link", value: "/projectes/dashboard-telemetria" },
+  { id: "case-pipeline", title: "Pipeline CI/CD Automatitzat", subtitle: "GitHub Actions i Zero Downtime", category: "Casos d'Estudi", icon: "bx:rocket", badge: "Cas", actionType: "link", value: "/projectes/pipeline-cicd" },
+
+  // Accions Ràpides
+  { id: "action-copy-email", title: "Copiar correu electrònic", subtitle: "hola@jaumetur.es", category: "Accions Ràpides", icon: "bx:copy", badge: "Portapapers", actionType: "copy", value: "hola@jaumetur.es" },
+  { id: "action-open-cv", title: "Descarregar CV (PDF)", subtitle: "Currículum actualitzat de Jaume Tur", category: "Accions Ràpides", icon: "bx:file", badge: "PDF", actionType: "external", value: "/docs/CV_Jaume_tur.pdf" },
+  { id: "action-github", title: "Obrir GitHub", subtitle: "Repositoris i codi de producció @jautur", category: "Accions Ràpides", icon: "bx:bxl-github", actionType: "external", value: "https://github.com/jautur" },
+  { id: "action-linkedin", title: "Obrir LinkedIn", subtitle: "Perfil professional de Jaume Tur", category: "Accions Ràpides", icon: "bx:bxl-linkedin", actionType: "external", value: "https://www.linkedin.com/in/jautur/" },
+
+  // Aparença / Tema
+  { id: "theme-light", title: "Canviar a Tema Clar", subtitle: "Fons clar optimitzat per a lectura diürna", category: "Aparença / Tema", icon: "bx:sun", actionType: "theme", value: "light" },
+  { id: "theme-dark", title: "Canviar a Tema Fosc", subtitle: "Mode fosc d'alt contrast per a descansar la vista", category: "Aparença / Tema", icon: "bx:moon", actionType: "theme", value: "dark" },
+  { id: "theme-system", title: "Sincronitzar amb el Sistema", subtitle: "Detecta automàticament la preferència del sistema", category: "Aparença / Tema", icon: "bx:desktop", actionType: "theme", value: "system" },
+];
+---
+
+<!-- Command Palette Modal Backdrop & Dialog -->
+<div
+  id="command-palette-backdrop"
+  class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-start justify-center pt-16 sm:pt-24 px-4 transition-opacity duration-200"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Paleta de comandes"
+>
+  <div
+    id="command-palette-card"
+    class="relative w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[75vh] sm:max-h-[80vh] transition-all transform duration-200"
+  >
+    <!-- Search Input Header -->
+    <div class="flex items-center gap-3 px-4 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+      <Icon name="bx:search" class="w-5 h-5 text-slate-400 shrink-0" />
+      <input
+        type="text"
+        id="command-palette-input"
+        placeholder="Escriu una comanda o busca una pàgina... (Ex: 'blog', 'tema', 'email')"
+        class="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none font-sans"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <kbd class="hidden sm:inline-flex items-center gap-0.5 px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-500 bg-slate-200/70 dark:bg-slate-800 dark:text-slate-400 rounded border border-slate-300 dark:border-slate-700 select-none">
+        ESC
+      </kbd>
+    </div>
+
+    <!-- Live Toast / Notification banner inside palette -->
+    <div id="palette-toast" class="hidden px-4 py-2 bg-emerald-50 dark:bg-emerald-950/60 border-b border-emerald-200 dark:border-emerald-800 text-xs font-mono text-emerald-700 dark:text-emerald-300 flex items-center justify-between">
+      <span id="palette-toast-text" class="flex items-center gap-1.5">
+        <Icon name="bx:check" class="w-4 h-4 text-emerald-500" />
+        <span>Correu copiat al portapapers!</span>
+      </span>
+      <span class="text-[10px] text-emerald-500">Fet</span>
+    </div>
+
+    <!-- Commands List -->
+    <div id="command-palette-list" class="flex-1 overflow-y-auto p-2 divide-y divide-slate-100 dark:divide-slate-800/50 space-y-1">
+      {commands.map((cmd, idx) => (
+        <button
+          type="button"
+          class="command-item group w-full text-left flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-slate-800/80 focus:bg-indigo-50 dark:focus:bg-slate-800/80 transition-colors text-slate-700 dark:text-slate-200 focus:outline-none"
+          data-id={cmd.id}
+          data-title={cmd.title.toLowerCase()}
+          data-category={cmd.category.toLowerCase()}
+          data-subtitle={cmd.subtitle.toLowerCase()}
+          data-action={cmd.actionType}
+          data-value={cmd.value}
+          data-index={idx}
+        >
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:text-indigo-600 group-hover:bg-white dark:group-hover:bg-slate-700 transition-colors shrink-0">
+              <Icon name={cmd.icon} class="w-4 h-4" />
+            </div>
+            <div class="truncate">
+              <div class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                {cmd.title}
+              </div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                {cmd.subtitle}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            {cmd.badge && (
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200/60 dark:border-slate-700">
+                {cmd.badge}
+              </span>
+            )}
+            <span class="text-[10px] font-mono text-slate-400 group-hover:text-indigo-600 transition-colors">
+              ↵
+            </span>
+          </div>
+        </button>
+      ))}
+      <div id="command-no-results" class="hidden p-8 text-center text-slate-400 text-xs font-mono">
+        <Icon name="bx:error-circle" class="w-8 h-8 mx-auto mb-2 text-slate-400" />
+        No s'han trobat accions que coincideixin amb la cerca.
+      </div>
+    </div>
+
+    <!-- Footer with keyboard shortcuts -->
+    <div class="px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400 select-none">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1">
+          <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-[9px]">↑</kbd>
+          <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-[9px]">↓</kbd>
+          <span>Navegar</span>
+        </span>
+        <span class="flex items-center gap-1">
+          <kbd class="px-1.5 py-0.5 bg-white dark:bg-slate-800 rounded border border-slate-300 dark:border-slate-700 text-[9px]">↵</kbd>
+          <span>Executar</span>
+        </span>
+      </div>
+      <span>Paleta de comandes</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function setupCommandPalette() {
+    const backdrop = document.getElementById("command-palette-backdrop");
+    const input = document.getElementById("command-palette-input");
+    const items = Array.from(document.querySelectorAll(".command-item"));
+    const noResults = document.getElementById("command-no-results");
+    const toast = document.getElementById("palette-toast");
+    const toastText = document.getElementById("palette-toast-text");
+
+    if (!backdrop || !input) return;
+
+    let selectedIndex = 0;
+    let visibleItems = [...items];
+
+    function openPalette() {
+      backdrop.classList.remove("hidden");
+      input.value = "";
+      filterCommands("");
+      highlightItem(0);
+      setTimeout(() => input.focus(), 50);
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePalette() {
+      backdrop.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    function highlightItem(index) {
+      visibleItems.forEach((item, idx) => {
+        if (idx === index) {
+          item.classList.add("bg-indigo-50", "dark:bg-slate-800/90", "ring-1", "ring-indigo-500/50");
+          item.scrollIntoView({ block: "nearest" });
+        } else {
+          item.classList.remove("bg-indigo-50", "dark:bg-slate-800/90", "ring-1", "ring-indigo-500/50");
+        }
+      });
+      selectedIndex = index;
+    }
+
+    function filterCommands(query) {
+      const q = query.trim().toLowerCase();
+      visibleItems = [];
+
+      items.forEach((item) => {
+        const title = item.dataset.title || "";
+        const subtitle = item.dataset.subtitle || "";
+        const cat = item.dataset.category || "";
+        const val = item.dataset.value || "";
+        const matches = !q || title.includes(q) || subtitle.includes(q) || cat.includes(q) || val.includes(q);
+
+        if (matches) {
+          item.classList.remove("hidden");
+          visibleItems.push(item);
+        } else {
+          item.classList.add("hidden");
+        }
+      });
+
+      if (noResults) {
+        if (visibleItems.length === 0) {
+          noResults.classList.remove("hidden");
+        } else {
+          noResults.classList.add("hidden");
+        }
+      }
+
+      highlightItem(0);
+    }
+
+    function showToast(message) {
+      if (!toast || !toastText) return;
+      toastText.textContent = message;
+      toast.classList.remove("hidden");
+      setTimeout(() => {
+        toast.classList.add("hidden");
+        closePalette();
+      }, 1500);
+    }
+
+    function executeCommand(item) {
+      if (!item) return;
+      const action = item.dataset.action;
+      const value = item.dataset.value;
+
+      if (action === "link") {
+        closePalette();
+        window.location.href = value;
+      } else if (action === "external") {
+        closePalette();
+        window.open(value, "_blank", "noopener,noreferrer");
+      } else if (action === "copy") {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(value).then(() => {
+            showToast(`Correu copiat: ${value}`);
+          }).catch(() => {
+            showToast(`Correu: ${value}`);
+          });
+        }
+      } else if (action === "theme") {
+        if (typeof window.applyTheme === "function") {
+          window.applyTheme(value);
+          showToast(`Tema canviat a: ${value === "dark" ? "Fosc" : value === "light" ? "Clar" : "Automàtic"}`);
+        } else {
+          closePalette();
+        }
+      }
+    }
+
+    // Keyboard Shortcuts: Cmd/Ctrl + K
+    window.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        if (backdrop.classList.contains("hidden")) {
+          openPalette();
+        } else {
+          closePalette();
+        }
+      } else if (e.key === "Escape" && !backdrop.classList.contains("hidden")) {
+        closePalette();
+      }
+    });
+
+    // Modal click outside to close
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) {
+        closePalette();
+      }
+    });
+
+    // Input events
+    input.addEventListener("input", (e) => {
+      filterCommands(e.target.value);
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (visibleItems.length > 0) {
+          const next = (selectedIndex + 1) % visibleItems.length;
+          highlightItem(next);
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (visibleItems.length > 0) {
+          const prev = (selectedIndex - 1 + visibleItems.length) % visibleItems.length;
+          highlightItem(prev);
+        }
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (visibleItems[selectedIndex]) {
+          executeCommand(visibleItems[selectedIndex]);
+        }
+      }
+    });
+
+    // Item click & hover
+    items.forEach((item) => {
+      item.addEventListener("click", () => executeCommand(item));
+      item.addEventListener("mouseenter", () => {
+        const idx = visibleItems.indexOf(item);
+        if (idx !== -1) highlightItem(idx);
+      });
+    });
+
+    // Trigger button listeners across the app
+    document.querySelectorAll("[data-command-palette-trigger]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openPalette();
+      });
+    });
+  }
+
+  // Run on initial load and on Astro page transitions
+  setupCommandPalette();
+  document.addEventListener("astro:page-load", setupCommandPalette);
+</script>

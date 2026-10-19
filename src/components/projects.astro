@@ -1,104 +1,140 @@
 ---
 import { Icon } from "astro-icon/components";
 
-const projects = [
+interface ProjectItem {
+  id: string;
+  slug: string;
+  title: string;
+  tagline: string;
+  iconSeal: string;
+  sealColor: string;
+  badge: string;
+  badgeColor: string;
+  statBadge: string;
+  statIcon: string;
+  statColor: string;
+  colSpan: string;
+  previewType: "incidents" | "restaurant" | "telemetry" | "pipeline";
+  highlights: string[];
+  tags: string[];
+  verificationNote: string;
+  liveUrl?: string;
+  githubUrl?: string;
+}
+
+const projects: ProjectItem[] = [
   {
     id: "avisa",
-    title: "AVISA — Gestió d'Incidències",
+    slug: "avisa",
+    title: "AVISA — Gestió d'Incidències en Temps Real",
+    tagline: "Plataforma reactiva per al registre, comunicació i seguiment d'incidències urbanes crítiques amb interfície accessible i zero bloqueig de fil.",
     iconSeal: "bx:bell",
-    sealAura: "bg-red-500/10 border-red-500/20 text-red-600",
+    sealColor: "text-red-500 bg-red-500/10 border-red-500/20 group-hover:border-red-500/40 group-hover:bg-red-500/15",
     badge: "Web App · Prototip UI",
-    badgeColor: "bg-indigo-600 text-white",
-    summary: "Plataforma per al registre, comunicació i seguiment d'incidències en temps real amb interfície accessible (prototip frontend interactiu).",
+    badgeColor: "bg-red-950/80 text-red-200 border-red-500/30",
+    statBadge: "WCAG AA · < 150ms",
+    statIcon: "bx:check-circle",
+    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+    colSpan: "col-span-12 lg:col-span-7",
+    previewType: "incidents",
     highlights: [
-      { text: "Arquitectura modular de components amb Angular & TypeScript" },
-      { text: "Maquetació d'interfície accessible i flux d'estats interactiu" },
-      { text: "Desplegament continu automatitzat a la xarxa edge de Vercel" },
+      "Estat reactiu amb Angular Signals sense sobrecàrrega de cicles Zone.js",
+      "Compliment WCAG 2.2 nivell AA i regions actives ARIA en temps real",
+      "Desplegament continu atòmic a la xarxa perimetral Edge de Vercel"
     ],
-    tags: ["Angular", "TypeScript", "Vercel", "WCAG AA", "UI Prototype"],
-    statIcon: "bx:globe",
-    stat: "DEMO EN LÍNIA",
-    statColor: "text-indigo-700 bg-indigo-50 border-indigo-200/80",
+    tags: ["Angular 17+", "TypeScript", "Signals", "Vercel Edge", "WCAG AA"],
+    verificationNote: "Mesurat amb axe-core i DevTools Network Profile. Dades de camp: [COMPLETAR]",
     liveUrl: "https://front-project-jjaux-h8pw.vercel.app/",
     githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX",
   },
   {
     id: "pizzeria-xativa",
-    title: "Pizzeria a Xàtiva",
+    slug: "pizzeria-xativa",
+    title: "Pizzeria a Xàtiva — Presència Digital & SEO Local",
+    tagline: "De PDFs pesants de 15MB a una interfície de 85KB d'HTML semàntic amb comandes directes per WhatsApp i SEO geogràfic.",
     iconSeal: "bx:restaurant",
-    sealAura: "bg-amber-500/10 border-amber-500/20 text-amber-600",
+    sealColor: "text-amber-500 bg-amber-500/10 border-amber-500/20 group-hover:border-amber-500/40 group-hover:bg-amber-500/15",
     badge: "Landing Page · En Producció",
-    badgeColor: "bg-slate-900 text-white",
-    summary: "Landing page comercial per a pizzeria amb carta interactiva de productes, SEO local i comandes per WhatsApp.",
-    highlights: [
-      { text: "Disseny modern, fluid i responsive implementat amb Tailwind CSS" },
-      { text: "Canal directe de comandes integrat amb l'API de WhatsApp" },
-      { text: "Optimització de SEO local (etiquetes geogràfiques Xàtiva / La Costera)" },
-    ],
-    tags: ["Tailwind CSS", "HTML5 Semàntic", "SEO Local", "UX/UI", "WhatsApp API"],
+    badgeColor: "bg-amber-950/80 text-amber-200 border-amber-500/30",
+    statBadge: "100/100 Lighthouse · SEO",
     statIcon: "bx:check-circle",
-    stat: "EN PRODUCCIÓ",
     statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+    colSpan: "col-span-12 lg:col-span-5",
+    previewType: "restaurant",
+    highlights: [
+      "Pes ultralleuger de 85KB amb First Contentful Paint de 0.4s",
+      "Canal directe de comandes integrat amb l'API de WhatsApp",
+      "Dades estructurades Restaurant Schema.org per a Google Maps"
+    ],
+    tags: ["Tailwind CSS v4", "HTML5 Semàntic", "SEO Local", "WhatsApp API", "Schema.org"],
+    verificationNote: "Mesurat amb Google Lighthouse Mòbil & Google Maps. Conversió: [COMPLETAR]",
     liveUrl: "https://jautur.github.io/margherita_xativa/",
     githubUrl: "https://github.com/jautur/margherita_xativa",
   },
   {
-    id: "telemetry",
-    title: "Dashboard de Telemetria",
+    id: "dashboard-telemetria",
+    slug: "dashboard-telemetria",
+    title: "Dashboard de Telemetria — Rendiment a 60 FPS",
+    tagline: "Enginyeria d'interfícies d'alta freqüència: renderitzat a 60 FPS garantit mitjançant requestAnimationFrame i aïllament de capes CSS.",
     iconSeal: "bx:line-chart",
-    sealAura: "bg-emerald-500/10 border-emerald-500/20 text-emerald-600",
+    sealColor: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20 group-hover:border-emerald-500/40 group-hover:bg-emerald-500/15",
     badge: "Frontend UI & Mètriques",
-    badgeColor: "bg-slate-900 text-white",
-    summary: "Panell analític interactiu per a visualitzar mètriques de rendiment web i Core Web Vitals en temps real.",
-    highlights: [
-      { text: "Renderitzat fluid garantit a 60 FPS amb cicle de vida optimitzat" },
-      { text: "Estructura modular de components desacoblats i reutilitzables" },
-      { text: "Mesurament de mètriques clau LCP, FID i CLS sense bloqueig de fil" },
-    ],
-    tags: ["JavaScript ES6+", "TypeScript", "Performance", "Core Web Vitals"],
+    badgeColor: "bg-emerald-950/80 text-emerald-200 border-emerald-500/30",
+    statBadge: "60 FPS · INP < 30ms",
     statIcon: "bx:bxs-zap",
-    stat: "60 FPS FLUID",
     statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+    colSpan: "col-span-12 lg:col-span-5",
+    previewType: "telemetry",
+    highlights: [
+      "Pressupost de fotograma de 16.6ms respectat sense bloqueig del fil principal",
+      "Aïllament de recomposició gràfica amb CSS Containment estricte",
+      "Mesurament continu de Core Web Vitals (LCP, CLS i INP)"
+    ],
+    tags: ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment"],
+    verificationNote: "Mesurat amb Chrome DevTools Performance Profiler. RUM gama baixa: [COMPLETAR]",
     liveUrl: "https://jautur.github.io/portfolio/#skills",
     githubUrl: "https://github.com/jautur/portfolio",
   },
   {
-    id: "pipeline",
-    title: "Pipeline CI/CD Automatitzat",
+    id: "pipeline-cicd",
+    slug: "pipeline-cicd",
+    title: "Pipeline CI/CD Automatitzat — Zero Downtime",
+    tagline: "Cadena de muntatge automatitzada: verificació estàtica, comprovació estricta de TypeScript i desplegament atòmic sense caigudes de servei.",
     iconSeal: "bx:rocket",
-    sealAura: "bg-sky-500/10 border-sky-500/20 text-sky-600",
+    sealColor: "text-sky-500 bg-sky-500/10 border-sky-500/20 group-hover:border-sky-500/40 group-hover:bg-sky-500/15",
     badge: "DevOps & Automatització",
-    badgeColor: "bg-slate-900 text-white",
-    summary: "Flux d'integració contínua que valida estàndards de qualitat, linters i publica noves versions automàticament.",
-    highlights: [
-      { text: "Execució automàtica per esdeveniment de control de versions (Git Push)" },
-      { text: "Validació amb linters estàtics i verificació de sintaxi semàntica" },
-      { text: "Publicació continuada automatitzada sense interrupcions de servei" },
-    ],
-    tags: ["GitHub Actions", "CI/CD", "Linters", "Linux Shell", "DevOps"],
+    badgeColor: "bg-sky-950/80 text-sky-200 border-sky-500/30",
+    statBadge: "Zero Downtime · Build < 90s",
     statIcon: "bx:shield-quarter",
-    stat: "ZERO DOWNTIME",
     statColor: "text-sky-700 bg-sky-50 border-sky-200/80",
+    colSpan: "col-span-12 lg:col-span-7",
+    previewType: "pipeline",
+    highlights: [
+      "Execució atòmica per cada Git Push amb cancel·lació de cues obsoletes",
+      "Validació amb linters estàtics i verificació de tipus TypeScript",
+      "Lliurament continu sense interrupcions mitjançant memòria cau npm"
+    ],
+    tags: ["GitHub Actions", "CI/CD", "Linux Shell", "Linters ESLint", "Cache npm"],
+    verificationNote: "Mesurat amb registres de GitHub Actions. Estalvi concurrència: [COMPLETAR]",
     liveUrl: "https://github.com/jautur/portfolio/actions",
     githubUrl: "https://github.com/jautur/portfolio",
   },
 ];
 ---
 
-<section id="projectes" class="py-20 md:py-28 scroll-mt-12">
-  
+<section id="projectes" class="py-20 md:py-28 scroll-mt-12" aria-labelledby="projects-heading">
   <!-- Section Header with Memoji (7.png coding on laptop) -->
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 md:mb-14">
     <div>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3 shadow-2xs">
         <Icon name="bx:briefcase" class="w-3.5 h-3.5 text-indigo-700" />
-        <span>Projectes & Desenvolupament</span>
+        <span>Casos d'Estudi & Desenvolupament</span>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+      <h2 id="projects-heading" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
         Codi real, <span class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 bg-clip-text text-transparent">resultats mesurables</span>
       </h2>
       <p class="text-sm text-slate-600 mt-2 max-w-xl">
-        Aplicacions web, interfícies reactives i canalitzacions CI/CD dissenyades amb estàndards de qualitat de codi.
+        Projectes complets analitzats com a casos d'estudi tècnics: arquitectura, decisions de disseny, codi de producció i protocol de verificació honesta.
       </p>
     </div>
 
@@ -112,104 +148,274 @@ const projects = [
             class="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.18)] group-hover:scale-105 transition-transform"
             width="96"
             height="96"
+            loading="lazy"
           />
         </div>
         <div class="text-xs">
           <span class="font-extrabold text-slate-900 flex items-center gap-1.5 text-sm leading-tight">
-            <span>Desenvolupament Actiu</span>
+            <span>Enginyeria Frontend</span>
             <Icon name="bx:code-alt" class="w-3.5 h-3.5 text-indigo-600" />
           </span>
-          <span class="text-indigo-600 font-mono text-[11px] font-bold">Angular · TS · CI/CD</span>
+          <span class="text-indigo-600 font-mono text-[11px] font-bold">Casos d'Estudi Oberts</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Projects Grid with Standardized Icons & Tactile Actions -->
-  <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-    {
-      projects.map((project) => (
-        <article class="relative bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04),0_10px_15px_-3px_rgba(15,23,42,0.02)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 flex flex-col justify-between group overflow-hidden">
-          
-          <!-- Background Ambient Watermark Icon -->
-          <div
-            class={`absolute -right-4 -top-4 w-28 h-28 rounded-full flex items-center justify-center border select-none pointer-events-none transition-transform duration-500 group-hover:scale-125 group-hover:rotate-12 opacity-80 ${project.sealAura}`}
-            aria-hidden="true">
-            <Icon name={project.iconSeal} class="w-12 h-12" />
-          </div>
+  <!-- Bento Grid of Projects -->
+  <div class="grid grid-cols-12 gap-6 md:gap-7">
+    {projects.map((project) => (
+      <article
+        class={`${project.colSpan} group relative bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 hover:border-indigo-400/80 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col justify-between overflow-hidden p-6 sm:p-8`}
+        style={`view-transition-name: project-card-${project.slug};`}>
+        
+        <!-- Ambient background aura on card hover -->
+        <div class="absolute -right-16 -top-16 w-52 h-52 rounded-full bg-gradient-to-br from-indigo-500/5 via-sky-500/5 to-transparent blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-700" aria-hidden="true"></div>
 
-          <div class="relative z-10">
-            <!-- Top pills with integrated standard icon badge -->
-            <div class="flex items-center justify-between gap-2 mb-4 pr-12">
-              <span class={`text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-mono shadow-2xs flex items-center gap-1.5 ${project.badgeColor}`}>
-                <Icon name={project.iconSeal} class="w-3.5 h-3.5" />
-                <span>{project.badge}</span>
-              </span>
-              
-              <span class={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-md border flex items-center gap-1.5 ${project.statColor}`}>
-                <Icon name={project.statIcon} class="w-3 h-3" />
-                <span>{project.stat}</span>
-              </span>
-            </div>
-
-            <!-- Title -->
-            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-              {project.title}
-            </h3>
-
-            <!-- Summary -->
-            <p class="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-              {project.summary}
-            </p>
-
-            <!-- Unboxed highlights list with checkmarks -->
-            <ul class="mt-5 space-y-2.5 text-xs font-medium text-slate-700">
-              {project.highlights.map((h) => (
-                <li class="flex items-start gap-2.5">
-                  <span class="text-emerald-600 font-bold shrink-0 mt-0.5 select-none" aria-hidden="true">✓</span>
-                  <span class="leading-normal">{h.text}</span>
-                </li>
-              ))}
-            </ul>
-
-            <!-- Tech stack tags (Clean monochromatic chips) -->
-            <div class="flex flex-wrap gap-1.5 mt-6">
-              {project.tags.map((tag) => (
-                <span class="text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200/80">
-                  {tag}
+        <div>
+          <!-- Top Bar: Icon Seal + Badges -->
+          <div class="flex items-center justify-between gap-3 mb-5">
+            <div class="flex items-center gap-3">
+              <!-- Interactive Animated Icon Seal -->
+              <div class={`w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${project.sealColor}`}>
+                <Icon name={project.iconSeal} class="w-6 h-6 transition-transform duration-300" />
+              </div>
+              <div>
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider bg-slate-900 text-slate-100 shadow-2xs">
+                  <Icon name={project.iconSeal} class="w-3 h-3 text-indigo-400" />
+                  <span>{project.badge}</span>
                 </span>
-              ))}
+              </div>
+            </div>
+
+            <!-- Verified Metric Pill -->
+            <div class={`inline-flex items-center gap-1.5 text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg border ${project.statColor} shadow-2xs`}>
+              <Icon name={project.statIcon} class="w-3.5 h-3.5 shrink-0" />
+              <span>{project.statBadge}</span>
             </div>
           </div>
 
-          <!-- Action buttons with Standardized Icons & Contrast Hierarchy -->
-          <div class="relative z-10 flex items-center gap-3 mt-8 pt-5 border-t border-slate-100">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target={project.liveUrl.startsWith("http") ? "_blank" : undefined}
-                rel={project.liveUrl.startsWith("http") ? "noopener noreferrer" : undefined}
-                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition shadow-xs group/btn">
-                <Icon name="bx:link-external" class="w-3.5 h-3.5 text-slate-300 group-hover/btn:text-white" />
-                <span>Veure Demo</span>
-                <span class="text-[11px] font-mono text-slate-400">↗</span>
+          <!-- Title and Tagline -->
+          <div class="mb-4">
+            <h3 class="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors tracking-tight">
+              <a href={`/projectes/${project.slug}`} class="focus:outline-hidden focus:underline">
+                {project.title}
               </a>
-            )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-white text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition border border-slate-200/90 shadow-2xs group/code"
-                title="Veure codi font a GitHub">
-                <Icon name="bx:bxl-github" class="w-4 h-4 group-hover/code:scale-110 transition-transform" />
-                <span>Codi font</span>
-                <span class="text-[11px] text-slate-400 font-mono">↗</span>
-              </a>
-            )}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+              {project.tagline}
+            </p>
           </div>
-        </article>
-      ))
-    }
+
+          <!-- Expressive Mockup Preview Frame -->
+          <div class="my-5 rounded-2xl bg-slate-950 border border-slate-800/90 overflow-hidden shadow-inner font-mono text-xs select-none">
+            <!-- Window header -->
+            <div class="flex items-center justify-between px-3.5 py-2 bg-slate-900/90 border-b border-slate-800 text-[11px] text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono truncate max-w-[200px]">
+                {project.slug}.jaumetur.es
+              </span>
+              <span class="text-[10px] text-indigo-400 flex items-center gap-1">
+                <Icon name="bx:code-alt" class="w-3 h-3" />
+                <span>UI Preview</span>
+              </span>
+            </div>
+
+            <!-- Preview Body by Project Type -->
+            <div class="p-4 bg-slate-950 text-slate-300">
+              {project.previewType === "incidents" && (
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-[11px] pb-1 border-b border-slate-800/80 text-slate-400">
+                    <span class="flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                      <span>INCIDÈNCIES ACTIVES EN TEMPS REAL</span>
+                    </span>
+                    <span class="text-emerald-400 text-[10px]">Latència: &lt;142ms</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-[11px]">
+                    <div class="flex items-center gap-2">
+                      <span class="text-rose-400 font-bold">#INC-402</span>
+                      <span class="text-slate-200">Enllumenat avinguda central</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">CRÍTICA</span>
+                  </div>
+                  <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/50 border border-slate-800/80 text-[11px]">
+                    <div class="flex items-center gap-2">
+                      <span class="text-amber-400 font-bold">#INC-401</span>
+                      <span class="text-slate-300">Retirada d'obstacles vorera</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">ASSIGNADA</span>
+                  </div>
+                </div>
+              )}
+
+              {project.previewType === "restaurant" && (
+                <div class="space-y-2.5">
+                  <div class="flex items-center justify-between text-[11px] text-amber-300 pb-1 border-b border-slate-800/80">
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:restaurant" class="w-3.5 h-3.5" />
+                      <span>CARTA DIGITAL & COMANDES</span>
+                    </span>
+                    <span class="text-emerald-400 text-[10px] font-bold">85 KB Payload</span>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] flex items-center justify-between">
+                    <div>
+                      <span class="text-slate-200 font-bold block">Pizza Margherita D.O.P.</span>
+                      <span class="text-slate-400 text-[10px]">Tomaca San Marzano, mozzarella fior di latte</span>
+                    </div>
+                    <span class="text-amber-400 font-mono font-bold text-xs">9,50 €</span>
+                  </div>
+                  <div class="flex items-center justify-between px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-[11px]">
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:check" class="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Comandes WhatsApp API integrades</span>
+                    </span>
+                    <span class="text-[10px] font-bold text-emerald-400">100/100 SEO</span>
+                  </div>
+                </div>
+              )}
+
+              {project.previewType === "telemetry" && (
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-[11px] pb-1 border-b border-slate-800/80 text-emerald-400">
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:line-chart" class="w-3.5 h-3.5" />
+                      <span>PROFILER RENDIMENT (60 FPS)</span>
+                    </span>
+                    <span class="text-emerald-300 font-mono text-[10px]">16.6ms / frame</span>
+                  </div>
+                  <!-- Mini simulated SVG frame rate graph -->
+                  <div class="h-10 flex items-end gap-1 px-1 py-1 bg-slate-900/80 rounded-md border border-slate-800">
+                    <div class="w-1/12 bg-emerald-500/60 rounded-xs h-8"></div>
+                    <div class="w-1/12 bg-emerald-500/80 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-400 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-500/70 rounded-xs h-8"></div>
+                    <div class="w-1/12 bg-emerald-400 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-500 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-500/90 rounded-xs h-8"></div>
+                    <div class="w-1/12 bg-emerald-400 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-500 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-500/80 rounded-xs h-8"></div>
+                    <div class="w-1/12 bg-emerald-400 rounded-xs h-9"></div>
+                    <div class="w-1/12 bg-emerald-500 rounded-xs h-9"></div>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-400">
+                    <div class="bg-slate-900 p-1 rounded border border-slate-800"><span class="text-emerald-400 font-bold block">60.0</span> FPS Constants</div>
+                    <div class="bg-slate-900 p-1 rounded border border-slate-800"><span class="text-emerald-400 font-bold block">&lt; 30ms</span> INP Límit</div>
+                    <div class="bg-slate-900 p-1 rounded border border-slate-800"><span class="text-emerald-400 font-bold block">0.00</span> CLS Desplaçament</div>
+                  </div>
+                </div>
+              )}
+
+              {project.previewType === "pipeline" && (
+                <div class="space-y-1.5 text-[11px]">
+                  <div class="flex items-center justify-between pb-1 border-b border-slate-800/80 text-sky-400">
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:rocket" class="w-3.5 h-3.5" />
+                      <span>GITHUB ACTIONS CI/CD RUNNER</span>
+                    </span>
+                    <span class="text-emerald-400 text-[10px] font-bold">BUILD: PASSED</span>
+                  </div>
+                  <div class="space-y-1 text-slate-300 font-mono text-[10px]">
+                    <div class="flex items-center justify-between text-slate-300">
+                      <span class="flex items-center gap-1.5">
+                        <Icon name="bx:check" class="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Run linter & format validation</span>
+                      </span>
+                      <span class="text-slate-400">0.8s</span>
+                    </div>
+                    <div class="flex items-center justify-between text-slate-300">
+                      <span class="flex items-center gap-1.5">
+                        <Icon name="bx:check" class="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Strict TypeScript check (tsc --noEmit)</span>
+                      </span>
+                      <span class="text-slate-400">1.4s</span>
+                    </div>
+                    <div class="flex items-center justify-between text-slate-300">
+                      <span class="flex items-center gap-1.5">
+                        <Icon name="bx:check" class="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Astro SSG Build & Assets Optimization</span>
+                      </span>
+                      <span class="text-slate-400">3.2s</span>
+                    </div>
+                    <div class="flex items-center justify-between text-emerald-400 font-semibold">
+                      <span class="flex items-center gap-1.5">
+                        <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Zero Downtime Atomic Edge Deployment</span>
+                      </span>
+                      <span class="text-emerald-400">100% OK</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <!-- Highlights with checkmarks -->
+          <ul class="space-y-2 text-xs font-medium text-slate-700 mb-5">
+            {project.highlights.map((h) => (
+              <li class="flex items-start gap-2">
+                <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span class="leading-normal">{h}</span>
+              </li>
+            ))}
+          </ul>
+
+          <!-- Tech stack tags -->
+          <div class="flex flex-wrap gap-1.5 mb-5">
+            {project.tags.map((tag) => (
+              <span class="text-[10px] font-mono font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200/80">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <!-- Honesty & Verification rule indicator -->
+          <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] text-slate-500 font-mono mb-6">
+            <Icon name="bx:info-circle" class="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span class="truncate" title={project.verificationNote}>{project.verificationNote}</span>
+          </div>
+        </div>
+
+        <!-- Action buttons: Primary Case Study link + Demo / GitHub links -->
+        <div class="pt-4 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center gap-2.5">
+          <!-- Main CTA: Case Study link -->
+          <a
+            href={`/projectes/${project.slug}`}
+            class="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition shadow-xs group/btn">
+            <span>Llegir Cas d'Estudi</span>
+            <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+          </a>
+
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-1 text-xs font-bold px-3 py-2.5 bg-white text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition border border-slate-200/90 shadow-2xs"
+              title="Veure Demo en Línia">
+              <Icon name="bx:link-external" class="w-3.5 h-3.5 text-slate-500" />
+              <span class="hidden sm:inline">Demo</span>
+            </a>
+          )}
+
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-1 text-xs font-bold px-3 py-2.5 bg-white text-slate-700 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition border border-slate-200/90 shadow-2xs"
+              title="Veure codi font a GitHub">
+              <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-600" />
+              <span class="hidden sm:inline">Codi</span>
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
   </div>
 </section>

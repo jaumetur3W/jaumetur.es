@@ -37,9 +37,36 @@ const teamCollection = defineCollection({
   }),
 });
 
+const projectesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projectes' }),
+  schema: z.object({
+    draft: z.boolean().default(false),
+    title: z.string(),
+    subtitle: z.string(),
+    tagline: z.string(),
+    icon: z.string(),
+    color: z.string().default("indigo"),
+    role: z.string(),
+    year: z.string(),
+    client: z.string(),
+    badge: z.string(),
+    statLabel: z.string(),
+    statValue: z.string(),
+    verificationMethod: z.string(),
+    liveUrl: z.string().optional(),
+    githubUrl: z.string().optional(),
+    stack: z.array(z.string()),
+    order: z.number().default(1),
+    image: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+  }),
+});
+
 // 3. Export a single `collections` object to register your collection(s)
-//    This key should match your collection directory name in "src/content"
 export const collections = {
   'blog': blogCollection,
   'team': teamCollection,
+  'projectes': projectesCollection,
 };

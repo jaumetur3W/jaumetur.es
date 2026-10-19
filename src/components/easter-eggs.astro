@@ -1,0 +1,133 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<!-- Konami & Secret Easter Egg Toast Notification -->
+<div
+  id="easter-egg-toast"
+  class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden transition-all duration-300 max-w-md w-[90vw]"
+  role="alert"
+  aria-live="polite"
+>
+  <div class="flex items-start gap-3 p-4 rounded-2xl bg-slate-950 text-white border border-indigo-500/40 shadow-2xl backdrop-blur-md">
+    <div class="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center shrink-0 text-indigo-400">
+      <Icon name="bx:joystick" class="w-6 h-6 animate-bounce" id="easter-egg-icon" />
+    </div>
+    <div class="flex-1">
+      <div class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider flex items-center justify-between">
+        <span id="easter-egg-title">Easter Egg Desbloquejat!</span>
+        <button id="easter-egg-close" class="text-slate-400 hover:text-white p-0.5" aria-label="Tancar avís">✕</button>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-200 mt-1 leading-snug font-sans" id="easter-egg-desc">
+        Felicitats! Has descobert el codi secret.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function setupEasterEggs() {
+    // 1. Developer Console Greeting
+    const bannerStyle = "color: #6366f1; font-size: 20px; font-weight: 900; font-family: monospace;";
+    const subStyle = "color: #10b981; font-size: 13px; font-weight: bold; font-family: monospace;";
+    const textStyle = "color: #94a3b8; font-size: 12px; font-family: monospace;";
+    const linkStyle = "color: #38bdf8; font-size: 12px; font-family: monospace; text-decoration: underline;";
+
+    console.log(
+      "%c> Jaume Tur — Frontend & Web Apps Engineer",
+      bannerStyle
+    );
+    console.log(
+      "%c[STACK] Angular 17+ · TypeScript · 60 FPS · WCAG AA · CI/CD",
+      subStyle
+    );
+    console.log(
+      "%cHola, desenvolupador/a! Gràcies per inspeccionar el codi.\nAquest portfolio està construït amb Astro 7, Tailwind CSS v4 i zero dependències pesades.",
+      textStyle
+    );
+    console.log(
+      "%c[CONTACTE] hola@jaumetur.es\n[GITHUB] https://github.com/jautur\n[LINKEDIN] https://www.linkedin.com/in/jautur/",
+      linkStyle
+    );
+
+    // Toast element
+    const toast = document.getElementById("easter-egg-toast");
+    const titleEl = document.getElementById("easter-egg-title");
+    const descEl = document.getElementById("easter-egg-desc");
+    const closeBtn = document.getElementById("easter-egg-close");
+
+    if (closeBtn && toast) {
+      closeBtn.onclick = () => toast.classList.add("hidden");
+    }
+
+    function showEasterEgg(title, desc) {
+      if (!toast) return;
+      if (titleEl) titleEl.textContent = title;
+      if (descEl) descEl.textContent = desc;
+      toast.classList.remove("hidden");
+      toast.classList.add("animate-fade-in");
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 7000);
+    }
+
+    // 2. Konami Code Sequence: Up Up Down Down Left Right Left Right B A
+    const konamiSequence = [
+      "ArrowUp", "ArrowUp",
+      "ArrowDown", "ArrowDown",
+      "ArrowLeft", "ArrowRight",
+      "ArrowLeft", "ArrowRight",
+      "b", "a"
+    ];
+    let konamiIndex = 0;
+
+    window.addEventListener("keydown", (e) => {
+      const requiredKey = konamiSequence[konamiIndex];
+      if (e.key.toLowerCase() === requiredKey.toLowerCase()) {
+        konamiIndex++;
+        if (konamiIndex === konamiSequence.length) {
+          konamiIndex = 0;
+          showEasterEgg(
+            "Mode Konami Activat!",
+            "Has introduït el llegendari codi Konami. Que la precisió de TypeScript estricte i els 60 FPS t'acompanyin en el teu viatge!"
+          );
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    });
+
+    // 3. Repeated clicks on Brand Logo (5 fast clicks)
+    const logoBtn = document.getElementById("brand-logo-btn");
+    if (logoBtn) {
+      let clickCount = 0;
+      let clickTimer = null;
+
+      logoBtn.addEventListener("click", (e) => {
+        clickCount++;
+        clearTimeout(clickTimer);
+        clickTimer = setTimeout(() => {
+          clickCount = 0;
+        }, 1500);
+
+        if (clickCount >= 5) {
+          e.preventDefault();
+          clickCount = 0;
+          logoBtn.classList.add("transition-transform", "duration-700");
+          logoBtn.style.transform = "rotate(360deg) scale(1.15)";
+          setTimeout(() => {
+            logoBtn.style.transform = "";
+          }, 800);
+
+          showEasterEgg(
+            "Curiós/a de Menes!",
+            "Has fet clic 5 vegades al logo. Això és atenció al detall! Gràcies per explorar el meu espai personal."
+          );
+        }
+      });
+    }
+  }
+
+  setupEasterEggs();
+  document.addEventListener("astro:page-load", setupEasterEggs);
+</script>

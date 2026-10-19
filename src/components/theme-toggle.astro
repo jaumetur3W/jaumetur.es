@@ -1,0 +1,71 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="relative inline-block text-left" id="theme-toggle-container">
+  <button
+    id="theme-toggle-btn"
+    type="button"
+    class="flex items-center justify-center w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition shadow-2xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    title="Canviar tema (Clar / Fosc / Sistema)"
+    aria-label="Canviar tema"
+    aria-haspopup="true"
+  >
+    <!-- Sun icon for light mode -->
+    <Icon name="bx:sun" class="w-4 h-4 hidden dark:inline-block text-amber-400 transition-transform hover:rotate-45" id="icon-theme-sun" />
+    <!-- Moon icon for dark mode -->
+    <Icon name="bx:moon" class="w-4 h-4 inline-block dark:hidden text-slate-700 transition-transform hover:-rotate-12" id="icon-theme-moon" />
+  </button>
+</div>
+
+<script is:inline>
+  (function() {
+    function getThemePreference() {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      return 'system';
+    }
+
+    function applyTheme(theme) {
+      const isDark =
+        theme === 'dark' ||
+        (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      if (theme === 'system') {
+        localStorage.removeItem('theme');
+      } else {
+        localStorage.setItem('theme', theme);
+      }
+    }
+
+    window.applyTheme = applyTheme;
+
+    function initThemeToggle() {
+      const btn = document.getElementById('theme-toggle-btn');
+      if (!btn) return;
+
+      btn.addEventListener('click', () => {
+        const isCurrentlyDark = document.documentElement.classList.contains('dark');
+        const nextTheme = isCurrentlyDark ? 'light' : 'dark';
+        applyTheme(nextTheme);
+      });
+    }
+
+    initThemeToggle();
+    document.addEventListener('astro:page-load', initThemeToggle);
+
+    // Watch for system preference changes when in system mode
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme('system');
+      }
+    });
+  })();
+</script>

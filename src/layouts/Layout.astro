@@ -2,6 +2,10 @@
 import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
+import CommandPalette from "@/components/command-palette.astro";
+import ScrollIndicator from "@/components/scroll-indicator.astro";
+import EasterEggs from "@/components/easter-eggs.astro";
+import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/inter/index.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "../styles/global.css";
@@ -156,6 +160,24 @@ const blogPostSchema = isBlogPost ? {
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Astro View Transitions Router -->
+    <ClientRouter />
+
+    <!-- Theme Initialization Script to prevent FOUC (Flash of Unstyled Content) -->
+    <script is:inline>
+      (function() {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+
     <!-- RSS Feed Autodiscovery -->
     <link
       rel="alternate"
@@ -222,13 +244,19 @@ const blogPostSchema = isBlogPost ? {
       src="https://plausible.io/js/script.js"
     ></script>
   </head>
-  <body class="bg-slate-50 text-slate-800 antialiased selection:bg-slate-900 selection:text-white min-h-screen flex flex-col justify-between">
+  <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 antialiased selection:bg-slate-900 selection:text-white dark:selection:bg-indigo-500 dark:selection:text-white min-h-screen flex flex-col justify-between transition-colors duration-200">
     <div id="top"></div>
     <div>
       <Navbar />
       <slot />
     </div>
     <Footer />
+
+    <!-- Interactive Layer: Command Palette (Cmd+K), Scroll Indicator & Easter Eggs -->
+    <CommandPalette />
+    <ScrollIndicator />
+    <EasterEggs />
+
     <style is:global>
       /* Core Web Vitals optimization */
       img {
