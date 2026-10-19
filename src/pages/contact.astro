@@ -7,148 +7,182 @@ import { Icon } from "astro-icon/components";
 ---
 
 <Layout
-  title="Contacte | Desenvolupador Frontend Freelance a València"
-  description="Contacta amb Jaume Tur, desenvolupador web a València. Disponible per a contractació, projectes freelance frontend, consultoria en Angular i desenvolupament d'aplicacions web.">
+  title="Contacte Directe | Desenvolupador Frontend a València"
+  description="Parlem del teu projecte o oportunitat laboral. Canals directes per WhatsApp, correu electrònic o formulari accessible amb Jaume Tur, desenvolupador web a València.">
   <Container>
+    <!-- Capçalera -->
     <Sectionhead>
-      <Fragment slot="title">Contacte directe</Fragment>
+      <Fragment slot="title">Parlem del teu projecte</Fragment>
       <Fragment slot="desc">
-        Desenvolupador web a València disponible per a contractació, projectes freelance frontend i consultoria tècnica.
+        Desenvolupador web a València disponible per a nous projectes, consultoria en Angular i oportunitats laborals en modalitat remota o híbrida.
       </Fragment>
     </Sectionhead>
 
-    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-10 items-start">
+    <!-- Indicador de Resposta Ràpida -->
+    <div class="flex justify-center -mt-6 mb-10">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span>Temps de resposta habitual: &lt; 24 hores laborables</span>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto items-start">
       
-      <!-- Left Channels Column -->
-      <div>
+      <!-- Columna Esquerra: Canals Directes & Prova Social (5 columnes) -->
+      <div class="lg:col-span-5 space-y-4">
         
-        <!-- Header with Memoji 3.png -->
-        <div class="flex items-center gap-4 mb-6 bg-white p-4 pr-5 rounded-3xl border border-slate-200/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)] relative overflow-visible group">
-          <div class="relative group/memoji shrink-0 -my-6 -ml-2 sm:-ml-4 z-20">
-            <img
-              src="/memojis/3.png"
-              alt="Jaume Tur"
-              class="relative w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-[0_12px_20px_rgba(15,23,42,0.18)] group-hover/memoji:scale-105 group-hover/memoji:-translate-y-1 transition-transform duration-300"
-              width="144"
-              height="144"
-            />
-          </div>
-          <div class="relative z-10">
-            <span class="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 shadow-2xs">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Resposta &lt; 24h</span>
-            </span>
-            <h2 class="font-extrabold text-xl text-slate-900 mt-1 flex items-center gap-1.5">
-              <span>Parlem del teu projecte</span>
-              <Icon name="bx:message-square-dots" class="w-5 h-5 text-indigo-600" />
-            </h2>
-            <p class="text-xs text-slate-600 mt-0.5">
-              Contacta directament o envia un missatge.
-            </p>
+        <!-- Targeta d'identitat amb Memoji 3.png -->
+        <div class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-[0_2px_12px_rgba(15,23,42,0.04)] relative overflow-visible group">
+          <div class="flex items-center gap-4">
+            <div class="relative shrink-0 -my-4 -ml-2 z-10">
+              <img
+                src="/memojis/3.png"
+                alt="Memoji de Jaume Tur saludant"
+                class="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.16)] group-hover:scale-105 transition-transform duration-300"
+                width="112"
+                height="112"
+              />
+            </div>
+            <div>
+              <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block">
+                Frontend & Web Apps
+              </span>
+              <h2 class="font-extrabold text-lg text-slate-900 leading-tight mt-0.5">
+                Jaume Tur
+              </h2>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                València, Espanya. Treball remot o presencial.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="space-y-3">
-          
-          <!-- Email box with 1-click copy -->
-          <div class="bg-white border border-slate-200/90 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] group hover:border-indigo-300 transition-colors">
-            <div class="flex items-center gap-3 overflow-hidden">
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs">
-                <Icon name="bx:envelope" class="w-5 h-5" />
-              </div>
-              <div class="truncate">
-                <span class="text-[10px] font-mono font-bold text-indigo-600 block uppercase tracking-wider">
-                  Correu Directe
-                </span>
-                <a
-                  href="mailto:jautursis@alu.edu.gva.es"
-                  class="text-sm font-bold text-slate-800 hover:text-indigo-600 transition truncate block">
-                  jautursis@alu.edu.gva.es
-                </a>
-              </div>
+        <!-- Acció Ràpida: WhatsApp Directe (Alta Conversió) -->
+        <a
+          href="https://wa.me/34600000000?text=Hola%20Jaume,%20he%20vist%20el%20teu%20portfolio%20i%20m'agradaria%20comentar-te%20un%20projecte..."
+          target="_blank"
+          rel="noopener noreferrer"
+          id="contact-whatsapp-btn"
+          class="p-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-between shadow-md transition group">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/80 flex items-center justify-center text-white shrink-0">
+              <Icon name="bx:bxl-whatsapp" class="w-5 h-5 group-hover:scale-110 transition-transform" />
             </div>
-            <button
-              id="copy-email-btn"
-              type="button"
-              class="shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200/80 text-slate-700 hover:text-indigo-600 transition shadow-2xs flex items-center gap-1"
-              title="Copiar correu">
-              <Icon name="bx:copy" class="w-3.5 h-3.5" />
-              <span>Copiar</span>
-            </button>
+            <div>
+              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">Canal Immediat</span>
+              <span class="text-sm font-extrabold">Xatejar per WhatsApp</span>
+            </div>
           </div>
+          <Icon name="bx:right-arrow-alt" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </a>
 
-          <!-- GitHub -->
+        <!-- Correu Electrònic amb 1-Click Copy -->
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-4 flex items-center justify-between gap-2 shadow-2xs group hover:border-indigo-300 transition-colors">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <div class="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
+              <Icon name="bx:envelope" class="w-4 h-4" />
+            </div>
+            <div class="truncate">
+              <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase tracking-wider block">Correu Directe</span>
+              <a
+                href="mailto:jautursis@alu.edu.gva.es?subject=Nova%20consulta%20de%20projecte"
+                id="contact-email-link"
+                class="text-xs sm:text-sm font-bold text-slate-800 hover:text-indigo-600 transition truncate block">
+                jautursis@alu.edu.gva.es
+              </a>
+            </div>
+          </div>
+          <button
+            id="copy-email-btn"
+            type="button"
+            class="shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200 text-slate-700 hover:text-indigo-600 transition flex items-center gap-1 cursor-pointer"
+            title="Copiar correu electrònic">
+            <Icon name="bx:copy" class="w-3.5 h-3.5" />
+            <span id="copy-btn-label">Copiar</span>
+          </button>
+        </div>
+
+        <!-- Descàrrega de CV Oficial -->
+        <a
+          href="/docs/CV_Jaume_tur.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          id="contact-cv-btn"
+          class="bg-white border border-slate-200/90 hover:border-slate-800 rounded-2xl p-4 flex items-center justify-between transition group shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 flex items-center justify-center shrink-0">
+              <Icon name="bx:file" class="w-4 h-4 text-slate-700 group-hover:text-indigo-600 transition-colors" />
+            </div>
+            <div>
+              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">Currículum Professional</span>
+              <span class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                Descarregar CV complet (PDF)
+              </span>
+            </div>
+          </div>
+          <span class="text-slate-400 group-hover:text-slate-900 text-xs font-mono font-bold">↗</span>
+        </a>
+
+        <!-- Xarxes Professionals Reals -->
+        <div class="grid grid-cols-2 gap-3 pt-1">
           <a
             href="https://github.com/jautur"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-white border border-slate-200/90 hover:border-slate-800 rounded-2xl p-4 flex items-center justify-between transition group shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-sm">
-                <Icon name="bx:bxl-github" class="w-5 h-5" />
-              </div>
-              <div>
-                <span class="text-[10px] font-mono font-bold text-slate-500 block uppercase tracking-wider">
-                  Perfil de GitHub
-                </span>
-                <span class="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                  github.com/jautur
-                </span>
-              </div>
+            class="bg-white border border-slate-200/90 hover:border-slate-900 rounded-2xl p-3 flex items-center gap-2.5 transition group shadow-2xs">
+            <Icon name="bx:bxl-github" class="w-5 h-5 text-slate-900" />
+            <div>
+              <span class="text-[9px] font-mono uppercase text-slate-400 block">GitHub</span>
+              <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">@jautur</span>
             </div>
-            <span class="text-slate-400 group-hover:text-slate-900 text-sm font-bold font-mono">↗</span>
           </a>
 
-          <!-- LinkedIn -->
           <a
             href="https://www.linkedin.com/in/jautur/"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-white border border-slate-200/90 hover:border-indigo-300 rounded-2xl p-4 flex items-center justify-between transition group shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200/60 text-indigo-600 flex items-center justify-center shrink-0 shadow-2xs">
-                <Icon name="bx:bxl-linkedin" class="w-5 h-5" />
-              </div>
-              <div>
-                <span class="text-[10px] font-mono font-bold text-indigo-600 block uppercase tracking-wider">
-                  Perfil de LinkedIn
-                </span>
-                <span class="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                  linkedin.com/in/jautur
-                </span>
-              </div>
-            </div>
-            <span class="text-slate-400 group-hover:text-indigo-600 text-sm font-bold font-mono">↗</span>
-          </a>
-
-          <!-- Location -->
-          <div class="bg-white border border-slate-200/90 rounded-2xl p-4 flex items-center gap-3 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 text-emerald-600 flex items-center justify-center shrink-0 shadow-2xs">
-              <Icon name="bx:map-pin" class="w-5 h-5" />
-            </div>
+            class="bg-white border border-slate-200/90 hover:border-indigo-400 rounded-2xl p-3 flex items-center gap-2.5 transition group shadow-2xs">
+            <Icon name="bx:bxl-linkedin" class="w-5 h-5 text-indigo-600" />
             <div>
-              <span class="text-[10px] font-mono font-bold text-emerald-700 block uppercase tracking-wider">
-                Ubicació
-              </span>
-              <span class="text-sm font-bold text-slate-800">
-                València, Espanya (Híbrid / Remot)
-              </span>
+              <span class="text-[9px] font-mono uppercase text-slate-400 block">LinkedIn</span>
+              <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">in/jautur</span>
             </div>
-          </div>
+          </a>
         </div>
+
+        <!-- Caixa de Garantia & Prova Social Real -->
+        <div class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs text-slate-700 space-y-1.5 font-sans">
+          <span class="font-bold text-indigo-900 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
+            <Icon name="bx:shield-quarter" class="w-4 h-4 text-indigo-600" />
+            <span>Honestedat & Transparència</span>
+          </span>
+          <p class="text-[11px] leading-relaxed text-slate-600">
+            Tots els projectes compten amb documentació tècnica pública i codi auditable. Consulta els <a href="/pricing" class="font-bold text-indigo-600 underline">paquets de serveis</a> o els <a href="/#projectes" class="font-bold text-indigo-600 underline">casos d'estudi reals</a>.
+          </p>
+        </div>
+
       </div>
 
-      <!-- Contact form column -->
-      <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
-        <div class="flex items-center justify-between mb-5">
-          <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-1.5">
-            <Icon name="bx:edit" class="w-4 h-4 text-indigo-600" />
-            <span>Enviar missatge</span>
-          </h3>
-          <span class="text-[11px] font-mono font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200/60">
-            Formulari directe
+      <!-- Columna Dreta: Formulari Accessible (7 columnes) -->
+      <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_2px_16px_rgba(15,23,42,0.04)]">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+              <Icon name="bx:message-square-edit" class="w-5 h-5 text-indigo-600" />
+              <span>Formulari de proposta</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Completa les dades i rebràs una valoració tècnica sense compromís.
+            </p>
+          </div>
+          <span class="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            Sense Captcha
           </span>
         </div>
+
         <Contactform />
       </div>
 
@@ -157,18 +191,47 @@ import { Icon } from "astro-icon/components";
 </Layout>
 
 <script is:inline>
+  // Còpia ràpida del correu amb feedback accessible
   const copyBtn = document.getElementById("copy-email-btn");
-  if (copyBtn) {
+  const copyLabel = document.getElementById("copy-btn-label");
+  if (copyBtn && copyLabel) {
     copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText("jautursis@alu.edu.gva.es").then(() => {
-        const originalContent = copyBtn.innerHTML;
-        copyBtn.innerHTML = "<span>✓ ¡Copiat!</span>";
-        copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 transition shadow-2xs";
+        copyLabel.textContent = "Copiat!";
+        copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 transition flex items-center gap-1";
         setTimeout(() => {
-          copyBtn.innerHTML = originalContent;
-          copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200/80 text-slate-700 hover:text-indigo-600 transition shadow-2xs flex items-center gap-1";
+          copyLabel.textContent = "Copiar";
+          copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200 text-slate-700 hover:text-indigo-600 transition flex items-center gap-1 cursor-pointer";
         }, 2000);
       });
+    });
+  }
+
+  // Seguiment de conversió de canals
+  const waBtn = document.getElementById("contact-whatsapp-btn");
+  if (waBtn) {
+    waBtn.addEventListener("click", () => {
+      if (typeof window.plausible === "function") {
+        window.plausible("whatsapp_click", { props: { location: "contact_page" } });
+      }
+    });
+  }
+
+  const cvBtn = document.getElementById("contact-cv-btn");
+  if (cvBtn) {
+    cvBtn.addEventListener("click", () => {
+      if (typeof window.plausible === "function") {
+        window.plausible("cv_download", { props: { location: "contact_page", format: "pdf" } });
+      }
+    });
+  }
+
+  const emailLink = document.getElementById("contact-email-link");
+  if (emailLink) {
+    emailLink.addEventListener("click", () => {
+      if (typeof window.plausible === "function") {
+        window.plausible("email_click", { props: { location: "contact_page" } });
+      }
     });
   }
 </script>

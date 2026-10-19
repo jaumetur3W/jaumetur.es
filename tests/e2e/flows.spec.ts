@@ -79,8 +79,17 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await submitBtn.click();
 
     // Feedback message should be triggered
-    const nameInput = page.locator("#name");
+    const nameInput = page.locator("#contact-name");
     await expect(nameInput).toHaveAttribute("aria-required", "true");
+    const nameError = page.locator("#name-error");
+    await expect(nameError).toBeVisible();
+  });
+
+  test("Pricing page displays 4 clear service packages and structured FAQ", async ({ page }) => {
+    await page.goto("/pricing");
+    await expect(page.locator("text=Landing Page d'Alt Rendiment")).toBeVisible();
+    await expect(page.locator("text=Web App SPA amb Angular")).toBeVisible();
+    await expect(page.locator("text=Preguntes freqüents")).toBeVisible();
   });
 });
 

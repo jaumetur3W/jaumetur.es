@@ -4,105 +4,259 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
 
-const services = [
+// Paquets de serveis d'alta conversió
+const packages = [
   {
-    name: "Desenvolupament Frontend SPA",
+    id: "landing-page",
+    name: "Landing Page d'Alt Rendiment",
+    icon: "bx:rocket",
+    iconColor: "text-indigo-600",
+    badge: "Màxima Conversió",
+    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200/80",
+    description: "Webs corporatives o pàgines de llançament ultraràpides, optimitzades per convertir visites en contactes i liderar les cerques a Google.",
+    targetAudience: "Startups, pimes i professionals que busquen transmetre autoritat i captar clients amb la màxima velocitat.",
+    timeline: "[COMPLETAR: 1 a 2 setmanes]",
+    price: "Des de [COMPLETAR] €",
+    features: [
+      "Desenvolupament estàtic amb Astro i Tailwind CSS v4",
+      "Garantia de 100/100 a Lighthouse (Rendiment, SEO i Bones Pràctiques)",
+      "Accessibilitat universal certificable WCAG 2.2 AA",
+      "Optimització de SEO tècnic i metadades Open Graph per a xarxes",
+      "Formulari de contacte accessible amb protecció anti-spam sense captcha",
+      "Codi propietat del client, sense quota mensual de manteniment forçat",
+    ],
+    ctaText: "Sol·licitar Landing Page",
+  },
+  {
+    id: "angular-webapp",
+    name: "Web App SPA amb Angular",
     icon: "simple-icons:angular",
-    iconColor: "text-red-500",
+    iconColor: "text-rose-600",
     badge: "Més Sol·licitat",
-    badgeColor: "bg-indigo-600 text-white",
-    btnTheme: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs",
+    badgeColor: "bg-rose-50 text-rose-700 border-rose-200/80",
+    description: "Aplicacions web reactives, riques en interacció i pensades per a escalar, construïdes sobre els darrers estàndards d'Angular.",
+    targetAudience: "Empreses tecnològiques i equips de producte que necessiten dashboards, plataformes SaaS o panells de gestió robustos.",
+    timeline: "[COMPLETAR: 3 a 6 setmanes]",
+    price: "Des de [COMPLETAR] €",
     features: [
-      "Aplicacions completes amb Angular o React",
-      "Tipat estricte amb TypeScript",
-      "Disseny 100% responsive i modern",
-      "Accessibilitat WCAG AA garantida",
-      "Integració fluïda amb REST APIs",
-      "Arquitectura de components modular",
+      "Arquitectura modular moderna (Standalone Components & Signals)",
+      "Tipat estricte TypeScript d'extrem a extrem sense `any`",
+      "Gestió d'estat reactiva i fluida amb RxJS / Signals",
+      "Integració amb APIs REST, WebSockets o plataformes Backend",
+      "Suite de proves unitàries amb Vitest o Jasmine",
+      "Rendiment visual sòlid a 60 FPS garantit",
     ],
+    ctaText: "Projectar Web App",
   },
   {
-    name: "Optimització & Refactorització",
+    id: "performance-audit",
+    name: "Optimització & Accessibilitat (Audit & Fix)",
     icon: "bx:bxs-zap",
-    iconColor: "text-emerald-500",
-    badge: "Rendiment",
-    badgeColor: "bg-slate-900 text-white",
-    btnTheme: "bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 hover:border-slate-800 shadow-2xs",
+    iconColor: "text-emerald-600",
+    badge: "Auditoria & Millora",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
+    description: "Resolució de problemes de lentitud, bloqueig de renderitzat o incompliments legals d'accessibilitat en aplicacions existents.",
+    targetAudience: "Projectes web en producció amb caigudes de trànsit, queixes de lentitud o obligació de complir normatives europees (WCAG).",
+    timeline: "[COMPLETAR: 3 a 7 dies hàbils]",
+    price: "Des de [COMPLETAR] €",
     features: [
-      "Auditoria de rendiment (Core Web Vitals)",
-      "Objectiu 60 FPS i renderitzat fluid",
-      "Migració de JavaScript a TypeScript",
-      "Neteja d'arquitectura de codi",
-      "Millora de SEO tècnic i semàntica",
-      "Informe complet de millores",
+      "Auditoria integral de Core Web Vitals (LCP, CLS, INP) amb DevTools",
+      "Inspecció d'accessibilitat profunda amb axe-core i lectors de pantalla",
+      "Eliminació de codi JS innecessari i optimització de recursos crítics",
+      "Correcció de contrastos de color, focus visible i semàntica HTML",
+      "Informe tècnic comparatiu abans i després amb mètriques verificables",
+      "Full de ruta d'enginyeria per mantenir les millores en el temps",
     ],
+    ctaText: "Auditar el Meu Lloc",
   },
   {
-    name: "Arquitectura CI/CD & DevOps",
-    icon: "bx:git-repo-forked",
-    iconColor: "text-blue-500",
-    badge: "Automatització",
-    badgeColor: "bg-slate-900 text-white",
-    btnTheme: "bg-slate-900 hover:bg-indigo-600 text-white shadow-xs",
+    id: "cicd-devops",
+    name: "Pipelines CI/CD & Automatització",
+    icon: "bx:git-branch",
+    iconColor: "text-sky-600",
+    badge: "Fiabilitat DevOps",
+    badgeColor: "bg-sky-50 text-sky-700 border-sky-200/80",
+    description: "Eliminació d'errors manuals i automatització del cicle de vida del codi, des del git push fins a la publicació en producció.",
+    targetAudience: "Equips de desenvolupament que volen accelerar els desplegaments i garantir que cap canvi trenqui la producció.",
+    timeline: "[COMPLETAR: 2 a 5 dies hàbils]",
+    price: "Des de [COMPLETAR] €",
     features: [
-      "Pipelines automatitzats amb GitHub Actions",
-      "Configuració de Linters i tests de validació",
-      "Desplegament continu a Vercel / GitHub Pages",
-      "Arquitectura Trigger & Executor",
-      "Sense interrupcions de servei",
-      "Documentació de manteniment",
+      "Pipelines automatitzats amb GitHub Actions en paral·lel",
+      "Execució automàtica de linters, verificació TypeScript i tests",
+      "Auditoria de Lighthouse CI que atura el build si baixen les mètriques",
+      "Desplegaments continus amb previews automàtiques a cada Pull Request",
+      "Configuració de dependències automatitzada amb Dependabot",
+      "Documentació exhaustiva en arxiu CONTRIBUTING.md",
     ],
+    ctaText: "Automatitzar el Meu Flux",
   },
 ];
+
+// Procés de treball en 4 passos
+const workflowSteps = [
+  {
+    step: "01",
+    title: "Descoberta & Abast",
+    icon: "bx:search-alt",
+    desc: "Definim conjuntament els objectius del projecte, requisits funcionals, terminis i mètriques d'èxit per oferir una proposta ajustada i transparent.",
+  },
+  {
+    step: "02",
+    title: "Arquitectura & Prototipat",
+    icon: "bx:layer",
+    desc: "Seleccionem la millor tecnologia, dissenyem l'estructura de components i validem la interacció per assegurar que el fonament tècnic sigui impecable.",
+  },
+  {
+    step: "03",
+    title: "Desenvolupament & Qualitat",
+    icon: "bx:code-curly",
+    desc: "Codi modular amb TypeScript estricte, proves unitàries i validació contínua de rendiment 60 FPS i accessibilitat WCAG AA pas a pas.",
+  },
+  {
+    step: "04",
+    title: "Desplegament & Verificació",
+    icon: "bx:check-shield",
+    desc: "Publicació atòmica sense caiguda de servei, auditories finals de validació i lliurament de documentació clara perquè mantinguis el control total.",
+  },
+];
+
+// Preguntes Freqüents per al FAQ interactiu i Schema JSON-LD
+const faqs = [
+  {
+    question: "Com s'estructura el pagament dels serveis?",
+    answer: "Habitualment treballem amb una fita inicial (50% en confirmar l'inici i abast del projecte) i el 50% restant en el lliurament i desplegament final a producció, un cop verificades totes les mètriques acordades. Per a col·laboracions continuades oferim modalitats per hores o retenció mensual [COMPLETAR modalitats addicionals si cal].",
+  },
+  {
+    question: "Quin és el mètode de comunicació i seguiment?",
+    answer: "Mantenim una comunicació fluïda, asíncrona i transparent mitjançant correu electrònic, Slack/Discord o WhatsApp segons la teva preferència. A més, tindràs accés directe al repositori i a un entorn de previsualització (preview deployment) per provar cada avanç abans de la publicació final.",
+  },
+  {
+    question: "Treballes en remot o de manera presencial?",
+    answer: "Tinc la base a València (Espanya), per la qual cosa puc realitzar reunions presencials a la Comunitat Valenciana i treballar en remot amb equips i clients de qualsevol punt del món.",
+  },
+  {
+    question: "Quines garanties tècniques ofereixes en els lliuraments?",
+    answer: "Tots els projectes es lliuren amb mètriques auditables de manera independent: 100/100 en auditories de Lighthouse (Rendiment, SEO, Bones pràctiques i Accessibilitat), compliment demostrable de WCAG 2.2 AA i zero errors de compilació TypeScript.",
+  },
+  {
+    question: "Com podem començar a treballar junts?",
+    answer: "Pots enviar un missatge des del formulari de contacte o enviar un correu directe a jautursis@alu.edu.gva.es explicant breument què necessites. Et respondré en menys de 24 hores laborables amb preguntes d'aclariment o una data per coordinar una primera conversa.",
+  },
+];
+
+// Schema JSON-LD FAQPage per a Google
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer,
+    },
+  })),
+};
 ---
 
 <Layout
-  title="Serveis de Desenvolupament Web a València | Freelance Frontend"
-  description="Serveis professionals de desenvolupament web a València i en remot: aplicacions SPA amb Angular i TypeScript, auditoria de rendiment 60 FPS i automatització CI/CD.">
+  title="Serveis & Paquets de Desenvolupament Frontend | Jaume Tur"
+  description="Paquets professionals de desenvolupament web a València: Landing pages ultra ràpides, aplicacions Angular modulars, optimització de rendiment 60 FPS i automatització CI/CD.">
+  
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <Container>
+    <!-- Capçalera Principal -->
     <Sectionhead>
-      <Fragment slot="title">Serveis de Desenvolupament Web a València</Fragment>
+      <Fragment slot="title">Serveis de Desenvolupament Frontend</Fragment>
       <Fragment slot="desc">
-        Desenvolupador web freelance a València i en remot: modalitats de treball per a projectes frontend amb Angular, consultoria d'arquitectura i automatització de processos CI/CD.
+        Col·laboració professional i transparent per a crear productes digitals fluids, robustos i accessibles des de València i en remot.
       </Fragment>
     </Sectionhead>
 
-    <!-- Services Grid: Standardized Icons -->
-    <div class="grid md:grid-cols-3 gap-6 mx-auto max-w-6xl mt-12">
+    <!-- Indicador de Disponibilitat -->
+    <div class="flex justify-center -mt-6 mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span>Disponibilitat per a projectes i contractació: Activa</span>
+      </div>
+    </div>
+
+    <!-- Graella de Paquets de Serveis -->
+    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
       {
-        services.map((s) => (
-          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 flex flex-col justify-between shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 group">
+        packages.map((pkg) => (
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 group relative">
             <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center transform-gpu group-hover:scale-110 transition-transform">
-                  <Icon name={s.icon} class={`w-5 h-5 ${s.iconColor}`} />
-                </span>
-                <span class={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-2xs ${s.badgeColor}`}>
-                  {s.badge}
+              <!-- Capçalera de la targeta -->
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Icon name={pkg.icon} class={`w-6 h-6 ${pkg.iconColor}`} />
+                </div>
+                <span class={`text-[11px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border shadow-2xs ${pkg.badgeColor}`}>
+                  {pkg.badge}
                 </span>
               </div>
-              
-              <h3 class="text-xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">
-                {s.name}
-              </h3>
 
-              <ul class="space-y-3 text-xs text-slate-600 pt-3 border-t border-slate-100">
-                {s.features.map((f) => (
-                  <li class="flex items-start gap-2.5">
-                    <span class="text-emerald-600 font-bold shrink-0 mt-0.5 select-none" aria-hidden="true">✓</span>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
+              <!-- Títol i Descripció -->
+              <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                {pkg.name}
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                {pkg.description}
+              </p>
+
+              <!-- Per a qui és -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 mb-6 text-xs">
+                <span class="font-bold text-slate-900 block mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
+                  <Icon name="bx:user-check" class="w-4 h-4 text-indigo-600" />
+                  <span>Per a qui és aquest servei:</span>
+                </span>
+                <span class="text-slate-600 leading-relaxed">
+                  {pkg.targetAudience}
+                </span>
+              </div>
+
+              <!-- Preu & Termini Orientatiu -->
+              <div class="grid grid-cols-2 gap-3 p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-100 mb-6 font-mono text-xs">
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Inversió</span>
+                  <span class="font-bold text-indigo-900 text-sm mt-0.5 block">{pkg.price}</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini estimat</span>
+                  <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
+                </div>
+              </div>
+
+              <!-- Llista d'Inclusions -->
+              <div class="space-y-3 pt-2">
+                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
+                  Què inclou exactament:
+                </span>
+                <ul class="space-y-2.5 text-xs text-slate-700">
+                  {pkg.features.map((feature) => (
+                    <li class="flex items-start gap-2.5">
+                      <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            <div class="mt-8 pt-5 border-t border-slate-100">
+            <!-- Botó d'Acció Directa -->
+            <div class="mt-8 pt-6 border-t border-slate-100">
               <a
-                href="/contact"
-                class={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition group/btn ${s.btnTheme}`}>
-                <Icon name="bx:message-square-dots" class="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                <span>Sol·licitar proposta</span>
-                <span class="text-[11px] font-mono">↗</span>
+                href={`/contact?servei=${pkg.id}`}
+                data-analytics-cta={pkg.id}
+                class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition group/btn">
+                <span>{pkg.ctaText}</span>
+                <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -110,39 +264,240 @@ const services = [
       }
     </div>
 
-    <!-- Career Callout Banner: Dark Tech Surface (#090D16) -->
-    <div class="mt-16 bg-[#090D16] text-white rounded-3xl p-8 sm:p-10 max-w-4xl mx-auto border border-slate-800/90 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 group">
-      <div class="space-y-2 text-center sm:text-left">
-        <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-800/80 flex items-center gap-1.5 w-max">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>INCORPORACIÓ DISPONIBLE</span>
+    <!-- Prova Social Real (Projectes Verificables de l'Enginyer) -->
+    <div class="mt-20 max-w-5xl mx-auto">
+      <div class="text-center mb-8">
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
+          Prova Social & Casos Reals
         </span>
-        <h4 class="text-xl font-bold flex items-center gap-2">
-          <span>Busques un Desenvolupador Frontend per al teu equip?</span>
-          <Icon name="bx:briefcase" class="w-4 h-4 text-emerald-400" />
-        </h4>
-        <p class="text-xs text-slate-300 max-w-lg">
-          Obert a posicions a jornada completa o col·laboracions en modalitat remota o híbrida des de València.
+        <h3 class="text-2xl font-bold text-slate-900 mt-2">
+          Projectes reals desenvolupats i verificables
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-1">
+          Seguint el nostre compromís d'honestedat, cadascun d'aquests projectes disposa de cas d'estudi amb mètriques auditables:
         </p>
       </div>
 
-      <div class="flex gap-3 shrink-0">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <a
-          href="/docs/CV_Jaume_tur.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group/cv inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition shadow-xs">
-          <Icon name="bx:file" class="w-3.5 h-3.5 group-hover/cv:-translate-y-0.5 transition-transform" />
-          <span>CV PDF</span>
-          <span class="text-[10px] text-slate-400 font-mono">↗</span>
+          href="/projectes/avisa"
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <Icon name="bx:bell" class="w-6 h-6 text-rose-500" />
+              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">Producció</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">AVISA</h4>
+            <p class="text-[11px] text-slate-500 mt-1">Plataforma d'incidències amb Angular Signals i WCAG AA.</p>
+          </div>
+          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+            <span>Veure cas d'estudi</span>
+            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </span>
         </a>
+
         <a
-          href="/contact"
-          class="group/c inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition shadow-sm">
-          <Icon name="bx:message-square-dots" class="w-3.5 h-3.5 group-hover/c:scale-110 transition-transform" />
-          <span>Contactar</span>
+          href="/projectes/pizzeria-xativa"
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <Icon name="bx:restaurant" class="w-6 h-6 text-amber-500" />
+              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">En línia</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pizzeria a Xàtiva</h4>
+            <p class="text-[11px] text-slate-500 mt-1">SEO Local nº1 a Google, 85KB HTML i comandes directes.</p>
+          </div>
+          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+            <span>Veure cas d'estudi</span>
+            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </span>
         </a>
+
+        <a
+          href="/projectes/dashboard-telemetria"
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <Icon name="bx:line-chart" class="w-6 h-6 text-indigo-500" />
+              <span class="text-[10px] font-mono text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded font-bold">60 FPS</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Dashboard Telemetria</h4>
+            <p class="text-[11px] text-slate-500 mt-1">Renderitzat fluid en temps real i estricte Core Web Vitals.</p>
+          </div>
+          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+            <span>Veure cas d'estudi</span>
+            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </span>
+        </a>
+
+        <a
+          href="/projectes/pipeline-cicd"
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <Icon name="bx:git-repo-forked" class="w-6 h-6 text-sky-500" />
+              <span class="text-[10px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded font-bold">Automàtic</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pipeline CI/CD</h4>
+            <p class="text-[11px] text-slate-500 mt-1">GitHub Actions atòmic, zero downtime i tests automàtics.</p>
+          </div>
+          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+            <span>Veure cas d'estudi</span>
+            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </span>
+        </a>
+      </div>
+
+      <!-- Espai Reservat per a Testimonis Reals -->
+      <div class="mt-8 p-6 rounded-3xl bg-slate-50 border border-dashed border-slate-300 text-center text-xs text-slate-500">
+        <Icon name="bx:message-alt-detail" class="w-6 h-6 mx-auto mb-2 text-slate-400" />
+        <span class="font-bold text-slate-700 block mb-1">
+          [COMPLETAR: Espai per a testimonis reals de clients i responsables d'equip]
+        </span>
+        <p class="max-w-xl mx-auto text-slate-500">
+          Per respecte i honestedat professional, no s'inclouen ressenyes fictícies ni logotips sense consentiment directe. Els testimonis s'afegiran conforme finalitzin els projectes contractats en curs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Procés de Treball en 4 Fases (Amb Icones Estandarditzades) -->
+    <div class="mt-20 max-w-5xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
+          Metodologia & Transparència
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+          Com treballem junts pas a pas
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1">
+          Un procés clar i estructurat per garantir zero sorpreses i entregues a temps.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {
+          workflowSteps.map((ws) => (
+            <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:border-indigo-300 transition-all flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                    <Icon name={ws.icon} class="w-5 h-5" />
+                  </span>
+                  <span class="text-xs font-mono font-black text-slate-400">{ws.step}</span>
+                </div>
+                <h4 class="font-bold text-slate-900 text-base mb-2">{ws.title}</h4>
+                <p class="text-xs text-slate-600 leading-relaxed">{ws.desc}</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 font-bold">
+                <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
+                <span>Fase verificada</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Secció de Preguntes Freqüents (FAQ Interactiu) -->
+    <div class="mt-20 max-w-3xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
+          FAQ & Resolució de Dubtes
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+          Preguntes freqüents
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1">
+          Tot el que necessites saber abans de començar un projecte.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        {
+          faqs.map((faq) => (
+            <details class="group bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs transition-all duration-200 open:shadow-md open:border-indigo-200">
+              <summary class="font-bold text-sm sm:text-base text-slate-900 cursor-pointer list-none flex items-center justify-between gap-3 select-none">
+                <span class="flex items-center gap-2">
+                  <Icon name="bx:help-circle" class="w-4 h-4 text-indigo-600 shrink-0" />
+                  <span>{faq.question}</span>
+                </span>
+                <Icon name="bx:chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform shrink-0" />
+              </summary>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed pl-6 border-t border-slate-100 pt-3">
+                {faq.answer}
+              </p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- CTA Final Enfocat a la Conversió -->
+    <div class="mt-20 mb-12 p-8 sm:p-12 rounded-[2.5rem] bg-gradient-to-br from-indigo-900 via-slate-900 to-slate-950 text-white max-w-4xl mx-auto shadow-2xl relative overflow-hidden">
+      <!-- Fons geomètric subtil -->
+      <div class="absolute inset-0 bg-[radial-gradient(#6366f125_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-40"></div>
+      
+      <div class="relative z-10 text-center max-w-xl mx-auto space-y-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/80 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>DISPONIBLE PER A NOUS PROJECTES</span>
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          Tens una idea o un projecte que vols fer realitat?
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          Parlar és gratuït i sense cap compromís. Explica'm el teu repte tècnic i t'enviaré una proposta clara amb terminis i pressupost detallat.
+        </p>
+
+        <div class="pt-4 flex flex-wrap gap-3 justify-center items-center">
+          <a
+            href="/contact"
+            id="pricing-cta-primary"
+            class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-slate-950 text-xs sm:text-sm font-bold hover:bg-slate-100 transition shadow-lg">
+            <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-600 group-hover:scale-110 transition-transform" />
+            <span>Demanar proposta sense compromís</span>
+          </a>
+          <a
+            href="https://wa.me/34600000000?text=Hola%20Jaume,%20he%20vist%20els%20teus%20serveis%20al%20portfolio%20i%20m'agradaria%20consultar-te%20sobre..."
+            target="_blank"
+            rel="noopener noreferrer"
+            id="pricing-cta-whatsapp"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition shadow-lg">
+            <Icon name="bx:bxl-whatsapp" class="w-4 h-4 text-emerald-200" />
+            <span>Consultar per WhatsApp</span>
+          </a>
+        </div>
       </div>
     </div>
   </Container>
 </Layout>
+
+<script is:inline>
+  // Seguiment d'esdeveniments de conversió a la pàgina de serveis
+  document.querySelectorAll("[data-analytics-cta]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const pkg = el.getAttribute("data-analytics-cta");
+      if (typeof window.plausible === "function") {
+        window.plausible("service_inquiry_click", { props: { package: pkg } });
+      }
+    });
+  });
+
+  const primaryBtn = document.getElementById("pricing-cta-primary");
+  if (primaryBtn) {
+    primaryBtn.addEventListener("click", () => {
+      if (typeof window.plausible === "function") {
+        window.plausible("cta_click", { props: { location: "pricing_bottom_primary" } });
+      }
+    });
+  }
+
+  const waBtn = document.getElementById("pricing-cta-whatsapp");
+  if (waBtn) {
+    waBtn.addEventListener("click", () => {
+      if (typeof window.plausible === "function") {
+        window.plausible("whatsapp_click", { props: { location: "pricing_bottom" } });
+      }
+    });
+  }
+</script>

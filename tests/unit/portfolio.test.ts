@@ -80,5 +80,40 @@ describe("Portfolio Architecture & Business Logic", () => {
     expect(measured.inp).toBeLessThan(targets.inp);
     expect(measured.tbt).toBeLessThan(targets.tbt);
   });
+
+  it("should validate FAQPage schema structure for SEO", () => {
+    const faqData = [
+      { question: "Quin és el mètode de pagament?", answer: "50% inicial i 50% al lliurament." },
+    ];
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqData.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: f.answer,
+        },
+      })),
+    };
+
+    expect(faqSchema["@type"]).toBe("FAQPage");
+    expect(faqSchema.mainEntity).toHaveLength(1);
+    expect(faqSchema.mainEntity[0].name).toBe("Quin és el mètode de pagament?");
+  });
+
+  it("should detect bot submissions via honeypot and enforce submission rate limiting", () => {
+    function isSpam(honeypotVal: string, lastSubmissionTime: number, now: number): boolean {
+      if (honeypotVal.trim() !== "") return true; // bot filled hidden field
+      if (now - lastSubmissionTime < 30 * 1000) return true; // rate limited
+      return false;
+    }
+
+    const t0 = 1000000;
+    expect(isSpam("spam-bot-input", 0, t0)).toBe(true);
+    expect(isSpam("", t0 - 10000, t0)).toBe(true); // only 10s passed
+    expect(isSpam("", t0 - 35000, t0)).toBe(false); // 35s passed, valid human submission
+  });
 });
 

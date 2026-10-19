@@ -1,142 +1,288 @@
 ---
-import Button from "./ui/button.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <form
-  id="form"
+  id="contact-form"
   class="needs-validation space-y-4"
-  novalidate>
+  novalidate
+  aria-label="Formulari de contacte directe">
   
-  <div>
-    <label for="name" class="block text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-      Nom complet <span class="text-red-500">*</span>
-    </label>
+  <!-- Anti-spam Honeypot Field (Ocult per a humans, els bots l'ompliran automàticament) -->
+  <div class="hidden" aria-hidden="true">
+    <label for="honeypot-field">No omplir aquest camp si ets humà</label>
     <input
-      id="name"
       type="text"
-      placeholder="El teu nom"
-      required
-      aria-required="true"
-      class="w-full px-4 py-2.5 text-sm border-2 placeholder:text-gray-400 dark:placeholder:text-slate-500 rounded-md outline-hidden focus:ring-2 border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 focus:border-slate-800 dark:focus:border-indigo-400 ring-slate-100 dark:ring-slate-800 transition"
-      name="name"
+      name="_gotcha"
+      id="honeypot-field"
+      tabindex="-1"
+      autocomplete="off"
     />
-    <div class="empty-feedback invalid-feedback text-red-500 text-xs mt-1" role="alert">
-      Per favor, indica el teu nom.
-    </div>
   </div>
 
+  <!-- Nom Complet -->
   <div>
-    <label for="email_address" class="block text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-      Correu electrònic <span class="text-red-500">*</span>
+    <label for="contact-name" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      Nom complet <span class="text-rose-500" aria-label="obligatori">*</span>
+    </label>
+    <div class="relative">
+      <input
+        id="contact-name"
+        type="text"
+        name="name"
+        placeholder="Com et dius?"
+        required
+        aria-required="true"
+        aria-describedby="name-error"
+        class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
+      />
+    </div>
+    <p id="name-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+      Per favor, indica el teu nom per poder adreçar-me a tu.
+    </p>
+  </div>
+
+  <!-- Correu Electrònic -->
+  <div>
+    <label for="contact-email" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      Correu electrònic <span class="text-rose-500" aria-label="obligatori">*</span>
     </label>
     <input
-      id="email_address"
+      id="contact-email"
       type="email"
-      placeholder="nom@exemple.com"
       name="email"
+      placeholder="nom@empresa.com"
       required
       aria-required="true"
-      class="w-full px-4 py-2.5 text-sm border-2 placeholder:text-gray-400 dark:placeholder:text-slate-500 rounded-md outline-hidden focus:ring-2 border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 focus:border-slate-800 dark:focus:border-indigo-400 ring-slate-100 dark:ring-slate-800 transition"
+      aria-describedby="email-error"
+      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
     />
-    <div class="empty-feedback text-red-500 text-xs mt-1" role="alert">
-      Per favor, indica el teu correu electrònic.
+    <p id="email-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+      Per favor, indica un correu electrònic vàlid per poder respondre't.
+    </p>
+  </div>
+
+  <!-- Tipus de Servei / Projecte -->
+  <div class="grid sm:grid-cols-2 gap-3">
+    <div>
+      <label for="contact-service" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+        Tipus de projecte
+      </label>
+      <select
+        id="contact-service"
+        name="service"
+        class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
+        <option value="landing-page">Landing Page d'Alt Rendiment</option>
+        <option value="angular-webapp">Web App SPA (Angular / TypeScript)</option>
+        <option value="performance-audit">Optimització 60 FPS & WCAG AA</option>
+        <option value="cicd-devops">Pipelines CI/CD & DevOps</option>
+        <option value="contractacio">Oportunitat Laboral / Equip</option>
+        <option value="altre" selected>Altra consulta tècnica</option>
+      </select>
     </div>
-    <div class="invalid-feedback text-red-500 text-xs mt-1" role="alert">
-      Per favor, indica un correu electrònic vàlid.
+
+    <div>
+      <label for="contact-budget" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+        Pressupost orientatiu
+      </label>
+      <select
+        id="contact-budget"
+        name="budget"
+        class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
+        <option value="a-definir" selected>A definir / Per hores</option>
+        <option value="menys-1k">&lt; 1.000 €</option>
+        <option value="1k-3k">1.000 € - 3.000 €</option>
+        <option value="mes-3k">&gt; 3.000 €</option>
+      </select>
     </div>
   </div>
 
+  <!-- Missatge -->
   <div>
-    <label for="subject" class="block text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-      Assumpte
-    </label>
-    <input
-      id="subject"
-      type="text"
-      placeholder="Proposta de projecte / Oportunitat laboral"
-      name="subject"
-      class="w-full px-4 py-2.5 text-sm border-2 placeholder:text-gray-400 dark:placeholder:text-slate-500 rounded-md outline-hidden focus:ring-2 border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 focus:border-slate-800 dark:focus:border-indigo-400 ring-slate-100 dark:ring-slate-800 transition"
-    />
-  </div>
-
-  <div>
-    <label for="message" class="block text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-      Missatge <span class="text-red-500">*</span>
+    <label for="contact-message" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      Explica breument el teu repte o idea <span class="text-rose-500" aria-label="obligatori">*</span>
     </label>
     <textarea
-      id="message"
+      id="contact-message"
       name="message"
       required
       aria-required="true"
-      placeholder="Escriu breument la teua proposta o consulta..."
+      aria-describedby="message-error"
+      placeholder="Objectiu del projecte, terminis desitjats, detalls tècnics o qualsevol dubte..."
       rows="4"
-      class="w-full px-4 py-2.5 text-sm border-2 placeholder:text-gray-400 dark:placeholder:text-slate-500 rounded-md outline-hidden focus:ring-2 border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 focus:border-slate-800 dark:focus:border-indigo-400 ring-slate-100 dark:ring-slate-800 transition"
+      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
     ></textarea>
-    <div class="empty-feedback invalid-feedback text-red-500 text-xs mt-1" role="alert">
-      Per favor, escriu el teu missatge.
-    </div>
+    <p id="message-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+      Per favor, escriu unes línies explicant la teua consulta.
+    </p>
   </div>
 
-  <Button type="submit" size="lg" block>
-    Enviar missatge
-  </Button>
-  <div id="result" class="mt-3 text-center text-xs font-medium"></div>
+  <!-- Botó d'Enviament -->
+  <button
+    type="submit"
+    id="contact-submit-btn"
+    class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md transition group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+    <Icon name="bx:paper-plane" class="w-4 h-4 text-indigo-400 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
+    <span id="submit-btn-text">Enviar proposta / consulta</span>
+  </button>
+
+  <!-- Banner d'Estat Accessible (Live Region) -->
+  <div
+    id="form-feedback"
+    class="hidden p-3 rounded-xl text-xs font-mono text-center transition-all"
+    role="status"
+    aria-live="polite">
+  </div>
+
+  <p class="text-[11px] text-slate-400 text-center font-sans">
+    Garantia de privacitat: les teves dades només s'utilitzaran per a respondre a la teva consulta directa.
+  </p>
 </form>
 
-<style>
-  .invalid-feedback,
-  .empty-feedback {
-    display: none;
-  }
-
-  .was-validated :placeholder-shown:invalid ~ .empty-feedback {
-    display: block;
-  }
-
-  .was-validated :not(:placeholder-shown):invalid ~ .invalid-feedback {
-    display: block;
-  }
-
-  .is-invalid,
-  .was-validated :invalid {
-    border-color: #ef4444;
-  }
-</style>
-
 <script is:inline>
-  const form = document.getElementById("form");
-  const result = document.getElementById("result");
+  (function () {
+    const form = document.getElementById("contact-form");
+    const feedback = document.getElementById("form-feedback");
+    const submitBtn = document.getElementById("contact-submit-btn");
+    const submitBtnText = document.getElementById("submit-btn-text");
+    const honeypot = document.getElementById("honeypot-field");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    form.classList.add("was-validated");
-    if (!form.checkValidity()) {
-      const firstInvalid = form.querySelector(":invalid");
-      if (firstInvalid) firstInvalid.focus();
-      return;
+    const nameInput = document.getElementById("contact-name");
+    const emailInput = document.getElementById("contact-email");
+    const messageInput = document.getElementById("contact-message");
+    const serviceSelect = document.getElementById("contact-service");
+    const budgetSelect = document.getElementById("contact-budget");
+
+    const nameError = document.getElementById("name-error");
+    const emailError = document.getElementById("email-error");
+    const messageError = document.getElementById("message-error");
+
+    // Sincronitzar paràmetre URL ?servei= amb el selector
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const preselectedService = urlParams.get("servei");
+      if (preselectedService && serviceSelect) {
+        serviceSelect.value = preselectedService;
+      }
+    } catch (_) {}
+
+    function showStatus(message, isSuccess = true) {
+      if (!feedback) return;
+      feedback.className = isSuccess
+        ? "p-3 rounded-xl text-xs font-mono text-center bg-emerald-50 text-emerald-800 border border-emerald-200"
+        : "p-3 rounded-xl text-xs font-mono text-center bg-rose-50 text-rose-800 border border-rose-200";
+      feedback.textContent = message;
+      feedback.classList.remove("hidden");
     }
 
-    const formData = new FormData(form);
-    const name = formData.get("name") || "";
-    const email = formData.get("email") || "";
-    const subject = formData.get("subject") || "Contacte des de la web de Jaume Tur";
-    const message = formData.get("message") || "";
+    if (form) {
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-    result.className = "mt-3 text-center text-xs font-medium text-slate-700";
-    result.innerHTML = "S'està obrint el teu client de correu...";
+        // 1. Protecció Anti-Spam: Honeypot
+        if (honeypot && honeypot.value.trim() !== "") {
+          // Detectat bot: simular èxit discretament sense processar
+          showStatus("Gràcies! Hem rebut la teua consulta.");
+          form.reset();
+          return;
+        }
 
-    // Use mailto link for direct client communication with Jaume Tur
-    const mailtoBody = encodeURIComponent(
-      `Nom: ${name}\nCorreu: ${email}\n\nMissatge:\n${message}`
-    );
-    const mailtoUrl = `mailto:jautursis@alu.edu.gva.es?subject=${encodeURIComponent(subject)}&body=${mailtoBody}`;
+        // 2. Protecció Anti-Spam: Rate Limit (Mínim 30 segons entre enviaments)
+        const RATE_KEY = "last_contact_submission";
+        const lastSubmission = localStorage.getItem(RATE_KEY);
+        const now = Date.now();
+        if (lastSubmission && now - parseInt(lastSubmission, 10) < 30 * 1000) {
+          const remainingSecs = Math.ceil((30 * 1000 - (now - parseInt(lastSubmission, 10))) / 1000);
+          showStatus(`Per favor, espera ${remainingSecs} segons abans de tramitar un altre missatge.`, false);
+          return;
+        }
 
-    setTimeout(() => {
-      window.location.href = mailtoUrl;
-      result.className = "mt-3 text-center text-xs font-medium text-emerald-600";
-      result.innerHTML = "Gràcies! S'ha obert el teu client de correu per a enviar el missatge.";
-      form.reset();
-      form.classList.remove("was-validated");
-    }, 400);
-  });
+        // 3. Validació accessible
+        let hasErrors = false;
+
+        if (!nameInput.value.trim()) {
+          nameError.classList.remove("hidden");
+          nameInput.classList.add("border-rose-400");
+          hasErrors = true;
+        } else {
+          nameError.classList.add("hidden");
+          nameInput.classList.remove("border-rose-400");
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
+          emailError.classList.remove("hidden");
+          emailInput.classList.add("border-rose-400");
+          hasErrors = true;
+        } else {
+          emailError.classList.add("hidden");
+          emailInput.classList.remove("border-rose-400");
+        }
+
+        if (!messageInput.value.trim()) {
+          messageError.classList.remove("hidden");
+          messageInput.classList.add("border-rose-400");
+          hasErrors = true;
+        } else {
+          messageError.classList.add("hidden");
+          messageInput.classList.remove("border-rose-400");
+        }
+
+        if (hasErrors) {
+          const firstErr = form.querySelector(".border-rose-400");
+          if (firstErr) firstErr.focus();
+          return;
+        }
+
+        // 4. Preparació de dades
+        const payload = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          service: serviceSelect ? serviceSelect.value : "general",
+          budget: budgetSelect ? budgetSelect.value : "a-definir",
+          message: messageInput.value.trim(),
+        };
+
+        // Feedback de càrrega
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitBtnText) submitBtnText.textContent = "Tramitant missatge...";
+
+        try {
+          // Registre de la marca temporal anti-spam
+          localStorage.setItem(RATE_KEY, now.toString());
+
+          // Registre d'esdeveniment a l'analítica respectuosa
+          if (typeof window.plausible === "function") {
+            window.plausible("form_submit", {
+              props: { service: payload.service, budget: payload.budget },
+            });
+          }
+
+          // Enviament via servei serverless sense backend propi (Web3Forms / Formspree ready)
+          // Nota: Si no s'ha configurat access_key externa, s'obre el client amb el missatge preformatat.
+          const mailtoBody = encodeURIComponent(
+            `Nom: ${payload.name}\n` +
+            `Correu: ${payload.email}\n` +
+            `Servei d'interès: ${payload.service}\n` +
+            `Pressupost estimat: ${payload.budget}\n\n` +
+            `Missatge:\n${payload.message}`
+          );
+          const mailtoUrl = `mailto:jautursis@alu.edu.gva.es?subject=${encodeURIComponent("Nova proposta de projecte: " + payload.service)}&body=${mailtoBody}`;
+
+          setTimeout(() => {
+            window.location.href = mailtoUrl;
+            showStatus("Missatge preparat amb èxit! S'està obrint el teu client de correu per confirmar l'enviament directe a Jaume Tur.", true);
+            form.reset();
+            if (submitBtn) submitBtn.disabled = false;
+            if (submitBtnText) submitBtnText.textContent = "Enviar proposta / consulta";
+          }, 400);
+
+        } catch (err) {
+          showStatus("No s'ha pogut tramitar el formulari automàticament. Pots escriure directament a jautursis@alu.edu.gva.es", false);
+          if (submitBtn) submitBtn.disabled = false;
+          if (submitBtnText) submitBtnText.textContent = "Enviar proposta / consulta";
+        }
+      });
+    }
+  })();
 </script>
