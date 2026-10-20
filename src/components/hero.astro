@@ -42,17 +42,17 @@ const metrics = [
 <section
   id="hero"
   aria-labelledby="hero-role-heading"
-  class="relative pt-10 pb-16 md:pt-14 md:pb-20 px-6 sm:px-10 lg:px-12 rounded-[2.5rem] overflow-hidden mb-12 bg-black border border-white/15 shadow-[0_8px_45px_rgba(0,0,0,0.6)] hero-theme-dark text-white transition-colors duration-300">
+  class="relative pt-10 pb-16 md:pt-14 md:pb-20 px-6 sm:px-10 lg:px-12 rounded-[2.5rem] overflow-hidden mb-12 bg-black border border-[#ffff00]/25 shadow-[0_8px_45px_rgba(0,0,0,0.7),0_0_50px_rgba(255,255,0,0.10)] hero-theme-dark text-white transition-colors duration-300">
   
-  <!-- FONS: Gradient corporatiu en negre (#000000), groc (#ffff00) i blanc (#ffffff) -->
+  <!-- FONS: Gradient corporatiu en negre (#000000), groc vibrant (#ffff00) i blanc (#ffffff) -->
   <div
-    class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_85%_15%,rgba(255,255,0,0.25),transparent_60%),radial-gradient(ellipse_75%_55%_at_15%_25%,rgba(255,255,255,0.18),transparent_65%),radial-gradient(ellipse_60%_50%_at_50%_85%,rgba(255,255,0,0.14),transparent_60%)] pointer-events-none -z-20"
+    class="absolute inset-0 bg-[radial-gradient(ellipse_75%_60%_at_85%_20%,rgba(255,255,0,0.55),transparent_65%),radial-gradient(circle_at_75%_35%,rgba(255,255,0,0.40),transparent_45%),radial-gradient(ellipse_65%_50%_at_15%_20%,rgba(255,255,255,0.22),transparent_65%),radial-gradient(ellipse_70%_50%_at_30%_85%,rgba(255,255,0,0.35),transparent_60%)] pointer-events-none -z-20"
     aria-hidden="true"
   ></div>
 
   <!-- Capa 2: Punts de precisió isomètrics de 24x24 px sobre fons fosc amb màscara el·líptica -->
   <div
-    class="absolute inset-0 bg-[radial-gradient(#ffffff20_1.25px,transparent_1.25px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_55%,transparent_100%)] pointer-events-none -z-20"
+    class="absolute inset-0 bg-[radial-gradient(#ffffff25_1.25px,transparent_1.25px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_55%,transparent_100%)] pointer-events-none -z-20"
     aria-hidden="true"
   ></div>
 
@@ -172,7 +172,7 @@ const metrics = [
         class="relative z-20 -mb-12 sm:-mb-16 group cursor-pointer"
       >
         <!-- Ambient radial glow behind memoji -->
-        <div id="hero-memoji-aura" class="absolute inset-0 bg-[#ffff00]/15 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-200"></div>
+        <div id="hero-memoji-aura" class="absolute inset-0 bg-[#ffff00]/30 rounded-full blur-3xl group-hover:scale-105 transition-transform duration-200"></div>
         
         <img
           id="hero-memoji-img"
