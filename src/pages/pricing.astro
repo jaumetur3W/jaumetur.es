@@ -16,15 +16,16 @@ const packages = [
     description: "Webs corporatives o pàgines de llançament ultraràpides, optimitzades per convertir visites en contactes i liderar les cerques a Google.",
     targetAudience: "Startups, pimes i professionals que busquen transmetre autoritat i captar clients amb la màxima velocitat.",
     timeline: "1 a 2 setmanes",
-    waitTime: "3 a 5 dies hàbils",
-    price: "Des de 750 €",
+    creationPrice: "Des de 650 €",
+    monthlyFee: "45 €/mes",
     features: [
       "Desenvolupament estàtic amb Astro i Tailwind CSS v4",
       "Garantia de 100/100 a Lighthouse (Rendiment, SEO i Bones Pràctiques)",
       "Accessibilitat universal certificable WCAG 2.2 AA",
       "Optimització de SEO tècnic i metadades Open Graph per a xarxes",
       "Formulari de contacte accessible amb protecció anti-spam sense captcha",
-      "Codi propietat del client, sense quota mensual de manteniment forçat",
+      "Manteniment tècnic actiu inclòs (no opcional · permanència mín. 1 any)",
+      "Monitoratge d'uptime, còpies de seguretat i actualitzacions de seguretat",
     ],
     ctaText: "Sol·licitar Landing Page",
   },
@@ -38,15 +39,16 @@ const packages = [
     description: "Aplicacions web reactives, riques en interacció i pensades per a escalar, construïdes sobre els darrers estàndards d'Angular.",
     targetAudience: "Empreses tecnològiques i equips de producte que necessiten dashboards, plataformes SaaS o panells de gestió robustos.",
     timeline: "3 a 6 setmanes",
-    waitTime: "1 a 2 setmanes",
-    price: "Des de 2.200 €",
+    creationPrice: "Des de 1.950 €",
+    monthlyFee: "95 €/mes",
     features: [
       "Arquitectura modular moderna (Standalone Components & Signals)",
       "Tipat estricte TypeScript d'extrem a extrem sense `any`",
       "Gestió d'estat reactiva i fluida amb RxJS / Signals",
       "Integració amb APIs REST, WebSockets o plataformes Backend",
-      "Suite de proves unitàries amb Vitest o Jasmine",
-      "Rendiment visual sòlid a 60 FPS garantit",
+      "Suite de proves de regressió amb Vitest",
+      "Manteniment tècnic continuat inclòs (no opcional · permanència mín. 1 any)",
+      "Supervisió de rendiment a 60 FPS i actualitzacions del framework",
     ],
     ctaText: "Projectar Web App",
   },
@@ -60,15 +62,15 @@ const packages = [
     description: "Resolució de problemes de lentitud, bloqueig de renderitzat o incompliments legals d'accessibilitat en aplicacions existents.",
     targetAudience: "Projectes web en producció amb caigudes de trànsit, queixes de lentitud o obligació de complir normatives europees (WCAG).",
     timeline: "3 a 7 dies hàbils",
-    waitTime: "Immediat (24-48 h)",
-    price: "Des de 490 €",
+    creationPrice: "Des de 450 €",
+    monthlyFee: "39 €/mes",
     features: [
       "Auditoria integral de Core Web Vitals (LCP, CLS, INP) amb DevTools",
       "Inspecció d'accessibilitat profunda amb axe-core i lectors de pantalla",
       "Eliminació de codi JS innecessari i optimització de recursos crítics",
       "Correcció de contrastos de color, focus visible i semàntica HTML",
       "Informe tècnic comparatiu abans i després amb mètriques verificables",
-      "Full de ruta d'enginyeria per mantenir les millores en el temps",
+      "Seguiment mensual de mètriques i accessibilitat (manteniment mín. 1 any)",
     ],
     ctaText: "Auditar el Meu Lloc",
   },
@@ -82,15 +84,15 @@ const packages = [
     description: "Eliminació d'errors manuals i automatització del cicle de vida del codi, des del git push fins a la publicació en producció.",
     targetAudience: "Equips de desenvolupament que volen accelerar els desplegaments i garantir que cap canvi trenqui la producció.",
     timeline: "2 a 5 dies hàbils",
-    waitTime: "Immediat (24-48 h)",
-    price: "Des de 390 €",
+    creationPrice: "Des de 350 €",
+    monthlyFee: "35 €/mes",
     features: [
       "Pipelines automatitzats amb GitHub Actions en paral·lel",
       "Execució automàtica de linters, verificació TypeScript i tests",
       "Auditoria de Lighthouse CI que atura el build si baixen les mètriques",
       "Desplegaments continus amb previews automàtiques a cada Pull Request",
       "Configuració de dependències automatitzada amb Dependabot",
-      "Documentació exhaustiva en arxiu CONTRIBUTING.md",
+      "Supervisió contínua de pipelines i runners (manteniment mín. 1 any)",
     ],
     ctaText: "Automatitzar el Meu Flux",
   },
@@ -127,8 +129,16 @@ const workflowSteps = [
 // Preguntes Freqüents per al FAQ interactiu i Schema JSON-LD
 const faqs = [
   {
-    question: "Com s'estructura el pagament dels serveis?",
-    answer: "Habitualment treballem amb una fita inicial (50% en confirmar l'inici i abast del projecte) i el 50% restant en el lliurament i desplegament final a producció, un cop verificades totes les mètriques acordades. Per a col·laboracions continuades oferim modalitats per hores (45 €/h) o borsa d'hores mensual.",
+    question: "Com s'estructura el pagament d'entrada i la mensualitat de manteniment?",
+    answer: "Tots els projectes funcionen amb una entrada inicial (preu de creació i desenvolupament) acompanyada d'una quota mensual de manteniment tècnic actiu. Aquest manteniment no és opcional i inclou un compromís de permanència mínima d'1 any. D'aquesta manera garantim que el teu projecte es mantingui sempre ràpid, segur, actualitzat i amb suport tècnic prioritari continuat.",
+  },
+  {
+    question: "Què inclou exactament el manteniment mensual obligatori?",
+    answer: "El manteniment inclou supervisió d'uptime i monitoratge de rendiment (Lighthouse / Core Web Vitals), actualitzacions de dependències i seguretat, còpies de seguretat periòdiques, resolució d'incidències tècniques i assessorament continu per a l'evolució de la plataforma.",
+  },
+  {
+    question: "Per què hi ha una permanència mínima d'1 any?",
+    answer: "Perquè una solució web d'enginyeria requereix continuïtat tècnica per mantenir la màxima velocitat, evitar vulnerabilitats i garantir que cap canvi en navegadors o dependències trenqui el servei en producció al llarg del temps.",
   },
   {
     question: "Quin és el mètode de comunicació i seguiment?",
@@ -179,14 +189,18 @@ const faqSchema = {
       </Fragment>
     </Sectionhead>
 
-    <!-- Indicador de Disponibilitat -->
-    <div class="flex justify-center -mt-6 mb-12">
+    <!-- Indicadors: Disponibilitat i Model de Servei -->
+    <div class="flex flex-wrap items-center justify-center gap-3 -mt-6 mb-12">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span>Disponibilitat per a projectes i contractació: Activa</span>
+        <span>Disponibilitat per a projectes: Activa</span>
+      </div>
+      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-indigo-50 text-indigo-800 border border-indigo-200/80 shadow-2xs">
+        <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600" />
+        <span>Model Entrada + Mensualitat (manteniment mín. 1 any)</span>
       </div>
     </div>
 
@@ -225,19 +239,27 @@ const faqSchema = {
                 </span>
               </div>
 
-              <!-- Preu, Temps d'Espera & Termini d'Entrega -->
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-100 mb-6 font-mono text-xs">
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Preu aprox.</span>
-                  <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{pkg.price}</span>
+              <!-- Estructura de Preus: Entrada + Mensualitat amb manteniment -->
+              <div class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100/90 mb-6 font-mono text-xs space-y-2.5">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  <div>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Entrada / Creació</span>
+                    <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{pkg.creationPrice}</span>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Mensualitat</span>
+                    <span class="font-bold text-indigo-600 text-sm mt-0.5 block">+{pkg.monthlyFee}</span>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini d'entrega</span>
+                    <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
+                  </div>
                 </div>
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Temps d'espera</span>
-                  <span class="font-bold text-emerald-700 text-sm mt-0.5 block">{pkg.waitTime}</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini d'entrega</span>
-                  <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
+
+                <!-- Condició de Manteniment No Opcional i Permanència Mínima -->
+                <div class="pt-2 border-t border-indigo-200/60 flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
+                  <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                  <span>Manteniment inclòs (no opcional · permanència mín. 1 any)</span>
                 </div>
               </div>
 
