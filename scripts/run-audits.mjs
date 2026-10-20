@@ -17,8 +17,12 @@ const pages = [
   { name: 'qualitat', url: 'http://localhost:4321/qualitat' },
 ];
 
-const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const chromePath = process.platform === 'win32'
+  ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+  : (process.env.CHROME_PATH || '/usr/bin/google-chrome');
 process.env.CHROME_PATH = chromePath;
+
+const npxCmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 
 const results = [];
 
@@ -40,7 +44,7 @@ for (const page of pages) {
       args.push('--preset=desktop');
     }
 
-    const res = spawnSync('npx.cmd', args, {
+    const res = spawnSync(npxCmd, args, {
       shell: true,
       stdio: 'inherit',
       env: { ...process.env, CHROME_PATH: chromePath }

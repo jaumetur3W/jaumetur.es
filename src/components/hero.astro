@@ -429,6 +429,9 @@ const metrics = [
     applyPreset(0);
   }
 
-  setupInteractiveHero();
-  document.addEventListener("astro:page-load", setupInteractiveHero);
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(setupInteractiveHero);
+  } else {
+    window.addEventListener("load", () => setTimeout(setupInteractiveHero, 500));
+  }
 </script>

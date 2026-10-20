@@ -46,37 +46,23 @@ const getCategoryIcon = (category: string) => {
       </Sectionhead>
     </div>
 
-    <!-- Category Filters & Search -->
+    <!-- Category Filters -->
     <div class="max-w-5xl mx-auto my-10">
-      <div class="flex flex-col sm:flex-row gap-4 items-center justify-between pb-6 border-b border-slate-200/90">
-        <!-- Category Filter Pills -->
-        <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start" id="category-filters">
-          {categories.map((cat, idx) => (
-            <button
-              type="button"
-              data-category={cat}
-              class={`filter-btn px-3 py-1.5 rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer ${
-                idx === 0
-                  ? "bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/20 active"
-                  : "bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs"
-              }`}
-            >
-              <Icon name={cat !== "Tots" ? getCategoryIcon(cat) : "bx:layer"} class="w-3.5 h-3.5" />
-              <span>{cat}</span>
-            </button>
-          ))}
-        </div>
-
-        <!-- Live Search Input -->
-        <div class="relative w-full sm:w-64">
-          <input
-            type="text"
-            id="blog-search"
-            placeholder="Cercar articles o tags..."
-            class="w-full px-3.5 py-1.5 pl-8 text-xs font-mono rounded-xl bg-white border border-slate-200/90 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 shadow-2xs transition"
-          />
-          <Icon name="bx:search" class="absolute left-2.5 top-2 text-slate-400 w-3.5 h-3.5 pointer-events-none" />
-        </div>
+      <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start pb-6 border-b border-slate-200/90" id="category-filters" role="group" aria-label="Filtres per categoria">
+        {categories.map((cat, idx) => (
+          <button
+            type="button"
+            data-category={cat}
+            class={`filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 ${
+              idx === 0
+                ? "bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/20 active"
+                : "bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs"
+            }`}
+          >
+            <Icon name={cat !== "Tots" ? getCategoryIcon(cat) : "bx:layer"} class="w-3.5 h-3.5" />
+            <span>{cat}</span>
+          </button>
+        ))}
       </div>
     </div>
 
@@ -161,21 +147,6 @@ const getCategoryIcon = (category: string) => {
         })}
       </div>
 
-      <!-- No Results State -->
-      <div id="no-results" class="hidden text-center py-16 bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-8 max-w-lg mx-auto">
-        <Icon name="bx:search" class="w-12 h-12 text-slate-400 mx-auto mb-3" />
-        <p class="text-slate-900 font-bold text-lg">No s'ha trobat cap article</p>
-        <p class="text-slate-500 text-sm mt-1 mb-5">Prova amb altres termes de cerca o una altra categoria.</p>
-        <button
-          type="button"
-          id="reset-search-btn"
-          class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition shadow-2xs cursor-pointer inline-flex items-center gap-1.5"
-        >
-          <Icon name="bx:reset" class="w-4 h-4" />
-          <span>Restablir filtres i cerca</span>
-        </button>
-      </div>
-
       <!-- Lead Magnet Newsletter Box with Standardized Icons -->
       <section class="mt-20 p-8 sm:p-10 rounded-3xl bg-[#090D16] text-white border border-slate-800 shadow-2xl relative overflow-hidden">
         <div class="max-w-2xl relative z-10">
@@ -213,80 +184,30 @@ const getCategoryIcon = (category: string) => {
     </div>
   </Container>
 
-  <!-- Client-side Search and Filter Script -->
+  <!-- Client-side Category Filter Script (Mínim JS, sense cerca de text) -->
   <script is:inline>
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const searchInput = document.getElementById("blog-search");
-    const postCards = document.querySelectorAll(".post-card");
-    const noResults = document.getElementById("no-results");
-    const resetBtn = document.getElementById("reset-search-btn");
+    (function() {
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const postCards = document.querySelectorAll(".post-card");
+      if (!filterButtons.length || !postCards.length) return;
 
-    let activeCategory = "Tots";
-    let searchQuery = "";
+      filterButtons.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          const cat = btn.getAttribute("data-category") || "Tots";
 
-    function applyFilter() {
-      let visibleCount = 0;
+          filterButtons.forEach(function(b) {
+            const isCurrent = b === btn;
+            b.className = isCurrent
+              ? "filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/20 active"
+              : "filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs";
+          });
 
-      postCards.forEach((card) => {
-        const cardCategory = card.getAttribute("data-category") || "";
-        const title = card.getAttribute("data-title") || "";
-        const snippet = card.getAttribute("data-snippet") || "";
-        const tags = card.getAttribute("data-tags") || "";
-
-        const matchesCategory =
-          activeCategory === "Tots" || cardCategory === activeCategory;
-        const matchesSearch =
-          searchQuery === "" ||
-          title.includes(searchQuery) ||
-          snippet.includes(searchQuery) ||
-          tags.includes(searchQuery);
-
-        if (matchesCategory && matchesSearch) {
-          card.style.display = "flex";
-          visibleCount++;
-        } else {
-          card.style.display = "none";
-        }
+          postCards.forEach(function(card) {
+            const cardCategory = card.getAttribute("data-category") || "";
+            card.style.display = (cat === "Tots" || cardCategory === cat) ? "flex" : "none";
+          });
+        });
       });
-
-      if (noResults) {
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-      }
-    }
-
-    function selectCategory(catName) {
-      activeCategory = catName;
-      filterButtons.forEach((b) => {
-        const isCurrent = (b.getAttribute("data-category") || "") === catName;
-        if (isCurrent) {
-          b.className = "filter-btn px-3 py-1.5 rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-indigo-600 text-white border-indigo-500 shadow-sm shadow-indigo-500/20 active";
-        } else {
-          b.className = "filter-btn px-3 py-1.5 rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs";
-        }
-      });
-      applyFilter();
-    }
-
-    filterButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const cat = btn.getAttribute("data-category") || "Tots";
-        selectCategory(cat);
-      });
-    });
-
-    if (searchInput) {
-      searchInput.addEventListener("input", (e) => {
-        searchQuery = e.target.value.toLowerCase().trim();
-        applyFilter();
-      });
-    }
-
-    if (resetBtn) {
-      resetBtn.addEventListener("click", () => {
-        if (searchInput) searchInput.value = "";
-        searchQuery = "";
-        selectCategory("Tots");
-      });
-    }
+    })();
   </script>
 </Layout>
