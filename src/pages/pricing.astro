@@ -108,6 +108,10 @@ const faqSchema = {
         </span>
         <span>Disponibilitat per a projectes: Activa</span>
       </div>
+      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-900 border border-amber-300 shadow-2xs">
+        <Icon name="bx:star" class="w-3.5 h-3.5 text-amber-600" />
+        <span>Proposta Estrella: Pack Digitalització Local & Carta Web</span>
+      </div>
       <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-indigo-50 text-indigo-800 border border-indigo-200/80 shadow-2xs">
         <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600" />
         <span>Model Entrada + Mensualitat (manteniment mín. 1 any)</span>
@@ -118,11 +122,28 @@ const faqSchema = {
     <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
       {
         packages.map((pkg) => (
-          <div class="bg-white rounded-3xl border border-slate-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 group relative">
+          <div
+            class:list={[
+              "rounded-3xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 group relative",
+              pkg.isFeatured
+                ? "md:col-span-2 bg-gradient-to-br from-amber-50/60 via-white to-yellow-50/40 border-2 border-amber-400 shadow-xl shadow-amber-500/10 hover:border-amber-500 ring-4 ring-amber-400/10"
+                : "bg-white border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5"
+            ]}
+          >
+            {pkg.isFeatured && (
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-4 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-md flex items-center gap-1.5 whitespace-nowrap z-10">
+                <Icon name="bx:star" class="w-4 h-4 fill-slate-950" />
+                <span>Proposta Clau · Oferta Estrella per a Bars i Comerços</span>
+              </div>
+            )}
+
             <div>
               <!-- Capçalera de la targeta -->
               <div class="flex items-center justify-between gap-3 mb-5">
-                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div class:list={[
+                  "w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform",
+                  pkg.isFeatured ? "bg-amber-100/80 border border-amber-300" : "bg-slate-50 border border-slate-200/80"
+                ]}>
                   <Icon name={pkg.icon} class={`w-6 h-6 ${pkg.iconColor}`} />
                 </div>
                 <span class={`text-[11px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border shadow-2xs ${pkg.badgeColor}`}>
@@ -130,101 +151,144 @@ const faqSchema = {
                 </span>
               </div>
 
-              <!-- Títol i Descripció -->
-              <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                <a href={`/pricing/${pkg.id}`} class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
-                  {pkg.name}
+              <!-- Layout de contingut: 2 columnes per a la proposta clau en escriptori -->
+              <div class:list={[pkg.isFeatured && "grid md:grid-cols-12 gap-8 items-start"]}>
+                <div class:list={[pkg.isFeatured && "md:col-span-7"]}>
+                  <!-- Títol i Descripció -->
+                  <h3 class:list={[
+                    "font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors",
+                    pkg.isFeatured ? "text-2xl sm:text-3xl text-amber-950" : "text-xl sm:text-2xl"
+                  ]}>
+                    <a href={`/pricing/${pkg.id}`} class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
+                      {pkg.name}
+                    </a>
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                    {pkg.description}
+                  </p>
+
+                  <!-- Per a qui és -->
+                  <div class="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/70 mb-6 text-xs">
+                    <span class="font-bold text-slate-900 block mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
+                      <Icon name="bx:user-check" class="w-4 h-4 text-indigo-600" />
+                      <span>Per a qui és aquest servei:</span>
+                    </span>
+                    <span class="text-slate-600 leading-relaxed">
+                      {pkg.targetAudience}
+                    </span>
+                  </div>
+
+                  <!-- Estructura de Preus: Entrada + Mensualitat amb manteniment -->
+                  <div class:list={[
+                    "p-4 rounded-2xl border mb-4 font-mono text-xs space-y-2.5",
+                    pkg.isFeatured ? "bg-amber-100/40 border-amber-200/90" : "bg-indigo-50/60 border-indigo-100/90"
+                  ]}>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Entrada / Creació</span>
+                        <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{pkg.creationPrice}</span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Mensualitat</span>
+                        <span class:list={["text-sm mt-0.5 block font-bold", pkg.isFeatured ? "text-amber-800" : "text-indigo-600"]}>
+                          +{pkg.monthlyFee}
+                        </span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini d'entrega</span>
+                        <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
+                      </div>
+                    </div>
+
+                    <!-- Condició de Manteniment No Opcional i Permanència Mínima -->
+                    <div class="pt-2 border-t border-slate-200/60 flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
+                      <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                      <span>Manteniment inclòs (no opcional · permanència mín. 1 any)</span>
+                    </div>
+                  </div>
+
+                  <!-- Enllaç a l'Explicació del Preu, Comparativa i Amortització -->
+                  <a
+                    href={`/pricing/${pkg.id}`}
+                    class:list={[
+                      "flex items-center justify-between gap-2 p-3 rounded-2xl border text-xs font-mono font-bold transition-all group/info mb-6 md:mb-0",
+                      pkg.isFeatured
+                        ? "bg-amber-100/80 hover:bg-amber-200/80 border-amber-300 text-amber-950"
+                        : "bg-indigo-50/80 hover:bg-indigo-100/90 border-indigo-200/80 text-indigo-900"
+                    ]}
+                    title={`Veure per què costa aquest preu i com s'amortitza fàcilment ${pkg.name}`}
+                  >
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0" />
+                      <span>Per què aquest preu? Comparativa & Amortització</span>
+                    </span>
+                    <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 group-hover/info:translate-x-0.5 transition-transform">
+                      <span>Veure detall</span>
+                      <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5" />
+                    </span>
+                  </a>
+                </div>
+
+                <div class:list={[pkg.isFeatured && "md:col-span-5 flex flex-col justify-between h-full"]}>
+                  <!-- Llista d'Inclusions -->
+                  <div class="space-y-3 pt-2">
+                    <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
+                      Què inclou exactament:
+                    </span>
+                    <ul class="space-y-2.5 text-xs text-slate-700">
+                      {pkg.features.map((feature) => (
+                        <li class="flex items-start gap-2.5">
+                          <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- Botons d'Acció: Detall & Contactar (si és featured en 2 columnes) -->
+                  {pkg.isFeatured && (
+                    <div class="mt-8 pt-6 border-t border-amber-200/60 flex flex-col sm:flex-row gap-2.5">
+                      <a
+                        href={`/pricing/${pkg.id}`}
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 transition text-center shadow-2xs"
+                      >
+                        <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
+                        <span>Detall & Comparativa</span>
+                      </a>
+                      <a
+                        href={`/contact?servei=${pkg.id}`}
+                        data-analytics-cta={pkg.id}
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-[#FFE600] hover:bg-yellow-400 text-slate-950 shadow-md shadow-yellow-500/20 transition group/btn text-center"
+                      >
+                        <span>{pkg.ctaText}</span>
+                        <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <!-- Botons d'Acció per a targetes normals (no featured) -->
+            {!pkg.isFeatured && (
+              <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-2.5">
+                <a
+                  href={`/pricing/${pkg.id}`}
+                  class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-indigo-900 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition text-center"
+                >
+                  <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
+                  <span>Detall & Comparativa</span>
                 </a>
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                {pkg.description}
-              </p>
-
-              <!-- Per a qui és -->
-              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 mb-6 text-xs">
-                <span class="font-bold text-slate-900 block mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
-                  <Icon name="bx:user-check" class="w-4 h-4 text-indigo-600" />
-                  <span>Per a qui és aquest servei:</span>
-                </span>
-                <span class="text-slate-600 leading-relaxed">
-                  {pkg.targetAudience}
-                </span>
+                <a
+                  href={`/contact?servei=${pkg.id}`}
+                  data-analytics-cta={pkg.id}
+                  class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition group/btn text-center"
+                >
+                  <span>{pkg.ctaText}</span>
+                  <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </a>
               </div>
-
-              <!-- Estructura de Preus: Entrada + Mensualitat amb manteniment -->
-              <div class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100/90 mb-4 font-mono text-xs space-y-2.5">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  <div>
-                    <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Entrada / Creació</span>
-                    <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{pkg.creationPrice}</span>
-                  </div>
-                  <div>
-                    <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Mensualitat</span>
-                    <span class="font-bold text-indigo-600 text-sm mt-0.5 block">+{pkg.monthlyFee}</span>
-                  </div>
-                  <div>
-                    <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini d'entrega</span>
-                    <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
-                  </div>
-                </div>
-
-                <!-- Condició de Manteniment No Opcional i Permanència Mínima -->
-                <div class="pt-2 border-t border-indigo-200/60 flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
-                  <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600 shrink-0" />
-                  <span>Manteniment inclòs (no opcional · permanència mín. 1 any)</span>
-                </div>
-              </div>
-
-              <!-- Enllaç a l'Explicació del Preu, Comparativa i Amortització -->
-              <a
-                href={`/pricing/${pkg.id}`}
-                class="flex items-center justify-between gap-2 p-3 rounded-2xl bg-indigo-50/80 hover:bg-indigo-100/90 border border-indigo-200/80 text-xs font-mono font-bold text-indigo-900 transition-all group/info mb-6"
-                title={`Veure per què costa aquest preu i com s'amortitza fàcilment ${pkg.name}`}
-              >
-                <span class="flex items-center gap-1.5">
-                  <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0" />
-                  <span>Per què aquest preu? Comparativa & Amortització</span>
-                </span>
-                <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 group-hover/info:translate-x-0.5 transition-transform">
-                  <span>Veure</span>
-                  <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5" />
-                </span>
-              </a>
-
-              <!-- Llista d'Inclusions -->
-              <div class="space-y-3 pt-2">
-                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
-                  Què inclou exactament:
-                </span>
-                <ul class="space-y-2.5 text-xs text-slate-700">
-                  {pkg.features.map((feature) => (
-                    <li class="flex items-start gap-2.5">
-                      <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <!-- Botons d'Acció: Detall & Contactar -->
-            <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-2.5">
-              <a
-                href={`/pricing/${pkg.id}`}
-                class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-indigo-900 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition text-center"
-              >
-                <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
-                <span>Detall & Comparativa</span>
-              </a>
-              <a
-                href={`/contact?servei=${pkg.id}`}
-                data-analytics-cta={pkg.id}
-                class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition group/btn text-center"
-              >
-                <span>{pkg.ctaText}</span>
-                <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </a>
-            </div>
+            )}
           </div>
         ))
       }

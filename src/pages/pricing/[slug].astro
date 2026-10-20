@@ -125,6 +125,27 @@ const schemaData = {
           </span>
         </div>
       </div>
+
+      {service.id === "digitalitzacio-local" && (
+        <div class="mt-6 p-5 rounded-2xl bg-amber-50/80 border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-200/70 flex items-center justify-center shrink-0 text-amber-900 font-bold">
+              <Icon name="bx:restaurant" class="w-5 h-5" />
+            </div>
+            <div>
+              <strong class="text-amber-950 font-bold block">Inspirat en el cas real de la Pizzeria a Xàtiva</strong>
+              <span class="text-amber-900 text-xs">Descobreix com vam passar de PDFs feixucs a número 1 a Google Maps amb una web de només 85 KB.</span>
+            </div>
+          </div>
+          <a
+            href="/projectes/pizzeria-xativa"
+            class="shrink-0 inline-flex items-center gap-1.5 font-bold font-mono text-amber-950 bg-amber-200 hover:bg-amber-300 px-3.5 py-2 rounded-xl transition text-xs"
+          >
+            <span>Veure cas d'estudi real</span>
+            <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
+          </a>
+        </div>
+      )}
     </header>
 
     <!-- SECCIÓ 1: PER QUÈ AQUEST PREU? (Desglossament de cada euro) -->

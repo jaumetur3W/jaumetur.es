@@ -21,6 +21,7 @@ export interface ServicePackage {
   iconColor: string;
   badge: string;
   badgeColor: string;
+  isFeatured?: boolean;
   tagline: string;
   description: string;
   targetAudience: string;
@@ -45,15 +46,124 @@ export interface ServicePackage {
 
 export const servicesData: ServicePackage[] = [
   {
+    id: "digitalitzacio-local",
+    name: "Digitalització Local & Carta Web (Bars i Comerços)",
+    icon: "bx:restaurant",
+    iconColor: "text-amber-500",
+    badge: "Proposta Clau · Més Recomanat",
+    badgeColor: "bg-amber-400 text-slate-950 border-amber-500 font-extrabold shadow-xs",
+    isFeatured: true,
+    tagline: "La solució definitiva per a xicotets bars, pizzeries, cafeteries i comerços locals que volen captar clients de Google Maps i xarxes socials.",
+    description: "Inspirat en el cas d'èxit de la Pizzeria a Xàtiva: eliminem els PDFs feixucs de 15 MB que ningú pot obrir al mòbil. Construïm la teua carta interactiva ultraràpida en HTML, el teu perfil verificat a Google Maps i ens encarreguem de crear o gestionar les teues xarxes socials (Instagram/Facebook) per omplir el teu local sense comissions de tercers.",
+    targetAudience: "Xicotets bars, pizzeries, restaurants familiars, cafeteries, forns de pa, comerços de barri i autònoms que no estan digitalitzats o tenen una presència web pobra o desactualitzada.",
+    timeline: "3 a 5 dies hàbils",
+    creationPrice: "Des de 290 €",
+    creationPriceNumber: 290,
+    monthlyFee: "49 €/mes",
+    monthlyFeeNumber: 49,
+    annualTotal: "878 € el 1r any (creació de la carta web + gestió/xarxes + 12 mesos de manteniment)",
+    dailyCostEquivalent: "~2,40 €/dia durant el primer any (menys del que val un cafè i una pasta)",
+    amortizationSummary: "S'amortitza completament amb només 3 o 4 sopars o comandes de pizzes al mes.",
+    amortizationPoints: [
+      {
+        title: "Retorn immediat amb només 3-4 comandes al mes",
+        metric: "3 a 4 comandes / mes",
+        description: "En hostaleria o comerç local, el marge de només 3 o 4 comandes de menjar per emportar o un parell de taules reservades el cap de setmana ja cobreix íntegrament la mensualitat del servei.",
+      },
+      {
+        title: "Posicionament estrella a Google Maps i cerques de proximitat",
+        metric: "+60% en cerques locals",
+        description: "El 78% de les persones que cerquen 'on sopar', 'pizzeria a prop' o 'cafeteria' al mòbil acaben acudint al local en menys de 24 hores. Tindre el teu negoci optimitzat a Google Maps amb horaris i botó directe de trucada/WhatsApp és el major generador de clients nous.",
+      },
+      {
+        title: "Adéu al PDF feixuc que fa perdre clients a la taula",
+        metric: "Càrrega en < 0,5 segons",
+        description: "Quan un client escaneja un codi QR i ha de descarregar un fitxer PDF de 15 MB amb mala cobertura 4G, es desespera. La nostra carta web en HTML càrrega de manera instantània, sense descàrregues, adaptada a mòbils i al·lèrgens.",
+      },
+      {
+        title: "Xarxes socials actives sense maldecaps ni pèrdua de temps",
+        metric: "Instagram i Facebook al dia",
+        description: "Creem o posem a punt els teus perfils socials i t'ajudem a publicar plats del dia, ofertes i horaris especials. Tu et centres a atendre els teus clients al taulell, nosaltres ens ocupem de la part digital.",
+      },
+    ],
+    whyThisPrice: {
+      creationBreakdown: [
+        "Digitalització integral de la teua carta de plats, preus, begudes i al·lèrgens en HTML interactiu net",
+        "Desenvolupament ultraràpid basat en l'arquitectura utilitzada a la Pizzeria a Xàtiva (100/100 Lighthouse)",
+        "Generació de codi QR vectorial d'alta resolució llest per a imprimir en taules, estovalles o aparadors",
+        "Creació o optimització de la teua fitxa a Google Business Profile (Google Maps) amb horaris i ubicació exacta",
+        "Creació o posada a punt de perfils a xarxes socials (Instagram i Facebook) amb logotip adaptat i bio atractiva",
+        "Canal de reserva i comanda directa per WhatsApp en un sol clic, sense pagar el 30% de comissió a tercers",
+      ],
+      monthlyBreakdown: [
+        "Allotjament web d'alta velocitat a xarxa Edge amb certificat SSL segur i domini inclòs",
+        "Actualització periòdica de preus, nous plats de temporada o menús especials de festes",
+        "Acompanyament i dinamització de xarxes socials (Instagram/Facebook) amb publicacions periòdiques d'imatges i novetats",
+        "Supervisió de ressenyes a Google Maps i manteniment d'horaris festius actualitzats",
+        "Suport tècnic prioritari per WhatsApp amb resolució ràpida davant qualsevol canvi d'última hora",
+      ],
+      whyCommitmentOneYear: "El preu de creació de 290 € és molt assequible precisament perquè confiem en una relació anual: una carta o unes xarxes socials necessiten actualitzar-se cada temporada (festius, estiu, canvi de preus) per mantindre's rendibles i vives.",
+    },
+    marketComparison: [
+      {
+        name: "El nostre Pack Digitalització Local (Web + Xarxes)",
+        priceRange: "290 € entrada + 49 €/mes",
+        speedLighthouse: "100 / 100 (Càrrega instantània < 0.5s)",
+        maintenanceCost: "49 €/mes (Web, canvis de carta i xarxes inclosos)",
+        hiddenCosts: "0 € de comissions sobre comandes",
+        codeOwnership: "Tot propietat teua: web, carta i perfils socials",
+        summary: "La proposta clau: presència impecable a Google Maps, xarxes actives i carta mòbil sense comissions.",
+      },
+      {
+        name: "Plataformes d'enviament de tercers (Glovo, Uber, JustEat)",
+        priceRange: "Comissions del 25% al 35% de cada comanda",
+        speedLighthouse: "Depens de la seua aplicació",
+        maintenanceCost: "Centenars o milers d'euros cada mes en comissions",
+        hiddenCosts: "Els clients són d'ells i no teus; si marxen, perds la base de dades",
+        codeOwnership: "Cap: dependència total de la plataforma",
+        summary: "Molt car a mitjà termini; et resten gran part del marge de benefici de cada plat.",
+      },
+      {
+        name: "Menú en PDF penjat en un QR gratuït",
+        priceRange: "0 € en aparença",
+        speedLighthouse: "Pèssim (Fitxers de 5 a 15 MB lents)",
+        maintenanceCost: "Sense manteniment: preus desactualitzats i enllaços trencats",
+        hiddenCosts: "Pèrdua constant de clients que no aconsegueixen obrir el fitxer",
+        codeOwnership: "Un simple arxiu PDF",
+        summary: "Mata les vendes del local: lent, no es llegeix bé al mòbil i no posiciona a Google.",
+      },
+      {
+        name: "Agència de xarxes socials tradicional",
+        priceRange: "300 € a 600 €/mes només per portar les xarxes",
+        speedLighthouse: "No inclouen desenvolupament web ni carta digital",
+        maintenanceCost: "Quotes mensuals inaccessibles per a un bar de barri",
+        hiddenCosts: "Facturació a banda per qualsevol modificació de carta",
+        codeOwnership: "Variable",
+        summary: "Pressupostos pensats per a grans marques, completament inviables per a un negoci local.",
+      },
+    ],
+    features: [
+      "Landing page i Carta interactiva en HTML (càrrega < 0.5s, 100/100 Lighthouse)",
+      "Substitució de PDFs pesats per menú net adaptat a mòbil i al·lèrgens",
+      "Canal de reserva i comandes directes per WhatsApp sense comissions",
+      "Creació i optimització de fitxa a Google Maps (Google Business Profile)",
+      "Creació o gestió continuada de xarxes socials (Instagram i Facebook)",
+      "Actualització periòdica de preus, plats de temporada i menús",
+      "Codi QR vectorial preparat per a imprimir en taules i aparadors",
+      "Manteniment tècnic actiu tot l'any (no opcional · permanència mín. 1 any)",
+    ],
+    ctaText: "Demanar Pack Negoci Local (290 €)",
+  },
+  {
     id: "landing-page",
     name: "Landing Page d'Alt Rendiment",
     icon: "bx:rocket",
     iconColor: "text-indigo-600",
     badge: "Preu Reduït · Màxima Conversió",
-    badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
+    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200/80",
     tagline: "Web corporativa ultra ràpida dissenyada per captar clients des del primer dia i posicionar a Google.",
     description: "Webs corporatives o pàgines de llançament ultraràpides, optimitzades per convertir visites en contactes reals i liderar les cerques a Google Maps i SEO local.",
-    targetAudience: "Autònoms, pimes, negocis locals, clíniques, despatxos i startups que busquen autoritat immediata i captació fluida de clients.",
+    targetAudience: "Autònoms, pimes, clíniques, despatxos i startups que busquen autoritat immediata i captació fluida de clients.",
     timeline: "1 a 2 setmanes",
     creationPrice: "Des de 390 €",
     creationPriceNumber: 390,
@@ -156,7 +266,7 @@ export const servicesData: ServicePackage[] = [
     name: "Web App SPA amb Angular",
     icon: "simple-icons:angular",
     iconColor: "text-rose-600",
-    badge: "Més Sol·licitat · Aplicacions Reactives",
+    badge: "Aplicacions Reactives & SaaS",
     badgeColor: "bg-rose-50 text-rose-700 border-rose-200/80",
     tagline: "Plataforma web avançada, interactiva i escalable per a productes SaaS, portals i gestió operativa.",
     description: "Aplicacions web reactives d'alta fluïdesa, pensades per a escalar, construïdes sobre els darrers estàndards d'Angular (Signals, Standalone Components i arquitectura modular).",

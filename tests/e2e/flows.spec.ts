@@ -124,19 +124,21 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(nameError).toBeVisible();
   });
 
-  test("Pricing page displays 4 clear service packages and structured FAQ", async ({ page }) => {
+  test("Pricing page displays service packages including key local digitization offer and structured FAQ", async ({ page }) => {
     await page.goto("/pricing");
+    await expect(page.locator("h3").filter({ hasText: "Digitalització Local" })).toBeVisible();
+    await expect(page.locator("text=Proposta Clau · Oferta Estrella")).toBeVisible();
+    await expect(page.locator("text=Des de 290 €")).toBeVisible();
     await expect(page.locator("text=Landing Page d'Alt Rendiment")).toBeVisible();
-    await expect(page.locator("text=Web App SPA amb Angular")).toBeVisible();
     await expect(page.locator("text=Preguntes freqüents")).toBeVisible();
-    await expect(page.locator("text=Des de 390 €")).toBeVisible();
 
-    // Click on detail link of landing page offer
-    await page.click('a[href="/pricing/landing-page"] >> nth=0');
-    await expect(page).toHaveURL("/pricing/landing-page");
-    await expect(page.locator("h1")).toContainText("Landing Page d'Alt Rendiment");
+    // Click on detail link of key local digitization offer
+    await page.click('a[href="/pricing/digitalitzacio-local"] >> nth=0');
+    await expect(page).toHaveURL("/pricing/digitalitzacio-local");
+    await expect(page.locator("h1")).toContainText("Digitalització Local & Carta Web");
     await expect(page.locator("text=El perquè de cada preu")).toBeVisible();
     await expect(page.locator("text=Com s'amortitza aquest preu fàcilment")).toBeVisible();
+    await expect(page.locator("text=Inspirat en el cas real de la Pizzeria a Xàtiva")).toBeVisible();
     await expect(page.locator("text=Comparativa de Mercat")).toBeVisible();
   });
 
