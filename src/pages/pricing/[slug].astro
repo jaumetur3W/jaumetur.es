@@ -1,0 +1,406 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import { Icon } from "astro-icon/components";
+import { servicesData, type ServicePackage } from "@/data/services";
+
+export async function getStaticPaths() {
+  return servicesData.map((service, index) => {
+    const prev = index > 0 ? servicesData[index - 1] : servicesData[servicesData.length - 1];
+    const next = index < servicesData.length - 1 ? servicesData[index + 1] : servicesData[0];
+    return {
+      params: { slug: service.id },
+      props: { service, prev, next },
+    };
+  });
+}
+
+interface Props {
+  service: ServicePackage;
+  prev: ServicePackage;
+  next: ServicePackage;
+}
+
+const { service, prev, next } = Astro.props;
+
+// JSON-LD Service Schema
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": service.name,
+  "description": service.description,
+  "provider": {
+    "@type": "Person",
+    "name": "Jaume Tur",
+    "url": "https://jaumetur.es",
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": service.creationPriceNumber,
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "description": `Preu de creació des de ${service.creationPrice} més manteniment mensual de ${service.monthlyFee} (mínim 1 any).`,
+  },
+  "url": `https://jaumetur.es/pricing/${service.id}`,
+};
+---
+
+<Layout
+  title={`${service.name} — Preu, Comparativa & Amortització | Jaume Tur`}
+  description={`Descobreix el perquè del preu de ${service.name}, la comparativa detallada amb WordPress o Wix i com s'amortitza fàcilment en menys d'un trimestre.`}
+>
+  <!-- Schema JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <Container>
+    <!-- Ruta de navegació / Breadcrumbs -->
+    <nav aria-label="Ruta de navegació" class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+      <a href="/" class="hover:text-indigo-600 transition-colors">Inici</a>
+      <span class="text-slate-300">/</span>
+      <a href="/pricing" class="hover:text-indigo-600 transition-colors">Serveis & Preus</a>
+      <span class="text-slate-300">/</span>
+      <span class="text-indigo-600 font-semibold">{service.name}</span>
+    </nav>
+
+    <!-- Hero de l'Oferta -->
+    <header class="py-8 md:py-12 border-b border-slate-200/80">
+      <div class="flex items-center gap-2.5 mb-4">
+        <span class={`text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border shadow-2xs ${service.badgeColor}`}>
+          {service.badge}
+        </span>
+        <span class="text-xs font-mono text-slate-500">
+          Termini d'entrega: <strong class="text-slate-800">{service.timeline}</strong>
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-4">
+        {service.name}
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed mb-8">
+        {service.tagline}
+      </p>
+
+      <!-- Caixa Destacada de Preu & Amortització Ràpida -->
+      <div class="grid lg:grid-cols-12 gap-6 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-[11px] font-mono uppercase tracking-wider text-indigo-300 block mb-1">
+              Model transparent de contractació
+            </span>
+            <div class="flex items-baseline gap-3 flex-wrap">
+              <span class="text-3xl sm:text-4xl font-extrabold text-white font-mono">
+                {service.creationPrice}
+              </span>
+              <span class="text-xl sm:text-2xl font-bold text-amber-300 font-mono">
+                + {service.monthlyFee}
+              </span>
+              <span class="text-xs text-slate-300 font-mono">
+                (manteniment inclòs · permanència mín. 1 any)
+              </span>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200 space-y-1.5 leading-relaxed">
+            <div class="flex items-center gap-2 font-bold text-amber-300">
+              <Icon name="bx:trending-up" class="w-4 h-4 shrink-0" />
+              <span>Retorn de la inversió: {service.amortizationSummary}</span>
+            </div>
+            <p class="text-slate-300 text-xs">
+              Inversió total del 1r any: <strong class="text-white">{service.annualTotal}</strong> ({service.dailyCostEquivalent}).
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col justify-center sm:items-end gap-3 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-6">
+          <a
+            href={`/contact?servei=${service.id}`}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-950 bg-[#FFE600] hover:bg-yellow-400 transition-all duration-200 text-sm shadow-md hover:scale-[1.02] text-center"
+          >
+            <Icon name="bx:rocket" class="w-4 h-4" />
+            <span>{service.ctaText}</span>
+          </a>
+          <span class="text-[11px] text-slate-400 font-mono text-center sm:text-right">
+            Sense sorpreses ni llicències amagades
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECCIÓ 1: PER QUÈ AQUEST PREU? (Desglossament de cada euro) -->
+    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="why-price-heading">
+      <div class="max-w-3xl mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3">
+          <Icon name="bx:coin-stack" class="w-4 h-4" />
+          <span>Transparència Radical</span>
+        </div>
+        <h2 id="why-price-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          El perquè de cada preu: què estàs pagant exactament?
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+          Lluny de tarifes inflades o preus opacs d'agència, aquí cada euro respon a hores d'enginyeria d'alt nivell, absència de codi inútil i tranquil·litat tècnica absoluta.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Entrada / Creació -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:border-indigo-300 transition-colors">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Quota Inicial</span>
+            <span class="text-xl font-bold font-mono text-indigo-950">{service.creationPrice}</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">
+            Què cobreix la creació inicial:
+          </h3>
+          <p class="text-xs text-slate-500 mb-5 leading-relaxed">
+            Dissenyam i desenvolupam una arquitectura neta des de zero, sense carregar plantilles comprades ni milers de línies de JavaScript innecessari.
+          </p>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+            {service.whyThisPrice.creationBreakdown.map((item) => (
+              <li class="flex items-start gap-2.5">
+                <Icon name="bx:check-circle" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Mensualitat -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:border-indigo-300 transition-colors">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Quota Mensual</span>
+            <span class="text-xl font-bold font-mono text-indigo-600">+{service.monthlyFee}</span>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">
+            Què cobreix el manteniment continuat:
+          </h3>
+          <p class="text-xs text-slate-500 mb-5 leading-relaxed">
+            Una web no s'abandona el dia que es publica. El manteniment és actiu i preventiu perquè mai perdis clients per caigudes o forats de seguretat.
+          </p>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+            {service.whyThisPrice.monthlyBreakdown.map((item) => (
+              <li class="flex items-start gap-2.5">
+                <Icon name="bx:shield-quarter" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Raó de la Permanència de 1 Any -->
+      <div class="mt-8 p-6 rounded-3xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-amber-100 flex items-center justify-center shrink-0 text-amber-800">
+          <Icon name="bx:lock-alt" class="w-5 h-5" />
+        </div>
+        <div class="text-xs sm:text-sm text-amber-950 leading-relaxed">
+          <h4 class="font-bold text-sm sm:text-base text-amber-900 mb-1">
+            Per què s'estableix una permanència mínima d'1 any?
+          </h4>
+          <p>
+            {service.whyThisPrice.whyCommitmentOneYear}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓ 2: COM S'AMORTITZA FÀCILMENT? (Retorn de la Inversió / ROI) -->
+    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="amortization-heading">
+      <div class="max-w-3xl mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80 mb-3">
+          <Icon name="bx:line-chart" class="w-4 h-4" />
+          <span>Retorn de la Inversió (ROI)</span>
+        </div>
+        <h2 id="amortization-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Com s'amortitza aquest preu fàcilment en pocs mesos?
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+          Una pàgina web o aplicació no ha de ser mai una despesa fons perdut, sinó un actiu que genera rendiment econòmic des del primer dia. Vegem els números reals:
+        </p>
+      </div>
+
+      <!-- Graella de punts d'amortització -->
+      <div class="grid sm:grid-cols-2 gap-6 mb-10">
+        {service.amortizationPoints.map((point) => (
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-xs hover:shadow-md transition-shadow">
+            <div class="inline-block px-3 py-1 rounded-xl bg-indigo-50 text-indigo-700 font-mono font-bold text-xs sm:text-sm mb-3">
+              {point.metric}
+            </div>
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">
+              {point.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              {point.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Exemple Numèric d'Amortització -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-slate-900 text-white shadow-xl">
+        <h3 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
+          <Icon name="bx:calculator" class="w-5 h-5 text-amber-400" />
+          <span>Simulació econòmica d'amortització real</span>
+        </h3>
+        <div class="grid sm:grid-cols-3 gap-6 pt-4 border-t border-slate-800 font-mono text-xs sm:text-sm">
+          <div>
+            <span class="text-slate-400 text-xs uppercase block mb-1">Cost Total 1r Any</span>
+            <span class="text-xl sm:text-2xl font-bold text-white block">{service.annualTotal.split('(')[0]}</span>
+            <span class="text-slate-400 text-[11px] mt-1 block">Creació + 12 quotes de manteniment</span>
+          </div>
+          <div>
+            <span class="text-slate-400 text-xs uppercase block mb-1">Cost Diari Equivalent</span>
+            <span class="text-xl sm:text-2xl font-bold text-amber-400 block">{service.dailyCostEquivalent.split('(')[0]}</span>
+            <span class="text-slate-400 text-[11px] mt-1 block">Menys que el cost d'un cafè al dia</span>
+          </div>
+          <div>
+            <span class="text-slate-400 text-xs uppercase block mb-1">Punt d'Equilibri (Break-even)</span>
+            <span class="text-xl sm:text-2xl font-bold text-emerald-400 block">1r Trimestre</span>
+            <span class="text-slate-400 text-[11px] mt-1 block">Amb la captació mínima de nous clients</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓ 3: COMPARATIVA AMB EL MERCAT (Comparem amb altres opcions) -->
+    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="comparison-heading">
+      <div class="max-w-3xl mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3">
+          <Icon name="bx:git-compare" class="w-4 h-4" />
+          <span>Comparativa de Mercat</span>
+        </div>
+        <h2 id="comparison-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Com es compara la nostra oferta amb altres alternatives?
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+          Compara el nostre model amb el d'una agència tradicional de WordPress, plataformes tancades de subscripció (Wix/Squarespace) o contractar freelancers sense garanties.
+        </p>
+      </div>
+
+      <!-- Taula Comparativa per a Escriptori -->
+      <div class="hidden lg:block overflow-x-auto rounded-3xl border border-slate-200 shadow-xs mb-8">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-mono uppercase text-[11px]">
+              <th class="p-4 font-bold">Opció de Mercat</th>
+              <th class="p-4 font-bold">Inversió Inicial</th>
+              <th class="p-4 font-bold">Velocitat / Lighthouse</th>
+              <th class="p-4 font-bold">Manteniment Mensual</th>
+              <th class="p-4 font-bold">Costos Ocults</th>
+              <th class="p-4 font-bold">Propietat del Codi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            {service.marketComparison.map((alt, idx) => (
+              <tr class={idx === 0 ? "bg-indigo-50/50 font-medium" : "bg-white hover:bg-slate-50/70"}>
+                <td class="p-4">
+                  <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                    {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-amber-500 fill-amber-500" />}
+                    <span>{alt.name}</span>
+                  </div>
+                  <span class="text-[11px] text-slate-500 mt-0.5 block">{alt.summary}</span>
+                </td>
+                <td class="p-4 font-mono font-bold text-slate-900">{alt.priceRange}</td>
+                <td class="p-4 font-mono">
+                  <span class={idx === 0 ? "text-emerald-700 font-bold" : "text-amber-700"}>
+                    {alt.speedLighthouse}
+                  </span>
+                </td>
+                <td class="p-4 font-mono text-slate-700">{alt.maintenanceCost}</td>
+                <td class="p-4 text-slate-600">{alt.hiddenCosts}</td>
+                <td class="p-4 text-slate-700">{alt.codeOwnership}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Targetes Comparatives per a Mòbil i Tablet -->
+      <div class="lg:hidden space-y-4">
+        {service.marketComparison.map((alt, idx) => (
+          <div class={`rounded-2xl p-5 border ${idx === 0 ? "bg-indigo-50/60 border-indigo-200 shadow-sm" : "bg-white border-slate-200"}`}>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-amber-500" />}
+                <span>{alt.name}</span>
+              </h3>
+              <span class="font-mono text-xs font-bold text-indigo-900">{alt.priceRange}</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-3 leading-relaxed">{alt.summary}</p>
+            <div class="grid grid-cols-2 gap-2 text-[11px] font-mono border-t border-slate-200/60 pt-2.5">
+              <div>
+                <span class="text-slate-400 block">Velocitat:</span>
+                <span class={idx === 0 ? "text-emerald-700 font-bold" : "text-amber-800"}>{alt.speedLighthouse}</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block">Manteniment:</span>
+                <span class="text-slate-700">{alt.maintenanceCost}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- SECCIÓ 4: QUÈ INCLOU EXACTAMENT (Garanties de Lliurament) -->
+    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="features-heading">
+      <div class="max-w-3xl mb-8">
+        <h2 id="features-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Lliurables tècnics i garanties incloses
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+          Tots els projectes es tanquen amb comprovació de compliment de mètriques i propietat total per part teva.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        {service.features.map((feat) => (
+          <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <Icon name="bx:check-circle" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+            <span class="text-xs sm:text-sm text-slate-700 font-medium">{feat}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Call To Action Final -->
+    <section class="py-12 md:py-16 text-center">
+      <div class="max-w-2xl mx-auto space-y-6">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Preparat per enlairar el teu projecte amb fonament tècnic sòlid?
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          Comença amb el model d'entrada reduïda i manteniment continuat. Sense lletra petita, amb documentació clara i codi font de la teva propietat.
+        </p>
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            href={`/contact?servei=${service.id}`}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-md hover:shadow-indigo-500/20 transition-all text-sm"
+          >
+            <Icon name="bx:send" class="w-4 h-4" />
+            <span>Sol·licitar {service.name}</span>
+          </a>
+          <a
+            href="/pricing"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors text-sm"
+          >
+            <Icon name="bx:arrow-back" class="w-4 h-4" />
+            <span>Tots els serveis</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enllaços a l'anterior i següent paquet -->
+    <nav aria-label="Navegació entre serveis" class="py-8 border-t border-slate-200/80 flex items-center justify-between text-xs font-mono text-slate-500">
+      <a href={`/pricing/${prev.id}`} class="hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+        <Icon name="bx:left-arrow-alt" class="w-4 h-4" />
+        <span>{prev.name}</span>
+      </a>
+      <a href={`/pricing/${next.id}`} class="hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+        <span>{next.name}</span>
+        <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
+      </a>
+    </nav>
+  </Container>
+</Layout>

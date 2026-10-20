@@ -129,6 +129,15 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.locator("text=Landing Page d'Alt Rendiment")).toBeVisible();
     await expect(page.locator("text=Web App SPA amb Angular")).toBeVisible();
     await expect(page.locator("text=Preguntes freqüents")).toBeVisible();
+    await expect(page.locator("text=Des de 390 €")).toBeVisible();
+
+    // Click on detail link of landing page offer
+    await page.click('a[href="/pricing/landing-page"] >> nth=0');
+    await expect(page).toHaveURL("/pricing/landing-page");
+    await expect(page.locator("h1")).toContainText("Landing Page d'Alt Rendiment");
+    await expect(page.locator("text=El perquè de cada preu")).toBeVisible();
+    await expect(page.locator("text=Com s'amortitza aquest preu fàcilment")).toBeVisible();
+    await expect(page.locator("text=Comparativa de Mercat")).toBeVisible();
   });
 
   test("Brand kit page /marca displays official logo and download links", async ({ page }) => {
