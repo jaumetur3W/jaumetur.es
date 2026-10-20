@@ -67,36 +67,49 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     expect(boundingBox?.y).toBeLessThanOrEqual(5);
   });
 
-  test("Top navbar displays in-page links only and dropdown opens containing all site links", async ({ page }) => {
+  test("Top navbar displays standard page links without in-page anchors, and mobile menu is accessible", async ({ page }) => {
     await page.goto("/");
     
-    // Top menu has in-page links
-    const inPageLinks = page.locator("nav[aria-label='Navegació principal'] > ul > li > a");
-    await expect(inPageLinks.filter({ hasText: "Projectes" })).toBeVisible();
-    await expect(inPageLinks.filter({ hasText: "Habilitats" })).toBeVisible();
-    await expect(inPageLinks.filter({ hasText: "Metodologia" })).toBeVisible();
-    await expect(inPageLinks.filter({ hasText: "Contacte" })).toBeVisible();
+    // Desktop navigation links
+    const desktopLinks = page.locator("nav[aria-label='Navegació principal'] > ul > li > a");
+    await expect(desktopLinks.filter({ hasText: "Projectes" })).toHaveAttribute("href", "/projectes");
+    await expect(desktopLinks.filter({ hasText: "Blog" })).toHaveAttribute("href", "/blog");
+    await expect(desktopLinks.filter({ hasText: "Serveis" })).toHaveAttribute("href", "/pricing");
+    await expect(desktopLinks.filter({ hasText: "Sobre mi" })).toHaveAttribute("href", "/about");
 
-    // Dropdown is initially hidden
-    const dropdownMenu = page.locator("#nav-dropdown-menu");
-    await expect(dropdownMenu).toHaveClass(/hidden/);
+    // Action buttons
+    await expect(page.locator('header a[href="/docs/CV_Jaume_tur.pdf"]').first()).toBeAttached();
+    await expect(page.locator('header a[href="/contact"]').first()).toBeAttached();
 
-    // Click dropdown trigger
-    const dropdownTrigger = page.locator("#nav-dropdown-trigger");
-    await dropdownTrigger.click();
-    await expect(dropdownMenu).not.toHaveClass(/hidden/);
+    // Internal anchors must NOT be in the header
+    const allHeaderLinks = await page.locator("header a").evaluateAll((links) =>
+      links.map((l) => l.getAttribute("href") || "")
+    );
+    expect(allHeaderLinks.some((h) => h.includes("#skills") || h.includes("#metodologia"))).toBe(false);
 
-    // Contains links from top and bottom
-    await expect(dropdownMenu.locator('a[href="/about"]')).toBeVisible();
-    await expect(dropdownMenu.locator('a[href="/pricing"]')).toBeVisible();
-    await expect(dropdownMenu.locator('a[href="/blog"]')).toBeVisible();
-    await expect(dropdownMenu.locator('a[href="/marca"]')).toBeVisible();
-    await expect(dropdownMenu.locator('a[href="/qualitat"]')).toBeVisible();
-    await expect(dropdownMenu.locator('a[href="/tools/workflow-generator"]')).toBeVisible();
+    // Switch to mobile viewport to test accessible mobile menu
+    await page.setViewportSize({ width: 375, height: 667 });
+    const mobileDetails = page.locator("#mobile-menu-details");
+    const mobileSummary = page.locator("#mobile-menu-summary");
+    await expect(mobileSummary).toBeVisible();
+    await expect(mobileSummary).toHaveAttribute("aria-expanded", "false");
+
+    // Click summary to toggle open
+    await mobileSummary.click();
+    await expect(mobileDetails).toHaveAttribute("open", "");
+    await expect(mobileSummary).toHaveAttribute("aria-expanded", "true");
 
     // Close on Escape
     await page.keyboard.press("Escape");
-    await expect(dropdownMenu).toHaveClass(/hidden/);
+    await expect(mobileDetails).not.toHaveAttribute("open", "");
+    await expect(mobileSummary).toHaveAttribute("aria-expanded", "false");
+
+    // Footer contains 3 columns (Navegar, Recursos, Contacte)
+    const footer = page.locator("footer");
+    await expect(footer.getByText("Navegar")).toBeVisible();
+    await expect(footer.getByText("Recursos")).toBeVisible();
+    await expect(footer.getByText("Contacte")).toBeVisible();
+    await expect(footer.getByText("Desenvolupador Web · Frontend")).toBeVisible();
   });
 
   test("Contact form triggers accessible validation on empty submit", async ({ page }) => {
@@ -111,11 +124,22 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(nameError).toBeVisible();
   });
 
-  test("Pricing page displays 4 clear service packages and structured FAQ", async ({ page }) => {
+  test("Pricing page displays service packages including key local digitization offer and structured FAQ", async ({ page }) => {
     await page.goto("/pricing");
+    await expect(page.locator("h3").filter({ hasText: "Digitalització Local" })).toBeVisible();
+    await expect(page.locator("text=Proposta Clau · Oferta Estrella")).toBeVisible();
+    await expect(page.locator("text=Des de 290 €")).toBeVisible();
     await expect(page.locator("text=Landing Page d'Alt Rendiment")).toBeVisible();
-    await expect(page.locator("text=Web App SPA amb Angular")).toBeVisible();
     await expect(page.locator("text=Preguntes freqüents")).toBeVisible();
+
+    // Click on detail link of key local digitization offer
+    await page.click('a[href="/pricing/digitalitzacio-local"] >> nth=0');
+    await expect(page).toHaveURL("/pricing/digitalitzacio-local");
+    await expect(page.locator("h1")).toContainText("Digitalització Local & Carta Web");
+    await expect(page.locator("text=El perquè de cada preu")).toBeVisible();
+    await expect(page.locator("text=Com s'amortitza aquest preu fàcilment")).toBeVisible();
+    await expect(page.locator("text=Inspirat en el cas real de la Pizzeria a Xàtiva")).toBeVisible();
+    await expect(page.locator("text=Comparativa de Mercat")).toBeVisible();
   });
 
   test("Brand kit page /marca displays official logo and download links", async ({ page }) => {

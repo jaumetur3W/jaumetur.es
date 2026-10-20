@@ -3,94 +3,10 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import { servicesData } from "@/data/services";
 
-// Paquets de serveis d'alta conversió
-const packages = [
-  {
-    id: "landing-page",
-    name: "Landing Page d'Alt Rendiment",
-    icon: "bx:rocket",
-    iconColor: "text-indigo-600",
-    badge: "Màxima Conversió",
-    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200/80",
-    description: "Webs corporatives o pàgines de llançament ultraràpides, optimitzades per convertir visites en contactes i liderar les cerques a Google.",
-    targetAudience: "Startups, pimes i professionals que busquen transmetre autoritat i captar clients amb la màxima velocitat.",
-    timeline: "[COMPLETAR: 1 a 2 setmanes]",
-    price: "Des de [COMPLETAR] €",
-    features: [
-      "Desenvolupament estàtic amb Astro i Tailwind CSS v4",
-      "Garantia de 100/100 a Lighthouse (Rendiment, SEO i Bones Pràctiques)",
-      "Accessibilitat universal certificable WCAG 2.2 AA",
-      "Optimització de SEO tècnic i metadades Open Graph per a xarxes",
-      "Formulari de contacte accessible amb protecció anti-spam sense captcha",
-      "Codi propietat del client, sense quota mensual de manteniment forçat",
-    ],
-    ctaText: "Sol·licitar Landing Page",
-  },
-  {
-    id: "angular-webapp",
-    name: "Web App SPA amb Angular",
-    icon: "simple-icons:angular",
-    iconColor: "text-rose-600",
-    badge: "Més Sol·licitat",
-    badgeColor: "bg-rose-50 text-rose-700 border-rose-200/80",
-    description: "Aplicacions web reactives, riques en interacció i pensades per a escalar, construïdes sobre els darrers estàndards d'Angular.",
-    targetAudience: "Empreses tecnològiques i equips de producte que necessiten dashboards, plataformes SaaS o panells de gestió robustos.",
-    timeline: "[COMPLETAR: 3 a 6 setmanes]",
-    price: "Des de [COMPLETAR] €",
-    features: [
-      "Arquitectura modular moderna (Standalone Components & Signals)",
-      "Tipat estricte TypeScript d'extrem a extrem sense `any`",
-      "Gestió d'estat reactiva i fluida amb RxJS / Signals",
-      "Integració amb APIs REST, WebSockets o plataformes Backend",
-      "Suite de proves unitàries amb Vitest o Jasmine",
-      "Rendiment visual sòlid a 60 FPS garantit",
-    ],
-    ctaText: "Projectar Web App",
-  },
-  {
-    id: "performance-audit",
-    name: "Optimització & Accessibilitat (Audit & Fix)",
-    icon: "bx:bxs-zap",
-    iconColor: "text-emerald-600",
-    badge: "Auditoria & Millora",
-    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
-    description: "Resolució de problemes de lentitud, bloqueig de renderitzat o incompliments legals d'accessibilitat en aplicacions existents.",
-    targetAudience: "Projectes web en producció amb caigudes de trànsit, queixes de lentitud o obligació de complir normatives europees (WCAG).",
-    timeline: "[COMPLETAR: 3 a 7 dies hàbils]",
-    price: "Des de [COMPLETAR] €",
-    features: [
-      "Auditoria integral de Core Web Vitals (LCP, CLS, INP) amb DevTools",
-      "Inspecció d'accessibilitat profunda amb axe-core i lectors de pantalla",
-      "Eliminació de codi JS innecessari i optimització de recursos crítics",
-      "Correcció de contrastos de color, focus visible i semàntica HTML",
-      "Informe tècnic comparatiu abans i després amb mètriques verificables",
-      "Full de ruta d'enginyeria per mantenir les millores en el temps",
-    ],
-    ctaText: "Auditar el Meu Lloc",
-  },
-  {
-    id: "cicd-devops",
-    name: "Pipelines CI/CD & Automatització",
-    icon: "bx:git-branch",
-    iconColor: "text-sky-600",
-    badge: "Fiabilitat DevOps",
-    badgeColor: "bg-sky-50 text-sky-700 border-sky-200/80",
-    description: "Eliminació d'errors manuals i automatització del cicle de vida del codi, des del git push fins a la publicació en producció.",
-    targetAudience: "Equips de desenvolupament que volen accelerar els desplegaments i garantir que cap canvi trenqui la producció.",
-    timeline: "[COMPLETAR: 2 a 5 dies hàbils]",
-    price: "Des de [COMPLETAR] €",
-    features: [
-      "Pipelines automatitzats amb GitHub Actions en paral·lel",
-      "Execució automàtica de linters, verificació TypeScript i tests",
-      "Auditoria de Lighthouse CI que atura el build si baixen les mètriques",
-      "Desplegaments continus amb previews automàtiques a cada Pull Request",
-      "Configuració de dependències automatitzada amb Dependabot",
-      "Documentació exhaustiva en arxiu CONTRIBUTING.md",
-    ],
-    ctaText: "Automatitzar el Meu Flux",
-  },
-];
+// Paquets de serveis d'alta conversió (importats des de @/data/services)
+const packages = servicesData;
 
 // Procés de treball en 4 passos
 const workflowSteps = [
@@ -123,8 +39,16 @@ const workflowSteps = [
 // Preguntes Freqüents per al FAQ interactiu i Schema JSON-LD
 const faqs = [
   {
-    question: "Com s'estructura el pagament dels serveis?",
-    answer: "Habitualment treballem amb una fita inicial (50% en confirmar l'inici i abast del projecte) i el 50% restant en el lliurament i desplegament final a producció, un cop verificades totes les mètriques acordades. Per a col·laboracions continuades oferim modalitats per hores o retenció mensual [COMPLETAR modalitats addicionals si cal].",
+    question: "Com s'estructura el pagament d'entrada i la mensualitat de manteniment?",
+    answer: "Tots els projectes funcionen amb una entrada inicial (preu de creació i desenvolupament) acompanyada d'una quota mensual de manteniment tècnic actiu. Aquest manteniment no és opcional i inclou un compromís de permanència mínima d'1 any. D'aquesta manera garantim que el teu projecte es mantingui sempre ràpid, segur, actualitzat i amb suport tècnic prioritari continuat.",
+  },
+  {
+    question: "Què inclou exactament el manteniment mensual obligatori?",
+    answer: "El manteniment inclou supervisió d'uptime i monitoratge de rendiment (Lighthouse / Core Web Vitals), actualitzacions de dependències i seguretat, còpies de seguretat periòdiques, resolució d'incidències tècniques i assessorament continu per a l'evolució de la plataforma.",
+  },
+  {
+    question: "Per què hi ha una permanència mínima d'1 any?",
+    answer: "Perquè una solució web d'enginyeria requereix continuïtat tècnica per mantenir la màxima velocitat, evitar vulnerabilitats i garantir que cap canvi en navegadors o dependències trenqui el servei en producció al llarg del temps.",
   },
   {
     question: "Quin és el mètode de comunicació i seguiment?",
@@ -140,7 +64,7 @@ const faqs = [
   },
   {
     question: "Com podem començar a treballar junts?",
-    answer: "Pots enviar un missatge des del formulari de contacte o enviar un correu directe a jautursis@alu.edu.gva.es explicant breument què necessites. Et respondré en menys de 24 hores laborables amb preguntes d'aclariment o una data per coordinar una primera conversa.",
+    answer: "Pots enviar un missatge des del formulari de contacte o enviar un correu directe a hola@jaumetur.es explicant breument què necessites. Et respondré en menys de 24 hores laborables amb preguntes d'aclariment o una data per coordinar una primera conversa.",
   },
 ];
 
@@ -175,14 +99,22 @@ const faqSchema = {
       </Fragment>
     </Sectionhead>
 
-    <!-- Indicador de Disponibilitat -->
-    <div class="flex justify-center -mt-6 mb-12">
+    <!-- Indicadors: Disponibilitat i Model de Servei -->
+    <div class="flex flex-wrap items-center justify-center gap-3 mt-8 mb-12">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span>Disponibilitat per a projectes i contractació: Activa</span>
+        <span>Disponibilitat per a projectes: Activa</span>
+      </div>
+      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-900 border border-amber-300 shadow-2xs">
+        <Icon name="bx:star" class="w-3.5 h-3.5 text-amber-600" />
+        <span>Proposta Estrella: Pack Digitalització Local & Carta Web</span>
+      </div>
+      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-indigo-50 text-indigo-800 border border-indigo-200/80 shadow-2xs">
+        <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600" />
+        <span>Model Entrada + Mensualitat (manteniment mín. 1 any)</span>
       </div>
     </div>
 
@@ -190,11 +122,28 @@ const faqSchema = {
     <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
       {
         packages.map((pkg) => (
-          <div class="bg-white rounded-3xl border border-slate-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300 group relative">
+          <div
+            class:list={[
+              "rounded-3xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 group relative",
+              pkg.isFeatured
+                ? "md:col-span-2 bg-gradient-to-br from-amber-50/60 via-white to-yellow-50/40 border-2 border-amber-400 shadow-xl shadow-amber-500/10 hover:border-amber-500 ring-4 ring-amber-400/10"
+                : "bg-white border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5"
+            ]}
+          >
+            {pkg.isFeatured && (
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-4 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-md flex items-center gap-1.5 whitespace-nowrap z-10">
+                <Icon name="bx:star" class="w-4 h-4 fill-slate-950" />
+                <span>Proposta Clau · Oferta Estrella per a Bars i Comerços</span>
+              </div>
+            )}
+
             <div>
               <!-- Capçalera de la targeta -->
               <div class="flex items-center justify-between gap-3 mb-5">
-                <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div class:list={[
+                  "w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform",
+                  pkg.isFeatured ? "bg-amber-100/80 border border-amber-300" : "bg-slate-50 border border-slate-200/80"
+                ]}>
                   <Icon name={pkg.icon} class={`w-6 h-6 ${pkg.iconColor}`} />
                 </div>
                 <span class={`text-[11px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border shadow-2xs ${pkg.badgeColor}`}>
@@ -202,63 +151,144 @@ const faqSchema = {
                 </span>
               </div>
 
-              <!-- Títol i Descripció -->
-              <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                {pkg.name}
-              </h3>
-              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                {pkg.description}
-              </p>
+              <!-- Layout de contingut: 2 columnes per a la proposta clau en escriptori -->
+              <div class:list={[pkg.isFeatured && "grid md:grid-cols-12 gap-8 items-start"]}>
+                <div class:list={[pkg.isFeatured && "md:col-span-7"]}>
+                  <!-- Títol i Descripció -->
+                  <h3 class:list={[
+                    "font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors",
+                    pkg.isFeatured ? "text-2xl sm:text-3xl text-amber-950" : "text-xl sm:text-2xl"
+                  ]}>
+                    <a href={`/pricing/${pkg.id}`} class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
+                      {pkg.name}
+                    </a>
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                    {pkg.description}
+                  </p>
 
-              <!-- Per a qui és -->
-              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 mb-6 text-xs">
-                <span class="font-bold text-slate-900 block mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
-                  <Icon name="bx:user-check" class="w-4 h-4 text-indigo-600" />
-                  <span>Per a qui és aquest servei:</span>
-                </span>
-                <span class="text-slate-600 leading-relaxed">
-                  {pkg.targetAudience}
-                </span>
-              </div>
+                  <!-- Per a qui és -->
+                  <div class="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/70 mb-6 text-xs">
+                    <span class="font-bold text-slate-900 block mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
+                      <Icon name="bx:user-check" class="w-4 h-4 text-indigo-600" />
+                      <span>Per a qui és aquest servei:</span>
+                    </span>
+                    <span class="text-slate-600 leading-relaxed">
+                      {pkg.targetAudience}
+                    </span>
+                  </div>
 
-              <!-- Preu & Termini Orientatiu -->
-              <div class="grid grid-cols-2 gap-3 p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-100 mb-6 font-mono text-xs">
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Inversió</span>
-                  <span class="font-bold text-indigo-900 text-sm mt-0.5 block">{pkg.price}</span>
+                  <!-- Estructura de Preus: Entrada + Mensualitat amb manteniment -->
+                  <div class:list={[
+                    "p-4 rounded-2xl border mb-4 font-mono text-xs space-y-2.5",
+                    pkg.isFeatured ? "bg-amber-100/40 border-amber-200/90" : "bg-indigo-50/60 border-indigo-100/90"
+                  ]}>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Entrada / Creació</span>
+                        <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{pkg.creationPrice}</span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Mensualitat</span>
+                        <span class:list={["text-sm mt-0.5 block font-bold", pkg.isFeatured ? "text-amber-800" : "text-indigo-600"]}>
+                          +{pkg.monthlyFee}
+                        </span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini d'entrega</span>
+                        <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
+                      </div>
+                    </div>
+
+                    <!-- Condició de Manteniment No Opcional i Permanència Mínima -->
+                    <div class="pt-2 border-t border-slate-200/60 flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
+                      <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                      <span>Manteniment inclòs (no opcional · permanència mín. 1 any)</span>
+                    </div>
+                  </div>
+
+                  <!-- Enllaç a l'Explicació del Preu, Comparativa i Amortització -->
+                  <a
+                    href={`/pricing/${pkg.id}`}
+                    class:list={[
+                      "flex items-center justify-between gap-2 p-3 rounded-2xl border text-xs font-mono font-bold transition-all group/info mb-6 md:mb-0",
+                      pkg.isFeatured
+                        ? "bg-amber-100/80 hover:bg-amber-200/80 border-amber-300 text-amber-950"
+                        : "bg-indigo-50/80 hover:bg-indigo-100/90 border-indigo-200/80 text-indigo-900"
+                    ]}
+                    title={`Veure per què costa aquest preu i com s'amortitza fàcilment ${pkg.name}`}
+                  >
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0" />
+                      <span>Per què aquest preu? Comparativa & Amortització</span>
+                    </span>
+                    <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 group-hover/info:translate-x-0.5 transition-transform">
+                      <span>Veure detall</span>
+                      <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5" />
+                    </span>
+                  </a>
                 </div>
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini estimat</span>
-                  <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
-                </div>
-              </div>
 
-              <!-- Llista d'Inclusions -->
-              <div class="space-y-3 pt-2">
-                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
-                  Què inclou exactament:
-                </span>
-                <ul class="space-y-2.5 text-xs text-slate-700">
-                  {pkg.features.map((feature) => (
-                    <li class="flex items-start gap-2.5">
-                      <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div class:list={[pkg.isFeatured && "md:col-span-5 flex flex-col justify-between h-full"]}>
+                  <!-- Llista d'Inclusions -->
+                  <div class="space-y-3 pt-2">
+                    <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
+                      Què inclou exactament:
+                    </span>
+                    <ul class="space-y-2.5 text-xs text-slate-700">
+                      {pkg.features.map((feature) => (
+                        <li class="flex items-start gap-2.5">
+                          <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- Botons d'Acció: Detall & Contactar (si és featured en 2 columnes) -->
+                  {pkg.isFeatured && (
+                    <div class="mt-8 pt-6 border-t border-amber-200/60 flex flex-col sm:flex-row gap-2.5">
+                      <a
+                        href={`/pricing/${pkg.id}`}
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 transition text-center shadow-2xs"
+                      >
+                        <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
+                        <span>Detall & Comparativa</span>
+                      </a>
+                      <a
+                        href={`/contact?servei=${pkg.id}`}
+                        data-analytics-cta={pkg.id}
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-[#FFE600] hover:bg-yellow-400 text-slate-950 shadow-md shadow-yellow-500/20 transition group/btn text-center"
+                      >
+                        <span>{pkg.ctaText}</span>
+                        <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
-            <!-- Botó d'Acció Directa -->
-            <div class="mt-8 pt-6 border-t border-slate-100">
-              <a
-                href={`/contact?servei=${pkg.id}`}
-                data-analytics-cta={pkg.id}
-                class="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition group/btn">
-                <span>{pkg.ctaText}</span>
-                <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </a>
-            </div>
+            <!-- Botons d'Acció per a targetes normals (no featured) -->
+            {!pkg.isFeatured && (
+              <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-2.5">
+                <a
+                  href={`/pricing/${pkg.id}`}
+                  class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-indigo-900 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition text-center"
+                >
+                  <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
+                  <span>Detall & Comparativa</span>
+                </a>
+                <a
+                  href={`/contact?servei=${pkg.id}`}
+                  data-analytics-cta={pkg.id}
+                  class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition group/btn text-center"
+                >
+                  <span>{pkg.ctaText}</span>
+                  <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            )}
           </div>
         ))
       }

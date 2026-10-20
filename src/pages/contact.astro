@@ -19,7 +19,7 @@ import { Icon } from "astro-icon/components";
     </Sectionhead>
 
     <!-- Indicador de Resposta Ràpida -->
-    <div class="flex justify-center -mt-6 mb-10">
+    <div class="flex justify-center mt-6 mb-10">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -50,7 +50,7 @@ import { Icon } from "astro-icon/components";
             </div>
             <div>
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block">
-                Backend &amp; Sistemes · Web Apps
+                Desenvolupador Web · Frontend
               </span>
               <h2 class="font-extrabold text-lg text-slate-900 leading-tight mt-0.5">
                 Jaume Tur
@@ -90,10 +90,10 @@ import { Icon } from "astro-icon/components";
             <div class="truncate">
               <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase tracking-wider block">Correu Directe</span>
               <a
-                href="mailto:jautursis@alu.edu.gva.es?subject=Nova%20consulta%20de%20projecte"
+                href="mailto:hola@jaumetur.es?subject=Nova%20consulta%20de%20projecte"
                 id="contact-email-link"
                 class="text-xs sm:text-sm font-bold text-slate-800 hover:text-indigo-600 transition truncate block">
-                jautursis@alu.edu.gva.es
+                hola@jaumetur.es
               </a>
             </div>
           </div>
@@ -202,7 +202,7 @@ import { Icon } from "astro-icon/components";
   const copyLabel = document.getElementById("copy-btn-label");
   if (copyBtn && copyLabel) {
     copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText("jautursis@alu.edu.gva.es").then(() => {
+      navigator.clipboard.writeText("hola@jaumetur.es").then(() => {
         copyLabel.textContent = "Copiat!";
         copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 transition flex items-center gap-1";
         setTimeout(() => {

@@ -4,123 +4,172 @@ import { Icon } from "astro-icon/components";
 import BuildStatus from "./build-status.astro";
 
 const currentYear = new Date().getFullYear();
+
+const navCol1 = [
+  { title: "Inici", path: "/" },
+  { title: "Projectes", path: "/projectes" },
+  { title: "Blog d'Enginyeria", path: "/blog" },
+  { title: "Serveis & Tarifes", path: "/pricing" },
+  { title: "Sobre mi", path: "/about" },
+  { title: "Contactar", path: "/contact" },
+];
+
+const navCol2 = [
+  { title: "Kit de Marca", path: "/marca" },
+  { title: "Targeta Digital", path: "/card" },
+  { title: "Qualitat & CWV", path: "/qualitat" },
+  { title: "Eines CI/CD", path: "/tools/workflow-generator" },
+  { title: "El meu Setup (/uses)", path: "/uses" },
+  { title: "Canal RSS", path: "/rss.xml" },
+  { title: "Currículum (PDF) ↗", path: "/docs/CV_Jaume_tur.pdf", external: true },
+];
+
+const navCol3 = [
+  { title: "hola@jaumetur.es", path: "mailto:hola@jaumetur.es", icon: "bx:envelope", desc: "Correu professional" },
+  { title: "GitHub", path: "https://github.com/jautur", icon: "bx:bxl-github", external: true, desc: "Codi i repositoris" },
+  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin", external: true, desc: "Perfil professional" },
+  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram", external: true, desc: "@jaume.www oficial" },
+];
 ---
 
 <footer class="mt-20 border-t border-slate-200/90 bg-white py-12 text-slate-600">
   <Container>
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-100">
+    <!-- Secció Principal del Footer: Marca + 3 Columnes -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-100">
       
-      <!-- Logo + Memoji 6.png (Winking Jaume) -->
-      <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-3 group">
-          <div class="relative">
-            <div class="absolute inset-0 bg-[#FFE600] rounded-2xl blur-xs opacity-50 group-hover:opacity-90 transition-opacity"></div>
-            <img
-              src="/img/jt.LOGO-02-128.webp"
-              alt="Logo Jaume Tur"
-              class="relative w-12 h-12 rounded-2xl shadow-xs group-hover:scale-105 transition object-cover ring-1 ring-slate-900/10"
-              width="48"
-              height="48"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="font-extrabold text-slate-900 text-base block group-hover:text-indigo-600 transition-colors">
-                jaume
-              </span>
-              <span class="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#FFE600] text-slate-950">.www</span>
+      <!-- Columna 0 (lg:span-2): Identitat de Marca, Memoji i Descriptor Únic -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <a href="/" class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded-xl" title="Jaume Tur — Inici">
+            <div class="relative">
+              <div class="absolute inset-0 bg-[#FFE600] rounded-2xl blur-xs opacity-50 group-hover:opacity-90 transition-opacity"></div>
+              <img
+                src="/img/jt.LOGO-02-128.webp"
+                alt="Logo Jaume Tur"
+                class="relative w-11 h-11 rounded-2xl shadow-xs group-hover:scale-105 transition-transform object-cover ring-1 ring-slate-900/10"
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
-            <span class="text-[11px] text-slate-500 font-mono">
-              Backend &amp; Sistemes · Web Apps
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-indigo-600 transition-colors">
+                  jaume
+                </span>
+                <span class="text-[11px] font-mono font-extrabold px-1.5 py-0.5 rounded bg-[#FFE600] text-slate-950">.www</span>
+              </div>
+              <span class="text-xs text-slate-500 font-mono font-medium block mt-0.5">
+                Desenvolupador Web · Frontend
+              </span>
+            </div>
+          </a>
+
+          <!-- Memoji contextual des de /memojis/ (6.webp) -->
+          <div class="group/wink relative flex items-center justify-center cursor-pointer ml-1" title="Gràcies per la visita!">
+            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-200/70 p-1 shadow-2xs group-hover/wink:scale-110 transition-transform flex items-center justify-center">
+              <img
+                src="/memojis/6.webp"
+                alt="Jaume Tur aclucant l'ull"
+                class="w-full h-full object-contain"
+                width="36"
+                height="36"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <span class="absolute -top-7 left-0 sm:left-1/2 sm:-translate-x-1/2 bg-slate-900 text-white text-[10px] font-mono px-2 py-0.5 rounded shadow whitespace-nowrap opacity-0 group-hover/wink:opacity-100 transition-opacity pointer-events-none">
+              Gràcies per la visita!
             </span>
           </div>
-        </a>
+        </div>
 
-        <!-- Guiding thread Memoji: 6.webp (Winking Jaume) with interactive tooltip -->
-        <div class="group/wink relative flex items-center justify-center cursor-pointer ml-1" title="Gràcies per la visita!">
-          <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-200/70 p-1 shadow-2xs group-hover/wink:scale-110 transition-transform flex items-center justify-center">
-            <img
-              src="/img/6.webp"
-              alt="Jaume Tur"
-              class="w-full h-full object-contain"
-              width="36"
-              height="36"
-            />
-          </div>
-          <span class="absolute -top-7 left-0 sm:left-1/2 sm:-translate-x-1/2 bg-slate-900 text-white text-[10px] font-mono px-2 py-0.5 rounded shadow whitespace-nowrap opacity-0 group-hover/wink:opacity-100 transition-opacity pointer-events-none">
-            Gràcies per la visita!
-          </span>
+        <p class="text-xs text-slate-500 leading-relaxed max-w-sm mt-1">
+          Enginyeria web moderna enfocada a rendiment estricte (60 FPS), accessibilitat universal WCAG AA i automatització CI/CD de desplegament continu.
+        </p>
+
+        <div class="flex items-center gap-2 pt-1">
+          <a
+            href="mailto:hola@jaumetur.es"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-600 border border-slate-200/80 transition text-xs font-mono font-semibold shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600">
+            <Icon name="bx:envelope" class="w-3.5 h-3.5 text-indigo-600" />
+            <span>hola@jaumetur.es</span>
+          </a>
         </div>
       </div>
 
-      <!-- Footer navigation -->
-      <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-semibold text-slate-600" aria-label="Enllaços secundaris">
-        <a href="/" class="hover:text-indigo-600 transition">Inici</a>
-        <a href="/about" class="hover:text-indigo-600 transition">Sobre mi</a>
-        <a href="/#projectes" class="hover:text-indigo-600 transition">Projectes</a>
-        <a href="/#skills" class="hover:text-indigo-600 transition">Habilitats</a>
-        <a href="/tools/workflow-generator" class="hover:text-indigo-600 transition font-semibold text-indigo-700">Eines CI/CD</a>
-        <a href="/uses" class="hover:text-indigo-600 transition">Setup (/uses)</a>
-        <a href="/pricing" class="hover:text-indigo-600 transition">Serveis</a>
-        <a href="/blog" class="hover:text-indigo-600 transition">Blog</a>
-        <a href="/contact" class="hover:text-indigo-600 transition">Contacte</a>
-        <a href="/marca" class="hover:text-indigo-600 transition font-semibold">Kit Marca</a>
-        <a href="/card" class="hover:text-indigo-600 transition font-mono font-bold text-indigo-700">Targeta Digital</a>
-        <a href="/qualitat" class="hover:text-emerald-600 transition font-mono font-bold text-emerald-600">Qualitat 100/100</a>
-        <a href="/rss.xml" class="hover:text-indigo-600 transition font-mono">RSS Feed</a>
-        <a
-          href="/docs/CV_Jaume_tur.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 transition font-mono font-bold">
-          <Icon name="bx:file" class="w-3.5 h-3.5" />
-          <span>CV PDF</span>
-          <span class="text-[10px]">↗</span>
-        </a>
-      </nav>
-
-      <!-- Social Icons with Standardized SVG Icons (Prioritat Tècnica: GitHub & LinkedIn) -->
-      <div class="flex items-center gap-2.5">
-        <a
-          href="https://github.com/jautur"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl bg-slate-100 hover:bg-slate-900 hover:text-white transition text-slate-800 shadow-2xs group"
-          title="GitHub de Jaume Tur (Codi i Repositoris)"
-          aria-label="GitHub">
-          <Icon name="bx:bxl-github" class="w-4 h-4 group-hover:scale-110 transition-transform" />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/jautur/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl bg-blue-50 hover:bg-[#0A66C2] hover:text-white transition text-blue-600 shadow-2xs group"
-          title="LinkedIn de Jaume Tur (Perfil Professional)"
-          aria-label="LinkedIn">
-          <Icon name="bx:bxl-linkedin" class="w-4 h-4 group-hover:scale-110 transition-transform" />
-        </a>
-        <a
-          href="mailto:jautursis@alu.edu.gva.es"
-          class="p-2 rounded-xl bg-purple-50 hover:bg-purple-600 hover:text-white transition text-purple-600 shadow-2xs group"
-          title="Enviar correu electrònic a Jaume Tur"
-          aria-label="Correu">
-          <Icon name="bx:envelope" class="w-4 h-4 group-hover:scale-110 transition-transform" />
-        </a>
-        <a
-          href="https://www.instagram.com/jaume.www/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl bg-slate-50 hover:bg-amber-100/80 hover:text-amber-800 transition text-slate-400 shadow-2xs group"
-          title="Instagram (@jaume.www)"
-          aria-label="Instagram">
-          <Icon name="bx:bxl-instagram" class="w-4 h-4 group-hover:scale-110 transition-transform" />
-        </a>
+      <!-- Columna 1: Navegar -->
+      <div>
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
+          <Icon name="bx:compass" class="w-4 h-4 text-indigo-600" />
+          <span>Navegar</span>
+        </h3>
+        <nav aria-label="Navegació principal del peu">
+          <ul class="space-y-2 text-xs">
+            {navCol1.map((link) => (
+              <li>
+                <a
+                  href={link.path}
+                  class="text-slate-600 hover:text-indigo-600 transition inline-block py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
+                  {link.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
+
+      <!-- Columna 2: Recursos -->
+      <div>
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
+          <Icon name="bx:folder" class="w-4 h-4 text-indigo-600" />
+          <span>Recursos</span>
+        </h3>
+        <nav aria-label="Recursos i eines">
+          <ul class="space-y-2 text-xs">
+            {navCol2.map((link) => (
+              <li>
+                <a
+                  href={link.path}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  class="text-slate-600 hover:text-indigo-600 transition inline-flex items-center gap-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
+                  <span>{link.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Columna 3: Contacte -->
+      <div>
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
+          <Icon name="bx:share-alt" class="w-4 h-4 text-indigo-600" />
+          <span>Contacte</span>
+        </h3>
+        <nav aria-label="Xarxes i contacte">
+          <ul class="space-y-2 text-xs">
+            {navCol3.map((link) => (
+              <li>
+                <a
+                  href={link.path}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                  class="text-slate-600 hover:text-indigo-600 transition inline-flex items-center gap-2 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
+                  <Icon name={link.icon} class="w-3.5 h-3.5 text-slate-400" />
+                  <span>{link.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
     </div>
 
-    <!-- Bottom credits with Live CI/CD Status Pill -->
+    <!-- Barra Inferior de Crèdits i Estat CI/CD -->
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] text-slate-500 font-mono">
       <div class="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
         <BuildStatus variant="pill" />
@@ -129,7 +178,7 @@ const currentYear = new Date().getFullYear();
           <span>·</span>
           <span>Fet amb</span>
           <Icon name="simple-icons:astro" class="w-3.5 h-3.5 text-orange-500" />
-          <span>Astro &</span>
+          <span>Astro &amp;</span>
           <Icon name="simple-icons:tailwindcss" class="w-3.5 h-3.5 text-cyan-500" />
           <span>Tailwind CSS</span>
         </p>
@@ -141,7 +190,7 @@ const currentYear = new Date().getFullYear();
           <span>València, Espanya</span>
         </span>
         <span>•</span>
-        <a href="#top" class="hover:text-slate-900 transition flex items-center gap-1 font-bold group">
+        <a href="#top" class="hover:text-slate-900 transition flex items-center gap-1 font-bold group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded p-0.5">
           <Icon name="bx:up-arrow-alt" class="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
           <span>Dalt</span>
           <span>↑</span>

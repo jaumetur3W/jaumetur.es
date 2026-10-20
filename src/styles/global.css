@@ -226,6 +226,12 @@
   pointer-events: none;
 }
 
+@media (max-width: 640px) {
+  .hero-grain-layer {
+    display: none;
+  }
+}
+
 /* Capa Variant C: Scanlines analògiques de terminal CRT */
 .hero-scanlines-layer {
   background-image: repeating-linear-gradient(

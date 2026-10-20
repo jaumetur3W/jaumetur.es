@@ -191,6 +191,9 @@ const { variant = "pill" } = Astro.props;
       });
   }
 
-  fetchGitHubBuildStatus();
-  document.addEventListener("astro:page-load", fetchGitHubBuildStatus);
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(fetchGitHubBuildStatus);
+  } else {
+    window.addEventListener("load", () => setTimeout(fetchGitHubBuildStatus, 2000));
+  }
 </script>

@@ -42,15 +42,17 @@ const metrics = [
 <section
   id="hero"
   aria-labelledby="hero-role-heading"
-  class="relative pt-10 pb-16 md:pt-14 md:pb-20 px-6 sm:px-10 lg:px-12 rounded-[2.5rem] overflow-hidden mb-12 bg-[#090D16] border border-indigo-900/50 shadow-[0_8px_45px_rgba(0,0,0,0.5)] hero-theme-dark text-white transition-colors duration-300">
+  class="relative pt-10 pb-16 md:pt-14 md:pb-20 px-6 sm:px-10 lg:px-12 rounded-[2.5rem] overflow-hidden mb-12 bg-black border border-[#ffff00]/35 shadow-[0_8px_45px_rgba(0,0,0,0.8),0_0_80px_rgba(255,255,0,0.20)] hero-theme-dark text-white transition-colors duration-300">
   
-  <!-- FONS: Obsidian Dark (#090D16) amb gradients radials estàtics i reixeta isomètrica -->
-  <!-- Capa 1: Gradients d'ambient estàtics (sense càrrega contínua GPU) -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_70%_20%,rgba(99,102,241,0.22),transparent_70%),radial-gradient(ellipse_50%_40%_at_20%_80%,rgba(255,230,0,0.06),transparent_60%)] pointer-events-none -z-20" aria-hidden="true"></div>
+  <!-- FONS: Gradient corporatiu en negre (#000000), groc potent (#ffff00) des del cantó i blanc (#ffffff) -->
+  <div
+    class="absolute inset-0 bg-[radial-gradient(circle_320px_at_98%_2%,rgba(255,255,255,0.9)_0%,rgba(255,255,0,0.95)_35%,rgba(255,255,0,0.5)_65%,transparent_85%),radial-gradient(ellipse_85%_75%_at_100%_0%,rgba(255,255,0,0.85)_0%,rgba(255,255,0,0.50)_45%,rgba(255,255,0,0.15)_75%,transparent_90%),radial-gradient(ellipse_60%_40%_at_10%_20%,rgba(255,255,255,0.18),transparent_65%)] pointer-events-none -z-20"
+    aria-hidden="true"
+  ></div>
 
   <!-- Capa 2: Punts de precisió isomètrics de 24x24 px sobre fons fosc amb màscara el·líptica -->
   <div
-    class="absolute inset-0 bg-[radial-gradient(#ffffff18_1.25px,transparent_1.25px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_55%,transparent_100%)] pointer-events-none -z-20"
+    class="absolute inset-0 bg-[radial-gradient(#ffffff25_1.25px,transparent_1.25px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_45%,#000_55%,transparent_100%)] pointer-events-none -z-20"
     aria-hidden="true"
   ></div>
 
@@ -58,7 +60,7 @@ const metrics = [
   <div class="hero-grain-layer absolute inset-0 opacity-[0.03] pointer-events-none -z-10" aria-hidden="true"></div>
 
   <!-- Capa 4: Degradat suau de sortida cap a la secció següent -->
-  <div class="absolute bottom-0 inset-x-0 h-20 pointer-events-none -z-10 bg-gradient-to-t from-[#090D16] to-transparent" aria-hidden="true"></div>
+  <div class="absolute bottom-0 inset-x-0 h-20 pointer-events-none -z-10 bg-gradient-to-t from-black to-transparent" aria-hidden="true"></div>
 
 
   <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
@@ -170,7 +172,7 @@ const metrics = [
         class="relative z-20 -mb-12 sm:-mb-16 group cursor-pointer"
       >
         <!-- Ambient radial glow behind memoji -->
-        <div id="hero-memoji-aura" class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-200"></div>
+        <div id="hero-memoji-aura" class="absolute inset-0 bg-[#ffff00]/30 rounded-full blur-3xl group-hover:scale-105 transition-transform duration-200"></div>
         
         <img
           id="hero-memoji-img"
@@ -429,6 +431,9 @@ const metrics = [
     applyPreset(0);
   }
 
-  setupInteractiveHero();
-  document.addEventListener("astro:page-load", setupInteractiveHero);
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(setupInteractiveHero);
+  } else {
+    window.addEventListener("load", () => setTimeout(setupInteractiveHero, 500));
+  }
 </script>

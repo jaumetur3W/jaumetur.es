@@ -3,7 +3,6 @@ import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import EasterEggs from "@/components/easter-eggs.astro";
-import { ClientRouter } from "astro:transitions";
 import "@fontsource-variable/inter/index.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "../styles/global.css";
@@ -161,10 +160,6 @@ const blogPostSchema = isBlogPost ? {
     <meta name="theme-color" content="#090D16" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Astro View Transitions Router -->
-    <ClientRouter />
-
-
     <!-- Theme Initialization: Permanent Light Mode -->
     <script is:inline>
       (function() {
@@ -233,13 +228,15 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- Privacy-friendly Web Analytics (Plausible / Umami Ready) -->
     <!-- Documented in MEDICION.md: Activated when domain is configured -->
-    {Astro.url.hostname === "jaumetur.es" && (
-      <script
-        defer
-        data-domain="jaumetur.es"
-        src="https://plausible.io/js/script.js"
-      ></script>
-    )}
+    <script is:inline>
+      if (typeof window !== "undefined" && window.location.hostname === "jaumetur.es") {
+        const s = document.createElement("script");
+        s.defer = true;
+        s.dataset.domain = "jaumetur.es";
+        s.src = "https://plausible.io/js/script.js";
+        document.head.appendChild(s);
+      }
+    </script>
   </head>
   <body class="bg-slate-50 text-slate-800 antialiased selection:bg-slate-900 selection:text-white min-h-screen flex flex-col justify-between overflow-x-clip">
     <!-- Accessible Skip Link for Keyboard and Screen Reader Navigation -->
@@ -283,8 +280,11 @@ const blogPostSchema = isBlogPost ? {
           }
         });
       }
-      initSectionReveals();
-      document.addEventListener('astro:page-load', initSectionReveals);
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(initSectionReveals);
+      } else {
+        window.addEventListener("load", () => setTimeout(initSectionReveals, 300));
+      }
     </script>
   </body>
 </html>
