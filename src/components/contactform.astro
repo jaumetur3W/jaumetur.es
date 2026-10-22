@@ -267,7 +267,7 @@ import { Icon } from "astro-icon/components";
             `Pressupost estimat: ${payload.budget}\n\n` +
             `Missatge:\n${payload.message}`
           );
-          const mailtoUrl = `mailto:hola@jaumetur.es?subject=${encodeURIComponent("Nova proposta de projecte: " + payload.service)}&body=${mailtoBody}`;
+          const mailtoUrl = `mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent("Nova proposta de projecte: " + payload.service)}&body=${mailtoBody}`;
 
           setTimeout(() => {
             window.location.href = mailtoUrl;
@@ -278,7 +278,7 @@ import { Icon } from "astro-icon/components";
           }, 400);
 
         } catch (err) {
-          showStatus("No s'ha pogut tramitar el formulari automàticament. Pots escriure directament a hola@jaumetur.es", false);
+          showStatus("No s'ha pogut tramitar el formulari automàticament. Pots escriure directament a jaumetur3w@gmail.com", false);
           if (submitBtn) submitBtn.disabled = false;
           if (submitBtnText) submitBtnText.textContent = "Enviar proposta / consulta";
         }

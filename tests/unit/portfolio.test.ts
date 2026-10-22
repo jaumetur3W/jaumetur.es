@@ -122,14 +122,14 @@ describe("Portfolio Architecture & Business Logic", () => {
       "VERSION:3.0",
       "FN:Jaume Tur",
       "TITLE:Desenvolupador Frontend & Web Apps",
-      "EMAIL;TYPE=INTERNET,WORK:hola@jaumetur.es",
+      "EMAIL;TYPE=INTERNET,WORK:jaumetur3w@gmail.com",
       "URL:https://jaumetur.es",
       "END:VCARD",
     ].join("\n");
 
     expect(vCardContent).toContain("BEGIN:VCARD");
     expect(vCardContent).toContain("FN:Jaume Tur");
-    expect(vCardContent).toContain("hola@jaumetur.es");
+    expect(vCardContent).toContain("jaumetur3w@gmail.com");
     expect(vCardContent).toContain("END:VCARD");
   });
 
