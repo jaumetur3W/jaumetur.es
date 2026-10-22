@@ -15,7 +15,7 @@ verificationMethod: "Registres d'execució de GitHub Actions & Verificació d'es
 liveUrl: "https://github.com/jautur/portfolio/actions"
 githubUrl: "https://github.com/jautur/portfolio"
 stack: ["GitHub Actions", "CI/CD", "Linux Shell", "Linters ESLint", "TypeScript Check", "GitHub Pages", "Cache npm"]
-order: 4
+order: 5
 image: {
   src: "https://images.unsplash.com/photo-1618401471353-b98aedd04e11?fit=crop&w=1200&h=630",
   alt: "Pipeline d'automatització i integració contínua CI/CD"

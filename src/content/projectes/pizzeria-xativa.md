@@ -1,120 +1,47 @@
 ---
 draft: false
-title: "Pizzeria a Xàtiva — Presència Digital i SEO Local"
-subtitle: "Redisseny integral de l'experiència digital d'un negoci gastronòmic tradicional: càrrega instantània, menú interactiu i canal directe de comandes."
-tagline: "De PDFs feixucs de 15MB a una interfície de 85KB d'HTML/CSS pur amb esquema semàntic Restaurant per a Google Maps."
+title: "Pizzeria Xàtiva — Demo de carta i Pizza Pass"
+subtitle: "Plantilla demostrativa d'una pizzeria amb carta digital, cistella i un prototip de fidelització Pizza Pass amb segells visuals i vista per a Apple Wallet i Google Wallet."
+tagline: "Demo web per a explorar comandes directes i un passi de fidelització digital, amb dades i interaccions de mostra."
 icon: "bx:restaurant"
 color: "amber"
-role: "Product Designer & Frontend Developer"
-year: "2025"
-client: "Pizzeria a Xàtiva (Comarca de La Costera)"
-badge: "Landing Page · En Producció"
-statLabel: "Mètrica Verificada"
-statValue: "100/100 Lighthouse / SEO Local"
-verificationMethod: "Auditoria Google Lighthouse Mòbil & Proves de cerca a Google Maps"
-liveUrl: "https://jautur.github.io/pizzeria_xativa/"
-githubUrl: "https://github.com/jautur/pizzeria_xativa"
-stack: ["HTML5 Semàntic", "Tailwind CSS v4", "SEO Local", "Schema.org JSON-LD", "WhatsApp API", "WebP/AVIF"]
+role: "Frontend Developer & UI Designer"
+year: "2026"
+client: "Plantilla de demostració · restaurant fictici"
+badge: "Demo interactiva · dades fictícies"
+statLabel: "Funcionalitat demostrada"
+statValue: "Pizza Pass · interaccions simulades"
+verificationMethod: "Revisió de la web publicada i dels missatges visibles de demostració"
+liveUrl: "https://jautur.github.io/margherita_xativa/"
+stack: ["HTML5", "Tailwind CSS CDN", "JavaScript vanilla", "WhatsApp deep links", "Apple Wallet / Google Wallet UI"]
 order: 2
 image: {
   src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?fit=crop&w=1200&h=630",
-  alt: "Pizzeria artesana i disseny web gastronòmic a Xàtiva"
+  alt: "Pizza utilitzada com a imatge il·lustrativa de la demo Pizzeria Xàtiva"
 }
 ---
 
-## 1. El Problema i el Context
+## Una plantilla per a provar una experiència de pizzeria
 
-Els restaurants i pizzeries locals solen dependre gairebé en exclusiva de xarxes socials o plataformes d'enviament de tercers que cobren comissions de fins al 30% per comanda. 
+La web publicada s'identifica com una **plantilla de demostració**, no com un restaurant real. La carta, els preus, les ressenyes, la ubicació, els horaris i les dades de contacte són exemples i necessiten informació real abans de qualsevol ús comercial.
 
-Quan els usuaris busquen a Google *"on sopar a Xàtiva"* o *"pizzeria a Xàtiva"*, solen trobar:
-- **Cartes en PDF pesats:** Fitxers de més de 10 MB impossibles d'obrir ràpidament amb connexions 4G al carrer.
-- **Dades de contacte desactualitzades:** Horaris incorrectes i manca de botons de reserva immediata.
-- **Pèssima experiència mòbil:** Webs antigues en Flash o WordPress saturats de connectors que triguen més de 6 segons a carregar.
+La demo reuneix una carta de pizzes amb al·lèrgens, una cistella per a recollida o domicili i un recorregut visual de fidelització.
 
-El repte va ser dotar la **Pizzeria a Xàtiva** d'una identitat digital pròpia, ultral-lleugera, optimitzada per a cercadors locals i amb un canal de reserva sense intermediaris.
+## Pizza Pass
 
----
+El Pizza Pass presenta una targeta digital amb segells acumulats, progrés cap a una pizza de regal i vistes estilitzades d'Apple Wallet i Google Wallet. La pàgina permet canviar el nom que apareix al passi i simular l'addició d'un segell.
 
-## 2. El Repte Tècnic
+La demo no acredita l'emissió d'un passi Wallet real ni la connexió amb una API de Apple o Google. El progrés és de mostra; no es vincula a compres ni a un compte persistent.
 
-1. **Càrrega sub-segon en dispositius mòbils de gamma mitjana:** Optimització extrema dels actius multimèdia per a assegurar un LCP inferior a 1 segon en 4G.
-2. **Eliminació del deute tècnic del PDF:** Construir un menú estructurat en HTML accessible que permeta als clients llegir ingredients i al·lèrgens sense descarregar cap fitxer.
-3. **SEO Local estructurat per a aparèixer en Google Maps:** Configuració rigorosa de dades `Restaurant`, geolocalització, horaris d'obertura i rang de preus.
+## Altres interaccions
 
----
+- **Carta digital:** productes per categories, preus d'exemple i informació orientativa d'al·lèrgens.
+- **Cistella i comanda:** fluxos per a recollida o domicili que preparen un missatge per a WhatsApp. La configuració publicada encara conté dades de contacte fictícies.
+- **Codi QR per a taules:** accés ràpid a la carta des de la taula.
+- **Ubicació i opinions:** seccions demostratives que requereixen adreça, fitxa de Google i ressenyes reals.
 
-## 3. Decisions d'Arquitectura
+## Arquitectura i límits
 
-Vam prescindir de qualsevol Single Page Application pesada en favor d'una arquitectura estàtica basada en **HTML5 semàntic i Tailwind CSS v4**.
+La pàgina utilitza HTML i JavaScript al navegador, amb Tailwind CSS carregat des d'un CDN. Les interaccions del passi i de la cistella són de demostració; no hi ha integració de backend o pagaments confirmada.
 
-### Diagrama del Flux de Conversió de l'Usuari
-
-```
-   [ Cerca Local: "Pizzeria Xàtiva" ] ──▶ [ Snippet Google Maps (JSON-LD) ]
-                                                        │
-                                                        ▼
-                                             [ Landing Page (< 85KB) ]
-                                                        │
-                              ┌─────────────────────────┴─────────────────────────┐
-                              ▼                                                   ▼
-                    [ Consulta Menú HTML ]                            [ Clic Comanda WhatsApp ]
-```
-
-### Fragment de Codi Clau: Dades Estructurades (Schema.org)
-
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "Pizzeria a Xàtiva",
-  "image": "https://jaumetur.es/pizzeria-cover.webp",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Carrer Major",
-    "addressLocality": "Xàtiva",
-    "addressRegion": "València",
-    "postalCode": "46800",
-    "addressCountry": "ES"
-  },
-  "servesCuisine": ["Italiana", "Pizza artesana"],
-  "priceRange": "€€",
-  "telephone": "+34960000000"
-}
-</script>
-```
-
----
-
-## 4. Comparativa: Abans vs Després
-
-| Mètrica / Propietat | Situació Prèvia (Carta en PDF) | Nova Solució Web |
-|---|---|---|
-| **Pes total de descàrrega** | 12.4 MB (fitxer PDF) | 84 KB (HTML + CSS comprimit) |
-| **Temps de primer renderitzat (LCP)** | ~5.8s en 4G | 0.7s en 4G |
-| **Indexabilitat del contingut** | Text bloquejat dins d'una imatge/PDF | Text HTML rastrejable per Googlebot |
-| **Fricció per a demanar** | L'usuari havia de copiar el telèfon a mà | Botó directe a WhatsApp amb missatge preconfigurat |
-
----
-
-## 5. Resultats Verificables i Mètriques d'Auditoria
-
-Apliquem el nostre protocol de verificació d'honestedat tècnica:
-
-- **Rendiment Google Lighthouse (Mòbil):**  
-  - *Mètode de verificació:* Auditoria oficial a Chrome DevTools amb emulació mòbil Moto G4.  
-  - *Resultat verificat:* **100/100 Rendiment**, **100/100 Accessibilitat**, **100/100 SEO**.
-- **Cumulative Layout Shift (CLS):**  
-  - *Mètode de verificació:* Panell de Performance a DevTools.  
-  - *Resultat verificat:* **0.00** (Zero desplaçament visual en càrrega).
-- **Taxa d'increment de reserves:**  
-  - *Mètode de verificació:* Clics registrats al botó d'enllaç de WhatsApp (`wa.me`).  
-  - *Resultat:* `[COMPLETAR]` *(Dada acumulada a validar amb el propietari del negoci a final de trimestre)*.
-
----
-
-## 6. Aprenentatges i Conclusions
-
-1. **La simplicitat ven més que el bloatware:** Un lloc web estàtic, ben maquetat i ràpid supera en conversió qualsevol plantilla lenta de CMS per a negocis d'hostaleria.
-2. **El SEO local requereix precisió mil·limètrica:** Vincular correctament les adreces postals i el telèfon en l'esquema JSON-LD permet a Google presentar la fitxa sense errors de concordança.
-
+He revisat la URL publicada i els textos de la pàgina. Per això, el cas descriu només el prototip observable: no declara conversions, puntuacions de rendiment ni disponibilitat de comandes reals.

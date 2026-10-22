@@ -23,7 +23,7 @@ import { Icon } from "astro-icon/components";
   <!-- Nom Complet -->
   <div>
     <label for="contact-name" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      Nom complet <span class="text-rose-500" aria-label="obligatori">*</span>
+      Nom <span class="text-rose-500" aria-label="obligatori">*</span>
     </label>
     <div class="relative">
       <input
@@ -42,71 +42,78 @@ import { Icon } from "astro-icon/components";
     </p>
   </div>
 
-  <!-- Correu Electrònic -->
   <div>
-    <label for="contact-email" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      Correu electrònic <span class="text-rose-500" aria-label="obligatori">*</span>
+    <label for="contact-phone" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      Telèfon (opcional)
     </label>
     <input
-      id="contact-email"
-      type="email"
-      name="email"
-      placeholder="nom@empresa.com"
-      required
-      aria-required="true"
-      aria-describedby="email-error"
+      id="contact-phone"
+      type="tel"
+      name="phone"
+      autocomplete="tel"
+      placeholder="Només si prefereixes que et telefone"
       class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
     />
-    <p id="email-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
-      Per favor, indica un correu electrònic vàlid per poder respondre't.
-    </p>
   </div>
 
   <!-- Tipus de Servei / Projecte -->
   <div class="grid sm:grid-cols-2 gap-3">
     <div>
       <label for="contact-service" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-        Tipus de projecte
+        Producte o servei principal
       </label>
       <select
         id="contact-service"
         name="service"
         class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
-        <option value="landing-page">Landing Page d'Alt Rendiment</option>
+        <option value="landing-page" selected>Web nova o renovació de web</option>
         <option value="angular-webapp">Web App SPA (Angular / TypeScript)</option>
         <option value="performance-audit">Optimització 60 FPS & WCAG AA</option>
         <option value="cicd-devops">Pipelines CI/CD & DevOps</option>
         <option value="contractacio">Oportunitat Laboral / Equip</option>
-        <option value="altre" selected>Altra consulta tècnica</option>
+        <option value="altre">Altra consulta tècnica</option>
       </select>
     </div>
 
     <div>
-      <label for="contact-budget" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-        Pressupost orientatiu
+      <label for="contact-extra" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+        Extres opcionals
       </label>
       <select
-        id="contact-budget"
-        name="budget"
+        id="contact-extra"
+        name="extra"
         class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
-        <option value="a-definir" selected>A definir / Per hores</option>
-        <option value="menys-1k">&lt; 1.000 €</option>
-        <option value="1k-3k">1.000 € - 3.000 €</option>
-        <option value="mes-3k">&gt; 3.000 €</option>
+        <option value="cap" selected>Encara no ho sé / cap</option>
+        <option value="rrss">Gestió de xarxes socials (RRSS)</option>
+        <option value="rrss-publicitat">Gestió de RRSS amb publicitat</option>
+        <option value="publicitat">Integració de publicitat al web</option>
+        <option value="seo">SEO i analítica</option>
+        <option value="accessibilitat">Accessibilitat i rendiment</option>
+        <option value="altres">Altres extres (explica-ho baix)</option>
       </select>
     </div>
+  </div>
+
+  <div>
+    <label for="contact-budget" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      Pressupost orientatiu (opcional)
+    </label>
+    <select id="contact-budget" name="budget" class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
+      <option value="a-definir" selected>A definir</option>
+      <option value="menys-1k">Menys de 1.000 €</option>
+      <option value="1k-3k">1.000 € - 3.000 €</option>
+      <option value="mes-3k">Més de 3.000 €</option>
+    </select>
   </div>
 
   <!-- Missatge -->
   <div>
     <label for="contact-message" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      Explica breument el teu repte o idea <span class="text-rose-500" aria-label="obligatori">*</span>
+      Què necessites? (opcional)
     </label>
     <textarea
       id="contact-message"
       name="message"
-      required
-      aria-required="true"
       aria-describedby="message-error"
       placeholder="Objectiu del projecte, terminis desitjats, detalls tècnics o qualsevol dubte..."
       rows="4"
@@ -123,7 +130,7 @@ import { Icon } from "astro-icon/components";
     id="contact-submit-btn"
     class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md transition group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
     <Icon name="bx:paper-plane" class="w-4 h-4 text-indigo-400 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
-    <span id="submit-btn-text">Enviar proposta / consulta</span>
+      <span id="submit-btn-text">Preparar correu amb la consulta</span>
   </button>
 
   <!-- Banner d'Estat Accessible (Live Region) -->
@@ -135,7 +142,7 @@ import { Icon } from "astro-icon/components";
   </div>
 
   <p class="text-[11px] text-slate-400 text-center font-sans">
-    Garantia de privacitat: les teves dades només s'utilitzaran per a respondre a la teva consulta directa.
+    La consulta és sense compromís. El nom és necessari; el telèfon i la resta de detalls són opcionals. En enviar-la, s'obrirà el teu client de correu perquè confirmes l'enviament.
   </p>
 </form>
 
@@ -148,13 +155,12 @@ import { Icon } from "astro-icon/components";
     const honeypot = document.getElementById("honeypot-field");
 
     const nameInput = document.getElementById("contact-name");
-    const emailInput = document.getElementById("contact-email");
+    const phoneInput = document.getElementById("contact-phone");
     const messageInput = document.getElementById("contact-message");
     const serviceSelect = document.getElementById("contact-service");
     const budgetSelect = document.getElementById("contact-budget");
 
     const nameError = document.getElementById("name-error");
-    const emailError = document.getElementById("email-error");
     const messageError = document.getElementById("message-error");
 
     // Sincronitzar paràmetre URL ?servei= amb el selector
@@ -209,24 +215,8 @@ import { Icon } from "astro-icon/components";
           nameInput.classList.remove("border-rose-400");
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
-          emailError.classList.remove("hidden");
-          emailInput.classList.add("border-rose-400");
-          hasErrors = true;
-        } else {
-          emailError.classList.add("hidden");
-          emailInput.classList.remove("border-rose-400");
-        }
-
-        if (!messageInput.value.trim()) {
-          messageError.classList.remove("hidden");
-          messageInput.classList.add("border-rose-400");
-          hasErrors = true;
-        } else {
-          messageError.classList.add("hidden");
-          messageInput.classList.remove("border-rose-400");
-        }
+        messageError.classList.add("hidden");
+        messageInput.classList.remove("border-rose-400");
 
         if (hasErrors) {
           const firstErr = form.querySelector(".border-rose-400");
@@ -237,9 +227,12 @@ import { Icon } from "astro-icon/components";
         // 4. Preparació de dades
         const payload = {
           name: nameInput.value.trim(),
-          email: emailInput.value.trim(),
-          service: serviceSelect ? serviceSelect.value : "general",
+          phone: phoneInput.value.trim(),
+          service: serviceSelect?.selectedOptions[0]?.text || "Consulta general",
+          extra: document.getElementById("contact-extra")?.value || "cap",
+          extraLabel: document.getElementById("contact-extra")?.selectedOptions[0]?.text || "Cap",
           budget: budgetSelect ? budgetSelect.value : "a-definir",
+          budgetLabel: budgetSelect?.selectedOptions[0]?.text || "A definir",
           message: messageInput.value.trim(),
         };
 
@@ -262,16 +255,17 @@ import { Icon } from "astro-icon/components";
           // Nota: Si no s'ha configurat access_key externa, s'obre el client amb el missatge preformatat.
           const mailtoBody = encodeURIComponent(
             `Nom: ${payload.name}\n` +
-            `Correu: ${payload.email}\n` +
+            `Telèfon: ${payload.phone || "No indicat"}\n` +
             `Servei d'interès: ${payload.service}\n` +
-            `Pressupost estimat: ${payload.budget}\n\n` +
-            `Missatge:\n${payload.message}`
+            `Extres: ${payload.extraLabel}\n` +
+            `Pressupost orientatiu: ${payload.budgetLabel}\n\n` +
+            `Situació i objectius:\n${payload.message || "No indicats"}`
           );
           const mailtoUrl = `mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent("Nova proposta de projecte: " + payload.service)}&body=${mailtoBody}`;
 
           setTimeout(() => {
             window.location.href = mailtoUrl;
-            showStatus("Missatge preparat amb èxit! S'està obrint el teu client de correu per confirmar l'enviament directe a Jaume Tur.", true);
+            showStatus("La consulta està preparada. Revisa-la i confirma l'enviament des del teu client de correu.", true);
             form.reset();
             if (submitBtn) submitBtn.disabled = false;
             if (submitBtnText) submitBtnText.textContent = "Enviar proposta / consulta";

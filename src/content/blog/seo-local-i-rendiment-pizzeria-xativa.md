@@ -1,101 +1,41 @@
 ---
 draft: false
-title: "Cas d'Estudi Pizzeria a Xàtiva: Disseny UI/UX, Rendiment i SEO Local per a Hostaleria"
-snippet: "Com vam transformar la presència digital d'un restaurant tradicional a La Costera: arquitectura web lleugera, menú interactiu sense fricció, schema Restaurant i posicionament a Google Maps."
+title: "Pizzeria Xàtiva: carta digital i Pizza Pass en una demo web"
+snippet: "Una revisió de la plantilla demo: carta interactiva, comandes de mostra per WhatsApp i un prototip de passi de fidelització amb segells visuals."
 image: {
     src: "/img/blog/seo-local-i-rendiment-pizzeria-xativa.webp",
-    alt: "Pizzeria artesana i disseny web gastronòmic a Xàtiva"
+    alt: "Pizza utilitzada com a imatge il·lustrativa de la demo Pizzeria Xàtiva"
 }
 publishDate: "2026-03-20 11:00"
-category: "Cas d'estudi"
+category: "Anàlisi de demo"
 author: "Jaume Tur"
-tags: [cas-estudi, seo-local, xativa, valencia, ui-ux, rendiment, hostaleria]
+tags: [demo, carta-digital, pizza-pass, fidelitzacio, hostaleria]
 lang: "ca"
 canonicalUrl: "https://jaumetur.es/blog/seo-local-i-rendiment-pizzeria-xativa"
 ---
 
-En el sector de l'hostaleria i la restauració, el lloc web d'un negoci sol ser la primera impressió que rep un client potencial un divendres a la nit quan busca des del mòbil on sopar.
+La web publicada de **Pizzeria Xàtiva** s'identifica com una plantilla de demostració, no com un restaurant real. El menú, els preus, l'adreça, els horaris, les ressenyes i les dades de contacte són exemples. Per això, aquest article analitza les interaccions visibles de la demo i no presenta resultats comercials o de posicionament com si foren reals.
 
-No obstant això, la majoria de llocs web de restaurants pateixen dels mateixos greus defectes:
-- Menús en format PDF pesats de 15 MB que triguen minuts a descarregar-se amb cobertura mòbil 4G.
-- Llocs lents construïts sobre plantilles inflades de WordPress amb desenes de plugins innecessaris.
-- Absència total de dades estructurades (`Restaurant` / `Menu`), impedint que Google mostre els preus o l'horari d'obertura a la fitxa de Google Maps.
+## Carta digital i comanda de mostra
 
-Per al projecte **Pizzeria a Xàtiva**, vam abordar el desenvolupament des d'una perspectiva d'enginyeria frontend i disseny de producte pur: **velocitat instantània, menú digital interactiu i SEO local d'alt impacte a la comarca de La Costera**.
+La pàgina organitza les pizzes per categories, mostra informació orientativa d'al·lèrgens i permet preparar una cistella per a recollida o domicili. El flux d'enviament obri un missatge de WhatsApp amb les dades configurades a la plantilla; cal substituir el contacte de mostra abans d'utilitzar-la amb un negoci real.
 
----
+També incorpora una entrada de carta per codi QR i textos que indiquen quines dades locals cal completar abans de publicar una versió comercial.
 
-## 1. El Disseny UI/UX: Menú Visual i Zero Fricció
+## Pizza Pass: fidelització com a prototip
 
-El 85% del trànsit d'un restaurant arriba a través de dispositius mòbils. L'usuari sol tenir gana, pressa o està decidint en grup.
+El Pizza Pass és el punt diferencial de la demo. La targeta visualitza fins a deu segells, mostra el progrés cap a una pizza de regal i deixa canviar entre les aparences d'Apple Wallet i Google Wallet. El botó de simulació incrementa el nombre de segells al navegador.
 
-Vam aplicar tres regles d'or en el disseny:
-1. **Accés al menú en 1 sol toc:** El botó "Veure Carta" és el centre d'atenció del Hero, sense popups molestos de cookies invasives ni anuncis.
-2. **Filtratge instantani per al·lèrgens:** Permetre a persones celíaques o vegetarianes filtrar la carta en temps real sense recarregar la pàgina.
-3. **Reserva i comanda directa:** Connexió amb un sol clic cap a trucada telefònica directa i WhatsApp Business, reduint els passos necessaris per a tancar la comanda.
+La interacció observada és local i il·lustrativa: no s'hi veu una emissió de passi Wallet, un compte de client ni la sincronització de compres amb un servidor. El text de la plantilla esmenta APIs de Wallet, però la pàgina publicada no acredita que aquesta integració estiga operativa.
 
----
+## Què caldria abans d'un desplegament real
 
-## 2. Rendiment Extrem: De 15MB de PDF a 85KB d'HTML/CSS
+- Substituir la identitat i les dades fictícies del restaurant.
+- Connectar les comandes a un sistema real, amb confirmació i gestió d'estats.
+- Afegir un servei de fidelització persistent i validar l'emissió de passis amb Apple Wallet o Google Wallet.
+- Revisar la privacitat i el tractament de dades personals dels formularis.
+- Publicar al·lèrgens, horaris i ressenyes només després de validar-los amb el negoci.
 
-En lloc d'obligar l'usuari a obrir un visor de documents PDF, vam construir el menú amb components web estàtics ultralleugers utilitzant **Astro** i **Tailwind CSS**.
+Aquesta demo serveix per a explorar una experiència de carta i fidelització. No disposem de dades per a afirmar que haja millorat conversions, rendiment o posicionament a Google Maps.
 
-- Totes les fotografies gastronòmiques es van convertir automàticament a format **WebP** i **AVIF**, amb compressió òptima que redueix el pes mitjà de cada imatge de 2.5 MB a només 45 KB.
-- El paquet complet de JavaScript necessari per a la interactivitat del filtre és de només **2.3 KB**, el que permet una càrrega en menys de **0.6 segons** fins i tot amb connexions mòbils lentes.
-
----
-
-## 3. SEO Local i Dades Estructurades (Schema.org)
-
-Per a dominar les cerques locals com *"pizzeria a Xàtiva"*, *"millor pizza artesana Xàtiva"* o *"sopar a Xàtiva"*, vam integrar l'esquema complet de `Restaurant` i `Menu` en format **JSON-LD**:
-
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "Pizzeria a Xàtiva",
-  "image": "https://jaumetur.es/pizzeria-cover.webp",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Carrer Major",
-    "addressLocality": "Xàtiva",
-    "addressRegion": "València",
-    "postalCode": "46800",
-    "addressCountry": "ES"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 38.9889,
-    "longitude": -0.5218
-  },
-  "telephone": "+34960000000",
-  "servesCuisine": ["Italiana", "Pizza artesana"],
-  "priceRange": "€€",
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Thursday", "Friday", "Saturday", "Sunday"],
-      "opens": "19:30",
-      "closes": "23:45"
-    }
-  ]
-}
-</script>
-```
-
-Gràcies a aquest marcatge semàntic, Google pot mostrar l'estat d'obertura ("Obert ara"), el rang de preus i la valoració directament en el fragment enriquit (*rich snippet*) dels resultats de cerca.
-
----
-
-## 4. Resultats Comercials
-
-Després del llançament de la nova plataforma web:
-- **Posició #1 a Google Maps i cerca orgànica** per a les principals consultes gastronòmiques a Xàtiva.
-- **Increment del 42% en trucades de reserva** procedents directament del botó flotant del lloc web.
-- **100/100 en Google Lighthouse** en rendiment, SEO i bones pràctiques mòbils.
-
-Aquest cas demostra que un bon desenvolupament web no és un despesa, sinó el millor comercial que pot tenir un negoci local a peu de carrer.
-
-Tens un negoci a la Comunitat Valenciana i vols renovar la teua imatge digital per a atraure més clients? [Posa't en contacte amb mi](/contact).
-
+Si tens un projecte web i vols parlar-ne, [escriu-me](/contact).

@@ -178,6 +178,7 @@ const schemaData = {
     </div>
 
     <!-- Honesty & Verification Card -->
+    {entry.data.statLabel === "Mètrica Verificada" && (
     <div class="max-w-4xl mx-auto mb-16 p-6 sm:p-8 rounded-3xl bg-white border border-emerald-200 shadow-2xs">
       <div class="flex items-center gap-2 mb-3">
         <Icon name="bx:check-shield" class="w-5 h-5 text-emerald-600" />
@@ -204,6 +205,7 @@ const schemaData = {
         </div>
       </div>
     </div>
+    )}
 
     <!-- Previous / Next Case Study Navigation -->
     <nav aria-label="Navegació entre projectes" class="max-w-4xl mx-auto pt-8 pb-16 border-t border-slate-200/90 grid grid-cols-1 sm:grid-cols-2 gap-4">
