@@ -16,8 +16,8 @@ liveUrl: "https://jautur.github.io/margherita_xativa/"
 stack: ["HTML5", "Tailwind CSS CDN", "JavaScript vanilla", "WhatsApp deep links", "Apple Wallet / Google Wallet UI"]
 order: 2
 image: {
-  src: "https://images.unsplash.com/photo-1513104890138-7c749659a591?fit=crop&w=1200&h=630",
-  alt: "Pizza utilitzada com a imatge il·lustrativa de la demo Pizzeria Xàtiva"
+  src: "/img/foto_pizza.png",
+  alt: "Pizza de la demo Pizzeria Xàtiva"
 }
 ---
 
