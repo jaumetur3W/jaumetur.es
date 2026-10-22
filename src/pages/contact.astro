@@ -8,7 +8,7 @@ import { Icon } from "astro-icon/components";
 
 <Layout
   title="Contacte Directe | Desenvolupador Frontend a València"
-  description="Parlem del teu projecte o oportunitat laboral. Canals directes per WhatsApp, correu electrònic o formulari accessible amb Jaume Tur, desenvolupador web a València.">
+  description="Parlem del teu projecte o oportunitat laboral per correu electrònic o mitjançant el formulari accessible de Jaume Tur, desenvolupador web a València.">
   <Container>
     <!-- Capçalera -->
     <Sectionhead>
@@ -62,20 +62,18 @@ import { Icon } from "astro-icon/components";
           </div>
         </div>
 
-        <!-- Acció Ràpida: WhatsApp Directe (Alta Conversió) -->
+        <!-- Contacte directe per correu -->
         <a
-          href="https://wa.me/34600000000?text=Hola%20Jaume,%20he%20vist%20el%20teu%20portfolio%20i%20m'agradaria%20comentar-te%20un%20projecte..."
-          target="_blank"
-          rel="noopener noreferrer"
-          id="contact-whatsapp-btn"
-          class="p-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-between shadow-md transition group">
+          href="mailto:jaumetur3w@gmail.com?subject=Nova%20consulta%20de%20projecte"
+          id="contact-email-cta"
+          class="p-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-between shadow-md transition group">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-emerald-500/80 flex items-center justify-center text-white shrink-0">
-              <Icon name="bx:bxl-whatsapp" class="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <div class="w-9 h-9 rounded-xl bg-indigo-500/80 flex items-center justify-center text-white shrink-0">
+              <Icon name="bx:envelope" class="w-5 h-5 group-hover:scale-110 transition-transform" />
             </div>
             <div>
-              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">Canal Immediat</span>
-              <span class="text-sm font-extrabold">Xatejar per WhatsApp</span>
+              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">Correu directe</span>
+              <span class="text-sm font-extrabold">Escriure a Jaume</span>
             </div>
           </div>
           <Icon name="bx:right-arrow-alt" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -159,6 +157,22 @@ import { Icon } from "astro-icon/components";
           </a>
         </div>
 
+        <a
+          href="https://www.instagram.com/jaume.www/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visita Instagram de Jaume Tur, @jaume.www (s'obri en una pestanya nova)"
+          class="bg-white border border-slate-200/90 hover:border-pink-300 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
+          <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <Icon name="bx:bxl-instagram" class="w-5 h-5 text-pink-600" />
+          </div>
+          <div class="truncate">
+            <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">Instagram</span>
+            <span class="text-xs font-bold text-slate-800 group-hover:text-pink-600 transition-colors">@jaume.www</span>
+          </div>
+          <Icon name="bx:link-external" class="w-4 h-4 text-slate-400 ml-auto" />
+        </a>
+
         <!-- Caixa de Garantia & Prova Social Real -->
         <div class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs text-slate-700 space-y-1.5 font-sans">
           <span class="font-bold text-indigo-900 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
@@ -213,12 +227,12 @@ import { Icon } from "astro-icon/components";
     });
   }
 
-  // Seguiment de conversió de canals
-  const waBtn = document.getElementById("contact-whatsapp-btn");
-  if (waBtn) {
-    waBtn.addEventListener("click", () => {
+  // Seguiment del contacte directe per correu
+  const emailCta = document.getElementById("contact-email-cta");
+  if (emailCta) {
+    emailCta.addEventListener("click", () => {
       if (typeof window.plausible === "function") {
-        window.plausible("whatsapp_click", { props: { location: "contact_page" } });
+        window.plausible("email_click", { props: { location: "contact_page" } });
       }
     });
   }

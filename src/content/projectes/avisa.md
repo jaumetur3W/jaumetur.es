@@ -128,7 +128,7 @@ Apliquem el nostre protocol de verificació d'honestedat tècnica:
   - *Resultat verificat:* **Zero regressions de tipus** registrades en producció.
 - **Temps mitjà de resolució en proves d'usuari:**  
   - *Mètode de verificació:* Proves d'usabilitat amb operadors municipals simulats.  
-  - *Resultat:* `[COMPLETAR]` *(Métrica subjecta a la segona fase de desplegament pilot amb dades reals de municipi)*.
+  - *Resultat:* Encara no disponible; la mètrica depén de la segona fase del pilot amb dades reals del municipi.
 
 ---
 

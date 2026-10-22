@@ -14,7 +14,7 @@ interface ProjectItem {
   statIcon: string;
   statColor: string;
   colSpan: string;
-  previewType: "incidents" | "restaurant" | "telemetry" | "pipeline";
+  previewType: "incidents" | "restaurant" | "burger" | "telemetry" | "pipeline";
   highlights: string[];
   tags: string[];
   verificationNote: string;
@@ -43,33 +43,55 @@ const projects: ProjectItem[] = [
       "Desplegament continu atòmic a la xarxa perimetral Edge de Vercel"
     ],
     tags: ["Angular 17+", "TypeScript", "Signals", "Vercel Edge", "WCAG AA"],
-    verificationNote: "Mesurat amb axe-core i DevTools Network Profile. Dades de camp: [COMPLETAR]",
+    verificationNote: "Verificat amb axe-core i DevTools Network Profile; el pilot encara no té dades de camp publicables.",
     liveUrl: "https://front-project-jjaux-h8pw.vercel.app/",
     githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX",
   },
   {
     id: "pizzeria-xativa",
     slug: "pizzeria-xativa",
-    title: "Pizzeria a Xàtiva — Presència Digital & SEO Local",
-    tagline: "De PDFs pesants de 15MB a una interfície de 85KB d'HTML semàntic amb comandes directes per WhatsApp i SEO geogràfic.",
+    title: "Pizzeria Xàtiva — Demo de carta i Pizza Pass",
+    tagline: "Plantilla de demostració amb carta digital, cistella, comandes de mostra i un prototip de passi de fidelització Wallet.",
     iconSeal: "bx:restaurant",
     sealColor: "text-amber-500 bg-amber-500/10 border-amber-500/20 group-hover:border-amber-500/40 group-hover:bg-amber-500/15",
-    badge: "Landing Page · En Producció",
+    badge: "Demo interactiva · dades fictícies",
     badgeColor: "bg-amber-950/80 text-amber-200 border-amber-500/30",
-    statBadge: "100/100 Lighthouse · SEO",
-    statIcon: "bx:check-circle",
-    statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+    statBadge: "Pizza Pass · demo Wallet",
+    statIcon: "bx:info-circle",
+    statColor: "text-amber-800 bg-amber-50 border-amber-200/80",
     colSpan: "col-span-12 lg:col-span-5",
     previewType: "restaurant",
     highlights: [
-      "Pes ultralleuger de 85KB amb First Contentful Paint de 0.4s",
-      "Canal directe de comandes integrat amb l'API de WhatsApp",
-      "Dades estructurades Restaurant Schema.org per a Google Maps"
+      "Carta per categories amb al·lèrgens i preus d'exemple",
+      "Cistella per a recollida o domicili que prepara un missatge de WhatsApp",
+      "Pizza Pass amb segells visuals, progrés i vistes d'Apple Wallet i Google Wallet"
     ],
-    tags: ["Tailwind CSS v4", "HTML5 Semàntic", "SEO Local", "WhatsApp API", "Schema.org"],
-    verificationNote: "Mesurat amb Google Lighthouse Mòbil & Google Maps. Conversió: [COMPLETAR]",
-    liveUrl: "https://jautur.github.io/pizzeria_xativa/",
-    githubUrl: "https://github.com/jautur/pizzeria_xativa",
+    tags: ["HTML5", "Tailwind CSS CDN", "JavaScript", "WhatsApp links", "Wallet UI"],
+    verificationNote: "Revisió de la web publicada; el Pizza Pass, les comandes i les dades del restaurant són de demostració.",
+    liveUrl: "https://jautur.github.io/margherita_xativa/",
+  },
+  {
+    id: "burger-xativa",
+    slug: "burger-xativa",
+    title: "Burger Xàtiva — Demo gastronòmica interactiva",
+    tagline: "Plantilla Astro per a un restaurant fictici amb carta, personalitzador de burgers, cistella i seguiment de comanda simulat.",
+    iconSeal: "bx:restaurant",
+    sealColor: "text-lime-600 bg-lime-500/10 border-lime-500/20 group-hover:border-lime-500/40 group-hover:bg-lime-500/15",
+    badge: "Demo interactiva · E-commerce UI",
+    badgeColor: "bg-lime-950/80 text-lime-200 border-lime-500/30",
+    statBadge: "Comandes i reserves simulades",
+    statIcon: "bx:info-circle",
+    statColor: "text-amber-800 bg-amber-50 border-amber-200/80",
+    colSpan: "col-span-12 lg:col-span-6",
+    previewType: "burger",
+    highlights: [
+      "Carta per categories i cistella amb personalitzador de burger",
+      "Delivery Tracker amb estats de mostra, sense consultar comandes reals",
+      "Formularis de reserva i club VIP només demostratius, sense enviament de dades"
+    ],
+    tags: ["Astro", "Tailwind CSS", "JavaScript", "Disseny responsive", "ES / VA"],
+    verificationNote: "Revisió funcional de la demo publicada; comandes, seguiment, reserves i alta VIP no es connecten a cap servei real.",
+    liveUrl: "https://jautur.github.io/burger_xativa/",
   },
   {
     id: "dashboard-telemetria",
@@ -91,7 +113,7 @@ const projects: ProjectItem[] = [
       "Mesurament continu de Core Web Vitals (LCP, CLS i INP)"
     ],
     tags: ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment"],
-    verificationNote: "Mesurat amb Chrome DevTools Performance Profiler. RUM gama baixa: [COMPLETAR]",
+    verificationNote: "Mesurat amb Chrome DevTools Performance Profiler; no hi ha dades RUM de dispositius de gamma baixa.",
     liveUrl: "https://jautur.github.io/portfolio/#skills",
     githubUrl: "https://github.com/jautur/portfolio",
   },
@@ -115,7 +137,7 @@ const projects: ProjectItem[] = [
       "Lliurament continu sense interrupcions mitjançant memòria cau npm"
     ],
     tags: ["GitHub Actions", "CI/CD", "Linux Shell", "Linters ESLint", "Cache npm"],
-    verificationNote: "Mesurat amb registres de GitHub Actions. Estalvi concurrència: [COMPLETAR]",
+    verificationNote: "Verificat amb els registres de GitHub Actions; no es publica una xifra d'estalvi per concurrència.",
     liveUrl: "https://github.com/jautur/portfolio/actions",
     githubUrl: "https://github.com/jautur/portfolio",
   },
@@ -259,23 +281,49 @@ const projects: ProjectItem[] = [
                   <div class="flex items-center justify-between text-[11px] text-amber-300 pb-1 border-b border-slate-800/80">
                     <span class="flex items-center gap-1.5">
                       <Icon name="bx:restaurant" class="w-3.5 h-3.5" />
-                      <span>CARTA DIGITAL & COMANDES</span>
+                      <span>CARTA DIGITAL & PIZZA PASS</span>
                     </span>
-                    <span class="text-emerald-400 text-[10px] font-bold">85 KB Payload</span>
+                    <span class="text-amber-300 text-[10px] font-bold">DEMO</span>
                   </div>
                   <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] flex items-center justify-between">
                     <div>
-                      <span class="text-slate-200 font-bold block">Pizza Margherita D.O.P.</span>
-                      <span class="text-slate-400 text-[10px]">Tomaca San Marzano, mozzarella fior di latte</span>
+                      <span class="text-slate-200 font-bold block">Carta per categories</span>
+                      <span class="text-slate-400 text-[10px]">Productes, preus i al·lèrgens de mostra</span>
                     </div>
-                    <span class="text-amber-400 font-mono font-bold text-xs">9,50 €</span>
+                    <Icon name="bx:book-open" class="w-4 h-4 text-amber-300" />
                   </div>
                   <div class="flex items-center justify-between px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-[11px]">
                     <span class="flex items-center gap-1.5">
                       <Icon name="bx:check" class="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Comandes WhatsApp API integrades</span>
+                      <span>Pizza Pass · 7 de 10 segells simulats</span>
                     </span>
-                    <span class="text-[10px] font-bold text-emerald-400">100/100 SEO</span>
+                    <span class="text-[10px] font-bold text-emerald-400">WALLET UI</span>
+                  </div>
+                </div>
+              )}
+
+              {project.previewType === "burger" && (
+                <div class="space-y-2.5">
+                  <div class="flex items-center justify-between text-[11px] text-lime-300 pb-1 border-b border-slate-800/80">
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:restaurant" class="w-3.5 h-3.5" />
+                      <span>BURGER XÀTIVA · DEMO</span>
+                    </span>
+                    <span class="text-amber-300 text-[10px] font-bold">FLUX SIMULAT</span>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] flex items-center justify-between">
+                    <div>
+                      <span class="text-slate-200 font-bold block">Personalitza la burger</span>
+                      <span class="text-slate-400 text-[10px]">Punt de la carn · extres · cistella</span>
+                    </div>
+                    <Icon name="bx:slider-alt" class="w-4 h-4 text-lime-300" />
+                  </div>
+                  <div class="px-3 py-2 rounded-lg bg-amber-950/50 border border-amber-500/30 text-amber-200 text-[10px] flex items-center justify-between gap-2">
+                    <span class="flex items-center gap-1.5">
+                      <Icon name="bx:package" class="w-3.5 h-3.5 text-amber-300" />
+                      <span>Delivery Tracker · dades d'exemple</span>
+                    </span>
+                    <span class="font-bold">SENSE API</span>
                   </div>
                 </div>
               )}

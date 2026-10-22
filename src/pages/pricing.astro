@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     question: "Quin és el mètode de comunicació i seguiment?",
-    answer: "Mantenim una comunicació fluïda, asíncrona i transparent mitjançant correu electrònic, Slack/Discord o WhatsApp segons la teva preferència. A més, tindràs accés directe al repositori i a un entorn de previsualització (preview deployment) per provar cada avanç abans de la publicació final.",
+    answer: "Mantenim una comunicació fluïda, asíncrona i transparent principalment per correu electrònic. A més, tindràs accés directe al repositori i a un entorn de previsualització (preview deployment) per provar cada avanç abans de la publicació final.",
   },
   {
     question: "Treballes en remot o de manera presencial?",
@@ -378,16 +378,6 @@ const faqSchema = {
         </a>
       </div>
 
-      <!-- Espai Reservat per a Testimonis Reals -->
-      <div class="mt-8 p-6 rounded-3xl bg-slate-50 border border-dashed border-slate-300 text-center text-xs text-slate-500">
-        <Icon name="bx:message-alt-detail" class="w-6 h-6 mx-auto mb-2 text-slate-400" />
-        <span class="font-bold text-slate-700 block mb-1">
-          [COMPLETAR: Espai per a testimonis reals de clients i responsables d'equip]
-        </span>
-        <p class="max-w-xl mx-auto text-slate-500">
-          Per respecte i honestedat professional, no s'inclouen ressenyes fictícies ni logotips sense consentiment directe. Els testimonis s'afegiran conforme finalitzin els projectes contractats en curs.
-        </p>
-      </div>
     </div>
 
     <!-- Procés de Treball en 4 Fases (Amb Icones Estandarditzades) -->
@@ -488,13 +478,11 @@ const faqSchema = {
             <span>Demanar proposta sense compromís</span>
           </a>
           <a
-            href="https://wa.me/34600000000?text=Hola%20Jaume,%20he%20vist%20els%20teus%20serveis%20al%20portfolio%20i%20m'agradaria%20consultar-te%20sobre..."
-            target="_blank"
-            rel="noopener noreferrer"
-            id="pricing-cta-whatsapp"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold transition shadow-lg">
-            <Icon name="bx:bxl-whatsapp" class="w-4 h-4 text-emerald-200" />
-            <span>Consultar per WhatsApp</span>
+            href="mailto:jaumetur3w@gmail.com?subject=Consulta%20sobre%20serveis"
+            id="pricing-cta-email"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-700 hover:bg-indigo-600 text-white text-xs sm:text-sm font-bold transition shadow-lg">
+            <Icon name="bx:envelope" class="w-4 h-4 text-indigo-200" />
+            <span>Escriure per correu</span>
           </a>
         </div>
       </div>
@@ -522,11 +510,11 @@ const faqSchema = {
     });
   }
 
-  const waBtn = document.getElementById("pricing-cta-whatsapp");
-  if (waBtn) {
-    waBtn.addEventListener("click", () => {
+  const emailBtn = document.getElementById("pricing-cta-email");
+  if (emailBtn) {
+    emailBtn.addEventListener("click", () => {
       if (typeof window.plausible === "function") {
-        window.plausible("whatsapp_click", { props: { location: "pricing_bottom" } });
+        window.plausible("email_click", { props: { location: "pricing_bottom" } });
       }
     });
   }

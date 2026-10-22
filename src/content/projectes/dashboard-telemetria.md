@@ -15,7 +15,7 @@ verificationMethod: "Auditoria Chrome DevTools Performance Profiler & FPS Meter"
 liveUrl: "https://jautur.github.io/portfolio/#skills"
 githubUrl: "https://github.com/jautur/portfolio"
 stack: ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment", "Virtual DOM", "Core Web Vitals"]
-order: 3
+order: 4
 image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Gràfic de telemetria i rendiment d'altes prestacions"
