@@ -12,8 +12,8 @@ badge: "Landing Page · En Producció"
 statLabel: "Mètrica Verificada"
 statValue: "100/100 Lighthouse / SEO Local"
 verificationMethod: "Auditoria Google Lighthouse Mòbil & Proves de cerca a Google Maps"
-liveUrl: "https://jautur.github.io/margherita_xativa/"
-githubUrl: "https://github.com/jautur/margherita_xativa"
+liveUrl: "https://jautur.github.io/pizzeria_xativa/"
+githubUrl: "https://github.com/jautur/pizzeria_xativa"
 stack: ["HTML5 Semàntic", "Tailwind CSS v4", "SEO Local", "Schema.org JSON-LD", "WhatsApp API", "WebP/AVIF"]
 order: 2
 image: {
