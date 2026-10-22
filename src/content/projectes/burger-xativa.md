@@ -16,8 +16,8 @@ liveUrl: "https://jautur.github.io/burger_xativa/"
 stack: ["Astro", "HTML estàtic", "Tailwind CSS", "JavaScript vanilla", "Disseny responsive", "ES / VA"]
 order: 3
 image: {
-  src: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&h=630&q=85",
-  alt: "Hamburguesa utilitzada com a imatge il·lustrativa de la demo Burger Xàtiva"
+  src: "/img/foto_burger.png",
+  alt: "Hamburguesa de la demo Burger Xàtiva"
 }
 ---
 

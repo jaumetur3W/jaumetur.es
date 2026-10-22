@@ -17,7 +17,7 @@ githubUrl: "https://github.com/jautur/portfolio"
 stack: ["GitHub Actions", "CI/CD", "Linux Shell", "Linters ESLint", "TypeScript Check", "GitHub Pages", "Cache npm"]
 order: 5
 image: {
-  src: "https://images.unsplash.com/photo-1618401471353-b98aedd04e11?fit=crop&w=1200&h=630",
+  src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Pipeline d'automatització i integració contínua CI/CD"
 }
 ---
