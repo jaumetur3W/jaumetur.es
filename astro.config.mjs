@@ -7,6 +7,13 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
   site: "https://jaumetur.es",
+  i18n: {
+    defaultLocale: "es",
+    locales: ["es", "val"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [mdx(), sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],

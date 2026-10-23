@@ -1,21 +1,100 @@
 ---
+import { getCollection } from "astro:content";
 import Container from "@/components/container.astro";
-import Cta from "@/components/cta.astro";
-import Features from "@/components/features.astro";
 import Hero from "@/components/hero.astro";
-import Logos from "@/components/logos.astro";
-import Projects from "@/components/projects.astro";
-import Workflow from "@/components/workflow.astro";
 import Layout from "@/layouts/Layout.astro";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const locale = localeFromPath(Astro.url.pathname);
+const isVal = locale === "val";
+const href = (path: string) => localizePath(path, locale);
+const entries = await getCollection("projectes", ({ data }) => !data.draft);
+entries.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const projects = entries.slice(0, 3);
+const previews: Record<string, { src: string; alt: string }> = {
+  avisa: { src: "/img/preview-avisa.webp", alt: "Interfície de la plataforma de serveis AVISA" },
+  "pizzeria-xativa": { src: "/img/foto_pizza.png", alt: "Pizza de mostra de la demo Pizzeria Xàtiva" },
+  "burger-xativa": { src: "/img/foto_burger.png", alt: "Hamburguesa de mostra de la demo Burger Xàtiva" },
+};
+const services = isVal
+  ? [["01", "Aplicacions web", "Interfícies accessibles i adaptables per presentar un servei o resoldre una necessitat concreta."], ["02", "Backend i API", "Lògica de servidor, API i dades estructurades per connectar les peces d'un projecte."], ["03", "Sistemes i automatització", "Desplegaments, integracions i eines per fer més fiable el treball digital."]]
+  : [["01", "Aplicaciones web", "Interfaces accesibles y adaptables para presentar un servicio o resolver una necesidad concreta."], ["02", "Backend y API", "Lógica de servidor, API y datos estructurados para conectar las piezas de un proyecto."], ["03", "Sistemas y automatización", "Despliegues, integraciones y herramientas para hacer más fiable el trabajo digital."]];
+const steps = isVal
+  ? [["01", "Parlem", "Aclarim l'objectiu, les persones i les limitacions del projecte."], ["02", "Fem un pla", "Ordenem les necessitats i concretem un abast realista."], ["03", "Construïsc i revisem", "Desenvolupe la solució i comprovem el resultat abans del lliurament."]]
+  : [["01", "Hablamos", "Aclaramos el objetivo, las personas y las limitaciones del proyecto."], ["02", "Hacemos un plan", "Ordenamos las necesidades y concretamos un alcance realista."], ["03", "Desarrollo y revisamos", "Desarrollo la solución y comprobamos el resultado antes de la entrega."]];
 ---
 
-<Layout title="Inici">
+<Layout title={isVal ? "Inici" : "Inicio"} description={isVal ? "Soc Jaume Tur, desenvolupador d'aplicacions web, backend i solucions digitals a València." : "Soy Jaume Tur, desarrollador de aplicaciones web, backend y soluciones digitales en Valencia."}>
+  <Hero />
   <Container>
-    <Hero />
-    <Logos />
-    <Projects />
-    <Features />
-    <Workflow />
-    <Cta />
+    <div>
+
+      <section id="projectes" class="scroll-mt-24 border-t border-slate-200 py-14 sm:py-20" aria-labelledby="projects-title">
+        <div class="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "Una mostra del meu treball" : "Una muestra de mi trabajo"}</p>
+            <h2 id="projects-title" class="max-w-2xl text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{isVal ? "Projectes amb un propòsit concret." : "Proyectos con un propósito concreto."}</h2>
+          </div>
+          <a href={href("/projectes")} class="inline-flex min-h-11 items-center gap-2 self-start text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Tots els projectes" : "Todos los proyectos"} <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="grid gap-8 md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+          {projects.map((project, index) => {
+            const image = previews[project.id] ?? project.data.image;
+            const isClient = project.id === "avisa";
+            return (
+              <article class:list={["group min-w-0", index === 0 && "md:col-span-2 md:grid md:grid-cols-5 md:items-center md:gap-8"]}>
+                <a href={`/projectes/${project.id}`} class:list={["relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]", index === 0 && "md:col-span-3"]} aria-label={`Veure ${project.data.title}`}>
+                  <img src={image.src} alt={image.alt} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none" loading="lazy" decoding="async" />
+                </a>
+                <div class:list={["pt-4", index === 0 && "md:col-span-2 md:py-4"]}>
+                  <p class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{isClient ? "Projecte de client" : "Demo · contingut fictici"}</p>
+                  <h3 class="mt-2 text-xl font-bold leading-snug text-slate-950 sm:text-2xl"><a href={`/projectes/${project.id}`} class="decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{project.data.title}</a></h3>
+                  <p class="mt-2 text-sm leading-6 text-slate-600">{project.data.subtitle}</p>
+                  <p class="mt-3 text-xs leading-5 text-slate-500">{project.data.stack.slice(0, 3).join(" · ")}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="serveis" class="scroll-mt-24 border-t border-slate-200 py-14 sm:py-20" aria-labelledby="services-title">
+        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div>
+            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "En què puc ajudar" : "En qué puedo ayudar"}</p>
+            <h2 id="services-title" class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{isVal ? "Tecnologia pensada per a cada necessitat." : "Tecnología pensada para cada necesidad."}</h2>
+          <a href={href("/pricing")} class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Consulta els serveis i preus" : "Consulta los servicios y precios"} <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="divide-y divide-slate-200 border-y border-slate-200">
+            {services.map(([number, title, text]) => (
+              <article class="grid gap-2 py-4 sm:grid-cols-[3rem_1fr] sm:gap-5 sm:py-5">
+                <span class="font-mono text-sm font-bold text-slate-400">{number}</span>
+                <div><h3 class="text-lg font-bold text-slate-950">{title}</h3><p class="mt-1 max-w-xl text-sm leading-6 text-slate-600">{text}</p></div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[#090D16] px-5 py-9 text-white sm:px-9 sm:py-12" aria-labelledby="process-title">
+        <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:gap-12">
+          <div><p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#FFFF00]">{isVal ? "Una manera de treballar clara" : "Una forma clara de trabajar"}</p><h2 id="process-title" class="text-2xl font-extrabold tracking-tight sm:text-3xl">{isVal ? "De la primera conversa a una solució revisada." : "De la primera conversación a una solución revisada."}</h2></div>
+          <ol class="grid gap-5 sm:grid-cols-3 sm:gap-6">
+            {steps.map(([number, title, text]) => (<li class="border-t border-slate-700 pt-3"><span class="font-mono text-xs font-bold text-[#FFFF00]">{number}</span><h3 class="mt-2 text-base font-bold">{title}</h3><p class="mt-2 text-sm leading-6 text-slate-300">{text}</p></li>))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="grid items-center gap-5 border-b border-slate-200 py-12 sm:grid-cols-[auto_1fr_auto] sm:gap-8 sm:py-16" aria-labelledby="about-short-title">
+        <img src="/img/1.webp" alt="Jaume Tur" class="mx-auto h-24 w-24 object-contain sm:h-28 sm:w-28" width="112" height="112" loading="lazy" decoding="async" />
+        <div><p class="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "La persona darrere del codi" : "La persona detrás del código"}</p><h2 id="about-short-title" class="text-2xl font-extrabold tracking-tight text-slate-950">{isVal ? "Soc Jaume Tur, desenvolupador web a València." : "Soy Jaume Tur, desarrollador web en Valencia."}</h2><p class="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{isVal ? "Combine el desenvolupament d'aplicacions web amb una base de backend i sistemes. M'agrada entendre el problema i fer solucions que siguen útils i fàcils de mantindre." : "Combino el desarrollo de aplicaciones web con una base de backend y sistemas. Me gusta entender el problema y crear soluciones útiles y fáciles de mantener."}</p></div>
+        <a href={href("/about")} class="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Sobre mi" : "Sobre mí"} <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section class="flex flex-col gap-5 py-12 sm:flex-row sm:items-end sm:justify-between sm:py-16" aria-labelledby="contact-title">
+        <div class="max-w-2xl"><p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "Parlem?" : "¿Hablamos?"}</p><h2 id="contact-title" class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{isVal ? "Tens una idea entre mans?" : "¿Tienes una idea entre manos?"}</h2><p class="mt-3 text-base leading-7 text-slate-600">{isVal ? "Explica'm què necessites i valorarem quin pot ser el següent pas." : "Cuéntame qué necesitas y valoraremos cuál puede ser el siguiente paso."}</p></div>
+        <a href={href("/contact")} class="inline-flex min-h-12 items-center justify-center gap-2 self-start bg-[#FFFF00] px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-[#f2d900] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFFF00]/40 sm:self-auto">{isVal ? "Contactar" : "Contactar"} <span aria-hidden="true">↗</span></a>
+      </section>
+    </div>
   </Container>
 </Layout>

@@ -4,6 +4,8 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
 import { servicesData } from "@/data/services";
+import { localeFromPath } from "@/i18n";
+const isVal = localeFromPath(Astro.url.pathname) === "val";
 
 // Paquets de serveis d'alta conversió (importats des de @/data/services)
 const packages = servicesData;
@@ -93,7 +95,7 @@ const faqSchema = {
   <Container>
     <!-- Capçalera Principal -->
     <Sectionhead>
-      <Fragment slot="title">Serveis de Desenvolupament Frontend</Fragment>
+      <Fragment slot="title">{isVal ? "Serveis de desenvolupament web" : "Servicios de desarrollo web"}</Fragment>
       <Fragment slot="desc">
         Col·laboració professional i transparent per a crear productes digitals fluids, robustos i accessibles des de València i en remot.
       </Fragment>
@@ -106,7 +108,7 @@ const faqSchema = {
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span>Disponibilitat per a projectes: Activa</span>
+        <span>{isVal ? "Disponibilitat per a projectes: activa" : "Disponibilidad para proyectos: activa"}</span>
       </div>
       <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-900 border border-amber-300 shadow-2xs">
         <Icon name="bx:star" class="w-3.5 h-3.5 text-amber-600" />
@@ -124,10 +126,10 @@ const faqSchema = {
         packages.map((pkg) => (
           <div
             class:list={[
-              "rounded-3xl p-7 sm:p-9 flex flex-col justify-between transition-all duration-300 group relative",
+              "rounded-2xl p-7 sm:p-9 flex flex-col justify-between transition-colors duration-200 group relative",
               pkg.isFeatured
                 ? "md:col-span-2 bg-gradient-to-br from-amber-50/60 via-white to-yellow-50/40 border-2 border-amber-400 shadow-xl shadow-amber-500/10 hover:border-amber-500 ring-4 ring-amber-400/10"
-                : "bg-white border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.03)] hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-500/5"
+                : "bg-white border border-slate-200 hover:border-slate-400"
             ]}
           >
             {pkg.isFeatured && (
@@ -258,7 +260,7 @@ const faqSchema = {
                       <a
                         href={`/contact?servei=${pkg.id}`}
                         data-analytics-cta={pkg.id}
-                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-[#FFE600] hover:bg-yellow-400 text-slate-950 shadow-md shadow-yellow-500/20 transition group/btn text-center"
+                        class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-[#FFFF00] hover:bg-yellow-400 text-slate-950 shadow-md shadow-yellow-500/20 transition group/btn text-center"
                       >
                         <span>{pkg.ctaText}</span>
                         <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />

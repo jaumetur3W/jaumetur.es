@@ -3,6 +3,7 @@ import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import EasterEggs from "@/components/easter-eggs.astro";
+import { alternatePaths, localeFromPath } from "@/i18n";
 import "@fontsource-variable/inter/index.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "../styles/global.css";
@@ -32,6 +33,11 @@ const {
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
+const locale = localeFromPath(Astro.url.pathname);
+const activeLang = locale === "val" ? "ca-ES-valencia" : "es";
+const alternatePathsForPage = alternatePaths(Astro.url.pathname);
+const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
+const valencianURL = new URL(alternatePathsForPage.val, siteUrl).toString();
 const canonicalURL = customCanonical || new URL(Astro.url.pathname, siteUrl).toString();
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
@@ -150,7 +156,7 @@ const blogPostSchema = isBlogPost ? {
 ---
 
 <!doctype html>
-<html lang={lang} class="scroll-smooth overflow-x-clip">
+<html lang={activeLang} class="scroll-smooth overflow-x-clip">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -170,6 +176,15 @@ const blogPostSchema = isBlogPost ? {
         } catch (_) {}
       })();
     </script>
+    {locale === "val" && <script is:inline>
+      {`document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("a[href^='/']").forEach(function (link) {
+          var value = link.getAttribute("href");
+          if (!value || value.startsWith("/val/") || value.startsWith("/docs/") || value === "/rss.xml") return;
+          link.setAttribute("href", value === "/" ? "/val/" : "/val" + value);
+        });
+      });`}
+    </script>}
 
     <!-- RSS Feed Autodiscovery -->
     <link
@@ -181,9 +196,9 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- Canonical and Hreflang Tags for i18n -->
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang="ca" href={canonicalURL} />
-    <link rel="alternate" hreflang="es" href={canonicalURL} />
-    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+    <link rel="alternate" hreflang="es" href={spanishURL} />
+    <link rel="alternate" hreflang="ca-ES-valencia" href={valencianURL} />
+    <link rel="alternate" hreflang="x-default" href={spanishURL} />
 
     <!-- SEO & Social OpenGraph -->
     <SEO
@@ -212,7 +227,7 @@ const blogPostSchema = isBlogPost ? {
         optional: {
           siteName: "Jaume Tur — Portfolio & Blog Tècnic",
           description: description,
-          locale: "ca_ES",
+          locale: locale === "val" ? "ca_ES" : "es_ES",
         },
       }}
     />

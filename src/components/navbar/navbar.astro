@@ -2,21 +2,26 @@
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
 
-const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const rawPathname = Astro.url.pathname;
+const isVal = rawPathname === "/val" || rawPathname.startsWith("/val/");
+const pathname = (isVal ? rawPathname.replace(/^\/val/, "") : rawPathname).replace(/\/$/, "") || "/";
+const localizedPath = (path: string) => isVal ? `/val${path === "/" ? "/" : path}` : path;
+const spanishPath = pathname;
+const valencianPath = `/val${pathname === "/" ? "/" : pathname}`;
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
   return pathname.startsWith(path);
 };
 
 const navLinks = [
-  { title: "Projectes", path: "/projectes" },
-  { title: "Blog", path: "/blog" },
-  { title: "Serveis", path: "/pricing" },
-  { title: "Sobre mi", path: "/about" },
+  { title: isVal ? "Projectes" : "Proyectos", path: "/projectes" },
+  { title: isVal ? "Preus" : "Precios", path: "/pricing" },
+  { title: isVal ? "Sobre mi" : "Sobre mí", path: "/about" },
+  { title: isVal ? "Contacte" : "Contacto", path: "/contact" },
 ];
 ---
 
-<div class="sticky top-0 z-50 w-full bg-slate-50/95 backdrop-blur-md border-b border-slate-200/80 transition-colors">
+<div class="sticky top-0 z-50 w-full bg-white border-b border-slate-200/80 transition-colors">
   <Container>
     <header id="site-header" class="relative flex items-center justify-between py-2.5 min-h-[56px]">
       
@@ -24,12 +29,12 @@ const navLinks = [
       <div class="flex items-center">
         <!-- Isotip en mòbil -->
         <a
-          href="/"
-          class="flex lg:hidden items-center p-1 rounded-xl min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
+          href={localizedPath("/")}
+          class="flex lg:hidden items-center p-1 rounded-xl min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
           title="Jaume Tur — Inici"
           aria-label="Jaume Tur — Inici">
           <div class="relative w-10 h-10 shrink-0">
-            <div class="absolute inset-0 bg-[#FFE600] rounded-xl blur-xs opacity-60"></div>
+            <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35"></div>
             <img
               src="/img/jt.LOGO-02-128.webp"
               alt="Isotip oficial de Jaume Tur"
@@ -44,12 +49,12 @@ const navLinks = [
 
         <!-- Wordmark a l'esquerra en escriptori -->
         <a
-          href="/"
-          class="hidden lg:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded-xl p-1"
+          href={localizedPath("/")}
+          class="hidden lg:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl p-1"
           title="Jaume Tur — Inici"
           aria-label="Jaume Tur — Inici">
           <div class="relative w-9 h-9 shrink-0">
-            <div class="absolute inset-0 bg-[#FFE600] rounded-xl blur-xs opacity-60 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35 group-hover:opacity-60 transition-opacity"></div>
             <img
               src="/img/jt.LOGO-02-128.webp"
               alt="Isotip Jaume Tur"
@@ -61,16 +66,16 @@ const navLinks = [
             />
           </div>
           <div class="flex items-center gap-1.5">
-            <span class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-indigo-600 transition-colors">
-              jaume<span class="text-indigo-600">.</span>
+            <span class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-slate-700 transition-colors">
+              jaume<span class="text-slate-900">.</span>
             </span>
-            <span class="text-xs font-mono font-extrabold px-1.5 py-0.5 rounded-md bg-[#FFE600] text-slate-950 shadow-2xs">www</span>
+            <span class="text-xs font-mono font-extrabold px-1.5 py-0.5 rounded-md bg-[#FFFF00] text-slate-950 shadow-2xs">www</span>
           </div>
         </a>
       </div>
 
       <!-- Navegació d'escriptori (Màxim 6 enllaços incloent accions) -->
-      <nav class="hidden lg:flex items-center gap-1" aria-label="Navegació principal">
+      <nav class="hidden lg:flex items-center gap-1" aria-label={isVal ? "Navegació principal" : "Navegación principal"}>
         <ul class="flex items-center gap-1">
           {
             navLinks.map((item) => {
@@ -78,12 +83,12 @@ const navLinks = [
               return (
                 <li>
                   <a
-                    href={item.path}
+                    href={localizedPath(item.path)}
                     class:list={[
-                      "px-3 py-1.5 text-xs font-semibold rounded-lg transition border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600",
+                      "px-3 py-2 text-xs font-semibold rounded-lg transition border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
                       active
-                        ? "text-indigo-700 bg-indigo-50/80 border-indigo-200/80 font-bold shadow-2xs"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white hover:shadow-2xs border-transparent"
+                        ? "text-slate-950 bg-[#FFFF00] border-[#FFFF00] font-bold"
+                        : "text-slate-600 hover:text-slate-950 hover:bg-white border-transparent"
                     ]}
                     aria-current={active ? "page" : undefined}>
                     <span>{item.title}</span>
@@ -95,32 +100,17 @@ const navLinks = [
         </ul>
       </nav>
 
-      <!-- Botons d'acció a la dreta (Escriptori) -->
-      <div class="hidden lg:flex items-center gap-2">
-        <a
-          href="/docs/CV_Jaume_tur.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-indigo-600 border border-slate-200/90 hover:border-indigo-300 rounded-xl bg-white hover:bg-slate-50 transition shadow-2xs group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600"
-          title="Obrir currículum en PDF">
-          <Icon name="bx:file" class="w-3.5 h-3.5 text-slate-500 group-hover:text-indigo-600 transition-colors" />
-          <span>CV</span>
-          <span class="text-[10px] text-slate-400 font-mono">↗</span>
-        </a>
-
-        <a
-          href="/contact"
-          class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-white bg-slate-900 hover:bg-indigo-600 rounded-xl shadow-xs transition group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600">
-          <Icon name="bx:message-square-dots" class="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
-          <span>Contactar</span>
-        </a>
-      </div>
+      <nav class="hidden lg:flex items-center gap-1 border-l border-slate-200 pl-3 text-xs font-bold" aria-label="Selector d'idioma">
+        <a href={spanishPath} lang="es" aria-current={!isVal ? "page" : undefined} class:list={["rounded px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", !isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600 hover:text-slate-950"]}>ES</a>
+        <span aria-hidden="true" class="text-slate-300">|</span>
+        <a href={valencianPath} lang="ca-valencia" aria-current={isVal ? "page" : undefined} class:list={["rounded px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600 hover:text-slate-950"]}>VAL</a>
+      </nav>
 
       <!-- Menú Mòbil (<details>/<summary> accessible, sense drawer lateral, sense overlay) -->
       <details id="mobile-menu-details" class="lg:hidden group">
         <summary
           id="mobile-menu-summary"
-          class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white font-bold text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 transition shadow-2xs"
+          class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white font-bold text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] transition"
           aria-label="Menú principal de navegació"
           aria-controls="mobile-nav-panel"
           aria-expanded="false">
@@ -131,8 +121,8 @@ const navLinks = [
 
         <div
           id="mobile-nav-panel"
-          class="absolute left-0 right-0 top-full w-full bg-white border-b border-slate-200/90 shadow-xl p-4 transition-all">
-          <nav aria-label="Navegació mòbil">
+          class="absolute left-0 right-0 top-full w-full bg-white border-b border-slate-200/90 shadow-md p-4 transition-all">
+          <nav aria-label={isVal ? "Navegació mòbil" : "Navegación móvil"}>
             <ul class="flex flex-col gap-1">
               {
                 navLinks.map((item) => {
@@ -140,11 +130,11 @@ const navLinks = [
                   return (
                     <li>
                       <a
-                        href={item.path}
+                        href={localizedPath(item.path)}
                         class:list={[
-                          "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-xl text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600",
+                          "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-lg text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
                           active
-                            ? "bg-indigo-50 text-indigo-700 font-bold border border-indigo-200/80"
+                            ? "bg-[#FFFF00] text-slate-950 font-bold border border-[#FFFF00]"
                             : "text-slate-700 hover:bg-slate-50 border border-transparent"
                         ]}
                         aria-current={active ? "page" : undefined}>
@@ -154,23 +144,10 @@ const navLinks = [
                   );
                 })
               }
-              <li class="pt-2 border-t border-slate-100 flex flex-col gap-2 mt-1">
-                <a
-                  href="/docs/CV_Jaume_tur.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-xl border border-slate-200 bg-white text-slate-800 font-bold text-xs hover:bg-slate-50 transition shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600">
-                  <Icon name="bx:file" class="w-4 h-4 text-indigo-600" />
-                  <span>CV</span>
-                  <span class="text-[11px] font-mono text-slate-400">↗</span>
-                </a>
-                
-                <a
-                  href="/contact"
-                  class="flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600">
-                  <Icon name="bx:message-square-dots" class="w-4 h-4 text-white" />
-                  <span>Contactar</span>
-                </a>
+              <li class="mt-2 flex items-center gap-1 border-t border-slate-100 pt-2 px-3.5 text-xs font-bold" aria-label="Selector d'idioma">
+                <a href={spanishPath} lang="es" aria-current={!isVal ? "page" : undefined} class:list={["min-h-11 inline-flex items-center rounded px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", !isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600"]}>ES</a>
+                <span aria-hidden="true" class="text-slate-300">|</span>
+                <a href={valencianPath} lang="ca-valencia" aria-current={isVal ? "page" : undefined} class:list={["min-h-11 inline-flex items-center rounded px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600"]}>VAL</a>
               </li>
             </ul>
           </nav>
