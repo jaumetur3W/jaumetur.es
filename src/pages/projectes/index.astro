@@ -2,115 +2,128 @@
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
-import Sectionhead from "@/components/sectionhead.astro";
-import { Icon } from "astro-icon/components";
 
-// Fetch all project case studies
 const projects = await getCollection("projectes");
 projects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+const projectPreviews: Record<string, { src: string; alt: string }> = {
+  avisa: {
+    src: "/img/preview-avisa.webp",
+    alt: "Pàgina principal de la plataforma de serveis AVISA",
+  },
+  "dashboard-telemetria": {
+    src: "/img/preview-dashboard.webp",
+    alt: "Gràfic d'analítica il·lustratiu per al projecte de telemetria",
+  },
+  "pipeline-cicd": {
+    src: "/img/preview-pipeline.webp",
+    alt: "Historial públic de fluxos de GitHub Actions del projecte CI/CD",
+  },
+};
+
+const projectRoles: Record<string, string> = {
+  avisa: "Arquitectura frontend i desenvolupament d'interfície",
+  "pizzeria-xativa": "Desenvolupament frontend i disseny d'interfície",
+  "burger-xativa": "Desenvolupament frontend i disseny d'interfície",
+  "dashboard-telemetria": "Desenvolupament frontend i rendiment web",
+  "pipeline-cicd": "DevOps i lideratge frontend",
+};
 ---
 
 <Layout
-  title="Casos d'Estudi d'Enginyeria Frontend & Web Apps"
-  description="Arquitectures frontend en producció, solucions d'alt rendiment a 60 FPS, accessibilitat WCAG AA i pipelines CI/CD automatitzats per Jaume Tur a València."
+  title="Projectes web i casos d'estudi"
+  description="Projectes personals, demos i treballs de desenvolupament web de Jaume Tur. Consulta el meu rol, les tecnologies i els casos d'estudi."
 >
   <Container>
-    <div class="mt-8 mb-4">
-      <Sectionhead>
-        <Fragment slot="title">Casos d'Estudi d'Enginyeria</Fragment>
-        <Fragment slot="desc">
-          Projectes reals desenvolupats des de la definició d'arquitectura fins a la producció contínua, amb mètriques verificables de rendiment i accessibilitat.
-        </Fragment>
-      </Sectionhead>
-    </div>
-
-    <!-- Honest Quality Assurance Banner -->
-    <div class="max-w-4xl mx-auto my-8 p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200/80 flex items-center justify-between flex-wrap gap-3 shadow-2xs">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
-          <Icon name="bx:check-shield" class="w-4 h-4" />
-        </div>
-        <p class="text-xs font-mono text-slate-700">
-          <strong class="text-indigo-900 font-bold">Protocol d'Honestedat Tècnica:</strong> Cada afirmació està mesurada amb Lighthouse, DevTools o axe-core.
-        </p>
-      </div>
+    <header class="mx-auto max-w-3xl pt-12 pb-10 sm:pt-16 sm:pb-12">
+      <p class="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
+        <span class="h-1.5 w-8 rounded-full bg-[#FFFF00]" aria-hidden="true"></span>
+        Portafolis
+      </p>
+      <h1 class="max-w-2xl text-3xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+        Projectes que expliquen <span class="decoration-[#FFFF00] decoration-[0.22em] underline underline-offset-2">com treballe</span>
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+        Aplicacions, demos i projectes de desenvolupament web. En cada fitxa trobaràs què és, el meu paper i les tecnologies utilitzades.
+      </p>
       <a
         href="/qualitat"
-        class="inline-flex items-center gap-1 text-xs font-mono font-bold text-indigo-700 hover:text-indigo-900 transition">
-        <span>Veure /qualitat</span>
-        <span>→</span>
+        class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-slate-700 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+      >
+        Consulta els criteris de revisió tècnica <span aria-hidden="true">↗</span>
       </a>
-    </div>
+    </header>
 
-    <!-- Case Studies Bento Grid -->
-    <div class="max-w-5xl mx-auto mb-20 grid grid-cols-1 md:grid-cols-2 gap-8">
-      {projects.map((project) => (
-        <article class="group bg-white rounded-3xl border border-slate-200/90 shadow-2xs hover:border-indigo-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden">
-          <div>
-            <!-- Device Mockup / Preview Image -->
-            <a href={`/projectes/${project.id}`} class="block aspect-[16/10] bg-slate-100 overflow-hidden relative border-b border-slate-100">
+    <section aria-label="Projectes" class="mb-20">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+        {projects.map((project) => {
+          const preview = projectPreviews[project.id] ?? project.data.image;
+          return (
+          <article class="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-colors duration-200 hover:border-slate-400">
+            <a
+              href={`/projectes/${project.id}`}
+              class="relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]"
+              aria-label={`Veure el cas d'estudi: ${project.data.title}`}
+            >
               <img
-                src={project.data.image.src}
-                alt={project.data.image.alt}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                src={preview.src}
+                alt={preview.alt}
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 loading="lazy"
+                decoding="async"
               />
-              <div class="absolute top-3 left-3 flex items-center gap-2">
-                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-slate-900/90 text-white backdrop-blur-xs shadow-md">
-                  {project.data.year}
-                </span>
-                <span class="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500 text-white shadow-md">
-                  {project.data.statValue}
-                </span>
-              </div>
+              <span class="absolute left-4 top-4 rounded-md bg-[#FFFF00] px-2.5 py-1 text-xs font-semibold text-slate-950">
+                {project.id === "avisa" ? "Projecte de client" : project.data.badge}
+              </span>
             </a>
 
-            <!-- Case Study Meta & Summary -->
-            <div class="p-6 sm:p-7">
-              <div class="flex items-center gap-2 text-xs font-mono text-indigo-600 font-bold mb-2">
-                <Icon name={project.data.icon} class="w-4 h-4 text-indigo-600" />
-                <span>{project.data.role}</span>
-                <span class="text-slate-300">•</span>
-                <span class="text-slate-500">{project.data.client}</span>
-              </div>
-
-              <h2 class="text-2xl font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight mb-3">
-                <a href={`/projectes/${project.id}`}>
+            <div class="flex flex-1 flex-col p-5 sm:p-6">
+              <h2 class="text-xl font-bold leading-snug tracking-tight text-slate-950 sm:text-2xl">
+                <a
+                  href={`/projectes/${project.id}`}
+                  class="rounded-sm decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                >
                   {project.data.title}
                 </a>
               </h2>
-
-              <p class="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-6">
+              <p class="mt-3 max-w-prose text-sm leading-6 text-slate-600 sm:text-base">
                 {project.data.subtitle}
               </p>
 
-              <!-- Engineering Stack Pills -->
-              <div class="flex flex-wrap gap-1.5 mb-2">
-                {project.data.stack.map((tech) => (
-                  <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700">
-                    {tech}
-                  </span>
-                ))}
+              <dl class="mt-5 border-t border-slate-100 pt-4">
+                <div>
+                  <dt class="text-xs font-semibold text-slate-500">El meu rol</dt>
+                  <dd class="mt-1 text-sm font-medium text-slate-800">{projectRoles[project.id] ?? project.data.role}</dd>
+                </div>
+                <div class="mt-4">
+                  <dt class="text-xs font-semibold text-slate-500">Tecnologies</dt>
+                  <dd class="mt-1 text-sm leading-6 text-slate-700">{project.data.stack.join(" · ")}</dd>
+                </div>
+              </dl>
+
+              <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-100 pt-5 mt-5 text-sm font-semibold">
+                <a
+                  href={`/projectes/${project.id}`}
+                  class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-950 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                >
+                  Cas d'estudi <span aria-hidden="true">↗</span>
+                </a>
+                {project.data.liveUrl && (
+                  <a
+                    href={project.data.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-950 hover:decoration-[#FFFF00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                  >
+                    Obrir projecte <span aria-hidden="true">↗</span>
+                  </a>
+                )}
               </div>
             </div>
-          </div>
-
-          <!-- Bottom Action Bar -->
-          <div class="px-6 sm:px-7 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs font-mono">
-            <span class="text-slate-500">
-              Verificació: <strong class="text-slate-700">{project.data.verificationMethod.split('&')[0]}</strong>
-            </span>
-            <a
-              href={`/projectes/${project.id}`}
-              class="inline-flex items-center gap-1 font-bold text-indigo-600 hover:text-indigo-800 transition"
-            >
-              <span>Llegir cas complet</span>
-              <span>→</span>
-            </a>
-          </div>
-        </article>
-      ))}
-    </div>
+          </article>
+          );
+        })}
+      </div>
+    </section>
   </Container>
 </Layout>
-

@@ -14,7 +14,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(mainLandmark).toBeAttached();
   });
 
-  test("Bento grid displays all 4 featured projects linking to case studies", async ({ page }) => {
+  test("Featured projects link to their case studies and label client/demo work", async ({ page }) => {
     await page.goto("/#projectes");
     const projectsSection = page.locator("#projectes");
     await expect(projectsSection).toBeVisible();
@@ -25,11 +25,14 @@ test.describe("Critical User Journeys & Technical Quality", () => {
 
     const pizzeriaLink = page.locator('a[href="/projectes/pizzeria-xativa"]').first();
     await expect(pizzeriaLink).toBeVisible();
+    await expect(projectsSection.getByText("Projecte de client")).toBeVisible();
+    await expect(projectsSection.getByText("Demo · contingut fictici").first()).toBeVisible();
+    await expect(projectsSection.locator("article")).toHaveCount(3);
   });
 
   test("Case study page loads with honest verification badge and JSON-LD", async ({ page }) => {
     await page.goto("/projectes/avisa");
-    await expect(page.locator("h1")).toContainText("AVISA");
+    await expect(page.locator("main h1")).toContainText("AVISA");
 
     // Check JSON-LD schema containing SoftwareSourceCode
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
@@ -71,14 +74,13 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await page.goto("/");
     
     // Desktop navigation links
-    const desktopLinks = page.locator("nav[aria-label='Navegació principal'] > ul > li > a");
-    await expect(desktopLinks.filter({ hasText: "Projectes" })).toHaveAttribute("href", "/projectes");
-    await expect(desktopLinks.filter({ hasText: "Blog" })).toHaveAttribute("href", "/blog");
-    await expect(desktopLinks.filter({ hasText: "Serveis" })).toHaveAttribute("href", "/pricing");
-    await expect(desktopLinks.filter({ hasText: "Sobre mi" })).toHaveAttribute("href", "/about");
+    const desktopLinks = page.locator("nav[aria-label='Navegación principal'] > ul > li > a");
+    await expect(desktopLinks.filter({ hasText: "Proyectos" })).toHaveAttribute("href", "/projectes");
+    await expect(desktopLinks.filter({ hasText: "Precios" })).toHaveAttribute("href", "/pricing");
+    await expect(desktopLinks.filter({ hasText: "Sobre mí" })).toHaveAttribute("href", "/about");
+    await expect(desktopLinks.filter({ hasText: "Contacto" })).toHaveAttribute("href", "/contact");
 
-    // Action buttons
-    await expect(page.locator('header a[href="/docs/CV_Jaume_tur.pdf"]').first()).toBeAttached();
+    // Contact is a regular navigation destination, with no extra header CTA.
     await expect(page.locator('header a[href="/contact"]').first()).toBeAttached();
 
     // Internal anchors must NOT be in the header
@@ -106,10 +108,10 @@ test.describe("Critical User Journeys & Technical Quality", () => {
 
     // Footer contains 3 columns (Navegar, Recursos, Contacte)
     const footer = page.locator("footer");
-    await expect(footer.getByText("Navegar")).toBeVisible();
+    await expect(footer.getByText("Navegación")).toBeVisible();
     await expect(footer.getByText("Recursos")).toBeVisible();
-    await expect(footer.getByText("Contacte")).toBeVisible();
-    await expect(footer.getByText("Desenvolupador Web · Frontend")).toBeVisible();
+    await expect(footer.locator("h3").filter({ hasText: "Contacto" })).toBeVisible();
+    await expect(footer.getByText("Desarrollador web · Frontend")).toBeVisible();
   });
 
   test("Contact form triggers accessible validation on empty submit", async ({ page }) => {

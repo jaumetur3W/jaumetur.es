@@ -4,6 +4,8 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath } from "@/i18n";
+const isVal = localeFromPath(Astro.url.pathname) === "val";
 ---
 
 <Layout
@@ -12,7 +14,7 @@ import { Icon } from "astro-icon/components";
   <Container>
     <!-- Capçalera -->
     <Sectionhead>
-      <Fragment slot="title">Parlem del teu projecte</Fragment>
+      <Fragment slot="title">{isVal ? "Parlem del teu projecte" : "Hablemos de tu proyecto"}</Fragment>
       <Fragment slot="desc">
         Desenvolupador web a València disponible per a nous projectes, consultoria en Angular i oportunitats laborals en modalitat remota o híbrida.
       </Fragment>
@@ -25,7 +27,7 @@ import { Icon } from "astro-icon/components";
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span>Temps de resposta habitual: &lt; 24 hores laborables</span>
+        <span>{isVal ? "Temps de resposta habitual: < 24 hores laborables" : "Tiempo de respuesta habitual: < 24 horas laborables"}</span>
       </div>
     </div>
 
@@ -35,7 +37,7 @@ import { Icon } from "astro-icon/components";
       <div class="lg:col-span-5 space-y-4">
         
         <!-- Targeta d'identitat amb Memoji 3.png -->
-        <div class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-[0_2px_12px_rgba(15,23,42,0.04)] relative overflow-visible group">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 relative overflow-visible group transition-colors hover:border-slate-400">
           <div class="flex items-center gap-4">
             <div class="relative shrink-0 -my-4 -ml-2 z-10">
               <img
@@ -187,12 +189,12 @@ import { Icon } from "astro-icon/components";
       </div>
 
       <!-- Columna Dreta: Formulari Accessible (7 columnes) -->
-      <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-[0_2px_16px_rgba(15,23,42,0.04)]">
+      <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 transition-colors hover:border-slate-400">
         <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
           <div>
             <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
               <Icon name="bx:message-square-edit" class="w-5 h-5 text-indigo-600" />
-              <span>Formulari de proposta</span>
+              <span>{isVal ? "Formulari de proposta" : "Formulario de propuesta"}</span>
             </h3>
             <p class="text-xs text-slate-500 mt-0.5">
               Completa les dades i rebràs una valoració tècnica sense compromís.

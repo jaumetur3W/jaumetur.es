@@ -12,7 +12,7 @@ badge: "Demo interactiva · dades fictícies"
 statLabel: "Funcionalitat demostrada"
 statValue: "Pizza Pass · interaccions simulades"
 verificationMethod: "Revisió de la web publicada i dels missatges visibles de demostració"
-liveUrl: "https://jautur.github.io/margherita_xativa/"
+liveUrl: "https://jautur.github.io/pizzeria_xativa/"
 stack: ["HTML5", "Tailwind CSS CDN", "JavaScript vanilla", "WhatsApp deep links", "Apple Wallet / Google Wallet UI"]
 order: 2
 image: {

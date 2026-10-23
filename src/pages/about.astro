@@ -3,6 +3,9 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath } from "@/i18n";
+
+const isVal = localeFromPath(Astro.url.pathname) === "val";
 
 const pillars = [
   {
@@ -30,15 +33,15 @@ const highlights = [
 ];
 ---
 
-<Layout title="Sobre mi">
+<Layout title={isVal ? "Sobre mi" : "Sobre mí"} description={isVal ? "Trajectòria, principis d'enginyeria i enfocament professional de Jaume Tur." : "Trayectoria, principios de ingeniería y enfoque profesional de Jaume Tur."}>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Sobre mi</Fragment>
-      <Fragment slot="desc">Trajectòria, principis d'enginyeria i enfocament professional.</Fragment>
+      <Fragment slot="title">{isVal ? "Sobre mi" : "Sobre mí"}</Fragment>
+      <Fragment slot="desc">{isVal ? "Trajectòria, principis d'enginyeria i enfocament professional." : "Trayectoria, principios de ingeniería y enfoque profesional."}</Fragment>
     </Sectionhead>
 
     <!-- Main Profile Card with Memoji 1.png: Unified Surface Palette -->
-    <div class="mt-14 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] relative pt-12 sm:pt-14 group">
+    <div class="mt-14 bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 relative pt-12 sm:pt-14 group transition-colors hover:border-slate-400">
       
       <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12">
         
@@ -60,7 +63,7 @@ const highlights = [
 
           <span class="relative -mt-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-md">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Disponible per a projectes</span>
+            <span>{isVal ? "Disponible per a projectes" : "Disponible para proyectos"}</span>
           </span>
         </div>
 
@@ -154,7 +157,7 @@ const highlights = [
       <div class="grid md:grid-cols-3 gap-6">
         {
           pillars.map((pillar) => (
-            <div class="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between group">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-400 transition-colors flex flex-col justify-between group">
               <div>
                 <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50 border border-indigo-200/60 shadow-2xs group-hover:scale-110 transition-transform text-indigo-600">
                   <Icon name={pillar.icon} class="w-6 h-6" />
