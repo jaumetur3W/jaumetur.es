@@ -14,7 +14,7 @@ interface ProjectItem {
   statIcon: string;
   statColor: string;
   colSpan: string;
-  previewType: "incidents" | "restaurant" | "burger" | "telemetry" | "pipeline";
+  previewType: "incidents" | "restaurant" | "burger" | "telemetry" | "pipeline" | "architecture";
   highlights: string[];
   tags: string[];
   verificationNote: string;
@@ -23,6 +23,30 @@ interface ProjectItem {
 }
 
 const projects: ProjectItem[] = [
+  {
+    id: "forma-espacio",
+    slug: "forma-espacio",
+    title: "FORMA / ESPACIO — Arte · Arquitectura · Investigación",
+    tagline: "Portfolio editorial dedicat a l'art, l'arquitectura i la investigació espacial.",
+    iconSeal: "bx:building",
+    sealColor: "text-violet-500 bg-violet-500/10 border-violet-500/20 group-hover:border-violet-500/40 group-hover:bg-violet-500/15",
+    badge: "Portfolio · Arquitectura",
+    badgeColor: "bg-violet-950/80 text-violet-200 border-violet-500/30",
+    statBadge: "Art · Espai · Matèria",
+    statIcon: "bx:shape-polygon",
+    statColor: "text-violet-700 bg-violet-50 border-violet-200/80",
+    colSpan: "col-span-12 lg:col-span-6",
+    previewType: "architecture",
+    highlights: [
+      "Portfolio visual d'art, arquitectura i investigació",
+      "Projectes destacats: Casa Silencio, Materia Viva i Umbral",
+      "Procés creatiu estructurat en observar, investigar i experimentar"
+    ],
+    tags: ["HTML", "CSS", "JavaScript", "Arquitectura", "Disseny editorial"],
+    verificationNote: "Contingut i seccions verificats a la demo publicada.",
+    liveUrl: "https://jaumetur3w.github.io/arq_web/",
+    githubUrl: "https://github.com/jaumetur3W/arq_web",
+  },
   {
     id: "avisa",
     slug: "avisa",
@@ -68,7 +92,7 @@ const projects: ProjectItem[] = [
     ],
     tags: ["HTML5", "Tailwind CSS CDN", "JavaScript", "WhatsApp links", "Wallet UI"],
     verificationNote: "Revisió de la web publicada; el Pizza Pass, les comandes i les dades del restaurant són de demostració.",
-    liveUrl: "https://jautur.github.io/pizzeria_xativa/",
+    liveUrl: "https://jaumetur3w.github.io/pizzeria_xativa/",
   },
   {
     id: "burger-xativa",
@@ -91,7 +115,7 @@ const projects: ProjectItem[] = [
     ],
     tags: ["Astro", "Tailwind CSS", "JavaScript", "Disseny responsive", "ES / VA"],
     verificationNote: "Revisió funcional de la demo publicada; comandes, seguiment, reserves i alta VIP no es connecten a cap servei real.",
-    liveUrl: "https://jautur.github.io/burger_xativa/",
+    liveUrl: "https://jaumetur3w.github.io/burger_xativa/",
   },
   {
     id: "dashboard-telemetria",
@@ -398,6 +422,25 @@ const projects: ProjectItem[] = [
                       </span>
                       <span class="text-emerald-400">100% OK</span>
                     </div>
+                  </div>
+                </div>
+              )}
+
+              {project.previewType === "architecture" && (
+                <div class="space-y-3">
+                  <div class="border-b border-slate-800/80 pb-2">
+                    <span class="block text-[10px] uppercase tracking-[0.2em] text-violet-300">Forma / Espacio</span>
+                    <span class="mt-1 block text-lg font-serif text-slate-100">ARTE, ESPACIO Y MATERIA.</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-[10px]">
+                    <span class="rounded-lg border border-slate-800 bg-slate-900 p-2 text-slate-300">CASA SILENCIO</span>
+                    <span class="rounded-lg border border-slate-800 bg-slate-900 p-2 text-slate-300">MATERIA VIVA</span>
+                    <span class="rounded-lg border border-slate-800 bg-slate-900 p-2 text-slate-300">UMBRAL</span>
+                    <span class="rounded-lg border border-slate-800 bg-slate-900 p-2 text-slate-300">PAISAJE INTERIOR</span>
+                  </div>
+                  <div class="flex items-center justify-between text-[10px] text-violet-300">
+                    <span>Observar → Investigar → Experimentar</span>
+                    <Icon name="bx:shape-polygon" class="h-4 w-4" />
                   </div>
                 </div>
               )}

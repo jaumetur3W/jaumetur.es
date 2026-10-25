@@ -11,6 +11,7 @@ describe("Portfolio Architecture & Business Logic", () => {
     expect(calculateReadingTime(2000)).toBe(10);
   });
 
+
   it("should validate allowed project slugs", () => {
     const validProjectSlugs = [
       "avisa",
@@ -36,7 +37,7 @@ describe("Portfolio Architecture & Business Logic", () => {
       jobTitle: "Desenvolupador Frontend & Web Apps",
       url: siteUrl,
       sameAs: [
-        "https://github.com/jautur",
+        "https://github.com/jaumetur3W",
         "https://www.linkedin.com/in/jautur/",
         "https://twitter.com/jautur",
       ],
@@ -145,4 +146,3 @@ describe("Portfolio Architecture & Business Logic", () => {
     expect(brandTokens.deepSlate).toBe("#0F172A");
   });
 });
-

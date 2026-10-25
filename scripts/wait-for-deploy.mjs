@@ -13,7 +13,7 @@ async function checkAll() {
   let anyFailed = false;
 
   for (const id of runIds) {
-    const res = await fetch(`https://api.github.com/repos/jautur/jaumetur.es/actions/runs/${id}`, {
+    const res = await fetch(`https://api.github.com/repos/jaumetur3W/jaumetur.es/actions/runs/${id}`, {
       headers: {
         'Authorization': 'token ' + token,
         'User-Agent': 'Node-Fetch'

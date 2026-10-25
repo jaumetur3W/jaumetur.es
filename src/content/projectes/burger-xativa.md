@@ -12,7 +12,7 @@ badge: "Demo interactiva · no rep comandes reals"
 statLabel: "Abast funcional"
 statValue: "Fluïxos simulats · sense backend"
 verificationMethod: "Revisió de la demo publicada i dels textos d'estat de cada flux"
-liveUrl: "https://jautur.github.io/burger_xativa/"
+liveUrl: "https://jaumetur3w.github.io/burger_xativa/"
 stack: ["Astro", "HTML estàtic", "Tailwind CSS", "JavaScript vanilla", "Disseny responsive", "ES / VA"]
 order: 3
 image: {
