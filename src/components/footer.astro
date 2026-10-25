@@ -30,6 +30,7 @@ const navCol2 = [
 
 const navCol3 = [
   { title: "jaumetur3w@gmail.com", path: "mailto:jaumetur3w@gmail.com", icon: "bx:envelope", desc: "Correu professional" },
+  { title: "Google Maps", path: "https://share.google/3tihWcZBWMyYHmjBp", icon: "bx:map-pin", external: true, desc: "Perfil a Google" },
   { title: "GitHub", path: "https://github.com/jaumetur3W", icon: "bx:bxl-github", external: true, desc: "Codi i repositoris" },
   { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin", external: true, desc: "Perfil professional" },
   { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram", external: true, desc: "@jaume.www oficial" },
@@ -191,10 +192,15 @@ const navCol3 = [
       </div>
       
       <div class="flex items-center gap-3">
-        <span class="text-indigo-600 font-semibold flex items-center gap-1">
+        <a
+          href="https://share.google/3tihWcZBWMyYHmjBp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 transition"
+          title={isVal ? "Veure fitxa a Google Maps" : "Ver ficha en Google Maps"}>
           <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-indigo-600" />
-          <span>{isVal ? "València, Espanya" : "Valencia, España"}</span>
-        </span>
+          <span>{isVal ? "Xàtiva / València, Espanya" : "Xàtiva / Valencia, España"}</span>
+        </a>
         <span>•</span>
         <a href="#top" class="hover:text-slate-900 transition flex items-center gap-1 font-bold group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded p-0.5">
           <Icon name="bx:up-arrow-alt" class="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
