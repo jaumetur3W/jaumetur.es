@@ -127,14 +127,16 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
     </p>
   </div>
 
-  <!-- Botó d'Enviament -->
-  <button
-    type="submit"
-    id="contact-submit-btn"
-    class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md transition group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-    <Icon name="bx:paper-plane" class="w-4 h-4 text-indigo-400 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
-      <span id="submit-btn-text">{isVal ? "Preparar el correu amb la consulta" : "Preparar el correo con la consulta"}</span>
-  </button>
+  <!-- Botons d'Acció de Contacte (Correu directe i còpia ràpida) -->
+  <div class="space-y-2 pt-1">
+    <button
+      type="submit"
+      id="contact-submit-btn"
+      class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md transition group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+      <Icon name="bx:paper-plane" class="w-4 h-4 text-indigo-400 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
+      <span id="submit-btn-text">{isVal ? "Obrir correu amb la proposta preparada" : "Abrir correo con la propuesta preparada"}</span>
+    </button>
+  </div>
 
   <!-- Banner d'Estat Accessible (Live Region) -->
   <div
@@ -275,13 +277,13 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
             showStatus(isVal ? "La consulta està preparada. Revisa-la i confirma l'enviament des del client de correu." : "La consulta está preparada. Revísala y confirma el envío desde tu cliente de correo.", true);
             form.reset();
             if (submitBtn) submitBtn.disabled = false;
-            if (submitBtnText) submitBtnText.textContent = isVal ? "Enviar proposta / consulta" : "Enviar propuesta / consulta";
+            if (submitBtnText) submitBtnText.textContent = isVal ? "Obrir correu amb la proposta preparada" : "Abrir correo con la propuesta preparada";
           }, 400);
 
         } catch (err) {
           showStatus(isVal ? "No s'ha pogut tramitar el formulari automàticament. Pots escriure a jaumetur3w@gmail.com." : "No se ha podido preparar el formulario automáticamente. Puedes escribir a jaumetur3w@gmail.com.", false);
           if (submitBtn) submitBtn.disabled = false;
-          if (submitBtnText) submitBtnText.textContent = isVal ? "Enviar proposta / consulta" : "Enviar propuesta / consulta";
+          if (submitBtnText) submitBtnText.textContent = isVal ? "Obrir correu amb la proposta preparada" : "Abrir correo con la propuesta preparada";
         }
       });
     }

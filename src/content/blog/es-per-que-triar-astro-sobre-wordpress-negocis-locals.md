@@ -45,3 +45,22 @@ Con un sitio generado con Astro:
 ## 3. Coste del servidor frente al retorno
 
 Mientras que un WordPress lento obliga a pagar servidores de 10 € a 30 € al mes para soportar picos de tráfico sin caerse, un proyecto estático en Astro tiene un coste de alojamiento de **0 €**; solo se paga el registro anual del dominio propio.
+
+---
+
+## 4. El impacto directo en el SEO Local y las conversiones
+
+En búsquedas locales en Xàtiva, Valencia o cualquier otra localidad (por ejemplo: *"clínica dental en Xàtiva"*, *"restaurante en la Costera"* o *"abogado en Valencia"*), los usuarios navegan en más de un 80% desde dispositivos móviles. 
+
+Si la web tarda más de 2,5 segundos en abrirse por la sobrecarga de temas pesados de WordPress:
+1. El usuario regresa a los resultados de búsqueda de Google (aumentando la tasa de rebote).
+2. Google detecta una mala experiencia en los **Core Web Vitals** (LCP y CLS) y reduce la posición del negocio en el Local 3-Pack de Google Maps.
+3. El coste por adquisición de clientes se dispara.
+
+Con Astro y Tailwind CSS, la carga es instantánea (menos de 0,5 segundos), lo que multiplica la retención y la llamada telefónica o contacto directo.
+
+---
+
+## ¿Tienes un negocio en Xàtiva, Valencia o alrededores y tu web actual va lenta?
+
+Si tu web actual tarda en cargar, te da problemas continuos de actualizaciones de plugins o quieres una solución moderna que posicione en Google, revisa los [servicios y tarifas de diseño web](/pricing) o [escríbeme directamente desde el formulario](/contact) para valorar tu caso.
