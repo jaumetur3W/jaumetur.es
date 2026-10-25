@@ -163,6 +163,22 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
         </div>
 
         <a
+          href="https://share.google/3tihWcZBWMyYHmjBp"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={isVal ? "Fitxa de Jaume Tur a Google Maps (s'obri en una pestanya nova)" : "Ficha de Jaume Tur en Google Maps (se abre en una pestaña nueva)"}
+          class="bg-white border border-slate-200/90 hover:border-emerald-400 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
+          <div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <Icon name="bx:map-pin" class="w-5 h-5 text-emerald-600" />
+          </div>
+          <div class="truncate">
+            <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isVal ? "Presència Local · Google Maps" : "Presencia Local · Google Maps"}</span>
+            <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">{isVal ? "Veure perfil i ressenyes a Google" : "Ver perfil y reseñas en Google"}</span>
+          </div>
+          <Icon name="bx:link-external" class="w-4 h-4 text-slate-400 ml-auto" />
+        </a>
+
+        <a
           href="https://www.instagram.com/jaume.www/"
           target="_blank"
           rel="noopener noreferrer"
