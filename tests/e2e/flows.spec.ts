@@ -40,9 +40,13 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     expect(hasSoftwareSchema).toBe(true);
   });
 
-  test("Transparency quality page /qualitat displays Lighthouse 100 metrics", async ({ page }) => {
+  test("Quality pages display localized titles and Lighthouse metrics", async ({ page }) => {
     await page.goto("/qualitat");
-    await expect(page.locator("h1")).toContainText("Qualitat");
+    await expect(page.locator("h1")).toContainText("Compromiso de calidad y rendimiento");
+    await expect(page.getByText("100", { exact: true }).first()).toBeVisible();
+
+    await page.goto("/val/qualitat");
+    await expect(page.locator("h1")).toContainText("Compromís de qualitat i rendiment");
     await expect(page.getByText("100", { exact: true }).first()).toBeVisible();
   });
 
@@ -128,25 +132,29 @@ test.describe("Critical User Journeys & Technical Quality", () => {
 
   test("Pricing page displays service packages including key local digitization offer and structured FAQ", async ({ page }) => {
     await page.goto("/pricing");
-    await expect(page.locator("h3").filter({ hasText: "Digitalització Local" })).toBeVisible();
-    await expect(page.locator("text=Proposta Clau · Oferta Estrella")).toBeVisible();
-    await expect(page.locator("text=Des de 290 €")).toBeVisible();
-    await expect(page.locator("text=Landing Page d'Alt Rendiment")).toBeVisible();
-    await expect(page.locator("text=Preguntes freqüents")).toBeVisible();
+    await expect(page.locator("h3").filter({ hasText: "Digitalización local y carta web" })).toBeVisible();
+    await expect(page.getByText("Propuesta clave · Oferta estrella para bares y comercios")).toBeVisible();
+    await expect(page.getByText("Desde 290 €")).toBeVisible();
+    await expect(page.locator("h3").filter({ hasText: "Landing page de alto rendimiento" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Preguntas frecuentes" })).toBeVisible();
 
     // Click on detail link of key local digitization offer
     await page.click('a[href="/pricing/digitalitzacio-local"] >> nth=0');
     await expect(page).toHaveURL("/pricing/digitalitzacio-local");
-    await expect(page.locator("h1")).toContainText("Digitalització Local & Carta Web");
-    await expect(page.locator("text=El perquè de cada preu")).toBeVisible();
-    await expect(page.locator("text=Com s'amortitza aquest preu fàcilment")).toBeVisible();
-    await expect(page.locator("text=Inspirat en el cas real de la Pizzeria a Xàtiva")).toBeVisible();
-    await expect(page.locator("text=Comparativa de Mercat")).toBeVisible();
+    await expect(page.locator("h1")).toContainText("Digitalización local y carta web");
+    await expect(page.getByText("El motivo de cada precio", { exact: false })).toBeVisible();
+    await expect(page.getByText("¿Cómo se amortiza fácilmente este precio en pocos meses?")).toBeVisible();
+    await expect(page.getByText("Inspirado en el caso real de Pizzeria en Xàtiva")).toBeVisible();
+    await expect(page.getByText("Comparativa de mercado", { exact: true })).toBeVisible();
+
+    await page.goto("/val/pricing");
+    await expect(page.locator("h3").filter({ hasText: "Digitalització Local" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Preguntes freqüents" })).toBeVisible();
   });
 
   test("Brand kit page /marca displays official logo and download links", async ({ page }) => {
     await page.goto("/marca");
-    await expect(page.locator("h1, h2").filter({ hasText: "Logotips" })).toBeVisible();
+    await expect(page.locator("h1, h2").filter({ hasText: "Logotipos" })).toBeVisible();
     await expect(page.locator('a[download="jt-logo-groc.png"]')).toBeVisible();
   });
 
@@ -157,4 +165,3 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.locator('img[src="/qr-jaumetur.svg"]')).toBeVisible();
   });
 });
-

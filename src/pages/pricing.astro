@@ -305,13 +305,15 @@ const faqSchema = {
     <div class="mt-20 max-w-5xl mx-auto">
       <div class="text-center mb-8">
         <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
-          Prova Social & Casos Reals
+          {isVal ? "Prova social i casos reals" : "Prueba social y casos reales"}
         </span>
         <h3 class="text-2xl font-bold text-slate-900 mt-2">
-          Projectes reals desenvolupats i verificables
+          {isVal ? "Projectes reals desenvolupats i verificables" : "Proyectos reales desarrollados y verificables"}
         </h3>
         <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-1">
-          Seguint el nostre compromís d'honestedat, cadascun d'aquests projectes disposa de cas d'estudi amb mètriques auditables:
+          {isVal
+            ? "Seguint el nostre compromís d'honestedat, cadascun d'aquests projectes disposa de cas d'estudi amb mètriques auditables:"
+            : "Como parte de nuestro compromiso con la transparencia, cada proyecto cuenta con un caso de estudio y métricas verificables:"}
         </p>
       </div>
 
@@ -322,13 +324,13 @@ const faqSchema = {
           <div>
             <div class="flex items-center justify-between mb-3">
               <Icon name="bx:bell" class="w-6 h-6 text-rose-500" />
-              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">Producció</span>
+              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">{isVal ? "Producció" : "En producción"}</span>
             </div>
             <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">AVISA</h4>
-            <p class="text-[11px] text-slate-500 mt-1">Plataforma d'incidències amb Angular Signals i WCAG AA.</p>
+            <p class="text-[11px] text-slate-500 mt-1">{isVal ? "Plataforma d'incidències amb Angular Signals i WCAG AA." : "Plataforma de incidencias con Angular Signals y WCAG AA."}</p>
           </div>
           <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
-            <span>Veure cas d'estudi</span>
+            <span>{isVal ? "Veure cas d'estudi" : "Ver caso de estudio"}</span>
             <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </a>
@@ -339,13 +341,13 @@ const faqSchema = {
           <div>
             <div class="flex items-center justify-between mb-3">
               <Icon name="bx:restaurant" class="w-6 h-6 text-amber-500" />
-              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">En línia</span>
+              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">{isVal ? "En línia" : "En línea"}</span>
             </div>
             <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pizzeria a Xàtiva</h4>
-            <p class="text-[11px] text-slate-500 mt-1">SEO Local nº1 a Google, 85KB HTML i comandes directes.</p>
+            <p class="text-[11px] text-slate-500 mt-1">{isVal ? "SEO local núm. 1 a Google, 85 KB d'HTML i comandes directes." : "SEO local n.º 1 en Google, 85 KB de HTML y pedidos directos."}</p>
           </div>
           <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
-            <span>Veure cas d'estudi</span>
+            <span>{isVal ? "Veure cas d'estudi" : "Ver caso de estudio"}</span>
             <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </a>
@@ -359,10 +361,10 @@ const faqSchema = {
               <span class="text-[10px] font-mono text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded font-bold">60 FPS</span>
             </div>
             <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Dashboard Telemetria</h4>
-            <p class="text-[11px] text-slate-500 mt-1">Renderitzat fluid en temps real i estricte Core Web Vitals.</p>
+            <p class="text-[11px] text-slate-500 mt-1">{isVal ? "Renderitzat fluid en temps real i Core Web Vitals estrictes." : "Renderizado fluido en tiempo real y Core Web Vitals estrictos."}</p>
           </div>
           <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
-            <span>Veure cas d'estudi</span>
+            <span>{isVal ? "Veure cas d'estudi" : "Ver caso de estudio"}</span>
             <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </a>
@@ -373,13 +375,13 @@ const faqSchema = {
           <div>
             <div class="flex items-center justify-between mb-3">
               <Icon name="bx:git-repo-forked" class="w-6 h-6 text-sky-500" />
-              <span class="text-[10px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded font-bold">Automàtic</span>
+              <span class="text-[10px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded font-bold">{isVal ? "Automàtic" : "Automático"}</span>
             </div>
             <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pipeline CI/CD</h4>
-            <p class="text-[11px] text-slate-500 mt-1">GitHub Actions atòmic, zero downtime i tests automàtics.</p>
+            <p class="text-[11px] text-slate-500 mt-1">{isVal ? "GitHub Actions atòmic, zero temps d'inactivitat i proves automàtiques." : "GitHub Actions atómico, sin tiempo de inactividad y con pruebas automáticas."}</p>
           </div>
           <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
-            <span>Veure cas d'estudi</span>
+            <span>{isVal ? "Veure cas d'estudi" : "Ver caso de estudio"}</span>
             <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </span>
         </a>
@@ -391,13 +393,15 @@ const faqSchema = {
     <div class="mt-20 max-w-5xl mx-auto">
       <div class="text-center mb-10">
         <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
-          Metodologia & Transparència
+          {isVal ? "Metodologia i transparència" : "Metodología y transparencia"}
         </span>
         <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
-          Com treballem junts pas a pas
+          {isVal ? "Com treballem junts pas a pas" : "Cómo trabajamos juntos paso a paso"}
         </h3>
         <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1">
-          Un procés clar i estructurat per garantir zero sorpreses i entregues a temps.
+          {isVal
+            ? "Un procés clar i estructurat per garantir zero sorpreses i entregues a temps."
+            : "Un proceso claro y estructurado para evitar sorpresas y cumplir los plazos."}
         </p>
       </div>
 
@@ -429,13 +433,15 @@ const faqSchema = {
     <div class="mt-20 max-w-3xl mx-auto">
       <div class="text-center mb-10">
         <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
-          FAQ & Resolució de Dubtes
+          {isVal ? "FAQ i resolució de dubtes" : "Preguntas y respuestas"}
         </span>
         <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
-          Preguntes freqüents
+          {isVal ? "Preguntes freqüents" : "Preguntas frecuentes"}
         </h3>
         <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1">
-          Tot el que necessites saber abans de començar un projecte.
+          {isVal
+            ? "Tot el que necessites saber abans de començar un projecte."
+            : "Todo lo que necesitas saber antes de empezar un proyecto."}
         </p>
       </div>
 
@@ -467,13 +473,15 @@ const faqSchema = {
       <div class="relative z-10 text-center max-w-xl mx-auto space-y-4">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/80 shadow-2xs">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>DISPONIBLE PER A NOUS PROJECTES</span>
+          <span>{isVal ? "DISPONIBLE PER A NOUS PROJECTES" : "DISPONIBLE PARA NUEVOS PROYECTOS"}</span>
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-          Tens una idea o un projecte que vols fer realitat?
+          {isVal ? "Tens una idea o un projecte que vols fer realitat?" : "¿Tienes una idea o un proyecto que quieres hacer realidad?"}
         </h3>
         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          Parlar és gratuït i sense cap compromís. Explica'm el teu repte tècnic i t'enviaré una proposta clara amb terminis i pressupost detallat.
+          {isVal
+            ? "Parlar és gratuït i sense cap compromís. Explica'm el teu repte tècnic i t'enviaré una proposta clara amb terminis i pressupost detallat."
+            : "La primera conversación es gratuita y sin compromiso. Cuéntame tu reto técnico y te enviaré una propuesta clara con plazos y presupuesto detallado."}
         </p>
 
         <div class="pt-4 flex flex-wrap gap-3 justify-center items-center">
@@ -482,14 +490,14 @@ const faqSchema = {
             id="pricing-cta-primary"
             class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-slate-950 text-xs sm:text-sm font-bold hover:bg-slate-100 transition shadow-lg">
             <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-600 group-hover:scale-110 transition-transform" />
-            <span>Demanar proposta sense compromís</span>
+            <span>{isVal ? "Demanar proposta sense compromís" : "Solicitar propuesta sin compromiso"}</span>
           </a>
           <a
-            href="mailto:jaumetur3w@gmail.com?subject=Consulta%20sobre%20serveis"
+            href={`mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent(isVal ? "Consulta sobre serveis" : "Consulta sobre servicios")}`}
             id="pricing-cta-email"
             class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-700 hover:bg-indigo-600 text-white text-xs sm:text-sm font-bold transition shadow-lg">
             <Icon name="bx:envelope" class="w-4 h-4 text-indigo-200" />
-            <span>Escriure per correu</span>
+            <span>{isVal ? "Escriure per correu" : "Escribir por correo"}</span>
           </a>
         </div>
       </div>
