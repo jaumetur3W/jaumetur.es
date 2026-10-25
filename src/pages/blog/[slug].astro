@@ -331,18 +331,27 @@ const breadcrumbSchema = {
         <!-- Contextual B2B Consulting CTA -->
         <div class="mt-8 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs text-center">
           <h4 class="text-lg font-bold text-slate-900 mb-2">
-            {isVal ? "Tens un repte similar a la teua empresa o projecte?" : "¿Tienes un reto similar en tu empresa o proyecto?"}
+            {isVal ? "Tens un repte similar a la teua empresa o negoci?" : "¿Tienes un reto similar en tu empresa o negocio?"}
           </h4>
           <p class="text-sm text-slate-600 mb-4 max-w-lg mx-auto">
-            {isVal ? "Puc ajudar el teu equip a auditar el rendiment web, modernitzar arquitectures frontend o implementar CI/CD robust." : "Puedo ayudar a tu equipo a auditar el rendimiento web, modernizar arquitecturas frontend o implementar CI/CD robusto."}
+            {isVal ? "Desenvolupe aplicacions web a mida, dissenye webs ràpides i ajude equips a optimitzar rendiment i CI/CD a Xàtiva, València o en remot." : "Desarrollo aplicaciones web a medida, diseño páginas web rápidas y ayudo a negocios a optimizar rendimiento y automatización en Xàtiva, Valencia o en remoto."}
           </p>
-          <a
-            href={href("/contact")}
-            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm transition-all shadow-md"
-          >
-            <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-400" />
-            <span>{isVal ? "Sol·licitar una auditoria o consultoria" : "Solicitar una auditoría o consultoría"}</span>
-          </a>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={href("/pricing")}
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 hover:border-slate-400 bg-white text-slate-900 font-bold text-xs transition shadow-2xs"
+            >
+              <Icon name="bx:purchase-tag" class="w-4 h-4 text-indigo-600" />
+              <span>{isVal ? "Consultar serveis i preus" : "Consultar servicios y precios"}</span>
+            </a>
+            <a
+              href={href("/contact")}
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition shadow-md"
+            >
+              <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-400" />
+              <span>{isVal ? "Parlar del teu projecte" : "Hablar de tu proyecto"}</span>
+            </a>
+          </div>
         </div>
 
         <!-- Related Posts -->
