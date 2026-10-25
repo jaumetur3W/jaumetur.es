@@ -4,19 +4,22 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
-import { localeFromPath } from "@/i18n";
+import { localeFromPath, localizePath } from "@/i18n";
 const isVal = localeFromPath(Astro.url.pathname) === "val";
+const href = (path: string) => localizePath(path, isVal ? "val" : "es");
 ---
 
 <Layout
-  title="Contacte Directe | Desenvolupador Frontend a València"
-  description="Parlem del teu projecte o oportunitat laboral per correu electrònic o mitjançant el formulari accessible de Jaume Tur, desenvolupador web a València.">
+  title={isVal ? "Contacte directe | Desenvolupador web a València" : "Contacto directo | Desarrollador web en Valencia"}
+  description={isVal ? "Parlem del teu projecte o oportunitat laboral per correu electrònic o amb el formulari accessible de Jaume Tur, desenvolupador web a València." : "Hablemos de tu proyecto u oportunidad laboral por correo o mediante el formulario accesible de Jaume Tur, desarrollador web en Valencia."}>
   <Container>
     <!-- Capçalera -->
     <Sectionhead>
       <Fragment slot="title">{isVal ? "Parlem del teu projecte" : "Hablemos de tu proyecto"}</Fragment>
       <Fragment slot="desc">
-        Desenvolupador web a València disponible per a nous projectes, consultoria en Angular i oportunitats laborals en modalitat remota o híbrida.
+        {isVal
+          ? "Desenvolupador web a València disponible per a nous projectes, consultoria en Angular i oportunitats laborals en modalitat remota o híbrida."
+          : "Desarrollador web en Valencia disponible para nuevos proyectos, consultoría en Angular y oportunidades laborales en remoto o en modalidad híbrida."}
       </Fragment>
     </Sectionhead>
 
@@ -52,13 +55,13 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
             </div>
             <div>
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block">
-                Desenvolupador Web · Frontend
+                {isVal ? "Desenvolupador web · Frontend" : "Desarrollador web · Frontend"}
               </span>
               <h2 class="font-extrabold text-lg text-slate-900 leading-tight mt-0.5">
                 Jaume Tur
               </h2>
               <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                València, Espanya. Treball remot o presencial.
+                {isVal ? "València, Espanya. Treball remot o presencial." : "Valencia, España. Trabajo remoto o presencial."}
               </p>
             </div>
           </div>
@@ -74,8 +77,8 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
               <Icon name="bx:envelope" class="w-5 h-5 group-hover:scale-110 transition-transform" />
             </div>
             <div>
-              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">Correu directe</span>
-              <span class="text-sm font-extrabold">Escriure a Jaume</span>
+              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">{isVal ? "Correu directe" : "Correo directo"}</span>
+              <span class="text-sm font-extrabold">{isVal ? "Escriure a Jaume" : "Escribir a Jaume"}</span>
             </div>
           </div>
           <Icon name="bx:right-arrow-alt" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -88,7 +91,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
               <Icon name="bx:envelope" class="w-4 h-4" />
             </div>
             <div class="truncate">
-              <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase tracking-wider block">Correu Directe</span>
+              <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase tracking-wider block">{isVal ? "Correu directe" : "Correo directo"}</span>
               <a
                 href="mailto:jaumetur3w@gmail.com?subject=Nova%20consulta%20de%20projecte"
                 id="contact-email-link"
@@ -101,7 +104,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
             id="copy-email-btn"
             type="button"
             class="shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200 text-slate-700 hover:text-indigo-600 transition flex items-center gap-1 cursor-pointer"
-            title="Copiar correu electrònic">
+            title={isVal ? "Copiar correu electrònic" : "Copiar correo electrónico"}>
             <Icon name="bx:copy" class="w-3.5 h-3.5" />
             <span id="copy-btn-label">Copiar</span>
           </button>
@@ -119,9 +122,9 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
               <Icon name="bx:file" class="w-4 h-4 text-slate-700 group-hover:text-indigo-600 transition-colors" />
             </div>
             <div>
-              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">Currículum Professional</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">{isVal ? "Currículum professional" : "Currículum profesional"}</span>
               <span class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                Descarregar CV complet (PDF)
+                {isVal ? "Descarregar CV complet (PDF)" : "Descargar CV completo (PDF)"}
               </span>
             </div>
           </div>
@@ -139,7 +142,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
               <Icon name="bx:bxl-github" class="w-5 h-5 text-slate-900" />
             </div>
             <div class="truncate">
-              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">Codi &amp; Repos</span>
+              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isVal ? "Codi i repositoris" : "Código y repositorios"}</span>
               <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">GitHub (@jaumetur3W)</span>
             </div>
           </a>
@@ -163,7 +166,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
           href="https://www.instagram.com/jaume.www/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Visita Instagram de Jaume Tur, @jaume.www (s'obri en una pestanya nova)"
+          aria-label={isVal ? "Visita l'Instagram de Jaume Tur, @jaume.www (s'obri en una pestanya nova)" : "Visita el Instagram de Jaume Tur, @jaume.www (se abre en una pestaña nueva)"}
           class="bg-white border border-slate-200/90 hover:border-pink-300 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
           <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
             <Icon name="bx:bxl-instagram" class="w-5 h-5 text-pink-600" />
@@ -179,10 +182,10 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
         <div class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs text-slate-700 space-y-1.5 font-sans">
           <span class="font-bold text-indigo-900 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
             <Icon name="bx:shield-quarter" class="w-4 h-4 text-indigo-600" />
-            <span>Honestedat & Transparència</span>
+            <span>{isVal ? "Honestedat i transparència" : "Honestidad y transparencia"}</span>
           </span>
           <p class="text-[11px] leading-relaxed text-slate-600">
-            Tots els projectes compten amb documentació tècnica pública i codi auditable. Consulta els <a href="/pricing" class="font-bold text-indigo-600 underline">paquets de serveis</a> o els <a href="/#projectes" class="font-bold text-indigo-600 underline">casos d'estudi reals</a>.
+            {isVal ? "Tots els projectes compten amb documentació tècnica pública i codi auditable. Consulta els " : "Todos los proyectos incluyen documentación técnica pública y código auditable. Consulta los "}<a href={href("/pricing")} class="font-bold text-indigo-600 underline">{isVal ? "paquets de serveis" : "paquetes de servicios"}</a>{isVal ? " o els " : " o los "}<a href={href("/#projectes")} class="font-bold text-indigo-600 underline">{isVal ? "casos d'estudi reals" : "casos de estudio reales"}</a>.
           </p>
         </div>
 
@@ -197,11 +200,11 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
               <span>{isVal ? "Formulari de proposta" : "Formulario de propuesta"}</span>
             </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              Completa les dades i rebràs una valoració tècnica sense compromís.
+              {isVal ? "Completa les dades i rebràs una valoració tècnica sense compromís." : "Completa los datos y recibirás una valoración técnica sin compromiso."}
             </p>
           </div>
           <span class="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-            Sense Captcha
+            {isVal ? "Sense CAPTCHA" : "Sin CAPTCHA"}
           </span>
         </div>
 
@@ -219,7 +222,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
   if (copyBtn && copyLabel) {
     copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText("jaumetur3w@gmail.com").then(() => {
-        copyLabel.textContent = "Copiat!";
+        copyLabel.textContent = document.documentElement.lang.startsWith("ca") ? "Copiat!" : "¡Copiado!";
         copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 transition flex items-center gap-1";
         setTimeout(() => {
           copyLabel.textContent = "Copiar";

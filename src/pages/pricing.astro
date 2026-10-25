@@ -4,8 +4,10 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
 import { servicesData } from "@/data/services";
-import { localeFromPath } from "@/i18n";
+import { servicesCopyEs } from "@/data/services-es";
+import { localeFromPath, localizePath } from "@/i18n";
 const isVal = localeFromPath(Astro.url.pathname) === "val";
+const href = (path: string) => localizePath(path, isVal ? "val" : "es");
 
 // Paquets de serveis d'alta conversió (importats des de @/data/services)
 const packages = servicesData;
@@ -14,59 +16,59 @@ const packages = servicesData;
 const workflowSteps = [
   {
     step: "01",
-    title: "Descoberta & Abast",
+    title: isVal ? "Descoberta i abast" : "Descubrimiento y alcance",
     icon: "bx:search-alt",
-    desc: "Definim conjuntament els objectius del projecte, requisits funcionals, terminis i mètriques d'èxit per oferir una proposta ajustada i transparent.",
+    desc: isVal ? "Definim conjuntament els objectius del projecte, els requisits funcionals, els terminis i les mètriques d'èxit per a oferir una proposta ajustada i transparent." : "Definimos juntos los objetivos del proyecto, los requisitos funcionales, los plazos y las métricas de éxito para ofrecer una propuesta ajustada y transparente.",
   },
   {
     step: "02",
-    title: "Arquitectura & Prototipat",
+    title: isVal ? "Arquitectura i prototipatge" : "Arquitectura y prototipado",
     icon: "bx:layer",
-    desc: "Seleccionem la millor tecnologia, dissenyem l'estructura de components i validem la interacció per assegurar que el fonament tècnic sigui impecable.",
+    desc: isVal ? "Seleccionem la millor tecnologia, dissenyem l'estructura dels components i validem la interacció per a assegurar una base tècnica sòlida." : "Seleccionamos la mejor tecnología, diseñamos la estructura de componentes y validamos la interacción para asegurar una base técnica sólida.",
   },
   {
     step: "03",
-    title: "Desenvolupament & Qualitat",
+    title: isVal ? "Desenvolupament i qualitat" : "Desarrollo y calidad",
     icon: "bx:code-curly",
-    desc: "Codi modular amb TypeScript estricte, proves unitàries i validació contínua de rendiment 60 FPS i accessibilitat WCAG AA pas a pas.",
+    desc: isVal ? "Codi modular amb TypeScript estricte, proves unitàries i validació contínua del rendiment a 60 FPS i de l'accessibilitat WCAG AA." : "Código modular con TypeScript estricto, pruebas unitarias y validación continua del rendimiento a 60 FPS y de la accesibilidad WCAG AA.",
   },
   {
     step: "04",
-    title: "Desplegament & Verificació",
+    title: isVal ? "Desplegament i verificació" : "Despliegue y verificación",
     icon: "bx:check-shield",
-    desc: "Publicació atòmica sense caiguda de servei, auditories finals de validació i lliurament de documentació clara perquè mantinguis el control total.",
+    desc: isVal ? "Publicació atòmica sense interrupcions, auditories finals i documentació clara perquè mantingues el control total." : "Publicación atómica sin interrupciones, auditorías finales y documentación clara para que mantengas el control total.",
   },
 ];
 
 // Preguntes Freqüents per al FAQ interactiu i Schema JSON-LD
 const faqs = [
   {
-    question: "Com s'estructura el pagament d'entrada i la mensualitat de manteniment?",
-    answer: "Tots els projectes funcionen amb una entrada inicial (preu de creació i desenvolupament) acompanyada d'una quota mensual de manteniment tècnic actiu. Aquest manteniment no és opcional i inclou un compromís de permanència mínima d'1 any. D'aquesta manera garantim que el teu projecte es mantingui sempre ràpid, segur, actualitzat i amb suport tècnic prioritari continuat.",
+    question: isVal ? "Com s'estructura el pagament inicial i la mensualitat de manteniment?" : "¿Cómo se estructura el pago inicial y la mensualidad de mantenimiento?",
+    answer: isVal ? "Els projectes tenen un pagament inicial de creació i desenvolupament, a més d'una quota mensual de manteniment tècnic. El manteniment inclou una permanència mínima d'un any per a mantindre el projecte ràpid, segur i actualitzat, amb suport tècnic." : "Los proyectos incluyen un pago inicial de creación y desarrollo, además de una cuota mensual de mantenimiento técnico. El mantenimiento requiere una permanencia mínima de un año para mantener el proyecto rápido, seguro y actualizado, con soporte técnico.",
   },
   {
-    question: "Què inclou exactament el manteniment mensual obligatori?",
-    answer: "El manteniment inclou supervisió d'uptime i monitoratge de rendiment (Lighthouse / Core Web Vitals), actualitzacions de dependències i seguretat, còpies de seguretat periòdiques, resolució d'incidències tècniques i assessorament continu per a l'evolució de la plataforma.",
+    question: isVal ? "Què inclou el manteniment mensual?" : "¿Qué incluye el mantenimiento mensual?",
+    answer: isVal ? "Inclou supervisió de disponibilitat i rendiment, actualitzacions de dependències i seguretat, còpies de seguretat, resolució d'incidències i assessorament per a l'evolució de la plataforma." : "Incluye supervisión de disponibilidad y rendimiento, actualizaciones de dependencias y seguridad, copias de seguridad, resolución de incidencias y asesoramiento para la evolución de la plataforma.",
   },
   {
-    question: "Per què hi ha una permanència mínima d'1 any?",
-    answer: "Perquè una solució web d'enginyeria requereix continuïtat tècnica per mantenir la màxima velocitat, evitar vulnerabilitats i garantir que cap canvi en navegadors o dependències trenqui el servei en producció al llarg del temps.",
+    question: isVal ? "Per què hi ha una permanència mínima d'un any?" : "¿Por qué hay una permanencia mínima de un año?",
+    answer: isVal ? "Una solució web necessita continuïtat tècnica per a mantindre la velocitat, evitar vulnerabilitats i garantir que els canvis en navegadors o dependències no interrompen el servei." : "Una solución web necesita continuidad técnica para mantener la velocidad, evitar vulnerabilidades y garantizar que los cambios en navegadores o dependencias no interrumpan el servicio.",
   },
   {
-    question: "Quin és el mètode de comunicació i seguiment?",
-    answer: "Mantenim una comunicació fluïda, asíncrona i transparent principalment per correu electrònic. A més, tindràs accés directe al repositori i a un entorn de previsualització (preview deployment) per provar cada avanç abans de la publicació final.",
+    question: isVal ? "Com ens comunicarem i farem el seguiment?" : "¿Cómo nos comunicaremos y haremos el seguimiento?",
+    answer: isVal ? "La comunicació serà fluida, asíncrona i transparent, principalment per correu electrònic. També tindràs accés al repositori i a una previsualització per a provar cada avanç abans de publicar-lo." : "La comunicación será fluida, asíncrona y transparente, principalmente por correo electrónico. También tendrás acceso al repositorio y a una vista previa para probar cada avance antes de publicarlo.",
   },
   {
-    question: "Treballes en remot o de manera presencial?",
-    answer: "Tinc la base a València (Espanya), per la qual cosa puc realitzar reunions presencials a la Comunitat Valenciana i treballar en remot amb equips i clients de qualsevol punt del món.",
+    question: isVal ? "Treballes en remot o presencialment?" : "¿Trabajas en remoto o presencialmente?",
+    answer: isVal ? "Treballo des de València (Espanya), amb possibilitat de reunions presencials a la Comunitat Valenciana i treball remot amb equips de qualsevol lloc." : "Trabajo desde Valencia (España), con posibilidad de reuniones presenciales en la Comunitat Valenciana y trabajo remoto con equipos de cualquier lugar.",
   },
   {
-    question: "Quines garanties tècniques ofereixes en els lliuraments?",
-    answer: "Tots els projectes es lliuren amb mètriques auditables de manera independent: 100/100 en auditories de Lighthouse (Rendiment, SEO, Bones pràctiques i Accessibilitat), compliment demostrable de WCAG 2.2 AA i zero errors de compilació TypeScript.",
+    question: isVal ? "Quines garanties tècniques ofereixes?" : "¿Qué garantías técnicas ofreces?",
+    answer: isVal ? "Els projectes es lliuren amb mètriques auditables: puntuacions de Lighthouse, comprovacions d'accessibilitat WCAG 2.2 AA i compilació TypeScript sense errors." : "Los proyectos se entregan con métricas auditables: puntuaciones de Lighthouse, comprobaciones de accesibilidad WCAG 2.2 AA y compilación TypeScript sin errores.",
   },
   {
-    question: "Com podem començar a treballar junts?",
-    answer: "Pots enviar un missatge des del formulari de contacte o enviar un correu directe a jaumetur3w@gmail.com explicant breument què necessites. Et respondré en menys de 24 hores laborables amb preguntes d'aclariment o una data per coordinar una primera conversa.",
+    question: isVal ? "Com podem començar a treballar junts?" : "¿Cómo podemos empezar a trabajar juntos?",
+    answer: isVal ? "Envia un missatge des del formulari o escriu a jaumetur3w@gmail.com explicant què necessites. Et respondré en menys de 24 hores laborables." : "Envía un mensaje desde el formulario o escribe a jaumetur3w@gmail.com explicando qué necesitas. Te responderé en menos de 24 horas laborables.",
   },
 ];
 
@@ -86,8 +88,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="Serveis & Paquets de Desenvolupament Frontend | Jaume Tur"
-  description="Paquets professionals de desenvolupament web a València: Landing pages ultra ràpides, aplicacions Angular modulars, optimització de rendiment 60 FPS i automatització CI/CD.">
+  title={isVal ? "Serveis i paquets de desenvolupament web | Jaume Tur" : "Servicios y paquetes de desarrollo web | Jaume Tur"}
+  description={isVal ? "Serveis professionals de desenvolupament web a València: pàgines ràpides, aplicacions Angular, rendiment i automatització CI/CD." : "Servicios profesionales de desarrollo web en Valencia: páginas rápidas, aplicaciones Angular, rendimiento y automatización CI/CD."}>
   
   <!-- Structured Data: FAQPage -->
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -97,7 +99,7 @@ const faqSchema = {
     <Sectionhead>
       <Fragment slot="title">{isVal ? "Serveis de desenvolupament web" : "Servicios de desarrollo web"}</Fragment>
       <Fragment slot="desc">
-        Col·laboració professional i transparent per a crear productes digitals fluids, robustos i accessibles des de València i en remot.
+        {isVal ? "Col·laboració professional i transparent per a crear productes digitals fluids, robustos i accessibles des de València i en remot." : "Colaboración profesional y transparente para crear productos digitales rápidos, robustos y accesibles desde Valencia y en remoto."}
       </Fragment>
     </Sectionhead>
 
@@ -112,18 +114,20 @@ const faqSchema = {
       </div>
       <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-900 border border-amber-300 shadow-2xs">
         <Icon name="bx:star" class="w-3.5 h-3.5 text-amber-600" />
-        <span>Proposta Estrella: Pack Digitalització Local & Carta Web</span>
+        <span>{isVal ? "Proposta estrella: pack de digitalització local i carta web" : "Propuesta estrella: paquete de digitalización local y carta web"}</span>
       </div>
       <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-indigo-50 text-indigo-800 border border-indigo-200/80 shadow-2xs">
         <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600" />
-        <span>Model Entrada + Mensualitat (manteniment mín. 1 any)</span>
+        <span>{isVal ? "Model d'entrada i mensualitat (manteniment mínim d'un any)" : "Modelo de pago inicial y mensualidad (mantenimiento mínimo de un año)"}</span>
       </div>
     </div>
 
     <!-- Graella de Paquets de Serveis -->
     <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
       {
-        packages.map((pkg) => (
+        packages.map((pkg) => {
+          const packageCopy = isVal ? pkg : { ...pkg, ...servicesCopyEs[pkg.id] };
+          return (
           <div
             class:list={[
               "rounded-2xl p-7 sm:p-9 flex flex-col justify-between transition-colors duration-200 group relative",
@@ -135,7 +139,7 @@ const faqSchema = {
             {pkg.isFeatured && (
               <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 px-4 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-md flex items-center gap-1.5 whitespace-nowrap z-10">
                 <Icon name="bx:star" class="w-4 h-4 fill-slate-950" />
-                <span>Proposta Clau · Oferta Estrella per a Bars i Comerços</span>
+                <span>{isVal ? "Proposta clau · Oferta estrella per a bars i comerços" : "Propuesta clave · Oferta estrella para bares y comercios"}</span>
               </div>
             )}
 
@@ -149,7 +153,7 @@ const faqSchema = {
                   <Icon name={pkg.icon} class={`w-6 h-6 ${pkg.iconColor}`} />
                 </div>
                 <span class={`text-[11px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full border shadow-2xs ${pkg.badgeColor}`}>
-                  {pkg.badge}
+                  {packageCopy.badge}
                 </span>
               </div>
 
@@ -161,22 +165,22 @@ const faqSchema = {
                     "font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors",
                     pkg.isFeatured ? "text-2xl sm:text-3xl text-amber-950" : "text-xl sm:text-2xl"
                   ]}>
-                    <a href={`/pricing/${pkg.id}`} class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
-                      {pkg.name}
+                    <a href={href(`/pricing/${pkg.id}`)} class="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded">
+                      {packageCopy.name}
                     </a>
                   </h3>
                   <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                    {pkg.description}
+                    {packageCopy.description}
                   </p>
 
                   <!-- Per a qui és -->
                   <div class="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/70 mb-6 text-xs">
                     <span class="font-bold text-slate-900 block mb-1 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
                       <Icon name="bx:user-check" class="w-4 h-4 text-indigo-600" />
-                      <span>Per a qui és aquest servei:</span>
+                      <span>{isVal ? "Per a qui és aquest servei:" : "¿Para quién es este servicio?"}</span>
                     </span>
                     <span class="text-slate-600 leading-relaxed">
-                      {pkg.targetAudience}
+                      {packageCopy.targetAudience}
                     </span>
                   </div>
 
@@ -187,45 +191,45 @@ const faqSchema = {
                   ]}>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                       <div>
-                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Entrada / Creació</span>
-                        <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{pkg.creationPrice}</span>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">{isVal ? "Entrada / creació" : "Pago inicial / creación"}</span>
+                        <span class="font-bold text-indigo-950 text-sm mt-0.5 block">{packageCopy.creationPrice}</span>
                       </div>
                       <div>
-                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Mensualitat</span>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">{isVal ? "Mensualitat" : "Mensualidad"}</span>
                         <span class:list={["text-sm mt-0.5 block font-bold", pkg.isFeatured ? "text-amber-800" : "text-indigo-600"]}>
                           +{pkg.monthlyFee}
                         </span>
                       </div>
                       <div>
-                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">Termini d'entrega</span>
-                        <span class="font-bold text-slate-800 text-sm mt-0.5 block">{pkg.timeline}</span>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider block">{isVal ? "Termini d'entrega" : "Plazo de entrega"}</span>
+                        <span class="font-bold text-slate-800 text-sm mt-0.5 block">{packageCopy.timeline}</span>
                       </div>
                     </div>
 
                     <!-- Condició de Manteniment No Opcional i Permanència Mínima -->
                     <div class="pt-2 border-t border-slate-200/60 flex items-center gap-1.5 text-[11px] text-slate-700 font-medium">
                       <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600 shrink-0" />
-                      <span>Manteniment inclòs (no opcional · permanència mín. 1 any)</span>
+                      <span>{isVal ? "Manteniment inclòs (no opcional · permanència mín. d'un any)" : "Mantenimiento incluido (obligatorio · permanencia mínima de un año)"}</span>
                     </div>
                   </div>
 
                   <!-- Enllaç a l'Explicació del Preu, Comparativa i Amortització -->
                   <a
-                    href={`/pricing/${pkg.id}`}
+                    href={href(`/pricing/${pkg.id}`)}
                     class:list={[
                       "flex items-center justify-between gap-2 p-3 rounded-2xl border text-xs font-mono font-bold transition-all group/info mb-6 md:mb-0",
                       pkg.isFeatured
                         ? "bg-amber-100/80 hover:bg-amber-200/80 border-amber-300 text-amber-950"
                         : "bg-indigo-50/80 hover:bg-indigo-100/90 border-indigo-200/80 text-indigo-900"
                     ]}
-                    title={`Veure per què costa aquest preu i com s'amortitza fàcilment ${pkg.name}`}
+                    title={isVal ? `Veure per què costa aquest preu i com s'amortitza ${packageCopy.name}` : `Descubre por qué cuesta este precio y cómo se amortiza ${packageCopy.name}`}
                   >
                     <span class="flex items-center gap-1.5">
                       <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0" />
-                      <span>Per què aquest preu? Comparativa & Amortització</span>
+                      <span>{isVal ? "Per què aquest preu? Comparativa i amortització" : "¿Por qué este precio? Comparativa y amortización"}</span>
                     </span>
                     <span class="inline-flex items-center gap-1 text-[11px] text-indigo-600 group-hover/info:translate-x-0.5 transition-transform">
-                      <span>Veure detall</span>
+                      <span>{isVal ? "Veure detall" : "Ver detalles"}</span>
                       <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5" />
                     </span>
                   </a>
@@ -235,10 +239,10 @@ const faqSchema = {
                   <!-- Llista d'Inclusions -->
                   <div class="space-y-3 pt-2">
                     <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
-                      Què inclou exactament:
+                      {isVal ? "Què inclou exactament:" : "¿Qué incluye exactamente?"}
                     </span>
                     <ul class="space-y-2.5 text-xs text-slate-700">
-                      {pkg.features.map((feature) => (
+                      {packageCopy.features.map((feature) => (
                         <li class="flex items-start gap-2.5">
                           <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                           <span>{feature}</span>
@@ -251,18 +255,18 @@ const faqSchema = {
                   {pkg.isFeatured && (
                     <div class="mt-8 pt-6 border-t border-amber-200/60 flex flex-col sm:flex-row gap-2.5">
                       <a
-                        href={`/pricing/${pkg.id}`}
+                        href={href(`/pricing/${pkg.id}`)}
                         class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 transition text-center shadow-2xs"
                       >
                         <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
-                        <span>Detall & Comparativa</span>
+                        <span>{isVal ? "Detall i comparativa" : "Detalle y comparativa"}</span>
                       </a>
                       <a
-                        href={`/contact?servei=${pkg.id}`}
+                        href={href(`/contact?servei=${pkg.id}`)}
                         data-analytics-cta={pkg.id}
                         class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-[#FFFF00] hover:bg-yellow-400 text-slate-950 shadow-md shadow-yellow-500/20 transition group/btn text-center"
                       >
-                        <span>{pkg.ctaText}</span>
+                        <span>{packageCopy.ctaText}</span>
                         <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                       </a>
                     </div>
@@ -275,24 +279,25 @@ const faqSchema = {
             {!pkg.isFeatured && (
               <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-2.5">
                 <a
-                  href={`/pricing/${pkg.id}`}
+                  href={href(`/pricing/${pkg.id}`)}
                   class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold text-indigo-900 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition text-center"
                 >
                   <Icon name="bx:detail" class="w-4 h-4 text-indigo-600" />
-                  <span>Detall & Comparativa</span>
+                  <span>{isVal ? "Detall i comparativa" : "Detalle y comparativa"}</span>
                 </a>
                 <a
-                  href={`/contact?servei=${pkg.id}`}
+                  href={href(`/contact?servei=${pkg.id}`)}
                   data-analytics-cta={pkg.id}
                   class="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition group/btn text-center"
                 >
-                  <span>{pkg.ctaText}</span>
+                  <span>{packageCopy.ctaText}</span>
                   <Icon name="bx:right-arrow-alt" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
               </div>
             )}
           </div>
-        ))
+          );
+        })
       }
     </div>
 
@@ -312,7 +317,7 @@ const faqSchema = {
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <a
-          href="/projectes/avisa"
+          href={href("/projectes/avisa")}
           class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -329,7 +334,7 @@ const faqSchema = {
         </a>
 
         <a
-          href="/projectes/pizzeria-xativa"
+          href={href("/projectes/pizzeria-xativa")}
           class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -346,7 +351,7 @@ const faqSchema = {
         </a>
 
         <a
-          href="/projectes/dashboard-telemetria"
+          href={href("/projectes/dashboard-telemetria")}
           class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -363,7 +368,7 @@ const faqSchema = {
         </a>
 
         <a
-          href="/projectes/pipeline-cicd"
+          href={href("/projectes/pipeline-cicd")}
           class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -473,7 +478,7 @@ const faqSchema = {
 
         <div class="pt-4 flex flex-wrap gap-3 justify-center items-center">
           <a
-            href="/contact"
+            href={href("/contact")}
             id="pricing-cta-primary"
             class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-slate-950 text-xs sm:text-sm font-bold hover:bg-slate-100 transition shadow-lg">
             <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-600 group-hover:scale-110 transition-transform" />

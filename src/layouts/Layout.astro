@@ -15,26 +15,29 @@ export interface Props {
   publishDate?: Date | string;
   author?: string;
   tags?: string[];
-  canonicalURL?: string;
   lang?: string;
+  canonicalURL?: string;
   isBlogPost?: boolean;
 }
 
 const {
   title,
-  description = "Portfolio professional i blog tècnic de Jaume Tur, desenvolupador Frontend & Web Apps a València. Especialista en Angular, TypeScript, alt rendiment (60 FPS), accessibilitat WCAG AA i automatització CI/CD.",
+  description,
   image = "/opengraph.jpg",
   publishDate,
   author = "Jaume Tur",
   tags = [],
+  lang,
   canonicalURL: customCanonical,
-  lang = "ca",
   isBlogPost = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
 const locale = localeFromPath(Astro.url.pathname);
-const activeLang = locale === "val" ? "ca-ES-valencia" : "es";
+const resolvedDescription = description || (locale === "val"
+  ? "Portafolis professional i blog tècnic de Jaume Tur, desenvolupador web a València, especialitzat en Angular, TypeScript, rendiment, accessibilitat i CI/CD."
+  : "Portfolio profesional y blog técnico de Jaume Tur, desarrollador web en Valencia, especializado en Angular, TypeScript, rendimiento, accesibilidad y CI/CD.");
+const activeLang = lang === "es" ? "es" : locale === "val" || lang === "ca" ? "ca-ES-valencia" : "es";
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
 const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
 const valencianURL = new URL(alternatePathsForPage.val, siteUrl).toString();
@@ -44,7 +47,9 @@ const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 // Dynamic, keyword-rich title generation
 const isHome = !title || title === "Inici" || title === "Home";
 const makeTitle = isHome
-  ? "Jaume Tur — Desenvolupador Backend & Web Apps a València | Sistemes & Cloud"
+  ? locale === "val"
+    ? "Jaume Tur — Desenvolupador Backend i aplicacions web a València"
+    : "Jaume Tur — Desarrollador backend y aplicaciones web en Valencia"
   : `${title} | Jaume Tur`;
 
 // JSON-LD Structured Data
@@ -118,7 +123,7 @@ const websiteSchema = {
   "@id": `${siteUrl}/#website`,
   "url": siteUrl,
   "name": "Jaume Tur",
-  "description": description,
+  "description": resolvedDescription,
   "inLanguage": ["ca", "es", "en"],
   "publisher": {
     "@id": `${siteUrl}/#person`
@@ -129,7 +134,7 @@ const blogPostSchema = isBlogPost ? {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": title,
-  "description": description,
+  "description": resolvedDescription,
   "image": resolvedImageWithDomain,
   "datePublished": publishDate ? new Date(publishDate).toISOString() : undefined,
   "dateModified": publishDate ? new Date(publishDate).toISOString() : undefined,
@@ -176,16 +181,6 @@ const blogPostSchema = isBlogPost ? {
         } catch (_) {}
       })();
     </script>
-    {locale === "val" && <script is:inline>
-      {`document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("a[href^='/']").forEach(function (link) {
-          var value = link.getAttribute("href");
-          if (!value || value.startsWith("/val/") || value.startsWith("/docs/") || value === "/rss.xml") return;
-          link.setAttribute("href", value === "/" ? "/val/" : "/val" + value);
-        });
-      });`}
-    </script>}
-
     <!-- RSS Feed Autodiscovery -->
     <link
       rel="alternate"
@@ -203,14 +198,14 @@ const blogPostSchema = isBlogPost ? {
     <!-- SEO & Social OpenGraph -->
     <SEO
       title={makeTitle}
-      description={description}
+      description={resolvedDescription}
       canonical={canonicalURL}
       twitter={{
         creator: "@jautur",
         site: "@jautur",
         card: "summary_large_image",
         title: makeTitle,
-        description: description,
+        description: resolvedDescription,
         image: resolvedImageWithDomain,
         imageAlt: makeTitle,
       }}
@@ -226,7 +221,7 @@ const blogPostSchema = isBlogPost ? {
         },
         optional: {
           siteName: "Jaume Tur — Portfolio & Blog Tècnic",
-          description: description,
+          description: resolvedDescription,
           locale: locale === "val" ? "ca_ES" : "es_ES",
         },
       }}

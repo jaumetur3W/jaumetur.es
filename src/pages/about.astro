@@ -7,29 +7,23 @@ import { localeFromPath } from "@/i18n";
 
 const isVal = localeFromPath(Astro.url.pathname) === "val";
 
-const pillars = [
-  {
-    title: "Backend & Arquitectura",
-    icon: "bx:server",
-    points: ["APIs REST escalables i serveis robustos amb Node.js & TypeScript", "Modelat i gestió de bases de dades SQL i NoSQL", "Clean architecture, seguretat i integracions de sistemes"],
-  },
-  {
-    title: "Sistemes & Servidors (SMX)",
-    icon: "bx:chip",
-    points: ["Administració de servidors Linux i entorns de xarxa", "Manteniment preventiu, diagnòstic i muntatge d'equips", "Configuració de xarxes locals, seguretat i còpies de suport"],
-  },
-  {
-    title: "Frontend & Web Apps (DAW)",
-    icon: "bx:layout",
-    points: ["Aplicacions SPA modulars amb Angular i TypeScript", "Rendiment fluid a 60 FPS i accessibilitat WCAG AA", "Automatització de desplegaments amb GitHub Actions CI/CD"],
-  },
-];
+const pillars = isVal
+  ? [
+      { title: "Backend i arquitectura", icon: "bx:server", points: ["API REST escalables i serveis robustos amb Node.js i TypeScript", "Disseny i gestió de bases de dades SQL i NoSQL", "Arquitectura neta, seguretat i integració de sistemes"] },
+      { title: "Sistemes i servidors (SMX)", icon: "bx:chip", points: ["Administració de servidors Linux i entorns de xarxa", "Manteniment preventiu, diagnòstic i muntatge d'equips", "Configuració de xarxes locals, seguretat i còpies de seguretat"] },
+      { title: "Frontend i aplicacions web (DAW)", icon: "bx:layout", points: ["Aplicacions SPA modulars amb Angular i TypeScript", "Rendiment fluid a 60 FPS i accessibilitat WCAG AA", "Desplegaments automatitzats amb GitHub Actions i CI/CD"] },
+    ]
+  : [
+      { title: "Backend y arquitectura", icon: "bx:server", points: ["API REST escalables y servicios robustos con Node.js y TypeScript", "Diseño y gestión de bases de datos SQL y NoSQL", "Arquitectura limpia, seguridad e integración de sistemas"] },
+      { title: "Sistemas y servidores (SMX)", icon: "bx:chip", points: ["Administración de servidores Linux y entornos de red", "Mantenimiento preventivo, diagnóstico y montaje de equipos", "Configuración de redes locales, seguridad y copias de seguridad"] },
+      { title: "Frontend y aplicaciones web (DAW)", icon: "bx:layout", points: ["Aplicaciones SPA modulares con Angular y TypeScript", "Rendimiento fluido a 60 FPS y accesibilidad WCAG AA", "Despliegues automatizados con GitHub Actions y CI/CD"] },
+    ];
 
 const highlights = [
-  { icon: "bx:bxs-graduation", label: "TITULACIONS", val: "CFGS DAW + GM SMX", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:map-pin", label: "UBICACIÓ", val: "València (Híbrid / Remot)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:server", label: "ESPECIALITAT", val: "Backend, Sistemes & Web Apps", color: "border-indigo-200/90 bg-indigo-50 text-indigo-900" },
-  { icon: "bx:check-circle", label: "DISPONIBILITAT", val: "Incorporació immediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+  { icon: "bx:bxs-graduation", label: isVal ? "TITULACIONS" : "FORMACIÓN", val: "CFGS DAW + GM SMX", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:map-pin", label: isVal ? "UBICACIÓ" : "UBICACIÓN", val: isVal ? "València (híbrid / remot)" : "Valencia (híbrido / remoto)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:server", label: isVal ? "ESPECIALITAT" : "ESPECIALIDAD", val: "Backend, sistemes i aplicacions web", color: "border-indigo-200/90 bg-indigo-50 text-indigo-900" },
+  { icon: "bx:check-circle", label: isVal ? "DISPONIBILITAT" : "DISPONIBILIDAD", val: isVal ? "Incorporació immediata" : "Incorporación inmediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
 ];
 ---
 
@@ -70,7 +64,7 @@ const highlights = [
         <div class="flex-1 text-left">
           <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md mb-2 border border-indigo-200/60">
             <Icon name="bx:terminal" class="w-3.5 h-3.5" />
-            <span>Backend &amp; Sistemes · Web Apps</span>
+            <span>{isVal ? "Backend i sistemes · Aplicacions web" : "Backend y sistemas · Aplicaciones web"}</span>
           </div>
 
           <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -78,7 +72,11 @@ const highlights = [
           </h2>
 
           <p class="text-base text-slate-600 mt-3 leading-relaxed">
-            Desenvolupador de programari especialitzat amb major profunditat en <strong>Backend</strong> i arquitectura de sistemes. Compto amb la titulació de <strong>Grau Mitjà en Sistemes Microinformàtics i Xarxes (SMX)</strong>, que m'aporta sòlides competències en <strong>administració de servidors, xarxes i manteniment d'equips</strong>, complementat amb el <strong>CFGS en Desenvolupament d'Aplicacions Web (DAW)</strong> per al lliurament de solucions web completes i automatitzades.
+            {isVal ? (
+              <>Soc desenvolupador de programari especialitzat en <strong>backend</strong> i arquitectura de sistemes. La titulació de <strong>Grau Mitjà en Sistemes Microinformàtics i Xarxes (SMX)</strong> m'ha donat una base sòlida en <strong>administració de servidors, xarxes i manteniment d'equips</strong>, que complete amb el <strong>CFGS en Desenvolupament d'Aplicacions Web (DAW)</strong> per a crear solucions web completes i automatitzades.</>
+            ) : (
+              <>Soy desarrollador de software especializado en <strong>backend</strong> y arquitectura de sistemas. La titulación de <strong>Grado Medio en Sistemas Microinformáticos y Redes (SMX)</strong> me ha dado una base sólida en <strong>administración de servidores, redes y mantenimiento de equipos</strong>, que complemento con el <strong>CFGS en Desarrollo de Aplicaciones Web (DAW)</strong> para crear soluciones web completas y automatizadas.</>
+            )}
           </p>
 
           <!-- Visual highlights pills with Standardized Icons -->
@@ -108,7 +106,7 @@ const highlights = [
               rel="noopener noreferrer"
               class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
               <Icon name="bx:file" class="w-4 h-4 text-white group-hover/btn:-translate-y-0.5 transition-transform" />
-              <span>Descarregar CV Complet (PDF)</span>
+              <span>{isVal ? "Descarregar CV complet (PDF)" : "Descargar CV completo (PDF)"}</span>
               <span class="text-[11px] font-mono text-slate-400">↗</span>
             </a>
             <a
@@ -116,7 +114,7 @@ const highlights = [
               target="_blank"
               rel="noopener noreferrer"
               class="group/gh inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-xs text-slate-800 bg-white hover:bg-slate-50 hover:border-slate-800 transition shadow-2xs"
-              title="Repositoris de codi a GitHub">
+              title={isVal ? "Repositoris de codi a GitHub" : "Repositorios de código en GitHub"}>
               <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-900 group-hover/gh:scale-110 transition-transform" />
               <span>GitHub</span>
               <span class="text-[10px] text-slate-400 font-mono">↗</span>
@@ -126,16 +124,16 @@ const highlights = [
               target="_blank"
               rel="noopener noreferrer"
               class="group/li inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-indigo-200 font-bold text-xs text-indigo-700 bg-indigo-50/50 hover:bg-indigo-100 transition shadow-2xs"
-              title="Trajectòria professional a LinkedIn">
+              title={isVal ? "Trajectòria professional a LinkedIn" : "Trayectoria profesional en LinkedIn"}>
               <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-indigo-600 group-hover/li:scale-110 transition-transform" />
               <span>LinkedIn</span>
               <span class="text-[10px] text-indigo-400 font-mono">↗</span>
             </a>
             <a
-              href="/contact"
+              href={isVal ? "/val/contact" : "/contact"}
               class="group/c inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 transition shadow-2xs">
               <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-700 group-hover/c:scale-110 transition-transform" />
-              <span>Contactar</span>
+              <span>{isVal ? "Contactar" : "Contactar"}</span>
             </a>
           </div>
         </div>
@@ -147,10 +145,10 @@ const highlights = [
       <div class="text-center max-w-xl mx-auto mb-10">
         <span class="text-xs font-mono uppercase tracking-wider text-indigo-700 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80 flex items-center justify-center gap-1.5 w-max mx-auto">
           <Icon name="bx:compass" class="w-3.5 h-3.5 text-indigo-700" />
-          <span>Principis d'Enginyeria</span>
+          <span>{isVal ? "Principis d'enginyeria" : "Principios de ingeniería"}</span>
         </span>
         <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2.5">
-          Com enfocament cada projecte
+          {isVal ? "Com enfoque cada projecte" : "Cómo enfoco cada proyecto"}
         </h3>
       </div>
 
@@ -186,13 +184,15 @@ const highlights = [
         <div class="space-y-3 max-w-xl">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
             <Icon name="bx:bxs-zap" class="w-3.5 h-3.5 text-indigo-300" />
-            <span>Arquitectura de Software</span>
+            <span>{isVal ? "Arquitectura de programari" : "Arquitectura de software"}</span>
           </span>
           <h3 class="text-2xl font-bold tracking-tight text-white">
-            Patró Disparador & Executor (Trigger / Executor)
+            {isVal ? "Patró disparador i executor (Trigger / Executor)" : "Patrón disparador y ejecutor (Trigger / Executor)"}
           </h3>
           <p class="text-slate-300 text-sm leading-relaxed">
-            Desenvolupament orientat a esdeveniments: disparadors autònoms (webhooks, git push) que transmeten càrregues JSON a executors de validació, linters i desplegament automàtic sense fallades humanes.
+            {isVal
+              ? "Desenvolupament orientat a esdeveniments: els disparadors autònoms (webhooks, git push) envien dades JSON als processos de validació, anàlisi estàtica i desplegament automàtic, reduint els errors humans."
+              : "Desarrollo orientado a eventos: los disparadores autónomos (webhooks, git push) envían datos JSON a los procesos de validación, análisis estático y despliegue automático, reduciendo los errores humanos."}
           </p>
         </div>
 
@@ -211,7 +211,7 @@ const highlights = [
           </div>
           <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900 border border-slate-700/80 px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
             <Icon name="bx:code-alt" class="w-3.5 h-3.5 text-indigo-400" />
-            <span>Codi fiable & CI/CD</span>
+            <span>{isVal ? "Codi fiable i CI/CD" : "Código fiable y CI/CD"}</span>
           </span>
         </div>
       </div>

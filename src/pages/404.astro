@@ -2,9 +2,14 @@
 import Container from "@/components/container.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const isVal = localeFromPath(Astro.url.pathname) === "val";
+const homePath = localizePath(isVal ? "/val/" : "/", isVal ? "val" : "es");
+const contactPath = localizePath("/contact", isVal ? "val" : "es");
 ---
 
-<Layout title="404 — Pàgina no trobada">
+<Layout title={isVal ? "404 — Pàgina no trobada" : "404 — Página no encontrada"}>
   <Container>
     <div class="min-h-[calc(100vh-18rem)] flex items-center justify-center py-16">
       <div class="text-center max-w-md mx-auto group">
@@ -12,7 +17,7 @@ import { Icon } from "astro-icon/components";
         <div class="w-32 h-32 mx-auto rounded-full bg-white p-2 border border-slate-200/90 shadow-md mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
           <img
             src="/img/404.webp"
-            alt="Jaume Tur cercant la pàgina desconcertat"
+            alt={isVal ? "Jaume Tur cercant la pàgina desconcertat" : "Jaume Tur buscando la página, desconcertado"}
             class="w-full h-full object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.18)]"
             width="128"
             height="128"
@@ -27,25 +32,25 @@ import { Icon } from "astro-icon/components";
         </span>
         
         <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mt-4">
-          Pàgina no trobada
+          {isVal ? "Pàgina no trobada" : "Página no encontrada"}
         </h1>
         
         <p class="text-base mt-3 text-slate-600 leading-relaxed">
-          Sembla que l'enllaç que busques no està disponible o ha canviat d'ubicació.
+          {isVal ? "Sembla que l'enllaç que busques no està disponible o ha canviat d'ubicació." : "Parece que el enlace que buscas no está disponible o ha cambiado de ubicación."}
         </p>
         
         <div class="mt-8 flex justify-center gap-3">
           <a
-            href="/"
+            href={homePath}
             class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
             <Icon name="bx:home" class="w-4 h-4 text-white group-hover/btn:-translate-y-0.5 transition-transform" />
-            <span>Tornar a l'inici</span>
+            <span>{isVal ? "Tornar a l'inici" : "Volver al inicio"}</span>
           </a>
           <a
-            href="/contact"
+            href={contactPath}
             class="group/c inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 transition shadow-2xs">
             <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-700 group-hover/c:scale-110 transition-transform" />
-            <span>Contactar</span>
+            <span>{isVal ? "Contactar" : "Contactar"}</span>
           </a>
         </div>
       </div>

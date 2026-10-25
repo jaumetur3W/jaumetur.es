@@ -4,10 +4,15 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const isVal = localeFromPath(Astro.url.pathname) === "val";
+const locale = isVal ? "val" : "es";
+const href = (path: string) => localizePath(isVal ? `/val${path}` : path, locale);
 
 // Filter blog entries with 'draft: false' & date before current date
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate <= new Date();
+  return !data.draft && data.publishDate <= new Date() && (isVal ? data.lang !== "es" : data.lang === "es");
 });
 
 // Sort content entries by publication date (newest first)
@@ -16,7 +21,8 @@ publishedBlogEntries.sort(function (a, b) {
 });
 
 // Extract all unique categories
-const categories = ["Tots", ...new Set(publishedBlogEntries.map((post) => post.data.category))];
+const allCategory = isVal ? "Tots" : "Todas";
+const categories = [allCategory, ...new Set(publishedBlogEntries.map((post) => post.data.category))];
 
 // Category icon helper (Standardized icons)
 const getCategoryIcon = (category: string) => {
@@ -33,22 +39,22 @@ const getCategoryIcon = (category: string) => {
 ---
 
 <Layout
-  title="Blog d'Enginyeria Frontend & Web Apps"
-  description="Articles tècnics, guies pràctiques i casos d'estudi sobre Angular Modern, Signals, optimització de rendiment a 60 FPS, accessibilitat WCAG AA i automatització CI/CD."
+  title={isVal ? "Blog d'enginyeria frontend i aplicacions web" : "Blog de ingeniería frontend y aplicaciones web"}
+  description={isVal ? "Articles tècnics i casos d'estudi sobre Angular, rendiment, accessibilitat i automatització CI/CD." : "Artículos técnicos y casos de estudio sobre Angular, rendimiento, accesibilidad y automatización CI/CD."}
 >
   <Container>
     <div class="mt-8 mb-4">
       <Sectionhead>
-        <Fragment slot="title">Blog & Recursos d'Enginyeria</Fragment>
+        <Fragment slot="title">{isVal ? "Blog i recursos d'enginyeria" : "Blog y recursos de ingeniería"}</Fragment>
         <Fragment slot="desc">
-          Guies tècniques en profunditat, patrons d'arquitectura frontend i anàlisis de rendiment basades en projectes reals en producció.
+          {isVal ? "Guies tècniques, patrons d'arquitectura frontend i anàlisis de rendiment basades en projectes reals." : "Guías técnicas, patrones de arquitectura frontend y análisis de rendimiento basados en proyectos reales."}
         </Fragment>
       </Sectionhead>
     </div>
 
     <!-- Category Filters -->
     <div class="max-w-5xl mx-auto my-10">
-      <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start pb-6 border-b border-slate-200/90" id="category-filters" role="group" aria-label="Filtres per categoria">
+      <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start pb-6 border-b border-slate-200/90" id="category-filters" role="group" aria-label={isVal ? "Filtres per categoria" : "Filtros por categoría"}>
         {categories.map((cat, idx) => (
           <button
             type="button"
@@ -59,7 +65,7 @@ const getCategoryIcon = (category: string) => {
                 : "bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs"
             }`}
           >
-            <Icon name={cat !== "Tots" ? getCategoryIcon(cat) : "bx:layer"} class="w-3.5 h-3.5" />
+            <Icon name={cat !== allCategory ? getCategoryIcon(cat) : "bx:layer"} class="w-3.5 h-3.5" />
             <span>{cat}</span>
           </button>
         ))}
@@ -85,7 +91,7 @@ const getCategoryIcon = (category: string) => {
               <div>
                 {/* Cover Image */}
                 {post.data.image && post.data.image.src && (
-                  <a href={`/blog/${post.id}`} class="block overflow-hidden aspect-[16/9] bg-slate-100 border-b border-slate-100">
+                  <a href={href(`/blog/${post.id}`)} class="block overflow-hidden aspect-[16/9] bg-slate-100 border-b border-slate-100">
                     <img
                       src={post.data.image.src}
                       alt={post.data.image.alt}
@@ -113,7 +119,7 @@ const getCategoryIcon = (category: string) => {
 
                   <!-- Post Title -->
                   <h2 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors leading-snug mb-3">
-                    <a href={`/blog/${post.id}`}>
+                    <a href={href(`/blog/${post.id}`)}>
                       {post.data.title}
                     </a>
                   </h2>
@@ -128,17 +134,17 @@ const getCategoryIcon = (category: string) => {
               <!-- Footer with Tags & Date -->
               <div class="px-6 pb-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-500">
                 <time datetime={post.data.publishDate.toISOString()}>
-                  {post.data.publishDate.toLocaleDateString("ca-ES", {
+                  {post.data.publishDate.toLocaleDateString(isVal ? "ca-ES" : "es-ES", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
                   })}
                 </time>
                 <a
-                  href={`/blog/${post.id}`}
+                  href={href(`/blog/${post.id}`)}
                   class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 transition-colors font-bold"
                 >
-                  <span>Llegir article</span>
+                  <span>{isVal ? "Llegir article" : "Leer artículo"}</span>
                   <span>→</span>
                 </a>
               </div>
@@ -152,23 +158,23 @@ const getCategoryIcon = (category: string) => {
         <div class="max-w-2xl relative z-10">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 mb-4 shadow-2xs">
             <Icon name="bx:envelope" class="w-3.5 h-3.5 text-indigo-400" />
-            <span>Newsletter Tècnica: Frontend de Trinxera</span>
+            <span>{isVal ? "Butlletí tècnic: Frontend de trinxera" : "Boletín técnico: Frontend de trinchera"}</span>
           </span>
           <h3 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
-            Reb un article tècnic al mes sense spam ni postureig.
+            {isVal ? "Rep un article tècnic al mes, sense correu brossa ni postureig." : "Recibe un artículo técnico al mes, sin spam ni postureo."}
           </h3>
           <p class="text-sm text-slate-300 mb-6 leading-relaxed">
-            Patrons d'arquitectura en Angular, trucs per aconseguir 60 FPS estables, CI/CD per a desenvolupadors web i aprenentatges d'auditories reals.
+            {isVal ? "Patrons d'arquitectura en Angular, trucs per a aconseguir 60 FPS estables, CI/CD i aprenentatges d'auditories reals." : "Patrones de arquitectura en Angular, consejos para lograr 60 FPS estables, CI/CD y aprendizajes de auditorías reales."}
           </p>
           <form
-            action="/contact"
+            action={href("/contact")}
             method="GET"
             class="flex flex-col sm:flex-row gap-3 max-w-lg"
           >
             <input
               type="email"
               name="email"
-              placeholder="el.teu.correu@empresa.com"
+              placeholder={isVal ? "el.teu.correu@empresa.com" : "tu.correo@empresa.com"}
               required
               class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 flex-1 font-mono"
             />
@@ -176,7 +182,7 @@ const getCategoryIcon = (category: string) => {
               type="submit"
               class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/30 whitespace-nowrap cursor-pointer"
             >
-              Subscriure'm de franc
+              {isVal ? "Subscriure'm gratis" : "Suscribirme gratis"}
             </button>
           </form>
         </div>
@@ -193,7 +199,7 @@ const getCategoryIcon = (category: string) => {
 
       filterButtons.forEach(function(btn) {
         btn.addEventListener("click", function() {
-          const cat = btn.getAttribute("data-category") || "Tots";
+          const cat = btn.getAttribute("data-category") || "Todas";
 
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;
@@ -204,7 +210,7 @@ const getCategoryIcon = (category: string) => {
 
           postCards.forEach(function(card) {
             const cardCategory = card.getAttribute("data-category") || "";
-            card.style.display = (cat === "Tots" || cardCategory === cat) ? "flex" : "none";
+            card.style.display = (cat === "Tots" || cat === "Todas" || cardCategory === cat) ? "flex" : "none";
           });
         });
       });

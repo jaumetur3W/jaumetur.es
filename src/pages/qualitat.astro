@@ -3,65 +3,68 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
 import BuildStatus from "@/components/build-status.astro";
+import { localeFromPath, localizePath } from "@/i18n";
 
-const lastAuditDate = "20 d'octubre de 2026";
+const isVal = localeFromPath(Astro.url.pathname) === "val";
+const homePath = localizePath(isVal ? "/val/" : "/", isVal ? "val" : "es");
+const lastAuditDate = isVal ? "20 d'octubre de 2026" : "20 de octubre de 2026";
 
 // Puntuacions reals mesurades amb Google Lighthouse v13 (Mòbil / Escriptori)
 const lighthouseScores = [
-  { label: "Rendiment", score: 94, target: "≥ 90", icon: "bx:bxs-zap", color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
-  { label: "Accessibilitat", score: 96, target: "≥ 96", icon: "bx:accessibility", color: "text-indigo-500", bg: "bg-indigo-500/10 border-indigo-500/20" },
-  { label: "Bones Pràctiques", score: 100, target: "100", icon: "bx:shield-quarter", color: "text-sky-500", bg: "bg-sky-500/10 border-sky-500/20" },
-  { label: "SEO Tècnic", score: 100, target: "100", icon: "bx:line-chart", color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/20" },
+  { label: isVal ? "Rendiment" : "Rendimiento", score: 94, target: "≥ 90", icon: "bx:bxs-zap", color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
+  { label: isVal ? "Accessibilitat" : "Accesibilidad", score: 96, target: "≥ 96", icon: "bx:accessibility", color: "text-indigo-500", bg: "bg-indigo-500/10 border-indigo-500/20" },
+  { label: isVal ? "Bones pràctiques" : "Buenas prácticas", score: 100, target: "100", icon: "bx:shield-quarter", color: "text-sky-500", bg: "bg-sky-500/10 border-sky-500/20" },
+  { label: isVal ? "SEO tècnic" : "SEO técnico", score: 100, target: "100", icon: "bx:line-chart", color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/20" },
 ];
 
 const coreWebVitals = [
-  { metric: "LCP", name: "Largest Contentful Paint", value: "2.5 s", threshold: "< 2.5 s", status: "Òptim", desc: "Temps fins que el bloc principal s'ha renderitzat completament (0.6 s a escriptori)." },
-  { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 200 ms", status: "Excel·lent", desc: "Temps total de bloqueig del fil principal. 0 ms gràcies a l'eliminació de scripts bloquejants." },
-  { metric: "CLS", name: "Cumulative Layout Shift", value: "0.032", threshold: "< 0.1", status: "Òptim", desc: "Estabilitat visual completa sense salts inesperats d'elements durant la càrrega." },
-  { metric: "FCP", name: "First Contentful Paint", value: "1.5 s", threshold: "< 1.8 s", status: "Òptim", desc: "Temps d'aparició del primer element DOM visible en pantalla (0.4 s a escriptori)." },
-  { metric: "Speed Index", name: "Índex de Velocitat", value: "1.5 s", threshold: "< 3.4 s", status: "Òptim", desc: "Rapidesa amb què els continguts visuals de la pàgina es fan visibles (0.5 s a escriptori)." },
+  { metric: "LCP", name: "Largest Contentful Paint", value: "2.5 s", threshold: "< 2.5 s", status: isVal ? "Òptim" : "Óptimo", desc: isVal ? "Temps fins que el bloc principal s'ha renderitzat completament (0.6 s a escriptori)." : "Tiempo hasta que el bloque principal se ha renderizado por completo (0,6 s en escritorio)." },
+  { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 200 ms", status: isVal ? "Excel·lent" : "Excelente", desc: isVal ? "Temps total de bloqueig del fil principal. 0 ms gràcies a l'eliminació de scripts bloquejants." : "Tiempo total de bloqueo del hilo principal. 0 ms gracias a la eliminación de scripts bloqueantes." },
+  { metric: "CLS", name: "Cumulative Layout Shift", value: "0.032", threshold: "< 0.1", status: isVal ? "Òptim" : "Óptimo", desc: isVal ? "Estabilitat visual completa sense salts inesperats d'elements durant la càrrega." : "Estabilidad visual completa, sin desplazamientos inesperados de elementos durante la carga." },
+  { metric: "FCP", name: "First Contentful Paint", value: "1.5 s", threshold: "< 1.8 s", status: isVal ? "Òptim" : "Óptimo", desc: isVal ? "Temps d'aparició del primer element DOM visible en pantalla (0.4 s a escriptori)." : "Tiempo hasta que aparece el primer elemento DOM visible en pantalla (0,4 s en escritorio)." },
+  { metric: "Speed Index", name: isVal ? "Índex de velocitat" : "Índice de velocidad", value: "1.5 s", threshold: "< 3.4 s", status: isVal ? "Òptim" : "Óptimo", desc: isVal ? "Rapidesa amb què els continguts visuals de la pàgina es fan visibles (0.5 s a escriptori)." : "Velocidad a la que el contenido visual de la página se hace visible (0,5 s en escritorio)." },
 ];
 
 const bundleBreakdown = [
-  { asset: "Document HTML", size: "26.4 KB", gzipped: "7.1 KB", tech: "Astro SSG (Zero runtime superflu)" },
-  { asset: "Fulls d'Estil CSS", size: "14.2 KB", gzipped: "3.8 KB", tech: "Tailwind CSS v4 purjat al 100%" },
-  { asset: "JavaScript Crític", size: "7.8 KB", gzipped: "2.9 KB", tech: "Astro View Transitions & Scripts natius" },
-  { asset: "JavaScript Secundari", size: "0 KB", gzipped: "0 KB", tech: "Three.js eliminat per rendiment" },
-  { asset: "Tipografies (Inter + Bricolage)", size: "Self-hosted", gzipped: "Woff2 subset", tech: "Fontsource amb font-display: swap" },
+  { asset: "Document HTML", size: "26.4 KB", gzipped: "7.1 KB", tech: isVal ? "Astro SSG (Zero runtime superflu)" : "Astro SSG (sin runtime innecesario)" },
+  { asset: isVal ? "Fulls d'estil CSS" : "Hojas de estilo CSS", size: "14.2 KB", gzipped: "3.8 KB", tech: isVal ? "Tailwind CSS v4 purgat al 100 %" : "Tailwind CSS v4 purgado al 100 %" },
+  { asset: isVal ? "JavaScript crític" : "JavaScript crítico", size: "7.8 KB", gzipped: "2.9 KB", tech: "Astro View Transitions & Scripts natius" },
+  { asset: isVal ? "JavaScript secundari" : "JavaScript secundario", size: "0 KB", gzipped: "0 KB", tech: isVal ? "Three.js eliminat per rendiment" : "Three.js eliminado por rendimiento" },
+  { asset: isVal ? "Tipografies (Inter + Bricolage)" : "Tipografías (Inter + Bricolage)", size: "Self-hosted", gzipped: "Woff2 subset", tech: "Fontsource amb font-display: swap" },
 ];
 ---
 
 <Layout
-  title="Qualitat, Rendiment & Accessibilitat"
-  description="Tauler públic de transparència tècnica del portfolio de Jaume Tur: auditories de Lighthouse 100, Core Web Vitals, informe axe-core i protocol de verificació."
+  title={isVal ? "Qualitat, rendiment i accessibilitat" : "Calidad, rendimiento y accesibilidad"}
+  description={isVal ? "Tauler públic de transparència tècnica: auditories Lighthouse, Core Web Vitals, informe axe-core i protocol de verificació." : "Panel público de transparencia técnica: auditorías Lighthouse, Core Web Vitals, informe axe-core y protocolo de verificación."}
 >
   <Container>
     <!-- Breadcrumb -->
     <!-- Breadcrumbs -->
-    <nav aria-label="Ruta de navegació" class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-      <a href="/" class="hover:text-indigo-600 transition-colors">Inici</a>
+    <nav aria-label={isVal ? "Ruta de navegació" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+      <a href={homePath} class="hover:text-indigo-600 transition-colors">{isVal ? "Inici" : "Inicio"}</a>
       <span>/</span>
-      <span class="text-indigo-600 font-semibold">Qualitat & Rendiment</span>
+      <span class="text-indigo-600 font-semibold">{isVal ? "Qualitat i rendiment" : "Calidad y rendimiento"}</span>
     </nav>
 
     <!-- Header -->
     <header class="max-w-4xl mx-auto mt-6 mb-12 text-center sm:text-left">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs mb-4">
         <Icon name="bx:check-shield" class="w-4 h-4 text-emerald-600" />
-        <span>Auditoria Tècnica Verificable</span>
+        <span>{isVal ? "Auditoria tècnica verificable" : "Auditoría técnica verificable"}</span>
       </div>
 
       <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-        Compromís de <span class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-800 bg-clip-text text-transparent">Qualitat i Rendiment</span>
+        {isVal ? "Compromís de " : "Compromiso de "}<span class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-800 bg-clip-text text-transparent">{isVal ? "qualitat i rendiment" : "calidad y rendimiento"}</span>
       </h1>
 
       <p class="text-base sm:text-lg text-slate-600 mt-4 max-w-2xl leading-relaxed">
-        En enginyeria de programari, la qualitat no s'afirma: es mesura i es demostra. Aquest tauler recull les dades reals de rendiment, accessibilitat WCAG 2.2 AA i eficiència de codi del propi lloc web.
+        {isVal ? "En enginyeria de programari, la qualitat no s'afirma: es mesura i es demostra. Aquest tauler recull dades reals de rendiment, accessibilitat WCAG 2.2 AA i eficiència del codi del lloc web." : "En ingeniería de software, la calidad no se afirma: se mide y se demuestra. Este panel recoge datos reales de rendimiento, accesibilidad WCAG 2.2 AA y eficiencia del código del propio sitio web."}
       </p>
 
       <div class="flex items-center gap-2 mt-4 text-xs font-mono text-slate-500">
         <Icon name="bx:calendar" class="w-4 h-4 text-slate-400" />
-        <span>Última mesura auditada: <strong class="text-slate-700">{lastAuditDate}</strong></span>
+        <span>{isVal ? "Última mesura auditada:" : "Última medición auditada:"} <strong class="text-slate-700">{lastAuditDate}</strong></span>
       </div>
     </header>
 
@@ -69,7 +72,7 @@ const bundleBreakdown = [
     <section class="max-w-5xl mx-auto mb-16" aria-labelledby="lighthouse-heading">
       <h2 id="lighthouse-heading" class="text-xl sm:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
         <Icon name="bx:tachometer" class="w-5 h-5 text-indigo-600" />
-        <span>Puntuacions Google Lighthouse (Mòbil & Escriptori)</span>
+        <span>{isVal ? "Puntuacions de Google Lighthouse (mòbil i escriptori)" : "Puntuaciones de Google Lighthouse (móvil y escritorio)"}</span>
       </h2>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
@@ -88,7 +91,7 @@ const bundleBreakdown = [
 
             <div>
               <span class="text-sm font-bold text-slate-900 block">{item.label}</span>
-              <span class="text-[11px] font-mono text-emerald-600 font-semibold">Objectiu {item.target} assolit</span>
+              <span class="text-[11px] font-mono text-emerald-600 font-semibold">{isVal ? "Objectiu" : "Objetivo"} {item.target} {isVal ? "assolit" : "alcanzado"}</span>
             </div>
           </div>
         ))}
@@ -99,7 +102,7 @@ const bundleBreakdown = [
     <section class="max-w-5xl mx-auto mb-16" aria-labelledby="cwv-heading">
       <h2 id="cwv-heading" class="text-xl sm:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
         <Icon name="bx:pulse" class="w-5 h-5 text-indigo-600" />
-        <span>Mètriques Core Web Vitals en Temps Real</span>
+        <span>{isVal ? "Mètriques Core Web Vitals en temps real" : "Métricas Core Web Vitals en tiempo real"}</span>
       </h2>
 
       <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm">
@@ -107,11 +110,11 @@ const bundleBreakdown = [
           <table class="w-full text-left text-xs sm:text-sm font-sans">
             <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-mono uppercase text-slate-500">
               <tr>
-                <th class="py-3.5 px-5">Mètrica Clau</th>
-                <th class="py-3.5 px-5">Valor Mesurat</th>
-                <th class="py-3.5 px-5">Límit Recomanat</th>
-                <th class="py-3.5 px-5">Estat</th>
-                <th class="py-3.5 px-5 hidden md:table-cell">Descripció Tècnica</th>
+                <th class="py-3.5 px-5">{isVal ? "Mètrica clau" : "Métrica clave"}</th>
+                <th class="py-3.5 px-5">{isVal ? "Valor mesurat" : "Valor medido"}</th>
+                <th class="py-3.5 px-5">{isVal ? "Límit recomanat" : "Límite recomendado"}</th>
+                <th class="py-3.5 px-5">{isVal ? "Estat" : "Estado"}</th>
+                <th class="py-3.5 px-5 hidden md:table-cell">{isVal ? "Descripció tècnica" : "Descripción técnica"}</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 font-mono">
@@ -142,7 +145,7 @@ const bundleBreakdown = [
     <section class="max-w-5xl mx-auto mb-16" aria-labelledby="a11y-heading">
       <h2 id="a11y-heading" class="text-xl sm:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
         <Icon name="bx:accessibility" class="w-5 h-5 text-indigo-600" />
-        <span>Auditoria d'Accessibilitat (axe-core & WCAG 2.2 AA)</span>
+        <span>{isVal ? "Auditoria d'accessibilitat (axe-core i WCAG 2.2 AA)" : "Auditoría de accesibilidad (axe-core y WCAG 2.2 AA)"}</span>
       </h2>
 
       <div class="grid md:grid-cols-3 gap-6">
@@ -154,7 +157,7 @@ const bundleBreakdown = [
             <span class="font-bold text-slate-900 text-sm">0 Violacions axe-core</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed">
-            Cap error d'accessibilitat detectat pel motor automatitzat axe-core. Marcats semàntics, rols ARIA i metadades completament vàlides.
+            {isVal ? "El motor automatitzat axe-core no ha detectat errors d'accessibilitat. El marcatge semàntic, els rols ARIA i les metadades són vàlids." : "El motor automatizado axe-core no ha detectado errores de accesibilidad. El marcado semántico, los roles ARIA y los metadatos son válidos."}
           </p>
         </div>
 
@@ -163,10 +166,10 @@ const bundleBreakdown = [
             <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
               <Icon name="bx:pointer" class="w-5 h-5" />
             </div>
-            <span class="font-bold text-slate-900 text-sm">Navegació per Teclat</span>
+            <span class="font-bold text-slate-900 text-sm">{isVal ? "Navegació amb teclat" : "Navegación con teclado"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed">
-            Skip link funcional a la capçalera, ordre de tabulació natural i focus trap implementat a la paleta de comandes (Cmd+K).
+            {isVal ? "Enllaç per a saltar al contingut, ordre de tabulació natural i trampa de focus a la paleta de comandaments (Cmd+K)." : "Enlace para saltar al contenido, orden de tabulación natural y trampa de foco en la paleta de comandos (Cmd+K)."}
           </p>
         </div>
 
@@ -175,10 +178,10 @@ const bundleBreakdown = [
             <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
               <Icon name="bx:sun" class="w-5 h-5" />
             </div>
-            <span class="font-bold text-slate-900 text-sm">Contrastos Cromàtics</span>
+            <span class="font-bold text-slate-900 text-sm">{isVal ? "Contrast de color" : "Contraste de color"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed">
-            Superació del mínim 4.5:1 exigit per la normativa WCAG AA amb fons de contrast accessible (#F8FAFC).
+            {isVal ? "Supera el mínim 4,5:1 exigit per WCAG AA amb un fons de contrast accessible (#F8FAFC)." : "Supera el mínimo 4,5:1 exigido por WCAG AA con un fondo de contraste accesible (#F8FAFC)."}
           </p>
         </div>
       </div>
@@ -188,17 +191,17 @@ const bundleBreakdown = [
     <section class="max-w-5xl mx-auto mb-16" aria-labelledby="bundle-heading">
       <h2 id="bundle-heading" class="text-xl sm:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
         <Icon name="bx:package" class="w-5 h-5 text-indigo-600" />
-        <span>Pes d'Actius & Pressupost de Rendiment</span>
+        <span>{isVal ? "Pes dels recursos i pressupost de rendiment" : "Peso de los recursos y presupuesto de rendimiento"}</span>
       </h2>
 
       <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between flex-wrap gap-4">
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-slate-400 block">Pes Total a Primera Càrrega</span>
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400 block">{isVal ? "Pes total en la primera càrrega" : "Peso total en la primera carga"}</span>
             <span class="text-2xl sm:text-3xl font-black font-mono text-emerald-600">~ 48.4 KB (Transferit Gzip)</span>
           </div>
           <span class="text-xs font-mono text-slate-500 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200/80">
-            Pressupost màxim: &lt; 150 KB (Assolit amb èxit)
+            {isVal ? "Pressupost màxim:" : "Presupuesto máximo:"} &lt; 150 KB ({isVal ? "assolit" : "alcanzado"})
           </span>
         </div>
 
@@ -206,10 +209,10 @@ const bundleBreakdown = [
           <table class="w-full text-left text-xs sm:text-sm">
             <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-mono uppercase text-slate-500">
               <tr>
-                <th class="py-3 px-5">Recurs</th>
-                <th class="py-3 px-5">Mida Bruta</th>
-                <th class="py-3 px-5">Mida Comprimida</th>
-                <th class="py-3 px-5">Estratègia d'Optimització</th>
+                <th class="py-3 px-5">{isVal ? "Recurs" : "Recurso"}</th>
+                <th class="py-3 px-5">{isVal ? "Mida sense comprimir" : "Tamaño sin comprimir"}</th>
+                <th class="py-3 px-5">{isVal ? "Mida comprimida" : "Tamaño comprimido"}</th>
+                <th class="py-3 px-5">{isVal ? "Estratègia d'optimització" : "Estrategia de optimización"}</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 font-mono text-xs">
@@ -229,7 +232,7 @@ const bundleBreakdown = [
 
     <!-- Live CI/CD Pipeline Status -->
     <section class="max-w-5xl mx-auto mb-16" aria-labelledby="cicd-heading">
-      <h2 id="cicd-heading" class="sr-only">Estat del Pipeline CI/CD</h2>
+      <h2 id="cicd-heading" class="sr-only">{isVal ? "Estat del pipeline CI/CD" : "Estado del pipeline CI/CD"}</h2>
       <BuildStatus variant="card" />
     </section>
 
@@ -237,18 +240,18 @@ const bundleBreakdown = [
     <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-slate-950 text-slate-200 border border-slate-800 font-mono text-xs" aria-labelledby="reproduce-heading">
       <div class="flex items-center gap-2 text-indigo-400 font-bold mb-3 text-sm">
         <Icon name="bx:terminal" class="w-4 h-4" />
-        <h3 id="reproduce-heading">Protocol de Reproducció de l'Auditoria</h3>
+        <h3 id="reproduce-heading">{isVal ? "Protocol per a reproduir l'auditoria" : "Protocolo para reproducir la auditoría"}</h3>
       </div>
       <p class="text-slate-400 text-xs mb-4 font-sans leading-relaxed">
-        Pots executar aquestes mateixes auditories des del teu entorn local per comprovar de manera independent la veracitat de les dades:
+        {isVal ? "Pots executar les mateixes auditories des del teu entorn local per a comprovar les dades de manera independent:" : "Puedes ejecutar las mismas auditorías desde tu entorno local para comprobar los datos de forma independiente:"}
       </p>
 
       <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 space-y-2">
-        <div><span class="text-slate-500"># 1. Compilar la versió de producció</span></div>
+        <div><span class="text-slate-500"># 1. {isVal ? "Compilar la versió de producció" : "Compilar la versión de producción"}</span></div>
         <div class="text-emerald-400">npm run build && npm run preview</div>
-        <div class="pt-2"><span class="text-slate-500"># 2. Executar auditoria de Lighthouse CLI</span></div>
+        <div class="pt-2"><span class="text-slate-500"># 2. {isVal ? "Executar l'auditoria Lighthouse CLI" : "Ejecutar la auditoría Lighthouse CLI"}</span></div>
         <div class="text-emerald-400">npx lighthouse http://localhost:4321/ --preset=desktop --view</div>
-        <div class="pt-2"><span class="text-slate-500"># 3. Executar auditoria d'accessibilitat axe-core</span></div>
+        <div class="pt-2"><span class="text-slate-500"># 3. {isVal ? "Executar l'auditoria d'accessibilitat axe-core" : "Ejecutar la auditoría de accesibilidad axe-core"}</span></div>
         <div class="text-emerald-400">npx @axe-core/cli http://localhost:4321/</div>
       </div>
 
@@ -259,14 +262,14 @@ const bundleBreakdown = [
           rel="noopener noreferrer"
           class="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition shadow-xs text-xs">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
-          <span>Examinar Codi a GitHub</span>
+          <span>{isVal ? "Examinar el codi a GitHub" : "Examinar el código en GitHub"}</span>
           <span class="text-[10px]">↗</span>
         </a>
         <a
-          href="/"
+          href={homePath}
           class="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold transition border border-slate-700 text-xs">
           <Icon name="bx:home-alt" class="w-4 h-4" />
-          <span>Tornar a l'Inici</span>
+          <span>{isVal ? "Tornar a l'inici" : "Volver al inicio"}</span>
         </a>
       </div>
     </section>

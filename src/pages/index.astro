@@ -43,12 +43,12 @@ const steps = isVal
             const isClient = project.id === "avisa";
             return (
               <article class:list={["group min-w-0", index === 0 && "md:col-span-2 md:grid md:grid-cols-5 md:items-center md:gap-8"]}>
-                <a href={`/projectes/${project.id}`} class:list={["relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]", index === 0 && "md:col-span-3"]} aria-label={`Veure ${project.data.title}`}>
+                <a href={href(`/projectes/${project.id}`)} class:list={["relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]", index === 0 && "md:col-span-3"]} aria-label={`${isVal ? "Veure" : "Ver"} ${project.data.title}`}>
                   <img src={image.src} alt={image.alt} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none" loading="lazy" decoding="async" />
                 </a>
                 <div class:list={["pt-4", index === 0 && "md:col-span-2 md:py-4"]}>
                   <p class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{isClient ? "Projecte de client" : "Demo · contingut fictici"}</p>
-                  <h3 class="mt-2 text-xl font-bold leading-snug text-slate-950 sm:text-2xl"><a href={`/projectes/${project.id}`} class="decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{project.data.title}</a></h3>
+                  <h3 class="mt-2 text-xl font-bold leading-snug text-slate-950 sm:text-2xl"><a href={href(`/projectes/${project.id}`)} class="decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{project.data.title}</a></h3>
                   <p class="mt-2 text-sm leading-6 text-slate-600">{project.data.subtitle}</p>
                   <p class="mt-3 text-xs leading-5 text-slate-500">{project.data.stack.slice(0, 3).join(" · ")}</p>
                 </div>

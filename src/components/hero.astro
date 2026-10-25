@@ -49,10 +49,10 @@ const copy = isVal
         <div class="hero-code-content">
           <p><span class="code-keyword">const</span> <span class="code-name">jaume</span> = &#123;</p>
           <p class="code-indent"><span class="code-key">rol:</span> <button id="role-cycle-btn" type="button" class="code-control"><span id="developer-role-text">"Backend &amp; Web Apps"</span><Icon name="bx:refresh" class="h-3.5 w-3.5" /></button>,</p>
-          <p class="code-indent"><span class="code-key">focus:</span> <span id="developer-focus" class="code-value">"productes digitals útils"</span>,</p>
-          <p class="code-indent"><span class="code-key">base:</span> <span class="code-value">["web", "APIs", "sistemes"]</span></p>
+          <p class="code-indent"><span class="code-key">{isVal ? "focus" : "enfoque"}:</span> <span id="developer-focus" class="code-value">{isVal ? '"productes digitals útils"' : '"productos digitales útiles"'}</span>,</p>
+          <p class="code-indent"><span class="code-key">{isVal ? "base" : "áreas"}:</span> <span class="code-value">{isVal ? '["web", "APIs", "sistemes"]' : '["web", "APIs", "sistemas"]'}</span></p>
           <p>&#125;;</p>
-          <div class="hero-presets" aria-label="Canviar perfil tècnic">
+          <div class="hero-presets" aria-label={isVal ? "Canviar perfil tècnic" : "Cambiar perfil técnico"}>
             <button type="button" data-preset-idx="0" class="role-preset-chip is-active">Backend</button>
             <button type="button" data-preset-idx="1" class="role-preset-chip">Sistemes</button>
             <button type="button" data-preset-idx="2" class="role-preset-chip">Frontend</button>
@@ -72,9 +72,9 @@ const copy = isVal
     const presetChips = Array.from(document.querySelectorAll(".role-preset-chip"));
     if (!roleCycleBtn || !roleText || !focusText) return;
     const presets = [
-      { role: "Backend & Web Apps", focus: "productes digitals útils", memoji: "/img/4.webp" },
-      { role: "Sistemes & Servidors", focus: "infraestructura fiable", memoji: "/img/7.webp" },
-      { role: "Frontend & UX", focus: "interfícies clares", memoji: "/img/5.webp" },
+      { role: "Backend & Web Apps", focus: isVal ? "productes digitals útils" : "productos digitales útiles", memoji: "/img/4.webp" },
+      { role: isVal ? "Sistemes & Servidors" : "Sistemas y servidores", focus: isVal ? "infraestructura fiable" : "infraestructura fiable", memoji: "/img/7.webp" },
+      { role: "Frontend & UX", focus: isVal ? "interfícies clares" : "interfaces claras", memoji: "/img/5.webp" },
     ];
     let currentPresetIdx = 0;
 

@@ -2,11 +2,15 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const isVal = localeFromPath(Astro.url.pathname) === "val";
+const homePath = localizePath("/", isVal ? "val" : "es");
 ---
 
 <Layout
-  title="Targeta Digital de Visita | Jaume Tur"
-  description="Targeta de contacte digital de Jaume Tur, desenvolupador Frontend & Web Apps. Escaneja el codi QR o descarrega la vCard oficial directament al teu mòbil.">
+  title={isVal ? "Targeta digital de visita | Jaume Tur" : "Tarjeta digital de visita | Jaume Tur"}
+  description={isVal ? "Targeta de contacte digital de Jaume Tur, desenvolupador web. Escaneja el codi QR o descarrega la vCard al mòbil." : "Tarjeta de contacto digital de Jaume Tur, desarrollador web. Escanea el código QR o descarga la vCard en tu móvil."}>
   <Container>
     <div class="min-h-[calc(100vh-14rem)] flex items-center justify-center py-10 px-4">
       
@@ -17,11 +21,11 @@ import { Icon } from "astro-icon/components";
         <div class="h-32 bg-gradient-to-tr from-[#090D16] via-indigo-950 to-indigo-900 relative p-6 flex justify-between items-start border-b border-indigo-800/40">
           <div class="flex items-center gap-2.5">
             <img src="/img/jt.LOGO-02-128.webp" alt="Logo JT" class="w-10 h-10 rounded-xl shadow-sm object-cover ring-2 ring-[#FFFF00]/60" width="40" height="40" loading="eager" />
-            <span class="text-white text-xs font-mono font-bold tracking-wider uppercase">Pass Professional</span>
+            <span class="text-white text-xs font-mono font-bold tracking-wider uppercase">{isVal ? "Credencial professional" : "Tarjeta profesional"}</span>
           </div>
           <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-white/20 text-white backdrop-blur-xs">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>DISPONIBLE</span>
+            <span>{isVal ? "DISPONIBLE" : "DISPONIBLE"}</span>
           </span>
         </div>
 
@@ -50,7 +54,7 @@ import { Icon } from "astro-icon/components";
               id="card-download-vcf"
               class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-sm group/btn cursor-pointer">
               <Icon name="bx:user-plus" class="w-4 h-4 text-emerald-400 group-hover/btn:scale-110 transition-transform" />
-              <span>Guardar Contacte</span>
+              <span>{isVal ? "Guardar contacte" : "Guardar contacto"}</span>
             </a>
           </div>
 
@@ -60,7 +64,7 @@ import { Icon } from "astro-icon/components";
             <p class="text-xs font-bold text-indigo-600 font-mono mt-0.5">Backend &amp; Web Apps · Sistemes SMX</p>
             <p class="text-xs text-slate-500 mt-2 leading-relaxed flex items-center gap-1">
               <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-slate-400" />
-              <span>València, Espanya (Remot &amp; Presencial)</span>
+              <span>{isVal ? "València, Espanya (remot i presencial)" : "Valencia, España (remoto y presencial)"}</span>
             </p>
           </div>
 
@@ -87,11 +91,11 @@ import { Icon } from "astro-icon/components";
 
             <!-- Web Portfolio -->
             <a
-              href="/"
+              href={homePath}
               class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold flex items-center justify-between transition">
               <div class="flex items-center gap-2.5">
                 <Icon name="bx:globe" class="w-4 h-4 text-slate-600" />
-                <span>jaumetur.es (Portfolio Complet)</span>
+                <span>jaumetur.es ({isVal ? "portafolis complet" : "portfolio completo"})</span>
               </div>
               <Icon name="bx:right-arrow-alt" class="w-4 h-4 text-slate-400" />
             </a>
@@ -120,7 +124,7 @@ import { Icon } from "astro-icon/components";
           <!-- Codi QR de la Targeta -->
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-center">
             <span class="text-[10px] font-mono uppercase font-bold text-slate-400 block mb-2">
-              Escaneja per obrir al telèfon
+              {isVal ? "Escaneja per a obrir al telèfon" : "Escanea para abrir en el teléfono"}
             </span>
             <div class="w-32 h-32 mx-auto bg-white p-2 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center">
               <img src="/qr-jaumetur.svg" alt="Codi QR cap a https://jaumetur.es/" class="w-full h-full" width="128" height="128" />

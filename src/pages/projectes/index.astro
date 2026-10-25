@@ -2,6 +2,10 @@
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const isVal = localeFromPath(Astro.url.pathname) === "val";
+const href = (path: string) => localizePath(path, isVal ? "val" : "es");
 
 const projects = await getCollection("projectes");
 projects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
@@ -21,6 +25,15 @@ const projectPreviews: Record<string, { src: string; alt: string }> = {
   },
 };
 
+const projectPreviewAltEs: Record<string, string> = {
+  avisa: "Página principal de la plataforma de servicios AVISA",
+  "dashboard-telemetria": "Gráfico analítico ilustrativo del proyecto de telemetría",
+  "pipeline-cicd": "Historial público de ejecuciones de GitHub Actions del proyecto CI/CD",
+  "pizzeria-xativa": "Pizza de la demo Pizzeria Xàtiva",
+  "burger-xativa": "Hamburguesa de la demo Burger Xàtiva",
+  "forma-espacio": "Interior arquitectónico con materiales naturales",
+};
+
 const projectRoles: Record<string, string> = {
   avisa: "Arquitectura frontend i desenvolupament d'interfície",
   "pizzeria-xativa": "Desenvolupament frontend i disseny d'interfície",
@@ -28,85 +41,136 @@ const projectRoles: Record<string, string> = {
   "dashboard-telemetria": "Desenvolupament frontend i rendiment web",
   "pipeline-cicd": "DevOps i lideratge frontend",
 };
+
+const projectRolesEs: Record<string, string> = {
+  avisa: "Arquitectura frontend y desarrollo de interfaz",
+  "pizzeria-xativa": "Desarrollo frontend y diseño de interfaz",
+  "burger-xativa": "Desarrollo frontend y diseño de interfaz",
+  "dashboard-telemetria": "Desarrollo frontend y rendimiento web",
+  "pipeline-cicd": "DevOps y liderazgo frontend",
+};
+
+const projectStackEs: Record<string, string[]> = {
+  avisa: ["Angular 17+", "TypeScript estricto", "Signals", "Vercel Edge", "WCAG AA", "Formularios reactivos"],
+  "pizzeria-xativa": ["HTML5", "Tailwind CSS CDN", "JavaScript", "Enlaces de WhatsApp", "Interfaces de Apple Wallet y Google Wallet"],
+  "burger-xativa": ["Astro", "HTML estático", "Tailwind CSS", "JavaScript", "Diseño adaptable", "ES / VA"],
+  "dashboard-telemetria": ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment", "Virtual DOM", "Core Web Vitals"],
+  "pipeline-cicd": ["GitHub Actions", "CI/CD", "Linux Shell", "ESLint", "TypeScript", "GitHub Pages", "Caché de npm"],
+  "forma-espacio": ["HTML", "CSS", "JavaScript", "Diseño editorial"],
+};
+
+const projectCopyEs: Record<string, { title: string; subtitle: string; badge: string }> = {
+  avisa: {
+    title: "AVISA — Gestión de incidencias en tiempo real",
+    subtitle: "Arquitectura frontend reactiva con Angular y TypeScript para coordinar avisos e incidencias urbanas críticas.",
+    badge: "Aplicación web · Prototipo de interfaz",
+  },
+  "pizzeria-xativa": {
+    title: "Pizzeria Xàtiva — Demo de carta y Pizza Pass",
+    subtitle: "Plantilla demostrativa con carta digital, cesta y prototipo de fidelización Pizza Pass para Apple Wallet y Google Wallet.",
+    badge: "Demo interactiva · datos ficticios",
+  },
+  "burger-xativa": {
+    title: "Burger Xàtiva — Demo de web gastronómica interactiva",
+    subtitle: "Plantilla de hamburguesería ficticia con carta, personalizador, cesta y flujos simulados.",
+    badge: "Demo interactiva · sin pedidos reales",
+  },
+  "dashboard-telemetria": {
+    title: "Panel de telemetría — Rendimiento web a 60 FPS",
+    subtitle: "Panel interactivo para monitorizar métricas de rendimiento web, concurrencia y Core Web Vitals en tiempo real.",
+    badge: "Interfaz frontend y métricas",
+  },
+  "pipeline-cicd": {
+    title: "Pipeline CI/CD automatizado — Cero interrupciones",
+    subtitle: "Automatización de lint, validación de TypeScript, compilación optimizada y despliegue continuo.",
+    badge: "DevOps y automatización",
+  },
+  "forma-espacio": {
+    title: "FORMA / ESPACIO — Arte · Arquitectura · Investigación",
+    subtitle: "Portfolio editorial de arte, arquitectura e investigación espacial.",
+    badge: "Portfolio · Arquitectura",
+  },
+};
 ---
 
 <Layout
-  title="Projectes web i casos d'estudi"
-  description="Projectes personals, demos i treballs de desenvolupament web de Jaume Tur. Consulta el meu rol, les tecnologies i els casos d'estudi."
+  title={isVal ? "Projectes web i casos d'estudi" : "Proyectos web y casos de estudio"}
+  description={isVal ? "Projectes, demostracions i treballs de desenvolupament web de Jaume Tur." : "Proyectos, demostraciones y trabajos de desarrollo web de Jaume Tur."}
 >
   <Container>
     <header class="mx-auto max-w-3xl pt-12 pb-10 sm:pt-16 sm:pb-12">
       <p class="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
         <span class="h-1.5 w-8 rounded-full bg-[#FFFF00]" aria-hidden="true"></span>
-        Portafolis
+        {isVal ? "Portafolis" : "Portafolio"}
       </p>
       <h1 class="max-w-2xl text-3xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
-        Projectes que expliquen <span class="decoration-[#FFFF00] decoration-[0.22em] underline underline-offset-2">com treballe</span>
+        {isVal ? "Projectes que expliquen " : "Proyectos que explican "}<span class="decoration-[#FFFF00] decoration-[0.22em] underline underline-offset-2">{isVal ? "com treballe" : "cómo trabajo"}</span>
       </h1>
       <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-        Aplicacions, demos i projectes de desenvolupament web. En cada fitxa trobaràs què és, el meu paper i les tecnologies utilitzades.
+        {isVal ? "Aplicacions, demostracions i projectes de desenvolupament web. En cada fitxa trobaràs què és, quin ha sigut el meu paper i quines tecnologies s'han utilitzat." : "Aplicaciones, demostraciones y proyectos de desarrollo web. En cada ficha encontrarás qué es, cuál ha sido mi papel y qué tecnologías se han utilizado."}
       </p>
       <a
-        href="/qualitat"
+        href={href("/qualitat")}
         class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-slate-700 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
       >
-        Consulta els criteris de revisió tècnica <span aria-hidden="true">↗</span>
+        {isVal ? "Consulta els criteris de revisió tècnica" : "Consulta los criterios de revisión técnica"} <span aria-hidden="true">↗</span>
       </a>
     </header>
 
-    <section aria-label="Projectes" class="mb-20">
+    <section aria-label={isVal ? "Projectes" : "Proyectos"} class="mb-20">
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
         {projects.map((project) => {
           const preview = projectPreviews[project.id] ?? project.data.image;
+          const projectCopy = isVal ? project.data : { ...project.data, ...projectCopyEs[project.id] };
           return (
           <article class="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-colors duration-200 hover:border-slate-400">
             <a
-              href={`/projectes/${project.id}`}
+              href={href(`/projectes/${project.id}`)}
               class="relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]"
-              aria-label={`Veure el cas d'estudi: ${project.data.title}`}
+              aria-label={`${isVal ? "Veure el cas d'estudi" : "Ver el caso de estudio"}: ${projectCopy.title}`}
             >
               <img
                 src={preview.src}
-                alt={preview.alt}
+                alt={isVal ? preview.alt : projectPreviewAltEs[project.id] ?? preview.alt}
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 loading="lazy"
                 decoding="async"
               />
               <span class="absolute left-4 top-4 rounded-md bg-[#FFFF00] px-2.5 py-1 text-xs font-semibold text-slate-950">
-                {project.id === "avisa" ? "Projecte de client" : project.data.badge}
+                {project.id === "avisa" ? (isVal ? "Projecte de client" : "Proyecto de cliente") : projectCopy.badge}
               </span>
             </a>
 
             <div class="flex flex-1 flex-col p-5 sm:p-6">
               <h2 class="text-xl font-bold leading-snug tracking-tight text-slate-950 sm:text-2xl">
                 <a
-                  href={`/projectes/${project.id}`}
+                  href={href(`/projectes/${project.id}`)}
                   class="rounded-sm decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                 >
-                  {project.data.title}
+                  {projectCopy.title}
                 </a>
               </h2>
               <p class="mt-3 max-w-prose text-sm leading-6 text-slate-600 sm:text-base">
-                {project.data.subtitle}
+                {projectCopy.subtitle}
               </p>
 
               <dl class="mt-5 border-t border-slate-100 pt-4">
                 <div>
-                  <dt class="text-xs font-semibold text-slate-500">El meu rol</dt>
-                  <dd class="mt-1 text-sm font-medium text-slate-800">{projectRoles[project.id] ?? project.data.role}</dd>
+                  <dt class="text-xs font-semibold text-slate-500">{isVal ? "El meu rol" : "Mi papel"}</dt>
+                  <dd class="mt-1 text-sm font-medium text-slate-800">{isVal ? projectRoles[project.id] ?? project.data.role : projectRolesEs[project.id] ?? project.data.role}</dd>
                 </div>
                 <div class="mt-4">
-                  <dt class="text-xs font-semibold text-slate-500">Tecnologies</dt>
-                  <dd class="mt-1 text-sm leading-6 text-slate-700">{project.data.stack.join(" · ")}</dd>
+                  <dt class="text-xs font-semibold text-slate-500">{isVal ? "Tecnologies" : "Tecnologías"}</dt>
+                  <dd class="mt-1 text-sm leading-6 text-slate-700">{(isVal ? project.data.stack : projectStackEs[project.id] ?? project.data.stack).join(" · ")}</dd>
                 </div>
               </dl>
 
               <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-100 pt-5 mt-5 text-sm font-semibold">
                 <a
-                  href={`/projectes/${project.id}`}
+                  href={href(`/projectes/${project.id}`)}
                   class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-950 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                 >
-                  Cas d'estudi <span aria-hidden="true">↗</span>
+                  {isVal ? "Cas d'estudi" : "Caso de estudio"} <span aria-hidden="true">↗</span>
                 </a>
                 {project.data.liveUrl && (
                   <a
@@ -115,7 +179,7 @@ const projectRoles: Record<string, string> = {
                     rel="noopener noreferrer"
                     class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-950 hover:decoration-[#FFFF00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                   >
-                    Obrir projecte <span aria-hidden="true">↗</span>
+                    {isVal ? "Obrir projecte" : "Abrir proyecto"} <span aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
