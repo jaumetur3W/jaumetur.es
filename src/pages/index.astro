@@ -17,8 +17,18 @@ const previews: Record<string, { src: string; alt: string }> = {
   "burger-xativa": { src: "/img/foto_burger.png", alt: "Hamburguesa de mostra de la demo Burger Xàtiva" },
 };
 const services = isVal
-  ? [["01", "Aplicacions web", "Interfícies accessibles i adaptables per presentar un servei o resoldre una necessitat concreta."], ["02", "Backend i API", "Lògica de servidor, API i dades estructurades per connectar les peces d'un projecte."], ["03", "Sistemes i automatització", "Desplegaments, integracions i eines per fer més fiable el treball digital."]]
-  : [["01", "Aplicaciones web", "Interfaces accesibles y adaptables para presentar un servicio o resolver una necesidad concreta."], ["02", "Backend y API", "Lógica de servidor, API y datos estructurados para conectar las piezas de un proyecto."], ["03", "Sistemas y automatización", "Despliegues, integraciones y herramientas para hacer más fiable el trabajo digital."]];
+  ? [
+      ["01", "Pàgines web i landing pages", "Disseny web i desenvolupament d'alt rendiment per a negocis i professionals a Xàtiva, València o en remot."],
+      ["02", "Aplicacions web a mida", "Plataformes interactives, àrees de gestió i interfícies ràpides adaptades a les necessitats reals del teu flux de treball."],
+      ["03", "Backend, API i integracions", "Lògica de servidor robusta, disseny d'API REST i connexió de dades estructurades entre aplicacions."],
+      ["04", "Automatització i sistemes", "Desplegaments automatitzats (CI/CD), administració d'infraestructura i optimització de processos per estalviar temps."]
+    ]
+  : [
+      ["01", "Páginas web y landing pages", "Diseño web y desarrollo de alto rendimiento para negocios y profesionales en Xàtiva, Valencia o en remoto."],
+      ["02", "Aplicaciones web a medida", "Plataformas interactivas, paneles de gestión e interfaces rápidas adaptadas a las necesidades reales de tu flujo de trabajo."],
+      ["03", "Backend, API e integraciones", "Lógica de servidor robusta, diseño de API REST y conexión de datos estructurados entre aplicaciones."],
+      ["04", "Automatización y sistemas", "Despliegues automatizados (CI/CD), administración de infraestructura y optimización de procesos para ahorrar tiempo."]
+    ];
 const steps = isVal
   ? [["01", "Parlem", "Aclarim l'objectiu, les persones i les limitacions del projecte."], ["02", "Fem un pla", "Ordenem les necessitats i concretem un abast realista."], ["03", "Construïsc i revisem", "Desenvolupe la solució i comprovem el resultat abans del lliurament."]]
   : [["01", "Hablamos", "Aclaramos el objetivo, las personas y las limitaciones del proyecto."], ["02", "Hacemos un plan", "Ordenamos las necesidades y concretamos un alcance realista."], ["03", "Desarrollo y revisamos", "Desarrollo la solución y comprobamos el resultado antes de la entrega."]];
@@ -87,7 +97,11 @@ const steps = isVal
 
       <section class="grid items-center gap-5 border-b border-slate-200 py-12 sm:grid-cols-[auto_1fr_auto] sm:gap-8 sm:py-16" aria-labelledby="about-short-title">
         <img src="/img/1.webp" alt="Jaume Tur" class="mx-auto h-24 w-24 object-contain sm:h-28 sm:w-28" width="112" height="112" loading="lazy" decoding="async" />
-        <div><p class="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "La persona darrere del codi" : "La persona detrás del código"}</p><h2 id="about-short-title" class="text-2xl font-extrabold tracking-tight text-slate-950">{isVal ? "Soc Jaume Tur, desenvolupador web a València." : "Soy Jaume Tur, desarrollador web en Valencia."}</h2><p class="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{isVal ? "Combine el desenvolupament d'aplicacions web amb una base de backend i sistemes. M'agrada entendre el problema i fer solucions que siguen útils i fàcils de mantindre." : "Combino el desarrollo de aplicaciones web con una base de backend y sistemas. Me gusta entender el problema y crear soluciones útiles y fáciles de mantener."}</p></div>
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "La persona darrere del codi" : "La persona detrás del código"}</p>
+          <h2 id="about-short-title" class="text-2xl font-extrabold tracking-tight text-slate-950">{isVal ? "Soc Jaume Tur, desenvolupador web a Xàtiva i València." : "Soy Jaume Tur, desarrollador web en Xàtiva y Valencia."}</h2>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{isVal ? "Treballe des de Xàtiva oferint desenvolupament de pàgines web per a negocis locals i aplicacions a mida, així com projectes en remot per a empreses de qualsevol ubicació. Combine desenvolupament web modern amb una sòlida base de backend i sistemes." : "Trabajo desde Xàtiva ofreciendo desarrollo de páginas web para negocios locales y aplicaciones a medida, así como proyectos en remoto para empresas de cualquier ubicación. Combino desarrollo web moderno con una sólida base de backend y sistemas."}</p>
+        </div>
         <a href={href("/about")} class="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Sobre mi" : "Sobre mí"} <span aria-hidden="true">↗</span></a>
       </section>
 

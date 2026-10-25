@@ -21,17 +21,19 @@ const pillars = isVal
 
 const highlights = [
   { icon: "bx:bxs-graduation", label: isVal ? "TITULACIONS" : "FORMACIÓN", val: "CFGS DAW + GM SMX", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:map-pin", label: isVal ? "UBICACIÓ" : "UBICACIÓN", val: isVal ? "València (híbrid / remot)" : "Valencia (híbrido / remoto)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:server", label: isVal ? "ESPECIALITAT" : "ESPECIALIDAD", val: "Backend, sistemes i aplicacions web", color: "border-indigo-200/90 bg-indigo-50 text-indigo-900" },
-  { icon: "bx:check-circle", label: isVal ? "DISPONIBILITAT" : "DISPONIBILIDAD", val: isVal ? "Incorporació immediata" : "Incorporación inmediata", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+  { icon: "bx:map-pin", label: isVal ? "UBICACIÓ" : "UBICACIÓN", val: isVal ? "Xàtiva / València (i remot)" : "Xàtiva / Valencia (y remoto)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
+  { icon: "bx:server", label: isVal ? "ESPECIALITAT" : "ESPECIALIDAD", val: isVal ? "Desenvolupament web, aplicacions i backend" : "Desarrollo web, aplicaciones y backend", color: "border-indigo-200/90 bg-indigo-50 text-indigo-900" },
+  { icon: "bx:check-circle", label: isVal ? "DISPONIBILITAT" : "DISPONIBILIDAD", val: isVal ? "Projectes i col·laboracions" : "Proyectos y colaboraciones", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
 ];
 ---
 
-<Layout title={isVal ? "Sobre mi" : "Sobre mí"} description={isVal ? "Trajectòria, principis d'enginyeria i enfocament professional de Jaume Tur." : "Trayectoria, principios de ingeniería y enfoque profesional de Jaume Tur."}>
+<Layout
+  title={isVal ? "Sobre mi — Desenvolupador Web a Xàtiva i València" : "Sobre mí — Desarrollador Web en Xàtiva y Valencia"}
+  description={isVal ? "Trajectòria, formació i enfocament de Jaume Tur: desenvolupador de pàgines web, aplicacions a mida i sistemes des de Xàtiva i València." : "Trayectoria, formación y enfoque de Jaume Tur: desarrollador de páginas web, aplicaciones a medida y sistemas desde Xàtiva y Valencia."}>
   <Container>
     <Sectionhead>
       <Fragment slot="title">{isVal ? "Sobre mi" : "Sobre mí"}</Fragment>
-      <Fragment slot="desc">{isVal ? "Trajectòria, principis d'enginyeria i enfocament professional." : "Trayectoria, principios de ingeniería y enfoque profesional."}</Fragment>
+      <Fragment slot="desc">{isVal ? "Trajectòria tècnica, formació oficial i enfocament pràctic de desenvolupament web." : "Trayectoria técnica, formación oficial y enfoque práctico de desarrollo web."}</Fragment>
     </Sectionhead>
 
     <!-- Main Profile Card with Memoji 1.png: Unified Surface Palette -->
@@ -73,9 +75,9 @@ const highlights = [
 
           <p class="text-base text-slate-600 mt-3 leading-relaxed">
             {isVal ? (
-              <>Soc desenvolupador de programari especialitzat en <strong>backend</strong> i arquitectura de sistemes. La titulació de <strong>Grau Mitjà en Sistemes Microinformàtics i Xarxes (SMX)</strong> m'ha donat una base sòlida en <strong>administració de servidors, xarxes i manteniment d'equips</strong>, que complete amb el <strong>CFGS en Desenvolupament d'Aplicacions Web (DAW)</strong> per a crear solucions web completes i automatitzades.</>
+              <>Soc desenvolupador de programari resident a <strong>Xàtiva (València)</strong>, especialitzat en <strong>desenvolupament web, aplicacions a mida i sistemes</strong>. La meua titulació de <strong>Grau Mitjà en Sistemes Microinformàtics i Xarxes (SMX)</strong> m'aporta una comprensió profunda de servidors, xarxes i fiabilitat, que complete amb el <strong>CFGS en Desenvolupament d'Aplicacions Web (DAW)</strong> per a dissenyar i programar pàgines ràpides, interfícies reactives i serveis backend sòlids per a negocis locals o empreses en remot.</>
             ) : (
-              <>Soy desarrollador de software especializado en <strong>backend</strong> y arquitectura de sistemas. La titulación de <strong>Grado Medio en Sistemas Microinformáticos y Redes (SMX)</strong> me ha dado una base sólida en <strong>administración de servidores, redes y mantenimiento de equipos</strong>, que complemento con el <strong>CFGS en Desarrollo de Aplicaciones Web (DAW)</strong> para crear soluciones web completas y automatizadas.</>
+              <>Soy desarrollador de software afincado en <strong>Xàtiva (Valencia)</strong>, especializado en <strong>desarrollo web, aplicaciones a medida y sistemas</strong>. Mi titulación de <strong>Grado Medio en Sistemas Microinformáticos y Redes (SMX)</strong> me aporta un dominio sólido de servidores, redes y fiabilidad, que complemento con el <strong>CFGS en Desarrollo de Aplicaciones Web (DAW)</strong> para diseñar y programar páginas rápidas, interfaces reactivas y servicios backend robustos para negocios locales o empresas en remoto.</>
             )}
           </p>
 

@@ -35,8 +35,8 @@ const {
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
 const locale = localeFromPath(Astro.url.pathname);
 const resolvedDescription = description || (locale === "val"
-  ? "Portafolis professional i blog tècnic de Jaume Tur, desenvolupador web a València, especialitzat en Angular, TypeScript, rendiment, accessibilitat i CI/CD."
-  : "Portfolio profesional y blog técnico de Jaume Tur, desarrollador web en Valencia, especializado en Angular, TypeScript, rendimiento, accesibilidad y CI/CD.");
+  ? "Desenvolupament de pàgines web, aplicacions a mida, backend i automatització a Xàtiva i València. Solucions ràpides i adaptades al teu negoci."
+  : "Desarrollo de páginas web profesionales, aplicaciones a medida, backend y automatización en Xàtiva y Valencia. Soluciones rápidas y adaptadas a tu negocio.");
 const activeLang = lang === "es" ? "es" : locale === "val" || lang === "ca" ? "ca-ES-valencia" : "es";
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
 const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
@@ -45,12 +45,14 @@ const canonicalURL = customCanonical || new URL(Astro.url.pathname, siteUrl).toS
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
 // Dynamic, keyword-rich title generation
-const isHome = !title || title === "Inici" || title === "Home";
+const isHome = !title || title === "Inici" || title === "Inicio" || title === "Home";
 const makeTitle = isHome
   ? locale === "val"
-    ? "Jaume Tur — Desenvolupador Backend i aplicacions web a València"
-    : "Jaume Tur — Desarrollador backend y aplicaciones web en Valencia"
-  : `${title} | Jaume Tur`;
+    ? "Jaume Tur — Desenvolupament Web i Aplicacions a Xàtiva i València"
+    : "Jaume Tur — Desarrollo Web y Aplicaciones a Medida en Xàtiva y Valencia"
+  : title.endsWith("Jaume Tur")
+    ? title
+    : `${title} | Jaume Tur`;
 
 // JSON-LD Structured Data
 const personSchema = {
@@ -72,11 +74,16 @@ const personSchema = {
   ],
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "València",
-    "addressRegion": "Comunitat Valenciana",
+    "addressLocality": "Xàtiva",
+    "addressRegion": "València",
     "addressCountry": "ES"
   },
   "knowsAbout": [
+    "Diseño web",
+    "Desarrollo de páginas web",
+    "Aplicaciones web a medida",
+    "Desarrollo backend y APIs",
+    "Automatización de procesos",
     "Angular",
     "TypeScript",
     "JavaScript ES6+",
@@ -92,29 +99,31 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteUrl}/#service`,
-  "name": "Jaume Tur — Desenvolupament Web & Sistemes València",
+  "name": "Jaume Tur — Desenvolupament Web & Aplicacions",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
   "email": "jaumetur3w@gmail.com",
   "priceRange": "€€",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "València",
-    "addressRegion": "Comunitat Valenciana",
+    "addressLocality": "Xàtiva",
+    "addressRegion": "València",
     "addressCountry": "ES"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 39.4699,
-    "longitude": -0.3763
+    "latitude": 38.9897,
+    "longitude": -0.5197
   },
   "areaServed": [
+    "Xàtiva",
+    "La Costera",
     "València",
     "Comunitat Valenciana",
-    "Espanya",
+    "España",
     "Remote"
   ],
-  "serviceArea": "València i Remot"
+  "serviceArea": "Xàtiva, València i Remot"
 };
 
 const websiteSchema = {
