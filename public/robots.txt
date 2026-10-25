@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jaumetur.es/sitemap-index.xml
+Sitemap: https://jaumetur.es/sitemap.xml

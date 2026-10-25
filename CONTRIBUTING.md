@@ -16,7 +16,7 @@ Gràcies pel teu interès a contribuir al projecte del portfolio personal i tèc
 
 ```bash
 # 1. Clonar el repositori
-git clone https://github.com/jautur/jaumetur.es.git
+git clone https://github.com/jaumetur3W/jaumetur.es.git
 cd jaumetur.es
 
 # 2. Instal·lar dependències
@@ -100,4 +100,3 @@ Aquest projecte segueix estrictament l'especificació [Conventional Commits](htt
    ```
 3. Fes push i obre un Pull Request a GitHub utilitzant la plantilla de PR.
 4. El pipeline de **GitHub Actions** verificarà automàticament el codi (tipat, proves, E2E i Lighthouse CI).
-

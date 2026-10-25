@@ -1,7 +1,7 @@
 # jaumetur.es — Portfolio Personal & Playground d'Enginyeria Frontend
 
-[![CI Pipeline](https://github.com/jautur/jaumetur.es/actions/workflows/ci.yml/badge.svg)](https://github.com/jautur/jaumetur.es/actions/workflows/ci.yml)
-[![GitHub Pages Deploy](https://github.com/jautur/jaumetur.es/actions/workflows/deploy.yml/badge.svg)](https://github.com/jautur/jaumetur.es/actions/workflows/deploy.yml)
+[![CI Pipeline](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/ci.yml/badge.svg)](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/ci.yml)
+[![GitHub Pages Deploy](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/deploy.yml/badge.svg)](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/deploy.yml)
 [![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse&logoColor=white)](https://jaumetur.es/qualitat)
 [![WCAG 2.2 AA Compliant](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA-success?logo=w3c&logoColor=white)](https://jaumetur.es/qualitat)
 [![Astro Version](https://img.shields.io/badge/Astro-v5%2Fv7-bc52ee?logo=astro&logoColor=white)](https://astro.build)
@@ -71,7 +71,7 @@ The platform is designed to practice what it preaches: high-density Bento Grid l
 
 ```bash
 # 1. Clonar el repositori / Clone repository
-git clone https://github.com/jautur/jaumetur.es.git
+git clone https://github.com/jaumetur3W/jaumetur.es.git
 cd jaumetur.es
 
 # 2. Instal·lar dependències / Install dependencies

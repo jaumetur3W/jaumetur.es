@@ -1,13 +1,16 @@
 ---
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
+import { localizePath, localeFromPath, stripLocale } from "@/i18n";
 
 const rawPathname = Astro.url.pathname;
-const isVal = rawPathname === "/val" || rawPathname.startsWith("/val/");
-const pathname = (isVal ? rawPathname.replace(/^\/val/, "") : rawPathname).replace(/\/$/, "") || "/";
-const localizedPath = (path: string) => isVal ? `/val${path === "/" ? "/" : path}` : path;
-const spanishPath = pathname;
-const valencianPath = `/val${pathname === "/" ? "/" : pathname}`;
+const locale = localeFromPath(rawPathname);
+const isVal = locale === "val";
+const pathname = stripLocale(rawPathname);
+const localizedPath = (path: string) => localizePath(path, locale);
+const spanishPath = localizePath(rawPathname, "es");
+const valencianPath = localizePath(rawPathname, "val");
+const homeTitle = isVal ? "Jaume Tur — Inici" : "Jaume Tur — Inicio";
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
   return pathname.startsWith(path);
@@ -31,8 +34,8 @@ const navLinks = [
         <a
           href={localizedPath("/")}
           class="flex lg:hidden items-center p-1 rounded-xl min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-          title="Jaume Tur — Inici"
-          aria-label="Jaume Tur — Inici">
+          title={homeTitle}
+          aria-label={homeTitle}>
           <div class="relative w-10 h-10 shrink-0">
             <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35"></div>
             <img
@@ -51,8 +54,8 @@ const navLinks = [
         <a
           href={localizedPath("/")}
           class="hidden lg:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl p-1"
-          title="Jaume Tur — Inici"
-          aria-label="Jaume Tur — Inici">
+          title={homeTitle}
+          aria-label={homeTitle}>
           <div class="relative w-9 h-9 shrink-0">
             <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35 group-hover:opacity-60 transition-opacity"></div>
             <img
@@ -100,7 +103,7 @@ const navLinks = [
         </ul>
       </nav>
 
-      <nav class="hidden lg:flex items-center gap-1 border-l border-slate-200 pl-3 text-xs font-bold" aria-label="Selector d'idioma">
+      <nav class="hidden lg:flex items-center gap-1 border-l border-slate-200 pl-3 text-xs font-bold" aria-label={isVal ? "Selector d'idioma" : "Selector de idioma"}>
         <a href={spanishPath} lang="es" aria-current={!isVal ? "page" : undefined} class:list={["rounded px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", !isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600 hover:text-slate-950"]}>ES</a>
         <span aria-hidden="true" class="text-slate-300">|</span>
         <a href={valencianPath} lang="ca-valencia" aria-current={isVal ? "page" : undefined} class:list={["rounded px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600 hover:text-slate-950"]}>VAL</a>
@@ -111,10 +114,10 @@ const navLinks = [
         <summary
           id="mobile-menu-summary"
           class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white font-bold text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] transition"
-          aria-label="Menú principal de navegació"
+          aria-label={isVal ? "Menú principal de navegació" : "Menú principal de navegación"}
           aria-controls="mobile-nav-panel"
           aria-expanded="false">
-          <span>Menú</span>
+          <span>{isVal ? "Menú" : "Menú"}</span>
           <Icon name="bx:menu" class="w-4 h-4 block group-open:hidden" aria-hidden="true" />
           <Icon name="bx:x" class="w-4 h-4 hidden group-open:block" aria-hidden="true" />
         </summary>
@@ -144,7 +147,7 @@ const navLinks = [
                   );
                 })
               }
-              <li class="mt-2 flex items-center gap-1 border-t border-slate-100 pt-2 px-3.5 text-xs font-bold" aria-label="Selector d'idioma">
+              <li class="mt-2 flex items-center gap-1 border-t border-slate-100 pt-2 px-3.5 text-xs font-bold" aria-label={isVal ? "Selector d'idioma" : "Selector de idioma"}>
                 <a href={spanishPath} lang="es" aria-current={!isVal ? "page" : undefined} class:list={["min-h-11 inline-flex items-center rounded px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", !isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600"]}>ES</a>
                 <span aria-hidden="true" class="text-slate-300">|</span>
                 <a href={valencianPath} lang="ca-valencia" aria-current={isVal ? "page" : undefined} class:list={["min-h-11 inline-flex items-center rounded px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600"]}>VAL</a>

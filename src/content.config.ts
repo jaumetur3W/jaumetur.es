@@ -23,23 +23,7 @@ const blogCollection = defineCollection({
   }),
 });
 
-const teamCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/team' }),
-  schema: z.object({
-    draft: z.boolean(),
-    name: z.string(),
-    title: z.string(),
-    avatar: z.object({
-      src: z.string(),
-      alt: z.string(),
-    }),
-    publishDate: z.coerce.date(),
-  }),
-});
-
-const projectesCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projectes' }),
-  schema: z.object({
+const projectSchema = z.object({
     draft: z.boolean().default(false),
     title: z.string(),
     subtitle: z.string(),
@@ -61,12 +45,21 @@ const projectesCollection = defineCollection({
       src: z.string(),
       alt: z.string(),
     }),
-  }),
+  });
+
+const projectesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projectes' }),
+  schema: projectSchema,
+});
+
+const projectesEsCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projectes-es' }),
+  schema: projectSchema,
 });
 
 // 3. Export a single `collections` object to register your collection(s)
 export const collections = {
   'blog': blogCollection,
-  'team': teamCollection,
   'projectes': projectesCollection,
+  'projectes-es': projectesEsCollection,
 };

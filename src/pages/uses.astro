@@ -3,10 +3,19 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath, localizePath } from "@/i18n";
 
-const categories = [
+const isVal = localeFromPath(Astro.url.pathname) === "val";
+const href = (path: string) => localizePath(path, isVal ? "val" : "es");
+const categories: {
+  title: string;
+  titleEs: string;
+  icon: string;
+  items: { name: string; nameEs?: string; desc: string; descEs?: string }[];
+}[] = [
   {
     title: "Entorn de Codi & Editor",
+    titleEs: "Entorno de código y editor",
     icon: "bx:code-alt",
     items: [
       {
@@ -19,7 +28,9 @@ const categories = [
       },
       {
         name: "Extensions Clau",
+        nameEs: "Extensiones clave",
         desc: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens i GitHub Actions Linter.",
+        descEs: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens y GitHub Actions Linter.",
       },
       {
         name: "Terminal Linux & Bash / Zsh",
@@ -29,6 +40,7 @@ const categories = [
   },
   {
     title: "Stack Frontend & Llibreries",
+    titleEs: "Stack frontend y bibliotecas",
     icon: "bx:bxs-zap",
     items: [
       {
@@ -55,6 +67,7 @@ const categories = [
   },
   {
     title: "DevOps & Automatització",
+    titleEs: "DevOps y automatización",
     icon: "bx:git-repo-forked",
     items: [
       {
@@ -73,6 +86,7 @@ const categories = [
   },
   {
     title: "Disseny & Accessibilitat",
+    titleEs: "Diseño y accesibilidad",
     icon: "bx:palette",
     items: [
       {
@@ -89,14 +103,14 @@ const categories = [
 ---
 
 <Layout
-  title="El meu Setup & Eines (/uses)"
-  description="Maquinari, programari, extensions de VS Code, stack frontend i configuracions que utilitze en el meu dia a dia com a desenvolupador frontend.">
+  title={isVal ? "El meu equip i eines (/uses)" : "Mi equipo y herramientas (/uses)"}
+  description={isVal ? "Programari, extensions de VS Code, stack frontend i configuracions que utilitze cada dia com a desenvolupador." : "Hardware, software, extensiones de VS Code, stack frontend y configuraciones que utilizo a diario como desarrollador."}>
   <Container>
     <div class="py-12 md:py-16">
       <Sectionhead>
-        <Fragment slot="title">El meu Setup & Eines (/uses)</Fragment>
+        <Fragment slot="title">{isVal ? "El meu equip i eines (/uses)" : "Mi equipo y herramientas (/uses)"}</Fragment>
         <Fragment slot="desc">
-          Llista detallada del maquinari, programari, stack frontend i configuracions que utilitze cada dia.
+          {isVal ? "Llista detallada del maquinari, programari, stack frontend i configuracions que utilitze cada dia." : "Lista detallada del hardware, software, stack frontend y configuraciones que utilizo a diario."}
         </Fragment>
       </Sectionhead>
 
@@ -109,7 +123,7 @@ const categories = [
                   <Icon name={cat.icon} class="w-5 h-5" />
                 </span>
                 <h2 class="text-xl font-bold text-slate-900 tracking-tight">
-                  {cat.title}
+                  {isVal ? cat.title : cat.titleEs}
                 </h2>
               </div>
 
@@ -118,10 +132,10 @@ const categories = [
                   <div>
                     <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                      <span>{item.name}</span>
+                      <span>{isVal ? item.name : item.nameEs ?? item.name}</span>
                     </h3>
                     <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed pl-3.5">
-                      {item.desc}
+                      {isVal ? item.desc : item.descEs ?? item.desc}
                     </p>
                   </div>
                 ))}
@@ -134,17 +148,17 @@ const categories = [
         <div class="bg-[#090D16] text-white rounded-3xl p-8 border border-slate-800/90 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
           <div class="space-y-1 text-center sm:text-left">
             <h3 class="text-lg font-bold flex items-center gap-2 justify-center sm:justify-start">
-              <span>Vols automatitzar el teu propi desplegament?</span>
+              <span>{isVal ? "Vols automatitzar el teu desplegament?" : "¿Quieres automatizar tu despliegue?"}</span>
               <Icon name="bx:bxs-zap" class="w-4 h-4 text-indigo-400" />
             </h3>
             <p class="text-xs text-slate-300">
-              Utilitza el nostre generador interactiu gratuït per a GitHub Actions.
+              {isVal ? "Utilitza el generador interactiu gratuït de GitHub Actions." : "Utiliza el generador interactivo gratuito para GitHub Actions."}
             </p>
           </div>
           <a
-            href="/tools/workflow-generator"
+            href={href("/tools/workflow-generator")}
             class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500 transition shadow-sm shrink-0">
-            Provar Generador CI/CD ↗
+            {isVal ? "Provar el generador CI/CD ↗" : "Probar el generador CI/CD ↗"}
           </a>
         </div>
       </div>

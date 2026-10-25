@@ -3,66 +3,87 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath } from "@/i18n";
+
+const isVal = localeFromPath(Astro.url.pathname) === "val";
 
 // Paleta de colors oficial
 const brandColors = [
   {
     name: "Groc Corporatiu (Brand Yellow)",
+    nameEs: "Amarillo corporativo (Brand Yellow)",
     role: "Identitat oficial 'jaume.www', isotip principal i accents d'alt impacte",
+    roleEs: "Identidad oficial «jaume.www», isotipo principal y acentos de alto impacto",
     hex: "#FFFF00",
     rgb: "255, 230, 0",
     hsl: "54°, 100%, 50%",
     contrast: "16.5:1 sobre fosc (AAA)",
+    contrastEs: "16,5:1 sobre fondo oscuro (AAA)",
     textDark: true,
     bgClass: "bg-[#FFFF00] border border-amber-300",
   },
   {
     name: "Índigo Primari",
+    nameEs: "Índigo primario",
     role: "Identitat de marca, enllaços clau i focus d'atenció",
+    roleEs: "Identidad de marca, enlaces clave y puntos de atención",
     hex: "#4F46E5",
     rgb: "79, 70, 229",
     hsl: "243°, 75%, 59%",
     contrast: "8.5:1 (WCAG AAA)",
+    contrastEs: "8,5:1 (WCAG AAA)",
     textDark: false,
     bgClass: "bg-[#4F46E5]",
   },
   {
     name: "Cian Tecnològic",
+    nameEs: "Cian tecnológico",
     role: "Nodes de dades, accents d'enginyeria i gradients",
+    roleEs: "Nodos de datos, acentos de ingeniería y degradados",
     hex: "#06B6D4",
     rgb: "6, 182, 212",
     hsl: "189°, 94%, 43%",
     contrast: "4.7:1 (WCAG AA)",
+    contrastEs: "4,7:1 (WCAG AA)",
     textDark: true,
     bgClass: "bg-[#06B6D4]",
   },
   {
     name: "Pissarra Tech (Deep Slate)",
+    nameEs: "Pizarra tecnológica (Deep Slate)",
     role: "Tipografia principal, superfícies de codi i terminals",
+    roleEs: "Tipografía principal, superficies de código y terminales",
     hex: "#0F172A",
     rgb: "15, 23, 42",
     hsl: "222°, 47%, 11%",
     contrast: "16.1:1 (WCAG AAA)",
+    contrastEs: "16,1:1 (WCAG AAA)",
     textDark: false,
     bgClass: "bg-[#0F172A]",
   },
   {
     name: "Verd Maragda (Success)",
+    nameEs: "Verde esmeralda (éxito)",
     role: "Estat en línia, fites verificades i tests superats",
+    roleEs: "Estado en línea, hitos verificados y pruebas superadas",
     hex: "#10B981",
     rgb: "16, 185, 129",
     hsl: "160°, 84%, 39%",
     contrast: "4.6:1 (WCAG AA)",
+    contrastEs: "4,6:1 (WCAG AA)",
     textDark: true,
     bgClass: "bg-[#10B981]",
   },
   {
     name: "Superfície Suau (Slate-50)",
+    nameEs: "Superficie suave (Slate-50)",
     role: "Fons del lloc web en mode clar permanent",
+    roleEs: "Fondo del sitio web en modo claro permanente",
     hex: "#F8FAFC",
     rgb: "248, 250, 252",
     hsl: "210°, 40%, 98%",
     contrast: "Base neutra",
+    contrastEs: "Base neutra",
     textDark: true,
     bgClass: "bg-[#F8FAFC] border border-slate-200",
   },
@@ -72,57 +93,75 @@ const brandColors = [
 const memojiGuide = [
   {
     pose: "Salutació & Benvinguda",
+    poseEs: "Saludo y bienvenida",
     file: "3.png",
     context: "Pàgina de contacte, missatgeria i targeta digital /card",
+    contextEs: "Página de contacto, mensajería y tarjeta digital /card",
     alt: "Memoji de Jaume Tur saludant amb la mà",
+    altEs: "Memoji de Jaume Tur saludando con la mano",
     size: "112px - 144px",
   },
   {
     pose: "Programador en Acció",
+    poseEs: "Programador en acción",
     file: "2.png",
     context: "Hero de projectes, secció d'habilitats i càrrega",
+    contextEs: "Cabecera de proyectos, sección de habilidades y carga",
     alt: "Memoji de Jaume Tur treballant amb el portàtil",
+    altEs: "Memoji de Jaume Tur trabajando con el portátil",
     size: "128px - 180px",
   },
   {
     pose: "Somriure de Perfil",
+    poseEs: "Sonrisa de perfil",
     file: "4.png",
     context: "Capçalera Hero principal sobre la targeta de codi",
+    contextEs: "Cabecera principal sobre la tarjeta de código",
     alt: "Memoji de Jaume Tur somrient",
+    altEs: "Memoji de Jaume Tur sonriendo",
     size: "160px - 320px",
   },
   {
     pose: "Pàgina No Trobada (404)",
+    poseEs: "Página no encontrada (404)",
     file: "404.png",
     context: "Pàgina d'error 404 i continguts no localitzats",
+    contextEs: "Página de error 404 y contenido no localizado",
     alt: "Memoji de Jaume Tur cercant la pàgina desconcertat",
+    altEs: "Memoji de Jaume Tur buscando la página, desconcertado",
     size: "128px",
   },
   {
     pose: "Analista Tècnic & Docència",
+    poseEs: "Analista técnico y docente",
     file: "blog.png",
     context: "Blog tècnic, articles d'enginyeria i documentació",
+    contextEs: "Blog técnico, artículos de ingeniería y documentación",
     alt: "Memoji de Jaume Tur amb ulleres explicant un concepte",
+    altEs: "Memoji de Jaume Tur con gafas explicando un concepto",
     size: "96px - 128px",
   },
   {
     pose: "Aprovació & Fita Superada",
+    poseEs: "Aprobación e hito completado",
     file: "success.png",
     context: "Proves superades, subscripció i confirmació de formulari",
+    contextEs: "Pruebas superadas, suscripción y confirmación de formulario",
     alt: "Memoji de Jaume Tur amb el polze amunt",
+    altEs: "Memoji de Jaume Tur con el pulgar hacia arriba",
     size: "96px - 128px",
   },
 ];
 ---
 
 <Layout
-  title="Kit de Marca & Identitat Visual | Jaume Tur"
-  description="Guia d'identitat de marca oficial de Jaume Tur: logotips i isotip oficials 'jaume.www', paleta de colors WCAG AA, tipografies i sistema d'iconografia tècnica.">
+  title={isVal ? "Kit de marca i identitat visual | Jaume Tur" : "Kit de marca e identidad visual | Jaume Tur"}
+  description={isVal ? "Guia d'identitat visual de Jaume Tur: logotips oficials «jaume.www», paleta de colors WCAG AA, tipografies i sistema d'iconografia tècnica." : "Guía de identidad visual de Jaume Tur: logotipos oficiales «jaume.www», paleta de colores WCAG AA, tipografías y sistema de iconografía técnica."}>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Kit de Marca & Identitat Visual</Fragment>
+      <Fragment slot="title">{isVal ? "Kit de marca i identitat visual" : "Kit de marca e identidad visual"}</Fragment>
       <Fragment slot="desc">
-        Recursos gràfics oficials, logotips i isotip d'alta resolució, paleta de color auditable i regles d'ús per a col·laboracions, premsa i comunicació tècnica.
+        {isVal ? "Recursos gràfics oficials, logotips i isotip d'alta resolució, paleta de colors auditable i regles d'ús per a col·laboracions, premsa i comunicació tècnica." : "Recursos gráficos oficiales, logotipos e isotipo de alta resolución, paleta de colores auditable y normas de uso para colaboraciones, prensa y comunicación técnica."}
       </Fragment>
     </Sectionhead>
 
@@ -132,11 +171,11 @@ const memojiGuide = [
         <div class="flex items-center gap-2">
           <Icon name="bx:badge-check" class="w-6 h-6 text-amber-500" />
           <h2 id="logo-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-            Logotips &amp; Isotip Oficials "jaume.www"
+            {isVal ? 'Logotips i isotip oficials "jaume.www"' : 'Logotipos e isotipo oficiales «jaume.www»'}
           </h2>
         </div>
         <span class="text-xs font-mono font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-          Identitat Oficial Única · 3 Aplicacions Cromàtiques
+          {isVal ? "Identitat oficial única · 3 aplicacions cromàtiques" : "Identidad oficial única · 3 aplicaciones cromáticas"}
         </span>
       </div>
 
@@ -146,7 +185,7 @@ const memojiGuide = [
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[10px] font-mono uppercase tracking-wider text-amber-600 font-bold">
-                Versió Principal (Groc)
+                {isVal ? "Versió principal (groc)" : "Versión principal (amarillo)"}
               </span>
               <span class="text-[10px] font-mono bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded font-bold">
                 #FFFF00
@@ -155,16 +194,16 @@ const memojiGuide = [
             
             <div class="grid grid-cols-2 gap-3 mb-4">
               <div class="rounded-xl overflow-hidden shadow-2xs border border-amber-200 aspect-square flex items-center justify-center bg-[#FFFF00]">
-                <img src="/img/jt.LOGO-01.png" alt="Logotip jaume.www sobre groc" class="w-full h-full object-cover" />
+                <img src="/img/jt.LOGO-01.png" alt={isVal ? "Logotip jaume.www sobre groc" : "Logotipo jaume.www sobre fondo amarillo"} class="w-full h-full object-cover" />
               </div>
               <div class="rounded-xl overflow-hidden shadow-2xs border border-amber-200 aspect-square flex items-center justify-center bg-[#FFFF00]">
-                <img src="/img/jt.LOGO-02.png" alt="Isotip j sobre groc" class="w-full h-full object-cover" />
+                <img src="/img/jt.LOGO-02.png" alt={isVal ? "Isotip j sobre groc" : "Isotipo j sobre fondo amarillo"} class="w-full h-full object-cover" />
               </div>
             </div>
 
-            <h3 class="font-bold text-slate-900 text-sm mb-1">Logotip &amp; Isotip Groc</h3>
+            <h3 class="font-bold text-slate-900 text-sm mb-1">{isVal ? "Logotip i isotip grocs" : "Logotipo e isotipo amarillos"}</h3>
             <p class="text-xs text-slate-600 leading-relaxed">
-              Logotip complet "jaume. www" (LOGO-01) i isotip d'accent amb somriure i ulls XX (LOGO-02).
+              {isVal ? 'Logotip complet «jaume.www» (LOGO-01) i isotip d’accent amb somriure i ulls XX (LOGO-02).' : 'Logotipo completo «jaume.www» (LOGO-01) e isotipo de acento con sonrisa y ojos XX (LOGO-02).'}
             </p>
           </div>
 
@@ -179,7 +218,7 @@ const memojiGuide = [
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                Versió Dark Mode
+                {isVal ? "Versió fosca" : "Versión oscura"}
               </span>
               <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-bold">
                 #090D16
@@ -188,16 +227,16 @@ const memojiGuide = [
             
             <div class="grid grid-cols-2 gap-3 mb-4">
               <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-[#090D16]">
-                <img src="/img/jt.LOGO-03.png" alt="Logotip jaume.www fosc" class="w-full h-full object-cover" />
+                <img src="/img/jt.LOGO-03.png" alt={isVal ? "Logotip jaume.www fosc" : "Logotipo jaume.www sobre fondo oscuro"} class="w-full h-full object-cover" />
               </div>
               <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-[#090D16]">
-                <img src="/img/jt.LOGO-04.png" alt="Isotip j fosc" class="w-full h-full object-cover" />
+                <img src="/img/jt.LOGO-04.png" alt={isVal ? "Isotip j fosc" : "Isotipo j sobre fondo oscuro"} class="w-full h-full object-cover" />
               </div>
             </div>
 
-            <h3 class="font-bold text-white text-sm mb-1">Logotip &amp; Isotip Fosc</h3>
+            <h3 class="font-bold text-white text-sm mb-1">{isVal ? "Logotip i isotip foscos" : "Logotipo e isotipo oscuros"}</h3>
             <p class="text-xs text-slate-300 leading-relaxed">
-              Traç blanc d'alt contrast sobre fons obsidiana per a terminals i entorns foscos (LOGO-03 i LOGO-04).
+              {isVal ? "Traç blanc d'alt contrast sobre fons obsidiana per a terminals i entorns foscos (LOGO-03 i LOGO-04)." : "Trazo blanco de alto contraste sobre fondo obsidiana para terminales y entornos oscuros (LOGO-03 y LOGO-04)."}
             </p>
           </div>
 
@@ -212,25 +251,25 @@ const memojiGuide = [
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                Versió Editorial (Light)
+                {isVal ? "Versió editorial (clara)" : "Versión editorial (clara)"}
               </span>
               <span class="text-[10px] font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-bold">
-                Monocrom
+                {isVal ? "Monocrom" : "Monocromo"}
               </span>
             </div>
             
             <div class="grid grid-cols-2 gap-3 mb-4">
               <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
-                <img src="/img/jt.LOGO-05.png" alt="Logotip jaume.www blanc i negre" class="w-full h-full object-cover" />
+                <img src="/img/jt.LOGO-05.png" alt={isVal ? "Logotip jaume.www blanc i negre" : "Logotipo jaume.www en blanco y negro"} class="w-full h-full object-cover" />
               </div>
               <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
-                <img src="/img/jt.LOGO-06.png" alt="Isotip j blanc i negre" class="w-full h-full object-cover" />
+                <img src="/img/jt.LOGO-06.png" alt={isVal ? "Isotip j blanc i negre" : "Isotipo j en blanco y negro"} class="w-full h-full object-cover" />
               </div>
             </div>
 
-            <h3 class="font-bold text-slate-900 text-sm mb-1">Logotip &amp; Isotip Monocrom</h3>
+            <h3 class="font-bold text-slate-900 text-sm mb-1">{isVal ? "Logotip i isotip monocroms" : "Logotipo e isotipo monocromos"}</h3>
             <p class="text-xs text-slate-600 leading-relaxed">
-              Tinta negra pura sobre fons blanc per a impressió i aplicacions netes (LOGO-05 i LOGO-06).
+              {isVal ? "Tinta negra pura sobre fons blanc per a impressió i aplicacions netes (LOGO-05 i LOGO-06)." : "Tinta negra pura sobre fondo blanco para impresión y aplicaciones limpias (LOGO-05 y LOGO-06)."}
             </p>
           </div>
 
@@ -247,7 +286,7 @@ const memojiGuide = [
       <div class="flex items-center gap-2 mb-6">
         <Icon name="bx:palette" class="w-6 h-6 text-indigo-600" />
         <h2 id="colors-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-          Paleta Cromàtica Oficial &amp; Contrast
+          {isVal ? "Paleta cromàtica oficial i contrast" : "Paleta cromática oficial y contraste"}
         </h2>
       </div>
 
@@ -262,12 +301,12 @@ const memojiGuide = [
               </div>
               <div class="p-5 space-y-2 text-xs">
                 <div class="flex items-center justify-between">
-                  <h3 class="font-bold text-slate-900 text-sm">{color.name}</h3>
+                  <h3 class="font-bold text-slate-900 text-sm">{isVal ? color.name : color.nameEs}</h3>
                   <span class="font-mono text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">
-                    {color.contrast}
+                    {isVal ? color.contrast : color.contrastEs}
                   </span>
                 </div>
-                <p class="text-slate-500 leading-relaxed">{color.role}</p>
+                <p class="text-slate-500 leading-relaxed">{isVal ? color.role : color.roleEs}</p>
                 <div class="pt-2 border-t border-slate-100 font-mono text-[11px] text-slate-400 space-y-0.5">
                   <div>RGB: {color.rgb}</div>
                   <div>HSL: {color.hsl}</div>
@@ -284,36 +323,36 @@ const memojiGuide = [
       <div class="flex items-center gap-2 mb-6">
         <Icon name="bx:font" class="w-6 h-6 text-indigo-600" />
         <h2 id="typography-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-          Sistema Tipogràfic
+          {isVal ? "Sistema tipogràfic" : "Sistema tipográfico"}
         </h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs">
           <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block mb-2">
-            Tipografia de Titulars (Display)
+            {isVal ? "Tipografia de titulars (Display)" : "Tipografía para titulares (Display)"}
           </span>
           <h3 class="text-2xl font-black text-slate-900 tracking-tight mb-2">
             Bricolage Grotesque
           </h3>
           <p class="text-xs text-slate-600 leading-relaxed mb-4">
-            Font variable de caràcter contemporani, proporcions humanistes i traços angulats que transmeten personalitat i rigor d'enginyeria.
+            {isVal ? "Font variable de caràcter contemporani, proporcions humanistes i traços angulats que transmeten personalitat i rigor d'enginyeria." : "Fuente variable de carácter contemporáneo, proporciones humanistas y trazos angulares que transmiten personalidad y rigor de ingeniería."}
           </p>
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1 font-sans">
             <div class="text-2xl font-extrabold text-slate-900">Aa Bb Cc Dd Ee Ff Gg</div>
-            <div class="text-xs text-slate-500">Ús: H1, H2, H3, titulars de secció i badges de gran impacte.</div>
+            <div class="text-xs text-slate-500">{isVal ? "Ús: H1, H2, H3, titulars de secció i distintius destacats." : "Uso: H1, H2, H3, títulos de sección e insignias destacadas."}</div>
           </div>
         </div>
 
         <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs">
           <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block mb-2">
-            Tipografia de Lectura &amp; Codi
+            {isVal ? "Tipografia de lectura i codi" : "Tipografía para lectura y código"}
           </span>
           <h3 class="text-2xl font-bold text-slate-900 tracking-tight mb-2">
             Inter &amp; JetBrains Mono
           </h3>
           <p class="text-xs text-slate-600 leading-relaxed mb-4">
-            Inter per a cossos de text i paràgrafs d'alta densitat de lectura. Fonts monoespaiades del sistema per a mètriques, dades i codi.
+            {isVal ? "Inter per a cossos de text i paràgrafs d'alta densitat de lectura. Fonts monoespaiades del sistema per a mètriques, dades i codi." : "Inter para el texto y los párrafos de lectura densa. Fuentes monoespaciadas del sistema para métricas, datos y código."}
           </p>
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
             <div class="text-sm font-sans text-slate-800">Inter Variable — The quick brown fox jumps over the lazy dog.</div>
@@ -328,7 +367,7 @@ const memojiGuide = [
       <div class="flex items-center gap-2 mb-6">
         <Icon name="bx:face" class="w-6 h-6 text-indigo-600" />
         <h2 id="memojis-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-          Kit de Memojis Contextuals
+          {isVal ? "Kit de Memojis contextuals" : "Kit de Memojis contextuales"}
         </h2>
       </div>
 
@@ -336,11 +375,11 @@ const memojiGuide = [
         <table class="w-full text-left text-xs">
           <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono text-[11px] uppercase tracking-wider">
             <tr>
-              <th class="py-3 px-5">Il·lustració</th>
-              <th class="py-3 px-5">Pose &amp; Significat</th>
-              <th class="py-3 px-5">Àmbit d'Ús</th>
-              <th class="py-3 px-5">Mida Recomanada</th>
-              <th class="py-3 px-5">Text Alternatiu (A11y)</th>
+              <th class="py-3 px-5">{isVal ? "Il·lustració" : "Ilustración"}</th>
+              <th class="py-3 px-5">{isVal ? "Posició i significat" : "Pose y significado"}</th>
+              <th class="py-3 px-5">{isVal ? "Àmbit d'ús" : "Ámbito de uso"}</th>
+              <th class="py-3 px-5">{isVal ? "Mida recomanada" : "Tamaño recomendado"}</th>
+              <th class="py-3 px-5">{isVal ? "Text alternatiu (A11y)" : "Texto alternativo (A11y)"}</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
@@ -348,12 +387,12 @@ const memojiGuide = [
               memojiGuide.map((m) => (
                 <tr class="hover:bg-slate-50/50 transition-colors">
                   <td class="py-3 px-5">
-                    <img src={`/img/${m.file}`} alt={m.alt} class="w-12 h-12 object-contain" width="48" height="48" />
+                    <img src={`/img/${m.file}`} alt={isVal ? m.alt : m.altEs} class="w-12 h-12 object-contain" width="48" height="48" />
                   </td>
-                  <td class="py-3 px-5 font-bold text-slate-900">{m.pose}</td>
-                  <td class="py-3 px-5 text-slate-600">{m.context}</td>
+                  <td class="py-3 px-5 font-bold text-slate-900">{isVal ? m.pose : m.poseEs}</td>
+                  <td class="py-3 px-5 text-slate-600">{isVal ? m.context : m.contextEs}</td>
                   <td class="py-3 px-5 font-mono text-indigo-600 font-bold">{m.size}</td>
-                  <td class="py-3 px-5 text-slate-500 italic">{m.alt}</td>
+                  <td class="py-3 px-5 text-slate-500 italic">{isVal ? m.alt : m.altEs}</td>
                 </tr>
               ))
             }
@@ -366,23 +405,23 @@ const memojiGuide = [
     <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-slate-900 text-slate-100 border border-slate-800 shadow-xl">
       <div class="flex items-center gap-3 mb-4">
         <Icon name="bx:info-circle" class="w-6 h-6 text-indigo-400 shrink-0" />
-        <h3 class="text-lg font-bold">Regla d'Or: Iconografia Estandarditzada vs. Emojis</h3>
+        <h3 class="text-lg font-bold">{isVal ? "Regla d'or: iconografia estandarditzada vs. emojis" : "Regla de oro: iconografía estandarizada frente a emojis"}</h3>
       </div>
       <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-        A tot el lloc web de <strong>jaumetur.es</strong> s'aplica una política estricta de <strong>zero emojis Unicode</strong> en elements d'interfície, botons, mètriques i navegació. La iconografia es resol exclusivament mitjançant vectors SVG estandarditzats procedents de <strong>Boxicons</strong> i <strong>Simple Icons</strong> per les següents raons tècniques:
+        {isVal ? <>A tot el lloc web de <strong>jaumetur.es</strong> s'aplica una política estricta de <strong>zero emojis Unicode</strong> en elements d'interfície, botons, mètriques i navegació. La iconografia es resol exclusivament mitjançant vectors SVG estandarditzats de <strong>Boxicons</strong> i <strong>Simple Icons</strong> per les raons tècniques següents:</> : <>En todo el sitio web de <strong>jaumetur.es</strong> se aplica una política estricta de <strong>cero emojis Unicode</strong> en elementos de interfaz, botones, métricas y navegación. La iconografía se resuelve exclusivamente mediante vectores SVG estandarizados de <strong>Boxicons</strong> y <strong>Simple Icons</strong> por las siguientes razones técnicas:</>}
       </p>
       <ul class="grid sm:grid-cols-3 gap-4 text-xs font-mono text-slate-400">
         <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <strong class="text-white block mb-1">1. Consistència Cross-OS:</strong>
-          Els mateixos glifs a iOS, Android, macOS, Windows i Linux.
+          <strong class="text-white block mb-1">{isVal ? "1. Consistència entre sistemes operatius:" : "1. Consistencia entre sistemas operativos:"}</strong>
+          {isVal ? "Els mateixos glifs a iOS, Android, macOS, Windows i Linux." : "Los mismos glifos en iOS, Android, macOS, Windows y Linux."}
         </li>
         <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <strong class="text-white block mb-1">2. Control de Contrast WCAG:</strong>
-          Els colors dels vectors s'ajusten exactament per complir AA/AAA.
+          <strong class="text-white block mb-1">{isVal ? "2. Control del contrast WCAG:" : "2. Control del contraste WCAG:"}</strong>
+          {isVal ? "Els colors dels vectors s'ajusten exactament per a complir AA/AAA." : "Los colores de los vectores se ajustan exactamente para cumplir AA/AAA."}
         </li>
         <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <strong class="text-white block mb-1">3. Semàntica i Lector de Pantalla:</strong>
-          Suport natiu d'atributs `aria-hidden="true"` sense lectures molestes.
+          <strong class="text-white block mb-1">{isVal ? "3. Semàntica i lector de pantalla:" : "3. Semántica y lector de pantalla:"}</strong>
+          {isVal ? 'Suport natiu de l’atribut aria-hidden="true" sense lectures molestes.' : 'Compatibilidad nativa con aria-hidden="true" para evitar lecturas innecesarias.'}
         </li>
       </ul>
     </section>
@@ -392,7 +431,7 @@ const memojiGuide = [
       <div class="flex items-center gap-2 mb-6">
         <Icon name="bx:share-alt" class="w-6 h-6 text-indigo-600" />
         <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
-          Identificadors Oficials &amp; Xarxes de Marca
+          {isVal ? "Identificadors oficials i xarxes de marca" : "Identificadores oficiales y redes de marca"}
         </h2>
       </div>
 
@@ -404,23 +443,23 @@ const memojiGuide = [
           class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 hover:border-amber-400 transition group flex flex-col justify-between">
           <div>
             <Icon name="bx:bxl-instagram" class="w-6 h-6 text-amber-500 mb-2 group-hover:scale-110 transition-transform" />
-            <span class="text-[10px] font-mono uppercase text-amber-800 font-bold block">Instagram Oficial</span>
+            <span class="text-[10px] font-mono uppercase text-amber-800 font-bold block">{isVal ? "Instagram oficial" : "Instagram oficial"}</span>
             <span class="text-sm font-bold text-slate-900">@jaume.www</span>
           </div>
-          <span class="text-[10px] font-mono text-amber-700 mt-3 block">Canal oficial actiu ↗</span>
+          <span class="text-[10px] font-mono text-amber-700 mt-3 block">{isVal ? "Canal oficial actiu ↗" : "Canal oficial activo ↗"}</span>
         </a>
 
         <a
-          href="https://github.com/jautur"
+          href="https://github.com/jaumetur3W"
           target="_blank"
           rel="noopener noreferrer"
           class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-400 transition group flex flex-col justify-between">
           <div>
             <Icon name="bx:bxl-github" class="w-6 h-6 text-slate-900 mb-2 group-hover:scale-110 transition-transform" />
             <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">GitHub</span>
-            <span class="text-sm font-bold text-slate-900">@jautur</span>
+            <span class="text-sm font-bold text-slate-900">@jaumetur3W</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-500 mt-3 block">Repositoris de codi ↗</span>
+          <span class="text-[10px] font-mono text-slate-500 mt-3 block">{isVal ? "Repositoris de codi ↗" : "Repositorios de código ↗"}</span>
         </a>
 
         <a
@@ -433,19 +472,18 @@ const memojiGuide = [
             <span class="text-[10px] font-mono uppercase text-indigo-700 font-bold block">LinkedIn</span>
             <span class="text-sm font-bold text-slate-900">in/jautur</span>
           </div>
-          <span class="text-[10px] font-mono text-indigo-600 mt-3 block">Xarxa professional ↗</span>
+          <span class="text-[10px] font-mono text-indigo-600 mt-3 block">{isVal ? "Xarxa professional ↗" : "Red profesional ↗"}</span>
         </a>
 
         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
           <div>
             <Icon name="bx:globe" class="w-6 h-6 text-slate-700 mb-2" />
-            <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">Domini Oficial</span>
+            <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">{isVal ? "Domini oficial" : "Dominio oficial"}</span>
             <span class="text-sm font-bold text-slate-900">jaumetur.es</span>
           </div>
-          <span class="text-[10px] font-mono text-emerald-600 font-bold mt-3 block">SSL &amp; DNS Actiu</span>
+          <span class="text-[10px] font-mono text-emerald-600 font-bold mt-3 block">{isVal ? "SSL i DNS actius" : "SSL y DNS activos"}</span>
         </div>
       </div>
     </section>
   </Container>
 </Layout>
-
