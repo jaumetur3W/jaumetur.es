@@ -53,14 +53,41 @@ const schemaData = {
   },
   "url": `https://jaumetur.es/pricing/${service.id}`,
 };
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": isVal ? "Inici" : "Inicio",
+      "item": new URL(href("/"), siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": isVal ? "Serveis i preus" : "Servicios y precios",
+      "item": new URL(href("/pricing"), siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": serviceCopy.name,
+      "item": new URL(Astro.url.pathname, siteUrl).toString(),
+    },
+  ],
+};
 ---
 
 <Layout
-  title={`${serviceCopy.name} — ${isVal ? "Preu, comparativa i amortització" : "Precio, comparativa y amortización"} | Jaume Tur`}
+  title={`${serviceCopy.name} — ${isVal ? "Preu, comparativa i amortització" : "Precio, comparativa y amortización"}`}
   description={isVal ? `Descobreix el preu de ${serviceCopy.name}, la comparativa amb WordPress o Wix i com s'amortitza.` : `Descubre el precio de ${serviceCopy.name}, la comparativa con WordPress o Wix y cómo se amortiza.`}
 >
   <!-- Schema JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <Container>
     <!-- Ruta de navegació / Breadcrumbs -->

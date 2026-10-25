@@ -59,8 +59,8 @@ const faqs = [
     answer: isVal ? "La comunicació serà fluida, asíncrona i transparent, principalment per correu electrònic. També tindràs accés al repositori i a una previsualització per a provar cada avanç abans de publicar-lo." : "La comunicación será fluida, asíncrona y transparente, principalmente por correo electrónico. También tendrás acceso al repositorio y a una vista previa para probar cada avance antes de publicarlo.",
   },
   {
-    question: isVal ? "Treballes en remot o presencialment?" : "¿Trabajas en remoto o presencialmente?",
-    answer: isVal ? "Treballo des de València (Espanya), amb possibilitat de reunions presencials a la Comunitat Valenciana i treball remot amb equips de qualsevol lloc." : "Trabajo desde Valencia (España), con posibilidad de reuniones presenciales en la Comunitat Valenciana y trabajo remoto con equipos de cualquier lugar.",
+    question: isVal ? "Treballes en remot o presencialment a Xàtiva i València?" : "¿Trabajas en remoto o presencialmente en Xàtiva y Valencia?",
+    answer: isVal ? "Treballe des de Xàtiva (València), amb possibilitat de reunions i seguiment presencial a la comarca de la Costera, València i voltants, a més de col·laborar de forma 100 % remota amb clients i equips de qualsevol localitat." : "Trabajo desde Xàtiva (Valencia), con posibilidad de reuniones y seguimiento presencial en la comarca de La Costera, Valencia y alrededores, además de colaborar de forma 100 % remota con clientes y equipos de cualquier localidad.",
   },
   {
     question: isVal ? "Quines garanties tècniques ofereixes?" : "¿Qué garantías técnicas ofreces?",
@@ -88,8 +88,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title={isVal ? "Serveis i paquets de desenvolupament web | Jaume Tur" : "Servicios y paquetes de desarrollo web | Jaume Tur"}
-  description={isVal ? "Serveis professionals de desenvolupament web a València: pàgines ràpides, aplicacions Angular, rendiment i automatització CI/CD." : "Servicios profesionales de desarrollo web en Valencia: páginas rápidas, aplicaciones Angular, rendimiento y automatización CI/CD."}>
+  title={isVal ? "Serveis de Disseny Web i Aplicacions a Xàtiva i València | Jaume Tur" : "Servicios de Diseño Web y Aplicaciones en Xàtiva y Valencia | Jaume Tur"}
+  description={isVal ? "Serveis professionals de disseny web, creació de pàgines per a negocis, aplicacions a mida, backend i CI/CD des de Xàtiva i València." : "Servicios profesionales de diseño web, creación de páginas para negocios, aplicaciones web a medida, backend y CI/CD desde Xàtiva y Valencia."}>
   
   <!-- Structured Data: FAQPage -->
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -97,9 +97,9 @@ const faqSchema = {
   <Container>
     <!-- Capçalera Principal -->
     <Sectionhead>
-      <Fragment slot="title">{isVal ? "Serveis de desenvolupament web" : "Servicios de desarrollo web"}</Fragment>
+      <Fragment slot="title">{isVal ? "Serveis de desenvolupament web i aplicacions" : "Servicios de desarrollo web y aplicaciones"}</Fragment>
       <Fragment slot="desc">
-        {isVal ? "Col·laboració professional i transparent per a crear productes digitals fluids, robustos i accessibles des de València i en remot." : "Colaboración profesional y transparente para crear productos digitales rápidos, robustos y accesibles desde Valencia y en remoto."}
+        {isVal ? "Col·laboració professional i transparent per a crear pàgines web per a negocis, landing pages i aplicacions ràpides a Xàtiva, València i en remot." : "Colaboración profesional y transparente para crear páginas web para negocios, landing pages y aplicaciones rápidas en Xàtiva, Valencia y en remoto."}
       </Fragment>
     </Sectionhead>
 
