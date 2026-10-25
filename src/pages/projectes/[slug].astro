@@ -52,6 +52,32 @@ const schemaData = {
   ...(entry.data.githubUrl ? { "codeRepository": entry.data.githubUrl } : {}),
   "dateCreated": entry.data.year,
 };
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": isVal ? "Inici" : "Inicio",
+      "item": new URL(href("/"), siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": isVal ? "Projectes" : "Proyectos",
+      "item": new URL(href("/projectes"), siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": projectText.title,
+      "item": new URL(Astro.url.pathname, siteUrl).toString(),
+    },
+  ],
+};
 ---
 
 <Layout
@@ -61,6 +87,7 @@ const schemaData = {
 >
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <Container>
     <!-- Breadcrumbs -->

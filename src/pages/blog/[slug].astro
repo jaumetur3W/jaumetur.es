@@ -44,6 +44,38 @@ const getCategoryIcon = (category: string) => {
 
 const categoryIcon = getCategoryIcon(entry.data.category);
 const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": isVal ? "Inici" : "Inicio",
+      "item": new URL(href("/"), siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": new URL(href("/blog"), siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": entry.data.category,
+      "item": new URL(`${href("/blog")}#${entry.data.category}`, siteUrl).toString(),
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": entry.data.title,
+      "item": new URL(Astro.url.pathname, siteUrl).toString(),
+    },
+  ],
+};
 ---
 
 <Layout
@@ -57,6 +89,9 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
   lang={entry.data.lang || "ca"}
   canonicalURL={!isVal ? entry.data.canonicalUrl : undefined}
 >
+  <!-- BreadcrumbList Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
   <!-- Reading Progress Bar -->
   <div id="reading-progress" aria-hidden="true"></div>
 
