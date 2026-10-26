@@ -52,8 +52,25 @@ const getCategoryIcon = (category: string) => {
       </Sectionhead>
     </div>
 
-    <!-- Category Filters -->
-    <div class="max-w-5xl mx-auto my-10">
+    <!-- Search & Category Filters -->
+    <div class="max-w-5xl mx-auto my-10 space-y-4">
+      <!-- Cercador instantani d'articles -->
+      <div class="relative max-w-md">
+        <label for="blog-search-input" class="sr-only">
+          {isVal ? "Cercar articles per títol o contingut" : "Buscar artículos por título o contenido"}
+        </label>
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+          <Icon name="bx:search" class="h-4 w-4" />
+        </div>
+        <input
+          id="blog-search-input"
+          type="search"
+          placeholder={isVal ? "Cercar articles (ex: Astro, SEO, Angular, TypeScript...)" : "Buscar artículos (ej: Astro, SEO, Angular, TypeScript...)"}
+          class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-2xs outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+        />
+      </div>
+
+      <!-- Filtres per Categoria -->
       <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start pb-6 border-b border-slate-200/90" id="category-filters" role="group" aria-label={isVal ? "Filtres per categoria" : "Filtros por categoría"}>
         {categories.map((cat, idx) => (
           <button
@@ -153,6 +170,16 @@ const getCategoryIcon = (category: string) => {
         })}
       </div>
 
+      <!-- Missatge sense articles trobats -->
+      <div id="no-posts-found" class="hidden py-16 text-center">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">
+          {isVal ? "Cap coincidència" : "Sin coincidencias"}
+        </p>
+        <p class="mt-2 text-sm text-slate-600">
+          {isVal ? "No s'ha trobat cap article amb aquesta cerca o categoria." : "No se ha encontrado ningún artículo con esta búsqueda o categoría."}
+        </p>
+      </div>
+
       <!-- Lead Magnet Newsletter Box with Standardized Icons -->
       <section class="mt-20 p-8 sm:p-10 rounded-3xl bg-[#090D16] text-white border border-slate-800 shadow-2xl relative overflow-hidden">
         <div class="max-w-2xl relative z-10">
@@ -190,16 +217,59 @@ const getCategoryIcon = (category: string) => {
     </div>
   </Container>
 
-  <!-- Client-side Category Filter Script (Mínim JS, sense cerca de text) -->
+  <!-- Client-side Category Filter & Search Script -->
   <script is:inline>
     (function() {
+      const searchInput = document.getElementById("blog-search-input");
       const filterButtons = document.querySelectorAll(".filter-btn");
       const postCards = document.querySelectorAll(".post-card");
-      if (!filterButtons.length || !postCards.length) return;
+      const noResults = document.getElementById("no-posts-found");
+      if (!postCards.length) return;
+
+      let currentCategory = "ALL";
+      let currentQuery = "";
+
+      function filterPosts() {
+        let visibleCount = 0;
+
+        postCards.forEach(function(card) {
+          const cardCategory = (card.getAttribute("data-category") || "").toLowerCase();
+          const cardTitle = (card.getAttribute("data-title") || "").toLowerCase();
+          const cardSnippet = (card.getAttribute("data-snippet") || "").toLowerCase();
+          const cardTags = (card.getAttribute("data-tags") || "").toLowerCase();
+          const searchable = `${cardTitle} ${cardSnippet} ${cardTags}`;
+
+          const matchesCategory = currentCategory === "ALL" || cardCategory === currentCategory.toLowerCase();
+          const matchesQuery = !currentQuery || searchable.includes(currentQuery);
+
+          if (matchesCategory && matchesQuery) {
+            card.style.display = "flex";
+            visibleCount++;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove("hidden");
+          } else {
+            noResults.classList.add("hidden");
+          }
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener("input", function(e) {
+          currentQuery = (e.target.value || "").trim().toLowerCase();
+          filterPosts();
+        });
+      }
 
       filterButtons.forEach(function(btn) {
         btn.addEventListener("click", function() {
-          const cat = btn.getAttribute("data-category") || "Todas";
+          const rawCat = btn.getAttribute("data-category") || "Todas";
+          currentCategory = (rawCat === "Tots" || rawCat === "Todas") ? "ALL" : rawCat;
 
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;
@@ -208,10 +278,7 @@ const getCategoryIcon = (category: string) => {
               : "filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-white text-slate-600 border-slate-200/90 hover:text-slate-900 hover:border-indigo-300 shadow-2xs";
           });
 
-          postCards.forEach(function(card) {
-            const cardCategory = card.getAttribute("data-category") || "";
-            card.style.display = (cat === "Tots" || cat === "Todas" || cardCategory === cat) ? "flex" : "none";
-          });
+          filterPosts();
         });
       });
     })();

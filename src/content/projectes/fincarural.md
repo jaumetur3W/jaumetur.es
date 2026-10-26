@@ -39,3 +39,4 @@ El projecte combina una direcció d'art cuidada —amb tipografies editorials el
 
 - [Veure la web en directe](https://jaumetur3w.github.io/fincarural_web/#/)
 - [Explorar el codi font a GitHub](https://github.com/jaumetur3W/fincarural_web)
+
