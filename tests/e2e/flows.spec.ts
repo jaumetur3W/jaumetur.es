@@ -115,7 +115,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(footer.getByText("Navegación")).toBeVisible();
     await expect(footer.getByText("Recursos")).toBeVisible();
     await expect(footer.locator("h3").filter({ hasText: "Contacto" })).toBeVisible();
-    await expect(footer.getByText("Desarrollador web · Frontend")).toBeVisible();
+    await expect(footer.getByText("Desarrollo web y aplicaciones a medida")).toBeVisible();
   });
 
   test("Contact form triggers accessible validation on empty submit", async ({ page }) => {
@@ -144,7 +144,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.locator("h1")).toContainText("Digitalización local y carta web");
     await expect(page.getByText("El motivo de cada precio", { exact: false })).toBeVisible();
     await expect(page.getByText("¿Cómo se amortiza fácilmente este precio en pocos meses?")).toBeVisible();
-    await expect(page.getByText("Inspirado en el caso real de Pizzeria en Xàtiva")).toBeVisible();
+    await expect(page.getByText("Demostración práctica: Pizzería en Xàtiva")).toBeVisible();
     await expect(page.getByText("Comparativa de mercado", { exact: true })).toBeVisible();
 
     await page.goto("/val/pricing");
