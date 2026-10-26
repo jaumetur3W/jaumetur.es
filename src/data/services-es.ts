@@ -39,7 +39,7 @@ const marketComparisonDigital = [
   {
     name: "Pack de digitalización local (web y redes)",
     priceRange: "290 € de entrada + 49 €/mes",
-    speedLighthouse: "100/100 (carga instantánea < 0,5 s)",
+    speedLighthouse: "Optimizado para máxima puntuación en Lighthouse",
     maintenanceCost: "49 €/mes (web, cambios de carta y redes incluidos)",
     hiddenCosts: "0 € de comisiones por pedidos",
     codeOwnership: "Todo es tuyo: web, carta y perfiles sociales",
@@ -78,7 +78,7 @@ const marketComparisonLanding = [
   {
     name: "Nuestra solución (Astro e ingeniería frontend)",
     priceRange: "390 € de entrada + 30 €/mes",
-    speedLighthouse: "100/100 (carga instantánea < 0,6 s)",
+    speedLighthouse: "Optimizado para máxima velocidad en Lighthouse",
     maintenanceCost: "30 €/mes (todo incluido, sin licencias adicionales)",
     hiddenCosts: "0 € en licencias o plugins de pago",
     codeOwnership: "Código limpio propiedad al 100 % del cliente",
@@ -156,7 +156,7 @@ const marketComparisonAudit = [
   {
     name: "Nuestro servicio de auditoría y corrección de rendimiento",
     priceRange: "450 € de entrada + 39 €/mes",
-    speedLighthouse: "Garantía de 95-100/100",
+    speedLighthouse: "Optimizado para máximo rendimiento en Lighthouse",
     maintenanceCost: "39 €/mes (monitorización y ajustes continuos)",
     hiddenCosts: "Sin costes ocultos",
     codeOwnership: "Mejoras integradas directamente en tu repositorio",

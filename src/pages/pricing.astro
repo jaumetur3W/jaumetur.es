@@ -59,8 +59,8 @@ const faqs = [
     answer: isVal ? "La comunicació serà fluida, asíncrona i transparent, principalment per correu electrònic. També tindràs accés al repositori i a una previsualització per a provar cada avanç abans de publicar-lo." : "La comunicación será fluida, asíncrona y transparente, principalmente por correo electrónico. También tendrás acceso al repositorio y a una vista previa para probar cada avance antes de publicarlo.",
   },
   {
-    question: isVal ? "Treballes en remot o presencialment a Xàtiva i València?" : "¿Trabajas en remoto o presencialmente en Xàtiva y Valencia?",
-    answer: isVal ? "Treballe des de Xàtiva (València), amb possibilitat de reunions i seguiment presencial a la comarca de la Costera, València i voltants, a més de col·laborar de forma 100 % remota amb clients i equips de qualsevol localitat." : "Trabajo desde Xàtiva (Valencia), con posibilidad de reuniones y seguimiento presencial en la comarca de La Costera, Valencia y alrededores, además de colaborar de forma 100 % remota con clientes y equipos de cualquier localidad.",
+    question: isVal ? "Com és la modalitat de treball?" : "¿Cómo es la modalidad de trabajo?",
+    answer: isVal ? "Treballe 100% en línia des de Xàtiva (València), amb comunicació asíncrona fluida per correu o videotrucada amb clients de la Comunitat Valenciana i de qualsevol altra zona." : "Trabajo 100% en línea desde Xàtiva (Valencia), con comunicación ágil y transparente por correo o videollamada con clientes de la Comunidad Valenciana y de cualquier otra zona.",
   },
   {
     question: isVal ? "Quines garanties tècniques ofereixes?" : "¿Qué garantías técnicas ofreces?",
@@ -305,15 +305,15 @@ const faqSchema = {
     <div class="mt-20 max-w-5xl mx-auto">
       <div class="text-center mb-8">
         <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
-          {isVal ? "Prova social i casos reals" : "Prueba social y casos reales"}
+          {isVal ? "Portafolis i demos funcionals" : "Portafolio y demos funcionales"}
         </span>
         <h3 class="text-2xl font-bold text-slate-900 mt-2">
-          {isVal ? "Projectes reals desenvolupats i verificables" : "Proyectos reales desarrollados y verificables"}
+          {isVal ? "Projectes desenvolupats i verificables" : "Proyectos desarrollados y verificables"}
         </h3>
         <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-1">
           {isVal
-            ? "Seguint el nostre compromís d'honestedat, cadascun d'aquests projectes disposa de cas d'estudi amb mètriques auditables:"
-            : "Como parte de nuestro compromiso con la transparencia, cada proyecto cuenta con un caso de estudio y métricas verificables:"}
+            ? "Cadascun d'aquests projectes compta amb cas d'estudi tècnic i codi auditable:"
+            : "Cada proyecto cuenta con un caso de estudio técnico y código auditable:"}
         </p>
       </div>
 
@@ -341,10 +341,10 @@ const faqSchema = {
           <div>
             <div class="flex items-center justify-between mb-3">
               <Icon name="bx:restaurant" class="w-6 h-6 text-amber-500" />
-              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">{isVal ? "En línia" : "En línea"}</span>
+              <span class="text-[10px] font-mono text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold">{isVal ? "Demo interactiva" : "Demo interactiva"}</span>
             </div>
             <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pizzeria a Xàtiva</h4>
-            <p class="text-[11px] text-slate-500 mt-1">{isVal ? "SEO local núm. 1 a Google, 85 KB d'HTML i comandes directes." : "SEO local n.º 1 en Google, 85 KB de HTML y pedidos directos."}</p>
+            <p class="text-[11px] text-slate-500 mt-1">{isVal ? "Prototip de carta digital de 85 KB, comandes de mostra i pass Wallet." : "Prototipo de carta digital de 85 KB, pedidos de muestra y pase Wallet."}</p>
           </div>
           <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
             <span>{isVal ? "Veure cas d'estudi" : "Ver caso de estudio"}</span>
