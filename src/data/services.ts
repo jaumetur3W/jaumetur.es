@@ -108,7 +108,7 @@ export const servicesData: ServicePackage[] = [
       {
         name: "El nostre Pack Digitalització Local (Web + Xarxes)",
         priceRange: "290 € entrada + 49 €/mes",
-        speedLighthouse: "100 / 100 (Càrrega instantània < 0.5s)",
+        speedLighthouse: "Optimitzat per a màxima puntuació a Lighthouse",
         maintenanceCost: "49 €/mes (Web, canvis de carta i xarxes inclosos)",
         hiddenCosts: "0 € de comissions sobre comandes",
         codeOwnership: "Tot propietat teua: web, carta i perfils socials",
@@ -198,7 +198,7 @@ export const servicesData: ServicePackage[] = [
       creationBreakdown: [
         "Auditoria de negoci i disseny d'estructura orientada a conversió directa",
         "Desenvolupament a mida amb Astro v5 i Tailwind CSS v4 (sense plantilles pesades)",
-        "Puntuació garantida de 100/100 a Google Lighthouse (Rendiment, SEO i Bones Pràctiques)",
+        "Puntuació objectiu d'excel·lència a Google Lighthouse (Rendiment, SEO i Bones Pràctiques)",
         "Compliment estricte d'accessibilitat universal WCAG 2.2 AA (apte per a contractació pública i normatives europees)",
         "Configuració avançada de SEO on-page, JSON-LD schema (LocalBusiness / Organization) i Open Graph per a xarxes socials",
         "Formulari de contacte ràpid amb protecció antispam intel·ligent sense captchas molestos",
@@ -216,7 +216,7 @@ export const servicesData: ServicePackage[] = [
       {
         name: "La nostra solució (Astro + Enginyeria Frontend)",
         priceRange: "390 € entrada + 30 €/mes",
-        speedLighthouse: "100 / 100 (Càrrega instantània < 0.6s)",
+        speedLighthouse: "Optimitzat per a màxima velocitat a Lighthouse",
         maintenanceCost: "30 €/mes (Tot inclòs, sense llicències extra)",
         hiddenCosts: "0 € en llicències o plugins de pagament",
         codeOwnership: "Codi net propietat 100% del client",
@@ -252,7 +252,7 @@ export const servicesData: ServicePackage[] = [
     ],
     features: [
       "Desenvolupament estàtic amb Astro i Tailwind CSS v4",
-      "Garantia de 100/100 a Lighthouse (Rendiment, SEO i Bones Pràctiques)",
+      "Auditoria estricta amb Lighthouse (Rendiment, SEO i Bones Pràctiques)",
       "Accessibilitat universal certificable WCAG 2.2 AA",
       "Optimització de SEO tècnic i metadades Open Graph per a xarxes",
       "Formulari de contacte accessible amb protecció anti-spam sense captcha",
@@ -429,7 +429,7 @@ export const servicesData: ServicePackage[] = [
       {
         name: "El nostre servei d'Enginyeria Audit & Fix",
         priceRange: "450 € entrada + 39 €/mes",
-        speedLighthouse: "Garantia de 95-100 / 100",
+        speedLighthouse: "Optimitzat per a màxim rendiment a Lighthouse",
         maintenanceCost: "39 €/mes (Monitoratge i ajustos continus)",
         hiddenCosts: "Zero costos ocults",
         codeOwnership: "Millores directes integrades al teu repositori",
