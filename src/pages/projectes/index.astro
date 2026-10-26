@@ -58,6 +58,7 @@ const projectStackEs: Record<string, string[]> = {
   "pipeline-cicd": ["GitHub Actions", "CI/CD", "Linux Shell", "ESLint", "TypeScript", "GitHub Pages", "Caché de npm"],
   "forma-espacio": ["HTML", "CSS", "JavaScript", "Diseño editorial"],
   fincarural: ["React", "TypeScript", "Tailwind CSS", "Diseño editorial"],
+  urbanstyles: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-Commerce"],
 };
 
 const projectCopyEs: Record<string, { title: string; subtitle: string; badge: string }> = {
@@ -96,6 +97,11 @@ const projectCopyEs: Record<string, { title: string; subtitle: string; badge: st
     subtitle: "Web editorial y experiencia digital para estancias exclusivas y retiros en el interior de Valencia.",
     badge: "Turismo rural · Eventos",
   },
+  urbanstyles: {
+    title: "UrbanStyles — Streetwear Contemporáneo & E-Commerce Retro",
+    subtitle: "Tienda digital interactiva de ropa urbana con catálogo de colecciones, selector de tallas y carrito dinámico.",
+    badge: "E-Commerce · Streetwear",
+  },
 };
 
 // Categories per tipus de projecte
@@ -109,7 +115,7 @@ const projectCategories = [
 
 const getProjectCategory = (id: string): string => {
   if (id === "avisa" || id === "dashboard-telemetria") return "web-apps";
-  if (id === "pizzeria-xativa" || id === "burger-xativa") return "negocis";
+  if (id === "pizzeria-xativa" || id === "burger-xativa" || id === "urbanstyles") return "negocis";
   if (id === "pipeline-cicd") return "devops";
   if (id === "forma-espacio" || id === "fincarural") return "editorial";
   return "web-apps";

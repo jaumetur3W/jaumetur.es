@@ -10,4 +10,16 @@
     <xhtml:link rel="alternate" hreflang="ca-ES-valencia" href="https://jaumetur.es/val/projectes/fincarural/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://jaumetur.es/projectes/fincarural/" />
   </url>
+  <url>
+    <loc>https://jaumetur.es/projectes/urbanstyles/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jaumetur.es/projectes/urbanstyles/" />
+    <xhtml:link rel="alternate" hreflang="ca-ES-valencia" href="https://jaumetur.es/val/projectes/urbanstyles/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jaumetur.es/projectes/urbanstyles/" />
+  </url>
+  <url>
+    <loc>https://jaumetur.es/val/projectes/urbanstyles/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jaumetur.es/projectes/urbanstyles/" />
+    <xhtml:link rel="alternate" hreflang="ca-ES-valencia" href="https://jaumetur.es/val/projectes/urbanstyles/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jaumetur.es/projectes/urbanstyles/" />
+  </url>
 </urlset>
