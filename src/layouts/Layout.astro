@@ -36,7 +36,7 @@ const isEn = locale === "en";
 const resolvedDescription = description || (isEn
   ? "Professional web development, custom applications, backend architecture, and process automation based in Valencia. High-speed, robust digital solutions."
   : "Desarrollo de páginas web profesionales, aplicaciones a medida, backend y automatización en Xàtiva y Valencia. Soluciones rápidas y adaptadas a tu negocio.");
-const activeLang = isEn ? "en" : "es";
+const activeLang = lang || (isEn ? "en" : "es");
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
 const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
 const englishURL = new URL(alternatePathsForPage.en, siteUrl).toString();

@@ -31,7 +31,7 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     expect(initialStmtOpacity).toBe(0);
 
     const trackTop = await track.evaluate((el) => window.scrollY + el.getBoundingClientRect().top);
-    const scrollableDistance = await track.evaluate((el) => el.offsetHeight - window.innerHeight);
+    const scrollableDistance = await track.evaluate((el) => (el as HTMLElement).offsetHeight - window.innerHeight);
 
     // 2. Estado 2 (20–40%): scroll a 30% -> «Hola, soy» visible
     await page.evaluate(({ top, dist }) => window.scrollTo({ top: top + dist * 0.30, behavior: "instant" }), { top: trackTop, dist: scrollableDistance });
@@ -164,7 +164,7 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
 
     const track = page.locator("#scrolly-hero");
     const trackTop = await track.evaluate((el) => window.scrollY + el.getBoundingClientRect().top);
-    const scrollableDistance = await track.evaluate((el) => el.offsetHeight - window.innerHeight);
+    const scrollableDistance = await track.evaluate((el) => (el as HTMLElement).offsetHeight - window.innerHeight);
 
     // Scroll to middle (State 3: 50% -> 'Hello, I\'m Jaume')
     await page.evaluate(({ top, dist }) => window.scrollTo({ top: top + dist * 0.5, behavior: "instant" }), { top: trackTop, dist: scrollableDistance });

@@ -23,9 +23,7 @@ const prev = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
 const next = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null;
 
 // Get English version of this project if we are on /en/
-let entryToRender = entry;
-let prevEn = null;
-let nextEn = null;
+let entryToRender: any = entry;
 if (isEn) {
   const enProjects = await getCollection("projectes-en");
   const matchingEn = enProjects.find((p) => p.id === entry.id);
@@ -303,7 +301,7 @@ const breadcrumbSchema = {
           </span>
           <span class="text-base font-normal text-slate-950 group-hover:underline decoration-1 underline-offset-4 transition-colors flex items-center gap-2">
             <Icon name={prev.data.icon} class="w-4 h-4 text-slate-950" />
-            <span>{isEn && prevEn ? prevEn.data.title : prev.data.title}</span>
+            <span>{prev.data.title}</span>
           </span>
         </a>
       )}
@@ -318,7 +316,7 @@ const breadcrumbSchema = {
             <span>→</span>
           </span>
           <span class="text-base font-normal text-slate-950 group-hover:underline decoration-1 underline-offset-4 transition-colors flex items-center justify-end gap-2">
-            <span>{isEn && nextEn ? nextEn.data.title : next.data.title}</span>
+            <span>{next.data.title}</span>
             <Icon name={next.data.icon} class="w-4 h-4 text-slate-950" />
           </span>
         </a>

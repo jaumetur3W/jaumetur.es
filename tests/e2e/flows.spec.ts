@@ -214,7 +214,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Legacy /val routes redirect cleanly to Spanish counterparts", async ({ page }) => {
-    const response = await page.goto("/val");
+    await page.goto("/val");
     expect(page.url()).not.toContain("/val");
     await expect(page).toHaveURL("/");
 

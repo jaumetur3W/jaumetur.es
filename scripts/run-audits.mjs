@@ -44,7 +44,7 @@ for (const page of pages) {
       args.push('--preset=desktop');
     }
 
-    const res = spawnSync(npxCmd, args, {
+    spawnSync(npxCmd, args, {
       shell: true,
       stdio: 'inherit',
       env: { ...process.env, CHROME_PATH: chromePath }
