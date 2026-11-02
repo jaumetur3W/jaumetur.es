@@ -1,39 +1,39 @@
 ---
 draft: false
-title: "UrbanStyles — Streetwear Contemporani & E-Commerce Retro"
-subtitle: "Botiga digital interactiva de roba urbana amb catàleg de col·leccions, selector de talles i cistella dinàmica."
-tagline: "Streetwear contemporani d'arrel retro, peces de 240 GSM i experiència de compra fluida amb Next.js."
+title: "UrbanStyles — Streetwear Contemporáneo & E-Commerce Retro"
+subtitle: "Tienda digital interactiva de ropa urbana con catálogo de colecciones, selector de tallas y carrito dinámico."
+tagline: "Streetwear contemporáneo de raíz retro, prendas pesadas de 240 GSM y experiencia de compra fluida con Next.js."
 icon: "bx:shopping-bag"
 color: "amber"
-role: "Desenvolupament web frontend"
+role: "Desarrollo web frontend"
 year: "2026"
-client: "Projecte e-commerce"
+client: "Proyecto e-commerce"
 badge: "E-Commerce · Streetwear"
 statLabel: "Stack"
 statValue: "Next.js · React · TS"
-verificationMethod: "Revisió interactiva del catàleg de productes, filtres de col·lecció i flux de cistella a la demo."
+verificationMethod: "Revisión interactiva del catálogo de productos, filtros de colección y flujo de carrito en la demo."
 liveUrl: "https://jaumetur3w.github.io/urbanstyles/"
 githubUrl: "https://github.com/jaumetur3W/urbanstyles"
 stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-Commerce"]
 order: 8
 image: {
   src: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=1200&q=80",
-  alt: "Model urbà amb roba streetwear contemporània i fons fosc"
+  alt: "Modelo urbano con ropa streetwear contemporánea y fondo oscuro"
 }
 ---
 
-## Una experiència d'e-commerce moderna per a marques de roba
+## Una experiencia de e-commerce moderna para marcas de ropa
 
-**UrbanStyles** és una botiga digital interactiva inspirada en les marques de roba urbana independent i streetwear retro. El projecte posa el focus en una estètica visual d'alt contrast —negre, blanc trencat i groc elèctric— combinada amb una arquitectura d'alt rendiment basada en **Next.js**, **React** i **TypeScript**.
+**UrbanStyles** es una tienda digital interactiva inspirada en las marcas de moda urbana independiente y streetwear retro. El proyecto pone el foco en una estética visual de alto contraste —negro, blanco roto y acentos amarillos eléctricos— combinada con una arquitectura de alto rendimiento basada en **Next.js**, **React** y **TypeScript**.
 
-## Funcionalitats principals
+## Funcionalidades principales
 
-- **Catàleg dinàmic de col·leccions:** Visualització de llançaments exclusius (*Retro Horizons*, camisetes de 240 GSM, dessuadores i accessoris) amb filtres per categoria i estil.
-- **Selector avançat de producte:** Selecció interactiva de talles (S, M, L, XL), guia d'ajust i galeria d'imatges d'alta resolució optimitzades per a mòbil.
-- **Cistella de compra interactiva:** Gestió d'estat reactiva per afegir, modificar quantitats i calcular el total de la comanda en temps real sense recàrrega de pàgina.
-- **Rendiment web i adaptabilitat:** Càrrega instantània dels components visuals, pre-càrrega de fonts tipogràfiques i navegació dissenyada per maximitzar la conversió des de telèfons intel·ligents.
+- **Catálogo dinámico de colecciones:** Visualización de lanzamientos exclusivos (*Retro Horizons*, camisetas pesadas de 240 GSM, sudaderas y accesorios) con filtros por categoría y estilo.
+- **Selector avanzado de producto:** Selección interactiva de tallas (S, M, L, XL), guía de medidas y galería de imágenes en alta resolución optimizadas para móviles.
+- **Carrito de compra interactivo:** Gestión de estado reactiva para añadir prendas, modificar cantidades y calcular subtotales en tiempo real sin recarga de página.
+- **Rendimiento web y adaptabilidad móvil:** Carga instantánea de componentes visuales, precarga de tipografías y navegación diseñada para maximizar la conversión en dispositivos móviles.
 
-## Enllaços del projecte
+## Enlaces del proyecto
 
-- [Veure la botiga en directe](https://jaumetur3w.github.io/urbanstyles/)
-- [Consultar el codi font a GitHub](https://github.com/jaumetur3W/urbanstyles)
+- [Ver la tienda en directo](https://jaumetur3w.github.io/urbanstyles/)
+- [Consultar el código fuente en GitHub](https://github.com/jaumetur3W/urbanstyles)

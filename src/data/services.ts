@@ -1,3 +1,6 @@
+import { servicesCopyEs } from "./services-es";
+import { servicesCopyEn } from "./services-en";
+
 export interface MarketAlternative {
   name: string;
   priceRange: string;
@@ -44,7 +47,7 @@ export interface ServicePackage {
   ctaText: string;
 }
 
-export const servicesData: ServicePackage[] = [
+const rawServicesData: ServicePackage[] = [
   {
     id: "digitalitzacio-local",
     name: "Digitalització Local & Carta Web (Bars i Comerços)",
@@ -579,3 +582,20 @@ export const servicesData: ServicePackage[] = [
     ctaText: "Automatitzar el Meu Flux (350 €)",
   },
 ];
+
+export const servicesData: ServicePackage[] = rawServicesData.map((s) => ({
+  ...s,
+  ...(servicesCopyEs[s.id] || {}),
+}));
+
+export function getLocalizedService(service: ServicePackage, locale: "es" | "en"): ServicePackage {
+  if (locale === "en" && servicesCopyEn[service.id]) {
+    return { ...service, ...servicesCopyEn[service.id] };
+  }
+  return { ...service, ...(servicesCopyEs[service.id] || {}) };
+}
+
+export function getServicesData(locale: "es" | "en" = "es"): ServicePackage[] {
+  return rawServicesData.map((s) => getLocalizedService(s, locale));
+}
+

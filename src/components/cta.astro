@@ -2,8 +2,8 @@
 import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const contactPath = localizePath("/contact", isVal ? "val" : "es");
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const contactPath = localizePath("/contact", isEn ? "en" : "es");
 ---
 
 <div
@@ -20,22 +20,22 @@ const contactPath = localizePath("/contact", isVal ? "val" : "es");
         <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
       </span>
-      <span>{isVal ? "Disponible per a noves oportunitats" : "Disponible para nuevas oportunidades"}</span>
+      <span>{isEn ? "Available for new projects" : "Disponible para nuevas oportunidades"}</span>
     </div>
 
     <h2 class="text-white text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-      {isVal ? "Creem alguna cosa " : "¿Creamos algo "}<span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-white bg-clip-text text-transparent">{isVal ? "extraordinària" : "extraordinario"}</span>{isVal ? " junts?" : " juntos?"}
+      {isEn ? "Let's create something " : "¿Creamos algo "}<span class="bg-gradient-to-r from-indigo-400 via-indigo-300 to-white bg-clip-text text-transparent">{isEn ? "extraordinary" : "extraordinario"}</span>{isEn ? " together?" : " juntos?"}
     </h2>
     
     <p class="text-slate-300 mt-3 text-sm sm:text-base leading-relaxed">
-      {isVal ? "Tens una proposta de feina, un projecte web o necessites suport en arquitectura frontend? Parlem!" : "¿Tienes una propuesta de trabajo, un proyecto web o necesitas apoyo con arquitectura frontend? ¡Hablemos!"}
+      {isEn ? "Have a project idea, a job proposal, or need architecture support? Let's talk!" : "¿Tienes una propuesta de trabajo, un proyecto web o necesitas apoyo con arquitectura frontend? ¡Hablemos!"}
     </p>
 
     <!-- Visual Tech Chips with Standardized Icons -->
     <div class="flex flex-wrap gap-2 mt-5">
       <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10 flex items-center gap-1.5">
         <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-indigo-400" />
-        <span>{isVal ? "València (remot / híbrid)" : "Valencia (remoto / híbrido)"}</span>
+        <span>{isEn ? "Valencia (remote / hybrid)" : "Valencia (remoto / híbrido)"}</span>
       </span>
       <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10 flex items-center gap-1.5">
         <Icon name="simple-icons:angular" class="w-3.5 h-3.5 text-red-400" />
@@ -53,7 +53,7 @@ const contactPath = localizePath("/contact", isVal ? "val" : "es");
         href={contactPath}
         class="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-950 hover:bg-slate-100 shadow-xl shadow-black/30 hover:scale-[1.02] transition-all">
         <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-900 group-hover/btn:scale-110 transition-transform" />
-        <span>{isVal ? "Contactar ara" : "Contactar ahora"}</span>
+        <span>{isEn ? "Contact now" : "Contactar ahora"}</span>
       </a>
       <a
         href="/docs/CV_Jaume_tur.pdf"
@@ -61,7 +61,7 @@ const contactPath = localizePath("/contact", isVal ? "val" : "es");
         rel="noopener noreferrer"
         class="group/cv inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-xs transition text-sm">
         <Icon name="bx:file" class="w-4 h-4 text-white group-hover/cv:-translate-y-0.5 transition-transform" />
-        <span>{isVal ? "Descarregar CV" : "Descargar CV"}</span>
+        <span>{isEn ? "Download CV" : "Descargar CV"}</span>
         <span class="text-[11px] font-mono text-slate-400">↗</span>
       </a>
     </div>

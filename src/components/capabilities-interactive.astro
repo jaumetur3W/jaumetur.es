@@ -1,0 +1,481 @@
+---
+import { Icon } from "astro-icon/components";
+import { localizePath } from "@/i18n";
+
+export interface Props {
+  isEn?: boolean;
+}
+
+const { isEn = false } = Astro.props;
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+
+interface ExampleItem {
+  name: string;
+  href: string;
+  description: string;
+}
+
+interface CapabilityCategory {
+  id: string;
+  title: string;
+  tag: string;
+  icon: string;
+  shortSummary: string;
+  description: string;
+  examples: ExampleItem[];
+  extraNote?: string;
+  pricingLink: string;
+  pricingText: string;
+}
+
+const categories: CapabilityCategory[] = [
+  {
+    id: "webs",
+    title: "Webs",
+    tag: isEn ? "Web Development" : "Desarrollo web",
+    icon: "bx:globe",
+    shortSummary: isEn
+      ? "Corporate websites, landing pages, and web catalogs designed for speed, clarity, and search visibility."
+      : "Páginas web corporativas, landing pages y catálogos diseñados para cargar rápido y posicionar bien.",
+    description: isEn
+      ? "Design and development of modern, fast websites tailored to each business or project, built with clean architecture, strict SEO, and extreme performance."
+      : "Diseño y desarrollo de páginas web modernas, rápidas y adaptadas a cada negocio o proyecto, con arquitectura limpia, SEO estricto y rendimiento extremo.",
+    examples: [
+      {
+        name: "Pizzería Xàtiva",
+        href: href("/projectes/pizzeria-xativa"),
+        description: isEn
+          ? "Corporate web with interactive digital menu, 100/100 Lighthouse performance, and local SEO dominance."
+          : "Web corporativa con carta digital interactiva, 100/100 en Lighthouse y posicionamiento SEO local.",
+      },
+      {
+        name: "Burger Xàtiva",
+        href: href("/projectes/burger-xativa"),
+        description: isEn
+          ? "Fast-food digital menu and website optimized for mobile speed, clarity, and user conversion."
+          : "Web y carta digital para restaurante de comida rápida, optimizada para móviles y conversión.",
+      },
+    ],
+    pricingLink: href("/pricing/landing-page"),
+    pricingText: isEn ? "View web development packages" : "Ver tarifas y opciones de webs",
+  },
+  {
+    id: "apps",
+    title: isEn ? "Applications" : "Aplicaciones",
+    tag: isEn ? "Custom Software" : "Software a medida",
+    icon: "bx:layer",
+    shortSummary: isEn
+      ? "Web applications, internal portals, and custom platforms to manage data and streamline business operations."
+      : "Aplicaciones web, plataformas de gestión y herramientas internas para resolver necesidades reales.",
+    description: isEn
+      ? "Development of custom web applications to solve concrete business needs, streamline internal workflows, and build scalable backends."
+      : "Desarrollo de aplicaciones web a medida para resolver necesidades concretas, agilizar procesos internos y crear herramientas robustas y escalables.",
+    examples: [
+      {
+        name: "AVISA",
+        href: href("/projectes/avisa"),
+        description: isEn
+          ? "Urban incident reporting platform with Angular Standalone, Signals, and reactive UI architecture."
+          : "Plataforma de reporte y gestión de incidencias con Angular Standalone, Signals y arquitectura reactiva.",
+      },
+      {
+        name: "Dashboard Telemetría",
+        href: href("/projectes/dashboard-telemetria"),
+        description: isEn
+          ? "Real-time IoT telemetry monitoring and data analytics web dashboard."
+          : "Cuadro de mando y monitorización de telemetría IoT con visualización de datos en tiempo real.",
+      },
+    ],
+    pricingLink: href("/pricing/angular-webapp"),
+    pricingText: isEn ? "View application development options" : "Ver opciones de desarrollo de apps",
+  },
+  {
+    id: "automation",
+    title: isEn ? "Automation" : "Automatización",
+    tag: isEn ? "Processes & CI/CD" : "Procesos y CI/CD",
+    icon: "bx:git-branch",
+    shortSummary: isEn
+      ? "Automated tasks, continuous deployment, and platform integrations to eliminate manual work."
+      : "Automatización de tareas, despliegue continuo e integraciones para eliminar trabajo repetitivo.",
+    description: isEn
+      ? "Task and process automation to save time, eliminate repetitive manual errors, connect different platforms, and deploy with confidence."
+      : "Automatización de tareas y procesos para ahorrar tiempo, eliminar errores repetitivos, conectar diferentes plataformas y desplegar con total fiabilidad.",
+    examples: [
+      {
+        name: isEn ? "CI/CD Pipeline with GitHub Actions" : "Pipeline CI/CD con GitHub Actions",
+        href: href("/projectes/pipeline-cicd"),
+        description: isEn
+          ? "Automated code quality gates, strict testing, and zero-downtime deployment workflows."
+          : "Cadena de verificación de código, testing estricto y despliegues automáticos sin caídas.",
+      },
+    ],
+    extraNote: isEn
+      ? "Scheduled scripts, automated database backups, webhook integrations, and hands-free production deployments."
+      : "Scripts periódicos automatizados, copias de seguridad de datos, integración vía webhooks y despliegues sin intervención manual.",
+    pricingLink: href("/pricing/cicd-devops"),
+    pricingText: isEn ? "View automation and CI/CD rates" : "Ver tarifas de automatización y CI/CD",
+  },
+];
+---
+
+<!-- Sección «Qué puedo desarrollar» -->
+<section
+  id="desenvolupament"
+  class="scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-28 relative"
+  aria-labelledby="capabilities-title"
+>
+  <div class="mb-12 sm:mb-16 max-w-2xl">
+    <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
+      {isEn ? "Capabilities & Solutions" : "Capacidades y soluciones"}
+    </p>
+    <h2
+      id="capabilities-title"
+      class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950"
+    >
+      {isEn ? "What I can build." : "Qué puedo desarrollar."}
+    </h2>
+    <p class="mt-4 text-sm sm:text-base text-slate-600 font-light leading-relaxed">
+      {isEn
+        ? "Explore each area to discover practical solutions, technologies, and real case studies."
+        : "Descubre las áreas en las que puedo ayudarte, con ejemplos reales y soluciones adaptadas a cada necesidad."}
+    </p>
+  </div>
+
+  <!-- Cuadrícula de 3 Cuadros Originales Siempre Visibles en su Sitio -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch relative">
+    {categories.map((cat) => (
+      <article
+        class="cap-card-wrapper relative h-full"
+        data-cap-id={cat.id}
+      >
+        <!-- Cuadro Principal -->
+        <div
+          id={`card-${cat.id}`}
+          data-cap-id={cat.id}
+          class="cap-card group w-full h-full text-left p-6 sm:p-7 rounded-2xl border border-slate-200/90 bg-white hover:border-slate-950/40 shadow-2xs hover:shadow-md transition-all duration-200 relative flex flex-col justify-between"
+        >
+          <div>
+            <!-- Indicador superior: Icono y etiqueta -->
+            <div class="flex items-center justify-between mb-5">
+              <div
+                class="w-11 h-11 rounded-xl bg-slate-100 border border-slate-200/80 group-hover:bg-[#FFFF00] group-hover:text-slate-950 flex items-center justify-center transition-colors duration-200 shrink-0"
+                aria-hidden="true"
+              >
+                <Icon name={cat.icon} class="w-5 h-5 text-slate-900" />
+              </div>
+
+              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+                {cat.tag}
+              </span>
+            </div>
+
+            <!-- Título de Categoría -->
+            <h3 class="text-2xl font-light text-slate-950 tracking-tight mb-2.5">
+              {cat.title}
+            </h3>
+
+            <!-- Descripción breve del cuadro -->
+            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed mb-6">
+              {cat.shortSummary}
+            </p>
+          </div>
+
+          <!-- Botón "Más información": Único activador de la previsualización en grande -->
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button
+              type="button"
+              class="cap-more-btn group/btn inline-flex items-center gap-2 font-mono text-xs font-semibold py-2 px-3.5 -ml-1 rounded-xl bg-slate-100 hover:bg-[#FFFF00] text-slate-900 border border-slate-200 hover:border-slate-950 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] cursor-pointer"
+              aria-label={isEn ? `More information about ${cat.title}` : `Más información sobre ${cat.title}`}
+              data-cat-id={cat.id}
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="capabilities-popup-panel"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-950" aria-hidden="true"></span>
+              <span>{isEn ? "More information" : "Más información"}</span>
+              <span aria-hidden="true" class="cap-indicator-arrow ml-0.5 text-slate-500 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-transform duration-150">
+                →
+              </span>
+            </button>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider hidden sm:inline">
+              {cat.tag}
+            </span>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- Pop-up Superpuesto de Gran Formato (65-85% ancho, 60-80% alto del viewport) -->
+  <div
+    id="capabilities-popup-root"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pointer-events-none invisible opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none"
+    aria-hidden="true"
+  >
+    <!-- Telón de fondo con desenfoque sutil (cierra al hacer clic fuera) -->
+    <div
+      id="capabilities-popup-backdrop"
+      class="absolute inset-0 bg-slate-950/45 backdrop-blur-xs transition-opacity duration-200 pointer-events-auto"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Panel Pop-up Visual de Gran Formato (Editorial, Moderno, Minimalista) -->
+    <div
+      id="capabilities-popup-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="capabilities-popup-title"
+      class="relative z-10 w-[90vw] sm:w-[84vw] lg:w-[78vw] max-w-5xl h-auto min-h-[55vh] max-h-[85vh] overflow-y-auto rounded-3xl bg-white border-2 border-slate-950 shadow-[0_24px_64px_rgba(15,23,42,0.25),0_4px_16px_rgba(15,23,42,0.1)] transform scale-95 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto p-6 sm:p-8 lg:p-10 selection:bg-[#FFFF00] selection:text-black motion-reduce:transition-none will-change-transform"
+    >
+      <!-- Botón X pequeño y discreto en la esquina superior derecha -->
+      <button
+        id="capabilities-popup-close-btn"
+        type="button"
+        class="cap-popup-close-btn absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-[#FFFF00] text-slate-500 hover:text-slate-950 border border-slate-300 hover:border-slate-950 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] z-20"
+        aria-label={isEn ? "Close preview" : "Cerrar previsualización"}
+      >
+        <Icon name="bx:x" class="w-5 h-5 text-slate-900" />
+      </button>
+
+      <!-- Paneles de Contenido Dinámico por Categoría -->
+      {categories.map((cat) => (
+        <div
+          id={`floating-${cat.id}`}
+          data-pane-id={cat.id}
+          class="cap-pane hidden flex-col justify-between min-h-[46vh] sm:min-h-[50vh]"
+          aria-hidden="true"
+        >
+          <!-- Cabecera editorial -->
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-950" aria-hidden="true"></span>
+                {cat.tag}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-3.5 mb-6">
+              <div
+                class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-950/10 flex items-center justify-center shrink-0"
+                aria-hidden="true"
+              >
+                <Icon name={cat.icon} class="w-6 h-6 text-slate-950" />
+              </div>
+              <h3
+                id="capabilities-popup-title"
+                class="text-3xl sm:text-4xl lg:text-5xl font-light text-slate-950 tracking-tight"
+              >
+                {cat.title}
+              </h3>
+            </div>
+
+            <!-- Estructura editorial en 2 columnas en pantallas medianas/grandes -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 pt-2 pb-6 border-y border-slate-100">
+              
+              <!-- Columna izquierda: Descripción y propuesta de valor -->
+              <div class="lg:col-span-6 flex flex-col justify-between">
+                <div>
+                  <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-light mb-4">
+                    {cat.description}
+                  </p>
+
+                  {cat.extraNote && (
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 font-light leading-relaxed">
+                      {cat.extraNote}
+                    </div>
+                  )}
+                </div>
+
+                <div class="mt-6">
+                  <a
+                    href={cat.pricingLink}
+                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                  >
+                    <span>{cat.pricingText}</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Columna derecha: Casos de estudio reales en esta web -->
+              <div class="lg:col-span-6 flex flex-col justify-start">
+                <p class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
+                  {isEn ? "Real case studies in this portfolio:" : "Casos reales en este portfolio:"}
+                </p>
+
+                <div class="flex flex-col gap-3">
+                  {cat.examples.map((ex) => (
+                    <a
+                      href={ex.href}
+                      class="group/case block p-4 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-[#FFFF00]/20 hover:border-slate-950 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                    >
+                      <div class="flex items-center justify-between mb-1.5">
+                        <span class="font-sans font-bold text-sm sm:text-base text-slate-950 group-hover/case:underline decoration-1 underline-offset-4">
+                          {ex.name}
+                        </span>
+                        <span class="text-xs font-mono text-slate-500 group-hover/case:text-slate-950 flex items-center gap-1">
+                          <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
+                          <span aria-hidden="true">→</span>
+                        </span>
+                      </div>
+                      <p class="text-xs text-slate-600 font-light leading-relaxed">
+                        {ex.description}
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Pie del Pop-up con atajo informativo -->
+          <div class="pt-4 mt-4 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span>{isEn ? "ESC or click X to close" : "Pulsa ESC o la X para cerrar"}</span>
+            <span class="hidden sm:inline">Jaume Tur · Frontend Engineering</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Script de Interacción: Apertura fluida exclusivamente al pulsar "Más información", Cierre con X, telón o Escape -->
+<script is:inline>
+  (function () {
+    function initFloatingCapabilities() {
+      const section = document.getElementById("desenvolupament");
+      if (!section) return;
+
+      const wrappers = Array.from(section.querySelectorAll(".cap-card-wrapper"));
+      const popupRoot = document.getElementById("capabilities-popup-root");
+      const popupPanel = document.getElementById("capabilities-popup-panel");
+      const popupBackdrop = document.getElementById("capabilities-popup-backdrop");
+      const closeBtn = document.getElementById("capabilities-popup-close-btn");
+      const panes = Array.from(section.querySelectorAll(".cap-pane"));
+
+      if (!wrappers.length || !popupRoot || !popupPanel || !panes.length) return;
+
+      let activeId = null;
+      let lastFocusedElement = null;
+
+      function openPopup(id) {
+        if (activeId === id) return;
+
+        lastFocusedElement = document.activeElement;
+
+        // Mostrar root y panel con animación fluida acelerada por hardware
+        popupRoot.classList.remove("invisible", "opacity-0", "pointer-events-none");
+        popupRoot.classList.add("visible", "opacity-100", "pointer-events-auto");
+        popupRoot.setAttribute("aria-hidden", "false");
+
+        popupPanel.classList.remove("scale-95");
+        popupPanel.classList.add("scale-100");
+
+        // Activar el panel correspondiente
+        panes.forEach((pane) => {
+          if (pane.dataset.paneId === id) {
+            pane.classList.remove("hidden");
+            pane.classList.add("flex");
+            pane.setAttribute("aria-hidden", "false");
+          } else {
+            pane.classList.remove("flex");
+            pane.classList.add("hidden");
+            pane.setAttribute("aria-hidden", "true");
+          }
+        });
+
+        // Actualizar aria-expanded en los botones
+        wrappers.forEach((w) => {
+          const btn = w.querySelector(".cap-more-btn");
+          if (btn) {
+            btn.setAttribute("aria-expanded", w.dataset.capId === id ? "true" : "false");
+          }
+        });
+
+        // Prevenir scroll de fondo de forma limpia
+        document.body.style.overflow = "hidden";
+
+        activeId = id;
+
+        // Enfoque accesible en el botón de cerrar
+        requestAnimationFrame(() => {
+          closeBtn?.focus();
+        });
+      }
+
+      function closePopup() {
+        if (!activeId) return;
+
+        popupPanel.classList.remove("scale-100");
+        popupPanel.classList.add("scale-95");
+
+        popupRoot.classList.remove("visible", "opacity-100", "pointer-events-auto");
+        popupRoot.classList.add("invisible", "opacity-0", "pointer-events-none");
+        popupRoot.setAttribute("aria-hidden", "true");
+
+        panes.forEach((p) => {
+          p.classList.remove("flex");
+          p.classList.add("hidden");
+          p.setAttribute("aria-hidden", "true");
+        });
+
+        wrappers.forEach((w) => {
+          const btn = w.querySelector(".cap-more-btn");
+          if (btn) {
+            btn.setAttribute("aria-expanded", "false");
+          }
+        });
+
+        document.body.style.overflow = "";
+        activeId = null;
+
+        // Devolver el foco al elemento que activó el pop-up
+        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+          lastFocusedElement.focus();
+        }
+      }
+
+      // Eventos: Apertura EXCLUSIVA al pulsar el botón «Más información»
+      wrappers.forEach((wrapper) => {
+        const id = wrapper.dataset.capId;
+        const moreBtn = wrapper.querySelector(".cap-more-btn");
+
+        moreBtn?.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (activeId === id) {
+            closePopup();
+          } else {
+            openPopup(id);
+          }
+        });
+      });
+
+      // Botón X de Cierre
+      closeBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closePopup();
+      });
+
+      // Cierre al pulsar el telón de fondo exterior
+      popupBackdrop?.addEventListener("click", () => {
+        closePopup();
+      });
+
+      // Cierre con la tecla Escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && activeId) {
+          e.preventDefault();
+          closePopup();
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initFloatingCapabilities);
+    } else {
+      initFloatingCapabilities();
+    }
+  })();
+</script>

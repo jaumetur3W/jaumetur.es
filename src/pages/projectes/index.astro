@@ -4,113 +4,34 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const href = (path: string) => localizePath(path, isVal ? "val" : "es");
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 
-const projects = await getCollection("projectes");
-projects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const rawProjects = isEn ? await getCollection("projectes-en") : await getCollection("projectes");
+const projects = rawProjects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
 const projectPreviews: Record<string, { src: string; alt: string }> = {
   avisa: {
     src: "/img/preview-avisa.webp",
-    alt: "Pàgina principal de la plataforma de serveis AVISA",
+    alt: isEn ? "Main page of AVISA services platform" : "Página principal de la plataforma de servicios AVISA",
   },
   "dashboard-telemetria": {
     src: "/img/preview-dashboard.webp",
-    alt: "Gràfic d'analítica il·lustratiu per al projecte de telemetria",
+    alt: isEn ? "Analytics chart for telemetry project" : "Gráfico analítico ilustrativo del proyecto de telemetría",
   },
   "pipeline-cicd": {
     src: "/img/preview-pipeline.webp",
-    alt: "Historial públic de fluxos de GitHub Actions del projecte CI/CD",
-  },
-};
-
-const projectPreviewAltEs: Record<string, string> = {
-  avisa: "Página principal de la plataforma de servicios AVISA",
-  "dashboard-telemetria": "Gráfico analítico ilustrativo del proyecto de telemetría",
-  "pipeline-cicd": "Historial público de ejecuciones de GitHub Actions del proyecto CI/CD",
-  "pizzeria-xativa": "Pizza de la demo Pizzeria Xàtiva",
-  "burger-xativa": "Hamburguesa de la demo Burger Xàtiva",
-  "forma-espacio": "Interior arquitectónico con materiales naturales",
-};
-
-const projectRoles: Record<string, string> = {
-  avisa: "Arquitectura frontend i desenvolupament d'interfície",
-  "pizzeria-xativa": "Desenvolupament frontend i disseny d'interfície",
-  "burger-xativa": "Desenvolupament frontend i disseny d'interfície",
-  "dashboard-telemetria": "Desenvolupament frontend i rendiment web",
-  "pipeline-cicd": "DevOps i lideratge frontend",
-};
-
-const projectRolesEs: Record<string, string> = {
-  avisa: "Arquitectura frontend y desarrollo de interfaz",
-  "pizzeria-xativa": "Desarrollo frontend y diseño de interfaz",
-  "burger-xativa": "Desarrollo frontend y diseño de interfaz",
-  "dashboard-telemetria": "Desarrollo frontend y rendimiento web",
-  "pipeline-cicd": "DevOps y liderazgo frontend",
-};
-
-const projectStackEs: Record<string, string[]> = {
-  avisa: ["Angular 17+", "TypeScript estricto", "Signals", "Vercel Edge", "WCAG AA", "Formularios reactivos"],
-  "pizzeria-xativa": ["HTML5", "Tailwind CSS CDN", "JavaScript", "Enlaces de WhatsApp", "Interfaces de Apple Wallet y Google Wallet"],
-  "burger-xativa": ["Astro", "HTML estático", "Tailwind CSS", "JavaScript", "Diseño adaptable", "ES / VA"],
-  "dashboard-telemetria": ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment", "Virtual DOM", "Core Web Vitals"],
-  "pipeline-cicd": ["GitHub Actions", "CI/CD", "Linux Shell", "ESLint", "TypeScript", "GitHub Pages", "Caché de npm"],
-  "forma-espacio": ["HTML", "CSS", "JavaScript", "Diseño editorial"],
-  fincarural: ["React", "TypeScript", "Tailwind CSS", "Diseño editorial"],
-  urbanstyles: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-Commerce"],
-};
-
-const projectCopyEs: Record<string, { title: string; subtitle: string; badge: string }> = {
-  avisa: {
-    title: "AVISA — Gestión de incidencias en tiempo real",
-    subtitle: "Arquitectura frontend reactiva con Angular y TypeScript para coordinar avisos e incidencias urbanas críticas.",
-    badge: "Aplicación web · Prototipo de interfaz",
-  },
-  "pizzeria-xativa": {
-    title: "Pizzeria Xàtiva — Demo de carta y Pizza Pass",
-    subtitle: "Plantilla demostrativa con carta digital, cesta y prototipo de fidelización Pizza Pass para Apple Wallet y Google Wallet.",
-    badge: "Demo interactiva · datos ficticios",
-  },
-  "burger-xativa": {
-    title: "Burger Xàtiva — Demo de web gastronómica interactiva",
-    subtitle: "Plantilla de hamburguesería ficticia con carta, personalizador, cesta y flujos simulados.",
-    badge: "Demo interactiva · sin pedidos reales",
-  },
-  "dashboard-telemetria": {
-    title: "Panel de telemetría — Rendimiento web a 60 FPS",
-    subtitle: "Panel interactivo para monitorizar métricas de rendimiento web, concurrencia y Core Web Vitals en tiempo real.",
-    badge: "Interfaz frontend y métricas",
-  },
-  "pipeline-cicd": {
-    title: "Pipeline CI/CD automatizado — Cero interrupciones",
-    subtitle: "Automatización de lint, validación de TypeScript, compilación optimizada y despliegue continuo.",
-    badge: "DevOps y automatización",
-  },
-  "forma-espacio": {
-    title: "FORMA / ESPACIO — Arte · Arquitectura · Investigación",
-    subtitle: "Portfolio editorial de arte, arquitectura e investigación espacial.",
-    badge: "Portfolio · Arquitectura",
-  },
-  fincarural: {
-    title: "Mas de l'Alzina — Finca Rural & Eventos",
-    subtitle: "Web editorial y experiencia digital para estancias exclusivas y retiros en el interior de Valencia.",
-    badge: "Turismo rural · Eventos",
-  },
-  urbanstyles: {
-    title: "UrbanStyles — Streetwear Contemporáneo & E-Commerce Retro",
-    subtitle: "Tienda digital interactiva de ropa urbana con catálogo de colecciones, selector de tallas y carrito dinámico.",
-    badge: "E-Commerce · Streetwear",
+    alt: isEn ? "Public GitHub Actions runs history of CI/CD project" : "Historial público de ejecuciones de GitHub Actions del proyecto CI/CD",
   },
 };
 
 // Categories per tipus de projecte
 const projectCategories = [
-  { id: "all", label: isVal ? "Tots els projectes" : "Todos los proyectos" },
-  { id: "web-apps", label: isVal ? "Aplicacions web" : "Aplicaciones web" },
-  { id: "negocis", label: isVal ? "Negocis & Comerç" : "Negocios y comercio" },
-  { id: "devops", label: isVal ? "DevOps & Eines" : "DevOps y herramientas" },
-  { id: "editorial", label: isVal ? "Webs editorials" : "Webs editoriales" },
+  { id: "all", label: isEn ? "All projects" : "Todos los proyectos" },
+  { id: "web-apps", label: isEn ? "Web apps" : "Aplicaciones web" },
+  { id: "negocis", label: isEn ? "Business & Commerce" : "Negocios y comercio" },
+  { id: "devops", label: isEn ? "DevOps & Tools" : "DevOps y herramientas" },
+  { id: "editorial", label: isEn ? "Editorial websites" : "Webs editoriales" },
 ];
 
 const getProjectCategory = (id: string): string => {
@@ -123,26 +44,26 @@ const getProjectCategory = (id: string): string => {
 ---
 
 <Layout
-  title={isVal ? "Portafolis de Projectes Web i Aplicacions a Mida | Jaume Tur" : "Portafolio de Proyectos Web y Aplicaciones a Medida | Jaume Tur"}
-  description={isVal ? "Casos d'estudi reals i demostracions tècniques de desenvolupament web, aplicacions a mida, backend i arquitectura frontend per Jaume Tur." : "Casos de estudio reales y demostraciones técnicas de desarrollo web, aplicaciones a medida, backend y arquitectura frontend por Jaume Tur."}
+  title={isEn ? "Web Projects & Custom Applications Portfolio | Jaume Tur" : "Portafolio de Proyectos Web y Aplicaciones a Medida | Jaume Tur"}
+  description={isEn ? "Real-world case studies and technical demonstrations in web development, custom applications, backend, and frontend architecture by Jaume Tur." : "Casos de estudio reales y demostraciones técnicas de desarrollo web, aplicaciones a medida, backend y arquitectura frontend por Jaume Tur."}
 >
   <Container>
     <header class="mx-auto max-w-3xl pt-12 pb-10 sm:pt-16 sm:pb-12">
       <p class="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
         <span class="h-1.5 w-8 rounded-full bg-[#FFFF00]" aria-hidden="true"></span>
-        {isVal ? "Portafolis" : "Portafolio"}
+        {isEn ? "Portfolio" : "Portafolio"}
       </p>
       <h1 class="max-w-2xl text-3xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
-        {isVal ? "Projectes que expliquen " : "Proyectos que explican "}<span class="decoration-[#FFFF00] decoration-[0.22em] underline underline-offset-2">{isVal ? "com treballe" : "cómo trabajo"}</span>
+        {isEn ? "Projects that explain " : "Proyectos que explican "}<span class="decoration-[#FFFF00] decoration-[0.22em] underline underline-offset-2">{isEn ? "how I work" : "cómo trabajo"}</span>
       </h1>
       <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-        {isVal ? "Aplicacions, demostracions i projectes de desenvolupament web. En cada fitxa trobaràs què és, quin ha sigut el meu paper i quines tecnologies s'han utilitzat." : "Aplicaciones, demostraciones y proyectos de desarrollo web. En cada ficha encontrarás qué es, cuál ha sido mi papel y qué tecnologías se han utilizado."}
+        {isEn ? "Applications, interactive demonstrations, and web engineering case studies. In each monograph you will find the problem statement, my specific role, and the tech stack." : "Aplicaciones, demostraciones y proyectos de desarrollo web. En cada ficha encontrarás qué es, cuál ha sido mi papel y qué tecnologías se han utilizado."}
       </p>
       <a
         href={href("/qualitat")}
         class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-slate-700 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
       >
-        {isVal ? "Consulta els criteris de revisió tècnica" : "Consulta los criterios de revisión técnica"} <span aria-hidden="true">↗</span>
+        {isEn ? "Review technical audit criteria" : "Consulta los criterios de revisión técnica"} <span aria-hidden="true">↗</span>
       </a>
     </header>
 
@@ -151,7 +72,7 @@ const getProjectCategory = (id: string): string => {
       <!-- Cercador instantani -->
       <div class="relative max-w-md">
         <label for="project-search-input" class="sr-only">
-          {isVal ? "Cercar projectes per títol, rol o tecnologia" : "Buscar proyectos por título, papel o tecnología"}
+          {isEn ? "Search projects by title, role or tech" : "Buscar proyectos por título, papel o tecnología"}
         </label>
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
           <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -161,7 +82,7 @@ const getProjectCategory = (id: string): string => {
         <input
           id="project-search-input"
           type="search"
-          placeholder={isVal ? "Cercar per tecnologia (React, Angular...), nom..." : "Buscar por tecnología (React, Angular...), nombre..."}
+          placeholder={isEn ? "Search by tech (React, Angular, TypeScript...), name..." : "Buscar por tecnología (React, Angular...), nombre..."}
           class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-2xs outline-none transition focus:border-slate-800 focus:ring-2 focus:ring-[#FFFF00]"
         />
       </div>
@@ -171,7 +92,7 @@ const getProjectCategory = (id: string): string => {
         id="project-type-filters"
         class="flex flex-wrap items-center gap-2"
         role="group"
-        aria-label={isVal ? "Filtrar projectes per tipus" : "Filtrar proyectos por tipo"}
+        aria-label={isEn ? "Filter projects by type" : "Filtrar proyectos por tipo"}
       >
         {projectCategories.map((cat, idx) => (
           <button
@@ -189,13 +110,13 @@ const getProjectCategory = (id: string): string => {
       </div>
     </div>
 
-    <section aria-label={isVal ? "Projectes" : "Proyectos"} class="mb-20">
+    <section aria-label={isEn ? "Projects" : "Proyectos"} class="mb-20">
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8" id="projects-grid">
         {projects.map((project) => {
           const preview = projectPreviews[project.id] ?? project.data.image;
-          const projectCopy = isVal ? project.data : { ...project.data, ...projectCopyEs[project.id] };
+          const projectCopy = project.data;
           const category = getProjectCategory(project.id);
-          const stackList = isVal ? project.data.stack : projectStackEs[project.id] ?? project.data.stack;
+          const stackList = project.data.stack;
           const searchKeywords = `${projectCopy.title} ${projectCopy.subtitle} ${stackList.join(" ")} ${project.data.role}`.toLowerCase();
           return (
           <article
@@ -206,17 +127,17 @@ const getProjectCategory = (id: string): string => {
             <a
               href={href(`/projectes/${project.id}`)}
               class="relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]"
-              aria-label={`${isVal ? "Veure el cas d'estudi" : "Ver el caso de estudio"}: ${projectCopy.title}`}
+              aria-label={`${isEn ? "View case study" : "Ver el caso de estudio"}: ${projectCopy.title}`}
             >
               <img
                 src={preview.src}
-                alt={isVal ? preview.alt : projectPreviewAltEs[project.id] ?? preview.alt}
+                alt={preview.alt}
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 loading="lazy"
                 decoding="async"
               />
               <span class="absolute left-4 top-4 rounded-md bg-[#FFFF00] px-2.5 py-1 text-xs font-semibold text-slate-950">
-                {project.id === "avisa" ? (isVal ? "Projecte de client" : "Proyecto de cliente") : projectCopy.badge}
+                {project.id === "avisa" ? (isEn ? "Client project" : "Proyecto de cliente") : projectCopy.badge}
               </span>
             </a>
 
@@ -235,12 +156,12 @@ const getProjectCategory = (id: string): string => {
 
               <dl class="mt-5 border-t border-slate-100 pt-4">
                 <div>
-                  <dt class="text-xs font-semibold text-slate-500">{isVal ? "El meu rol" : "Mi papel"}</dt>
-                  <dd class="mt-1 text-sm font-medium text-slate-800">{isVal ? projectRoles[project.id] ?? project.data.role : projectRolesEs[project.id] ?? project.data.role}</dd>
+                  <dt class="text-xs font-semibold text-slate-500">{isEn ? "Role" : "Mi papel"}</dt>
+                  <dd class="mt-1 text-sm font-medium text-slate-800">{project.data.role}</dd>
                 </div>
                 <div class="mt-4">
-                  <dt class="text-xs font-semibold text-slate-500">{isVal ? "Tecnologies" : "Tecnologías"}</dt>
-                  <dd class="mt-1 text-sm leading-6 text-slate-700">{(isVal ? project.data.stack : projectStackEs[project.id] ?? project.data.stack).join(" · ")}</dd>
+                  <dt class="text-xs font-semibold text-slate-500">{isEn ? "Technologies" : "Tecnologías"}</dt>
+                  <dd class="mt-1 text-sm leading-6 text-slate-700">{stackList.join(" · ")}</dd>
                 </div>
               </dl>
 
@@ -249,7 +170,7 @@ const getProjectCategory = (id: string): string => {
                   href={href(`/projectes/${project.id}`)}
                   class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-950 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                 >
-                  {isVal ? "Cas d'estudi" : "Caso de estudio"} <span aria-hidden="true">↗</span>
+                  {isEn ? "Case study" : "Caso de estudio"} <span aria-hidden="true">↗</span>
                 </a>
                 {project.data.liveUrl && (
                   <a
@@ -258,7 +179,7 @@ const getProjectCategory = (id: string): string => {
                     rel="noopener noreferrer"
                     class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-950 hover:decoration-[#FFFF00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                   >
-                    {isVal ? "Obrir projecte" : "Abrir proyecto"} <span aria-hidden="true">↗</span>
+                    {isEn ? "Open project" : "Abrir proyecto"} <span aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
@@ -271,10 +192,10 @@ const getProjectCategory = (id: string): string => {
       <!-- Missatge sense resultats -->
       <div id="no-projects-found" class="hidden py-16 text-center">
         <p class="font-mono text-xs uppercase tracking-wider text-slate-400">
-          {isVal ? "Cap coincidència" : "Sin coincidencias"}
+          {isEn ? "No matches" : "Sin coincidencias"}
         </p>
         <p class="mt-2 text-sm text-slate-600">
-          {isVal ? "No s'ha trobat cap projecte amb aquests filtres o cerca." : "No se ha encontrado ningún proyecto con estos filtros o búsqueda."}
+          {isEn ? "No projects found matching these filters or search." : "No se ha encontrado ningún proyecto con estos filtros o búsqueda."}
         </p>
       </div>
     </section>

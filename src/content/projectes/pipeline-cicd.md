@@ -1,71 +1,71 @@
 ---
 draft: false
-title: "Pipeline CI/CD Automatitzat — Zero Downtime"
-subtitle: "Cadena de muntatge automatitzada de programari: linter, validació estricta de TypeScript, compilació optimitzada i desplegament atòmic continu."
-tagline: "D'errors manuals per FTP a una cadena d'integració contínua totalment autònoma amb GitHub Actions i CDN global."
+title: "Pipeline CI/CD automatizado — Zero Downtime"
+subtitle: "Cadena automatizada de montaje de software: linter, validación estricta de TypeScript, compilación optimizada y despliegue continuo atómico."
+tagline: "De los errores manuales por FTP a una cadena de integración continua totalmente autónoma con GitHub Actions y una CDN global."
 icon: "bx:rocket"
 color: "sky"
-role: "DevOps Engineer & Frontend Lead"
+role: "Ingeniería DevOps y liderazgo frontend"
 year: "2025 – 2026"
-client: "Infraestructura Personal & Projectes Web"
-badge: "DevOps & Automatització"
-statLabel: "Mètrica Verificada"
+client: "Infraestructura personal y proyectos web"
+badge: "DevOps y automatización"
+statLabel: "Métrica verificada"
 statValue: "Zero Downtime / < 90s Build"
-verificationMethod: "Registres d'execució de GitHub Actions & Verificació d'estat HTTP"
+verificationMethod: "Registros de ejecución de GitHub Actions y verificación del estado HTTP"
 liveUrl: "https://github.com/jautur/portfolio/actions"
 githubUrl: "https://github.com/jautur/portfolio"
 stack: ["GitHub Actions", "CI/CD", "Linux Shell", "Linters ESLint", "TypeScript Check", "GitHub Pages", "Cache npm"]
 order: 5
 image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
-  alt: "Pipeline d'automatització i integració contínua CI/CD"
+  alt: "Pipeline de automatización e integración continua CI/CD"
 }
 ---
 
-## 1. El Problema i el Context
+## 1. El problema y el contexto
 
-En molts equips de desenvolupament web joves o projectes freelance, el desplegament a producció es fa de manera artesanal: arrossegant fitxers compilats per FTP, connectant-se per SSH al servidor o executant comandes manuals des de la màquina local del programador.
+En muchos equipos jóvenes de desarrollo web o proyectos freelance, el despliegue en producción se realiza de forma artesanal: arrastrando archivos compilados por FTP, conectándose por SSH al servidor o ejecutando comandos manuales desde el equipo local del programador.
 
-Aquest model és perillós per múltiples motius:
-- **Errors de configuració humana:** Pujar fitxers temporals, variables d'entorn locals o dependències incompatibles.
-- **Downtime durant la pujada:** Mentre els fitxers s'estan transferint per la xarxa, els usuaris reben errors 404 o fitxers JavaScript parcials.
-- **Pèrdua de traçabilitat:** No és possible saber exactament quin commit o autor va introduir un error a producció.
+Este modelo es peligroso por varios motivos:
+- **Errores de configuración humana:** Subir archivos temporales, variables de entorno locales o dependencias incompatibles.
+- **Tiempo de inactividad durante la subida:** Mientras se transfieren los archivos por la red, los usuarios reciben errores 404 o archivos JavaScript parciales.
+- **Pérdida de trazabilidad:** No es posible saber exactamente qué commit o autor introdujo un error en producción.
 
-L'objectiu va ser construir una cadena d'integració i desplegament continu (**CI/CD**) basada en **GitHub Actions** que automatitzara tot el cicle des del `git push` fins a la publicació en producció amb **Zero Downtime**.
-
----
-
-## 2. El Repte Tècnic
-
-1. **Aturar immediatament el lliurament si el codi no compleix la qualitat (Fail-Fast):** Si un linter falla o TypeScript detecta un tipus incorrecte, el desplegament s'avorta abans de compilar.
-2. **Minimitzar el temps de compilació al núvol:** Reduir la descàrrega redundant de paquets de Node.js mitjançant una estratègia de cache eficient.
-3. **Desplegament Atòmic:** La nova versió no s'activa fins que el 100% dels actius estan verificats i llestos per a la CDN.
+El objetivo fue construir una cadena de integración y despliegue continuos (**CI/CD**) basada en **GitHub Actions** que automatizara todo el ciclo, desde `git push` hasta la publicación en producción con **Zero Downtime**.
 
 ---
 
-## 3. Decisions d'Arquitectura
+## 2. El reto técnico
 
-Vam implementar una arquitectura de dos treballs (*jobs*) seqüencials: un de validació/compilació aïllada i un altre de lliurament atòmic a GitHub Pages.
+1. **Detener inmediatamente la entrega si el código no cumple los requisitos de calidad (Fail-Fast):** Si falla un linter o TypeScript detecta un tipo incorrecto, el despliegue se aborta antes de compilar.
+2. **Minimizar el tiempo de compilación en la nube:** Reducir la descarga redundante de paquetes de Node.js mediante una estrategia de caché eficiente.
+3. **Despliegue atómico:** La nueva versión no se activa hasta que el 100% de los recursos está verificado y listo para la CDN.
 
-### Diagrama del Pipeline CI/CD
+---
+
+## 3. Decisiones de arquitectura
+
+Implementamos una arquitectura de dos trabajos (*jobs*) secuenciales: uno de validación y compilación aislada y otro de publicación atómica en GitHub Pages.
+
+### Diagrama del pipeline CI/CD
 
 ```
-   [ Git Push a branca main ]
+   [ Git Push a la rama main ]
                │
                ▼
    [ Job 1: Checkout + npm ci + Cache ]
                │
                ▼
-   [ Job 1: Lint + tsc --noEmit + Build ] ──▶ (Falla? ➔ S'atura immediatament)
-               │ (Passa)
+   [ Job 1: Lint + tsc --noEmit + Build ] ──▶ (¿Falla? ➔ Se detiene inmediatamente)
+               │ (Pasa)
                ▼
-   [ Pujada d'Artefacte Estàtic ]
+   [ Carga del artefacto estático ]
                │
                ▼
-   [ Job 2: Desplegament Atòmic a GitHub Pages ] ──▶ [ Producció Activa (Zero Downtime) ]
+   [ Job 2: Despliegue atómico en GitHub Pages ] ──▶ [ Producción activa (Zero Downtime) ]
 ```
 
-### Fragment de Codi Clau: Workflow Optimitzat
+### Fragmento de código clave: workflow optimizado
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -93,7 +93,7 @@ jobs:
           path: ./dist
 
   deploy:
-    name: Desplegament Atòmic
+    name: Despliegue atómico
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -102,35 +102,34 @@ jobs:
 
 ---
 
-## 4. Comparativa: Abans vs Després
+## 4. Comparativa: antes y después
 
-| Propietat | Desplegament Manual (FTP / SSH) | Pipeline CI/CD Automatitzat |
+| Propiedad | Despliegue manual (FTP / SSH) | Pipeline CI/CD automatizado |
 |---|---|---|
-| **Intervenció humana requerida** | Sí, cada vegada | Zero (només fer `git push`) |
-| **Temps d'interrupció (Downtime)** | Entre 30 segons i 3 minuts | 0 segons (substitució atòmica de punter a la CDN) |
-| **Validació prèvia de tipus** | Depèn de la disciplina local del dev | Obligatòria per màquina virtual al núvol |
-| **Possibilitat de rollback immediat** | Complexa (cal restaurar còpies manuals) | Instantània (re-desplegar commit anterior) |
+| **Intervención humana necesaria** | Sí, cada vez | Cero (solo hacer `git push`) |
+| **Tiempo de interrupción (Downtime)** | Entre 30 segundos y 3 minutos | 0 segundos (sustitución atómica del puntero en la CDN) |
+| **Validación previa de tipos** | Depende de la disciplina local del desarrollador | Obligatoria en una máquina virtual en la nube |
+| **Posibilidad de rollback inmediato** | Compleja (hay que restaurar copias manuales) | Instantánea (volver a desplegar el commit anterior) |
 
 ---
 
-## 5. Resultats Verificables i Mètriques d'Auditoria
+## 5. Resultados verificables y métricas de auditoría
 
-Apliquem el nostre protocol de verificació d'honestedat tècnica:
+Aplicamos nuestro protocolo de verificación de honestidad técnica:
 
-- **Disponibilitat del servei (Downtime):**  
-  - *Mètode de verificació:* Monitorització amb peticions HTTP periòdiques durant el canvi de versió.  
-  - *Resultat verificat:* **Zero Downtime (0 segons de caiguda)** registrat gràcies al servei atòmic de GitHub Pages.
-- **Temps mitjà d'execució del pipeline:**  
-  - *Mètode de verificació:* Històric de temps a la pestanya *Actions* de GitHub.  
-  - *Resultat verificat:* **82 segons mitjans** (gràcies a la cache de `package-lock.json`).
-- **Incidències de sintaxi a producció:**  
-  - *Mètode de verificació:* Registre d'errors bloquejats en pull requests.  
-  - *Resultat verificat:* **100% dels errors de tipatge interceptats** abans d'arribar a l'entorn de producció.
+- **Disponibilidad del servicio (Downtime):**
+  - *Método de verificación:* Monitorización con peticiones HTTP periódicas durante el cambio de versión.
+  - *Resultado verificado:* **Zero Downtime (0 segundos de caída)** registrado gracias al servicio atómico de GitHub Pages.
+- **Tiempo medio de ejecución del pipeline:**
+  - *Método de verificación:* Historial de tiempos en la pestaña *Actions* de GitHub.
+  - *Resultado verificado:* **82 segundos de media** (gracias a la caché de `package-lock.json`).
+- **Incidencias de sintaxis en producción:**
+  - *Método de verificación:* Registro de errores bloqueados en pull requests.
+  - *Resultado verificado:* **100% de los errores de tipado interceptados** antes de llegar al entorno de producción.
 
 ---
 
-## 6. Aprenentatges i Conclusions
+## 6. Aprendizajes y conclusiones
 
-1. **L'automatització elimina l'ansietat de desplegar:** Quan lliurar a producció és un procés repetible, determinista i segur, els desenvolupadors publiquen canvis xicotets amb molta més freqüència.
-2. **`npm ci` és indispensable:** Mai utilitzes `npm install` en un entorn d'integració contínua; el fitxer `package-lock.json` és l'única garantia d'un entorn reproduïble.
-
+1. **La automatización elimina la ansiedad de desplegar:** Cuando publicar en producción es un proceso repetible, determinista y seguro, los desarrolladores publican cambios pequeños con mucha más frecuencia.
+2. **`npm ci` es indispensable:** Nunca uses `npm install` en un entorno de integración continua; el archivo `package-lock.json` es la única garantía de un entorno reproducible.

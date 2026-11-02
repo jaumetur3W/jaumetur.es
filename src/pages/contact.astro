@@ -5,20 +5,21 @@ import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const href = (path: string) => localizePath(path, isVal ? "val" : "es");
+
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 ---
 
 <Layout
-  title={isVal ? "Contacte | Desenvolupament Web a Xàtiva i València | Jaume Tur" : "Contacto | Desarrollo Web en Xàtiva y Valencia | Jaume Tur"}
-  description={isVal ? "Contacta amb Jaume Tur per parlar del teu projecte web, aplicació a mida, consultoria o col·laboració des de Xàtiva, València o en remot." : "Contacta con Jaume Tur para hablar sobre tu proyecto web, aplicación a medida, consultoría o colaboración desde Xàtiva, Valencia o en remoto."}>
+  title={isEn ? "Contact | Web Development in Valencia & Remote | Jaume Tur" : "Contacto | Desarrollo Web en Xàtiva y Valencia | Jaume Tur"}
+  description={isEn ? "Contact Jaume Tur to discuss your web project, custom application, consulting or collaboration. Based in Valencia, working 100% online." : "Contacta con Jaume Tur para hablar sobre tu proyecto web, aplicación a medida, consultoría o colaboración desde Xàtiva, Valencia o en remoto."}>
   <Container>
     <!-- Capçalera -->
     <Sectionhead>
-      <Fragment slot="title">{isVal ? "Parlem del teu projecte" : "Hablemos de tu proyecto"}</Fragment>
+      <Fragment slot="title">{isEn ? "Let's talk about your project" : "Hablemos de tu proyecto"}</Fragment>
       <Fragment slot="desc">
-        {isVal
-          ? "Desenvolupador web des de Xàtiva disponible per a projectes web, aplicacions a mida i col·laboracions tècniques en modalitat 100% en línia."
+        {isEn
+          ? "Web developer available for web projects, custom applications, and technical collaborations 100% remotely."
           : "Desarrollador web desde Xàtiva disponible para proyectos web, aplicaciones a medida y colaboraciones técnicas en modalidad 100% en línea."}
       </Fragment>
     </Sectionhead>
@@ -30,7 +31,7 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span>{isVal ? "Temps de resposta habitual: < 24 hores laborables" : "Tiempo de respuesta habitual: < 24 horas laborables"}</span>
+        <span>{isEn ? "Typical response time: < 24 business hours" : "Tiempo de respuesta habitual: < 24 horas laborables"}</span>
       </div>
     </div>
 
@@ -39,13 +40,13 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
       <!-- Columna Esquerra: Canals Directes & Prova Social (5 columnes) -->
       <div class="lg:col-span-5 space-y-4">
         
-        <!-- Targeta d'identitat amb Memoji 3.png -->
+        <!-- Targeta d'identitat amb Memoji 3.webp -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200 relative overflow-visible group transition-colors hover:border-slate-400">
           <div class="flex items-center gap-4">
             <div class="relative shrink-0 -my-4 -ml-2 z-10">
               <img
                 src="/img/3.webp"
-                alt="Memoji de Jaume Tur saludant"
+                alt="Memoji de Jaume Tur"
                 class="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.16)] group-hover:scale-105 transition-transform duration-200"
                 width="112"
                 height="112"
@@ -55,13 +56,13 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
             </div>
             <div>
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block">
-                {isVal ? "Desenvolupament web & aplicacions a mida" : "Desarrollo web y aplicaciones a medida"}
+                {isEn ? "Web development & custom apps" : "Desarrollo web y aplicaciones a medida"}
               </span>
               <h2 class="font-extrabold text-lg text-slate-900 leading-tight mt-0.5">
                 Jaume Tur
               </h2>
               <p class="text-xs text-slate-500 mt-1 leading-relaxed">
-                {isVal ? "Xàtiva / València, Espanya. Treball 100% en línia." : "Xàtiva / Valencia, España. Trabajo 100% en línea."}
+                {isEn ? "Valencia, Spain. 100% remote work." : "Xàtiva / Valencia, España. Trabajo 100% en línea."}
               </p>
             </div>
           </div>
@@ -69,7 +70,7 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
 
         <!-- Contacte directe per correu -->
         <a
-          href="mailto:jaumetur3w@gmail.com?subject=Nova%20consulta%20de%20projecte"
+          href={`mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent(isEn ? "New project inquiry" : "Nueva consulta de proyecto")}`}
           id="contact-email-cta"
           class="p-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-between shadow-md transition group">
           <div class="flex items-center gap-3">
@@ -77,8 +78,8 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
               <Icon name="bx:envelope" class="w-5 h-5 group-hover:scale-110 transition-transform" />
             </div>
             <div>
-              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">{isVal ? "Correu directe" : "Correo directo"}</span>
-              <span class="text-sm font-extrabold">{isVal ? "Escriure a Jaume" : "Escribir a Jaume"}</span>
+              <span class="text-[10px] uppercase font-mono tracking-wider opacity-90 block">{isEn ? "Direct email" : "Correo directo"}</span>
+              <span class="text-sm font-extrabold">{isEn ? "Write to Jaume" : "Escribir a Jaume"}</span>
             </div>
           </div>
           <Icon name="bx:right-arrow-alt" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -91,9 +92,9 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
               <Icon name="bx:envelope" class="w-4 h-4" />
             </div>
             <div class="truncate">
-              <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase tracking-wider block">{isVal ? "Correu directe" : "Correo directo"}</span>
+              <span class="text-[10px] font-mono font-bold text-indigo-600 uppercase tracking-wider block">{isEn ? "Direct email" : "Correo directo"}</span>
               <a
-                href="mailto:jaumetur3w@gmail.com?subject=Nova%20consulta%20de%20projecte"
+                href={`mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent(isEn ? "New project inquiry" : "Nueva consulta de proyecto")}`}
                 id="contact-email-link"
                 class="text-xs sm:text-sm font-bold text-slate-800 hover:text-indigo-600 transition truncate block">
                 jaumetur3w@gmail.com
@@ -104,9 +105,9 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
             id="copy-email-btn"
             type="button"
             class="shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200 text-slate-700 hover:text-indigo-600 transition flex items-center gap-1 cursor-pointer"
-            title={isVal ? "Copiar correu electrònic" : "Copiar correo electrónico"}>
+            title={isEn ? "Copy email" : "Copiar correo electrónico"}>
             <Icon name="bx:copy" class="w-3.5 h-3.5" />
-            <span id="copy-btn-label">Copiar</span>
+            <span id="copy-btn-label">{isEn ? "Copy" : "Copiar"}</span>
           </button>
         </div>
 
@@ -122,9 +123,9 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
               <Icon name="bx:file" class="w-4 h-4 text-slate-700 group-hover:text-indigo-600 transition-colors" />
             </div>
             <div>
-              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">{isVal ? "Currículum professional" : "Currículum profesional"}</span>
+              <span class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">{isEn ? "Professional resume" : "Currículum profesional"}</span>
               <span class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {isVal ? "Descarregar CV complet (PDF)" : "Descargar CV completo (PDF)"}
+                {isEn ? "Download full CV (PDF)" : "Descargar CV completo (PDF)"}
               </span>
             </div>
           </div>
@@ -142,7 +143,7 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
               <Icon name="bx:bxl-github" class="w-5 h-5 text-slate-900" />
             </div>
             <div class="truncate">
-              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isVal ? "Codi i repositoris" : "Código y repositorios"}</span>
+              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isEn ? "Code & repos" : "Código y repositorios"}</span>
               <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">GitHub (@jaumetur3W)</span>
             </div>
           </a>
@@ -156,7 +157,7 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
               <Icon name="bx:bxl-linkedin" class="w-5 h-5 text-indigo-600" />
             </div>
             <div class="truncate">
-              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">Trajectòria</span>
+              <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isEn ? "Career" : "Trajectòria"}</span>
               <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">LinkedIn (in/jautur)</span>
             </div>
           </a>
@@ -166,14 +167,14 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
           href="https://share.google/3tihWcZBWMyYHmjBp"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={isVal ? "Fitxa de Jaume Tur a Google Maps (s'obri en una pestanya nova)" : "Ficha de Jaume Tur en Google Maps (se abre en una pestaña nueva)"}
+          aria-label={isEn ? "Jaume Tur on Google Maps (opens in new tab)" : "Ficha de Jaume Tur en Google Maps (se abre en una pestaña nueva)"}
           class="bg-white border border-slate-200/90 hover:border-emerald-400 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
           <div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
             <Icon name="bx:map-pin" class="w-5 h-5 text-emerald-600" />
           </div>
           <div class="truncate">
-            <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isVal ? "Presència Local · Google Maps" : "Presencia Local · Google Maps"}</span>
-            <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">{isVal ? "Veure perfil i ressenyes a Google" : "Ver perfil y reseñas en Google"}</span>
+            <span class="text-[9px] font-mono uppercase text-slate-400 block font-bold">{isEn ? "Local presence · Google Maps" : "Presencia Local · Google Maps"}</span>
+            <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">{isEn ? "View Google profile and reviews" : "Ver perfil y reseñas en Google"}</span>
           </div>
           <Icon name="bx:link-external" class="w-4 h-4 text-slate-400 ml-auto" />
         </a>
@@ -182,7 +183,7 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
           href="https://www.instagram.com/jaume.www/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={isVal ? "Visita l'Instagram de Jaume Tur, @jaume.www (s'obri en una pestanya nova)" : "Visita el Instagram de Jaume Tur, @jaume.www (se abre en una pestaña nueva)"}
+          aria-label={isEn ? "Visit Jaume Tur's Instagram, @jaume.www (opens in new tab)" : "Visita el Instagram de Jaume Tur, @jaume.www (se abre en una pestaña nueva)"}
           class="bg-white border border-slate-200/90 hover:border-pink-300 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
           <div class="w-9 h-9 rounded-xl bg-pink-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
             <Icon name="bx:bxl-instagram" class="w-5 h-5 text-pink-600" />
@@ -198,10 +199,10 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
         <div class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs text-slate-700 space-y-1.5 font-sans">
           <span class="font-bold text-indigo-900 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
             <Icon name="bx:shield-quarter" class="w-4 h-4 text-indigo-600" />
-            <span>{isVal ? "Honestedat i transparència" : "Honestidad y transparencia"}</span>
+            <span>{isEn ? "Honesty and transparency" : "Honestidad y transparencia"}</span>
           </span>
           <p class="text-[11px] leading-relaxed text-slate-600">
-            {isVal ? "Tots els projectes compten amb documentació tècnica pública i codi auditable. Consulta els " : "Todos los proyectos incluyen documentación técnica pública y código auditable. Consulta los "}<a href={href("/pricing")} class="font-bold text-indigo-600 underline">{isVal ? "paquets de serveis" : "paquetes de servicios"}</a>{isVal ? " o els " : " o los "}<a href={href("/#projectes")} class="font-bold text-indigo-600 underline">{isVal ? "casos d'estudi reals" : "casos de estudio reales"}</a>.
+            {isEn ? "All projects include public technical documentation and auditable code. Check the " : "Todos los proyectos incluyen documentación técnica pública y código auditable. Consulta los "}<a href={href("/pricing")} class="font-bold text-indigo-600 underline">{isEn ? "service packages" : "paquetes de servicios"}</a>{isEn ? " or the " : " o los "}<a href={href("/projectes")} class="font-bold text-indigo-600 underline">{isEn ? "real case studies" : "casos de estudio reales"}</a>.
           </p>
         </div>
 
@@ -213,14 +214,14 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
           <div>
             <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
               <Icon name="bx:message-square-edit" class="w-5 h-5 text-indigo-600" />
-              <span>{isVal ? "Formulari de proposta" : "Formulario de propuesta"}</span>
+              <span>{isEn ? "Proposal form" : "Formulario de propuesta"}</span>
             </h3>
             <p class="text-xs text-slate-500 mt-0.5">
-              {isVal ? "Completa les dades i rebràs una valoració tècnica sense compromís." : "Completa los datos y recibirás una valoración técnica sin compromiso."}
+              {isEn ? "Fill in your details and you will receive a technical proposal without commitment." : "Completa los datos y recibirás una valoración técnica sin compromiso."}
             </p>
           </div>
           <span class="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-            {isVal ? "Sense CAPTCHA" : "Sin CAPTCHA"}
+            {isEn ? "No CAPTCHA" : "Sin CAPTCHA"}
           </span>
         </div>
 
@@ -238,10 +239,11 @@ const href = (path: string) => localizePath(path, isVal ? "val" : "es");
   if (copyBtn && copyLabel) {
     copyBtn.addEventListener("click", () => {
       navigator.clipboard.writeText("jaumetur3w@gmail.com").then(() => {
-        copyLabel.textContent = document.documentElement.lang.startsWith("ca") ? "Copiat!" : "¡Copiado!";
+        const isEnglish = document.documentElement.lang.startsWith("en");
+        copyLabel.textContent = isEnglish ? "Copied!" : "¡Copiado!";
         copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 transition flex items-center gap-1";
         setTimeout(() => {
-          copyLabel.textContent = "Copiar";
+          copyLabel.textContent = isEnglish ? "Copy" : "Copiar";
           copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-indigo-50 border border-slate-200 text-slate-700 hover:text-indigo-600 transition flex items-center gap-1 cursor-pointer";
         }, 2000);
       });

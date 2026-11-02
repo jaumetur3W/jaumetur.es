@@ -2,18 +2,18 @@
 import { Icon } from "astro-icon/components";
 import { localeFromPath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
+const isEn = localeFromPath(Astro.url.pathname) === "en";
 ---
 
 <form
   id="contact-form"
   class="needs-validation space-y-4"
   novalidate
-  aria-label={isVal ? "Formulari de contacte directe" : "Formulario de contacto directo"}>
+  aria-label={isEn ? "Direct contact form" : "Formulario de contacto directo"}>
   
-  <!-- Anti-spam Honeypot Field (Ocult per a humans, els bots l'ompliran automàticament) -->
+  <!-- Anti-spam Honeypot Field -->
   <div class="hidden" aria-hidden="true">
-    <label for="honeypot-field">{isVal ? "No omplis aquest camp si ets una persona" : "No rellenes este campo si eres una persona"}</label>
+    <label for="honeypot-field">{isEn ? "Do not fill this field if you are human" : "No rellenes este campo si eres una persona"}</label>
     <input
       type="text"
       name="_gotcha"
@@ -23,17 +23,17 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
     />
   </div>
 
-  <!-- Nom Complet -->
+  <!-- Nombre Completo -->
   <div>
     <label for="contact-name" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      {isVal ? "Nom" : "Nombre"} <span class="text-rose-500" aria-label={isVal ? "obligatori" : "obligatorio"}>*</span>
+      {isEn ? "Full Name" : "Nombre"} <span class="text-rose-500" aria-label={isEn ? "required" : "obligatorio"}>*</span>
     </label>
     <div class="relative">
       <input
         id="contact-name"
         type="text"
         name="name"
-        placeholder={isVal ? "Com et dius?" : "¿Cómo te llamas?"}
+        placeholder={isEn ? "What is your name?" : "¿Cómo te llamas?"}
         required
         aria-required="true"
         aria-describedby="name-error"
@@ -41,104 +41,104 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
       />
     </div>
     <p id="name-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
-      {isVal ? "Indica el teu nom perquè puga adreçar-me a tu." : "Indica tu nombre para poder dirigirme a ti."}
+      {isEn ? "Please indicate your name so I know how to address you." : "Indica tu nombre para poder dirigirme a ti."}
     </p>
   </div>
 
   <div>
     <label for="contact-phone" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      {isVal ? "Telèfon (opcional)" : "Teléfono (opcional)"}
+      {isEn ? "Phone (optional)" : "Teléfono (opcional)"}
     </label>
     <input
       id="contact-phone"
       type="tel"
       name="phone"
       autocomplete="tel"
-      placeholder={isVal ? "Només si prefereixes que et telefone" : "Solo si prefieres que te llame"}
+      placeholder={isEn ? "Only if you prefer a phone call" : "Solo si prefieres que te llame"}
       class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
     />
   </div>
 
-  <!-- Tipus de Servei / Projecte -->
+  <!-- Tipo de Servicio / Proyecto -->
   <div class="grid sm:grid-cols-2 gap-3">
     <div>
       <label for="contact-service" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-        {isVal ? "Producte o servei principal" : "Producto o servicio principal"}
+        {isEn ? "Primary product or service" : "Producto o servicio principal"}
       </label>
       <select
         id="contact-service"
         name="service"
         class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
-        <option value="landing-page" selected>{isVal ? "Web nova o renovació de web" : "Nueva web o renovación de la actual"}</option>
+        <option value="landing-page" selected>{isEn ? "New website or redesign" : "Nueva web o renovación de la actual"}</option>
         <option value="angular-webapp">Web App SPA (Angular / TypeScript)</option>
-        <option value="performance-audit">{isVal ? "Optimització 60 FPS i WCAG AA" : "Optimización 60 FPS y WCAG AA"}</option>
+        <option value="performance-audit">{isEn ? "Performance optimization (60 FPS & CWV)" : "Optimización 60 FPS y WCAG AA"}</option>
         <option value="cicd-devops">Pipelines CI/CD & DevOps</option>
-        <option value="contractacio">{isVal ? "Oportunitat laboral / equip" : "Oportunidad laboral / equipo"}</option>
-        <option value="altre">{isVal ? "Una altra consulta tècnica" : "Otra consulta técnica"}</option>
+        <option value="contractacio">{isEn ? "Career / Team opportunity" : "Oportunidad laboral / equipo"}</option>
+        <option value="altre">{isEn ? "Other technical inquiry" : "Otra consulta técnica"}</option>
       </select>
     </div>
 
     <div>
       <label for="contact-extra" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-        {isVal ? "Extres opcionals" : "Extras opcionales"}
+        {isEn ? "Optional add-ons" : "Extras opcionales"}
       </label>
       <select
         id="contact-extra"
         name="extra"
         class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
-        <option value="cap" selected>{isVal ? "Encara no ho sé / cap" : "Aún no lo sé / ninguno"}</option>
-        <option value="rrss">{isVal ? "Gestió de xarxes socials (RRSS)" : "Gestión de redes sociales"}</option>
-        <option value="rrss-publicitat">{isVal ? "Gestió de RRSS amb publicitat" : "Gestión de redes sociales con publicidad"}</option>
-        <option value="publicitat">{isVal ? "Integració de publicitat al web" : "Integración de publicidad en la web"}</option>
-        <option value="seo">{isVal ? "SEO i analítica" : "SEO y analítica"}</option>
-        <option value="accessibilitat">{isVal ? "Accessibilitat i rendiment" : "Accesibilidad y rendimiento"}</option>
-        <option value="altres">{isVal ? "Altres extres (explica-ho més avall)" : "Otros extras (explícalos más abajo)"}</option>
+        <option value="cap" selected>{isEn ? "Not sure yet / none" : "Aún no lo sé / ninguno"}</option>
+        <option value="rrss">{isEn ? "Social media management" : "Gestión de redes sociales"}</option>
+        <option value="rrss-publicitat">{isEn ? "Social media management with ads" : "Gestión de redes sociales con publicidad"}</option>
+        <option value="publicitat">{isEn ? "Website advertising setup" : "Integración de publicidad en la web"}</option>
+        <option value="seo">{isEn ? "SEO & Analytics" : "SEO y analítica"}</option>
+        <option value="accessibilitat">{isEn ? "Accessibility & Performance" : "Accesibilidad y rendimiento"}</option>
+        <option value="altres">{isEn ? "Other add-ons (describe below)" : "Otros extras (explícalos más abajo)"}</option>
       </select>
     </div>
   </div>
 
   <div>
     <label for="contact-budget" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      {isVal ? "Pressupost orientatiu (opcional)" : "Presupuesto orientativo (opcional)"}
+      {isEn ? "Estimated budget (optional)" : "Presupuesto orientativo (opcional)"}
     </label>
     <select id="contact-budget" name="budget" class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-800 transition">
-      <option value="a-definir" selected>A definir</option>
-      <option value="menys-1k">{isVal ? "Menys de 1.000 €" : "Menos de 1.000 €"}</option>
-      <option value="1k-3k">1.000 € - 3.000 €</option>
-      <option value="mes-3k">{isVal ? "Més de 3.000 €" : "Más de 3.000 €"}</option>
+      <option value="a-definir" selected>{isEn ? "To be defined" : "A definir"}</option>
+      <option value="menys-1k">{isEn ? "Less than €1,000" : "Menos de 1.000 €"}</option>
+      <option value="1k-3k">€1,000 - €3,000</option>
+      <option value="mes-3k">{isEn ? "More than €3,000" : "Más de 3.000 €"}</option>
     </select>
   </div>
 
-  <!-- Missatge -->
+  <!-- Mensaje -->
   <div>
     <label for="contact-message" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      {isVal ? "Què necessites? (opcional)" : "¿Qué necesitas? (opcional)"}
+      {isEn ? "What do you need? (optional)" : "¿Qué necesitas? (opcional)"}
     </label>
     <textarea
       id="contact-message"
       name="message"
       aria-describedby="message-error"
-      placeholder={isVal ? "Objectiu del projecte, terminis desitjats, detalls tècnics o qualsevol dubte..." : "Objetivo del proyecto, plazos deseados, detalles técnicos o cualquier duda..."}
+      placeholder={isEn ? "Project goals, desired timeline, technical requirements, or any questions..." : "Objetivo del proyecto, plazos deseados, detalles técnicos o cualquier duda..."}
       rows="4"
       class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
     ></textarea>
     <p id="message-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
-      {isVal ? "Escriu unes línies per a explicar la consulta." : "Escribe unas líneas para explicar tu consulta."}
+      {isEn ? "Please write a few lines to explain your project." : "Escribe unas líneas para explicar tu consulta."}
     </p>
   </div>
 
-  <!-- Botons d'Acció de Contacte (Correu directe i còpia ràpida) -->
+  <!-- Botones de Acción de Contacto -->
   <div class="space-y-2 pt-1">
     <button
       type="submit"
       id="contact-submit-btn"
       class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md transition group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
       <Icon name="bx:paper-plane" class="w-4 h-4 text-indigo-400 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
-      <span id="submit-btn-text">{isVal ? "Obrir correu amb la proposta preparada" : "Abrir correo con la propuesta preparada"}</span>
+      <span id="submit-btn-text">{isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada"}</span>
     </button>
   </div>
 
-  <!-- Banner d'Estat Accessible (Live Region) -->
+  <!-- Banner de Estado Accesible (Live Region) -->
   <div
     id="form-feedback"
     class="hidden p-3 rounded-xl text-xs font-mono text-center transition-all"
@@ -147,8 +147,8 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
   </div>
 
   <p class="text-[11px] text-slate-400 text-center font-sans">
-    {isVal
-      ? "La consulta no comporta cap compromís. El nom és obligatori; el telèfon i la resta de dades són opcionals. En enviar-la, s'obrirà el client de correu perquè confirmes l'enviament."
+    {isEn
+      ? "Inquiring carries no obligation. Name is required; phone and other fields are optional. Submitting opens your email client with the pre-formatted proposal ready to send."
       : "La consulta no implica ningún compromiso. El nombre es obligatorio; el teléfono y el resto de datos son opcionales. Al enviarla, se abrirá tu cliente de correo para que confirmes el envío."}
   </p>
 </form>
@@ -156,7 +156,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
 <script is:inline>
   (function () {
     const form = document.getElementById("contact-form");
-    const isVal = window.location.pathname === "/val" || window.location.pathname.startsWith("/val/");
+    const isEn = window.location.pathname === "/en" || window.location.pathname.startsWith("/en/");
     const feedback = document.getElementById("form-feedback");
     const submitBtn = document.getElementById("contact-submit-btn");
     const submitBtnText = document.getElementById("submit-btn-text");
@@ -172,7 +172,7 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
     const nameError = document.getElementById("name-error");
     const messageError = document.getElementById("message-error");
 
-    // Sincronitzar paràmetre URL ?servei= amb el selector
+    // Sincronizar parámetro URL ?servei= con el selector
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const preselectedService = urlParams.get("servei");
@@ -194,25 +194,24 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
       form.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        // 1. Protecció Anti-Spam: Honeypot
+        // 1. Protección Anti-Spam: Honeypot
         if (honeypot && honeypot.value.trim() !== "") {
-          // Detectat bot: simular èxit discretament sense processar
-          showStatus(isVal ? "Gràcies! Hem rebut la consulta." : "¡Gracias! Hemos recibido tu consulta.");
+          showStatus(isEn ? "Thank you! We received your message." : "¡Gracias! Hemos recibido tu consulta.");
           form.reset();
           return;
         }
 
-        // 2. Protecció Anti-Spam: Rate Limit (Mínim 30 segons entre enviaments)
+        // 2. Protección Anti-Spam: Rate Limit (Mínimo 30 segundos)
         const RATE_KEY = "last_contact_submission";
         const lastSubmission = localStorage.getItem(RATE_KEY);
         const now = Date.now();
         if (lastSubmission && now - parseInt(lastSubmission, 10) < 30 * 1000) {
           const remainingSecs = Math.ceil((30 * 1000 - (now - parseInt(lastSubmission, 10))) / 1000);
-          showStatus(isVal ? `Espera ${remainingSecs} segons abans d'enviar un altre missatge.` : `Espera ${remainingSecs} segundos antes de enviar otro mensaje.`, false);
+          showStatus(isEn ? `Please wait ${remainingSecs} seconds before submitting again.` : `Espera ${remainingSecs} segundos antes de enviar otro mensaje.`, false);
           return;
         }
 
-        // 3. Validació accessible
+        // 3. Validación accesible
         let hasErrors = false;
 
         if (!nameInput.value.trim()) {
@@ -233,57 +232,52 @@ const isVal = localeFromPath(Astro.url.pathname) === "val";
           return;
         }
 
-        // 4. Preparació de dades
+        // 4. Preparación de datos
         const payload = {
           name: nameInput.value.trim(),
           phone: phoneInput.value.trim(),
-          service: serviceSelect?.selectedOptions[0]?.text || "Consulta general",
+          service: serviceSelect?.selectedOptions[0]?.text || (isEn ? "General inquiry" : "Consulta general"),
           extra: document.getElementById("contact-extra")?.value || "cap",
-          extraLabel: extraSelect?.selectedOptions[0]?.text || (isVal ? "Cap" : "Ninguno"),
+          extraLabel: extraSelect?.selectedOptions[0]?.text || (isEn ? "None" : "Ninguno"),
           budget: budgetSelect ? budgetSelect.value : "a-definir",
-          budgetLabel: budgetSelect?.selectedOptions[0]?.text || "A definir",
+          budgetLabel: budgetSelect?.selectedOptions[0]?.text || (isEn ? "To be defined" : "A definir"),
           message: messageInput.value.trim(),
         };
 
-        // Feedback de càrrega
         if (submitBtn) submitBtn.disabled = true;
-        if (submitBtnText) submitBtnText.textContent = isVal ? "Tramitant el missatge..." : "Preparando el mensaje...";
+        if (submitBtnText) submitBtnText.textContent = isEn ? "Preparing message..." : "Preparando el mensaje...";
 
         try {
-          // Registre de la marca temporal anti-spam
           localStorage.setItem(RATE_KEY, now.toString());
 
-          // Registre d'esdeveniment a l'analítica respectuosa
           if (typeof window.plausible === "function") {
             window.plausible("form_submit", {
               props: { service: payload.service, budget: payload.budget },
             });
           }
 
-          // Enviament via servei serverless sense backend propi (Web3Forms / Formspree ready)
-          // Nota: Si no s'ha configurat access_key externa, s'obre el client amb el missatge preformatat.
           const mailtoBody = encodeURIComponent(
-            `${isVal ? "Nom" : "Nombre"}: ${payload.name}\n` +
-            `${isVal ? "Telèfon" : "Teléfono"}: ${payload.phone || (isVal ? "No indicat" : "No indicado")}\n` +
-            `${isVal ? "Servei d'interès" : "Servicio de interés"}: ${payload.service}\n` +
-            `${isVal ? "Extres" : "Extras"}: ${payload.extraLabel}\n` +
-            `${isVal ? "Pressupost orientatiu" : "Presupuesto orientativo"}: ${payload.budgetLabel}\n\n` +
-            `${isVal ? "Situació i objectius" : "Situación y objetivos"}:\n${payload.message || (isVal ? "No indicats" : "No indicados")}`
+            `${isEn ? "Name" : "Nombre"}: ${payload.name}\n` +
+            `${isEn ? "Phone" : "Teléfono"}: ${payload.phone || (isEn ? "Not provided" : "No indicado")}\n` +
+            `${isEn ? "Service of interest" : "Servicio de interés"}: ${payload.service}\n` +
+            `${isEn ? "Add-ons" : "Extras"}: ${payload.extraLabel}\n` +
+            `${isEn ? "Budget" : "Presupuesto orientativo"}: ${payload.budgetLabel}\n\n` +
+            `${isEn ? "Project details & goals" : "Situación y objetivos"}:\n${payload.message || (isEn ? "Not provided" : "No indicados")}`
           );
-          const mailtoUrl = `mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent((isVal ? "Nova proposta de projecte: " : "Nueva propuesta de proyecto: ") + payload.service)}&body=${mailtoBody}`;
+          const mailtoUrl = `mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent((isEn ? "New project proposal: " : "Nueva propuesta de proyecto: ") + payload.service)}&body=${mailtoBody}`;
 
           setTimeout(() => {
             window.location.href = mailtoUrl;
-            showStatus(isVal ? "La consulta està preparada. Revisa-la i confirma l'enviament des del client de correu." : "La consulta está preparada. Revísala y confirma el envío desde tu cliente de correo.", true);
+            showStatus(isEn ? "Your inquiry is prepared. Please review and confirm sending from your email client." : "La consulta está preparada. Revísala y confirma el envío desde tu cliente de correo.", true);
             form.reset();
             if (submitBtn) submitBtn.disabled = false;
-            if (submitBtnText) submitBtnText.textContent = isVal ? "Obrir correu amb la proposta preparada" : "Abrir correo con la propuesta preparada";
+            if (submitBtnText) submitBtnText.textContent = isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada";
           }, 400);
 
         } catch (err) {
-          showStatus(isVal ? "No s'ha pogut tramitar el formulari automàticament. Pots escriure a jaumetur3w@gmail.com." : "No se ha podido preparar el formulario automáticamente. Puedes escribir a jaumetur3w@gmail.com.", false);
+          showStatus(isEn ? "Could not prepare the email automatically. You can write directly to jaumetur3w@gmail.com." : "No se ha podido preparar el formulario automáticamente. Puedes escribir a jaumetur3w@gmail.com.", false);
           if (submitBtn) submitBtn.disabled = false;
-          if (submitBtnText) submitBtnText.textContent = isVal ? "Obrir correu amb la proposta preparada" : "Abrir correo con la propuesta preparada";
+          if (submitBtnText) submitBtnText.textContent = isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada";
         }
       });
     }

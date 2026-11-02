@@ -1,68 +1,68 @@
 ---
 draft: false
-title: "Dashboard de Telemetria — Rendiment Web a 60 FPS"
-subtitle: "Panell analític interactiu per a la monitorització de mètriques de rendiment web, concurrència i Core Web Vitals en temps real."
-tagline: "Enginyeria d'interfícies d'alta freqüència: renderitzat a 60 FPS garantit mitjançant requestAnimationFrame i aïllament de capes CSS."
+title: "Panel de Telemetría — Rendimiento web a 60 FPS"
+subtitle: "Panel analítico interactivo para monitorizar métricas de rendimiento web, concurrencia y Core Web Vitals en tiempo real."
+tagline: "Ingeniería de interfaces de alta frecuencia: renderizado a 60 FPS garantizado mediante requestAnimationFrame y aislamiento de capas CSS."
 icon: "bx:line-chart"
 color: "emerald"
-role: "Frontend Engineer & Performance Specialist"
+role: "Ingeniería frontend y especialización en rendimiento"
 year: "2025"
-client: "Projecte Personal d'Enginyeria / Open Source"
-badge: "Frontend UI & Mètriques"
-statLabel: "Mètrica Verificada"
+client: "Proyecto personal de ingeniería / Código abierto"
+badge: "Interfaz frontend y métricas"
+statLabel: "Métrica verificada"
 statValue: "60 FPS / INP < 30ms"
-verificationMethod: "Auditoria Chrome DevTools Performance Profiler & FPS Meter"
+verificationMethod: "Auditoría con Chrome DevTools Performance Profiler y FPS Meter"
 liveUrl: "https://jautur.github.io/portfolio/#skills"
 githubUrl: "https://github.com/jautur/portfolio"
 stack: ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment", "Virtual DOM", "Core Web Vitals"]
 order: 4
 image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
-  alt: "Gràfic de telemetria i rendiment d'altes prestacions"
+  alt: "Gráfico de telemetría y rendimiento de altas prestaciones"
 }
 ---
 
-## 1. El Problema i el Context
+## 1. El problema y el contexto
 
-Els panells analítics corporatius que han de mostrar gràfics en viu, fluxes de trànsit i registres de servidors solen patir una degradació sobtada de rendiment a mesura que el volum de dades creix.
+Los paneles analíticos corporativos que deben mostrar gráficos en directo, flujos de tráfico y registros de servidores suelen sufrir una degradación repentina del rendimiento a medida que crece el volumen de datos.
 
-Els problemes recurrents inclouen:
-- **Bloqueig del fil d'execució (*Main Thread Lockup*):** Operacions pesades de càlcul o format de dades que congelen el cursor i impedeixen la interacció de l'usuari.
-- **Micro-talls visuals (*Jank*):** Caigudes sobtades de 60 FPS a menys de 20 FPS durant l'animació de transicions o desplaçaments.
-- **Fuites de memòria en flux continu:** Acumulació de nodes DOM i subscripcions desconnectades que saturen la memòria RAM del navegador en sessions prolongades.
+Entre los problemas recurrentes se incluyen:
+- **Bloqueo del hilo de ejecución (*Main Thread Lockup*):** Operaciones pesadas de cálculo o formateo de datos que congelan el cursor e impiden la interacción del usuario.
+- **Microcortes visuales (*Jank*):** Caídas repentinas de 60 FPS a menos de 20 FPS durante la animación de transiciones o desplazamientos.
+- **Fugas de memoria en flujo continuo:** Acumulación de nodos DOM y suscripciones desconectadas que saturan la memoria RAM del navegador en sesiones prolongadas.
 
-Aquest projecte es va conceived per a demostrar com dissenyar un panell de telemetria d'altes prestacions que manté **60 FPS estables sota alta càrrega de dades**.
-
----
-
-## 2. El Repte Tècnic
-
-1. **Garantir un pressupost de fotograma de 16,6 ms:** Cada cicle d'execució de JavaScript, càlcul d'estil i repintat ha de cabre en menys de 16 mil·lisegons.
-2. **Optimització del nou Interaction to Next Paint (INP):** Minimitzar la latència des del moment en què l'usuari commuta una pestanya fins que la pantalla es dibuixa a menys de 40 ms.
-3. **Aïllament de repintats amb CSS Containment:** Evitar que l'actualització d'una targeta de mètriques obligue el navegador a recalcular la geometria del document sencer.
+Este proyecto se concibió para demostrar cómo diseñar un panel de telemetría de altas prestaciones que mantiene **60 FPS estables con una carga elevada de datos**.
 
 ---
 
-## 3. Decisions d'Arquitectura
+## 2. El reto técnico
 
-Vam implementar una arquitectura de cicle de vida basada en fragments de treball no bloquejants (*yielding*) i acceleració per maquinari a la targeta gràfica (GPU).
+1. **Garantizar un presupuesto de fotograma de 16,6 ms:** Cada ciclo de ejecución de JavaScript, cálculo de estilos y repintado debe caber en menos de 16 milisegundos.
+2. **Optimizar la nueva métrica Interaction to Next Paint (INP):** Minimizar la latencia desde el momento en que el usuario cambia de pestaña hasta que se dibuja la pantalla, por debajo de 40 ms.
+3. **Aislar los repintados con CSS Containment:** Evitar que la actualización de una tarjeta de métricas obligue al navegador a recalcular la geometría de todo el documento.
 
-### Diagrama del Cicle de Renderitzat 60 FPS
+---
+
+## 3. Decisiones de arquitectura
+
+Implementamos una arquitectura de ciclo de vida basada en fragmentos de trabajo no bloqueantes (*yielding*) y aceleración por hardware en la tarjeta gráfica (GPU).
+
+### Diagrama del ciclo de renderizado a 60 FPS
 
 ```
-   [ Flux de Telemetria ]
+   [ Flujo de Telemetría ]
              │
              ▼
-   [ Batching d'Events ] ──▶ [ scheduler.yield() / rAF ]
+   [ Batching de Eventos ] ──▶ [ scheduler.yield() / rAF ]
                                         │
                                         ▼
                            [ CSS contain: layout paint ]
                                         │
                                         ▼
-                            [ Composició GPU (60 FPS) ]
+                            [ Composición GPU (60 FPS) ]
 ```
 
-### Fragment de Codi Clau: Renderitzat en Batches
+### Fragmento de código clave: renderizado por lotes
 
 ```typescript
 // utils/telemetria-renderer.ts
@@ -90,42 +90,41 @@ export class TelemetriaRenderer {
   }
 
   private renderNodes(items: TelemetriaData[]): void {
-    // Actualització atòmica aïllada
+    // Actualización atómica aislada
   }
 }
 ```
 
 ---
 
-## 4. Comparativa: Abans vs Després
+## 4. Comparativa: antes y después
 
-| Mètrica | Implementació Estàndard (DOM Directe) | Arquitectura Telemetria 60 FPS |
+| Métrica | Implementación estándar (DOM directo) | Arquitectura de telemetría a 60 FPS |
 |---|---|---|
-| **Taxa de Fotogrames (FPS)** | 24 - 38 FPS (amb caigudes sota scroll) | 60 FPS constants |
+| **Frecuencia de fotogramas (FPS)** | 24 - 38 FPS (con caídas al desplazarse) | 60 FPS constantes |
 | **Interaction to Next Paint (INP)** | ~180 ms | < 28 ms |
-| **Temps bloquejat total (TBT)** | ~320 ms | 0 ms |
-| **Càlcul d'estils (Recalculate Style)** | Afectava a 1.200 nodes del DOM | Limitat a 8 nodes aïllats amb `contain` |
+| **Tiempo total bloqueado (TBT)** | ~320 ms | 0 ms |
+| **Cálculo de estilos (Recalculate Style)** | Afectaba a 1.200 nodos del DOM | Limitado a 8 nodos aislados con `contain` |
 
 ---
 
-## 5. Resultats Verificables i Mètriques d'Auditoria
+## 5. Resultados verificables y métricas de auditoría
 
-Apliquem el nostre protocol de verificació d'honestedat tècnica:
+Aplicamos nuestro protocolo de verificación de honestidad técnica:
 
-- **Fotogrames per segon (FPS):**  
-  - *Mètode de verificació:* Panell *Rendering > Frame Rate Meter* de Chrome DevTools durant càrrega contínua.  
-  - *Resultat verificat:* **60.0 FPS estables**; zero fotogrames perduts (*dropped frames*).
-- **Mètrica Interaction to Next Paint (INP):**  
-  - *Mètode de verificació:* Google web-vitals JavaScript library i panell Performance de Chrome.  
-  - *Resultat verificat:* **24 ms mitjana** en interacció de filtratge.
-- **Consum de memòria en sessió de 30 minuts:**  
-  - *Mètode de verificació:* Chrome DevTools Memory Heap Snapshot.  
-  - *Resultat verificat:* Marge de creixement inferior a 4 MB amb alliberament immediat en Garbage Collection.
+- **Fotogramas por segundo (FPS):**
+  - *Método de verificación:* Panel *Rendering > Frame Rate Meter* de Chrome DevTools durante una carga continua.
+  - *Resultado verificado:* **60.0 FPS estables**; cero fotogramas perdidos (*dropped frames*).
+- **Métrica Interaction to Next Paint (INP):**
+  - *Método de verificación:* Biblioteca JavaScript Google web-vitals y panel Performance de Chrome.
+  - *Resultado verificado:* **24 ms de media** en la interacción de filtrado.
+- **Consumo de memoria en una sesión de 30 minutos:**
+  - *Método de verificación:* Instantánea del heap de memoria de Chrome DevTools.
+  - *Resultado verificado:* Crecimiento inferior a 4 MB, con liberación inmediata durante la recolección de basura (*Garbage Collection*).
 
 ---
 
-## 6. Aprenentatges i Conclusions
+## 6. Aprendizajes y conclusiones
 
-1. **El DOM és el component més car del navegador:** Mantenir el recompte de nodes per sota de 1.000 és la millor optimització de rendiment que pot fer un enginyer frontend.
-2. **`requestAnimationFrame` és obligatori per a animacions:** Delegar en el refresc vertical del monitor evita càlculs inútils entre fotogrames.
-
+1. **El DOM es el componente más costoso del navegador:** Mantener el recuento de nodos por debajo de 1.000 es la mejor optimización de rendimiento que puede hacer un ingeniero frontend.
+2. **`requestAnimationFrame` es obligatorio para las animaciones:** Delegar en la frecuencia de refresco vertical del monitor evita cálculos innecesarios entre fotogramas.

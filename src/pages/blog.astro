@@ -6,13 +6,12 @@ import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const locale = isVal ? "val" : "es";
-const href = (path: string) => localizePath(isVal ? `/val${path}` : path, locale);
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 
 // Filter blog entries with 'draft: false' & date before current date
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate <= new Date() && (isVal ? data.lang !== "es" : data.lang === "es");
+  return !data.draft && data.publishDate <= new Date() && data.lang === "es";
 });
 
 // Sort content entries by publication date (newest first)
@@ -21,33 +20,35 @@ publishedBlogEntries.sort(function (a, b) {
 });
 
 // Extract all unique categories
-const allCategory = isVal ? "Tots" : "Todas";
+const allCategory = isEn ? "All" : "Todas";
 const categories = [allCategory, ...new Set(publishedBlogEntries.map((post) => post.data.category))];
 
 // Category icon helper (Standardized icons)
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
   if (cat.includes("angular")) return "simple-icons:angular";
-  if (cat.includes("rendiment") || cat.includes("performance")) return "bx:bxs-zap";
+  if (cat.includes("rendiment") || cat.includes("performance") || cat.includes("rendimiento")) return "bx:bxs-zap";
   if (cat.includes("ci/cd") || cat.includes("devops")) return "bx:git-repo-forked";
-  if (cat.includes("accessibilitat") || cat.includes("wcag")) return "bx:accessibility";
+  if (cat.includes("accessibilitat") || cat.includes("accesibilidad") || cat.includes("wcag")) return "bx:accessibility";
   if (cat.includes("typescript")) return "simple-icons:typescript";
   if (cat.includes("carrera") || cat.includes("portfolio")) return "bx:briefcase";
-  if (cat.includes("cas d'estudi") || cat.includes("caso")) return "bx:search-alt";
+  if (cat.includes("cas d'estudi") || cat.includes("caso") || cat.includes("case study")) return "bx:search-alt";
   return "bx:file-blank";
 };
 ---
 
 <Layout
-  title={isVal ? "Blog de Desenvolupament Web i Recursos Tècnics | Jaume Tur" : "Blog de Desarrollo Web y Recursos Técnicos | Jaume Tur"}
-  description={isVal ? "Articles tècnics, guies pràctiques i casos d'estudi sobre disseny web, aplicacions frontend, backend, rendiment i automatització CI/CD." : "Artículos técnicos, guías prácticas y casos de estudio sobre diseño web, aplicaciones frontend, backend, rendimiento y automatización CI/CD."}
+  title={isEn ? "Web Development Blog & Technical Resources | Jaume Tur" : "Blog de Desarrollo Web y Recursos Técnicos | Jaume Tur"}
+  description={isEn ? "Technical articles, practical guides, and architecture insights on frontend apps, performance, and CI/CD." : "Artículos técnicos, guías prácticas y casos de estudio sobre diseño web, aplicaciones frontend, backend, rendimiento y automatización CI/CD."}
 >
   <Container>
     <div class="mt-8 mb-4">
       <Sectionhead>
-        <Fragment slot="title">{isVal ? "Blog i recursos d'enginyeria" : "Blog y recursos de ingeniería"}</Fragment>
+        <Fragment slot="title">{isEn ? "Engineering Blog & Resources" : "Blog y recursos de ingeniería"}</Fragment>
         <Fragment slot="desc">
-          {isVal ? "Guies tècniques, patrons d'arquitectura frontend i anàlisis de rendiment basades en projectes reals." : "Guías técnicas, patrones de arquitectura frontend y análisis de rendimiento basados en proyectos reales."}
+          {isEn
+            ? "Technical guides, frontend architecture patterns, and performance deep dives based on production projects."
+            : "Guías técnicas, patrones de arquitectura frontend y análisis de rendimiento basados en proyectos reales."}
         </Fragment>
       </Sectionhead>
     </div>
@@ -57,7 +58,7 @@ const getCategoryIcon = (category: string) => {
       <!-- Cercador instantani d'articles -->
       <div class="relative max-w-md">
         <label for="blog-search-input" class="sr-only">
-          {isVal ? "Cercar articles per títol o contingut" : "Buscar artículos por título o contenido"}
+          {isEn ? "Search articles by title or content" : "Buscar artículos por título o contenido"}
         </label>
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
           <Icon name="bx:search" class="h-4 w-4" />
@@ -65,13 +66,13 @@ const getCategoryIcon = (category: string) => {
         <input
           id="blog-search-input"
           type="search"
-          placeholder={isVal ? "Cercar articles (ex: Astro, SEO, Angular, TypeScript...)" : "Buscar artículos (ej: Astro, SEO, Angular, TypeScript...)"}
+          placeholder={isEn ? "Search articles (e.g. Astro, SEO, Angular, TypeScript...)" : "Buscar artículos (ej: Astro, SEO, Angular, TypeScript...)"}
           class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-2xs outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
         />
       </div>
 
       <!-- Filtres per Categoria -->
-      <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start pb-6 border-b border-slate-200/90" id="category-filters" role="group" aria-label={isVal ? "Filtres per categoria" : "Filtros por categoría"}>
+      <div class="flex flex-wrap gap-2 items-center justify-center sm:justify-start pb-6 border-b border-slate-200/90" id="category-filters" role="group" aria-label={isEn ? "Category filters" : "Filtros por categoría"}>
         {categories.map((cat, idx) => (
           <button
             type="button"
@@ -151,7 +152,7 @@ const getCategoryIcon = (category: string) => {
               <!-- Footer with Tags & Date -->
               <div class="px-6 pb-6 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-500">
                 <time datetime={post.data.publishDate.toISOString()}>
-                  {post.data.publishDate.toLocaleDateString(isVal ? "ca-ES" : "es-ES", {
+                  {post.data.publishDate.toLocaleDateString(isEn ? "en-US" : "es-ES", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
@@ -161,7 +162,7 @@ const getCategoryIcon = (category: string) => {
                   href={href(`/blog/${post.id}`)}
                   class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 transition-colors font-bold"
                 >
-                  <span>{isVal ? "Llegir article" : "Leer artículo"}</span>
+                  <span>{isEn ? "Read article" : "Leer artículo"}</span>
                   <span>→</span>
                 </a>
               </div>
@@ -173,10 +174,10 @@ const getCategoryIcon = (category: string) => {
       <!-- Missatge sense articles trobats -->
       <div id="no-posts-found" class="hidden py-16 text-center">
         <p class="font-mono text-xs uppercase tracking-wider text-slate-400">
-          {isVal ? "Cap coincidència" : "Sin coincidencias"}
+          {isEn ? "No matches" : "Sin coincidencias"}
         </p>
         <p class="mt-2 text-sm text-slate-600">
-          {isVal ? "No s'ha trobat cap article amb aquesta cerca o categoria." : "No se ha encontrado ningún artículo con esta búsqueda o categoría."}
+          {isEn ? "No articles found matching this search or category." : "No se ha encontrado ningún artículo con esta búsqueda o categoría."}
         </p>
       </div>
 
@@ -185,13 +186,13 @@ const getCategoryIcon = (category: string) => {
         <div class="max-w-2xl relative z-10">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 mb-4 shadow-2xs">
             <Icon name="bx:envelope" class="w-3.5 h-3.5 text-indigo-400" />
-            <span>{isVal ? "Butlletí tècnic: Frontend de trinxera" : "Boletín técnico: Frontend de trinchera"}</span>
+            <span>{isEn ? "Technical newsletter: Practical frontend" : "Boletín técnico: Frontend de trinchera"}</span>
           </span>
           <h3 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
-            {isVal ? "Rep un article tècnic al mes, sense correu brossa ni postureig." : "Recibe un artículo técnico al mes, sin spam ni postureo."}
+            {isEn ? "Get one technical article a month, zero spam." : "Recibe un artículo técnico al mes, sin spam ni postureo."}
           </h3>
           <p class="text-sm text-slate-300 mb-6 leading-relaxed">
-            {isVal ? "Patrons d'arquitectura en Angular, trucs per a aconseguir 60 FPS estables, CI/CD i aprenentatges d'auditories reals." : "Patrones de arquitectura en Angular, consejos para lograr 60 FPS estables, CI/CD y aprendizajes de auditorías reales."}
+            {isEn ? "Architecture patterns in Angular, 60 FPS performance optimizations, CI/CD, and real-world audit insights." : "Patrones de arquitectura en Angular, consejos para lograr 60 FPS estables, CI/CD y aprendizajes de auditorías reales."}
           </p>
           <form
             action={href("/contact")}
@@ -201,7 +202,7 @@ const getCategoryIcon = (category: string) => {
             <input
               type="email"
               name="email"
-              placeholder={isVal ? "el.teu.correu@empresa.com" : "tu.correo@empresa.com"}
+              placeholder={isEn ? "your.email@company.com" : "tu.correo@empresa.com"}
               required
               class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 flex-1 font-mono"
             />
@@ -209,7 +210,7 @@ const getCategoryIcon = (category: string) => {
               type="submit"
               class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/30 whitespace-nowrap cursor-pointer"
             >
-              {isVal ? "Subscriure'm gratis" : "Suscribirme gratis"}
+              {isEn ? "Subscribe for free" : "Suscribirme gratis"}
             </button>
           </form>
         </div>
@@ -269,7 +270,7 @@ const getCategoryIcon = (category: string) => {
       filterButtons.forEach(function(btn) {
         btn.addEventListener("click", function() {
           const rawCat = btn.getAttribute("data-category") || "Todas";
-          currentCategory = (rawCat === "Tots" || rawCat === "Todas") ? "ALL" : rawCat;
+          currentCategory = (rawCat === "Todas" || rawCat === "All") ? "ALL" : rawCat;
 
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;

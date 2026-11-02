@@ -1,114 +1,116 @@
 ---
-import { getCollection } from "astro:content";
 import Container from "@/components/container.astro";
-import Hero from "@/components/hero.astro";
+import ScrollyHero from "@/components/scrolly-hero.astro";
+import CapabilitiesInteractive from "@/components/capabilities-interactive.astro";
 import Layout from "@/layouts/Layout.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
-const isVal = locale === "val";
+const isEn = locale === "en";
 const href = (path: string) => localizePath(path, locale);
-const entries = await getCollection("projectes", ({ data }) => !data.draft);
-entries.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
-const projects = entries.slice(0, 3);
-const previews: Record<string, { src: string; alt: string }> = {
-  avisa: { src: "/img/preview-avisa.webp", alt: "Interfície de la plataforma de serveis AVISA" },
-  "pizzeria-xativa": { src: "/img/foto_pizza.png", alt: "Pizza de mostra de la demo Pizzeria Xàtiva" },
-  "burger-xativa": { src: "/img/foto_burger.png", alt: "Hamburguesa de mostra de la demo Burger Xàtiva" },
-};
-const services = isVal
-  ? [
-      ["01", "Pàgines web i landing pages", "Disseny web i desenvolupament d'alt rendiment per a negocis i professionals a Xàtiva, València o en remot."],
-      ["02", "Aplicacions web a mida", "Plataformes interactives, àrees de gestió i interfícies ràpides adaptades a les necessitats reals del teu flux de treball."],
-      ["03", "Backend, API i integracions", "Lògica de servidor robusta, disseny d'API REST i connexió de dades estructurades entre aplicacions."],
-      ["04", "Automatització i sistemes", "Desplegaments automatitzats (CI/CD), administració d'infraestructura i optimització de processos per estalviar temps."]
-    ]
-  : [
-      ["01", "Páginas web y landing pages", "Diseño web y desarrollo de alto rendimiento para negocios y profesionales en Xàtiva, Valencia o en remoto."],
-      ["02", "Aplicaciones web a medida", "Plataformas interactivas, paneles de gestión e interfaces rápidas adaptadas a las necesidades reales de tu flujo de trabajo."],
-      ["03", "Backend, API e integraciones", "Lógica de servidor robusta, diseño de API REST y conexión de datos estructurados entre aplicaciones."],
-      ["04", "Automatización y sistemas", "Despliegues automatizados (CI/CD), administración de infraestructura y optimización de procesos para ahorrar tiempo."]
-    ];
-const steps = isVal
-  ? [["01", "Parlem", "Aclarim l'objectiu, les persones i les limitacions del projecte."], ["02", "Fem un pla", "Ordenem les necessitats i concretem un abast realista."], ["03", "Construïsc i revisem", "Desenvolupe la solució i comprovem el resultat abans del lliurament."]]
-  : [["01", "Hablamos", "Aclaramos el objetivo, las personas y las limitaciones del proyecto."], ["02", "Hacemos un plan", "Ordenamos las necesidades y concretamos un alcance realista."], ["03", "Desarrollo y revisamos", "Desarrollo la solución y comprobamos el resultado antes de la entrega."]];
 ---
 
-<Layout title={isVal ? "Inici" : "Inicio"} description={isVal ? "Soc Jaume Tur, desenvolupador d'aplicacions web, backend i solucions digitals a València." : "Soy Jaume Tur, desarrollador de aplicaciones web, backend y soluciones digitales en Valencia."}>
-  <Hero />
+<Layout
+  title={isEn ? "Home" : "Inicio"}
+  description={
+    isEn
+      ? "I'm Jaume Tur, web and application developer based in Valencia. High-performance engineering, clean design, and custom software solutions."
+      : "Soy Jaume Tur, desarrollador de aplicaciones web, backend y soluciones digitales en Valencia."
+  }
+>
+  <!-- 1. Presentación inicial con scrollytelling -->
+  <ScrollyHero isEn={isEn} />
+
   <Container>
-    <div>
+    <div class="flex flex-col">
 
-      <section id="projectes" class="scroll-mt-24 border-t border-slate-200 py-14 sm:py-20" aria-labelledby="projects-title">
-        <div class="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+      <!-- 2. Sección «Qué puedo desarrollar» con Vistas Previas Interactivas -->
+      <CapabilitiesInteractive isEn={isEn} />
+
+      <!-- 3. Sección «Sobre mí» -->
+      <section
+        id="sobre-mi"
+        class="scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-28"
+        aria-labelledby="about-heading"
+      >
+        <div class="max-w-3xl">
+          <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
+            {isEn ? "About me" : "Sobre mí"}
+          </p>
+          <h2
+            id="about-heading"
+            class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-6 leading-tight"
+          >
+            {isEn
+              ? "Clean code, technical rigor, and attention to detail."
+              : "Código limpio, rigor técnico y atención al detalle."}
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
+            {isEn
+              ? "I'm Jaume Tur, a web and application developer based in Valencia. I combine a solid backend and DevOps foundation with modern, lightweight, accessible interfaces built to last."
+              : "Soy Jaume Tur, desarrollador web y de aplicaciones en Valencia. Combino una sólida base de backend y devops con interfaces modernas, ligeras y accesibles pensadas para perdurar."}
+          </p>
           <div>
-            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "Una mostra del meu treball" : "Una muestra de mi trabajo"}</p>
-            <h2 id="projects-title" class="max-w-2xl text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{isVal ? "Projectes amb un propòsit concret." : "Proyectos con un propósito concreto."}</h2>
-          </div>
-          <a href={href("/projectes")} class="inline-flex min-h-11 items-center gap-2 self-start text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Tots els projectes" : "Todos los proyectos"} <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="grid gap-8 md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-          {projects.map((project, index) => {
-            const image = previews[project.id] ?? project.data.image;
-            const isClient = project.id === "avisa";
-            return (
-              <article class:list={["group min-w-0", index === 0 && "md:col-span-2 md:grid md:grid-cols-5 md:items-center md:gap-8"]}>
-                <a href={href(`/projectes/${project.id}`)} class:list={["relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]", index === 0 && "md:col-span-3"]} aria-label={`${isVal ? "Veure" : "Ver"} ${project.data.title}`}>
-                  <img src={image.src} alt={image.alt} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none" loading="lazy" decoding="async" />
-                </a>
-                <div class:list={["pt-4", index === 0 && "md:col-span-2 md:py-4"]}>
-                  <p class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{isClient ? "Projecte de client" : "Demo · contingut fictici"}</p>
-                  <h3 class="mt-2 text-xl font-bold leading-snug text-slate-950 sm:text-2xl"><a href={href(`/projectes/${project.id}`)} class="decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{project.data.title}</a></h3>
-                  <p class="mt-2 text-sm leading-6 text-slate-600">{project.data.subtitle}</p>
-                  <p class="mt-3 text-xs leading-5 text-slate-500">{project.data.stack.slice(0, 3).join(" · ")}</p>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section id="serveis" class="scroll-mt-24 border-t border-slate-200 py-14 sm:py-20" aria-labelledby="services-title">
-        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <div>
-            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "En què puc ajudar" : "En qué puedo ayudar"}</p>
-            <h2 id="services-title" class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{isVal ? "Tecnologia pensada per a cada necessitat." : "Tecnología pensada para cada necesidad."}</h2>
-          <a href={href("/pricing")} class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Consulta els serveis i preus" : "Consulta los servicios y precios"} <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="divide-y divide-slate-200 border-y border-slate-200">
-            {services.map(([number, title, text]) => (
-              <article class="grid gap-2 py-4 sm:grid-cols-[3rem_1fr] sm:gap-5 sm:py-5">
-                <span class="font-mono text-sm font-bold text-slate-400">{number}</span>
-                <div><h3 class="text-lg font-bold text-slate-950">{title}</h3><p class="mt-1 max-w-xl text-sm leading-6 text-slate-600">{text}</p></div>
-              </article>
-            ))}
+            <a
+              href={href("/about")}
+              class="inline-flex min-h-11 items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-white text-sm font-medium hover:bg-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+            >
+              <span>{isEn ? "More about me" : "Más sobre mí"}</span>
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </section>
 
-      <section class="bg-[#090D16] px-5 py-9 text-white sm:px-9 sm:py-12" aria-labelledby="process-title">
-        <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:gap-12">
-          <div><p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#FFFF00]">{isVal ? "Una manera de treballar clara" : "Una forma clara de trabajar"}</p><h2 id="process-title" class="text-2xl font-extrabold tracking-tight sm:text-3xl">{isVal ? "De la primera conversa a una solució revisada." : "De la primera conversación a una solución revisada."}</h2></div>
-          <ol class="grid gap-5 sm:grid-cols-3 sm:gap-6">
-            {steps.map(([number, title, text]) => (<li class="border-t border-slate-700 pt-3"><span class="font-mono text-xs font-bold text-[#FFFF00]">{number}</span><h3 class="mt-2 text-base font-bold">{title}</h3><p class="mt-2 text-sm leading-6 text-slate-300">{text}</p></li>))}
-          </ol>
+      <!-- 4. Llamada a la acción «¿Tienes una idea en mente?» -->
+      <section
+        id="contacte"
+        class="scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-32"
+        aria-labelledby="contact-heading"
+      >
+        <div class="max-w-3xl">
+          <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
+            {isEn ? "Start the conversation" : "Iniciemos la conversación"}
+          </p>
+          <h2
+            id="contact-heading"
+            class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-4"
+          >
+            {isEn ? "Have an idea in mind?" : "¿Tienes una idea en mente?"}
+          </h2>
+          <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
+            {isEn
+              ? "Tell me about the project you want to build and we'll evaluate the best technical approach together."
+              : "Cuéntame qué proyecto quieres llevar a cabo y valoraremos juntos cuál es el mejor planteamiento técnico."}
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+            <a
+              href={href("/contact")}
+              class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#FFFF00] px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-[#f2d900] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFFF00]/40"
+            >
+              <span>{isEn ? "Contact me" : "Contactar"}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a
+              href={href("/pricing")}
+              class="inline-flex min-h-12 items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-800 hover:border-slate-400 hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+            >
+              <span>{isEn ? "Explore services & pricing" : "Consultar servicios y tarifas"}</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+
+            <a
+              href="mailto:jaumetur3w@gmail.com"
+              class="inline-flex min-h-12 items-center text-sm font-mono text-slate-500 hover:text-slate-950 transition-colors underline decoration-slate-300 decoration-1 underline-offset-8"
+            >
+              jaumetur3w@gmail.com
+            </a>
+          </div>
         </div>
       </section>
 
-      <section class="grid items-center gap-5 border-b border-slate-200 py-12 sm:grid-cols-[auto_1fr_auto] sm:gap-8 sm:py-16" aria-labelledby="about-short-title">
-        <img src="/img/1.webp" alt="Jaume Tur" class="mx-auto h-24 w-24 object-contain sm:h-28 sm:w-28" width="112" height="112" loading="lazy" decoding="async" />
-        <div>
-          <p class="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "La persona darrere del codi" : "La persona detrás del código"}</p>
-          <h2 id="about-short-title" class="text-2xl font-extrabold tracking-tight text-slate-950">{isVal ? "Soc Jaume Tur, desenvolupador web a Xàtiva i València." : "Soy Jaume Tur, desarrollador web en Xàtiva y Valencia."}</h2>
-          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{isVal ? "Treballe des de Xàtiva oferint desenvolupament de pàgines web per a negocis locals i aplicacions a mida, així com projectes en remot per a empreses de qualsevol ubicació. Combine desenvolupament web modern amb una sòlida base de backend i sistemes." : "Trabajo desde Xàtiva ofreciendo desarrollo de páginas web para negocios locales y aplicaciones a medida, así como proyectos en remoto para empresas de cualquier ubicación. Combino desarrollo web moderno con una sólida base de backend y sistemas."}</p>
-        </div>
-        <a href={href("/about")} class="inline-flex min-h-11 items-center gap-2 text-sm font-bold text-slate-900 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">{isVal ? "Sobre mi" : "Sobre mí"} <span aria-hidden="true">↗</span></a>
-      </section>
-
-      <section class="flex flex-col gap-5 py-12 sm:flex-row sm:items-end sm:justify-between sm:py-16" aria-labelledby="contact-title">
-        <div class="max-w-2xl"><p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{isVal ? "Parlem?" : "¿Hablamos?"}</p><h2 id="contact-title" class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{isVal ? "Tens una idea entre mans?" : "¿Tienes una idea entre manos?"}</h2><p class="mt-3 text-base leading-7 text-slate-600">{isVal ? "Explica'm què necessites i valorarem quin pot ser el següent pas." : "Cuéntame qué necesitas y valoraremos cuál puede ser el siguiente paso."}</p></div>
-        <a href={href("/contact")} class="inline-flex min-h-12 items-center justify-center gap-2 self-start bg-[#FFFF00] px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-[#f2d900] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFFF00]/40 sm:self-auto">{isVal ? "Contactar" : "Contactar"} <span aria-hidden="true">↗</span></a>
-      </section>
     </div>
   </Container>
 </Layout>

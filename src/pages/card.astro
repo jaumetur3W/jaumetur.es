@@ -4,13 +4,13 @@ import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const homePath = localizePath("/", isVal ? "val" : "es");
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const homePath = localizePath("/", isEn ? "en" : "es");
 ---
 
 <Layout
-  title={isVal ? "Targeta digital de visita" : "Tarjeta digital de visita"}
-  description={isVal ? "Targeta de contacte digital de Jaume Tur, desenvolupador web. Escaneja el codi QR o descarrega la vCard al mòbil." : "Tarjeta de contacto digital de Jaume Tur, desarrollador web. Escanea el código QR o descarga la vCard en tu móvil."}>
+  title={isEn ? "Digital Business Card | Jaume Tur" : "Tarjeta digital de visita | Jaume Tur"}
+  description={isEn ? "Digital contact card of Jaume Tur, web developer. Scan QR code or download vCard on your phone." : "Tarjeta de contacto digital de Jaume Tur, desarrollador web. Escanea el código QR o descarga la vCard en tu móvil."}>
   <Container>
     <div class="min-h-[calc(100vh-14rem)] flex items-center justify-center py-10 px-4">
       
@@ -21,11 +21,11 @@ const homePath = localizePath("/", isVal ? "val" : "es");
         <div class="h-32 bg-gradient-to-tr from-[#090D16] via-indigo-950 to-indigo-900 relative p-6 flex justify-between items-start border-b border-indigo-800/40">
           <div class="flex items-center gap-2.5">
             <img src="/img/jt.LOGO-02-128.webp" alt="Logo JT" class="w-10 h-10 rounded-xl shadow-sm object-cover ring-2 ring-[#FFFF00]/60" width="40" height="40" loading="eager" />
-            <span class="text-white text-xs font-mono font-bold tracking-wider uppercase">{isVal ? "Credencial professional" : "Tarjeta profesional"}</span>
+            <span class="text-white text-xs font-mono font-bold tracking-wider uppercase">{isEn ? "Professional Credential" : "Tarjeta profesional"}</span>
           </div>
           <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-white/20 text-white backdrop-blur-xs">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>{isVal ? "DISPONIBLE" : "DISPONIBLE"}</span>
+            <span>{isEn ? "AVAILABLE" : "DISPONIBLE"}</span>
           </span>
         </div>
 
@@ -54,17 +54,17 @@ const homePath = localizePath("/", isVal ? "val" : "es");
               id="card-download-vcf"
               class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-sm group/btn cursor-pointer">
               <Icon name="bx:user-plus" class="w-4 h-4 text-emerald-400 group-hover/btn:scale-110 transition-transform" />
-              <span>{isVal ? "Guardar contacte" : "Guardar contacto"}</span>
+              <span>{isEn ? "Save Contact" : "Guardar contacto"}</span>
             </a>
           </div>
 
           <!-- Informació Professional -->
           <div class="mb-6">
             <h1 class="text-2xl font-black text-slate-900 tracking-tight">Jaume Tur</h1>
-            <p class="text-xs font-bold text-indigo-600 font-mono mt-0.5">Backend &amp; Web Apps · Sistemes SMX</p>
+            <p class="text-xs font-bold text-indigo-600 font-mono mt-0.5">Backend &amp; Web Apps · Systems SMX</p>
             <p class="text-xs text-slate-500 mt-2 leading-relaxed flex items-center gap-1">
               <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-slate-400" />
-              <span>{isVal ? "Xàtiva / València (100% en línia)" : "Xàtiva / Valencia (100% en línea)"}</span>
+              <span>{isEn ? "Valencia, Spain (100% remote)" : "Xàtiva / Valencia (100% en línea)"}</span>
             </p>
           </div>
 
@@ -80,7 +80,7 @@ const homePath = localizePath("/", isVal ? "val" : "es");
           <div class="space-y-2.5 mb-6 text-xs">
             <!-- Correu -->
             <a
-              href="mailto:jaumetur3w@gmail.com?subject=Targeta%20Digital%20-%20Contacte"
+              href={`mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent(isEn ? "Digital Card - Contact" : "Tarjeta Digital - Contacto")}`}
               class="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 text-slate-800 font-bold flex items-center justify-between transition group/mail">
               <div class="flex items-center gap-2.5 truncate">
                 <Icon name="bx:envelope" class="w-4 h-4 text-indigo-600 shrink-0" />
@@ -95,7 +95,7 @@ const homePath = localizePath("/", isVal ? "val" : "es");
               class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold flex items-center justify-between transition">
               <div class="flex items-center gap-2.5">
                 <Icon name="bx:globe" class="w-4 h-4 text-slate-600" />
-                <span>jaumetur.es ({isVal ? "portafolis complet" : "portfolio completo"})</span>
+                <span>jaumetur.es ({isEn ? "full portfolio" : "portfolio completo"})</span>
               </div>
               <Icon name="bx:right-arrow-alt" class="w-4 h-4 text-slate-400" />
             </a>
@@ -124,10 +124,10 @@ const homePath = localizePath("/", isVal ? "val" : "es");
           <!-- Codi QR de la Targeta -->
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-center">
             <span class="text-[10px] font-mono uppercase font-bold text-slate-400 block mb-2">
-              {isVal ? "Escaneja per a obrir al telèfon" : "Escanea para abrir en el teléfono"}
+              {isEn ? "Scan to open on your phone" : "Escanea para abrir en el teléfono"}
             </span>
             <div class="w-32 h-32 mx-auto bg-white p-2 rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center">
-              <img src="/qr-jaumetur.svg" alt="Codi QR cap a https://jaumetur.es/" class="w-full h-full" width="128" height="128" />
+              <img src="/qr-jaumetur.svg" alt="QR Code to https://jaumetur.es/" class="w-full h-full" width="128" height="128" />
             </div>
             <span class="text-[11px] font-mono text-slate-500 font-bold mt-2 block">
               jaumetur.es

@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
-import { localizePath } from "@/i18n";
+import { localeFromPath, localizePath } from "@/i18n";
 
 // Generate paths for all blog posts
 export async function getStaticPaths() {
@@ -15,8 +15,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const isVal = entry.data.lang !== "es";
-const href = (path: string) => localizePath(isVal ? `/val${path}` : path, isVal ? "val" : "es");
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 const { Content, headings } = await render(entry);
 
 // Estimate reading time (average 200 words/min)
@@ -24,21 +24,21 @@ const wordsCount = entry.body ? entry.body.trim().split(/\s+/).length : 600;
 const readingMinutes = Math.max(1, Math.round(wordsCount / 200));
 
 // Find related posts (same category or common tags, excluding current)
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const allPosts = await getCollection("blog", ({ data }) => !data.draft && data.lang === "es");
 const relatedPosts = allPosts
-  .filter((post) => post.id !== entry.id && post.data.lang === entry.data.lang && (post.data.category === entry.data.category || post.data.tags.some(t => entry.data.tags.includes(t))))
+  .filter((post) => post.id !== entry.id && (post.data.category === entry.data.category || post.data.tags.some(t => entry.data.tags.includes(t))))
   .slice(0, 2);
 
 // Category icon helper (Standardized icons)
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
   if (cat.includes("angular")) return "simple-icons:angular";
-  if (cat.includes("rendiment") || cat.includes("performance")) return "bx:bxs-zap";
+  if (cat.includes("rendiment") || cat.includes("performance") || cat.includes("rendimiento")) return "bx:bxs-zap";
   if (cat.includes("ci/cd") || cat.includes("devops")) return "bx:git-repo-forked";
-  if (cat.includes("accessibilitat") || cat.includes("wcag")) return "bx:accessibility";
+  if (cat.includes("accessibilitat") || cat.includes("accesibilidad") || cat.includes("wcag")) return "bx:accessibility";
   if (cat.includes("typescript")) return "simple-icons:typescript";
   if (cat.includes("carrera") || cat.includes("portfolio")) return "bx:briefcase";
-  if (cat.includes("cas d'estudi") || cat.includes("caso")) return "bx:search-alt";
+  if (cat.includes("cas d'estudi") || cat.includes("caso") || cat.includes("case study")) return "bx:search-alt";
   return "bx:file-blank";
 };
 
@@ -53,7 +53,7 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 1,
-      "name": isVal ? "Inici" : "Inicio",
+      "name": isEn ? "Home" : "Inicio",
       "item": new URL(href("/"), siteUrl).toString(),
     },
     {
@@ -86,8 +86,8 @@ const breadcrumbSchema = {
   author={entry.data.author}
   tags={entry.data.tags}
   isBlogPost={true}
-  lang={entry.data.lang || "ca"}
-  canonicalURL={!isVal ? entry.data.canonicalUrl : undefined}
+  lang={isEn ? "en" : "es"}
+  canonicalURL={entry.data.canonicalUrl}
 >
   <!-- BreadcrumbList Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -97,8 +97,8 @@ const breadcrumbSchema = {
 
   <Container>
     <!-- Breadcrumbs -->
-    <nav aria-label={isVal ? "Ruta de navegació" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-      <a href={href("/")} class="hover:text-indigo-600 transition-colors">{isVal ? "Inici" : "Inicio"}</a>
+    <nav aria-label={isEn ? "Navigation path" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+      <a href={href("/")} class="hover:text-indigo-600 transition-colors">{isEn ? "Home" : "Inicio"}</a>
       <span>/</span>
       <a href={href("/blog")} class="hover:text-indigo-600 transition-colors">Blog</a>
       <span>/</span>
@@ -112,12 +112,6 @@ const breadcrumbSchema = {
           <Icon name={categoryIcon} class="w-3.5 h-3.5" />
           <span>{entry.data.category}</span>
         </span>
-        {entry.data.lang && entry.data.lang !== 'ca' && (
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono bg-purple-50 border border-purple-200 text-purple-700">
-            <Icon name="bx:globe" class="w-3 h-3 text-purple-600" />
-            <span>{entry.data.lang.toUpperCase()}</span>
-          </span>
-        )}
       </div>
 
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
@@ -144,7 +138,7 @@ const breadcrumbSchema = {
         </div>
         <span class="text-slate-300">•</span>
         <time datetime={entry.data.publishDate.toISOString()} class="font-mono text-xs text-slate-500">
-          {entry.data.publishDate.toLocaleDateString(entry.data.lang === 'es' ? 'es-ES' : 'ca-ES', {
+          {entry.data.publishDate.toLocaleDateString(isEn ? 'en-US' : 'es-ES', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
@@ -153,7 +147,7 @@ const breadcrumbSchema = {
         <span class="text-slate-300">•</span>
         <span class="inline-flex items-center gap-1.5 font-mono text-xs text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
           <Icon name="bx:time" class="w-3.5 h-3.5 text-emerald-600" />
-          <span>{isVal ? `${readingMinutes} min de lectura aproximada` : `${readingMinutes} min de lectura estimada`}</span>
+          <span>{isEn ? `${readingMinutes} min estimated read` : `${readingMinutes} min de lectura estimada`}</span>
         </span>
       </div>
     </header>
@@ -182,9 +176,9 @@ const breadcrumbSchema = {
             <summary class="font-mono text-sm font-semibold text-slate-800 cursor-pointer flex items-center justify-between">
               <span class="flex items-center gap-2">
                 <Icon name="bx:book-content" class="w-4 h-4 text-indigo-600" />
-                <span>{isVal ? "Taula de continguts" : "Tabla de contenidos"}</span>
+                <span>{isEn ? "Table of contents" : "Tabla de contenidos"}</span>
               </span>
-              <span class="text-xs text-indigo-600 font-bold">{isVal ? "Mostrar / amagar" : "Mostrar / ocultar"}</span>
+              <span class="text-xs text-indigo-600 font-bold">{isEn ? "Show / hide" : "Mostrar / ocultar"}</span>
             </summary>
             <nav class="mt-3 space-y-1.5 text-sm">
               {filteredHeadings.map((h) => (
@@ -207,7 +201,7 @@ const breadcrumbSchema = {
 
         <!-- Tags -->
         <div class="mt-10 pt-6 border-t border-slate-200/90 flex flex-wrap gap-2 items-center">
-          <span class="text-xs font-mono text-slate-500">{isVal ? "Etiquetes:" : "Etiquetas:"}</span>
+          <span class="text-xs font-mono text-slate-500">{isEn ? "Tags:" : "Etiquetas:"}</span>
           {entry.data.tags.map((tag) => (
             <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-700 hover:border-slate-300 transition-colors">
               #{tag}
@@ -217,14 +211,14 @@ const breadcrumbSchema = {
 
         <!-- Share & Interaction Bar -->
         <div class="mt-8 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-wrap items-center justify-between gap-4">
-          <span class="text-sm font-semibold text-slate-800">{isVal ? "T'ha resultat útil aquest article?" : "¿Te ha resultado útil este artículo?"}</span>
+          <span class="text-sm font-semibold text-slate-800">{isEn ? "Found this article useful?" : "¿Te ha resultado útil este artículo?"}</span>
           <div class="flex items-center gap-2">
             <button
               id="copy-link-btn"
               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors border border-slate-200 cursor-pointer"
             >
               <Icon name="bx:link" class="w-3.5 h-3.5 text-slate-600" />
-              <span id="copy-link-text">{isVal ? "Copiar enllaç" : "Copiar enlace"}</span>
+              <span id="copy-link-text">{isEn ? "Copy link" : "Copiar enlace"}</span>
             </button>
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(entry.data.title)}&url=${encodeURIComponent(`https://jaumetur.es${href(`/blog/${entry.id}`)}`)}&via=jautur`}
@@ -233,7 +227,7 @@ const breadcrumbSchema = {
               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-800 text-white transition-colors"
             >
               <Icon name="simple-icons:x" class="w-3 h-3 text-white" />
-              <span>{isVal ? "Compartir" : "Compartir"}</span>
+              <span>{isEn ? "Share" : "Compartir"}</span>
             </a>
             <a
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://jaumetur.es${href(`/blog/${entry.id}`)}`)}`}
@@ -266,8 +260,8 @@ const breadcrumbSchema = {
               </span>
             </h3>
             <p class="text-sm text-slate-600 mt-2 leading-relaxed">
-              {isVal
-                ? "Desenvolupador web amb base a València especialitzat en Angular, TypeScript, rendiment a 60 FPS, accessibilitat WCAG AA i automatització de pipelines CI/CD. Comparteix aprenentatges pràctics del dia a dia en producció."
+              {isEn
+                ? "Web developer based in Valencia specialized in Angular, TypeScript, 60 FPS performance, WCAG AA accessibility, and CI/CD pipeline automation. Sharing battle-tested production lessons."
                 : "Desarrollador web en Valencia especializado en Angular, TypeScript, rendimiento a 60 FPS, accesibilidad WCAG AA y automatización de pipelines CI/CD. Comparte aprendizajes prácticos del trabajo diario en producción."}
             </p>
             <div class="mt-3 flex items-center justify-center sm:justify-start gap-4 text-xs font-mono text-slate-500">
@@ -285,7 +279,7 @@ const breadcrumbSchema = {
               </a>
               <a href={href("/contact")} class="hover:text-indigo-600 transition-colors flex items-center gap-1">
                 <Icon name="bx:envelope" class="w-3.5 h-3.5" />
-                <span>{isVal ? "Contacte" : "Contacto"}</span>
+                <span>{isEn ? "Contact" : "Contacto"}</span>
               </a>
             </div>
           </div>
@@ -297,13 +291,13 @@ const breadcrumbSchema = {
           <div class="relative z-10">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 mb-3 shadow-2xs">
               <Icon name="bx:gift" class="w-3.5 h-3.5 text-emerald-400" />
-              <span>Recurs Gratuït per a Desenvolupadors</span>
+              <span>{isEn ? "Free Resource for Developers" : "Recurso Gratuito para Desarrolladores"}</span>
             </span>
             <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
-              Checklist de Rendiment (60 FPS) i Accessibilitat (WCAG AA)
+              {isEn ? "Performance (60 FPS) & Accessibility (WCAG AA) Checklist" : "Checklist de Rendimiento (60 FPS) y Accesibilidad (WCAG AA)"}
             </h3>
             <p class="text-sm text-slate-300 mb-5 leading-relaxed max-w-xl">
-              Els 25 punts d'auditoria que aplique en producció abans de desplegar qualsevol aplicació web o SPA en Angular/TypeScript.
+              {isEn ? "The 25 audit checkpoints applied before deploying any Angular/TypeScript web application or SPA." : "Los 25 puntos de auditoría que aplico en producción antes de desplegar cualquier aplicación web o SPA en Angular/TypeScript."}
             </p>
             <form
               action={href("/contact")}
@@ -313,7 +307,7 @@ const breadcrumbSchema = {
               <input
                 type="email"
                 name="email"
-                placeholder={isVal ? "el.teu.correu@empresa.com" : "tu.correo@empresa.com"}
+                placeholder={isEn ? "your.email@company.com" : "tu.correo@empresa.com"}
                 required
                 class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 flex-1 font-mono"
               />
@@ -321,7 +315,7 @@ const breadcrumbSchema = {
                 type="submit"
                 class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/30 whitespace-nowrap flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <span>{isVal ? "Descarregar la llista" : "Descargar la lista"}</span>
+                <span>{isEn ? "Download checklist" : "Descargar la lista"}</span>
                 <Icon name="bx:download" class="w-4 h-4 text-white" />
               </button>
             </form>
@@ -331,10 +325,10 @@ const breadcrumbSchema = {
         <!-- Contextual B2B Consulting CTA -->
         <div class="mt-8 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs text-center">
           <h4 class="text-lg font-bold text-slate-900 mb-2">
-            {isVal ? "Tens un repte similar a la teua empresa o negoci?" : "¿Tienes un reto similar en tu empresa o negocio?"}
+            {isEn ? "Facing a similar challenge at your business?" : "¿Tienes un reto similar en tu empresa o negocio?"}
           </h4>
           <p class="text-sm text-slate-600 mb-4 max-w-lg mx-auto">
-            {isVal ? "Desenvolupe aplicacions web a mida, dissenye webs ràpides i ajude equips a optimitzar rendiment i CI/CD a Xàtiva, València o en remot." : "Desarrollo aplicaciones web a medida, diseño páginas web rápidas y ayudo a negocios a optimizar rendimiento y automatización en Xàtiva, Valencia o en remoto."}
+            {isEn ? "I develop custom web apps, fast websites, and help teams optimize performance and CI/CD automation in Valencia or remotely." : "Desarrollo aplicaciones web a medida, diseño páginas web rápidas y ayudo a negocios a optimizar rendimiento y automatización en Xàtiva, Valencia o en remoto."}
           </p>
           <div class="flex flex-wrap items-center justify-center gap-3">
             <a
@@ -342,14 +336,14 @@ const breadcrumbSchema = {
               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 hover:border-slate-400 bg-white text-slate-900 font-bold text-xs transition shadow-2xs"
             >
               <Icon name="bx:purchase-tag" class="w-4 h-4 text-indigo-600" />
-              <span>{isVal ? "Consultar serveis i preus" : "Consultar servicios y precios"}</span>
+              <span>{isEn ? "Check services & pricing" : "Consultar servicios y precios"}</span>
             </a>
             <a
               href={href("/contact")}
               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition shadow-md"
             >
               <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-400" />
-              <span>{isVal ? "Parlar del teu projecte" : "Hablar de tu proyecto"}</span>
+              <span>{isEn ? "Talk about your project" : "Hablar de tu proyecto"}</span>
             </a>
           </div>
         </div>
@@ -359,7 +353,7 @@ const breadcrumbSchema = {
           <div class="mt-14">
             <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
               <Icon name="bx:layer" class="w-4 h-4 text-indigo-600" />
-              <span>{isVal ? "Articles relacionats" : "Artículos relacionados"}</span>
+              <span>{isEn ? "Related articles" : "Artículos relacionados"}</span>
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {relatedPosts.map((rel) => (
@@ -387,7 +381,7 @@ const breadcrumbSchema = {
             href={href("/blog")}
             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-100 text-slate-800 font-mono text-xs transition-colors shadow-2xs"
           >
-            <span>{isVal ? "← Tornar a tots els articles" : "← Volver a todos los artículos"}</span>
+            <span>{isEn ? "← Back to all articles" : "← Volver a todos los artículos"}</span>
           </a>
         </div>
       </article>
@@ -398,7 +392,7 @@ const breadcrumbSchema = {
           <div class="p-5 rounded-3xl bg-white border border-slate-200/90 shadow-2xs">
             <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
               <Icon name="bx:book-content" class="w-4 h-4 text-indigo-600" />
-              <span>{isVal ? "Taula de continguts" : "Tabla de contenidos"}</span>
+              <span>{isEn ? "Table of contents" : "Tabla de contenidos"}</span>
             </h4>
             <nav class="space-y-2 text-xs">
               {filteredHeadings.map((h) => (
@@ -418,18 +412,18 @@ const breadcrumbSchema = {
         <!-- Quick Info Box -->
         <div class="p-5 rounded-3xl bg-white border border-slate-200/90 shadow-2xs text-xs text-slate-600 space-y-3 font-mono">
           <div class="flex items-center justify-between">
-            <span class="text-slate-500">{isVal ? "Tecnologia:" : "Tecnología:"}</span>
+            <span class="text-slate-500">{isEn ? "Technology:" : "Tecnología:"}</span>
             <span class="text-slate-900 font-bold">{entry.data.category}</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-slate-500">{isVal ? "Lectura:" : "Lectura:"}</span>
+            <span class="text-slate-500">{isEn ? "Reading time:" : "Lectura:"}</span>
             <span class="text-emerald-700 font-bold">~{readingMinutes} min</span>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-slate-500">{isVal ? "Estat:" : "Estado:"}</span>
+            <span class="text-slate-500">{isEn ? "Status:" : "Estado:"}</span>
             <span class="text-emerald-700 font-bold flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
-              <span>{isVal ? "Producció" : "Producción"}</span>
+              <span>{isEn ? "Production" : "Producción"}</span>
             </span>
           </div>
         </div>
@@ -441,10 +435,10 @@ const breadcrumbSchema = {
         >
           <span class="text-indigo-700 font-mono font-semibold flex items-center gap-1.5 mb-1">
             <Icon name="bx:wrench" class="w-3.5 h-3.5 text-indigo-600 group-hover:rotate-45 transition-transform" />
-            <span>{isVal ? "Eina gratuïta" : "Herramienta gratuita"}</span>
+            <span>{isEn ? "Free tool" : "Herramienta gratuita"}</span>
           </span>
-          <p class="text-slate-900 font-bold">Generador de Workflows CI/CD</p>
-          <p class="text-slate-600 text-[11px] mt-1">{isVal ? "Configura pipelines per a Astro i Angular amb un clic." : "Configura pipelines para Astro y Angular con un clic."}</p>
+          <p class="text-slate-900 font-bold">{isEn ? "CI/CD Workflow Generator" : "Generador de Workflows CI/CD"}</p>
+          <p class="text-slate-600 text-[11px] mt-1">{isEn ? "Configure Astro and Angular pipelines with one click." : "Configura pipelines para Astro y Angular con un clic."}</p>
         </a>
       </aside>
     </div>
@@ -463,28 +457,29 @@ const breadcrumbSchema = {
       }
     }, { passive: true });
 
-    // 2. Dynamic Copy Button for Shiki Code Blocks (No emojis, standard SVG / text)
+    // 2. Dynamic Copy Button for Shiki Code Blocks
     document.querySelectorAll("pre.astro-code").forEach((preBlock) => {
       if (preBlock.querySelector(".code-copy-btn")) return;
 
+      const isEnglish = document.documentElement.lang.startsWith("en");
       const button = document.createElement("button");
       button.className = "code-copy-btn";
       button.type = "button";
-      button.setAttribute("aria-label", "Copiar codi");
-      button.innerHTML = "<span>Copiar</span>";
+      button.setAttribute("aria-label", isEnglish ? "Copy code" : "Copiar código");
+      button.innerHTML = `<span>${isEnglish ? "Copy" : "Copiar"}</span>`;
 
       button.addEventListener("click", async () => {
         const code = preBlock.querySelector("code")?.innerText || preBlock.innerText;
         try {
           await navigator.clipboard.writeText(code);
           button.classList.add("copied");
-          button.innerHTML = "<span>✓ Copiat!</span>";
+          button.innerHTML = `<span>✓ ${isEnglish ? "Copied!" : "¡Copiado!"}</span>`;
           setTimeout(() => {
             button.classList.remove("copied");
-            button.innerHTML = "<span>Copiar</span>";
+            button.innerHTML = `<span>${isEnglish ? "Copy" : "Copiar"}</span>`;
           }, 2000);
         } catch (err) {
-          console.error("Error copiant codi:", err);
+          console.error("Error copying code:", err);
         }
       });
 
@@ -499,12 +494,13 @@ const breadcrumbSchema = {
       copyLinkBtn.addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(window.location.href);
-          copyLinkText.innerText = "✓ Copiat!";
+          const isEnglish = document.documentElement.lang.startsWith("en");
+          copyLinkText.innerText = `✓ ${isEnglish ? "Copied!" : "¡Copiado!"}`;
           setTimeout(() => {
-            copyLinkText.innerText = "Copiar Enllaç";
+            copyLinkText.innerText = isEnglish ? "Copy link" : "Copiar enlace";
           }, 2000);
         } catch (e) {
-          console.error("Error copiant URL:", e);
+          console.error("Error copying URL:", e);
         }
       });
     }

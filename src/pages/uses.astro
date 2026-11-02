@@ -5,97 +5,101 @@ import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const href = (path: string) => localizePath(path, isVal ? "val" : "es");
-const categories: {
-  title: string;
-  titleEs: string;
-  icon: string;
-  items: { name: string; nameEs?: string; desc: string; descEs?: string }[];
-}[] = [
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+
+const categories = [
   {
-    title: "Entorn de Codi & Editor",
-    titleEs: "Entorno de código y editor",
+    title: "Entorno de código y editor",
+    titleEn: "Code Environment & Editor",
     icon: "bx:code-alt",
     items: [
       {
         name: "VS Code (Visual Studio Code)",
-        desc: "L'editor principal per a frontend, configurat amb linter estricte, formatador automàtic en guardar i mode de renderitzat fluid.",
+        desc: "Editor principal configurado con linter estricto, formateo automático al guardar y rendimiento fluido.",
+        descEn: "Primary editor configured with strict linter, auto-format on save, and smooth performance.",
       },
       {
-        name: "Bricolage Grotesque & JetBrains Mono",
-        desc: "Tipografia tipogràfica amb lligadures per a codi font i disseny web d'alt contrast.",
+        name: "Inter Variable & JetBrains Mono",
+        desc: "Combinación tipográfica para legibilidad óptima en código fuente, interfaz y métricas técnicas.",
+        descEn: "Typography pairing for optimal readability across source code, UI, and technical metrics.",
       },
       {
-        name: "Extensions Clau",
-        nameEs: "Extensiones clave",
-        desc: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens i GitHub Actions Linter.",
-        descEs: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens y GitHub Actions Linter.",
+        name: "Extensiones clave",
+        nameEn: "Key Extensions",
+        desc: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens y GitHub Actions Linter.",
+        descEn: "Angular Language Service, ESLint, Prettier, Tailwind CSS IntelliSense, Astro, GitLens, and GitHub Actions Linter.",
       },
       {
         name: "Terminal Linux & Bash / Zsh",
-        desc: "Entorn de línia d'ordres natiu per a automatització de scripts, gestió de paquets npm i fluxos de control de versions.",
+        desc: "Línea de comandos nativa para automatización de scripts, gestión de paquetes npm y control de versiones.",
+        descEn: "Native command line for script automation, npm package workflows, and version control.",
       },
     ],
   },
   {
-    title: "Stack Frontend & Llibreries",
-    titleEs: "Stack frontend y bibliotecas",
+    title: "Stack frontend y bibliotecas",
+    titleEn: "Frontend Stack & Libraries",
     icon: "bx:bxs-zap",
     items: [
       {
         name: "Angular (Signals & Standalone)",
-        desc: "Framework reactiu per a aplicacions web corporatives amb arquitectura modular i cicle de vida optimitzat.",
+        desc: "Framework reactivo para aplicaciones web corporativas con arquitectura modular y ciclo de vida optimizado.",
+        descEn: "Reactive framework for corporate web apps with modular architecture and optimized lifecycle.",
       },
       {
         name: "TypeScript (Strict Mode)",
-        desc: "Tipat estricte sense `any`. Garantia de robustesa, refactorització segura i zero errors no controlats en temps d'execució.",
+        desc: "Tipado estricto sin `any`. Garantía de robustez, refactorización segura y cero errores inesperados en runtime.",
+        descEn: "Strict typing without `any`. Robust architecture, safe refactoring, and zero unexpected runtime errors.",
       },
       {
         name: "Tailwind CSS v4 & PostCSS",
-        desc: "Disseny d'interfícies modular, atòmic i ultralleuger sense fulls d'estil pesats ni dependències innecessàries.",
+        desc: "Diseño de interfaces modular, atómico y ultraligero sin hojas de estilo pesadas ni dependencias innecesarias.",
+        descEn: "Modular, atomic, lightweight UI styling without bloated stylesheets or unnecessary dependencies.",
       },
       {
-        name: "Astro 7 (Static Site Generation)",
-        desc: "El framework més ràpid per a portfolios i blogs tècnics: zero JavaScript innecessari i càrrega instantània.",
-      },
-      {
-        name: "Three.js",
-        desc: "Renderitzat 3D WebGL a 60 FPS amb optimització de cicle de bateria mitjançant l'API Page Visibility.",
+        name: "Astro (Static Site Generation)",
+        desc: "El framework más rápido para webs corporativas, landing pages y portfolios: cero JavaScript superfluo y carga instantánea.",
+        descEn: "Fastest framework for corporate sites, landing pages, and portfolios: zero superfluous JS and instant load.",
       },
     ],
   },
   {
-    title: "DevOps & Automatització",
-    titleEs: "DevOps y automatización",
+    title: "DevOps y automatización",
+    titleEn: "DevOps & Automation",
     icon: "bx:git-repo-forked",
     items: [
       {
         name: "GitHub Actions",
-        desc: "Canalitzacions CI/CD automatitzades: validació de sintaxi, linters, proves unitàries i desplegament instantani.",
+        desc: "Pipelines CI/CD automatizados: validación de sintaxis, linters, pruebas unitarias y despliegue continuo.",
+        descEn: "Automated CI/CD pipelines: syntax validation, linters, unit tests, and continuous deployment.",
       },
       {
-        name: "GitHub Pages & Vercel Edge",
-        desc: "Allotjament distribuït globalment per a lliurament d'actius estàtics i càrrega amb menys de 100ms de latència.",
+        name: "Edge Hosting & CDNs",
+        desc: "Alojamiento distribuido globalmente para entrega de activos estáticos y carga con menos de 100ms de latencia.",
+        descEn: "Globally distributed hosting for static assets with sub-100ms latency delivery.",
       },
       {
         name: "Git & GitHub Flow",
-        desc: "Control de versions per branques, commits semàntics (Conventional Commits) i revisió de codi.",
+        desc: "Control de versiones por ramas, commits semánticos (Conventional Commits) y revisión de código.",
+        descEn: "Branch-based version control, semantic commits (Conventional Commits), and peer code reviews.",
       },
     ],
   },
   {
-    title: "Disseny & Accessibilitat",
-    titleEs: "Diseño y accesibilidad",
+    title: "Diseño y accesibilidad",
+    titleEn: "Design & Accessibility",
     icon: "bx:palette",
     items: [
       {
-        name: "Figma & Apple Human Interface Guidelines",
-        desc: "Prototipatge de sistemes de disseny, contrast cromàtic de capes i maquetació basada en grilles de 8px.",
+        name: "Figma & Design Systems",
+        desc: "Prototipado de sistemas de diseño, contraste cromático de capas y maquetación basada en rejillas de 8px.",
+        descEn: "Design systems prototyping, layered chromatic contrast, and 8px grid-based layouts.",
       },
       {
         name: "Lighthouse & Axe Accessibility Tools",
-        desc: "Auditories continues de compliment WCAG AA, Core Web Vitals (LCP, CLS, INP) i optimització d'actius.",
+        desc: "Auditorías continuas de cumplimiento WCAG AA, Core Web Vitals (LCP, CLS, INP) y optimización de recursos.",
+        descEn: "Continuous WCAG AA compliance audits, Core Web Vitals (LCP, CLS, INP), and asset optimization.",
       },
     ],
   },
@@ -103,14 +107,14 @@ const categories: {
 ---
 
 <Layout
-  title={isVal ? "El meu equip i eines (/uses)" : "Mi equipo y herramientas (/uses)"}
-  description={isVal ? "Programari, extensions de VS Code, stack frontend i configuracions que utilitze cada dia com a desenvolupador." : "Hardware, software, extensiones de VS Code, stack frontend y configuraciones que utilizo a diario como desarrollador."}>
+  title={isEn ? "My Setup & Tools (/uses) | Jaume Tur" : "Mi equipo y herramientas (/uses) | Jaume Tur"}
+  description={isEn ? "Hardware, software, VS Code extensions, frontend stack, and configurations I use daily as a developer." : "Hardware, software, extensiones de VS Code, stack frontend y configuraciones que utilizo a diario como desarrollador."}>
   <Container>
     <div class="py-12 md:py-16">
       <Sectionhead>
-        <Fragment slot="title">{isVal ? "El meu equip i eines (/uses)" : "Mi equipo y herramientas (/uses)"}</Fragment>
+        <Fragment slot="title">{isEn ? "My setup & tools (/uses)" : "Mi equipo y herramientas (/uses)"}</Fragment>
         <Fragment slot="desc">
-          {isVal ? "Llista detallada del maquinari, programari, stack frontend i configuracions que utilitze cada dia." : "Lista detallada del hardware, software, stack frontend y configuraciones que utilizo a diario."}
+          {isEn ? "Detailed list of hardware, software, frontend stack, and configurations I use daily." : "Lista detallada del hardware, software, stack frontend y configuraciones que utilizo a diario."}
         </Fragment>
       </Sectionhead>
 
@@ -123,7 +127,7 @@ const categories: {
                   <Icon name={cat.icon} class="w-5 h-5" />
                 </span>
                 <h2 class="text-xl font-bold text-slate-900 tracking-tight">
-                  {isVal ? cat.title : cat.titleEs}
+                  {isEn ? cat.titleEn : cat.title}
                 </h2>
               </div>
 
@@ -132,10 +136,10 @@ const categories: {
                   <div>
                     <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                      <span>{isVal ? item.name : item.nameEs ?? item.name}</span>
+                      <span>{isEn ? (item.nameEn ?? item.name) : item.name}</span>
                     </h3>
                     <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed pl-3.5">
-                      {isVal ? item.desc : item.descEs ?? item.desc}
+                      {isEn ? item.descEn : item.desc}
                     </p>
                   </div>
                 ))}
@@ -148,17 +152,17 @@ const categories: {
         <div class="bg-[#090D16] text-white rounded-3xl p-8 border border-slate-800/90 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
           <div class="space-y-1 text-center sm:text-left">
             <h3 class="text-lg font-bold flex items-center gap-2 justify-center sm:justify-start">
-              <span>{isVal ? "Vols automatitzar el teu desplegament?" : "¿Quieres automatizar tu despliegue?"}</span>
+              <span>{isEn ? "Want to automate your deployment?" : "¿Quieres automatizar tu despliegue?"}</span>
               <Icon name="bx:bxs-zap" class="w-4 h-4 text-indigo-400" />
             </h3>
             <p class="text-xs text-slate-300">
-              {isVal ? "Utilitza el generador interactiu gratuït de GitHub Actions." : "Utiliza el generador interactivo gratuito para GitHub Actions."}
+              {isEn ? "Use the free interactive GitHub Actions workflow generator." : "Utiliza el generador interactivo gratuito para GitHub Actions."}
             </p>
           </div>
           <a
             href={href("/tools/workflow-generator")}
             class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500 transition shadow-sm shrink-0">
-            {isVal ? "Provar el generador CI/CD ↗" : "Probar el generador CI/CD ↗"}
+            {isEn ? "Try CI/CD Generator ↗" : "Probar el generador CI/CD ↗"}
           </a>
         </div>
       </div>

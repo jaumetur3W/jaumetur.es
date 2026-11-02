@@ -5,19 +5,21 @@ import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es");
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const blogPath = localizePath("/blog", isEn ? "en" : "es");
 ---
 
 <Layout
-  title={isVal ? "Generador de pipelines CI/CD per a GitHub Actions" : "Generador de pipelines CI/CD para GitHub Actions"}
-  description={isVal ? "Eina gratuïta per a generar workflows de GitHub Actions per a Astro, Angular, React i Tailwind CSS." : "Herramienta gratuita para generar workflows de GitHub Actions para Astro, Angular, React y Tailwind CSS."}>
+  title={isEn ? "CI/CD Pipeline Generator for GitHub Actions | Jaume Tur" : "Generador de pipelines CI/CD para GitHub Actions | Jaume Tur"}
+  description={isEn ? "Free tool to generate GitHub Actions workflows for Astro, Angular, React, and Tailwind CSS." : "Herramienta gratuita para generar workflows de GitHub Actions para Astro, Angular, React y Tailwind CSS."}>
   <Container>
     <div class="py-12 md:py-16">
       <Sectionhead>
-        <Fragment slot="title">{isVal ? "Generador de CI/CD per a GitHub Actions" : "Generador de CI/CD para GitHub Actions"}</Fragment>
+        <Fragment slot="title">{isEn ? "CI/CD Generator for GitHub Actions" : "Generador de CI/CD para GitHub Actions"}</Fragment>
         <Fragment slot="desc">
-          {isVal ? "Crea en segons workflows d'integració i desplegament continu optimitzats per a projectes frontend." : "Crea en segundos workflows de integración y despliegue continuo optimizados para proyectos frontend."}
+          {isEn
+            ? "Build optimized continuous integration and deployment workflows for frontend projects in seconds."
+            : "Crea en segundos workflows de integración y despliegue continuo optimizados para proyectos frontend."}
         </Fragment>
       </Sectionhead>
 
@@ -28,13 +30,13 @@ const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es
         <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] space-y-6">
           <div class="flex items-center gap-2 pb-4 border-b border-slate-100">
             <Icon name="bx:cog" class="w-5 h-5 text-indigo-600" />
-            <h2 class="font-extrabold text-slate-900 text-base">{isVal ? "Configuració del pipeline" : "Configuración del pipeline"}</h2>
+            <h2 class="font-extrabold text-slate-900 text-base">{isEn ? "Pipeline configuration" : "Configuración del pipeline"}</h2>
           </div>
 
           <!-- Framework Selection -->
           <div>
             <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
-              {isVal ? "1. Framework / stack" : "1. Framework / stack"}
+              {isEn ? "1. Framework / stack" : "1. Framework / stack"}
             </label>
             <div class="grid grid-cols-2 gap-2">
               <button
@@ -71,7 +73,7 @@ const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es
           <!-- Target Platform -->
           <div>
             <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
-              {isVal ? "2. Destinació del desplegament" : "2. Destino del despliegue"}
+              {isEn ? "2. Deployment target" : "2. Destino del despliegue"}
             </label>
             <div class="grid grid-cols-2 gap-2">
               <button
@@ -94,27 +96,27 @@ const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es
           <!-- Feature Toggles -->
           <div>
             <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
-              {isVal ? "3. Qualitat i memòria cau" : "3. Calidad y caché"}
+              {isEn ? "3. Quality and caching" : "3. Calidad y caché"}
             </label>
             <div class="space-y-2">
               <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
                 <input type="checkbox" id="check-lint" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
-                <span>{isVal ? "Incloure el linter i la comprovació del codi" : "Incluir el linter y la comprobación del código"}</span>
+                <span>{isEn ? "Include code linter check" : "Incluir el linter y la comprobación del código"}</span>
               </label>
               <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
                 <input type="checkbox" id="check-ts" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
-                <span>{isVal ? "Verificació estricta de tipus (TypeScript)" : "Verificación estricta de tipos (TypeScript)"}</span>
+                <span>{isEn ? "Strict TypeScript type-checking" : "Verificación estricta de tipos (TypeScript)"}</span>
               </label>
               <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
                 <input type="checkbox" id="check-cache" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
-                <span>{isVal ? "Memòria cau intel·ligent de dependències npm" : "Caché inteligente de dependencias npm"}</span>
+                <span>{isEn ? "Smart npm dependencies caching" : "Caché inteligente de dependencias npm"}</span>
               </label>
             </div>
           </div>
 
           <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-mono flex items-start gap-2">
             <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
-            <span><strong>{isVal ? "Com utilitzar-lo:" : "Cómo utilizarlo:"}</strong> {isVal ? "Guarda aquest fitxer a" : "Guarda este archivo en"} <code>.github/workflows/deploy.yml</code> {isVal ? "al teu repositori." : "en tu repositorio."}</span>
+            <span><strong>{isEn ? "How to use:" : "Cómo utilizarlo:"}</strong> {isEn ? "Save this file at" : "Guarda este archivo en"} <code>.github/workflows/deploy.yml</code> {isEn ? "in your repository." : "en tu repositorio."}</span>
           </div>
         </div>
 
@@ -131,13 +133,13 @@ const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es
             <button
               id="copy-yaml-btn"
               type="button"
-              class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+              class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer">
               <Icon name="bx:copy" class="w-3.5 h-3.5" />
-              <span>{isVal ? "Copiar YAML" : "Copiar YAML"}</span>
+              <span>{isEn ? "Copy YAML" : "Copiar YAML"}</span>
             </button>
           </div>
 
-          <pre class="p-6 text-slate-200 overflow-x-auto text-[12px] leading-relaxed max-h-[580px]"><code id="yaml-code">Carregant configuració...</code></pre>
+          <pre class="p-6 text-slate-200 overflow-x-auto text-[12px] leading-relaxed max-h-[580px]"><code id="yaml-code">{isEn ? "Loading configuration..." : "Cargando configuración..."}</code></pre>
         </div>
 
       </div>
@@ -146,20 +148,20 @@ const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es
       <div class="mt-16 bg-white rounded-3xl border border-slate-200/90 p-8 max-w-4xl mx-auto shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 mb-2 inline-block">
-            {isVal ? "RECURS GRATUÏT PER A DESENVOLUPADORS" : "RECURSO GRATUITO PARA DESARROLLADORES"}
+            {isEn ? "FREE RESOURCE FOR DEVELOPERS" : "RECURSO GRATUITO PARA DESARROLLADORES"}
           </span>
           <h3 class="text-xl font-bold text-slate-900">
-            {isVal ? "Vols una llista de verificació de rendiment i WCAG AA per a producció?" : "¿Quieres una lista de verificación de rendimiento y WCAG AA para producción?"}
+            {isEn ? "Want a production performance and WCAG AA checklist?" : "¿Quieres una lista de verificación de rendimiento y WCAG AA para producción?"}
           </h3>
           <p class="text-xs text-slate-600 mt-1 max-w-md">
-            {isVal ? "Descarrega la guia pràctica que utilitze en projectes reals per a aconseguir 60 FPS i evitar errors d'accessibilitat." : "Descarga la guía práctica que utilizo en proyectos reales para alcanzar 60 FPS y evitar errores de accesibilidad."}
+            {isEn ? "Explore practical guides used in real-world projects to reach 60 FPS and avoid accessibility pitfalls." : "Descarga la guía práctica que utilizo en proyectos reales para alcanzar 60 FPS y evitar errores de accesibilidad."}
           </p>
         </div>
         <a
           href={blogPath}
           class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-indigo-600 transition shadow-xs shrink-0">
           <Icon name="bx:book-open" class="w-4 h-4 text-white" />
-          <span>{isVal ? "Llegir al blog" : "Leer el blog"}</span>
+          <span>{isEn ? "Read the blog" : "Leer el blog"}</span>
         </a>
       </div>
 
@@ -250,11 +252,12 @@ const blogPath = localizePath(isVal ? "/val/blog" : "/blog", isVal ? "val" : "es
       if (codeEl) {
         navigator.clipboard.writeText(codeEl.textContent || "").then(() => {
           const original = copyBtn.innerHTML;
-          copyBtn.innerHTML = isVal ? "<span>✓ Copiat!</span>" : "<span>✓ ¡Copiado!</span>";
-          copyBtn.className = "px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm";
+          const isEnglish = document.documentElement.lang.startsWith("en");
+          copyBtn.innerHTML = isEnglish ? "<span>✓ Copied!</span>" : "<span>✓ ¡Copiado!</span>";
+          copyBtn.className = "px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer";
           setTimeout(() => {
             copyBtn.innerHTML = original;
-            copyBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm";
+            copyBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer";
           }, 2000);
         });
       }

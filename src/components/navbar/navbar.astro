@@ -5,57 +5,64 @@ import { localizePath, localeFromPath, stripLocale } from "@/i18n";
 
 const rawPathname = Astro.url.pathname;
 const locale = localeFromPath(rawPathname);
-const isVal = locale === "val";
+const isEn = locale === "en";
 const pathname = stripLocale(rawPathname);
 const localizedPath = (path: string) => localizePath(path, locale);
 const spanishPath = localizePath(rawPathname, "es");
-const valencianPath = localizePath(rawPathname, "val");
-const homeTitle = isVal ? "Jaume Tur — Inici" : "Jaume Tur — Inicio";
+const englishPath = localizePath(rawPathname, "en");
+const homeTitle = isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio";
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
   return pathname.startsWith(path);
 };
 
+// Enlaces de navegación en el orden exacto solicitado:
+// 1. Inicio, 2. Sobre mí, 3. Proyectos, 4. Contacto
 const navLinks = [
-  { title: isVal ? "Projectes" : "Proyectos", path: "/projectes" },
-  { title: isVal ? "Preus" : "Precios", path: "/pricing" },
-  { title: isVal ? "Sobre mi" : "Sobre mí", path: "/about" },
-  { title: isVal ? "Contacte" : "Contacto", path: "/contact" },
+  { title: isEn ? "Home" : "Inicio", path: "/" },
+  { title: isEn ? "About" : "Sobre mí", path: "/about" },
+  { title: isEn ? "Projects" : "Proyectos", path: "/projectes" },
+  { title: isEn ? "Contact" : "Contacto", path: "/contact" },
 ];
 ---
 
-<div class="sticky top-0 z-50 w-full bg-white border-b border-slate-200/80 transition-colors">
+<div
+  id="site-navbar-wrap"
+  class="sticky top-0 z-50 w-full bg-white border-b border-transparent data-[scrolled=true]:border-slate-200/80 transition-[border-color,box-shadow] duration-200"
+>
   <Container>
     <header id="site-header" class="relative flex items-center justify-between py-2.5 min-h-[56px]">
       
-      <!-- Logo: Isotip en mòbil, Wordmark complet en escriptori -->
+      <!-- Logo: Isotipo oficial en el extremo izquierdo -->
       <div class="flex items-center">
-        <!-- Isotip en mòbil -->
+        <!-- Isotipo en móvil -->
         <a
           href={localizedPath("/")}
-          class="flex lg:hidden items-center p-1 rounded-xl min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+          class="flex md:hidden items-center p-1 rounded-xl min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
           title={homeTitle}
-          aria-label={homeTitle}>
-          <div class="relative w-10 h-10 shrink-0">
+          aria-label={homeTitle}
+        >
+          <div class="relative w-9 h-9 shrink-0">
             <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35"></div>
             <img
               src="/img/jt.LOGO-02-128.webp"
               alt="Isotip oficial de Jaume Tur"
-              class="relative w-10 h-10 rounded-xl ring-1 ring-slate-900/10 shadow-sm object-cover"
-              width="40"
-              height="40"
+              class="relative w-9 h-9 rounded-xl ring-1 ring-slate-900/10 shadow-sm object-cover"
+              width="36"
+              height="36"
               loading="eager"
               decoding="async"
             />
           </div>
         </a>
 
-        <!-- Wordmark a l'esquerra en escriptori -->
+        <!-- Wordmark y logotipo en escritorio -->
         <a
           href={localizedPath("/")}
-          class="hidden lg:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl p-1"
+          class="hidden md:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl p-1"
           title={homeTitle}
-          aria-label={homeTitle}>
+          aria-label={homeTitle}
+        >
           <div class="relative w-9 h-9 shrink-0">
             <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35 group-hover:opacity-60 transition-opacity"></div>
             <img
@@ -77,55 +84,118 @@ const navLinks = [
         </a>
       </div>
 
-      <!-- Navegació d'escriptori (Màxim 6 enllaços incloent accions) -->
-      <nav class="hidden lg:flex items-center gap-1" aria-label={isVal ? "Navegació principal" : "Navegación principal"}>
-        <ul class="flex items-center gap-1">
-          {
-            navLinks.map((item) => {
-              const active = isActive(item.path);
-              return (
-                <li>
-                  <a
-                    href={localizedPath(item.path)}
-                    class:list={[
-                      "px-3 py-2 text-xs font-semibold rounded-lg transition border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                      active
-                        ? "text-slate-950 bg-[#FFFF00] border-[#FFFF00] font-bold"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white border-transparent"
-                    ]}
-                    aria-current={active ? "page" : undefined}>
-                    <span>{item.title}</span>
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
-      </nav>
+      <!-- Navegación de escritorio: Enlaces alineados a la derecha seguidos del selector de idioma con globo terráqueo -->
+      <div class="hidden md:flex items-center gap-7 lg:gap-8">
+        <nav aria-label={isEn ? "Main navigation" : "Navegación principal"}>
+          <ul class="flex items-center gap-6 lg:gap-7">
+            {
+              navLinks.map((item) => {
+                const active = isActive(item.path);
+                return (
+                  <li>
+                    <a
+                      href={localizedPath(item.path)}
+                      class:list={[
+                        "text-sm tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded py-1 px-1",
+                        active
+                          ? "text-slate-950 font-medium"
+                          : "text-slate-600 hover:text-slate-950 font-normal"
+                      ]}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      <span>{item.title}</span>
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </nav>
 
-      <nav class="hidden lg:flex items-center gap-1 border-l border-slate-200 pl-3 text-xs font-bold" aria-label={isVal ? "Selector d'idioma" : "Selector de idioma"}>
-        <a href={spanishPath} lang="es" aria-current={!isVal ? "page" : undefined} class:list={["rounded px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", !isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600 hover:text-slate-950"]}>ES</a>
-        <span aria-hidden="true" class="text-slate-300">|</span>
-        <a href={valencianPath} lang="ca-valencia" aria-current={isVal ? "page" : undefined} class:list={["rounded px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600 hover:text-slate-950"]}>VAL</a>
-      </nav>
+        <!-- Selector de idioma con icono de globo terráqueo -->
+        <div class="relative" id="lang-dropdown-wrapper">
+          <button
+            type="button"
+            id="lang-dropdown-btn"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="lang-dropdown-menu"
+            class="inline-flex items-center gap-1.5 text-sm font-normal text-slate-600 hover:text-slate-950 py-1.5 px-2.5 rounded-lg border border-transparent hover:border-slate-200 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+            aria-label={isEn ? "Select language" : "Seleccionar idioma"}
+          >
+            <Icon name="bx:globe" class="w-4 h-4 text-slate-700" />
+            <span class="text-xs font-mono font-medium uppercase text-slate-700">{locale.toUpperCase()}</span>
+            <span class="text-[10px] text-slate-400" aria-hidden="true">▾</span>
+          </button>
 
-      <!-- Menú Mòbil (<details>/<summary> accessible, sense drawer lateral, sense overlay) -->
-      <details id="mobile-menu-details" class="lg:hidden group">
+          <!-- Menú flotante desplegable -->
+          <div
+            id="lang-dropdown-menu"
+            role="menu"
+            class="hidden absolute right-0 top-full mt-2 w-44 rounded-xl border border-slate-200/90 bg-white p-1.5 shadow-lg shadow-slate-950/5 ring-1 ring-slate-950/5 z-50 text-xs font-sans"
+            aria-labelledby="lang-dropdown-btn"
+            aria-label={isEn ? "Language selector" : "Selector de idioma"}
+          >
+            <a
+              href={spanishPath}
+              role="menuitem"
+              lang="es"
+              aria-current={!isEn ? "page" : undefined}
+              class:list={[
+                "flex items-center justify-between px-3 py-2 rounded-lg transition-colors",
+                !isEn
+                  ? "bg-slate-100/90 text-slate-950 font-medium"
+                  : "text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-normal"
+              ]}
+            >
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full" class:list={[!isEn ? "bg-[#FFFF00] ring-1 ring-slate-900/40" : "bg-transparent"]}></span>
+                <span>Español</span>
+              </div>
+              <span class="font-mono text-[10px] text-slate-400 uppercase tracking-wider">ES</span>
+            </a>
+
+            <a
+              href={englishPath}
+              role="menuitem"
+              lang="en"
+              aria-current={isEn ? "page" : undefined}
+              class:list={[
+                "flex items-center justify-between px-3 py-2 rounded-lg transition-colors mt-0.5",
+                isEn
+                  ? "bg-slate-100/90 text-slate-950 font-medium"
+                  : "text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-normal"
+              ]}
+            >
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full" class:list={[isEn ? "bg-[#FFFF00] ring-1 ring-slate-900/40" : "bg-transparent"]}></span>
+                <span>English</span>
+              </div>
+              <span class="font-mono text-[10px] text-slate-400 uppercase tracking-wider">EN</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menú Móvil (<details>/<summary> accesible y limpio) -->
+      <details id="mobile-menu-details" class="md:hidden group">
         <summary
           id="mobile-menu-summary"
-          class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white font-bold text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] transition"
-          aria-label={isVal ? "Menú principal de navegació" : "Menú principal de navegación"}
+          class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white font-medium text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] transition"
+          aria-label={isEn ? "Main mobile navigation" : "Menú principal de navegación"}
           aria-controls="mobile-nav-panel"
-          aria-expanded="false">
-          <span>{isVal ? "Menú" : "Menú"}</span>
+          aria-expanded="false"
+        >
+          <span>{isEn ? "Menu" : "Menú"}</span>
           <Icon name="bx:menu" class="w-4 h-4 block group-open:hidden" aria-hidden="true" />
           <Icon name="bx:x" class="w-4 h-4 hidden group-open:block" aria-hidden="true" />
         </summary>
 
         <div
           id="mobile-nav-panel"
-          class="absolute left-0 right-0 top-full w-full bg-white border-b border-slate-200/90 shadow-md p-4 transition-all">
-          <nav aria-label={isVal ? "Navegació mòbil" : "Navegación móvil"}>
+          class="absolute left-0 right-0 top-full w-full bg-white border-b border-slate-200/90 shadow-md p-4 transition-all"
+        >
+          <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"}>
             <ul class="flex flex-col gap-1">
               {
                 navLinks.map((item) => {
@@ -135,22 +205,48 @@ const navLinks = [
                       <a
                         href={localizedPath(item.path)}
                         class:list={[
-                          "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-lg text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
+                          "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-lg text-sm tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
                           active
-                            ? "bg-[#FFFF00] text-slate-950 font-bold border border-[#FFFF00]"
-                            : "text-slate-700 hover:bg-slate-50 border border-transparent"
+                            ? "bg-slate-100 text-slate-950 font-medium"
+                            : "text-slate-700 hover:bg-slate-50 font-normal"
                         ]}
-                        aria-current={active ? "page" : undefined}>
+                        aria-current={active ? "page" : undefined}
+                      >
                         <span>{item.title}</span>
                       </a>
                     </li>
                   );
                 })
               }
-              <li class="mt-2 flex items-center gap-1 border-t border-slate-100 pt-2 px-3.5 text-xs font-bold" aria-label={isVal ? "Selector d'idioma" : "Selector de idioma"}>
-                <a href={spanishPath} lang="es" aria-current={!isVal ? "page" : undefined} class:list={["min-h-11 inline-flex items-center rounded px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", !isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600"]}>ES</a>
-                <span aria-hidden="true" class="text-slate-300">|</span>
-                <a href={valencianPath} lang="ca-valencia" aria-current={isVal ? "page" : undefined} class:list={["min-h-11 inline-flex items-center rounded px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]", isVal ? "bg-[#FFFF00] text-slate-950" : "text-slate-600"]}>VAL</a>
+              <li class="mt-2 flex items-center justify-between border-t border-slate-100 pt-3 px-3.5 text-xs">
+                <span class="inline-flex items-center gap-1.5 text-slate-500 font-mono">
+                  <Icon name="bx:globe" class="w-4 h-4 text-slate-700" />
+                  <span>{isEn ? "Language" : "Idioma"}</span>
+                </span>
+                <div class="flex items-center gap-2 font-mono" aria-label={isEn ? "Language selector" : "Selector de idioma"}>
+                  <a
+                    href={spanishPath}
+                    lang="es"
+                    aria-current={!isEn ? "page" : undefined}
+                    class:list={[
+                      "min-h-9 px-2.5 py-1.5 inline-flex items-center rounded-lg text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
+                      !isEn ? "bg-slate-950 text-white font-medium" : "text-slate-600 hover:text-slate-950 bg-slate-100 font-normal"
+                    ]}
+                  >
+                    ES
+                  </a>
+                  <a
+                    href={englishPath}
+                    lang="en"
+                    aria-current={isEn ? "page" : undefined}
+                    class:list={[
+                      "min-h-9 px-2.5 py-1.5 inline-flex items-center rounded-lg text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
+                      isEn ? "bg-slate-950 text-white font-medium" : "text-slate-600 hover:text-slate-950 bg-slate-100 font-normal"
+                    ]}
+                  >
+                    EN
+                  </a>
+                </div>
               </li>
             </ul>
           </nav>
@@ -161,17 +257,18 @@ const navLinks = [
 </div>
 
 <script is:inline>
-  (function() {
+  (function () {
+    // 1. Navegación móvil con <details>/<summary>
     function setupMobileNav() {
       const details = document.getElementById("mobile-menu-details");
       const summary = document.getElementById("mobile-menu-summary");
       if (!details || !summary) return;
 
-      details.addEventListener("toggle", function() {
+      details.addEventListener("toggle", function () {
         summary.setAttribute("aria-expanded", details.open ? "true" : "false");
       });
 
-      document.addEventListener("keydown", function(e) {
+      document.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && details.open) {
           details.open = false;
           summary.setAttribute("aria-expanded", "false");
@@ -179,19 +276,92 @@ const navLinks = [
         }
       });
 
-      // Tanca en fer clic a un enllaç
-      details.querySelectorAll("a").forEach(function(link) {
-        link.addEventListener("click", function() {
+      details.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
           details.open = false;
           summary.setAttribute("aria-expanded", "false");
         });
       });
     }
 
+    // 2. Desplegable flotante de idioma con icono de globo terráqueo
+    function setupLanguageDropdown() {
+      const btn = document.getElementById("lang-dropdown-btn");
+      const menu = document.getElementById("lang-dropdown-menu");
+      const wrapper = document.getElementById("lang-dropdown-wrapper");
+      if (!btn || !menu || !wrapper) return;
+
+      function openMenu() {
+        menu.classList.remove("hidden");
+        btn.setAttribute("aria-expanded", "true");
+      }
+
+      function closeMenu() {
+        menu.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+      }
+
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isOpen = !menu.classList.contains("hidden");
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!wrapper.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !menu.classList.contains("hidden")) {
+          closeMenu();
+          btn.focus();
+        }
+      });
+
+      menu.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          closeMenu();
+        });
+      });
+    }
+
+    // 3. Inicialización
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", setupMobileNav);
+      document.addEventListener("DOMContentLoaded", () => {
+        setupMobileNav();
+        setupLanguageDropdown();
+      });
     } else {
       setupMobileNav();
+      setupLanguageDropdown();
+    }
+
+    // 4. Borde reactivo al scroll
+    const navWrap = document.getElementById("site-navbar-wrap");
+    if (navWrap) {
+      const isHome =
+        window.location.pathname === "/" ||
+        window.location.pathname === "/en" ||
+        window.location.pathname === "/en/";
+      if (!isHome) {
+        navWrap.setAttribute("data-scrolled", "true");
+      } else {
+        const updateNavBorder = () => {
+          if (window.scrollY > 15) {
+            navWrap.setAttribute("data-scrolled", "true");
+          } else {
+            navWrap.removeAttribute("data-scrolled");
+          }
+        };
+        window.addEventListener("scroll", updateNavBorder, { passive: true });
+        updateNavBorder();
+      }
     }
   })();
 </script>

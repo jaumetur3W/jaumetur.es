@@ -1,16 +1,19 @@
 ---
 import Link from "@/components/ui/link.astro";
 import { Icon } from "astro-icon/components";
+import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = Astro.url.pathname === "/val" || Astro.url.pathname.startsWith("/val/");
-const copy = isVal
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+
+const copy = isEn
   ? {
-      kicker: "Desenvolupament web i sistemes",
-      title: "Aplicacions web amb",
-      emphasis: "criteri tècnic.",
-      intro: "Soc Jaume Tur. Desenvolupe aplicacions web, backend i solucions digitals clares, amb una base sòlida de sistemes.",
-      projects: "Veure projectes",
-      about: "Sobre mi",
+      kicker: "Web development & systems",
+      title: "Web applications with",
+      emphasis: "technical criteria.",
+      intro: "I'm Jaume Tur. I build web applications, backend, and clear digital solutions with a solid systems foundation.",
+      projects: "View projects",
+      about: "About me",
     }
   : {
       kicker: "Desarrollo web y sistemas",
@@ -23,100 +26,77 @@ const copy = isVal
 ---
 
 <section id="hero" aria-labelledby="hero-title" class="hero-shell mb-8 sm:mb-14">
-  <div class="hero-layout">
-    <div class="hero-copy">
-      <p class="hero-kicker"><span aria-hidden="true"></span> {copy.kicker}</p>
-      <h1 id="hero-title">{copy.title} <em>{copy.emphasis}</em></h1>
-      <p class="hero-intro">{copy.intro}</p>
+  <div class="hero-card">
+    <div class="hero-content">
+      <p class="hero-kicker font-mono">{copy.kicker}</p>
+      <h1 id="hero-title" class="hero-title">
+        {copy.title} <span>{copy.emphasis}</span>
+      </h1>
+      <p class="hero-intro">
+        {copy.intro}
+      </p>
+
       <div class="hero-actions">
-        <Link href="#projectes" class="hero-primary-action">{copy.projects} <Icon name="bx:arrow-back" class="h-4 w-4 rotate-180" aria-hidden="true" /></Link>
-        <a href={isVal ? "/val/about" : "/about"} class="hero-secondary-action">{copy.about}</a>
+        <Link href={href("/projectes")} class="hero-primary-action">
+          {copy.projects}
+        </Link>
+        <a href={href("/about")} class="hero-secondary-action">{copy.about}</a>
       </div>
     </div>
 
-    <div class="hero-profile" aria-label="Perfil de desenvolupador interactiu">
-      <div class="hero-avatar-wrap">
-        <div class="hero-avatar-circle">
-          <img id="hero-memoji-img" src="/img/4.webp" alt="Jaume Tur" width="208" height="208" loading="eager" fetchpriority="high" />
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-code-panel font-mono text-xs">
+        <div class="hero-code-header">
+          <span class="hero-dot bg-red-400"></span>
+          <span class="hero-dot bg-amber-400"></span>
+          <span class="hero-dot bg-emerald-400"></span>
+          <span class="hero-code-title">profile.ts</span>
         </div>
-      </div>
-      <details id="hero-code-details" class="hero-code-panel">
-        <summary aria-label="Obrir o tancar el perfil tècnic" class="hero-code-summary">
-          <span class="hero-window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="hero-code-label"><Icon name="bx:terminal" class="h-4 w-4" /> perfil.js</span>
-          <Icon name="bx:chevron-down" class="hero-code-chevron h-4 w-4" aria-hidden="true" />
-        </summary>
-        <div class="hero-code-content">
-          <p><span class="code-keyword">const</span> <span class="code-name">jaume</span> = &#123;</p>
-          <p class="code-indent"><span class="code-key">rol:</span> <button id="role-cycle-btn" type="button" class="code-control"><span id="developer-role-text">"Backend &amp; Web Apps"</span><Icon name="bx:refresh" class="h-3.5 w-3.5" /></button>,</p>
-          <p class="code-indent"><span class="code-key">{isVal ? "focus" : "enfoque"}:</span> <span id="developer-focus" class="code-value">{isVal ? '"productes digitals útils"' : '"productos digitales útiles"'}</span>,</p>
-          <p class="code-indent"><span class="code-key">{isVal ? "base" : "áreas"}:</span> <span class="code-value">{isVal ? '["web", "APIs", "sistemes"]' : '["web", "APIs", "sistemas"]'}</span></p>
+        <div class="hero-code-body">
+          <p><span class="code-keyword">const</span> <span class="code-variable">developer</span> = &#123;</p>
+          <p class="code-indent"><span class="code-key">name:</span> <span class="code-value">"Jaume Tur"</span>,</p>
+          <p class="code-indent"><span class="code-key">role:</span> <span id="developer-role" class="code-value">"Backend & Web Apps"</span>,</p>
+          <p class="code-indent"><span class="code-key">{isEn ? "focus" : "enfoque"}:</span> <span id="developer-focus" class="code-value">{isEn ? '"useful digital products"' : '"productos digitales útiles"'}</span>,</p>
+          <p class="code-indent"><span class="code-key">{isEn ? "areas" : "áreas"}:</span> <span class="code-value">{isEn ? '["web", "APIs", "systems"]' : '["web", "APIs", "sistemas"]'}</span></p>
           <p>&#125;;</p>
-          <div class="hero-presets" aria-label={isVal ? "Canviar perfil tècnic" : "Cambiar perfil técnico"}>
-            <button type="button" data-preset-idx="0" class="role-preset-chip is-active">Backend</button>
-            <button type="button" data-preset-idx="1" class="role-preset-chip">Sistemes</button>
-            <button type="button" data-preset-idx="2" class="role-preset-chip">Frontend</button>
+          <div class="hero-presets" aria-label={isEn ? "Switch technical profile" : "Cambiar perfil técnico"}>
+            <button class="hero-preset-chip active" data-preset="backend" type="button">Backend &amp; Web</button>
+            <button class="hero-preset-chip" data-preset="sistemes" type="button">{isEn ? "Systems & Ops" : "Sistemas y servidores"}</button>
+            <button class="hero-preset-chip" data-preset="frontend" type="button">Frontend &amp; UX</button>
           </div>
         </div>
-      </details>
+      </div>
     </div>
   </div>
 </section>
 
 <script is:inline>
-  function setupInteractiveHero() {
-    const memojiImg = document.getElementById("hero-memoji-img");
-    const roleCycleBtn = document.getElementById("role-cycle-btn");
-    const roleText = document.getElementById("developer-role-text");
-    const focusText = document.getElementById("developer-focus");
-    const presetChips = Array.from(document.querySelectorAll(".role-preset-chip"));
-    if (!roleCycleBtn || !roleText || !focusText) return;
-    const presets = [
-      { role: "Backend & Web Apps", focus: isVal ? "productes digitals útils" : "productos digitales útiles", memoji: "/img/4.webp" },
-      { role: isVal ? "Sistemes & Servidors" : "Sistemas y servidores", focus: isVal ? "infraestructura fiable" : "infraestructura fiable", memoji: "/img/7.webp" },
-      { role: "Frontend & UX", focus: isVal ? "interfícies clares" : "interfaces claras", memoji: "/img/5.webp" },
-    ];
-    let currentPresetIdx = 0;
+  (() => {
+    const roleEl = document.getElementById("developer-role");
+    const focusEl = document.getElementById("developer-focus");
+    const chips = Array.from(document.querySelectorAll(".hero-preset-chip"));
+    if (!roleEl || !focusEl || chips.length === 0) return;
 
-    function applyPreset(index) {
-      currentPresetIdx = index % presets.length;
-      const preset = presets[currentPresetIdx];
-      roleText.textContent = `"${preset.role}"`;
-      focusText.textContent = `"${preset.focus}"`;
-      if (memojiImg) memojiImg.src = preset.memoji;
-      presetChips.forEach((chip, chipIndex) => chip.classList.toggle("is-active", chipIndex === currentPresetIdx));
-    }
+    const isEnglish = document.documentElement.lang.startsWith("en");
 
-    function animatePreset(index) {
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reducedMotion) {
-        applyPreset(index);
-        return;
-      }
-      roleText.classList.add("is-changing");
-      focusText.classList.add("is-changing");
-      memojiImg?.classList.add("is-changing");
-      window.setTimeout(() => {
-        applyPreset(index);
-        roleText.classList.remove("is-changing");
-        focusText.classList.remove("is-changing");
-        memojiImg?.classList.remove("is-changing");
-      }, 150);
-    }
+    const presets = {
+      backend: { role: "Backend & Web Apps", focus: isEnglish ? "useful digital products" : "productos digitales útiles" },
+      sistemes: { role: isEnglish ? "Systems & Ops" : "Sistemas y servidores", focus: isEnglish ? "reliable infrastructure" : "infraestructura fiable" },
+      frontend: { role: "Frontend & UX", focus: isEnglish ? "clear interfaces" : "interfaces claras" },
+    };
 
-    roleCycleBtn.addEventListener("click", () => animatePreset(currentPresetIdx + 1));
-    presetChips.forEach((chip) => chip.addEventListener("click", () => animatePreset(Number(chip.getAttribute("data-preset-idx")))));
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const key = chip.getAttribute("data-preset");
+        const next = key && presets[key];
+        if (!next) return;
 
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      window.setInterval(() => animatePreset(currentPresetIdx + 1), 5000);
-    }
-  }
+        chips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
 
-  const codePanel = document.getElementById("hero-code-details");
-  const desktopCodePanel = window.matchMedia("(min-width: 1024px)");
-  const syncCodePanel = () => { if (codePanel) codePanel.open = desktopCodePanel.matches; };
-  syncCodePanel();
-  desktopCodePanel.addEventListener("change", syncCodePanel);
-  if ("requestIdleCallback" in window) requestIdleCallback(setupInteractiveHero);
-  else window.addEventListener("load", setupInteractiveHero);
+        roleEl.textContent = `"${next.role}"`;
+        focusEl.textContent = `"${next.focus}"`;
+      });
+    });
+  })();
 </script>
