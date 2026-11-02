@@ -9,17 +9,17 @@ import { Icon } from "astro-icon/components";
   role="alert"
   aria-live="polite"
 >
-  <div class="flex items-start gap-3 p-4 rounded-2xl bg-slate-950 text-white border border-indigo-500/40 shadow-2xl backdrop-blur-md">
-    <div class="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center shrink-0 text-indigo-400">
+  <div class="flex items-start gap-3 p-4 rounded-2xl bg-slate-950 text-white border border-[#FFFF00]/40 shadow-2xl">
+    <div class="w-10 h-10 rounded-xl bg-[#FFFF00]/20 border border-[#FFFF00]/50 flex items-center justify-center shrink-0 text-[#FFFF00]">
       <Icon name="bx:joystick" class="w-6 h-6 animate-bounce" id="easter-egg-icon" />
     </div>
     <div class="flex-1">
-      <div class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider flex items-center justify-between">
-        <span id="easter-egg-title">Easter Egg Desbloquejat!</span>
-        <button id="easter-egg-close" class="text-slate-400 hover:text-white p-0.5" aria-label="Tancar avís">✕</button>
+      <div class="text-xs font-mono font-bold text-[#FFFF00] uppercase tracking-wider flex items-center justify-between">
+        <span id="easter-egg-title">Easter Egg Desbloqueado</span>
+        <button id="easter-egg-close" class="text-slate-400 hover:text-white p-0.5 cursor-pointer" aria-label="Cerrar aviso">✕</button>
       </div>
       <p class="text-xs sm:text-sm text-slate-200 mt-1 leading-snug font-sans" id="easter-egg-desc">
-        Felicitats! Has descobert el codi secret.
+        ¡Enhorabuena! Has descubierto el código secreto.
       </p>
     </div>
   </div>

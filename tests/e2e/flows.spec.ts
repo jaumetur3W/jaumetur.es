@@ -77,13 +77,17 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   test("Top navbar displays standard page links without in-page anchors, and mobile menu is accessible", async ({ page }) => {
     await page.goto("/");
     
-    // Desktop navigation links in order: Inicio, Sobre mí, Proyectos, Precios, Contacto
+    // Desktop navigation links in order: Inicio, Sobre mí, Proyectos, Contacto
     const desktopLinks = page.locator("nav[aria-label='Navegación principal'] > ul > li > a");
-    await expect(desktopLinks.filter({ hasText: "Inicio" })).toHaveAttribute("href", "/");
-    await expect(desktopLinks.filter({ hasText: "Sobre mí" })).toHaveAttribute("href", "/about");
-    await expect(desktopLinks.filter({ hasText: "Proyectos" })).toHaveAttribute("href", "/projectes");
-    await expect(desktopLinks.filter({ hasText: "Precios" })).toHaveAttribute("href", "/pricing");
-    await expect(desktopLinks.filter({ hasText: "Contacto" })).toHaveAttribute("href", "/contact");
+    await expect(desktopLinks).toHaveCount(4);
+    await expect(desktopLinks.nth(0)).toHaveText("Inicio");
+    await expect(desktopLinks.nth(0)).toHaveAttribute("href", "/");
+    await expect(desktopLinks.nth(1)).toHaveText("Sobre mí");
+    await expect(desktopLinks.nth(1)).toHaveAttribute("href", "/about");
+    await expect(desktopLinks.nth(2)).toHaveText("Proyectos");
+    await expect(desktopLinks.nth(2)).toHaveAttribute("href", "/projectes");
+    await expect(desktopLinks.nth(3)).toHaveText("Contacto");
+    await expect(desktopLinks.nth(3)).toHaveAttribute("href", "/contact");
 
     // Contact is a regular navigation destination, with no extra header CTA.
     await expect(page.locator('header a[href="/contact"]').first()).toBeAttached();
