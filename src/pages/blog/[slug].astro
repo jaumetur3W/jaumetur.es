@@ -93,32 +93,32 @@ const breadcrumbSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <!-- Reading Progress Bar -->
-  <div id="reading-progress" aria-hidden="true"></div>
+  <div id="reading-progress" class="bg-[#FFFF00]" aria-hidden="true"></div>
 
   <Container>
     <!-- Breadcrumbs -->
     <nav aria-label={isEn ? "Navigation path" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-      <a href={href("/")} class="hover:text-indigo-600 transition-colors">{isEn ? "Home" : "Inicio"}</a>
+      <a href={href("/")} class="hover:text-slate-950 transition-colors">{isEn ? "Home" : "Inicio"}</a>
       <span>/</span>
-      <a href={href("/blog")} class="hover:text-indigo-600 transition-colors">Blog</a>
+      <a href={href("/blog")} class="hover:text-slate-950 transition-colors">Blog</a>
       <span>/</span>
-      <span class="text-indigo-600 font-semibold">{entry.data.category}</span>
+      <span class="text-slate-950 font-semibold">{entry.data.category}</span>
     </nav>
 
     <!-- Article Header -->
     <header class="max-w-4xl mx-auto mt-4 mb-8">
       <div class="flex items-center gap-2 mb-4">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-indigo-50 border border-indigo-200/80 text-indigo-700">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] border border-slate-950/20 text-slate-950">
           <Icon name={categoryIcon} class="w-3.5 h-3.5" />
           <span>{entry.data.category}</span>
         </span>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-slate-950 tracking-tight leading-tight mb-5">
         {entry.data.title}
       </h1>
 
-      <p class="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed mb-6">
+      <p class="text-lg sm:text-xl text-slate-600 font-light leading-relaxed mb-6">
         {entry.data.snippet}
       </p>
 
@@ -134,7 +134,7 @@ const breadcrumbSchema = {
             loading="lazy"
             decoding="async"
           />
-          <span class="font-bold text-slate-800">{entry.data.author}</span>
+          <span class="font-semibold text-slate-900">{entry.data.author}</span>
         </div>
         <span class="text-slate-300">•</span>
         <time datetime={entry.data.publishDate.toISOString()} class="font-mono text-xs text-slate-500">
@@ -145,8 +145,8 @@ const breadcrumbSchema = {
           })}
         </time>
         <span class="text-slate-300">•</span>
-        <span class="inline-flex items-center gap-1.5 font-mono text-xs text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
-          <Icon name="bx:time" class="w-3.5 h-3.5 text-emerald-600" />
+        <span class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">
+          <Icon name="bx:time" class="w-3.5 h-3.5 text-slate-500" />
           <span>{isEn ? `${readingMinutes} min estimated read` : `${readingMinutes} min de lectura estimada`}</span>
         </span>
       </div>
@@ -157,7 +157,7 @@ const breadcrumbSchema = {
       <!-- Article Content -->
       <article class="lg:col-span-8 min-w-0">
         {entry.data.image && entry.data.image.src && (
-          <div class="mb-10 rounded-2xl overflow-hidden border border-slate-200/90 shadow-md bg-slate-100">
+          <div class="mb-10 rounded-3xl overflow-hidden border border-slate-200/90 shadow-2xs bg-slate-100">
             <img
               src={entry.data.image.src}
               alt={entry.data.image.alt}
@@ -172,19 +172,19 @@ const breadcrumbSchema = {
 
         <!-- Mobile Table of Contents -->
         {filteredHeadings.length > 0 && (
-          <details class="lg:hidden mb-8 p-4 rounded-xl bg-white border border-slate-200/90 shadow-2xs">
+          <details class="lg:hidden mb-8 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
             <summary class="font-mono text-sm font-semibold text-slate-800 cursor-pointer flex items-center justify-between">
               <span class="flex items-center gap-2">
-                <Icon name="bx:book-content" class="w-4 h-4 text-indigo-600" />
+                <Icon name="bx:book-content" class="w-4 h-4 text-slate-950" />
                 <span>{isEn ? "Table of contents" : "Tabla de contenidos"}</span>
               </span>
-              <span class="text-xs text-indigo-600 font-bold">{isEn ? "Show / hide" : "Mostrar / ocultar"}</span>
+              <span class="text-xs text-slate-950 font-bold">{isEn ? "Show / hide" : "Mostrar / ocultar"}</span>
             </summary>
             <nav class="mt-3 space-y-1.5 text-sm">
               {filteredHeadings.map((h) => (
                 <a
                   href={`#${h.slug}`}
-                  class={`block py-1 text-slate-600 hover:text-indigo-600 transition-colors ${
+                  class={`block py-1 text-slate-600 hover:text-slate-950 transition-colors ${
                     h.depth === 3 ? "pl-4 text-xs text-slate-500" : "font-medium"
                   }`}
                 >
@@ -195,7 +195,7 @@ const breadcrumbSchema = {
           </details>
         )}
 
-        <div class="prose prose-slate prose-indigo max-w-none prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900 prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-code:text-indigo-700 prose-code:font-mono prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
+        <div class="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-headings:font-light prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-slate-950 prose-a:underline hover:prose-a:bg-[#FFFF00]/50 prose-code:text-slate-900 prose-code:font-mono prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800">
           <Content />
         </div>
 
@@ -203,15 +203,15 @@ const breadcrumbSchema = {
         <div class="mt-10 pt-6 border-t border-slate-200/90 flex flex-wrap gap-2 items-center">
           <span class="text-xs font-mono text-slate-500">{isEn ? "Tags:" : "Etiquetas:"}</span>
           {entry.data.tags.map((tag) => (
-            <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-700 hover:border-slate-300 transition-colors">
+            <span class="text-xs font-mono px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-slate-700 hover:border-slate-950 transition-colors">
               #{tag}
             </span>
           ))}
         </div>
 
         <!-- Share & Interaction Bar -->
-        <div class="mt-8 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-wrap items-center justify-between gap-4">
-          <span class="text-sm font-semibold text-slate-800">{isEn ? "Found this article useful?" : "¿Te ha resultado útil este artículo?"}</span>
+        <div class="mt-8 p-5 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-wrap items-center justify-between gap-4">
+          <span class="text-sm font-semibold text-slate-900">{isEn ? "Found this article useful?" : "¿Te ha resultado útil este artículo?"}</span>
           <div class="flex items-center gap-2">
             <button
               id="copy-link-btn"
@@ -246,38 +246,38 @@ const breadcrumbSchema = {
           <img
             src="/img/4.webp"
             alt="Jaume Tur"
-            class="w-20 h-20 rounded-2xl border border-indigo-200 bg-indigo-50/50 p-1 object-contain shrink-0"
+            class="w-20 h-20 rounded-2xl border border-slate-200 bg-slate-50 p-1 object-contain shrink-0"
             width="80"
             height="80"
             loading="lazy"
             decoding="async"
           />
           <div>
-            <h3 class="text-lg font-bold text-slate-900 flex items-center justify-center sm:justify-start gap-2">
-              <span>Jaume Tur</span>
-              <span class="text-xs font-mono font-normal px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800">
+            <h3 class="text-lg font-light text-slate-950 flex items-center justify-center sm:justify-start gap-2">
+              <span class="font-semibold">Jaume Tur</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-[#FFFF00] border border-slate-950/20 text-slate-950">
                 Frontend & Web Apps
               </span>
             </h3>
-            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+            <p class="text-sm text-slate-600 font-light mt-2 leading-relaxed">
               {isEn
                 ? "Web developer based in Valencia specialized in Angular, TypeScript, 60 FPS performance, WCAG AA accessibility, and CI/CD pipeline automation. Sharing battle-tested production lessons."
                 : "Desarrollador web en Valencia especializado en Angular, TypeScript, rendimiento a 60 FPS, accesibilidad WCAG AA y automatización de pipelines CI/CD. Comparte aprendizajes prácticos del trabajo diario en producción."}
             </p>
             <div class="mt-3 flex items-center justify-center sm:justify-start gap-4 text-xs font-mono text-slate-500">
-              <a href="https://github.com/jaumetur3W" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 transition-colors flex items-center gap-1">
+              <a href="https://github.com/jaumetur3W" target="_blank" rel="noopener noreferrer" class="hover:text-slate-950 transition-colors flex items-center gap-1">
                 <Icon name="bx:bxl-github" class="w-3.5 h-3.5" />
                 <span>GitHub</span>
               </a>
-              <a href="https://x.com/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 transition-colors flex items-center gap-1">
+              <a href="https://x.com/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-slate-950 transition-colors flex items-center gap-1">
                 <Icon name="simple-icons:x" class="w-3 h-3" />
                 <span>@jautur</span>
               </a>
-              <a href="https://linkedin.com/in/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 transition-colors flex items-center gap-1">
+              <a href="https://linkedin.com/in/jautur" target="_blank" rel="noopener noreferrer" class="hover:text-slate-950 transition-colors flex items-center gap-1">
                 <Icon name="bx:bxl-linkedin" class="w-3.5 h-3.5" />
                 <span>LinkedIn</span>
               </a>
-              <a href={href("/contact")} class="hover:text-indigo-600 transition-colors flex items-center gap-1">
+              <a href={href("/contact")} class="hover:text-slate-950 transition-colors flex items-center gap-1">
                 <Icon name="bx:envelope" class="w-3.5 h-3.5" />
                 <span>{isEn ? "Contact" : "Contacto"}</span>
               </a>
@@ -286,17 +286,16 @@ const breadcrumbSchema = {
         </div>
 
         <!-- Lead Magnet: Checklist de Rendiment & Accessibilitat -->
-        <div class="mt-10 p-6 sm:p-8 rounded-3xl bg-[#090D16] text-white border border-slate-800 shadow-2xl relative overflow-hidden">
-          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="mt-10 p-6 sm:p-8 rounded-3xl bg-slate-950 text-white border border-slate-900 shadow-xl relative overflow-hidden">
           <div class="relative z-10">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 mb-3 shadow-2xs">
-              <Icon name="bx:gift" class="w-3.5 h-3.5 text-emerald-400" />
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] border border-slate-950/20 text-slate-950 mb-3 shadow-2xs">
+              <Icon name="bx:gift" class="w-3.5 h-3.5" />
               <span>{isEn ? "Free Resource for Developers" : "Recurso Gratuito para Desarrolladores"}</span>
             </span>
-            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+            <h3 class="text-xl sm:text-2xl font-light text-white mb-2 tracking-tight">
               {isEn ? "Performance (60 FPS) & Accessibility (WCAG AA) Checklist" : "Checklist de Rendimiento (60 FPS) y Accesibilidad (WCAG AA)"}
             </h3>
-            <p class="text-sm text-slate-300 mb-5 leading-relaxed max-w-xl">
+            <p class="text-xs sm:text-sm text-slate-300 font-light mb-5 leading-relaxed max-w-xl">
               {isEn ? "The 25 audit checkpoints applied before deploying any Angular/TypeScript web application or SPA." : "Los 25 puntos de auditoría que aplico en producción antes de desplegar cualquier aplicación web o SPA en Angular/TypeScript."}
             </p>
             <form
@@ -309,14 +308,14 @@ const breadcrumbSchema = {
                 name="email"
                 placeholder={isEn ? "your.email@company.com" : "tu.correo@empresa.com"}
                 required
-                class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 flex-1 font-mono"
+                class="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-slate-500 flex-1 font-mono"
               />
               <button
                 type="submit"
-                class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all shadow-lg shadow-indigo-600/30 whitespace-nowrap flex items-center justify-center gap-1.5 cursor-pointer"
+                class="px-5 py-2.5 rounded-xl bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition-all shadow-2xs whitespace-nowrap flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>{isEn ? "Download checklist" : "Descargar la lista"}</span>
-                <Icon name="bx:download" class="w-4 h-4 text-white" />
+                <Icon name="bx:download" class="w-4 h-4 text-slate-950" />
               </button>
             </form>
           </div>
@@ -324,25 +323,25 @@ const breadcrumbSchema = {
 
         <!-- Contextual B2B Consulting CTA -->
         <div class="mt-8 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs text-center">
-          <h4 class="text-lg font-bold text-slate-900 mb-2">
+          <h4 class="text-lg font-light text-slate-950 mb-2">
             {isEn ? "Facing a similar challenge at your business?" : "¿Tienes un reto similar en tu empresa o negocio?"}
           </h4>
-          <p class="text-sm text-slate-600 mb-4 max-w-lg mx-auto">
+          <p class="text-xs sm:text-sm text-slate-600 font-light mb-4 max-w-lg mx-auto leading-relaxed">
             {isEn ? "I develop custom web apps, fast websites, and help teams optimize performance and CI/CD automation in Valencia or remotely." : "Desarrollo aplicaciones web a medida, diseño páginas web rápidas y ayudo a negocios a optimizar rendimiento y automatización en Xàtiva, Valencia o en remoto."}
           </p>
           <div class="flex flex-wrap items-center justify-center gap-3">
             <a
               href={href("/pricing")}
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 hover:border-slate-400 bg-white text-slate-900 font-bold text-xs transition shadow-2xs"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 hover:border-slate-950 bg-white text-slate-800 hover:text-slate-950 font-mono text-xs font-semibold transition shadow-2xs"
             >
-              <Icon name="bx:purchase-tag" class="w-4 h-4 text-indigo-600" />
+              <Icon name="bx:purchase-tag" class="w-4 h-4 text-slate-950" />
               <span>{isEn ? "Check services & pricing" : "Consultar servicios y precios"}</span>
             </a>
             <a
               href={href("/contact")}
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs transition shadow-md"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition shadow-2xs"
             >
-              <Icon name="bx:message-square-dots" class="w-4 h-4 text-indigo-400" />
+              <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-950" />
               <span>{isEn ? "Talk about your project" : "Hablar de tu proyecto"}</span>
             </a>
           </div>
@@ -351,23 +350,23 @@ const breadcrumbSchema = {
         <!-- Related Posts -->
         {relatedPosts.length > 0 && (
           <div class="mt-14">
-            <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-              <Icon name="bx:layer" class="w-4 h-4 text-indigo-600" />
+            <h3 class="text-xl font-light text-slate-950 mb-6 flex items-center gap-2">
+              <Icon name="bx:layer" class="w-4 h-4 text-slate-950" />
               <span>{isEn ? "Related articles" : "Artículos relacionados"}</span>
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {relatedPosts.map((rel) => (
                 <a
                   href={href(`/blog/${rel.id}`)}
-                  class="group block p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 transition-all shadow-2xs hover:shadow-md"
+                  class="group block p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 transition-all shadow-2xs hover:shadow-md"
                 >
-                  <span class="text-xs font-mono text-indigo-600 font-bold uppercase tracking-wider">
+                  <span class="text-xs font-mono text-slate-500 font-semibold uppercase tracking-wider">
                     {rel.data.category}
                   </span>
-                  <h4 class="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mt-1 leading-snug">
+                  <h4 class="text-base font-light text-slate-950 group-hover:text-black transition-colors mt-1 leading-snug">
                     {rel.data.title}
                   </h4>
-                  <p class="text-xs text-slate-500 mt-2 line-clamp-2">
+                  <p class="text-xs text-slate-500 font-light mt-2 line-clamp-2">
                     {rel.data.snippet}
                   </p>
                 </a>
@@ -379,7 +378,7 @@ const breadcrumbSchema = {
         <div class="text-center mt-12 mb-16">
           <a
             href={href("/blog")}
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 bg-white hover:bg-slate-100 text-slate-800 font-mono text-xs transition-colors shadow-2xs"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 bg-white hover:border-slate-950 text-slate-800 hover:text-slate-950 font-mono text-xs font-semibold transition-colors shadow-2xs"
           >
             <span>{isEn ? "← Back to all articles" : "← Volver a todos los artículos"}</span>
           </a>
@@ -390,16 +389,16 @@ const breadcrumbSchema = {
       <aside class="hidden lg:block lg:col-span-4 sticky top-24 space-y-6">
         {filteredHeadings.length > 0 && (
           <div class="p-5 rounded-3xl bg-white border border-slate-200/90 shadow-2xs">
-            <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
-              <Icon name="bx:book-content" class="w-4 h-4 text-indigo-600" />
+            <h4 class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
+              <Icon name="bx:book-content" class="w-4 h-4 text-slate-950" />
               <span>{isEn ? "Table of contents" : "Tabla de contenidos"}</span>
             </h4>
             <nav class="space-y-2 text-xs">
               {filteredHeadings.map((h) => (
                 <a
                   href={`#${h.slug}`}
-                  class={`block text-slate-600 hover:text-indigo-600 transition-colors leading-relaxed ${
-                    h.depth === 3 ? "pl-3 text-slate-400" : "font-medium"
+                  class={`block text-slate-600 hover:text-slate-950 transition-colors leading-relaxed ${
+                    h.depth === 3 ? "pl-3 text-slate-400 font-light" : "font-medium"
                   }`}
                 >
                   {h.text}
@@ -413,16 +412,16 @@ const breadcrumbSchema = {
         <div class="p-5 rounded-3xl bg-white border border-slate-200/90 shadow-2xs text-xs text-slate-600 space-y-3 font-mono">
           <div class="flex items-center justify-between">
             <span class="text-slate-500">{isEn ? "Technology:" : "Tecnología:"}</span>
-            <span class="text-slate-900 font-bold">{entry.data.category}</span>
+            <span class="text-slate-900 font-semibold">{entry.data.category}</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-slate-500">{isEn ? "Reading time:" : "Lectura:"}</span>
-            <span class="text-emerald-700 font-bold">~{readingMinutes} min</span>
+            <span class="text-slate-900 font-semibold">~{readingMinutes} min</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-slate-500">{isEn ? "Status:" : "Estado:"}</span>
-            <span class="text-emerald-700 font-bold flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+            <span class="text-slate-900 font-semibold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#FFFF00] border border-slate-950/40 inline-block"></span>
               <span>{isEn ? "Production" : "Producción"}</span>
             </span>
           </div>
@@ -431,14 +430,14 @@ const breadcrumbSchema = {
         <!-- Workflow Tool Promo Pill -->
         <a
           href={href("/tools/workflow-generator")}
-          class="block p-5 rounded-3xl bg-indigo-50/70 border border-indigo-200/80 hover:border-indigo-300 transition-all text-xs shadow-2xs group"
+          class="block p-5 rounded-3xl bg-slate-50 border border-slate-200/90 hover:border-slate-950 transition-all text-xs shadow-2xs group"
         >
-          <span class="text-indigo-700 font-mono font-semibold flex items-center gap-1.5 mb-1">
-            <Icon name="bx:wrench" class="w-3.5 h-3.5 text-indigo-600 group-hover:rotate-45 transition-transform" />
+          <span class="text-slate-900 font-mono font-semibold flex items-center gap-1.5 mb-1">
+            <Icon name="bx:wrench" class="w-3.5 h-3.5 text-slate-950 group-hover:rotate-45 transition-transform" />
             <span>{isEn ? "Free tool" : "Herramienta gratuita"}</span>
           </span>
-          <p class="text-slate-900 font-bold">{isEn ? "CI/CD Workflow Generator" : "Generador de Workflows CI/CD"}</p>
-          <p class="text-slate-600 text-[11px] mt-1">{isEn ? "Configure Astro and Angular pipelines with one click." : "Configura pipelines para Astro y Angular con un clic."}</p>
+          <p class="text-slate-950 font-semibold">{isEn ? "CI/CD Workflow Generator" : "Generador de Workflows CI/CD"}</p>
+          <p class="text-slate-600 font-light text-[11px] mt-1">{isEn ? "Configure Astro and Angular pipelines with one click." : "Configura pipelines para Astro y Angular con un clic."}</p>
         </a>
       </aside>
     </div>

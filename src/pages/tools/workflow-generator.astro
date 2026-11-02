@@ -27,43 +27,43 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
       <div class="max-w-5xl mx-auto mt-12 grid lg:grid-cols-12 gap-8 items-start">
         
         <!-- Controls Column -->
-        <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] space-y-6">
+        <div class="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-2xs space-y-6">
           <div class="flex items-center gap-2 pb-4 border-b border-slate-100">
-            <Icon name="bx:cog" class="w-5 h-5 text-indigo-600" />
-            <h2 class="font-extrabold text-slate-900 text-base">{isEn ? "Pipeline configuration" : "Configuración del pipeline"}</h2>
+            <Icon name="bx:cog" class="w-5 h-5 text-slate-950" />
+            <h2 class="font-light text-slate-950 text-base">{isEn ? "Pipeline configuration" : "Configuración del pipeline"}</h2>
           </div>
 
           <!-- Framework Selection -->
           <div>
-            <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
+            <label class="block text-xs font-mono font-semibold uppercase text-slate-700 mb-2">
               {isEn ? "1. Framework / stack" : "1. Framework / stack"}
             </label>
             <div class="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 data-framework="astro"
-                class="framework-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition">
-                <Icon name="simple-icons:astro" class="w-4 h-4 text-orange-500" />
+                class="framework-btn active p-2.5 rounded-xl border border-slate-950 bg-slate-950 text-white font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer shadow-2xs">
+                <Icon name="simple-icons:astro" class="w-4 h-4 text-[#FFFF00]" />
                 <span>Astro (SSG)</span>
               </button>
               <button
                 type="button"
                 data-framework="angular"
-                class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                class="framework-btn p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-slate-950 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:angular" class="w-4 h-4 text-red-500" />
                 <span>Angular SPA</span>
               </button>
               <button
                 type="button"
                 data-framework="react"
-                class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                class="framework-btn p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-slate-950 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:react" class="w-4 h-4 text-cyan-500" />
                 <span>React / Vite</span>
               </button>
               <button
                 type="button"
                 data-framework="html"
-                class="framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                class="framework-btn p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-slate-950 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:html5" class="w-4 h-4 text-amber-500" />
                 <span>HTML & Tailwind</span>
               </button>
@@ -72,21 +72,21 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
 
           <!-- Target Platform -->
           <div>
-            <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
+            <label class="block text-xs font-mono font-semibold uppercase text-slate-700 mb-2">
               {isEn ? "2. Deployment target" : "2. Destino del despliegue"}
             </label>
             <div class="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 data-target="pages"
-                class="target-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition">
-                <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-800" />
+                class="target-btn active p-2.5 rounded-xl border border-slate-950 bg-slate-950 text-white font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer shadow-2xs">
+                <Icon name="bx:bxl-github" class="w-4 h-4 text-white" />
                 <span>GitHub Pages</span>
               </button>
               <button
                 type="button"
                 data-target="vercel"
-                class="target-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition">
+                class="target-btn p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-slate-950 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:vercel" class="w-4 h-4 text-slate-900" />
                 <span>Vercel Edge</span>
               </button>
@@ -95,46 +95,46 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
 
           <!-- Feature Toggles -->
           <div>
-            <label class="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">
+            <label class="block text-xs font-mono font-semibold uppercase text-slate-700 mb-2">
               {isEn ? "3. Quality and caching" : "3. Calidad y caché"}
             </label>
             <div class="space-y-2">
-              <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
-                <input type="checkbox" id="check-lint" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+              <label class="flex items-center gap-2.5 text-xs font-light text-slate-700 cursor-pointer">
+                <input type="checkbox" id="check-lint" checked class="rounded accent-slate-950" />
                 <span>{isEn ? "Include code linter check" : "Incluir el linter y la comprobación del código"}</span>
               </label>
-              <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
-                <input type="checkbox" id="check-ts" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+              <label class="flex items-center gap-2.5 text-xs font-light text-slate-700 cursor-pointer">
+                <input type="checkbox" id="check-ts" checked class="rounded accent-slate-950" />
                 <span>{isEn ? "Strict TypeScript type-checking" : "Verificación estricta de tipos (TypeScript)"}</span>
               </label>
-              <label class="flex items-center gap-2.5 text-xs font-medium text-slate-700 cursor-pointer">
-                <input type="checkbox" id="check-cache" checked class="rounded text-indigo-600 focus:ring-indigo-500" />
+              <label class="flex items-center gap-2.5 text-xs font-light text-slate-700 cursor-pointer">
+                <input type="checkbox" id="check-cache" checked class="rounded accent-slate-950" />
                 <span>{isEn ? "Smart npm dependencies caching" : "Caché inteligente de dependencias npm"}</span>
               </label>
             </div>
           </div>
 
-          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-mono flex items-start gap-2">
-            <Icon name="bx:info-circle" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-mono flex items-start gap-2">
+            <Icon name="bx:info-circle" class="w-4 h-4 text-slate-950 shrink-0 mt-0.5" />
             <span><strong>{isEn ? "How to use:" : "Cómo utilizarlo:"}</strong> {isEn ? "Save this file at" : "Guarda este archivo en"} <code>.github/workflows/deploy.yml</code> {isEn ? "in your repository." : "en tu repositorio."}</span>
           </div>
         </div>
 
         <!-- Output YAML Code Preview Column -->
-        <div class="lg:col-span-7 bg-[#090D16] rounded-3xl border border-slate-800/90 shadow-xl overflow-hidden font-mono text-xs flex flex-col">
+        <div class="lg:col-span-7 bg-slate-950 rounded-3xl border border-slate-900 shadow-xl overflow-hidden font-mono text-xs flex flex-col">
           <div class="bg-slate-900/90 px-5 py-3.5 flex items-center justify-between border-b border-slate-800">
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#FFFF00] inline-block"></span>
               <span class="text-slate-400 text-xs ml-2">// .github/workflows/deploy.yml</span>
             </div>
             
             <button
               id="copy-yaml-btn"
               type="button"
-              class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer">
-              <Icon name="bx:copy" class="w-3.5 h-3.5" />
+              class="px-3.5 py-1.5 rounded-xl bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition flex items-center gap-1.5 shadow-2xs cursor-pointer">
+              <Icon name="bx:copy" class="w-3.5 h-3.5 text-slate-950" />
               <span>{isEn ? "Copy YAML" : "Copiar YAML"}</span>
             </button>
           </div>
@@ -145,22 +145,22 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
       </div>
 
       <!-- Lead Magnet & Community CTA -->
-      <div class="mt-16 bg-white rounded-3xl border border-slate-200/90 p-8 max-w-4xl mx-auto shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="mt-16 bg-white rounded-3xl border border-slate-200/90 p-8 max-w-4xl mx-auto shadow-2xs flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 mb-2 inline-block">
+          <span class="text-xs font-mono font-semibold text-slate-950 bg-[#FFFF00] px-3 py-1 rounded-full border border-slate-950/20 mb-3 inline-block">
             {isEn ? "FREE RESOURCE FOR DEVELOPERS" : "RECURSO GRATUITO PARA DESARROLLADORES"}
           </span>
-          <h3 class="text-xl font-bold text-slate-900">
+          <h3 class="text-xl font-light text-slate-950 tracking-tight">
             {isEn ? "Want a production performance and WCAG AA checklist?" : "¿Quieres una lista de verificación de rendimiento y WCAG AA para producción?"}
           </h3>
-          <p class="text-xs text-slate-600 mt-1 max-w-md">
+          <p class="text-xs sm:text-sm text-slate-600 font-light mt-1 max-w-md leading-relaxed">
             {isEn ? "Explore practical guides used in real-world projects to reach 60 FPS and avoid accessibility pitfalls." : "Descarga la guía práctica que utilizo en proyectos reales para alcanzar 60 FPS y evitar errores de accesibilidad."}
           </p>
         </div>
         <a
           href={blogPath}
-          class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-indigo-600 transition shadow-xs shrink-0">
-          <Icon name="bx:book-open" class="w-4 h-4 text-white" />
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition-all shadow-2xs shrink-0">
+          <Icon name="bx:book-open" class="w-4 h-4" />
           <span>{isEn ? "Read the blog" : "Leer el blog"}</span>
         </a>
       </div>
@@ -219,9 +219,9 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
   document.querySelectorAll(".framework-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".framework-btn").forEach((b) => {
-        b.className = "framework-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition";
+        b.className = "framework-btn p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-slate-950 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer";
       });
-      btn.className = "framework-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition";
+      btn.className = "framework-btn active p-2.5 rounded-xl border border-slate-950 bg-slate-950 text-white font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer shadow-2xs";
       currentFramework = btn.getAttribute("data-framework") || "astro";
       generateYaml();
     });
@@ -231,9 +231,9 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
   document.querySelectorAll(".target-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".target-btn").forEach((b) => {
-        b.className = "target-btn p-2.5 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs text-left flex items-center gap-2 hover:bg-slate-50 transition";
+        b.className = "target-btn p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-slate-950 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer";
       });
-      btn.className = "target-btn active p-2.5 rounded-xl border border-indigo-600 bg-indigo-50/70 text-indigo-900 font-semibold text-xs text-left flex items-center gap-2 transition";
+      btn.className = "target-btn active p-2.5 rounded-xl border border-slate-950 bg-slate-950 text-white font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer shadow-2xs";
       currentTarget = btn.getAttribute("data-target") || "pages";
       generateYaml();
     });
@@ -254,10 +254,10 @@ const blogPath = localizePath("/blog", isEn ? "en" : "es");
           const original = copyBtn.innerHTML;
           const isEnglish = document.documentElement.lang.startsWith("en");
           copyBtn.innerHTML = isEnglish ? "<span>✓ Copied!</span>" : "<span>✓ ¡Copiado!</span>";
-          copyBtn.className = "px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer";
+          copyBtn.className = "px-3.5 py-1.5 rounded-xl bg-[#FFFF00] text-slate-950 font-mono text-xs font-semibold border border-slate-950 transition flex items-center gap-1.5 shadow-2xs cursor-pointer";
           setTimeout(() => {
             copyBtn.innerHTML = original;
-            copyBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer";
+            copyBtn.className = "px-3.5 py-1.5 rounded-xl bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition flex items-center gap-1.5 shadow-2xs cursor-pointer";
           }, 2000);
         });
       }

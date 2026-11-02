@@ -159,20 +159,17 @@ const faqSchema = {
     </Sectionhead>
 
     <!-- Indicadores -->
-    <div class="flex flex-wrap items-center justify-center gap-3 mt-8 mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
+    <div class="flex flex-wrap items-center justify-center gap-3 mt-8 mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90 shadow-2xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
         <span>{isEn ? "Availability for projects: active" : "Disponibilidad para proyectos: activa"}</span>
       </div>
-      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-50 text-amber-900 border border-amber-300 shadow-2xs">
-        <Icon name="bx:star" class="w-3.5 h-3.5 text-amber-600" />
-        <span>{isEn ? "Featured: local digitization & web menu" : "Propuesta estrella: paquete de digitalización local y carta web"}</span>
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-2xs">
+        <Icon name="bx:star" class="w-3.5 h-3.5 text-slate-950" />
+        <span>{isEn ? "Featured: local digitization & web menu" : "Propuesta destacada: digitalización local y carta web"}</span>
       </div>
-      <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-indigo-50 text-indigo-800 border border-indigo-200/80 shadow-2xs">
-        <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-indigo-600" />
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90 shadow-2xs">
+        <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-slate-700" />
         <span>{isEn ? "100% auditable code & 60 FPS" : "100% código auditable y 60 FPS"}</span>
       </div>
     </div>
@@ -188,12 +185,12 @@ const faqSchema = {
             <div
               class={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative ${
                 pkg.isFeatured
-                  ? "bg-white border-2 border-amber-400 shadow-xl ring-4 ring-amber-400/10 lg:-translate-y-2"
-                  : "bg-white border border-slate-200/90 shadow-sm hover:border-indigo-300 hover:shadow-md"
+                  ? "bg-white border-2 border-slate-950 shadow-xl ring-4 ring-[#FFFF00]/25 lg:-translate-y-2"
+                  : "bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md"
               }`}>
               {pkg.isFeatured && (
                 <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span class="px-4 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-amber-400 text-slate-950 shadow-sm border border-amber-500 flex items-center gap-1">
+                  <span class="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 shadow-sm border border-slate-950/20 flex items-center gap-1">
                     <Icon name="bx:star" class="w-3.5 h-3.5 fill-current" />
                     <span>{pkg.badge}</span>
                   </span>
@@ -201,18 +198,18 @@ const faqSchema = {
               )}
 
               <div>
-                <div class="flex items-center justify-between gap-4 mb-4">
-                  <div class="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-center">
-                    <Icon name={pkg.icon} class={`w-6 h-6 ${pkg.iconColor}`} />
+                <div class="flex items-center justify-between gap-4 mb-5">
+                  <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-950">
+                    <Icon name={pkg.icon} class="w-6 h-6 text-slate-950" />
                   </div>
                   {!pkg.isFeatured && (
-                    <span class={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border ${pkg.badgeColor}`}>
+                    <span class="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border border-slate-200 text-slate-500">
                       {pkg.badge}
                     </span>
                   )}
                 </div>
 
-                <h3 class="font-extrabold text-xl text-slate-900 tracking-tight leading-snug">
+                <h3 class="font-light text-2xl text-slate-950 tracking-tight leading-snug">
                   {pkg.name}
                 </h3>
                 
@@ -221,34 +218,34 @@ const faqSchema = {
                 </p>
 
                 <!-- Desglose de Precios -->
-                <div class="my-6 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/60 space-y-2">
+                <div class="my-6 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2">
                   <div class="flex items-baseline justify-between">
                     <span class="text-xs font-mono text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"}</span>
-                    <span class="text-2xl font-black text-slate-900">{pkg.creationPrice}</span>
+                    <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
                   </div>
-                  <div class="flex items-baseline justify-between pt-1 border-t border-slate-200/60">
+                  <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
                     <span class="text-xs font-mono text-slate-500">{isEn ? "Monthly maintenance:" : "Mantenimiento mensual:"}</span>
-                    <span class="text-sm font-bold text-indigo-600">{pkg.monthlyFee}</span>
+                    <span class="text-sm font-semibold text-slate-900">{pkg.monthlyFee}</span>
                   </div>
                   <div class="pt-2 border-t border-slate-200/60 text-[11px] font-mono text-slate-500">
-                    <p class="text-slate-700 font-semibold">{pkg.annualTotal}</p>
+                    <p class="text-slate-700 font-medium">{pkg.annualTotal}</p>
                     <p class="text-slate-400 mt-0.5">{pkg.dailyCostEquivalent}</p>
                   </div>
                 </div>
 
-                <p class="text-xs text-slate-600 leading-relaxed mb-6">
+                <p class="text-xs text-slate-600 leading-relaxed font-light mb-6">
                   {pkg.description}
                 </p>
 
                 <!-- Características incluidas -->
                 <div class="space-y-2.5 mb-8">
-                  <p class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+                  <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400">
                     {isEn ? "Included in scope:" : "Incluido en la propuesta:"}
                   </p>
-                  <ul class="space-y-2 text-xs text-slate-600">
+                  <ul class="space-y-2 text-xs text-slate-600 font-light">
                     {pkg.features.map((feature) => (
-                      <li class="flex items-start gap-2">
-                        <Icon name="bx:check" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <li class="flex items-start gap-2.5">
+                        <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">✓</span>
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -260,19 +257,20 @@ const faqSchema = {
               <div class="space-y-2 pt-4 border-t border-slate-100">
                 <a
                   href={detailUrl}
-                  class={`w-full inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-bold font-mono transition text-center ${
+                  class={`w-full inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-mono uppercase tracking-wider font-semibold transition-colors text-center ${
                     pkg.isFeatured
-                      ? "bg-slate-900 hover:bg-slate-800 text-white shadow-md hover:shadow-lg"
-                      : "bg-slate-100 hover:bg-slate-200 text-slate-800"
+                      ? "bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 border border-slate-950 shadow-sm"
+                      : "bg-slate-100 hover:bg-slate-950 text-slate-800 hover:text-white border border-slate-200 hover:border-slate-950"
                   }`}>
                   <span>{isEn ? "See detailed breakdown & ROI" : "Ver justificación y amortización"}</span>
-                  <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
+                  <span aria-hidden="true">→</span>
                 </a>
 
                 <a
                   href={ctaContactUrl}
-                  class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-semibold text-slate-500 hover:text-indigo-600 transition text-center">
+                  class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-mono text-slate-500 hover:text-slate-950 transition-colors text-center">
                   <span>{isEn ? "Request this package" : "Solicitar este servicio"}</span>
+                  <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>
@@ -282,15 +280,15 @@ const faqSchema = {
     </div>
 
     <!-- Muestrario de Proyectos -->
-    <div class="mt-20 max-w-5xl mx-auto">
-      <div class="text-center mb-8">
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
+    <div class="mt-24 max-w-5xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
           {isEn ? "Portfolio & Functional Demos" : "Portafolio y demos funcionales"}
         </span>
-        <h3 class="text-2xl font-bold text-slate-900 mt-2">
+        <h3 class="text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "Real, auditable software projects" : "Proyectos desarrollados y verificables"}
         </h3>
-        <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-1">
+        <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-2 font-light">
           {isEn
             ? "Each project features an in-depth case study and verifiable technical metrics:"
             : "Cada proyecto cuenta con un caso de estudio técnico y código auditable:"}
@@ -300,84 +298,84 @@ const faqSchema = {
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <a
           href={href("/projectes/avisa")}
-          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <Icon name="bx:bell" class="w-6 h-6 text-rose-500" />
-              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">{isEn ? "In production" : "En producción"}</span>
+              <Icon name="bx:bell" class="w-5 h-5 text-slate-950" />
+              <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "In production" : "En producción"}</span>
             </div>
-            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">AVISA</h4>
-            <p class="text-[11px] text-slate-500 mt-1">{isEn ? "Incident management platform with Angular Signals and WCAG AA." : "Plataforma de incidencias con Angular Signals y WCAG AA."}</p>
+            <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">AVISA</h4>
+            <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Incident management platform with Angular Signals and WCAG AA." : "Plataforma de incidencias con Angular Signals y WCAG AA."}</p>
           </div>
-          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+          <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
             <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <span aria-hidden="true">→</span>
           </span>
         </a>
 
         <a
           href={href("/projectes/pizzeria-xativa")}
-          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <Icon name="bx:restaurant" class="w-6 h-6 text-amber-500" />
-              <span class="text-[10px] font-mono text-amber-800 bg-amber-50 px-2 py-0.5 rounded font-bold">{isEn ? "Interactive demo" : "Demo interactiva"}</span>
+              <Icon name="bx:restaurant" class="w-5 h-5 text-slate-950" />
+              <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "Interactive demo" : "Demo interactiva"}</span>
             </div>
-            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pizzeria Xàtiva</h4>
-            <p class="text-[11px] text-slate-500 mt-1">{isEn ? "85 KB digital menu prototype, instant WhatsApp cart orders, and Wallet pass." : "Prototipo de carta digital de 85 KB, pedidos de muestra y pase Wallet."}</p>
+            <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">Pizzeria Xàtiva</h4>
+            <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "85 KB digital menu prototype, instant WhatsApp cart orders, and Wallet pass." : "Prototipo de carta digital de 85 KB, pedidos de muestra y pase Wallet."}</p>
           </div>
-          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+          <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
             <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <span aria-hidden="true">→</span>
           </span>
         </a>
 
         <a
           href={href("/projectes/dashboard-telemetria")}
-          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <Icon name="bx:line-chart" class="w-6 h-6 text-indigo-500" />
-              <span class="text-[10px] font-mono text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded font-bold">60 FPS</span>
+              <Icon name="bx:line-chart" class="w-5 h-5 text-slate-950" />
+              <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">60 FPS</span>
             </div>
-            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Dashboard Telemetría</h4>
-            <p class="text-[11px] text-slate-500 mt-1">{isEn ? "Real-time smooth rendering and green Core Web Vitals." : "Renderizado fluido en tiempo real y Core Web Vitals estrictos."}</p>
+            <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">Dashboard Telemetría</h4>
+            <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Real-time smooth rendering and green Core Web Vitals." : "Renderizado fluido en tiempo real y Core Web Vitals estrictos."}</p>
           </div>
-          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+          <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
             <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <span aria-hidden="true">→</span>
           </span>
         </a>
 
         <a
           href={href("/projectes/pipeline-cicd")}
-          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-indigo-400 hover:shadow-md transition group flex flex-col justify-between">
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <Icon name="bx:git-repo-forked" class="w-6 h-6 text-sky-500" />
-              <span class="text-[10px] font-mono text-sky-700 bg-sky-50 px-2 py-0.5 rounded font-bold">{isEn ? "Automated" : "Automático"}</span>
+              <Icon name="bx:git-repo-forked" class="w-5 h-5 text-slate-950" />
+              <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "Automated" : "Automático"}</span>
             </div>
-            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600 transition-colors">Pipeline CI/CD</h4>
-            <p class="text-[11px] text-slate-500 mt-1">{isEn ? "Atomic GitHub Actions releases, zero downtime, and automated tests." : "GitHub Actions atómico, sin tiempo de inactividad y con pruebas automáticas."}</p>
+            <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">Pipeline CI/CD</h4>
+            <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Atomic GitHub Actions releases, zero downtime, and automated tests." : "GitHub Actions atómico, sin tiempo de inactividad y con pruebas automáticas."}</p>
           </div>
-          <span class="text-xs font-bold text-indigo-600 mt-4 flex items-center gap-1">
+          <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
             <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-            <Icon name="bx:right-arrow-alt" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            <span aria-hidden="true">→</span>
           </span>
         </a>
       </div>
     </div>
 
     <!-- Proceso de Trabajo en 4 Fases -->
-    <div class="mt-20 max-w-5xl mx-auto">
-      <div class="text-center mb-10">
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
+    <div class="mt-24 max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
           {isEn ? "Methodology & Transparency" : "Metodología y transparencia"}
         </span>
-        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+        <h3 class="text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "How we work together, step by step" : "Cómo trabajamos juntos paso a paso"}
         </h3>
-        <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1">
+        <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2 font-light">
           {isEn
             ? "A structured, transparent engineering process to guarantee on-time delivery with zero surprises."
             : "Un proceso claro y estructurado para evitar sorpresas y cumplir los plazos."}
@@ -387,19 +385,19 @@ const faqSchema = {
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {
           workflowSteps.map((ws) => (
-            <div class="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:border-indigo-300 transition-all flex flex-col justify-between">
+            <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between mb-4">
-                  <span class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+                  <span class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-950">
                     <Icon name={ws.icon} class="w-5 h-5" />
                   </span>
-                  <span class="text-xs font-mono font-black text-slate-400">{ws.step}</span>
+                  <span class="text-xs font-mono font-semibold text-slate-400">{ws.step}</span>
                 </div>
-                <h4 class="font-bold text-slate-900 text-base mb-2">{ws.title}</h4>
-                <p class="text-xs text-slate-600 leading-relaxed">{ws.desc}</p>
+                <h4 class="font-normal text-slate-950 text-base mb-2">{ws.title}</h4>
+                <p class="text-xs text-slate-600 leading-relaxed font-light">{ws.desc}</p>
               </div>
-              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-mono text-emerald-600 font-bold">
-                <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-mono text-slate-600">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-950/20" aria-hidden="true"></span>
                 <span>{isEn ? "Verified phase" : "Fase verificada"}</span>
               </div>
             </div>
@@ -409,15 +407,15 @@ const faqSchema = {
     </div>
 
     <!-- Sección de Preguntas Frecuentes -->
-    <div class="mt-20 max-w-3xl mx-auto">
-      <div class="text-center mb-10">
-        <span class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/60">
+    <div class="mt-24 mb-16 max-w-3xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
           {isEn ? "FAQ & Inquiries" : "Preguntas y respuestas"}
         </span>
-        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
+        <h3 class="text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "Frequently Asked Questions" : "Preguntas frecuentes"}
         </h3>
-        <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-1">
+        <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2 font-light">
           {isEn
             ? "Everything you need to know before initiating a project."
             : "Todo lo que necesitas saber antes de empezar un proyecto."}
@@ -427,14 +425,14 @@ const faqSchema = {
       <div class="space-y-4">
         {
           faqs.map((faq) => (
-            <details class="group bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs open:shadow-md transition-all">
-              <summary class="font-bold text-sm text-slate-900 cursor-pointer list-none flex items-center justify-between gap-4">
+            <details class="group bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs open:shadow-md hover:border-slate-950 transition-all duration-200">
+              <summary class="font-normal text-sm sm:text-base text-slate-950 cursor-pointer list-none flex items-center justify-between gap-4">
                 <span>{faq.question}</span>
                 <span class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform">
                   <Icon name="bx:chevron-down" class="w-4 h-4 text-slate-600" />
                 </span>
               </summary>
-              <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-light border-t border-slate-100 pt-3">
                 {faq.answer}
               </p>
             </details>

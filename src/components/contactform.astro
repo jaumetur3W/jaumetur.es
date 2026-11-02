@@ -132,8 +132,8 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
     <button
       type="submit"
       id="contact-submit-btn"
-      class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow-md transition group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-      <Icon name="bx:paper-plane" class="w-4 h-4 text-indigo-400 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
+      class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+      <Icon name="bx:paper-plane" class="w-4 h-4 text-slate-400 group-hover:text-slate-950 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
       <span id="submit-btn-text">{isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada"}</span>
     </button>
   </div>

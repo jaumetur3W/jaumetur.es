@@ -91,11 +91,11 @@ const breadcrumbSchema = {
   <Container>
     <!-- Ruta de navegació / Breadcrumbs -->
     <nav aria-label={isEn ? "Breadcrumb navigation" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-      <a href={href("/")} class="hover:text-indigo-600 transition-colors">{isEn ? "Home" : "Inicio"}</a>
+      <a href={href("/")} class="hover:text-slate-950 transition-colors">{isEn ? "Home" : "Inicio"}</a>
       <span class="text-slate-300">/</span>
-      <a href={href("/pricing")} class="hover:text-indigo-600 transition-colors">{isEn ? "Services & Pricing" : "Servicios y precios"}</a>
+      <a href={href("/pricing")} class="hover:text-slate-950 transition-colors">{isEn ? "Services & Pricing" : "Servicios y precios"}</a>
       <span class="text-slate-300">/</span>
-      <span class="text-indigo-600 font-semibold">{serviceCopy.name}</span>
+      <span class="text-slate-950 font-semibold">{serviceCopy.name}</span>
     </nav>
 
     <!-- Hero de l'Oferta -->
@@ -109,41 +109,41 @@ const breadcrumbSchema = {
         </span>
       </div>
 
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-4">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-light text-slate-950 tracking-tight leading-[1.15] mb-4">
         {serviceCopy.name}
       </h1>
 
-      <p class="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed mb-8">
+      <p class="text-base sm:text-lg text-slate-600 font-light max-w-3xl leading-relaxed mb-8">
         {serviceCopy.tagline}
       </p>
 
       <!-- Caixa Destacada de Preu & Amortització Ràpida -->
-      <div class="grid lg:grid-cols-12 gap-6 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl">
+      <div class="grid lg:grid-cols-12 gap-6 bg-slate-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-900">
         <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
           <div>
-            <span class="text-[11px] font-mono uppercase tracking-wider text-indigo-300 block mb-1">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
               {isEn ? "Transparent engagement model" : "Modelo de contratación transparente"}
             </span>
             <div class="flex items-baseline gap-3 flex-wrap">
-              <span class="text-3xl sm:text-4xl font-extrabold text-white font-mono">
+              <span class="text-3xl sm:text-4xl font-light text-white font-mono">
                 {serviceCopy.creationPrice}
               </span>
-              <span class="text-xl sm:text-2xl font-bold text-amber-300 font-mono">
+              <span class="text-xl sm:text-2xl font-bold text-[#FFFF00] font-mono">
                 + {service.monthlyFee}
               </span>
-              <span class="text-xs text-slate-300 font-mono">
+              <span class="text-xs text-slate-400 font-mono">
                 {isEn ? "(maintenance included · 1-year minimum commitment)" : "(mantenimiento incluido · permanencia mínima de un año)"}
               </span>
             </div>
           </div>
 
-          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-200 space-y-1.5 leading-relaxed">
-            <div class="flex items-center gap-2 font-bold text-amber-300">
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-300 space-y-1.5 leading-relaxed font-light">
+            <div class="flex items-center gap-2 font-mono font-semibold text-[#FFFF00]">
               <Icon name="bx:trending-up" class="w-4 h-4 shrink-0" />
               <span>{isEn ? "Return on investment (ROI):" : "Retorno de la inversión:"} {serviceCopy.amortizationSummary}</span>
             </div>
-            <p class="text-slate-300 text-xs">
-              {isEn ? "Total 1st-year investment:" : "Inversión total del primer año:"} <strong class="text-white">{serviceCopy.annualTotal}</strong> ({serviceCopy.dailyCostEquivalent}).
+            <p class="text-slate-400 text-xs font-mono">
+              {isEn ? "Total 1st-year investment:" : "Inversión total del primer año:"} <strong class="text-white font-bold">{serviceCopy.annualTotal}</strong> ({serviceCopy.dailyCostEquivalent}).
             </p>
           </div>
         </div>
@@ -151,7 +151,7 @@ const breadcrumbSchema = {
         <div class="lg:col-span-5 flex flex-col justify-center sm:items-end gap-3 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-6">
           <a
             href={href(`/contact?servei=${service.id}`)}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-950 bg-[#FFFF00] hover:bg-yellow-400 transition-all duration-200 text-sm shadow-md hover:scale-[1.02] text-center"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-slate-950 bg-[#FFFF00] hover:bg-[#f2d900] border border-slate-950 shadow-2xs hover:shadow-md transition-all text-center"
           >
             <Icon name="bx:rocket" class="w-4 h-4" />
             <span>{serviceCopy.ctaText}</span>
@@ -163,19 +163,19 @@ const breadcrumbSchema = {
       </div>
 
       {service.id === "digitalitzacio-local" && (
-        <div class="mt-6 p-5 rounded-2xl bg-amber-50/80 border border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+        <div class="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-200/70 flex items-center justify-center shrink-0 text-amber-900 font-bold">
+            <div class="w-10 h-10 rounded-xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shrink-0 text-slate-950 font-bold">
               <Icon name="bx:restaurant" class="w-5 h-5" />
             </div>
             <div>
-              <strong class="text-amber-950 font-bold block">{isEn ? "Hands-on Showcase: Pizzeria in Xàtiva" : "Demostración práctica: Pizzería en Xàtiva"}</strong>
-              <span class="text-amber-900 text-xs">{isEn ? "Discover how replacing slow PDF downloads with an instant 85 KB web menu boosts diner retention." : "Descubre cómo sustituir los PDF pesados por una carta web interactiva de solo 85 KB."}</span>
+              <strong class="text-slate-950 font-semibold block">{isEn ? "Hands-on Showcase: Pizzeria in Xàtiva" : "Demostración práctica: Pizzería en Xàtiva"}</strong>
+              <span class="text-slate-600 font-light text-xs">{isEn ? "Discover how replacing slow PDF downloads with an instant 85 KB web menu boosts diner retention." : "Descubre cómo sustituir los PDF pesados por una carta web interactiva de solo 85 KB."}</span>
             </div>
           </div>
           <a
             href={href("/projectes/pizzeria-xativa")}
-            class="shrink-0 inline-flex items-center gap-1.5 font-bold font-mono text-amber-950 bg-amber-200 hover:bg-amber-300 px-3.5 py-2 rounded-xl transition text-xs"
+            class="shrink-0 inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-slate-950 bg-white hover:border-slate-950 border border-slate-200 px-3.5 py-2 rounded-xl transition shadow-2xs"
           >
             <span>{isEn ? "View demo case study" : "Ver el caso de estudio de la demo"}</span>
             <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
@@ -187,35 +187,35 @@ const breadcrumbSchema = {
     <!-- SECCIÓ 1: PER QUÈ AQUEST PREU? (Desglossament de cada euro) -->
     <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="why-price-heading">
       <div class="max-w-3xl mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-slate-100 text-slate-800 border border-slate-200 mb-3">
           <Icon name="bx:coin-stack" class="w-4 h-4" />
           <span>{isEn ? "Total Transparency" : "Transparencia radical"}</span>
         </div>
-        <h2 id="why-price-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 id="why-price-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "The rationale behind our pricing: what are you paying for?" : "El motivo de cada precio: ¿qué estás pagando exactamente?"}
         </h2>
-        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
           {isEn ? "Far from inflated agency retainers or opaque templates, every fee represents hands-on engineering, clean code, and operational peace of mind." : "Lejos de tarifas infladas o precios opacos de agencia, cada euro responde a horas de ingeniería, código útil y tranquilidad técnica."}
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Entrada / Creació -->
-        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:border-indigo-300 transition-colors">
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-2xs hover:border-slate-950 transition-colors">
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">{isEn ? "Upfront fee" : "Cuota inicial"}</span>
-            <span class="text-xl font-bold font-mono text-indigo-950">{serviceCopy.creationPrice}</span>
+            <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">{isEn ? "Upfront fee" : "Cuota inicial"}</span>
+            <span class="text-xl font-bold font-mono text-slate-950">{serviceCopy.creationPrice}</span>
           </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">
+          <h3 class="text-lg font-light text-slate-950 mb-2">
             {isEn ? "What upfront creation covers:" : "Qué incluye la creación inicial:"}
           </h3>
-          <p class="text-xs text-slate-500 mb-5 leading-relaxed">
+          <p class="text-xs text-slate-500 font-light mb-5 leading-relaxed">
             {isEn ? "We architect and develop clean software from scratch, with zero purchased template bloat and zero superfluous dependencies." : "Diseñamos y desarrollamos una arquitectura limpia desde cero, sin cargar plantillas compradas ni miles de líneas de JavaScript innecesarias."}
           </p>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-700 font-light">
             {serviceCopy.whyThisPrice.creationBreakdown.map((item) => (
               <li class="flex items-start gap-2.5">
-                <Icon name="bx:check-circle" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <Icon name="bx:check-circle" class="w-4 h-4 text-slate-950 shrink-0 mt-0.5" />
                 <span>{item}</span>
               </li>
             ))}
@@ -223,21 +223,21 @@ const breadcrumbSchema = {
         </div>
 
         <!-- Mensualitat -->
-        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:border-indigo-300 transition-colors">
+        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-2xs hover:border-slate-950 transition-colors">
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">{isEn ? "Monthly fee" : "Cuota mensual"}</span>
-            <span class="text-xl font-bold font-mono text-indigo-600">+{service.monthlyFee}</span>
+            <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">{isEn ? "Monthly fee" : "Cuota mensual"}</span>
+            <span class="text-xl font-bold font-mono text-slate-950">+{service.monthlyFee}</span>
           </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">
+          <h3 class="text-lg font-light text-slate-950 mb-2">
             {isEn ? "What ongoing maintenance covers:" : "Qué incluye el mantenimiento continuo:"}
           </h3>
-          <p class="text-xs text-slate-500 mb-5 leading-relaxed">
+          <p class="text-xs text-slate-500 font-light mb-5 leading-relaxed">
             {isEn ? "A digital product is not abandoned on launch day. Active preventative maintenance ensures your site never suffers downtime or security exploits." : "Una web no se abandona el día que se publica. El mantenimiento es activo y preventivo para que no pierdas clientes por caídas o vulnerabilidades."}
           </p>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-700 font-light">
             {serviceCopy.whyThisPrice.monthlyBreakdown.map((item) => (
               <li class="flex items-start gap-2.5">
-                <Icon name="bx:shield-quarter" class="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                <Icon name="bx:shield-quarter" class="w-4 h-4 text-slate-950 shrink-0 mt-0.5" />
                 <span>{item}</span>
               </li>
             ))}
@@ -246,12 +246,12 @@ const breadcrumbSchema = {
       </div>
 
       <!-- Raó de la Permanència de 1 Any -->
-      <div class="mt-8 p-6 rounded-3xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-4">
-        <div class="w-10 h-10 rounded-2xl bg-amber-100 flex items-center justify-center shrink-0 text-amber-800">
+      <div class="mt-8 p-6 rounded-3xl bg-slate-50 border border-slate-200/90 flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shrink-0 text-slate-950">
           <Icon name="bx:lock-alt" class="w-5 h-5" />
         </div>
-        <div class="text-xs sm:text-sm text-amber-950 leading-relaxed">
-          <h4 class="font-bold text-sm sm:text-base text-amber-900 mb-1">
+        <div class="text-xs sm:text-sm text-slate-700 leading-relaxed font-light">
+          <h4 class="font-semibold text-sm sm:text-base text-slate-950 mb-1">
             {isEn ? "Why is there a minimum 1-year commitment?" : "¿Por qué se establece una permanencia mínima de un año?"}
           </h4>
           <p>
@@ -264,14 +264,14 @@ const breadcrumbSchema = {
     <!-- SECCIÓ 2: COM S'AMORTITZA FÀCILMENT? (Retorn de la Inversió / ROI) -->
     <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="amortization-heading">
       <div class="max-w-3xl mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80 mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-slate-100 text-slate-800 border border-slate-200 mb-3">
           <Icon name="bx:line-chart" class="w-4 h-4" />
           <span>{isEn ? "Return on Investment (ROI)" : "Retorno de la inversión (ROI)"}</span>
         </div>
-        <h2 id="amortization-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 id="amortization-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "How this investment easily pays for itself within months:" : "¿Cómo se amortiza fácilmente este precio en pocos meses?"}
         </h2>
-        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
           {isEn ? "A digital product should never be a sunk cost; it is an income-generating business asset from day one. Here are the realistic metrics:" : "Una página web o aplicación no debe ser un gasto a fondo perdido, sino un activo que genera rendimiento económico desde el primer día. Veamos las cifras:"}
         </p>
       </div>
@@ -279,34 +279,35 @@ const breadcrumbSchema = {
       <!-- Graella de punts d'amortització -->
       <div class="grid sm:grid-cols-2 gap-6 mb-10">
         {serviceCopy.amortizationPoints.map((point) => (
-          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-xs hover:shadow-md transition-shadow">
-            <div class="inline-block px-3 py-1 rounded-xl bg-indigo-50 text-indigo-700 font-mono font-bold text-xs sm:text-sm mb-3">
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-2xs hover:border-slate-950 transition-colors">
+            <div class="inline-block px-3 py-1 rounded-xl bg-slate-100 text-slate-900 font-mono font-semibold text-xs sm:text-sm mb-3 border border-slate-200">
               {point.metric}
             </div>
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">
+            <h3 class="text-base sm:text-lg font-light text-slate-950 mb-2">
               {point.title}
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
               {point.description}
             </p>
           </div>
         ))}
       </div>
+
       <!-- Exemple Numèric d'Amortització -->
-      <div class="p-6 sm:p-8 rounded-3xl bg-slate-900 text-white shadow-xl">
-        <h3 class="text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
-          <Icon name="bx:calculator" class="w-5 h-5 text-amber-400" />
+      <div class="p-6 sm:p-8 rounded-3xl bg-slate-950 text-white shadow-xl border border-slate-900">
+        <h3 class="text-lg sm:text-xl font-light mb-4 flex items-center gap-2">
+          <Icon name="bx:calculator" class="w-5 h-5 text-[#FFFF00]" />
           <span>{isEn ? "Realistic Amortization Financial Simulation" : "Simulación económica de amortización real"}</span>
         </h3>
         <div class="grid sm:grid-cols-3 gap-6 pt-4 border-t border-slate-800 font-mono text-xs sm:text-sm">
           <div>
             <span class="text-slate-400 text-xs uppercase block mb-1">{isEn ? "Total 1st year cost" : "Coste total del primer año"}</span>
-            <span class="text-xl sm:text-2xl font-bold text-white block">{serviceCopy.annualTotal.split('(')[0]}</span>
+            <span class="text-xl sm:text-2xl font-light text-white block">{serviceCopy.annualTotal.split('(')[0]}</span>
             <span class="text-slate-400 text-[11px] mt-1 block">{isEn ? "Creation + 12 maintenance installments" : "Creación + 12 cuotas de mantenimiento"}</span>
           </div>
           <div>
             <span class="text-slate-400 text-xs uppercase block mb-1">{isEn ? "Daily cost equivalent" : "Coste diario equivalente"}</span>
-            <span class="text-xl sm:text-2xl font-bold text-amber-400 block">{serviceCopy.dailyCostEquivalent.split('(')[0]}</span>
+            <span class="text-xl sm:text-2xl font-bold text-[#FFFF00] block">{serviceCopy.dailyCostEquivalent.split('(')[0]}</span>
             <span class="text-slate-400 text-[11px] mt-1 block">{isEn ? "Less than a cup of coffee per day" : "Menos que el coste de un café al día"}</span>
           </div>
           <div>
@@ -321,14 +322,14 @@ const breadcrumbSchema = {
     <!-- SECCIÓ 3: COMPARATIVA AMB EL MERCAT (Comparem amb altres opcions) -->
     <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="comparison-heading">
       <div class="max-w-3xl mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/80 mb-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20 mb-3">
           <Icon name="bx:git-compare" class="w-4 h-4" />
           <span>{isEn ? "Market Comparison" : "Comparativa de mercado"}</span>
         </div>
-        <h2 id="comparison-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 id="comparison-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "How does our proposal compare to market alternatives?" : "¿Cómo se compara nuestra oferta con otras alternativas?"}
         </h2>
-        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
           {isEn ? "Compare our high-speed, custom architecture with traditional WordPress agencies, generic SaaS site builders (Wix/Squarespace), or untested freelancers." : "Compara nuestro modelo con el de una agencia tradicional de WordPress, plataformas cerradas de suscripción (Wix/Squarespace) o la contratación de profesionales independientes sin garantías."}
         </p>
       </div>
@@ -336,7 +337,7 @@ const breadcrumbSchema = {
       {(
         <>
           <!-- Taula Comparativa per a Escriptori -->
-          <div class="hidden lg:block overflow-x-auto rounded-3xl border border-slate-200 shadow-xs mb-8">
+          <div class="hidden lg:block overflow-x-auto rounded-3xl border border-slate-200 shadow-2xs mb-8">
             <table class="w-full text-left border-collapse text-xs">
               <thead>
                 <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-mono uppercase text-[11px]">
@@ -350,20 +351,20 @@ const breadcrumbSchema = {
               </thead>
               <tbody class="divide-y divide-slate-200">
                 {serviceCopy.marketComparison.map((alt, idx) => (
-                  <tr class={idx === 0 ? "bg-indigo-50/50 font-medium" : "bg-white hover:bg-slate-50/70"}>
+                  <tr class={idx === 0 ? "bg-yellow-50/60 font-medium" : "bg-white hover:bg-slate-50/70"}>
                     <td class="p-4">
                       <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                        {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-amber-500 fill-amber-500" />}
+                        {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-slate-950 fill-slate-950" />}
                         <span>{alt.name}</span>
                       </div>
                       <span class="text-[11px] text-slate-500 mt-0.5 block">{alt.summary}</span>
                     </td>
                     <td class="p-4 font-mono font-bold text-slate-900">{alt.priceRange}</td>
                     <td class="p-4 font-mono">
-                      <span class={idx === 0 ? "text-emerald-700 font-bold" : "text-amber-700"}>{alt.speedLighthouse}</span>
+                      <span class={idx === 0 ? "text-emerald-700 font-bold" : "text-slate-600"}>{alt.speedLighthouse}</span>
                     </td>
                     <td class="p-4 font-mono text-slate-700">{alt.maintenanceCost}</td>
-                    <td class="p-4 text-slate-600">{alt.hiddenCosts}</td>
+                    <td class="p-4 text-slate-600 font-light">{alt.hiddenCosts}</td>
                     <td class="p-4 text-slate-700">{alt.codeOwnership}</td>
                   </tr>
                 ))}
@@ -374,17 +375,17 @@ const breadcrumbSchema = {
           <!-- Targetes Comparatives per a Mòbil i Tablet -->
           <div class="lg:hidden space-y-4">
             {serviceCopy.marketComparison.map((alt, idx) => (
-              <div class={`rounded-2xl p-5 border ${idx === 0 ? "bg-indigo-50/60 border-indigo-200 shadow-sm" : "bg-white border-slate-200"}`}>
+              <div class={`rounded-2xl p-5 border ${idx === 0 ? "bg-slate-50 border-slate-950 shadow-2xs" : "bg-white border-slate-200"}`}>
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                    {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-amber-500" />}
+                    {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-slate-950" />}
                     <span>{alt.name}</span>
                   </h3>
-                  <span class="font-mono text-xs font-bold text-indigo-900">{alt.priceRange}</span>
+                  <span class="font-mono text-xs font-bold text-slate-950">{alt.priceRange}</span>
                 </div>
-                <p class="text-xs text-slate-600 mb-3 leading-relaxed">{alt.summary}</p>
+                <p class="text-xs text-slate-600 font-light mb-3 leading-relaxed">{alt.summary}</p>
                 <div class="grid grid-cols-2 gap-2 text-[11px] font-mono border-t border-slate-200/60 pt-2.5">
-                  <div><span class="text-slate-400 block">{isEn ? "Speed:" : "Velocidad:"}</span><span class={idx === 0 ? "text-emerald-700 font-bold" : "text-amber-800"}>{alt.speedLighthouse}</span></div>
+                  <div><span class="text-slate-400 block">{isEn ? "Speed:" : "Velocidad:"}</span><span class={idx === 0 ? "text-emerald-700 font-bold" : "text-slate-700"}>{alt.speedLighthouse}</span></div>
                   <div><span class="text-slate-400 block">{isEn ? "Maintenance:" : "Mantenimiento:"}</span><span class="text-slate-700">{alt.maintenanceCost}</span></div>
                 </div>
               </div>
@@ -397,19 +398,19 @@ const breadcrumbSchema = {
     <!-- SECCIÓ 4: QUÈ INCLOU EXACTAMENT (Garanties de Lliurament) -->
     <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="features-heading">
       <div class="max-w-3xl mb-8">
-        <h2 id="features-heading" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 id="features-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "Technical Deliverables & Guarantees Included" : "Entregables técnicos y garantías incluidas"}
         </h2>
-        <p class="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
           {isEn ? "Every project is finalized with auditable performance verification and 100% intellectual property ownership." : "Todos los proyectos se entregan con verificación de métricas y propiedad total para ti."}
         </p>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-4">
         {serviceCopy.features.map((feat) => (
-          <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <Icon name="bx:check-circle" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-            <span class="text-xs sm:text-sm text-slate-700 font-medium">{feat}</span>
+          <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 transition-colors">
+            <Icon name="bx:check-circle" class="w-5 h-5 text-slate-950 shrink-0 mt-0.5" />
+            <span class="text-xs sm:text-sm text-slate-700 font-light">{feat}</span>
           </div>
         ))}
       </div>
@@ -418,23 +419,23 @@ const breadcrumbSchema = {
     <!-- Call To Action Final -->
     <section class="py-12 md:py-16 text-center">
       <div class="max-w-2xl mx-auto space-y-6">
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
           {isEn ? "Ready to launch your project with rock-solid engineering?" : "¿Preparado para impulsar tu proyecto con una base técnica sólida?"}
         </h2>
-        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        <p class="text-sm sm:text-base text-slate-600 font-light leading-relaxed">
           {isEn ? "Start with our low-upfront, continuous maintenance model. Zero hidden terms, clear documentation, and complete source code ownership." : "Empieza con un modelo de baja inversión inicial y mantenimiento continuo. Sin letra pequeña, con documentación clara y el código fuente en tu propiedad."}
         </p>
         <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
             href={href(`/contact?servei=${service.id}`)}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-md hover:shadow-indigo-500/20 transition-all text-sm"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-slate-950 bg-[#FFFF00] hover:bg-[#f2d900] border border-slate-950 shadow-2xs hover:shadow-md transition-all"
           >
             <Icon name="bx:send" class="w-4 h-4" />
             <span>{isEn ? "Request" : "Solicitar"} {serviceCopy.name}</span>
           </a>
           <a
             href={href("/pricing")}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors text-sm"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-xs font-semibold text-slate-800 hover:text-slate-950 bg-white hover:border-slate-950 border border-slate-200 shadow-2xs transition-all"
           >
             <Icon name="bx:arrow-back" class="w-4 h-4" />
             <span>{isEn ? "All Services" : "Todos los servicios"}</span>
@@ -445,11 +446,11 @@ const breadcrumbSchema = {
 
     <!-- Enllaços a l'anterior i següent paquet -->
     <nav aria-label={isEn ? "Navigation between services" : "Navegación entre servicios"} class="py-8 border-t border-slate-200/80 flex items-center justify-between text-xs font-mono text-slate-500">
-      <a href={href(`/pricing/${prev.id}`)} class="hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+      <a href={href(`/pricing/${prev.id}`)} class="hover:text-slate-950 flex items-center gap-1.5 transition-colors">
         <Icon name="bx:left-arrow-alt" class="w-4 h-4" />
         <span>{previousCopy.name}</span>
       </a>
-      <a href={href(`/pricing/${next.id}`)} class="hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+      <a href={href(`/pricing/${next.id}`)} class="hover:text-slate-950 flex items-center gap-1.5 transition-colors">
         <span>{nextCopy.name}</span>
         <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
       </a>

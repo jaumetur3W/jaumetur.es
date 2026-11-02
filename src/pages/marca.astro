@@ -23,32 +23,6 @@ const brandColors = [
     bgClass: "bg-[#FFFF00] border border-amber-300",
   },
   {
-    name: "Índigo primario",
-    nameEn: "Primary Indigo",
-    role: "Identidad de marca, enlaces clave y puntos de atención",
-    roleEn: "Brand identity, key links, and points of focus",
-    hex: "#4F46E5",
-    rgb: "79, 70, 229",
-    hsl: "243°, 75%, 59%",
-    contrast: "8,5:1 (WCAG AAA)",
-    contrastEn: "8.5:1 (WCAG AAA)",
-    textDark: false,
-    bgClass: "bg-[#4F46E5]",
-  },
-  {
-    name: "Cian tecnológico",
-    nameEn: "Tech Cyan",
-    role: "Nodos de datos, acentos de ingeniería y degradados",
-    roleEn: "Data nodes, engineering accents, and gradients",
-    hex: "#06B6D4",
-    rgb: "6, 182, 212",
-    hsl: "189°, 94%, 43%",
-    contrast: "4,7:1 (WCAG AA)",
-    contrastEn: "4.7:1 (WCAG AA)",
-    textDark: true,
-    bgClass: "bg-[#06B6D4]",
-  },
-  {
     name: "Pizarra tecnológica (Deep Slate)",
     nameEn: "Tech Slate (Deep Slate)",
     role: "Tipografía principal, superficies de código y terminales",
@@ -60,6 +34,19 @@ const brandColors = [
     contrastEn: "16.1:1 (WCAG AAA)",
     textDark: false,
     bgClass: "bg-[#0F172A]",
+  },
+  {
+    name: "Negro puro (Pure Black)",
+    nameEn: "Pure Black",
+    role: "Contraste máximo, bordes definidos y botones de acción primaria",
+    roleEn: "Maximum contrast, sharp borders, and primary action buttons",
+    hex: "#020617",
+    rgb: "2, 6, 23",
+    hsl: "222°, 84%, 5%",
+    contrast: "21:1 (WCAG AAA)",
+    contrastEn: "21:1 (WCAG AAA)",
+    textDark: false,
+    bgClass: "bg-[#020617]",
   },
   {
     name: "Verde esmeralda (éxito)",
@@ -75,17 +62,30 @@ const brandColors = [
     bgClass: "bg-[#10B981]",
   },
   {
-    name: "Superficie suave (Slate-50)",
-    nameEn: "Soft Surface (Slate-50)",
-    role: "Fondo del sitio web en modo claro permanente",
-    roleEn: "Website background in permanent light mode",
-    hex: "#F8FAFC",
-    rgb: "248, 250, 252",
-    hsl: "210°, 40%, 98%",
-    contrast: "Base neutra",
-    contrastEn: "Neutral base",
+    name: "Gris de contorno (Slate-200)",
+    nameEn: "Border Slate (Slate-200)",
+    role: "Líneas de separación limpias y cuadrículas editoriales",
+    roleEn: "Crisp divider lines and editorial layout grids",
+    hex: "#E2E8F0",
+    rgb: "226, 232, 240",
+    hsl: "214°, 32%, 91%",
+    contrast: "Borde neutro",
+    contrastEn: "Neutral border",
     textDark: true,
-    bgClass: "bg-[#F8FAFC] border border-slate-200",
+    bgClass: "bg-[#E2E8F0] border border-slate-300",
+  },
+  {
+    name: "Superficie blanca (Pure White)",
+    nameEn: "Pure White Surface",
+    role: "Fondo del sitio web en modo claro editorial",
+    roleEn: "Website background in permanent editorial light mode",
+    hex: "#FFFFFF",
+    rgb: "255, 255, 255",
+    hsl: "0°, 0%, 100%",
+    contrast: "Base principal",
+    contrastEn: "Primary base",
+    textDark: true,
+    bgClass: "bg-white border border-slate-200",
   },
 ];
 
@@ -98,45 +98,25 @@ const memojiGuide = [
     context: "Página de contacto, mensajería y tarjeta digital /card",
     contextEn: "Contact page, messaging, and digital card /card",
     alt: "Memoji de Jaume Tur saludando con la mano",
-    altEn: "Jaume Tur memoji waving hello",
-    size: "112px - 144px",
+    altEn: "Jaume Tur memoji waving hand",
+    size: "128px - 160px",
   },
   {
-    pose: "Programador en acción",
-    poseEn: "Developer in Action",
-    file: "2.png",
-    context: "Cabecera de proyectos, sección de habilidades y carga",
-    contextEn: "Projects hero, skills section, and loading state",
+    pose: "Programación y concentración",
+    poseEn: "Coding & Deep Work",
+    file: "1.webp",
+    context: "Proyectos técnicos, frontend y rendimiento",
+    contextEn: "Technical projects, frontend, and performance",
     alt: "Memoji de Jaume Tur trabajando con el portátil",
-    altEn: "Jaume Tur memoji coding on laptop",
-    size: "128px - 180px",
+    altEn: "Jaume Tur memoji working on laptop",
+    size: "96px - 128px",
   },
   {
-    pose: "Sonrisa de perfil",
-    poseEn: "Profile Smile",
-    file: "4.png",
-    context: "Cabecera principal sobre la tarjeta de código",
-    contextEn: "Main hero header over code card",
-    alt: "Memoji de Jaume Tur sonriendo",
-    altEn: "Jaume Tur memoji smiling",
-    size: "160px - 320px",
-  },
-  {
-    pose: "Página no encontrada (404)",
-    poseEn: "Page Not Found (404)",
-    file: "404.png",
-    context: "Página de error 404 y contenido no localizado",
-    contextEn: "404 error page and missing content",
-    alt: "Memoji de Jaume Tur buscando la página, desconcertado",
-    altEn: "Jaume Tur memoji puzzled looking for page",
-    size: "128px",
-  },
-  {
-    pose: "Analista técnico y docente",
-    poseEn: "Technical Analyst & Mentor",
-    file: "blog.png",
-    context: "Blog técnico, artículos de ingeniería y documentación",
-    contextEn: "Technical blog, engineering articles, and docs",
+    pose: "Explicación de arquitectura",
+    poseEn: "Architecture & Consulting",
+    file: "4.webp",
+    context: "Artículos del blog, arquitectura y análisis",
+    contextEn: "Blog articles, architecture, and consulting",
     alt: "Memoji de Jaume Tur con gafas explicando un concepto",
     altEn: "Jaume Tur memoji wearing glasses explaining concept",
     size: "96px - 128px",
@@ -158,332 +138,334 @@ const memojiGuide = [
   title={isEn ? "Brand Kit and Visual Identity | Jaume Tur" : "Kit de marca e identidad visual | Jaume Tur"}
   description={isEn ? "Visual identity guide of Jaume Tur: official logos «jaume.www», WCAG AA color palette, typography and standardized technical iconography." : "Guía de identidad visual de Jaume Tur: logotipos oficiales «jaume.www», paleta de colores WCAG AA, tipografías y sistema de iconografía técnica."}>
   <Container>
-    <Sectionhead>
-      <Fragment slot="title">{isEn ? "Brand Kit and Visual Identity" : "Kit de marca e identidad visual"}</Fragment>
-      <Fragment slot="desc">
-        {isEn ? "Official graphic assets, high-resolution logos and mark, auditable color palette, and usage guidelines for collaborations, press, and technical communication." : "Recursos gráficos oficiales, logotipos e isotipo de alta resolución, paleta de colores auditable y normas de uso para colaboraciones, prensa y comunicación técnica."}
-      </Fragment>
-    </Sectionhead>
+    <div class="py-12 md:py-16">
+      <Sectionhead>
+        <Fragment slot="title">{isEn ? "Brand Kit and Visual Identity" : "Kit de marca e identidad visual"}</Fragment>
+        <Fragment slot="desc">
+          {isEn ? "Official graphic assets, high-resolution logos and mark, auditable color palette, and usage guidelines for collaborations, press, and technical communication." : "Recursos gráficos oficiales, logotipos e isotipo de alta resolución, paleta de colores auditable y normas de uso para colaboraciones, prensa y comunicación técnica."}
+        </Fragment>
+      </Sectionhead>
 
-    <!-- 1. Logotip & Isotip Oficials "jaume.www" -->
-    <section class="max-w-5xl mx-auto mt-10 mb-16" aria-labelledby="logo-heading">
-      <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
-        <div class="flex items-center gap-2">
-          <Icon name="bx:badge-check" class="w-6 h-6 text-amber-500" />
-          <h2 id="logo-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-            {isEn ? 'Official logos and mark «jaume.www»' : 'Logotipos e isotipo oficiales «jaume.www»'}
-          </h2>
-        </div>
-        <span class="text-xs font-mono font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-          {isEn ? "Single official identity · 3 color applications" : "Identidad oficial única · 3 aplicaciones cromáticas"}
-        </span>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <!-- Aplicació 1: Groc Corporatiu (#FFFF00) -->
-        <div class="bg-white rounded-3xl border border-amber-200 p-6 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-amber-600 font-bold">
-                {isEn ? "Primary version (yellow)" : "Versión principal (amarillo)"}
-              </span>
-              <span class="text-[10px] font-mono bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded font-bold">
-                #FFFF00
-              </span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              <div class="rounded-xl overflow-hidden shadow-2xs border border-amber-200 aspect-square flex items-center justify-center bg-[#FFFF00]">
-                <img src="/img/jt.LOGO-01.png" alt={isEn ? "jaume.www logo on yellow" : "Logotipo jaume.www sobre fondo amarillo"} class="w-full h-full object-cover" />
-              </div>
-              <div class="rounded-xl overflow-hidden shadow-2xs border border-amber-200 aspect-square flex items-center justify-center bg-[#FFFF00]">
-                <img src="/img/jt.LOGO-02.png" alt={isEn ? "j mark on yellow" : "Isotipo j sobre fondo amarillo"} class="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            <h3 class="font-bold text-slate-900 text-sm mb-1">{isEn ? "Yellow logo and mark" : "Logotipo e isotipo amarillos"}</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              {isEn ? 'Full «jaume.www» logo (LOGO-01) and accent mark with smile and XX eyes (LOGO-02).' : 'Logotipo completo «jaume.www» (LOGO-01) e isotipo de acento con sonrisa y ojos XX (LOGO-02).'}
-            </p>
+      <!-- 1. Logotip & Isotip Oficials "jaume.www" -->
+      <section class="max-w-5xl mx-auto mt-12 mb-16" aria-labelledby="logo-heading">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <Icon name="bx:badge-check" class="w-6 h-6 text-slate-950" />
+            <h2 id="logo-heading" class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight">
+              {isEn ? 'Official logos and mark «jaume.www»' : 'Logotipos e isotipo oficiales «jaume.www»'}
+            </h2>
           </div>
-
-          <div class="pt-4 border-t border-slate-100 flex gap-2 mt-4">
-            <a href="/img/jt.LOGO-01.png" download="jt-logo-groc.png" class="flex-1 text-center py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-amber-500 hover:text-slate-950 transition">LOGO-01</a>
-            <a href="/img/jt.LOGO-02.png" download="jt-isotip-groc.png" class="flex-1 text-center py-1.5 rounded-lg border border-slate-200 text-slate-700 bg-white font-bold text-xs hover:bg-slate-50 transition">LOGO-02</a>
-          </div>
+          <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+            {isEn ? "Single official identity · 3 color applications" : "Identidad oficial única · 3 aplicaciones cromáticas"}
+          </span>
         </div>
 
-        <!-- Aplicació 2: Fons Fosc Obsidiana (#090D16) -->
-        <div class="bg-[#090D16] text-white rounded-3xl border border-slate-800 p-6 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                {isEn ? "Dark version" : "Versión oscura"}
-              </span>
-              <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-bold">
-                #090D16
-              </span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-[#090D16]">
-                <img src="/img/jt.LOGO-03.png" alt={isEn ? "jaume.www logo on dark background" : "Logotipo jaume.www sobre fondo oscuro"} class="w-full h-full object-cover" />
-              </div>
-              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-[#090D16]">
-                <img src="/img/jt.LOGO-04.png" alt={isEn ? "j mark on dark background" : "Isotipo j sobre fondo oscuro"} class="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            <h3 class="font-bold text-white text-sm mb-1">{isEn ? "Dark logo and mark" : "Logotipo e isotipo oscuros"}</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              {isEn ? "High-contrast white outline on obsidian background for terminals and dark environments (LOGO-03 & LOGO-04)." : "Trazo blanco de alto contraste sobre fondo obsidiana para terminales y entornos oscuros (LOGO-03 y LOGO-04)."}
-            </p>
-          </div>
-
-          <div class="pt-4 border-t border-slate-800 flex gap-2 mt-4">
-            <a href="/img/jt.LOGO-03.png" download="jt-logo-dark.png" class="flex-1 text-center py-1.5 rounded-lg bg-white text-slate-900 font-bold text-xs hover:bg-[#FFFF00] transition">LOGO-03</a>
-            <a href="/img/jt.LOGO-04.png" download="jt-isotip-dark.png" class="flex-1 text-center py-1.5 rounded-lg border border-slate-700 text-slate-200 bg-slate-900 font-bold text-xs hover:bg-slate-800 transition">LOGO-04</a>
-          </div>
-        </div>
-
-        <!-- Aplicació 3: Editorial Blanc & Negre (#000000 / #FFFFFF) -->
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 shadow-xs flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                {isEn ? "Editorial version (light)" : "Versión editorial (clara)"}
-              </span>
-              <span class="text-[10px] font-mono bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-bold">
-                {isEn ? "Monochrome" : "Monocromo"}
-              </span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-3 mb-4">
-              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
-                <img src="/img/jt.LOGO-05.png" alt={isEn ? "jaume.www logo in monochrome" : "Logotipo jaume.www en blanco y negro"} class="w-full h-full object-cover" />
-              </div>
-              <div class="rounded-xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
-                <img src="/img/jt.LOGO-06.png" alt={isEn ? "j mark in monochrome" : "Isotipo j en blanco y negro"} class="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            <h3 class="font-bold text-slate-900 text-sm mb-1">{isEn ? "Monochrome logo and mark" : "Logotipo e isotipo monocromos"}</h3>
-            <p class="text-xs text-slate-600 leading-relaxed">
-              {isEn ? "Pure black ink on white background for print and clean applications (LOGO-05 & LOGO-06)." : "Tinta negra pura sobre fondo blanco para impresión y aplicaciones limpias (LOGO-05 y LOGO-06)."}
-            </p>
-          </div>
-
-          <div class="pt-4 border-t border-slate-100 flex gap-2 mt-4">
-            <a href="/img/jt.LOGO-05.png" download="jt-logo-mono.png" class="flex-1 text-center py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition">LOGO-05</a>
-            <a href="/img/jt.LOGO-06.png" download="jt-isotip-mono.png" class="flex-1 text-center py-1.5 rounded-lg border border-slate-200 text-slate-700 bg-white font-bold text-xs hover:bg-slate-50 transition">LOGO-06</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Paleta de Colors Oficial & Contrast WCAG -->
-    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="colors-heading">
-      <div class="flex items-center gap-2 mb-6">
-        <Icon name="bx:palette" class="w-6 h-6 text-indigo-600" />
-        <h2 id="colors-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-          {isEn ? "Official color palette & contrast" : "Paleta cromática oficial y contraste"}
-        </h2>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {
-          brandColors.map((color) => (
-            <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-2xs group hover:border-indigo-300 transition-all">
-              <div class={`h-28 p-4 flex flex-col justify-end ${color.bgClass}`}>
-                <span class={`font-mono text-xs font-bold ${color.textDark ? 'text-slate-900' : 'text-white'}`}>
-                  {color.hex}
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Aplicació 1: Groc Corporatiu (#FFFF00) -->
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 shadow-2xs flex flex-col justify-between hover:border-slate-950 transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                  {isEn ? "Primary version (yellow)" : "Versión principal (amarillo)"}
+                </span>
+                <span class="text-[10px] font-mono bg-[#FFFF00] text-slate-950 border border-slate-950/20 px-2 py-0.5 rounded-full font-bold">
+                  #FFFF00
                 </span>
               </div>
-              <div class="p-5 space-y-2 text-xs">
-                <div class="flex items-center justify-between">
-                  <h3 class="font-bold text-slate-900 text-sm">{isEn ? color.nameEn : color.name}</h3>
-                  <span class="font-mono text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold">
-                    {isEn ? color.contrastEn : color.contrast}
-                  </span>
+              
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="rounded-2xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-[#FFFF00]">
+                  <img src="/img/jt.LOGO-01.png" alt={isEn ? "jaume.www logo on yellow" : "Logotipo jaume.www sobre fondo amarillo"} class="w-full h-full object-cover" />
                 </div>
-                <p class="text-slate-500 leading-relaxed">{isEn ? color.roleEn : color.role}</p>
-                <div class="pt-2 border-t border-slate-100 font-mono text-[11px] text-slate-400 space-y-0.5">
-                  <div>RGB: {color.rgb}</div>
-                  <div>HSL: {color.hsl}</div>
+                <div class="rounded-2xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-[#FFFF00]">
+                  <img src="/img/jt.LOGO-02.png" alt={isEn ? "j mark on yellow" : "Isotipo j sobre fondo amarillo"} class="w-full h-full object-cover" />
                 </div>
               </div>
+
+              <h3 class="font-light text-slate-950 text-base mb-1">{isEn ? "Yellow logo and mark" : "Logotipo e isotipo amarillos"}</h3>
+              <p class="text-xs text-slate-600 font-light leading-relaxed">
+                {isEn ? 'Full «jaume.www» logo (LOGO-01) and accent mark with smile and XX eyes (LOGO-02).' : 'Logotipo completo «jaume.www» (LOGO-01) e isotipo de acento con sonrisa y ojos XX (LOGO-02).'}
+              </p>
             </div>
-          ))
-        }
-      </div>
-    </section>
 
-    <!-- 3. Tipografia Oficial -->
-    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="typography-heading">
-      <div class="flex items-center gap-2 mb-6">
-        <Icon name="bx:font" class="w-6 h-6 text-indigo-600" />
-        <h2 id="typography-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-          {isEn ? "Typographic system" : "Sistema tipográfico"}
-        </h2>
-      </div>
+            <div class="pt-4 border-t border-slate-100 flex gap-2 mt-4 font-mono text-xs">
+              <a href="/img/jt.LOGO-01.png" download="jt-logo-groc.png" class="flex-1 text-center py-2 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-semibold uppercase tracking-wider border border-slate-950 transition">LOGO-01</a>
+              <a href="/img/jt.LOGO-02.png" download="jt-isotip-groc.png" class="flex-1 text-center py-2 rounded-xl border border-slate-200 text-slate-800 bg-white hover:border-slate-950 font-semibold uppercase tracking-wider transition">LOGO-02</a>
+            </div>
+          </div>
 
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs">
-          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block mb-2">
-            {isEn ? "Main sans-serif typography" : "Tipografía sans-serif global"}
-          </span>
-          <h3 class="text-2xl font-black text-slate-900 tracking-tight mb-2">
-            Inter Variable
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-4">
-            {isEn ? "Clean contemporary sans-serif with balanced proportions and great readability across all display scales." : "Familia sans serif moderna, limpia y proporcionada para titulares, menús y textos descriptivos en toda la web."}
-          </p>
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1 font-sans">
-            <div class="text-2xl font-extrabold text-slate-900">Aa Bb Cc Dd Ee Ff Gg</div>
-            <div class="text-xs text-slate-500">{isEn ? "Usage: H1, H2, H3, body text, buttons, and navigation." : "Uso: H1, H2, H3, textos descriptivos, botones y navegación."}</div>
+          <!-- Aplicació 2: Fons Fosc Obsidiana (#020617) -->
+          <div class="bg-slate-950 text-white rounded-3xl border border-slate-900 p-6 shadow-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                  {isEn ? "Dark version" : "Versión oscura"}
+                </span>
+                <span class="text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-bold">
+                  #020617
+                </span>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="rounded-2xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-slate-950">
+                  <img src="/img/jt.LOGO-03.png" alt={isEn ? "jaume.www logo on dark background" : "Logotipo jaume.www sobre fondo oscuro"} class="w-full h-full object-cover" />
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-2xs border border-slate-800 aspect-square flex items-center justify-center bg-slate-950">
+                  <img src="/img/jt.LOGO-04.png" alt={isEn ? "j mark on dark background" : "Isotipo j sobre fondo oscuro"} class="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              <h3 class="font-light text-white text-base mb-1">{isEn ? "Dark logo and mark" : "Logotipo e isotipo oscuros"}</h3>
+              <p class="text-xs text-slate-400 font-light leading-relaxed">
+                {isEn ? "High-contrast white outline on dark background for terminals and dark environments (LOGO-03 & LOGO-04)." : "Trazo blanco de alto contraste sobre fondo oscuro para terminales y entornos de desarrollo (LOGO-03 y LOGO-04)."}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex gap-2 mt-4 font-mono text-xs">
+              <a href="/img/jt.LOGO-03.png" download="jt-logo-dark.png" class="flex-1 text-center py-2 rounded-xl bg-white hover:bg-[#FFFF00] text-slate-950 font-semibold uppercase tracking-wider transition">LOGO-03</a>
+              <a href="/img/jt.LOGO-04.png" download="jt-isotip-dark.png" class="flex-1 text-center py-2 rounded-xl border border-slate-700 text-slate-200 bg-slate-900 hover:border-slate-500 font-semibold uppercase tracking-wider transition">LOGO-04</a>
+            </div>
+          </div>
+
+          <!-- Aplicació 3: Editorial Blanc & Negre (#000000 / #FFFFFF) -->
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 shadow-2xs flex flex-col justify-between hover:border-slate-950 transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                  {isEn ? "Editorial version (light)" : "Versión editorial (clara)"}
+                </span>
+                <span class="text-[10px] font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold">
+                  {isEn ? "Monochrome" : "Monocromo"}
+                </span>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="rounded-2xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
+                  <img src="/img/jt.LOGO-05.png" alt={isEn ? "jaume.www logo in monochrome" : "Logotipo jaume.www en blanco y negro"} class="w-full h-full object-cover" />
+                </div>
+                <div class="rounded-2xl overflow-hidden shadow-2xs border border-slate-200 aspect-square flex items-center justify-center bg-white">
+                  <img src="/img/jt.LOGO-06.png" alt={isEn ? "j mark in monochrome" : "Isotipo j en blanco y negro"} class="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              <h3 class="font-light text-slate-950 text-base mb-1">{isEn ? "Monochrome logo and mark" : "Logotipo e isotipo monocromos"}</h3>
+              <p class="text-xs text-slate-600 font-light leading-relaxed">
+                {isEn ? "Pure black ink on white background for print and clean applications (LOGO-05 & LOGO-06)." : "Tinta negra pura sobre fondo blanco para impresión y aplicaciones limpias (LOGO-05 y LOGO-06)."}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex gap-2 mt-4 font-mono text-xs">
+              <a href="/img/jt.LOGO-05.png" download="jt-logo-mono.png" class="flex-1 text-center py-2 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-semibold uppercase tracking-wider border border-slate-950 transition">LOGO-05</a>
+              <a href="/img/jt.LOGO-06.png" download="jt-isotip-mono.png" class="flex-1 text-center py-2 rounded-xl border border-slate-200 text-slate-800 bg-white hover:border-slate-950 font-semibold uppercase tracking-wider transition">LOGO-06</a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs">
-          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-indigo-600 block mb-2">
-            {isEn ? "Code and technical data font" : "Tipografía para métricas y código"}
-          </span>
-          <h3 class="text-2xl font-bold text-slate-900 tracking-tight mb-2">
-            JetBrains Mono &amp; System Mono
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-4">
-            {isEn ? "Monospaced font for code snippets, performance benchmarks, technical badges, and terminal blocks." : "Fuentes monoespaciadas para métricas, datos técnicos, badges de verificación y terminales."}
-          </p>
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-            <div class="text-sm font-sans text-slate-800">Inter Variable — The quick brown fox jumps over the lazy dog.</div>
-            <div class="text-xs font-mono text-indigo-700">const developer = &#123; fps: 60, wcag: "AA" &#125;;</div>
+      <!-- 2. Paleta de Colors Oficial & Contrast WCAG -->
+      <section class="max-w-5xl mx-auto mb-16" aria-labelledby="colors-heading">
+        <div class="flex items-center gap-2 mb-6">
+          <Icon name="bx:palette" class="w-6 h-6 text-slate-950" />
+          <h2 id="colors-heading" class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight">
+            {isEn ? "Official color palette & contrast" : "Paleta cromática oficial y contraste"}
+          </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {
+            brandColors.map((color) => (
+              <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-2xs group hover:border-slate-950 transition-all">
+                <div class={`h-28 p-4 flex flex-col justify-end ${color.bgClass}`}>
+                  <span class={`font-mono text-xs font-bold ${color.textDark ? 'text-slate-900' : 'text-white'}`}>
+                    {color.hex}
+                  </span>
+                </div>
+                <div class="p-5 space-y-2 text-xs">
+                  <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-slate-950 text-sm">{isEn ? color.nameEn : color.name}</h3>
+                    <span class="font-mono text-[10px] text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full font-bold">
+                      {isEn ? color.contrastEn : color.contrast}
+                    </span>
+                  </div>
+                  <p class="text-slate-600 font-light leading-relaxed">{isEn ? color.roleEn : color.role}</p>
+                  <div class="pt-2 border-t border-slate-100 font-mono text-[11px] text-slate-500 space-y-0.5">
+                    <div>RGB: {color.rgb}</div>
+                    <div>HSL: {color.hsl}</div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- 3. Tipografia Oficial -->
+      <section class="max-w-5xl mx-auto mb-16" aria-labelledby="typography-heading">
+        <div class="flex items-center gap-2 mb-6">
+          <Icon name="bx:font" class="w-6 h-6 text-slate-950" />
+          <h2 id="typography-heading" class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight">
+            {isEn ? "Typographic system" : "Sistema tipográfico"}
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs hover:border-slate-950 transition-colors">
+            <span class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500 block mb-2">
+              {isEn ? "Main sans-serif typography" : "Tipografía sans-serif global"}
+            </span>
+            <h3 class="text-2xl font-light text-slate-950 tracking-tight mb-2">
+              Inter Variable
+            </h3>
+            <p class="text-xs text-slate-600 font-light leading-relaxed mb-4">
+              {isEn ? "Clean contemporary sans-serif with balanced proportions and great readability across all display scales." : "Familia sans serif moderna, limpia y proporcionada para titulares, menús y textos descriptivos en toda la web."}
+            </p>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1 font-sans">
+              <div class="text-2xl font-light text-slate-950">Aa Bb Cc Dd Ee Ff Gg</div>
+              <div class="text-xs text-slate-500 font-light">{isEn ? "Usage: H1, H2, H3, body text, buttons, and navigation." : "Uso: H1, H2, H3, textos descriptivos, botones y navegación."}</div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl border border-slate-200/90 p-7 shadow-2xs hover:border-slate-950 transition-colors">
+            <span class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500 block mb-2">
+              {isEn ? "Code and technical data font" : "Tipografía para métricas y código"}
+            </span>
+            <h3 class="text-2xl font-light text-slate-950 tracking-tight mb-2">
+              JetBrains Mono &amp; System Mono
+            </h3>
+            <p class="text-xs text-slate-600 font-light leading-relaxed mb-4">
+              {isEn ? "Monospaced font for code snippets, performance benchmarks, technical badges, and terminal blocks." : "Fuentes monoespaciadas para métricas, datos técnicos, badges de verificación y terminales."}
+            </p>
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+              <div class="text-sm font-sans text-slate-800 font-light">Inter Variable — The quick brown fox jumps over the lazy dog.</div>
+              <div class="text-xs font-mono text-slate-900">const developer = &#123; fps: 60, wcag: "AA" &#125;;</div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 4. Sistema de Memojis Contextuals -->
-    <section class="max-w-5xl mx-auto mb-16" aria-labelledby="memojis-heading">
-      <div class="flex items-center gap-2 mb-6">
-        <Icon name="bx:face" class="w-6 h-6 text-indigo-600" />
-        <h2 id="memojis-heading" class="text-xl sm:text-2xl font-bold text-slate-900">
-          {isEn ? "Contextual Memojis kit" : "Kit de Memojis contextuales"}
-        </h2>
-      </div>
-
-      <div class="overflow-x-auto bg-white rounded-3xl border border-slate-200/90 shadow-2xs">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono text-[11px] uppercase tracking-wider">
-            <tr>
-              <th class="py-3 px-5">{isEn ? "Illustration" : "Ilustración"}</th>
-              <th class="py-3 px-5">{isEn ? "Pose & meaning" : "Pose y significado"}</th>
-              <th class="py-3 px-5">{isEn ? "Usage scope" : "Ámbito de uso"}</th>
-              <th class="py-3 px-5">{isEn ? "Recommended size" : "Tamaño recomendado"}</th>
-              <th class="py-3 px-5">{isEn ? "Alt text (A11y)" : "Texto alternativo (A11y)"}</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            {
-              memojiGuide.map((m) => (
-                <tr class="hover:bg-slate-50/50 transition-colors">
-                  <td class="py-3 px-5">
-                    <img src={`/img/${m.file}`} alt={isEn ? m.altEn : m.alt} class="w-12 h-12 object-contain" width="48" height="48" />
-                  </td>
-                  <td class="py-3 px-5 font-bold text-slate-900">{isEn ? m.poseEn : m.pose}</td>
-                  <td class="py-3 px-5 text-slate-600">{isEn ? m.contextEn : m.context}</td>
-                  <td class="py-3 px-5 font-mono text-indigo-600 font-bold">{m.size}</td>
-                  <td class="py-3 px-5 text-slate-500 italic">{isEn ? m.altEn : m.alt}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- 5. Regla d'Or d'Iconografia Estandarditzada -->
-    <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-slate-900 text-slate-100 border border-slate-800 shadow-xl">
-      <div class="flex items-center gap-3 mb-4">
-        <Icon name="bx:info-circle" class="w-6 h-6 text-indigo-400 shrink-0" />
-        <h3 class="text-lg font-bold">{isEn ? "Golden rule: standardized iconography vs emojis" : "Regla de oro: iconografía estandarizada frente a emojis"}</h3>
-      </div>
-      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-        {isEn ? <>Across all of <strong>jaumetur.es</strong>, a strict policy of <strong>zero Unicode emojis</strong> in UI elements, buttons, metrics, and navigation is enforced. Iconography is strictly built with standardized SVG vectors from <strong>Boxicons</strong> and <strong>Simple Icons</strong> for technical reasons:</> : <>En todo el sitio web de <strong>jaumetur.es</strong> se aplica una política estricta de <strong>cero emojis Unicode</strong> en elementos de interfaz, botones, métricas y navegación. La iconografía se resuelve exclusivamente mediante vectores SVG estandarizados de <strong>Boxicons</strong> y <strong>Simple Icons</strong> por las siguientes razones técnicas:</>}
-      </p>
-      <ul class="grid sm:grid-cols-3 gap-4 text-xs font-mono text-slate-400">
-        <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <strong class="text-white block mb-1">{isEn ? "1. Cross-OS consistency:" : "1. Consistencia entre sistemas operativos:"}</strong>
-          {isEn ? "Identical glyphs across iOS, Android, macOS, Windows, and Linux." : "Los mismos glifos en iOS, Android, macOS, Windows y Linux."}
-        </li>
-        <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <strong class="text-white block mb-1">{isEn ? "2. WCAG contrast control:" : "2. Control del contraste WCAG:"}</strong>
-          {isEn ? "Vector fill and stroke colors calibrated to meet AA/AAA standards." : "Los colores de los vectores se ajustan exactamente para cumplir AA/AAA."}
-        </li>
-        <li class="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-          <strong class="text-white block mb-1">{isEn ? "3. Screen reader semantics:" : "3. Semántica y lector de pantalla:"}</strong>
-          {isEn ? 'Native aria-hidden="true" support without unexpected noise.' : 'Compatibilidad nativa con aria-hidden="true" para evitar lecturas innecesarias.'}
-        </li>
-      </ul>
-    </section>
-
-    <!-- 6. Canals Oficials de Marca & Presència Digital -->
-    <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-white border border-slate-200/90 shadow-xs">
-      <div class="flex items-center gap-2 mb-6">
-        <Icon name="bx:share-alt" class="w-6 h-6 text-indigo-600" />
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
-          {isEn ? "Official brand handles and presence" : "Identificadores oficiales y redes de marca"}
-        </h2>
-      </div>
-
-      <div class="grid sm:grid-cols-4 gap-4 text-xs">
-        <a
-          href="https://www.instagram.com/jaume.www/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 hover:border-amber-400 transition group flex flex-col justify-between">
-          <div>
-            <Icon name="bx:bxl-instagram" class="w-6 h-6 text-amber-500 mb-2 group-hover:scale-110 transition-transform" />
-            <span class="text-[10px] font-mono uppercase text-amber-800 font-bold block">{isEn ? "Official Instagram" : "Instagram oficial"}</span>
-            <span class="text-sm font-bold text-slate-900">@jaume.www</span>
-          </div>
-          <span class="text-[10px] font-mono text-amber-700 mt-3 block">{isEn ? "Active channel ↗" : "Canal oficial activo ↗"}</span>
-        </a>
-
-        <a
-          href="https://github.com/jaumetur3W"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-400 transition group flex flex-col justify-between">
-          <div>
-            <Icon name="bx:bxl-github" class="w-6 h-6 text-slate-900 mb-2 group-hover:scale-110 transition-transform" />
-            <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">GitHub</span>
-            <span class="text-sm font-bold text-slate-900">@jaumetur3W</span>
-          </div>
-          <span class="text-[10px] font-mono text-slate-500 mt-3 block">{isEn ? "Code repositories ↗" : "Repositorios de código ↗"}</span>
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/jautur/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-200 hover:border-indigo-400 transition group flex flex-col justify-between">
-          <div>
-            <Icon name="bx:bxl-linkedin" class="w-6 h-6 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
-            <span class="text-[10px] font-mono uppercase text-indigo-700 font-bold block">LinkedIn</span>
-            <span class="text-sm font-bold text-slate-900">in/jautur</span>
-          </div>
-          <span class="text-[10px] font-mono text-indigo-600 mt-3 block">{isEn ? "Professional network ↗" : "Red profesional ↗"}</span>
-        </a>
-
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
-          <div>
-            <Icon name="bx:globe" class="w-6 h-6 text-slate-700 mb-2" />
-            <span class="text-[10px] font-mono uppercase text-slate-500 font-bold block">{isEn ? "Official domain" : "Dominio oficial"}</span>
-            <span class="text-sm font-bold text-slate-900">jaumetur.es</span>
-          </div>
-          <span class="text-[10px] font-mono text-emerald-600 font-bold mt-3 block">{isEn ? "Active SSL & DNS" : "SSL y DNS activos"}</span>
+      <!-- 4. Sistema de Memojis Contextuals -->
+      <section class="max-w-5xl mx-auto mb-16" aria-labelledby="memojis-heading">
+        <div class="flex items-center gap-2 mb-6">
+          <Icon name="bx:face" class="w-6 h-6 text-slate-950" />
+          <h2 id="memojis-heading" class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight">
+            {isEn ? "Contextual Memojis kit" : "Kit de Memojis contextuales"}
+          </h2>
         </div>
-      </div>
-    </section>
+
+        <div class="overflow-x-auto bg-white rounded-3xl border border-slate-200/90 shadow-2xs">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 font-mono text-[11px] uppercase tracking-wider">
+              <tr>
+                <th class="py-3 px-5">{isEn ? "Illustration" : "Ilustración"}</th>
+                <th class="py-3 px-5">{isEn ? "Pose & meaning" : "Pose y significado"}</th>
+                <th class="py-3 px-5">{isEn ? "Usage scope" : "Ámbito de uso"}</th>
+                <th class="py-3 px-5">{isEn ? "Recommended size" : "Tamaño recomendado"}</th>
+                <th class="py-3 px-5">{isEn ? "Alt text (A11y)" : "Texto alternativo (A11y)"}</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 font-light">
+              {
+                memojiGuide.map((m) => (
+                  <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="py-3 px-5">
+                      <img src={`/img/${m.file}`} alt={isEn ? m.altEn : m.alt} class="w-12 h-12 object-contain" width="48" height="48" />
+                    </td>
+                    <td class="py-3 px-5 font-semibold text-slate-900">{isEn ? m.poseEn : m.pose}</td>
+                    <td class="py-3 px-5 text-slate-600">{isEn ? m.contextEn : m.context}</td>
+                    <td class="py-3 px-5 font-mono text-slate-950 font-semibold">{m.size}</td>
+                    <td class="py-3 px-5 text-slate-500 italic">{isEn ? m.altEn : m.alt}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. Regla d'Or d'Iconografia Estandarditzada -->
+      <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-slate-950 text-slate-100 border border-slate-900 shadow-xl">
+        <div class="flex items-center gap-3 mb-4">
+          <Icon name="bx:info-circle" class="w-6 h-6 text-[#FFFF00] shrink-0" />
+          <h3 class="text-lg font-light tracking-tight">{isEn ? "Golden rule: standardized iconography vs emojis" : "Regla de oro: iconografía estandarizada frente a emojis"}</h3>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-300 font-light leading-relaxed mb-4">
+          {isEn ? <>Across all of <strong>jaumetur.es</strong>, a strict policy of <strong>zero Unicode emojis</strong> in UI elements, buttons, metrics, and navigation is enforced. Iconography is strictly built with standardized SVG vectors from <strong>Boxicons</strong> and <strong>Simple Icons</strong> for technical reasons:</> : <>En todo el sitio web de <strong>jaumetur.es</strong> se aplica una política estricta de <strong>cero emojis Unicode</strong> en elementos de interfaz, botones, métricas y navegación. La iconografía se resuelve exclusivamente mediante vectores SVG estandarizados de <strong>Boxicons</strong> y <strong>Simple Icons</strong> por las siguientes razones técnicas:</>}
+        </p>
+        <ul class="grid sm:grid-cols-3 gap-4 text-xs font-mono text-slate-400">
+          <li class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+            <strong class="text-white block mb-1 font-semibold">{isEn ? "1. Cross-OS consistency:" : "1. Consistencia entre sistemas operativos:"}</strong>
+            <span class="font-light">{isEn ? "Identical glyphs across iOS, Android, macOS, Windows, and Linux." : "Los mismos glifos en iOS, Android, macOS, Windows y Linux."}</span>
+          </li>
+          <li class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+            <strong class="text-white block mb-1 font-semibold">{isEn ? "2. WCAG contrast control:" : "2. Control del contraste WCAG:"}</strong>
+            <span class="font-light">{isEn ? "Vector fill and stroke colors calibrated to meet AA/AAA standards." : "Los colores de los vectores se ajustan exactamente para cumplir AA/AAA."}</span>
+          </li>
+          <li class="p-4 rounded-2xl bg-slate-900 border border-slate-800">
+            <strong class="text-white block mb-1 font-semibold">{isEn ? "3. Screen reader semantics:" : "3. Semántica y lector de pantalla:"}</strong>
+            <span class="font-light">{isEn ? 'Native aria-hidden="true" support without unexpected noise.' : 'Compatibilidad nativa con aria-hidden="true" para evitar lecturas innecesarias.'}</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 6. Canals Oficials de Marca & Presència Digital -->
+      <section class="max-w-5xl mx-auto mb-20 p-8 rounded-3xl bg-white border border-slate-200/90 shadow-2xs">
+        <div class="flex items-center gap-2 mb-6">
+          <Icon name="bx:share-alt" class="w-6 h-6 text-slate-950" />
+          <h2 class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight">
+            {isEn ? "Official brand handles and presence" : "Identificadores oficiales y redes de marca"}
+          </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-4 gap-4 text-xs font-mono">
+          <a
+            href="https://www.instagram.com/jaume.www/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-950 transition group flex flex-col justify-between shadow-2xs">
+            <div>
+              <Icon name="bx:bxl-instagram" class="w-6 h-6 text-slate-950 mb-2 group-hover:scale-110 transition-transform" />
+              <span class="text-[10px] uppercase text-slate-500 font-semibold block">{isEn ? "Official Instagram" : "Instagram oficial"}</span>
+              <span class="text-sm font-semibold text-slate-950">@jaume.www</span>
+            </div>
+            <span class="text-[10px] text-slate-950 mt-3 block">{isEn ? "Active channel ↗" : "Canal oficial activo ↗"}</span>
+          </a>
+
+          <a
+            href="https://github.com/jaumetur3W"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-950 transition group flex flex-col justify-between shadow-2xs">
+            <div>
+              <Icon name="bx:bxl-github" class="w-6 h-6 text-slate-950 mb-2 group-hover:scale-110 transition-transform" />
+              <span class="text-[10px] uppercase text-slate-500 font-semibold block">GitHub</span>
+              <span class="text-sm font-semibold text-slate-950">@jaumetur3W</span>
+            </div>
+            <span class="text-[10px] text-slate-950 mt-3 block">{isEn ? "Code repositories ↗" : "Repositorios de código ↗"}</span>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/jautur/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-slate-950 transition group flex flex-col justify-between shadow-2xs">
+            <div>
+              <Icon name="bx:bxl-linkedin" class="w-6 h-6 text-slate-950 mb-2 group-hover:scale-110 transition-transform" />
+              <span class="text-[10px] uppercase text-slate-500 font-semibold block">LinkedIn</span>
+              <span class="text-sm font-semibold text-slate-950">in/jautur</span>
+            </div>
+            <span class="text-[10px] text-slate-950 mt-3 block">{isEn ? "Professional network ↗" : "Red profesional ↗"}</span>
+          </a>
+
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between shadow-2xs">
+            <div>
+              <Icon name="bx:globe" class="w-6 h-6 text-slate-950 mb-2" />
+              <span class="text-[10px] uppercase text-slate-500 font-semibold block">{isEn ? "Official domain" : "Dominio oficial"}</span>
+              <span class="text-sm font-semibold text-slate-950">jaumetur.es</span>
+            </div>
+            <span class="text-[10px] text-emerald-600 font-semibold mt-3 block">{isEn ? "Active SSL & DNS" : "SSL y DNS activos"}</span>
+          </div>
+        </div>
+      </section>
+    </div>
   </Container>
 </Layout>
