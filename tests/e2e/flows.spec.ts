@@ -215,10 +215,11 @@ test.describe("Critical User Journeys & Technical Quality", () => {
 
   test("Legacy /val routes redirect cleanly to Spanish counterparts", async ({ page }) => {
     await page.goto("/val");
-    expect(page.url()).not.toContain("/val");
     await expect(page).toHaveURL("/");
+    expect(page.url()).not.toContain("/val");
 
     await page.goto("/val/about");
     await expect(page).toHaveURL("/about");
+    expect(page.url()).not.toContain("/val");
   });
 });
