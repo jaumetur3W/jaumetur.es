@@ -77,11 +77,12 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   test("Top navbar displays standard page links without in-page anchors, and mobile menu is accessible", async ({ page }) => {
     await page.goto("/");
     
-    // Desktop navigation links in requested order: Inicio, Sobre mí, Proyectos, Contacto
+    // Desktop navigation links in order: Inicio, Sobre mí, Proyectos, Precios, Contacto
     const desktopLinks = page.locator("nav[aria-label='Navegación principal'] > ul > li > a");
     await expect(desktopLinks.filter({ hasText: "Inicio" })).toHaveAttribute("href", "/");
     await expect(desktopLinks.filter({ hasText: "Sobre mí" })).toHaveAttribute("href", "/about");
     await expect(desktopLinks.filter({ hasText: "Proyectos" })).toHaveAttribute("href", "/projectes");
+    await expect(desktopLinks.filter({ hasText: "Precios" })).toHaveAttribute("href", "/pricing");
     await expect(desktopLinks.filter({ hasText: "Contacto" })).toHaveAttribute("href", "/contact");
 
     // Contact is a regular navigation destination, with no extra header CTA.
