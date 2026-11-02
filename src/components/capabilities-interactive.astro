@@ -479,8 +479,16 @@ const categories: CapabilityCategory[] = [
       function closePopup() {
         if (!activeId) return;
 
+        const closingId = activeId;
+        const activeCard = document.getElementById(`card-${closingId}`);
+        let isCursorOverActiveCard = false;
+        if (activeCard) {
+          try {
+            isCursorOverActiveCard = activeCard.matches(":hover");
+          } catch (_) {}
+        }
         // Si el cursor aún sigue sobre la tarjeta que activó el pop-up, bloqueamos la re-apertura hasta que salga
-        closedByCardId = currentHoveredCardId === activeId ? activeId : null;
+        closedByCardId = isCursorOverActiveCard ? closingId : null;
 
         popupPanel.classList.remove("scale-100");
         popupPanel.classList.add("scale-95");
@@ -511,6 +519,29 @@ const categories: CapabilityCategory[] = [
         }
       }
 
+      // Desbloquear cuando el cursor abandone físicamente el cuadro activador
+      document.addEventListener(
+        "mousemove",
+        (e) => {
+          if (!closedByCardId) return;
+          const cardEl = document.getElementById(`card-${closedByCardId}`);
+          if (cardEl) {
+            const rect = cardEl.getBoundingClientRect();
+            const isInside =
+              e.clientX >= rect.left &&
+              e.clientX <= rect.right &&
+              e.clientY >= rect.top &&
+              e.clientY <= rect.bottom;
+            if (!isInside) {
+              closedByCardId = null;
+            }
+          } else {
+            closedByCardId = null;
+          }
+        },
+        { passive: true }
+      );
+
       // Eventos por tarjeta
       wrappers.forEach((wrapper) => {
         const id = wrapper.dataset.capId;
@@ -520,11 +551,7 @@ const categories: CapabilityCategory[] = [
         moreBtn?.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          if (activeId === id) {
-            closePopup();
-          } else {
-            openPopup(id);
-          }
+          openPopup(id);
         });
 
         // En escritorio: Hover abre automáticamente la previsualización
@@ -547,15 +574,8 @@ const categories: CapabilityCategory[] = [
             }
           };
 
-          wrapper.addEventListener("mouseenter", handleEnter);
-          wrapper.addEventListener("pointerenter", handleEnter);
           card.addEventListener("mouseenter", handleEnter);
-          card.addEventListener("pointerenter", handleEnter);
-
-          wrapper.addEventListener("mouseleave", handleLeave);
-          wrapper.addEventListener("pointerleave", handleLeave);
           card.addEventListener("mouseleave", handleLeave);
-          card.addEventListener("pointerleave", handleLeave);
         }
       });
 

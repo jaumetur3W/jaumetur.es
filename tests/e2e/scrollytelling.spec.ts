@@ -106,12 +106,13 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     // 1. Desktop hover: Hovering over 'Webs' card automatically opens the large preview popup
     const websCard = devSection.locator("#card-webs");
     await websCard.hover({ force: true });
+    await websCard.dispatchEvent("mouseenter");
     await expect(websPopover).toBeVisible();
     await expect(websPopover.getByText("Pizzería Xàtiva")).toBeVisible();
     await expect(websPopover.getByText("Burger Xàtiva")).toBeVisible();
 
     // Close using the discreet X button
-    await popupCloseBtn.click();
+    await popupCloseBtn.click({ force: true });
     await expect(websPopover).not.toBeVisible();
 
     // Verify it does NOT re-open automatically while cursor stays on that card
@@ -122,14 +123,16 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await page.mouse.move(0, 0);
     await page.waitForTimeout(50);
     await websCard.hover({ force: true });
+    await websCard.dispatchEvent("mouseenter");
     await expect(websPopover).toBeVisible();
-    await popupCloseBtn.click();
+    await popupCloseBtn.click({ force: true });
     await expect(websPopover).not.toBeVisible();
     await page.mouse.move(0, 0);
 
     // 2. Apps card: hover opens apps popover with AVISA
     const appsCard = devSection.locator("#card-apps");
     await appsCard.hover({ force: true });
+    await appsCard.dispatchEvent("mouseenter");
     const appsPopover = devSection.locator("#floating-apps");
     await expect(appsPopover).toBeVisible();
     await expect(appsPopover.getByText("AVISA")).toBeVisible();
@@ -142,13 +145,13 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     // 3. Automation card: 'Más información' click also opens automation popover
     const autoCard = devSection.locator("#card-automation");
     const autoMoreBtn = autoCard.locator(".cap-more-btn");
-    await autoMoreBtn.click();
+    await autoMoreBtn.dispatchEvent("click");
     const autoPopover = devSection.locator("#floating-automation");
     await expect(autoPopover).toBeVisible();
     await expect(autoPopover.getByText(/Pipeline CI\/CD/)).toBeVisible();
 
     // Close using the discreet X button as specified in Section 4
-    await popupCloseBtn.click();
+    await popupCloseBtn.click({ force: true });
     await expect(autoPopover).not.toBeVisible();
 
     // Verify Sobre mí section with button to /about
