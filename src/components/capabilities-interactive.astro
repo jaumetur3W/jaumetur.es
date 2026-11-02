@@ -109,13 +109,6 @@ const categories: CapabilityCategory[] = [
           ? "Urban incident reporting platform with Angular Standalone, Signals, and reactive UI architecture."
           : "Plataforma de reporte y gestión de incidencias con Angular Standalone, Signals y arquitectura reactiva.",
       },
-      {
-        name: "Dashboard Telemetría",
-        href: href("/projectes/dashboard-telemetria"),
-        description: isEn
-          ? "Real-time IoT telemetry monitoring and data analytics web dashboard."
-          : "Cuadro de mando y monitorización de telemetría IoT con visualización de datos en tiempo real.",
-      },
     ],
     pricingLink: href("/pricing/angular-webapp"),
     pricingText: isEn ? "View application development options" : "Ver opciones de desarrollo de apps",
@@ -359,32 +352,44 @@ const categories: CapabilityCategory[] = [
                 </div>
               </div>
 
-              <!-- Columna derecha: Casos de estudio reales en esta web -->
-              <div class="lg:col-span-6 flex flex-col justify-start">
-                <p class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
-                  {isEn ? "Real case studies in this portfolio:" : "Casos reales en este portfolio:"}
-                </p>
+              <!-- Columna derecha: Panel visual con acento amarillo #FFFF00 y ejemplos reales -->
+              <div class="lg:col-span-6 flex flex-col justify-between rounded-2xl bg-[#FFFF00]/15 border border-[#FFFF00]/40 p-5 sm:p-6">
+                <div>
+                  <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-900/10">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-2xs">
+                      {isEn ? "Projects in Production" : "Proyectos reales"}
+                    </span>
+                    <span class="text-[11px] font-mono text-slate-500 font-medium">
+                      {cat.examples.length} {cat.examples.length === 1 ? (isEn ? "case study" : "caso de estudio") : (isEn ? "case studies" : "casos de estudio")}
+                    </span>
+                  </div>
 
-                <div class="flex flex-col gap-3">
-                  {cat.examples.map((ex) => (
-                    <a
-                      href={ex.href}
-                      class="group/case block p-4 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-[#FFFF00]/20 hover:border-slate-950 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-                    >
-                      <div class="flex items-center justify-between mb-1.5">
-                        <span class="font-sans font-bold text-sm sm:text-base text-slate-950 group-hover/case:underline decoration-1 underline-offset-4">
-                          {ex.name}
-                        </span>
-                        <span class="text-xs font-mono text-slate-500 group-hover/case:text-slate-950 flex items-center gap-1">
-                          <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-                          <span aria-hidden="true">→</span>
-                        </span>
-                      </div>
-                      <p class="text-xs text-slate-600 font-light leading-relaxed">
-                        {ex.description}
-                      </p>
-                    </a>
-                  ))}
+                  <div class="flex flex-col gap-3">
+                    {cat.examples.map((ex) => (
+                      <a
+                        href={ex.href}
+                        class="group/case block p-4 rounded-xl border border-slate-200/90 bg-white hover:border-slate-950 shadow-2xs hover:shadow-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                      >
+                        <div class="flex items-center justify-between mb-1.5">
+                          <span class="font-sans font-bold text-sm sm:text-base text-slate-950 group-hover/case:underline decoration-2 underline-offset-4">
+                            {ex.name}
+                          </span>
+                          <span class="text-xs font-mono text-slate-600 group-hover/case:text-slate-950 flex items-center gap-1 font-medium">
+                            <span>{isEn ? "View case study" : "Ver caso"}</span>
+                            <span aria-hidden="true">→</span>
+                          </span>
+                        </div>
+                        <p class="text-xs text-slate-600 font-light leading-relaxed">
+                          {ex.description}
+                        </p>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-900/10 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                  <span>{isEn ? "Audited & in production" : "Auditado y en producción"}</span>
+                  <span class="text-slate-950 font-bold">100/100 CWV</span>
                 </div>
               </div>
 
@@ -402,7 +407,7 @@ const categories: CapabilityCategory[] = [
   </div>
 </section>
 
-<!-- Script de Interacción: Apertura fluida exclusivamente al pulsar "Más información", Cierre con X, telón o Escape -->
+<!-- Script de Interacción: Hover automático en escritorio con prevención de re-apertura, Cierre con X/ESC, Táctil vía "Más información" -->
 <script is:inline>
   (function () {
     function initFloatingCapabilities() {
@@ -419,7 +424,12 @@ const categories: CapabilityCategory[] = [
       if (!wrappers.length || !popupRoot || !popupPanel || !panes.length) return;
 
       let activeId = null;
+      let closedByCardId = null;
+      let currentHoveredCardId = null;
       let lastFocusedElement = null;
+
+      // Detección de soporte de puntero de precisión (ratón / escritorio)
+      const isHoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
       function openPopup(id) {
         if (activeId === id) return;
@@ -427,8 +437,8 @@ const categories: CapabilityCategory[] = [
         lastFocusedElement = document.activeElement;
 
         // Mostrar root y panel con animación fluida acelerada por hardware
-        popupRoot.classList.remove("invisible", "opacity-0", "pointer-events-none");
-        popupRoot.classList.add("visible", "opacity-100", "pointer-events-auto");
+        popupRoot.classList.remove("invisible", "opacity-0");
+        popupRoot.classList.add("visible", "opacity-100");
         popupRoot.setAttribute("aria-hidden", "false");
 
         popupPanel.classList.remove("scale-95");
@@ -469,11 +479,22 @@ const categories: CapabilityCategory[] = [
       function closePopup() {
         if (!activeId) return;
 
+        const closingId = activeId;
+        const activeCard = document.getElementById(`card-${closingId}`);
+        let isCursorOverActiveCard = false;
+        if (activeCard) {
+          try {
+            isCursorOverActiveCard = activeCard.matches(":hover");
+          } catch (_) {}
+        }
+        // Si el cursor aún sigue sobre la tarjeta que activó el pop-up, bloqueamos la re-apertura hasta que salga
+        closedByCardId = isCursorOverActiveCard ? closingId : null;
+
         popupPanel.classList.remove("scale-100");
         popupPanel.classList.add("scale-95");
 
-        popupRoot.classList.remove("visible", "opacity-100", "pointer-events-auto");
-        popupRoot.classList.add("invisible", "opacity-0", "pointer-events-none");
+        popupRoot.classList.remove("visible", "opacity-100");
+        popupRoot.classList.add("invisible", "opacity-0");
         popupRoot.setAttribute("aria-hidden", "true");
 
         panes.forEach((p) => {
@@ -498,20 +519,64 @@ const categories: CapabilityCategory[] = [
         }
       }
 
-      // Eventos: Apertura EXCLUSIVA al pulsar el botón «Más información»
+      // Desbloquear cuando el cursor abandone físicamente el cuadro activador
+      document.addEventListener(
+        "mousemove",
+        (e) => {
+          if (!closedByCardId) return;
+          const cardEl = document.getElementById(`card-${closedByCardId}`);
+          if (cardEl) {
+            const rect = cardEl.getBoundingClientRect();
+            const isInside =
+              e.clientX >= rect.left &&
+              e.clientX <= rect.right &&
+              e.clientY >= rect.top &&
+              e.clientY <= rect.bottom;
+            if (!isInside) {
+              closedByCardId = null;
+            }
+          } else {
+            closedByCardId = null;
+          }
+        },
+        { passive: true }
+      );
+
+      // Eventos por tarjeta
       wrappers.forEach((wrapper) => {
         const id = wrapper.dataset.capId;
         const moreBtn = wrapper.querySelector(".cap-more-btn");
 
+        // Botón "Más información" (en móvil y como alternativa en escritorio)
         moreBtn?.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          if (activeId === id) {
-            closePopup();
-          } else {
-            openPopup(id);
-          }
+          openPopup(id);
         });
+
+        // En escritorio: Hover abre automáticamente la previsualización
+        const card = wrapper.querySelector(".cap-card") || wrapper;
+        if (isHoverCapable) {
+          const handleEnter = () => {
+            currentHoveredCardId = id;
+            if (closedByCardId === id) return;
+            if (activeId !== id) {
+              openPopup(id);
+            }
+          };
+
+          const handleLeave = () => {
+            if (currentHoveredCardId === id) {
+              currentHoveredCardId = null;
+            }
+            if (closedByCardId === id) {
+              closedByCardId = null;
+            }
+          };
+
+          card.addEventListener("mouseenter", handleEnter);
+          card.addEventListener("mouseleave", handleLeave);
+        }
       });
 
       // Botón X de Cierre

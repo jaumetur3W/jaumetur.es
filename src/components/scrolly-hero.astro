@@ -58,7 +58,7 @@ const copy = isEn
         <span
           aria-hidden="true"
           id="hero-phrase"
-          class="inline-flex flex-nowrap items-baseline justify-center whitespace-nowrap will-change-transform"
+          class="inline-flex flex-wrap sm:flex-nowrap items-baseline justify-center whitespace-normal sm:whitespace-nowrap will-change-transform text-center"
         >
           <span
             id="token-hola"
@@ -192,6 +192,7 @@ const copy = isEn
       let cachedTrackHeight = 0;
       let cachedViewportHeight = window.innerHeight;
 
+      let isMeasured = false;
       function measureOffsets() {
         cachedViewportHeight = window.innerHeight;
         cachedTrackHeight = track.offsetHeight;
@@ -204,20 +205,31 @@ const copy = isEn
         const containerRect = container.getBoundingClientRect();
         const containerCenter = containerRect.left + containerRect.width / 2;
 
-        // 1. Centro de «Hola»
         const holaRect = tokenHola.getBoundingClientRect();
-        const holaCenter = holaRect.left + holaRect.width / 2;
-        offset1 = containerCenter - holaCenter;
+        const turRect = tokenTur.getBoundingClientRect();
+        const isSingleLine = window.innerWidth >= 640 && Math.abs(holaRect.top - turRect.top) < 10;
 
-        // 2. Centro de «Hola, soy»
-        const soyRect = tokenSoy.getBoundingClientRect();
-        const holaSoyCenter = (holaRect.left + soyRect.right) / 2;
-        offset2 = containerCenter - holaSoyCenter;
+        if (isSingleLine) {
+          // 1. Centro de «Hola»
+          const holaCenter = holaRect.left + holaRect.width / 2;
+          offset1 = containerCenter - holaCenter;
 
-        // 3. Centro de «Hola, soy Jaume»
-        const jaumeRect = tokenJaume.getBoundingClientRect();
-        const holaJaumeCenter = (holaRect.left + jaumeRect.right) / 2;
-        offset3 = containerCenter - holaJaumeCenter;
+          // 2. Centro de «Hola, soy»
+          const soyRect = tokenSoy.getBoundingClientRect();
+          const holaSoyCenter = (holaRect.left + soyRect.right) / 2;
+          offset2 = containerCenter - holaSoyCenter;
+
+          // 3. Centro de «Hola, soy Jaume»
+          const jaumeRect = tokenJaume.getBoundingClientRect();
+          const holaJaumeCenter = (holaRect.left + jaumeRect.right) / 2;
+          offset3 = containerCenter - holaJaumeCenter;
+        } else {
+          // En móvil con saltos de línea naturales, el centrado es automático por flex/text-center
+          offset1 = 0;
+          offset2 = 0;
+          offset3 = 0;
+        }
+        isMeasured = true;
       }
 
       function clamp(val, min, max) {
@@ -230,7 +242,7 @@ const copy = isEn
       }
 
       function updateScrollytelling() {
-        if (!offset1) {
+        if (!isMeasured) {
           measureOffsets();
         }
 

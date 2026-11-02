@@ -16,12 +16,11 @@ const isActive = (path: string) => {
   return pathname.startsWith(path);
 };
 
-// Enlaces de navegación: Inicio, Sobre mí, Proyectos, Precios, Contacto
+// Enlaces de navegación en este orden exacto: Inicio, Sobre mí, Proyectos, Contacto
 const navLinks = [
   { title: isEn ? "Home" : "Inicio", path: "/" },
   { title: isEn ? "About" : "Sobre mí", path: "/about" },
   { title: isEn ? "Projects" : "Proyectos", path: "/projectes" },
-  { title: isEn ? "Pricing" : "Precios", path: "/pricing" },
   { title: isEn ? "Contact" : "Contacto", path: "/contact" },
 ];
 ---
