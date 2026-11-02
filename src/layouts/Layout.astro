@@ -61,7 +61,7 @@ const personSchema = {
   "name": "Jaume Tur",
   "givenName": "Jaume",
   "familyName": "Tur",
-  "jobTitle": "Desenvolupador Web & Aplicacions a Mida | Backend i Sistemes",
+  "jobTitle": isEn ? "Web & Application Developer | Backend & Systems" : "Desarrollador Web y Aplicaciones a Medida | Backend y Sistemas",
   "email": "jaumetur3w@gmail.com",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
@@ -99,7 +99,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteUrl}/#service`,
-  "name": "Jaume Tur — Desenvolupament Web & Aplicacions",
+  "name": isEn ? "Jaume Tur — Web Development & Custom Applications" : "Jaume Tur — Desarrollo Web y Aplicaciones a Medida",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
   "email": "jaumetur3w@gmail.com",
@@ -127,7 +127,7 @@ const localBusinessSchema = {
   "sameAs": [
     "https://share.google/3tihWcZBWMyYHmjBp"
   ],
-  "serviceArea": "Xàtiva, València i Remot"
+  "serviceArea": isEn ? "Valencia, Spain & Worldwide Remote" : "Xàtiva, Valencia y Remoto"
 };
 
 const websiteSchema = {
@@ -198,7 +198,7 @@ const blogPostSchema = isBlogPost ? {
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Jaume Tur — Blog Tècnic RSS Feed"
+      title={isEn ? "Jaume Tur — Technical Blog RSS Feed" : "Jaume Tur — Blog Técnico Canal RSS"}
       href="/rss.xml"
     />
 

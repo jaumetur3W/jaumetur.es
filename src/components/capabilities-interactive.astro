@@ -22,6 +22,7 @@ interface CapabilityCategory {
   icon: string;
   shortSummary: string;
   description: string;
+  services: string[];
   examples: ExampleItem[];
   extraNote?: string;
   pricingLink: string;
@@ -40,6 +41,21 @@ const categories: CapabilityCategory[] = [
     description: isEn
       ? "Design and development of modern, fast websites tailored to each business or project, built with clean architecture, strict SEO, and extreme performance."
       : "Diseño y desarrollo de páginas web modernas, rápidas y adaptadas a cada negocio o proyecto, con arquitectura limpia, SEO estricto y rendimiento extremo.",
+    services: isEn
+      ? [
+          "Corporate and personal websites.",
+          "High-converting landing pages.",
+          "Online stores and e-commerce.",
+          "Custom product catalogs and tailored websites.",
+          "Optimization, performance (60 FPS), and local/global SEO.",
+        ]
+      : [
+          "Webs corporativas y personales.",
+          "Landing pages optimizadas.",
+          "Tiendas online y comercio electrónico.",
+          "Catálogos y webs personalizadas.",
+          "Optimización, rendimiento (60 FPS) y SEO.",
+        ],
     examples: [
       {
         name: "Pizzería Xàtiva",
@@ -70,6 +86,21 @@ const categories: CapabilityCategory[] = [
     description: isEn
       ? "Development of custom web applications to solve concrete business needs, streamline internal workflows, and build scalable backends."
       : "Desarrollo de aplicaciones web a medida para resolver necesidades concretas, agilizar procesos internos y crear herramientas robustas y escalables.",
+    services: isEn
+      ? [
+          "Custom web applications.",
+          "Internal business management tools.",
+          "Control panels and analytics dashboards.",
+          "API and database integrations.",
+          "Solid frontend and backend architectures.",
+        ]
+      : [
+          "Aplicaciones web a medida.",
+          "Herramientas de gestión interna.",
+          "Paneles de control y dashboards.",
+          "Integración con APIs y bases de datos.",
+          "Arquitecturas frontend y backend sólidas.",
+        ],
     examples: [
       {
         name: "AVISA",
@@ -100,6 +131,21 @@ const categories: CapabilityCategory[] = [
     description: isEn
       ? "Task and process automation to save time, eliminate repetitive manual errors, connect different platforms, and deploy with confidence."
       : "Automatización de tareas y procesos para ahorrar tiempo, eliminar errores repetitivos, conectar diferentes plataformas y desplegar con total fiabilidad.",
+    services: isEn
+      ? [
+          "Repetitive task automation.",
+          "Integration between platforms and services.",
+          "CI/CD pipelines and continuous deployment.",
+          "Maintenance scripts and data synchronization.",
+          "Automated alerts and notifications.",
+        ]
+      : [
+          "Automatización de tareas repetitivas.",
+          "Integración entre diferentes plataformas y servicios.",
+          "Pipelines de CI/CD y despliegue continuo.",
+          "Scripts de mantenimiento y sincronización de datos.",
+          "Notificaciones y alertas automáticas.",
+        ],
     examples: [
       {
         name: isEn ? "CI/CD Pipeline with GitHub Actions" : "Pipeline CI/CD con GitHub Actions",
@@ -272,12 +318,28 @@ const categories: CapabilityCategory[] = [
             <!-- Estructura editorial en 2 columnas en pantallas medianas/grandes -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 pt-2 pb-6 border-y border-slate-100">
               
-              <!-- Columna izquierda: Descripción y propuesta de valor -->
+              <!-- Columna izquierda: Descripción, soluciones incluidas y propuesta de valor -->
               <div class="lg:col-span-6 flex flex-col justify-between">
                 <div>
                   <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-light mb-4">
                     {cat.description}
                   </p>
+
+                  <div class="mb-5">
+                    <p class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-2.5">
+                      {isEn ? "Solutions included:" : "Soluciones que incluye:"}
+                    </p>
+                    <ul class="space-y-2">
+                      {cat.services.map((svc) => (
+                        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 font-light leading-snug">
+                          <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">
+                            ✓
+                          </span>
+                          <span>{svc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                   {cat.extraNote && (
                     <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 font-light leading-relaxed">

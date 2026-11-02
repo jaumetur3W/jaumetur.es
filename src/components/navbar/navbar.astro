@@ -262,7 +262,8 @@ const navLinks = [
     function setupMobileNav() {
       const details = document.getElementById("mobile-menu-details");
       const summary = document.getElementById("mobile-menu-summary");
-      if (!details || !summary) return;
+      if (!details || !summary || details.dataset.navInit === "true") return;
+      details.dataset.navInit = "true";
 
       details.addEventListener("toggle", function () {
         summary.setAttribute("aria-expanded", details.open ? "true" : "false");
@@ -289,7 +290,8 @@ const navLinks = [
       const btn = document.getElementById("lang-dropdown-btn");
       const menu = document.getElementById("lang-dropdown-menu");
       const wrapper = document.getElementById("lang-dropdown-wrapper");
-      if (!btn || !menu || !wrapper) return;
+      if (!btn || !menu || !wrapper || btn.dataset.langInit === "true") return;
+      btn.dataset.langInit = "true";
 
       function openMenu() {
         menu.classList.remove("hidden");
@@ -331,16 +333,18 @@ const navLinks = [
       });
     }
 
-    // 3. Inicialización
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => {
-        setupMobileNav();
-        setupLanguageDropdown();
-      });
-    } else {
+    function initNavbar() {
       setupMobileNav();
       setupLanguageDropdown();
     }
+
+    // 3. Inicialización
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initNavbar);
+    } else {
+      initNavbar();
+    }
+    document.addEventListener("astro:page-load", initNavbar);
 
     // 4. Borde reactivo al scroll
     const navWrap = document.getElementById("site-navbar-wrap");
