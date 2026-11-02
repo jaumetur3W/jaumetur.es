@@ -4,8 +4,6 @@ import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import EasterEggs from "@/components/easter-eggs.astro";
 import { alternatePaths, localeFromPath } from "@/i18n";
-import "@fontsource-variable/inter/index.css";
-import "@fontsource-variable/bricolage-grotesque";
 import "../styles/global.css";
 
 export interface Props {
@@ -34,21 +32,22 @@ const {
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
 const locale = localeFromPath(Astro.url.pathname);
-const resolvedDescription = description || (locale === "val"
-  ? "Desenvolupament de pàgines web, aplicacions a mida, backend i automatització a Xàtiva i València. Solucions ràpides i adaptades al teu negoci."
+const isEn = locale === "en";
+const resolvedDescription = description || (isEn
+  ? "Professional web development, custom applications, backend architecture, and process automation based in Valencia. High-speed, robust digital solutions."
   : "Desarrollo de páginas web profesionales, aplicaciones a medida, backend y automatización en Xàtiva y Valencia. Soluciones rápidas y adaptadas a tu negocio.");
-const activeLang = lang === "es" ? "es" : locale === "val" || lang === "ca" ? "ca-ES-valencia" : "es";
+const activeLang = lang || (isEn ? "en" : "es");
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
 const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
-const valencianURL = new URL(alternatePathsForPage.val, siteUrl).toString();
+const englishURL = new URL(alternatePathsForPage.en, siteUrl).toString();
 const canonicalURL = customCanonical || new URL(Astro.url.pathname, siteUrl).toString();
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
 // Dynamic, keyword-rich title generation
 const isHome = !title || title === "Inici" || title === "Inicio" || title === "Home";
 const makeTitle = isHome
-  ? locale === "val"
-    ? "Jaume Tur — Desenvolupament Web i Aplicacions a Xàtiva i València"
+  ? isEn
+    ? "Jaume Tur — Web Development & Custom Applications in Valencia"
     : "Jaume Tur — Desarrollo Web y Aplicaciones a Medida en Xàtiva y Valencia"
   : title.endsWith("Jaume Tur")
     ? title
@@ -62,7 +61,7 @@ const personSchema = {
   "name": "Jaume Tur",
   "givenName": "Jaume",
   "familyName": "Tur",
-  "jobTitle": "Desenvolupador Web & Aplicacions a Mida | Backend i Sistemes",
+  "jobTitle": isEn ? "Web & Application Developer | Backend & Systems" : "Desarrollador Web y Aplicaciones a Medida | Backend y Sistemas",
   "email": "jaumetur3w@gmail.com",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
@@ -100,7 +99,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteUrl}/#service`,
-  "name": "Jaume Tur — Desenvolupament Web & Aplicacions",
+  "name": isEn ? "Jaume Tur — Web Development & Custom Applications" : "Jaume Tur — Desarrollo Web y Aplicaciones a Medida",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
   "email": "jaumetur3w@gmail.com",
@@ -128,7 +127,7 @@ const localBusinessSchema = {
   "sameAs": [
     "https://share.google/3tihWcZBWMyYHmjBp"
   ],
-  "serviceArea": "Xàtiva, València i Remot"
+  "serviceArea": isEn ? "Valencia, Spain & Worldwide Remote" : "Xàtiva, Valencia y Remoto"
 };
 
 const websiteSchema = {
@@ -138,7 +137,7 @@ const websiteSchema = {
   "url": siteUrl,
   "name": "Jaume Tur",
   "description": resolvedDescription,
-  "inLanguage": ["ca", "es", "en"],
+  "inLanguage": ["es", "en"],
   "publisher": {
     "@id": `${siteUrl}/#person`
   }
@@ -199,13 +198,13 @@ const blogPostSchema = isBlogPost ? {
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Jaume Tur — Blog Tècnic RSS Feed"
+      title={isEn ? "Jaume Tur — Technical Blog RSS Feed" : "Jaume Tur — Blog Técnico Canal RSS"}
       href="/rss.xml"
     />
 
     <!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) -->
     <link rel="alternate" hreflang="es" href={spanishURL} />
-    <link rel="alternate" hreflang="ca-ES-valencia" href={valencianURL} />
+    <link rel="alternate" hreflang="en" href={englishURL} />
     <link rel="alternate" hreflang="x-default" href={spanishURL} />
 
     <!-- SEO & Social OpenGraph -->
@@ -233,11 +232,20 @@ const blogPostSchema = isBlogPost ? {
           alt: makeTitle,
         },
         optional: {
-          siteName: "Jaume Tur — Portfolio & Blog Tècnic",
+          siteName: isEn ? "Jaume Tur — Portfolio & Engineering" : "Jaume Tur — Portafolio y Blog de Ingeniería",
           description: resolvedDescription,
-          locale: locale === "val" ? "ca_ES" : "es_ES",
+          locale: isEn ? "en_US" : "es_ES",
         },
       }}
+    />
+
+    <!-- Preload Critical Font: Eliminates font waterfall for LCP -->
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
     <!-- Structured Data: JSON-LD Schemas -->
@@ -247,25 +255,13 @@ const blogPostSchema = isBlogPost ? {
     {isBlogPost && blogPostSchema && (
       <script type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
     )}
-
-    <!-- Privacy-friendly Web Analytics (Plausible / Umami Ready) -->
-    <!-- Documented in MEDICION.md: Activated when domain is configured -->
-    <script is:inline>
-      if (typeof window !== "undefined" && window.location.hostname === "jaumetur.es") {
-        const s = document.createElement("script");
-        s.defer = true;
-        s.dataset.domain = "jaumetur.es";
-        s.src = "https://plausible.io/js/script.js";
-        document.head.appendChild(s);
-      }
-    </script>
   </head>
-  <body class="bg-slate-50 text-slate-800 antialiased selection:bg-slate-900 selection:text-white min-h-screen flex flex-col justify-between overflow-x-clip">
+  <body class="bg-white text-slate-900 antialiased selection:bg-[#FFFF00] selection:text-black min-h-screen flex flex-col justify-between overflow-x-clip">
     <!-- Accessible Skip Link for Keyboard and Screen Reader Navigation -->
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-indigo-600 focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-indigo-300 transition">
-      Saltar al contingut principal
+      {isEn ? "Skip to main content" : "Saltar al contenido principal"}
     </a>
     <div id="top"></div>
     <div class="flex-1 w-full flex flex-col">
@@ -306,6 +302,23 @@ const blogPostSchema = isBlogPost ? {
         requestIdleCallback(initSectionReveals);
       } else {
         window.addEventListener("load", () => setTimeout(initSectionReveals, 300));
+      }
+    </script>
+    <!-- Privacy-friendly Web Analytics (Plausible / Umami Ready) -->
+    <script is:inline>
+      function initAnalytics() {
+        if (typeof window !== "undefined" && window.location.hostname === "jaumetur.es") {
+          const s = document.createElement("script");
+          s.defer = true;
+          s.dataset.domain = "jaumetur.es";
+          s.src = "https://plausible.io/js/script.js";
+          document.body.appendChild(s);
+        }
+      }
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(initAnalytics);
+      } else {
+        window.addEventListener("load", () => setTimeout(initAnalytics, 1500));
       }
     </script>
   </body>

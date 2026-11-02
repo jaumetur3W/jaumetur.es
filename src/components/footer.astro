@@ -6,46 +6,46 @@ import { localeFromPath, localizePath } from "@/i18n";
 
 const currentYear = new Date().getFullYear();
 const locale = localeFromPath(Astro.url.pathname);
-const isVal = locale === "val";
+const isEn = locale === "en";
 const href = (path: string) => path.startsWith("/") && !path.startsWith("/docs/") ? localizePath(path, locale) : path;
 
 const navCol1 = [
-  { title: isVal ? "Inici" : "Inicio", path: "/" },
-  { title: isVal ? "Projectes" : "Proyectos", path: "/projectes" },
-  { title: isVal ? "Blog d'enginyeria" : "Blog de ingeniería", path: "/blog" },
-  { title: isVal ? "Serveis i tarifes" : "Servicios y tarifas", path: "/pricing" },
-  { title: isVal ? "Sobre mi" : "Sobre mí", path: "/about" },
-  { title: isVal ? "Contactar" : "Contacto", path: "/contact" },
+  { title: isEn ? "Home" : "Inicio", path: "/" },
+  { title: isEn ? "Projects" : "Proyectos", path: "/projectes" },
+  { title: isEn ? "Engineering Blog" : "Blog de ingeniería", path: "/blog" },
+  { title: isEn ? "Services & Pricing" : "Servicios y tarifas", path: "/pricing" },
+  { title: isEn ? "About me" : "Sobre mí", path: "/about" },
+  { title: isEn ? "Contact" : "Contacto", path: "/contact" },
 ];
 
 const navCol2 = [
-  { title: isVal ? "Kit de marca" : "Kit de marca", path: "/marca" },
-  { title: isVal ? "Targeta digital" : "Tarjeta digital", path: "/card" },
-  { title: isVal ? "Qualitat i CWV" : "Calidad y CWV", path: "/qualitat" },
-  { title: isVal ? "Eines CI/CD" : "Herramientas CI/CD", path: "/tools/workflow-generator" },
-  { title: isVal ? "El meu equip (/uses)" : "Mi equipo (/uses)", path: "/uses" },
-  { title: isVal ? "Canal RSS" : "Canal RSS", path: "/rss.xml" },
-  { title: isVal ? "Currículum (PDF) ↗" : "Currículum (PDF) ↗", path: "/docs/CV_Jaume_tur.pdf", external: true },
+  { title: isEn ? "Brand Kit" : "Kit de marca", path: "/marca" },
+  { title: isEn ? "Digital Card" : "Tarjeta digital", path: "/card" },
+  { title: isEn ? "Quality & CWV" : "Calidad y CWV", path: "/qualitat" },
+  { title: isEn ? "CI/CD Tools" : "Herramientas CI/CD", path: "/tools/workflow-generator" },
+  { title: isEn ? "My Setup (/uses)" : "Mi equipo (/uses)", path: "/uses" },
+  { title: isEn ? "RSS Feed" : "Canal RSS", path: "/rss.xml" },
+  { title: isEn ? "Resume (PDF) ↗" : "Currículum (PDF) ↗", path: "/docs/CV_Jaume_tur.pdf", external: true },
 ];
 
 const navCol3 = [
-  { title: "jaumetur3w@gmail.com", path: "mailto:jaumetur3w@gmail.com", icon: "bx:envelope", desc: "Correu professional" },
-  { title: "Google Maps", path: "https://share.google/3tihWcZBWMyYHmjBp", icon: "bx:map-pin", external: true, desc: "Perfil a Google" },
-  { title: "GitHub", path: "https://github.com/jaumetur3W", icon: "bx:bxl-github", external: true, desc: "Codi i repositoris" },
-  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin", external: true, desc: "Perfil professional" },
-  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram", external: true, desc: "@jaume.www oficial" },
+  { title: "jaumetur3w@gmail.com", path: "mailto:jaumetur3w@gmail.com", icon: "bx:envelope", desc: isEn ? "Professional email" : "Correo profesional" },
+  { title: "Google Maps", path: "https://share.google/3tihWcZBWMyYHmjBp", icon: "bx:map-pin", external: true, desc: isEn ? "Google profile" : "Perfil en Google" },
+  { title: "GitHub", path: "https://github.com/jaumetur3W", icon: "bx:bxl-github", external: true, desc: isEn ? "Code & repositories" : "Código y repositorios" },
+  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin", external: true, desc: isEn ? "Professional profile" : "Perfil profesional" },
+  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram", external: true, desc: "@jaume.www" },
 ];
 ---
 
 <footer class="mt-20 border-t border-slate-200/90 bg-white py-12 text-slate-600">
   <Container>
-    <!-- Secció Principal del Footer: Marca + 3 Columnes -->
+    <!-- Sección Principal del Footer: Marca + 3 Columnas -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-100">
       
-      <!-- Columna 0 (lg:span-2): Identitat de Marca, Memoji i Descriptor Únic -->
+      <!-- Columna 0 (lg:span-2): Identidad de Marca y Descriptor -->
       <div class="lg:col-span-2 flex flex-col gap-4">
         <div class="flex items-center gap-3">
-          <a href={href("/")} class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded-xl" title={isVal ? "Jaume Tur — Inici" : "Jaume Tur — Inicio"}>
+          <a href={href("/")} class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded-xl" title={isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio"}>
             <div class="relative">
               <div class="absolute inset-0 bg-[#FFFF00] rounded-2xl blur-xs opacity-50 group-hover:opacity-90 transition-opacity"></div>
               <img
@@ -66,17 +66,17 @@ const navCol3 = [
                 <span class="text-[11px] font-mono font-extrabold px-1.5 py-0.5 rounded bg-[#FFFF00] text-slate-950">.www</span>
               </div>
               <span class="text-xs text-slate-500 font-mono font-medium block mt-0.5">
-                {isVal ? "Desenvolupament web & aplicacions a mida" : "Desarrollo web y aplicaciones a medida"}
+                {isEn ? "Web development & custom applications" : "Desarrollo web y aplicaciones a medida"}
               </span>
             </div>
           </a>
 
-          <!-- Memoji contextual des de /memojis/ (6.webp) -->
-          <div class="group/wink relative flex items-center justify-center cursor-pointer ml-1" title={isVal ? "Gràcies per la visita!" : "¡Gracias por tu visita!"}>
+          <!-- Memoji contextual -->
+          <div class="group/wink relative flex items-center justify-center cursor-pointer ml-1" title={isEn ? "Thanks for visiting!" : "¡Gracias por tu visita!"}>
             <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-200/70 p-1 shadow-2xs group-hover/wink:scale-110 transition-transform flex items-center justify-center">
               <img
                 src="/img/6.webp"
-                alt="Jaume Tur aclucant l'ull"
+                alt="Jaume Tur wink"
                 class="w-full h-full object-contain"
                 width="36"
                 height="36"
@@ -85,14 +85,14 @@ const navCol3 = [
               />
             </div>
             <span class="absolute -top-7 left-0 sm:left-1/2 sm:-translate-x-1/2 bg-slate-900 text-white text-[10px] font-mono px-2 py-0.5 rounded shadow whitespace-nowrap opacity-0 group-hover/wink:opacity-100 transition-opacity pointer-events-none">
-              {isVal ? "Gràcies per la visita!" : "¡Gracias por tu visita!"}
+              {isEn ? "Thanks for visiting!" : "¡Gracias por tu visita!"}
             </span>
           </div>
         </div>
 
         <p class="text-xs text-slate-500 leading-relaxed max-w-sm mt-1">
-          {isVal
-            ? "Enginyeria web moderna centrada en el rendiment (60 FPS), l'accessibilitat WCAG AA i l'automatització del desplegament continu amb CI/CD."
+          {isEn
+            ? "Modern web engineering focused on performance (60 FPS), WCAG AA accessibility, and automated continuous deployment with CI/CD."
             : "Ingeniería web moderna centrada en el rendimiento (60 FPS), la accesibilidad WCAG AA y la automatización del despliegue continuo con CI/CD."}
         </p>
 
@@ -106,13 +106,13 @@ const navCol3 = [
         </div>
       </div>
 
-      <!-- Columna 1: Navegar -->
+      <!-- Columna 1: Navegación -->
       <div>
         <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
           <Icon name="bx:compass" class="w-4 h-4 text-indigo-600" />
-          <span>{isVal ? "Navegar" : "Navegación"}</span>
+          <span>{isEn ? "Navigation" : "Navegación"}</span>
         </h3>
-        <nav aria-label={isVal ? "Navegació principal del peu" : "Navegación principal del pie"}>
+        <nav aria-label={isEn ? "Footer main navigation" : "Navegación principal del pie"}>
           <ul class="space-y-2 text-xs">
             {navCol1.map((link) => (
               <li>
@@ -131,9 +131,9 @@ const navCol3 = [
       <div>
         <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
           <Icon name="bx:folder" class="w-4 h-4 text-indigo-600" />
-          <span>{isVal ? "Recursos" : "Recursos"}</span>
+          <span>{isEn ? "Resources" : "Recursos"}</span>
         </h3>
-        <nav aria-label={isVal ? "Recursos i eines" : "Recursos y herramientas"}>
+        <nav aria-label={isEn ? "Resources and tools" : "Recursos y herramientas"}>
           <ul class="space-y-2 text-xs">
             {navCol2.map((link) => (
               <li>
@@ -150,13 +150,13 @@ const navCol3 = [
         </nav>
       </div>
 
-      <!-- Columna 3: Contacte -->
+      <!-- Columna 3: Contacto -->
       <div>
         <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
           <Icon name="bx:share-alt" class="w-4 h-4 text-indigo-600" />
-          <span>{isVal ? "Contacte" : "Contacto"}</span>
+          <span>{isEn ? "Contact" : "Contacto"}</span>
         </h3>
-        <nav aria-label={isVal ? "Xarxes i contacte" : "Redes y contacto"}>
+        <nav aria-label={isEn ? "Social channels and contact" : "Redes y contacto"}>
           <ul class="space-y-2 text-xs">
             {navCol3.map((link) => (
               <li>
@@ -176,14 +176,14 @@ const navCol3 = [
 
     </div>
 
-    <!-- Barra Inferior de Crèdits i Estat CI/CD -->
+    <!-- Barra Inferior de Créditos y Estado CI/CD -->
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] text-slate-500 font-mono">
       <div class="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
         <BuildStatus variant="pill" />
         <p class="flex items-center gap-1.5 flex-wrap">
           <span>© {currentYear} Jaume Tur</span>
           <span>·</span>
-          <span>{isVal ? "Fet amb" : "Hecho con"}</span>
+          <span>{isEn ? "Built with" : "Hecho con"}</span>
           <Icon name="simple-icons:astro" class="w-3.5 h-3.5 text-orange-500" />
           <span>Astro &amp;</span>
           <Icon name="simple-icons:tailwindcss" class="w-3.5 h-3.5 text-cyan-500" />
@@ -197,14 +197,14 @@ const navCol3 = [
           target="_blank"
           rel="noopener noreferrer"
           class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1 transition"
-          title={isVal ? "Veure fitxa a Google Maps" : "Ver ficha en Google Maps"}>
+          title={isEn ? "View Google profile" : "Ver ficha en Google Maps"}>
           <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-indigo-600" />
-          <span>{isVal ? "Xàtiva / València, Espanya" : "Xàtiva / Valencia, España"}</span>
+          <span>{isEn ? "Valencia, Spain · Remote" : "Valencia, España y Remoto"}</span>
         </a>
         <span>•</span>
         <a href="#top" class="hover:text-slate-900 transition flex items-center gap-1 font-bold group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 rounded p-0.5">
           <Icon name="bx:up-arrow-alt" class="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
-          <span>{isVal ? "Amunt" : "Arriba"}</span>
+          <span>{isEn ? "Top" : "Arriba"}</span>
           <span>↑</span>
         </a>
       </div>

@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { variant = "pill" } = Astro.props;
-const isVal = Astro.url.pathname.startsWith("/val/");
+const isEn = Astro.url.pathname.startsWith("/en");
 ---
 
 {
@@ -17,8 +17,8 @@ const isVal = Astro.url.pathname.startsWith("/val/");
       rel="noopener noreferrer"
       id="build-status-pill"
       class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/80 transition shadow-2xs group cursor-pointer"
-      title={isVal ? "Veure les execucions del pipeline CI/CD a GitHub Actions" : "Ver las ejecuciones del pipeline CI/CD en GitHub Actions"}
-      aria-label={isVal ? "Estat del pipeline CI/CD a GitHub Actions" : "Estado del pipeline CI/CD en GitHub Actions"}
+      title={isEn ? "View CI/CD pipeline runs on GitHub Actions" : "Ver las ejecuciones del pipeline CI/CD en GitHub Actions"}
+      aria-label={isEn ? "CI/CD pipeline status on GitHub Actions" : "Estado del pipeline CI/CD en GitHub Actions"}
     >
       <span class="relative flex h-2 w-2">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" id="build-ping"></span>
@@ -28,7 +28,7 @@ const isVal = Astro.url.pathname.startsWith("/val/");
       <span class="flex items-center gap-1.5">
         <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 transition-colors" />
         <span>CI/CD:</span>
-        <span id="build-status-label" class="font-bold text-emerald-600">{isVal ? "Correcte" : "Correcto"}</span>
+        <span id="build-status-label" class="font-bold text-emerald-600">{isEn ? "Passing" : "Correcto"}</span>
       </span>
 
       <span class="text-[10px] text-slate-400 font-mono hidden sm:inline" id="build-commit-sha">#main</span>
@@ -46,7 +46,7 @@ const isVal = Astro.url.pathname.startsWith("/val/");
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div class="flex items-center gap-2">
           <Icon name="bx:rocket" class="w-5 h-5 text-indigo-600" />
-          <h4 class="font-bold text-sm text-slate-900">{isVal ? "Estat real del pipeline CI/CD" : "Estado real del pipeline CI/CD"}</h4>
+          <h4 class="font-bold text-sm text-slate-900">{isEn ? "Live CI/CD pipeline status" : "Estado real del pipeline CI/CD"}</h4>
         </div>
         <a
           href="https://github.com/jaumetur3W/jaumetur.es/actions"
@@ -61,28 +61,28 @@ const isVal = Astro.url.pathname.startsWith("/val/");
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11px] mb-4">
         <div>
-          <span class="text-slate-400 block text-[10px] uppercase">{isVal ? "Estat" : "Estado"}</span>
+          <span class="text-slate-400 block text-[10px] uppercase">{isEn ? "Status" : "Estado"}</span>
           <span id="card-build-status" class="font-bold text-emerald-600 flex items-center gap-1 mt-0.5">
             <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
-            <span>{isVal ? "Correcte" : "Correcto"}</span>
+            <span>{isEn ? "Passing" : "Correcto"}</span>
           </span>
         </div>
         <div>
-          <span class="text-slate-400 block text-[10px] uppercase">{isVal ? "Branca" : "Rama"}</span>
+          <span class="text-slate-400 block text-[10px] uppercase">{isEn ? "Branch" : "Rama"}</span>
           <span id="card-build-branch" class="font-bold text-slate-800 mt-0.5 block">main</span>
         </div>
         <div>
-          <span class="text-slate-400 block text-[10px] uppercase">{isVal ? "Darrer commit" : "Último commit"}</span>
+          <span class="text-slate-400 block text-[10px] uppercase">{isEn ? "Latest commit" : "Último commit"}</span>
           <span id="card-build-sha" class="font-bold text-indigo-600 mt-0.5 block">HEAD</span>
         </div>
         <div>
-          <span class="text-slate-400 block text-[10px] uppercase">{isVal ? "Temps d'execució" : "Tiempo de ejecución"}</span>
+          <span class="text-slate-400 block text-[10px] uppercase">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
           <span id="card-build-time" class="font-bold text-slate-800 mt-0.5 block">&lt; 90s</span>
         </div>
       </div>
 
       <p class="text-[11px] text-slate-500 font-sans leading-relaxed">
-        {isVal ? "Pipeline atòmic configurat amb GitHub Actions: instal·lació amb memòria cau, verificació estàtica de TypeScript, proves unitàries i desplegament atòmic sense caiguda." : "Pipeline atómico configurado con GitHub Actions: instalación en caché, verificación estática de TypeScript, pruebas unitarias y despliegue atómico sin interrupciones."}
+        {isEn ? "Atomic pipeline configured with GitHub Actions: cached dependencies, strict TypeScript checks, unit tests, and zero-downtime deployment." : "Pipeline atómico configurado con GitHub Actions: instalación en caché, verificación estática de TypeScript, pruebas unitarias y despliegue atómico sin interrupciones."}
       </p>
     </div>
   )
@@ -92,8 +92,8 @@ const isVal = Astro.url.pathname.startsWith("/val/");
   function fetchGitHubBuildStatus() {
     const REPO = "jaumetur3W/jaumetur.es";
     const CACHE_KEY = "gh_actions_build_status";
-    const CACHE_TTL = 5 * 60 * 1000; // 5 minuts
-    const isVal = window.location.pathname.startsWith("/val/");
+    const CACHE_TTL = 5 * 60 * 1000;
+    const isEn = window.location.pathname.startsWith("/en");
 
     function updateDOM(run) {
       const label = document.getElementById("build-status-label");
@@ -108,8 +108,8 @@ const isVal = Astro.url.pathname.startsWith("/val/");
 
       const isSuccess = run.conclusion === "success";
       const isInProgress = run.status === "in_progress" || run.status === "queued";
-      const statusText = isVal
-        ? { running: "En curs", success: "Correcte", failed: "Fallat" }
+      const statusText = isEn
+        ? { running: "In progress", success: "Passing", failed: "Failed" }
         : { running: "En curso", success: "Correcto", failed: "Fallido" };
       const shortSha = run.head_sha ? `#${run.head_sha.substring(0, 7)}` : "#main";
 
@@ -154,7 +154,6 @@ const isVal = Astro.url.pathname.startsWith("/val/");
       }
     }
 
-    // Comprovar memòria cau local
     try {
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
@@ -166,7 +165,6 @@ const isVal = Astro.url.pathname.startsWith("/val/");
       }
     } catch (_) {}
 
-    // Petició a l'API pública de GitHub Actions
     fetch(`https://api.github.com/repos/${REPO}/actions/runs?per_page=1`, {
       headers: { "Accept": "application/vnd.github.v3+json" }
     })
@@ -191,9 +189,7 @@ const isVal = Astro.url.pathname.startsWith("/val/");
           } catch (_) {}
         }
       })
-      .catch(() => {
-        // Fallback discret: conserva l'estat Passing per defecte
-      });
+      .catch(() => {});
   }
 
   if ("requestIdleCallback" in window) {

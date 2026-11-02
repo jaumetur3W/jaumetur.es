@@ -1,17 +1,17 @@
 ---
 draft: false
-title: "Burger Xàtiva — Demo de web gastronòmica interactiva"
-subtitle: "Plantilla d'una hamburgueseria fictícia amb carta digital, personalitzador de burgers, cistella i experiències de reserva i seguiment completament simulades."
-tagline: "Una demo responsive d'Astro que explora un recorregut de comanda gastronòmica, des de la carta fins a un Delivery Tracker d'exemple."
+title: "Burger Xàtiva — Demo de web gastronómica interactiva"
+subtitle: "Plantilla de una hamburguesería ficticia con carta digital, personalizador de hamburguesas, cesta y experiencias de reserva y seguimiento completamente simuladas."
+tagline: "Una demo responsive de Astro que explora un recorrido de pedido gastronómico, desde la carta hasta un Delivery Tracker de ejemplo."
 icon: "bx:restaurant"
 color: "lime"
-role: "Frontend Developer & UI Designer"
+role: "Desarrollo frontend y diseño de interfaz"
 year: "2026"
-client: "Projecte de demostració · negoci i contingut ficticis"
-badge: "Demo interactiva · no rep comandes reals"
-statLabel: "Abast funcional"
-statValue: "Fluïxos simulats · sense backend"
-verificationMethod: "Revisió de la demo publicada i dels textos d'estat de cada flux"
+client: "Proyecto de demostración · negocio y contenido ficticios"
+badge: "Demo interactiva · no recibe pedidos reales"
+statLabel: "Alcance funcional"
+statValue: "Flujos simulados · sin backend"
+verificationMethod: "Revisión de la demo publicada y de los textos de estado de cada flujo"
 liveUrl: "https://jaumetur3w.github.io/burger_xativa/"
 stack: ["Astro", "HTML estàtic", "Tailwind CSS", "JavaScript vanilla", "Disseny responsive", "ES / VA"]
 order: 3
@@ -21,25 +21,25 @@ image: {
 }
 ---
 
-## Un recorregut de comanda per a una marca fictícia
+## Un recorrido de pedido para una marca ficticia
 
-Burger Xàtiva és una demo de portfolio, no un restaurant en funcionament. La marca, la carta, els preus, les fotografies i les dades locals són de mostra. La pàgina ho identifica com a demo i adverteix que no s'ha d'utilitzar per a fer comandes reals.
+Burger Xàtiva es una demo de portfolio, no un restaurante en funcionamiento. La marca, la carta, los precios, las fotografías y los datos locales son de muestra. La página la identifica como demo y advierte que no debe utilizarse para hacer pedidos reales.
 
-El projecte presenta una experiència mòbil per explorar una carta, personalitzar una hamburguesa i recórrer les pantalles habituals d'un negoci gastronòmic.
+El proyecto presenta una experiencia móvil para explorar una carta, personalizar una hamburguesa y recorrer las pantallas habituales de un negocio gastronómico.
 
-## Funcionalitats que explora la demo
+## Funcionalidades que explora la demo
 
-- **Carta per categories i cistella:** permet afegir productes de mostra i veure el total orientatiu.
-- **Personalitzador de burger:** ofereix opcions de punt de la carn i extres amb preu il·lustratiu.
-- **Delivery Tracker:** mostra les fases de recepció, preparació i lliurament amb un identificador d'exemple. No consulta cap comanda real ni un servei de repartiment.
-- **Reserves i club VIP:** els formularis només presenten una confirmació simulada; no envien ni guarden dades.
-- **Fidelització conceptual:** la cistella mostra una recompensa visual en arribar a cinc productes. És una idea de mostra, no un Pizza Pass actiu ni un saldo persistent.
-- **Carta QR i idiomes:** inclou una entrada a la carta mitjançant QR i una interfície en castellà i valencià.
+- **Carta por categorías y cesta:** permite añadir productos de muestra y ver el total orientativo.
+- **Personalizador de hamburguesas:** ofrece opciones del punto de cocción de la carne y extras con precio ilustrativo.
+- **Delivery Tracker:** muestra las fases de recepción, preparación y entrega con un identificador de ejemplo. No consulta ningún pedido real ni servicio de reparto.
+- **Reservas y club VIP:** los formularios solo muestran una confirmación simulada; no envían ni guardan datos.
+- **Fidelización conceptual:** la cesta muestra una recompensa visual al alcanzar cinco productos. Es una idea de muestra, no un Pizza Pass activo ni un saldo persistente.
+- **Carta QR e idiomas:** incluye un acceso a la carta mediante QR y una interfaz en castellano y valenciano.
 
 ## Arquitectura
 
-La pàgina es genera amb Astro com a HTML estàtic, amb estils compilats amb Tailwind CSS i interaccions locals en mòduls de JavaScript vanilla. No hi ha un backend de comandes, reserves, pagaments, seguiment o subscripcions connectat.
+La página se genera con Astro como HTML estático, con estilos compilados con Tailwind CSS e interacciones locales en módulos de JavaScript vanilla. No hay ningún backend conectado para pedidos, reservas, pagos, seguimiento o suscripciones.
 
-## Límits i verificació
+## Límites y verificación
 
-He revisat la web publicada i els missatges que mostren els seus fluxos. La mateixa demo avisa que el tracker, les reserves, el club VIP, les ressenyes, els preus, els horaris i la localització són il·lustratius. Per això, aquest cas descriu el prototip i no atribueix resultats comercials ni una puntuació Lighthouse que la pàgina no declara.
+He revisado la web publicada y los mensajes que muestran sus flujos. La propia demo avisa de que el tracker, las reservas, el club VIP, las reseñas, los precios, los horarios y la ubicación son ilustrativos. Por eso, este caso describe el prototipo y no atribuye resultados comerciales ni una puntuación Lighthouse que la página no declara.

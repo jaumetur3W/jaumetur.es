@@ -3,53 +3,119 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
-import { localeFromPath } from "@/i18n";
+import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
+const locale = localeFromPath(Astro.url.pathname);
+const isEn = locale === "en";
+const href = (path: string) => localizePath(path, locale);
 
-const pillars = isVal
+const pillars = isEn
   ? [
-      { title: "Backend i arquitectura", icon: "bx:server", points: ["API REST escalables i serveis robustos amb Node.js i TypeScript", "Disseny i gestió de bases de dades SQL i NoSQL", "Arquitectura neta, seguretat i integració de sistemes"] },
-      { title: "Sistemes i servidors (SMX)", icon: "bx:chip", points: ["Administració de servidors Linux i entorns de xarxa", "Manteniment preventiu, diagnòstic i muntatge d'equips", "Configuració de xarxes locals, seguretat i còpies de seguretat"] },
-      { title: "Frontend i aplicacions web (DAW)", icon: "bx:layout", points: ["Aplicacions SPA modulars amb Angular i TypeScript", "Rendiment fluid a 60 FPS i accessibilitat WCAG AA", "Desplegaments automatitzats amb GitHub Actions i CI/CD"] },
+      {
+        title: "Backend & Architecture",
+        icon: "bx:server",
+        points: [
+          "Scalable REST APIs and robust services with Node.js and TypeScript",
+          "Design and administration of relational and document databases",
+          "Clean architecture, defense-in-depth security, and system integrations",
+        ],
+      },
+      {
+        title: "Systems & Servers (SMX)",
+        icon: "bx:chip",
+        points: [
+          "Linux server administration and local network infrastructure",
+          "Preventive maintenance, hardware diagnostics, and workstation assembly",
+          "Network configuration, firewall security, and automated backups",
+        ],
+      },
+      {
+        title: "Frontend & Web Apps (DAW)",
+        icon: "bx:layout",
+        points: [
+          "Modular single-page applications with Angular, React, and TypeScript",
+          "Smooth 60 FPS performance and strict WCAG AA accessibility",
+          "Automated deployment pipelines with GitHub Actions and CI/CD",
+        ],
+      },
     ]
   : [
-      { title: "Backend y arquitectura", icon: "bx:server", points: ["API REST escalables y servicios robustos con Node.js y TypeScript", "Diseño y gestión de bases de datos SQL y NoSQL", "Arquitectura limpia, seguridad e integración de sistemas"] },
-      { title: "Sistemas y servidores (SMX)", icon: "bx:chip", points: ["Administración de servidores Linux y entornos de red", "Mantenimiento preventivo, diagnóstico y montaje de equipos", "Configuración de redes locales, seguridad y copias de seguridad"] },
-      { title: "Frontend y aplicaciones web (DAW)", icon: "bx:layout", points: ["Aplicaciones SPA modulares con Angular y TypeScript", "Rendimiento fluido a 60 FPS y accesibilidad WCAG AA", "Despliegues automatizados con GitHub Actions y CI/CD"] },
+      {
+        title: "Backend y arquitectura",
+        icon: "bx:server",
+        points: [
+          "API REST escalables y servicios robustos con Node.js y TypeScript",
+          "Diseño y gestión de bases de datos SQL y NoSQL",
+          "Arquitectura limpia, seguridad e integración de sistemas",
+        ],
+      },
+      {
+        title: "Sistemas y servidores (SMX)",
+        icon: "bx:chip",
+        points: [
+          "Administración de servidores Linux y entornos de red",
+          "Mantenimiento preventivo, diagnóstico y montaje de equipos",
+          "Configuración de redes locales, seguridad y copias de seguridad",
+        ],
+      },
+      {
+        title: "Frontend y aplicaciones web (DAW)",
+        icon: "bx:layout",
+        points: [
+          "Aplicaciones SPA modulares con Angular y TypeScript",
+          "Rendimiento fluido a 60 FPS y accesibilidad WCAG AA",
+          "Despliegues automatizados con GitHub Actions y CI/CD",
+        ],
+      },
     ];
 
 const highlights = [
-  { icon: "bx:bxs-graduation", label: isVal ? "TITULACIONS" : "FORMACIÓN", val: "CFGS DAW + GM SMX", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:map-pin", label: isVal ? "UBICACIÓ" : "UBICACIÓN", val: isVal ? "Xàtiva / València (i remot)" : "Xàtiva / Valencia (y remoto)", color: "border-slate-200/90 bg-slate-50 text-slate-800" },
-  { icon: "bx:server", label: isVal ? "ESPECIALITAT" : "ESPECIALIDAD", val: isVal ? "Desenvolupament web, aplicacions i backend" : "Desarrollo web, aplicaciones y backend", color: "border-indigo-200/90 bg-indigo-50 text-indigo-900" },
-  { icon: "bx:check-circle", label: isVal ? "DISPONIBILITAT" : "DISPONIBILIDAD", val: isVal ? "Projectes i col·laboracions" : "Proyectos y colaboraciones", color: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+  {
+    icon: "bx:bxs-graduation",
+    label: isEn ? "EDUCATION" : "FORMACIÓN",
+    val: "CFGS DAW + GM SMX",
+  },
+  {
+    icon: "bx:map-pin",
+    label: isEn ? "LOCATION" : "UBICACIÓN",
+    val: isEn ? "Valencia, Spain (and remote)" : "Xàtiva / Valencia (y remoto)",
+  },
+  {
+    icon: "bx:server",
+    label: isEn ? "SPECIALTY" : "ESPECIALIDAD",
+    val: isEn ? "Web development, apps & backend" : "Desarrollo web, aplicaciones y backend",
+  },
+  {
+    icon: "bx:check-circle",
+    label: isEn ? "AVAILABILITY" : "DISPONIBILIDAD",
+    val: isEn ? "Projects & collaborations" : "Proyectos y colaboraciones",
+  },
 ];
 ---
 
 <Layout
-  title={isVal ? "Sobre mi — Desenvolupador Web a Xàtiva i València" : "Sobre mí — Desarrollador Web en Xàtiva y Valencia"}
-  description={isVal ? "Trajectòria, formació i enfocament de Jaume Tur: desenvolupador de pàgines web, aplicacions a mida i sistemes des de Xàtiva i València." : "Trayectoria, formación y enfoque de Jaume Tur: desarrollador de páginas web, aplicaciones a medida y sistemas desde Xàtiva y Valencia."}>
+  title={isEn ? "About Me — Web & Application Developer in Valencia" : "Sobre mí — Desarrollador Web en Xàtiva y Valencia"}
+  description={isEn ? "Career, education, and technical background of Jaume Tur: web developer, custom applications, and backend systems in Valencia." : "Trayectoria, formación y enfoque de Jaume Tur: desarrollador de páginas web, aplicaciones a medida y sistemas desde Xàtiva y Valencia."}>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">{isVal ? "Sobre mi" : "Sobre mí"}</Fragment>
-      <Fragment slot="desc">{isVal ? "Trajectòria tècnica, formació oficial i enfocament pràctic de desenvolupament web." : "Trayectoria técnica, formación oficial y enfoque práctico de desarrollo web."}</Fragment>
+      <Fragment slot="title">{isEn ? "About Me" : "Sobre mí"}</Fragment>
+      <Fragment slot="desc">{isEn ? "Technical journey, official certifications, and practical web engineering approach." : "Trayectoria técnica, formación oficial y enfoque práctico de desarrollo web."}</Fragment>
     </Sectionhead>
 
-    <!-- Main Profile Card with Memoji 1.png: Unified Surface Palette -->
-    <div class="mt-14 bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 relative pt-12 sm:pt-14 group transition-colors hover:border-slate-400">
+    <!-- Main Profile Card with Memoji 1.png -->
+    <div class="mt-14 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 relative pt-12 sm:pt-14 group transition-all duration-200 hover:border-slate-950 shadow-2xs hover:shadow-md">
       
       <div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12">
         
-        <!-- Memoji 1.png - Overlapping with natural contact shadow -->
+        <!-- Memoji 1.png -->
         <div class="shrink-0 flex flex-col items-center -mt-16 sm:-mt-24 relative z-20 group/memoji">
           <div class="relative">
-            <div class="absolute inset-0 bg-indigo-500/15 rounded-full blur-2xl group-hover/memoji:scale-105 transition-transform"></div>
+            <div class="absolute inset-0 bg-[#FFFF00]/30 rounded-full blur-2xl group-hover/memoji:scale-105 transition-transform"></div>
             
             <img
               src="/img/1.webp"
               alt="Jaume Tur"
-              class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.20)] group-hover/memoji:-translate-y-2 transition-transform duration-200"
+              class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 object-contain drop-shadow-[0_16px_28px_rgba(15,23,42,0.18)] group-hover/memoji:-translate-y-2 transition-transform duration-200"
               width="288"
               height="288"
               loading="eager"
@@ -57,42 +123,42 @@ const highlights = [
             />
           </div>
 
-          <span class="relative -mt-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>{isVal ? "Disponible per a projectes" : "Disponible para proyectos"}</span>
+          <span class="relative -mt-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-950"></span>
+            <span>{isEn ? "Available for projects" : "Disponible para proyectos"}</span>
           </span>
         </div>
 
         <div class="flex-1 text-left">
-          <div class="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md mb-2 border border-indigo-200/60">
-            <Icon name="bx:terminal" class="w-3.5 h-3.5" />
-            <span>{isVal ? "Backend i sistemes · Aplicacions web" : "Backend y sistemas · Aplicaciones web"}</span>
+          <div class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-slate-950 bg-slate-100 px-3 py-1 rounded-lg mb-3 border border-slate-200">
+            <Icon name="bx:terminal" class="w-3.5 h-3.5 text-slate-950" />
+            <span>{isEn ? "Backend & Systems · Web Applications" : "Backend y sistemas · Aplicaciones web"}</span>
           </div>
 
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 class="text-3xl sm:text-4xl font-light text-slate-950 tracking-tight">
             Jaume Tur
           </h2>
 
-          <p class="text-base text-slate-600 mt-3 leading-relaxed">
-            {isVal ? (
-              <>Soc desenvolupador de programari resident a <strong>Xàtiva (València)</strong>, especialitzat en <strong>desenvolupament web, aplicacions a mida i sistemes</strong>. La meua titulació de <strong>Grau Mitjà en Sistemes Microinformàtics i Xarxes (SMX)</strong> m'aporta una comprensió profunda de servidors, xarxes i fiabilitat, que complete amb el <strong>CFGS en Desenvolupament d'Aplicacions Web (DAW)</strong> per a dissenyar i programar pàgines ràpides, interfícies reactives i serveis backend sòlids per a negocis locals o empreses en remot.</>
+          <p class="text-base text-slate-600 mt-4 leading-relaxed font-light">
+            {isEn ? (
+              <>I am a software developer based in <strong>Valencia, Spain</strong>, specializing in <strong>web development, custom applications, and backend systems</strong>. My official certification in <strong>Microcomputer Systems and Networks (SMX)</strong> provides me with deep expertise in servers, networking, and infrastructure reliability, which I complement with the <strong>Higher Technical Certificate in Web Application Development (DAW)</strong> to design and build ultra-fast websites, reactive interfaces, and robust backend services for local businesses and remote engineering teams.</>
             ) : (
               <>Soy desarrollador de software afincado en <strong>Xàtiva (Valencia)</strong>, especializado en <strong>desarrollo web, aplicaciones a medida y sistemas</strong>. Mi titulación de <strong>Grado Medio en Sistemas Microinformáticos y Redes (SMX)</strong> me aporta un dominio sólido de servidores, redes y fiabilidad, que complemento con el <strong>CFGS en Desarrollo de Aplicaciones Web (DAW)</strong> para diseñar y programar páginas rápidas, interfaces reactivas y servicios backend robustos para negocios locales o empresas en remoto.</>
             )}
           </p>
 
-          <!-- Visual highlights pills with Standardized Icons -->
+          <!-- Visual highlights pills -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
             {highlights.map((h) => (
-              <div class={`p-3 rounded-xl border ${h.color} shadow-2xs flex items-start gap-3 hover:-translate-y-0.5 transition-transform`}>
-                <div class="w-8 h-8 rounded-lg bg-slate-200/50 flex items-center justify-center shrink-0 text-slate-700 mt-0.5">
+              <div class="p-3.5 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-[#FFFF00]/20 hover:border-slate-950 transition-all flex items-start gap-3">
+                <div class="w-8 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0 text-slate-950 mt-0.5">
                   <Icon name={h.icon} class="w-4 h-4" />
                 </div>
                 <div>
-                  <span class="block text-[10px] font-mono font-bold uppercase tracking-wider opacity-70">
+                  <span class="block text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400">
                     {h.label}
                   </span>
-                  <span class="font-bold text-sm mt-0.5 block leading-tight">
+                  <span class="font-normal text-sm text-slate-950 mt-0.5 block leading-tight">
                     {h.val}
                   </span>
                 </div>
@@ -100,23 +166,23 @@ const highlights = [
             ))}
           </div>
 
-          <!-- Quick action buttons (Prioritat Tècnica: CV, GitHub, LinkedIn, Contacte) -->
+          <!-- Quick action buttons -->
           <div class="flex flex-wrap items-center gap-3 mt-6 pt-6 border-t border-slate-100">
             <a
               href="/docs/CV_Jaume_tur.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-indigo-600 transition shadow-xs">
-              <Icon name="bx:file" class="w-4 h-4 text-white group-hover/btn:-translate-y-0.5 transition-transform" />
-              <span>{isVal ? "Descarregar CV complet (PDF)" : "Descargar CV completo (PDF)"}</span>
-              <span class="text-[11px] font-mono text-slate-400">↗</span>
+              class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-950 text-white font-mono text-xs uppercase tracking-wider font-semibold hover:bg-[#FFFF00] hover:text-slate-950 border border-slate-950 transition-colors">
+              <Icon name="bx:file" class="w-4 h-4 text-white group-hover/btn:text-slate-950 group-hover/btn:-translate-y-0.5 transition-transform" />
+              <span>{isEn ? "Download Full Resume (PDF)" : "Descargar CV completo (PDF)"}</span>
+              <span class="text-[11px] font-mono text-slate-400 group-hover/btn:text-slate-950">↗</span>
             </a>
             <a
               href="https://github.com/jaumetur3W"
               target="_blank"
               rel="noopener noreferrer"
-              class="group/gh inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-xs text-slate-800 bg-white hover:bg-slate-50 hover:border-slate-800 transition shadow-2xs"
-              title={isVal ? "Repositoris de codi a GitHub" : "Repositorios de código en GitHub"}>
+              class="group/gh inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs font-semibold text-slate-800 bg-white hover:bg-slate-50 hover:border-slate-950 transition-colors"
+              title={isEn ? "Code repositories on GitHub" : "Repositorios de código en GitHub"}>
               <Icon name="bx:bxl-github" class="w-4 h-4 text-slate-900 group-hover/gh:scale-110 transition-transform" />
               <span>GitHub</span>
               <span class="text-[10px] text-slate-400 font-mono">↗</span>
@@ -125,50 +191,50 @@ const highlights = [
               href="https://www.linkedin.com/in/jautur/"
               target="_blank"
               rel="noopener noreferrer"
-              class="group/li inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-indigo-200 font-bold text-xs text-indigo-700 bg-indigo-50/50 hover:bg-indigo-100 transition shadow-2xs"
-              title={isVal ? "Trajectòria professional a LinkedIn" : "Trayectoria profesional en LinkedIn"}>
-              <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-indigo-600 group-hover/li:scale-110 transition-transform" />
+              class="group/li inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 font-mono text-xs font-semibold text-slate-800 bg-white hover:bg-slate-50 hover:border-slate-950 transition-colors"
+              title={isEn ? "Professional profile on LinkedIn" : "Trayectoria profesional en LinkedIn"}>
+              <Icon name="bx:bxl-linkedin" class="w-4 h-4 text-slate-900 group-hover/li:scale-110 transition-transform" />
               <span>LinkedIn</span>
-              <span class="text-[10px] text-indigo-400 font-mono">↗</span>
+              <span class="text-[10px] text-slate-400 font-mono">↗</span>
             </a>
             <a
-              href={isVal ? "/val/contact" : "/contact"}
-              class="group/c inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200/90 font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 transition shadow-2xs">
+              href={href("/contact")}
+              class="group/c inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 font-mono text-xs font-semibold text-slate-800 bg-white hover:bg-[#FFFF00] hover:text-slate-950 hover:border-slate-950 transition-colors">
               <Icon name="bx:message-square-dots" class="w-4 h-4 text-slate-700 group-hover/c:scale-110 transition-transform" />
-              <span>{isVal ? "Contactar" : "Contactar"}</span>
+              <span>{isEn ? "Contact" : "Contactar"}</span>
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 3 Pillars Section: Unified Surface Grid -->
-    <div class="mt-16">
-      <div class="text-center max-w-xl mx-auto mb-10">
-        <span class="text-xs font-mono uppercase tracking-wider text-indigo-700 font-bold bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80 flex items-center justify-center gap-1.5 w-max mx-auto">
-          <Icon name="bx:compass" class="w-3.5 h-3.5 text-indigo-700" />
-          <span>{isVal ? "Principis d'enginyeria" : "Principios de ingeniería"}</span>
+    <!-- 3 Pillars Section -->
+    <div class="mt-20">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
+          <Icon name="bx:compass" class="w-3.5 h-3.5 text-slate-400" />
+          <span>{isEn ? "Engineering Principles" : "Principios de ingeniería"}</span>
         </span>
-        <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2.5">
-          {isVal ? "Com enfoque cada projecte" : "Cómo enfoco cada proyecto"}
+        <h3 class="text-3xl sm:text-4xl font-light tracking-tight text-slate-950">
+          {isEn ? "How I approach every project" : "Cómo enfoco cada proyecto"}
         </h3>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
         {
           pillars.map((pillar) => (
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-slate-400 transition-colors flex flex-col justify-between group">
+            <div class="bg-white rounded-2xl border border-slate-200/90 p-6 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
               <div>
-                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-indigo-50 border border-indigo-200/60 shadow-2xs group-hover:scale-110 transition-transform text-indigo-600">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-slate-100 border border-slate-200/80 group-hover:bg-[#FFFF00] group-hover:text-slate-950 transition-colors text-slate-900">
                   <Icon name={pillar.icon} class="w-6 h-6" />
                 </div>
-                <h4 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                <h4 class="text-xl font-light text-slate-950 tracking-tight mb-3">
                   {pillar.title}
                 </h4>
-                <ul class="space-y-2.5 text-xs text-slate-600">
+                <ul class="space-y-2.5 text-xs sm:text-sm text-slate-600 font-light">
                   {pillar.points.map((pt) => (
-                    <li class="flex items-start gap-2.5">
-                      <span class="text-emerald-600 font-bold shrink-0 mt-0.5 select-none" aria-hidden="true">✓</span>
+                    <li class="flex items-start gap-2.5 leading-relaxed">
+                      <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">✓</span>
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -180,25 +246,25 @@ const highlights = [
       </div>
     </div>
 
-    <!-- Technical Architecture Visual Card: Dark Tech Surface (#090D16) -->
-    <div class="mt-16 bg-[#090D16] text-white rounded-3xl p-6 sm:p-10 border border-slate-800/90 shadow-xl relative overflow-visible group">
+    <!-- Technical Architecture Visual Card -->
+    <div class="mt-20 mb-12 bg-slate-950 text-white rounded-3xl p-6 sm:p-10 border-2 border-slate-950 shadow-xl relative overflow-visible group selection:bg-[#FFFF00] selection:text-black">
       <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
         <div class="space-y-3 max-w-xl">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
-            <Icon name="bx:bxs-zap" class="w-3.5 h-3.5 text-indigo-300" />
-            <span>{isVal ? "Arquitectura de programari" : "Arquitectura de software"}</span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+            <Icon name="bx:bxs-zap" class="w-3.5 h-3.5 text-slate-950" />
+            <span>{isEn ? "Software Architecture" : "Arquitectura de software"}</span>
           </span>
-          <h3 class="text-2xl font-bold tracking-tight text-white">
-            {isVal ? "Patró disparador i executor (Trigger / Executor)" : "Patrón disparador y ejecutor (Trigger / Executor)"}
+          <h3 class="text-2xl sm:text-3xl font-light tracking-tight text-white">
+            {isEn ? "Trigger / Executor Event Pattern" : "Patrón disparador y ejecutor (Trigger / Executor)"}
           </h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            {isVal
-              ? "Desenvolupament orientat a esdeveniments: els disparadors autònoms (webhooks, git push) envien dades JSON als processos de validació, anàlisi estàtica i desplegament automàtic, reduint els errors humans."
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
+            {isEn
+              ? "Event-driven software development: autonomous triggers (webhooks, git push) dispatch typed JSON payloads to automated validation, static analysis, and atomic deployment pipelines, eliminating human error."
               : "Desarrollo orientado a eventos: los disparadores autónomos (webhooks, git push) envían datos JSON a los procesos de validación, análisis estático y despliegue automático, reduciendo los errores humanos."}
           </p>
         </div>
 
-        <!-- Memoji 7.png Overlapping -->
+        <!-- Memoji 7.png -->
         <div class="shrink-0 flex flex-col items-center -mb-8 sm:-mb-14 relative z-20 group/memoji">
           <div class="relative">
             <img
@@ -211,9 +277,9 @@ const highlights = [
               decoding="async"
             />
           </div>
-          <span class="relative -mt-3 text-xs font-mono text-slate-300 font-medium bg-slate-900 border border-slate-700/80 px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
-            <Icon name="bx:code-alt" class="w-3.5 h-3.5 text-indigo-400" />
-            <span>{isVal ? "Codi fiable i CI/CD" : "Código fiable y CI/CD"}</span>
+          <span class="relative -mt-3 text-xs font-mono text-slate-950 font-semibold bg-[#FFFF00] border border-slate-950/20 px-3 py-1 rounded-full shadow-lg flex items-center gap-1.5">
+            <Icon name="bx:code-alt" class="w-3.5 h-3.5 text-slate-950" />
+            <span>{isEn ? "Reliable Code & CI/CD" : "Código fiable y CI/CD"}</span>
           </span>
         </div>
       </div>

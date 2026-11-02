@@ -4,113 +4,34 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
-const isVal = localeFromPath(Astro.url.pathname) === "val";
-const href = (path: string) => localizePath(path, isVal ? "val" : "es");
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 
-const projects = await getCollection("projectes");
-projects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const rawProjects = isEn ? await getCollection("projectes-en") : await getCollection("projectes");
+const projects = rawProjects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
 const projectPreviews: Record<string, { src: string; alt: string }> = {
   avisa: {
     src: "/img/preview-avisa.webp",
-    alt: "Pàgina principal de la plataforma de serveis AVISA",
+    alt: isEn ? "Main page of AVISA services platform" : "Página principal de la plataforma de servicios AVISA",
   },
   "dashboard-telemetria": {
     src: "/img/preview-dashboard.webp",
-    alt: "Gràfic d'analítica il·lustratiu per al projecte de telemetria",
+    alt: isEn ? "Analytics chart for telemetry project" : "Gráfico analítico ilustrativo del proyecto de telemetría",
   },
   "pipeline-cicd": {
     src: "/img/preview-pipeline.webp",
-    alt: "Historial públic de fluxos de GitHub Actions del projecte CI/CD",
-  },
-};
-
-const projectPreviewAltEs: Record<string, string> = {
-  avisa: "Página principal de la plataforma de servicios AVISA",
-  "dashboard-telemetria": "Gráfico analítico ilustrativo del proyecto de telemetría",
-  "pipeline-cicd": "Historial público de ejecuciones de GitHub Actions del proyecto CI/CD",
-  "pizzeria-xativa": "Pizza de la demo Pizzeria Xàtiva",
-  "burger-xativa": "Hamburguesa de la demo Burger Xàtiva",
-  "forma-espacio": "Interior arquitectónico con materiales naturales",
-};
-
-const projectRoles: Record<string, string> = {
-  avisa: "Arquitectura frontend i desenvolupament d'interfície",
-  "pizzeria-xativa": "Desenvolupament frontend i disseny d'interfície",
-  "burger-xativa": "Desenvolupament frontend i disseny d'interfície",
-  "dashboard-telemetria": "Desenvolupament frontend i rendiment web",
-  "pipeline-cicd": "DevOps i lideratge frontend",
-};
-
-const projectRolesEs: Record<string, string> = {
-  avisa: "Arquitectura frontend y desarrollo de interfaz",
-  "pizzeria-xativa": "Desarrollo frontend y diseño de interfaz",
-  "burger-xativa": "Desarrollo frontend y diseño de interfaz",
-  "dashboard-telemetria": "Desarrollo frontend y rendimiento web",
-  "pipeline-cicd": "DevOps y liderazgo frontend",
-};
-
-const projectStackEs: Record<string, string[]> = {
-  avisa: ["Angular 17+", "TypeScript estricto", "Signals", "Vercel Edge", "WCAG AA", "Formularios reactivos"],
-  "pizzeria-xativa": ["HTML5", "Tailwind CSS CDN", "JavaScript", "Enlaces de WhatsApp", "Interfaces de Apple Wallet y Google Wallet"],
-  "burger-xativa": ["Astro", "HTML estático", "Tailwind CSS", "JavaScript", "Diseño adaptable", "ES / VA"],
-  "dashboard-telemetria": ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment", "Virtual DOM", "Core Web Vitals"],
-  "pipeline-cicd": ["GitHub Actions", "CI/CD", "Linux Shell", "ESLint", "TypeScript", "GitHub Pages", "Caché de npm"],
-  "forma-espacio": ["HTML", "CSS", "JavaScript", "Diseño editorial"],
-  fincarural: ["React", "TypeScript", "Tailwind CSS", "Diseño editorial"],
-  urbanstyles: ["Next.js", "React", "TypeScript", "Tailwind CSS", "E-Commerce"],
-};
-
-const projectCopyEs: Record<string, { title: string; subtitle: string; badge: string }> = {
-  avisa: {
-    title: "AVISA — Gestión de incidencias en tiempo real",
-    subtitle: "Arquitectura frontend reactiva con Angular y TypeScript para coordinar avisos e incidencias urbanas críticas.",
-    badge: "Aplicación web · Prototipo de interfaz",
-  },
-  "pizzeria-xativa": {
-    title: "Pizzeria Xàtiva — Demo de carta y Pizza Pass",
-    subtitle: "Plantilla demostrativa con carta digital, cesta y prototipo de fidelización Pizza Pass para Apple Wallet y Google Wallet.",
-    badge: "Demo interactiva · datos ficticios",
-  },
-  "burger-xativa": {
-    title: "Burger Xàtiva — Demo de web gastronómica interactiva",
-    subtitle: "Plantilla de hamburguesería ficticia con carta, personalizador, cesta y flujos simulados.",
-    badge: "Demo interactiva · sin pedidos reales",
-  },
-  "dashboard-telemetria": {
-    title: "Panel de telemetría — Rendimiento web a 60 FPS",
-    subtitle: "Panel interactivo para monitorizar métricas de rendimiento web, concurrencia y Core Web Vitals en tiempo real.",
-    badge: "Interfaz frontend y métricas",
-  },
-  "pipeline-cicd": {
-    title: "Pipeline CI/CD automatizado — Cero interrupciones",
-    subtitle: "Automatización de lint, validación de TypeScript, compilación optimizada y despliegue continuo.",
-    badge: "DevOps y automatización",
-  },
-  "forma-espacio": {
-    title: "FORMA / ESPACIO — Arte · Arquitectura · Investigación",
-    subtitle: "Portfolio editorial de arte, arquitectura e investigación espacial.",
-    badge: "Portfolio · Arquitectura",
-  },
-  fincarural: {
-    title: "Mas de l'Alzina — Finca Rural & Eventos",
-    subtitle: "Web editorial y experiencia digital para estancias exclusivas y retiros en el interior de Valencia.",
-    badge: "Turismo rural · Eventos",
-  },
-  urbanstyles: {
-    title: "UrbanStyles — Streetwear Contemporáneo & E-Commerce Retro",
-    subtitle: "Tienda digital interactiva de ropa urbana con catálogo de colecciones, selector de tallas y carrito dinámico.",
-    badge: "E-Commerce · Streetwear",
+    alt: isEn ? "Public GitHub Actions runs history of CI/CD project" : "Historial público de ejecuciones de GitHub Actions del proyecto CI/CD",
   },
 };
 
 // Categories per tipus de projecte
 const projectCategories = [
-  { id: "all", label: isVal ? "Tots els projectes" : "Todos los proyectos" },
-  { id: "web-apps", label: isVal ? "Aplicacions web" : "Aplicaciones web" },
-  { id: "negocis", label: isVal ? "Negocis & Comerç" : "Negocios y comercio" },
-  { id: "devops", label: isVal ? "DevOps & Eines" : "DevOps y herramientas" },
-  { id: "editorial", label: isVal ? "Webs editorials" : "Webs editoriales" },
+  { id: "all", label: isEn ? "All projects" : "Todos los proyectos" },
+  { id: "web-apps", label: isEn ? "Web apps" : "Aplicaciones web" },
+  { id: "negocis", label: isEn ? "Business & Commerce" : "Negocios y comercio" },
+  { id: "devops", label: isEn ? "DevOps & Tools" : "DevOps y herramientas" },
+  { id: "editorial", label: isEn ? "Editorial websites" : "Webs editoriales" },
 ];
 
 const getProjectCategory = (id: string): string => {
@@ -123,27 +44,29 @@ const getProjectCategory = (id: string): string => {
 ---
 
 <Layout
-  title={isVal ? "Portafolis de Projectes Web i Aplicacions a Mida | Jaume Tur" : "Portafolio de Proyectos Web y Aplicaciones a Medida | Jaume Tur"}
-  description={isVal ? "Casos d'estudi reals i demostracions tècniques de desenvolupament web, aplicacions a mida, backend i arquitectura frontend per Jaume Tur." : "Casos de estudio reales y demostraciones técnicas de desarrollo web, aplicaciones a medida, backend y arquitectura frontend por Jaume Tur."}
+  title={isEn ? "Web Projects & Custom Applications Portfolio | Jaume Tur" : "Portafolio de Proyectos Web y Aplicaciones a Medida | Jaume Tur"}
+  description={isEn ? "Real-world case studies and technical demonstrations in web development, custom applications, backend, and frontend architecture by Jaume Tur." : "Casos de estudio reales y demostraciones técnicas de desarrollo web, aplicaciones a medida, backend y arquitectura frontend por Jaume Tur."}
 >
   <Container>
-    <header class="mx-auto max-w-3xl pt-12 pb-10 sm:pt-16 sm:pb-12">
-      <p class="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-700">
-        <span class="h-1.5 w-8 rounded-full bg-[#FFFF00]" aria-hidden="true"></span>
-        {isVal ? "Portafolis" : "Portafolio"}
+    <header class="mx-auto max-w-3xl pt-12 pb-10 sm:pt-16 sm:pb-12 text-left">
+      <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
+        {isEn ? "Portfolio & Case Studies" : "Portafolio y casos de estudio"}
       </p>
-      <h1 class="max-w-2xl text-3xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
-        {isVal ? "Projectes que expliquen " : "Proyectos que explican "}<span class="decoration-[#FFFF00] decoration-[0.22em] underline underline-offset-2">{isVal ? "com treballe" : "cómo trabajo"}</span>
+      <h1 class="max-w-2xl text-3xl font-light leading-tight tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+        {isEn ? "Projects that explain " : "Proyectos que explican "}<span class="decoration-[#FFFF00] decoration-2 underline underline-offset-4">{isEn ? "how I build." : "cómo desarrollo."}</span>
       </h1>
-      <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-        {isVal ? "Aplicacions, demostracions i projectes de desenvolupament web. En cada fitxa trobaràs què és, quin ha sigut el meu paper i quines tecnologies s'han utilitzat." : "Aplicaciones, demostraciones y proyectos de desarrollo web. En cada ficha encontrarás qué es, cuál ha sido mi papel y qué tecnologías se han utilizado."}
+      <p class="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-slate-600 font-light">
+        {isEn ? "Applications, interactive demonstrations, and web engineering case studies. In each monograph you will find the problem statement, my specific role, and the tech stack." : "Aplicaciones, demostraciones y proyectos de desarrollo web. En cada ficha encontrarás qué es, cuál ha sido mi papel y qué tecnologías se han utilizado."}
       </p>
-      <a
-        href={href("/qualitat")}
-        class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-slate-700 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-      >
-        {isVal ? "Consulta els criteris de revisió tècnica" : "Consulta los criterios de revisión técnica"} <span aria-hidden="true">↗</span>
-      </a>
+      <div class="mt-5">
+        <a
+          href={href("/qualitat")}
+          class="inline-flex items-center gap-2 text-xs font-mono font-medium text-slate-600 hover:text-slate-950 underline decoration-[#FFFF00] decoration-2 underline-offset-4 transition-colors"
+        >
+          <span>{isEn ? "Review technical audit criteria" : "Consulta los criterios de revisión técnica"}</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
     </header>
 
     <!-- Barra de Cerca i Filtres per Tipus -->
@@ -151,7 +74,7 @@ const getProjectCategory = (id: string): string => {
       <!-- Cercador instantani -->
       <div class="relative max-w-md">
         <label for="project-search-input" class="sr-only">
-          {isVal ? "Cercar projectes per títol, rol o tecnologia" : "Buscar proyectos por título, papel o tecnología"}
+          {isEn ? "Search projects by title, role or tech" : "Buscar proyectos por título, papel o tecnología"}
         </label>
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
           <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -161,8 +84,8 @@ const getProjectCategory = (id: string): string => {
         <input
           id="project-search-input"
           type="search"
-          placeholder={isVal ? "Cercar per tecnologia (React, Angular...), nom..." : "Buscar por tecnología (React, Angular...), nombre..."}
-          class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-2xs outline-none transition focus:border-slate-800 focus:ring-2 focus:ring-[#FFFF00]"
+          placeholder={isEn ? "Search by tech (React, Angular, TypeScript...), name..." : "Buscar por tecnología (React, Angular...), nombre..."}
+          class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-2xs outline-none transition focus:border-slate-950 focus:ring-2 focus:ring-[#FFFF00]"
         />
       </div>
 
@@ -171,16 +94,16 @@ const getProjectCategory = (id: string): string => {
         id="project-type-filters"
         class="flex flex-wrap items-center gap-2"
         role="group"
-        aria-label={isVal ? "Filtrar projectes per tipus" : "Filtrar proyectos por tipo"}
+        aria-label={isEn ? "Filter projects by type" : "Filtrar proyectos por tipo"}
       >
         {projectCategories.map((cat, idx) => (
           <button
             type="button"
             data-category={cat.id}
-            class={`project-filter-btn inline-flex min-h-[38px] items-center rounded-xl px-3.5 py-1.5 text-xs font-mono font-medium transition cursor-pointer border ${
+            class={`project-filter-btn inline-flex min-h-[36px] items-center rounded-xl px-3.5 py-1.5 text-xs font-mono font-medium transition cursor-pointer border ${
               idx === 0
-                ? "bg-slate-950 text-white border-slate-900 shadow-xs"
-                : "bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900 shadow-2xs"
+                ? "bg-slate-950 text-white border-slate-950 shadow-xs"
+                : "bg-white text-slate-600 border-slate-200 hover:border-slate-950 hover:text-slate-950 shadow-2xs"
             }`}
           >
             <span>{cat.label}</span>
@@ -189,76 +112,78 @@ const getProjectCategory = (id: string): string => {
       </div>
     </div>
 
-    <section aria-label={isVal ? "Projectes" : "Proyectos"} class="mb-20">
+    <section aria-label={isEn ? "Projects" : "Proyectos"} class="mb-24">
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8" id="projects-grid">
         {projects.map((project) => {
           const preview = projectPreviews[project.id] ?? project.data.image;
-          const projectCopy = isVal ? project.data : { ...project.data, ...projectCopyEs[project.id] };
+          const projectCopy = project.data;
           const category = getProjectCategory(project.id);
-          const stackList = isVal ? project.data.stack : projectStackEs[project.id] ?? project.data.stack;
+          const stackList = project.data.stack;
           const searchKeywords = `${projectCopy.title} ${projectCopy.subtitle} ${stackList.join(" ")} ${project.data.role}`.toLowerCase();
           return (
           <article
-            class="project-card group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-colors duration-200 hover:border-slate-400"
+            class="project-card group flex min-w-0 flex-col overflow-hidden rounded-3xl border border-slate-200/90 bg-white hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200"
             data-category={category}
             data-keywords={searchKeywords}
           >
             <a
               href={href(`/projectes/${project.id}`)}
-              class="relative block aspect-[16/10] overflow-hidden bg-stone-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#FFFF00]"
-              aria-label={`${isVal ? "Veure el cas d'estudi" : "Ver el caso de estudio"}: ${projectCopy.title}`}
+              class="relative block aspect-[16/10] overflow-hidden bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+              aria-label={`${isEn ? "View case study" : "Ver el caso de estudio"}: ${projectCopy.title}`}
             >
               <img
                 src={preview.src}
-                alt={isVal ? preview.alt : projectPreviewAltEs[project.id] ?? preview.alt}
+                alt={preview.alt}
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 loading="lazy"
                 decoding="async"
               />
-              <span class="absolute left-4 top-4 rounded-md bg-[#FFFF00] px-2.5 py-1 text-xs font-semibold text-slate-950">
-                {project.id === "avisa" ? (isVal ? "Projecte de client" : "Proyecto de cliente") : projectCopy.badge}
+              <span class="absolute left-4 top-4 rounded-full bg-[#FFFF00] px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-950 border border-slate-950/20 shadow-xs">
+                {project.id === "avisa" ? (isEn ? "Client project" : "Proyecto de cliente") : projectCopy.badge}
               </span>
             </a>
 
-            <div class="flex flex-1 flex-col p-5 sm:p-6">
-              <h2 class="text-xl font-bold leading-snug tracking-tight text-slate-950 sm:text-2xl">
+            <div class="flex flex-1 flex-col p-6 sm:p-7">
+              <h2 class="text-2xl font-light leading-snug tracking-tight text-slate-950">
                 <a
                   href={href(`/projectes/${project.id}`)}
-                  class="rounded-sm decoration-[#FFFF00] decoration-2 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                  class="hover:underline decoration-[#FFFF00] decoration-2 underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                 >
                   {projectCopy.title}
                 </a>
               </h2>
-              <p class="mt-3 max-w-prose text-sm leading-6 text-slate-600 sm:text-base">
+              <p class="mt-2.5 max-w-prose text-xs sm:text-sm leading-relaxed text-slate-600 font-light">
                 {projectCopy.subtitle}
               </p>
 
-              <dl class="mt-5 border-t border-slate-100 pt-4">
+              <dl class="mt-5 border-t border-slate-100 pt-4 space-y-3">
                 <div>
-                  <dt class="text-xs font-semibold text-slate-500">{isVal ? "El meu rol" : "Mi papel"}</dt>
-                  <dd class="mt-1 text-sm font-medium text-slate-800">{isVal ? projectRoles[project.id] ?? project.data.role : projectRolesEs[project.id] ?? project.data.role}</dd>
+                  <dt class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">{isEn ? "Role" : "Mi papel"}</dt>
+                  <dd class="mt-0.5 text-xs font-normal text-slate-800">{project.data.role}</dd>
                 </div>
-                <div class="mt-4">
-                  <dt class="text-xs font-semibold text-slate-500">{isVal ? "Tecnologies" : "Tecnologías"}</dt>
-                  <dd class="mt-1 text-sm leading-6 text-slate-700">{(isVal ? project.data.stack : projectStackEs[project.id] ?? project.data.stack).join(" · ")}</dd>
+                <div>
+                  <dt class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">{isEn ? "Technologies" : "Tecnologías"}</dt>
+                  <dd class="mt-0.5 text-xs font-mono text-slate-600">{stackList.join(" · ")}</dd>
                 </div>
               </dl>
 
-              <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-100 pt-5 mt-5 text-sm font-semibold">
+              <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-100 pt-5 mt-6 text-xs font-mono font-semibold">
                 <a
                   href={href(`/projectes/${project.id}`)}
-                  class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-950 underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                  class="inline-flex min-h-10 items-center gap-1.5 text-slate-950 hover:text-black underline decoration-[#FFFF00] decoration-2 underline-offset-4 hover:decoration-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                 >
-                  {isVal ? "Cas d'estudi" : "Caso de estudio"} <span aria-hidden="true">↗</span>
+                  <span>{isEn ? "Case study" : "Caso de estudio"}</span>
+                  <span aria-hidden="true">→</span>
                 </a>
                 {project.data.liveUrl && (
                   <a
                     href={project.data.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex min-h-11 items-center gap-2 rounded-sm text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-slate-950 hover:decoration-[#FFFF00] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                    class="inline-flex min-h-10 items-center gap-1.5 text-slate-500 hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                   >
-                    {isVal ? "Obrir projecte" : "Abrir proyecto"} <span aria-hidden="true">↗</span>
+                    <span>{isEn ? "Open project" : "Abrir proyecto"}</span>
+                    <span aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
@@ -271,10 +196,10 @@ const getProjectCategory = (id: string): string => {
       <!-- Missatge sense resultats -->
       <div id="no-projects-found" class="hidden py-16 text-center">
         <p class="font-mono text-xs uppercase tracking-wider text-slate-400">
-          {isVal ? "Cap coincidència" : "Sin coincidencias"}
+          {isEn ? "No matches" : "Sin coincidencias"}
         </p>
-        <p class="mt-2 text-sm text-slate-600">
-          {isVal ? "No s'ha trobat cap projecte amb aquests filtres o cerca." : "No se ha encontrado ningún proyecto con estos filtros o búsqueda."}
+        <p class="mt-2 text-sm text-slate-600 font-light">
+          {isEn ? "No projects found matching these filters or search." : "No se ha encontrado ningún proyecto con estos filtros o búsqueda."}
         </p>
       </div>
     </section>
@@ -332,8 +257,8 @@ const getProjectCategory = (id: string): string => {
           filterBtns.forEach(function (b) {
             const isActive = b === btn;
             b.className = isActive
-              ? "project-filter-btn inline-flex min-h-[38px] items-center rounded-xl px-3.5 py-1.5 text-xs font-mono font-medium transition cursor-pointer border bg-slate-950 text-white border-slate-900 shadow-xs"
-              : "project-filter-btn inline-flex min-h-[38px] items-center rounded-xl px-3.5 py-1.5 text-xs font-mono font-medium transition cursor-pointer border bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900 shadow-2xs";
+              ? "project-filter-btn inline-flex min-h-[36px] items-center rounded-xl px-3.5 py-1.5 text-xs font-mono font-medium transition cursor-pointer border bg-slate-950 text-white border-slate-950 shadow-xs"
+              : "project-filter-btn inline-flex min-h-[36px] items-center rounded-xl px-3.5 py-1.5 text-xs font-mono font-medium transition cursor-pointer border bg-white text-slate-600 border-slate-200 hover:border-slate-950 hover:text-slate-950 shadow-2xs";
           });
 
           filterProjects();

@@ -1,47 +1,47 @@
 ---
 draft: false
-title: "Pizzeria Xàtiva — Demo de carta i Pizza Pass"
-subtitle: "Plantilla demostrativa d'una pizzeria amb carta digital, cistella i un prototip de fidelització Pizza Pass amb segells visuals i vista per a Apple Wallet i Google Wallet."
-tagline: "Demo web per a explorar comandes directes i un passi de fidelització digital, amb dades i interaccions de mostra."
+title: "Pizzería Xàtiva — Demo de carta y Pizza Pass"
+subtitle: "Plantilla demostrativa de una pizzería con carta digital, cesta y un prototipo de fidelización Pizza Pass con sellos visuales y vistas para Apple Wallet y Google Wallet."
+tagline: "Demo web para explorar pedidos directos y un pase de fidelización digital, con datos e interacciones de muestra."
 icon: "bx:restaurant"
 color: "amber"
-role: "Frontend Developer & UI Designer"
+role: "Desarrollo frontend y diseño de interfaz"
 year: "2026"
-client: "Plantilla de demostració · restaurant fictici"
-badge: "Demo interactiva · dades fictícies"
-statLabel: "Funcionalitat demostrada"
-statValue: "Pizza Pass · interaccions simulades"
-verificationMethod: "Revisió de la web publicada i dels missatges visibles de demostració"
+client: "Plantilla de demostración · restaurante ficticio"
+badge: "Demo interactiva · datos ficticios"
+statLabel: "Funcionalidad demostrada"
+statValue: "Pizza Pass · interacciones simuladas"
+verificationMethod: "Revisión de la web publicada y de los mensajes de demostración visibles"
 liveUrl: "https://jaumetur3w.github.io/pizzeria_xativa/"
 stack: ["HTML5", "Tailwind CSS CDN", "JavaScript vanilla", "WhatsApp deep links", "Apple Wallet / Google Wallet UI"]
 order: 2
 image: {
   src: "/img/foto_pizza.png",
-  alt: "Pizza de la demo Pizzeria Xàtiva"
+  alt: "Pizza de la demo Pizzería Xàtiva"
 }
 ---
 
-## Una plantilla per a provar una experiència de pizzeria
+## Una plantilla para probar una experiencia de pizzería
 
-La web publicada s'identifica com una **plantilla de demostració**, no com un restaurant real. La carta, els preus, les ressenyes, la ubicació, els horaris i les dades de contacte són exemples i necessiten informació real abans de qualsevol ús comercial.
+La web publicada se identifica como una **plantilla de demostración**, no como un restaurante real. La carta, los precios, las reseñas, la ubicación, los horarios y los datos de contacto son ejemplos y necesitan información real antes de cualquier uso comercial.
 
-La demo reuneix una carta de pizzes amb al·lèrgens, una cistella per a recollida o domicili i un recorregut visual de fidelització.
+La demo reúne una carta de pizzas con alérgenos, una cesta para recogida o entrega a domicilio y un recorrido visual de fidelización.
 
 ## Pizza Pass
 
-El Pizza Pass presenta una targeta digital amb segells acumulats, progrés cap a una pizza de regal i vistes estilitzades d'Apple Wallet i Google Wallet. La pàgina permet canviar el nom que apareix al passi i simular l'addició d'un segell.
+Pizza Pass presenta una tarjeta digital con sellos acumulados, progreso hacia una pizza de regalo y vistas estilizadas de Apple Wallet y Google Wallet. La página permite cambiar el nombre que aparece en el pase y simular la incorporación de un sello.
 
-La demo no acredita l'emissió d'un passi Wallet real ni la connexió amb una API de Apple o Google. El progrés és de mostra; no es vincula a compres ni a un compte persistent.
+La demo no acredita la emisión de un pase Wallet real ni la conexión con una API de Apple o Google. El progreso es de muestra; no está vinculado a compras ni a una cuenta persistente.
 
-## Altres interaccions
+## Otras interacciones
 
-- **Carta digital:** productes per categories, preus d'exemple i informació orientativa d'al·lèrgens.
-- **Cistella i comanda:** fluxos per a recollida o domicili que preparen un missatge per a WhatsApp. La configuració publicada encara conté dades de contacte fictícies.
-- **Codi QR per a taules:** accés ràpid a la carta des de la taula.
-- **Ubicació i opinions:** seccions demostratives que requereixen adreça, fitxa de Google i ressenyes reals.
+- **Carta digital:** productos por categorías, precios de ejemplo e información orientativa sobre alérgenos.
+- **Cesta y pedido:** flujos de recogida o entrega a domicilio que preparan un mensaje para WhatsApp. La configuración publicada todavía contiene datos de contacto ficticios.
+- **Código QR para mesas:** acceso rápido a la carta desde la mesa.
+- **Ubicación y opiniones:** secciones demostrativas que requieren una dirección, una ficha de Google y reseñas reales.
 
-## Arquitectura i límits
+## Arquitectura y límites
 
-La pàgina utilitza HTML i JavaScript al navegador, amb Tailwind CSS carregat des d'un CDN. Les interaccions del passi i de la cistella són de demostració; no hi ha integració de backend o pagaments confirmada.
+La página utiliza HTML y JavaScript en el navegador, con Tailwind CSS cargado desde una CDN. Las interacciones del pase y de la cesta son demostrativas; no hay ninguna integración de backend o pagos confirmada.
 
-He revisat la URL publicada i els textos de la pàgina. Per això, el cas descriu només el prototip observable: no declara conversions, puntuacions de rendiment ni disponibilitat de comandes reals.
+He revisado la URL publicada y los textos de la página. Por eso, el caso describe únicamente el prototipo observable: no declara conversiones, puntuaciones de rendimiento ni disponibilidad de pedidos reales.

@@ -18,7 +18,7 @@ const blogCollection = defineCollection({
     author: z.string().default('Jaume Tur'),
     category: z.string(),
     tags: z.array(z.string()),
-    lang: z.enum(['ca', 'es']).default('ca').optional(),
+    lang: z.enum(['ca', 'es', 'en']).default('es').optional(),
     canonicalUrl: z.string().optional(),
   }),
 });
@@ -57,9 +57,15 @@ const projectesEsCollection = defineCollection({
   schema: projectSchema,
 });
 
+const projectesEnCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projectes-en' }),
+  schema: projectSchema,
+});
+
 // 3. Export a single `collections` object to register your collection(s)
 export const collections = {
   'blog': blogCollection,
   'projectes': projectesCollection,
   'projectes-es': projectesEsCollection,
+  'projectes-en': projectesEnCollection,
 };

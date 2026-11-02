@@ -1,0 +1,378 @@
+---
+import { localizePath } from "@/i18n";
+
+export interface Props {
+  isEn?: boolean;
+}
+
+const { isEn = false } = Astro.props;
+const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+
+const copy = isEn
+  ? {
+      greeting: "Hello",
+      comma: ",",
+      intro: "I'm",
+      firstName: "Jaume",
+      lastName: "Tur",
+      statement: "Web developer focused on performance, clean design, and well-crafted code.",
+      location: "Valencia · Remote work",
+      seoText: "Hello, I'm Jaume Tur. Web developer, backend and digital solutions in Valencia.",
+    }
+  : {
+      greeting: "Hola",
+      comma: ",",
+      intro: "soy",
+      firstName: "Jaume",
+      lastName: "Tur",
+      statement: "Desarrollador web centrado en rendimiento, diseño limpio y código bien construido.",
+      location: "Valencia · Trabajo en remoto",
+      seoText: "Hola, soy Jaume Tur. Desarrollador web, backend y soluciones digitales en Valencia.",
+    };
+---
+
+<!-- Scrollytelling Hero: Animació per paraules completes i independents -->
+<section
+  id="scrolly-hero"
+  aria-label={isEn ? "Presentation of Jaume Tur" : "Presentación de Jaume Tur"}
+  class="scrolly-track relative w-full bg-white text-slate-900 selection:bg-[#FFFF00] selection:text-black overflow-x-clip"
+>
+  <!-- Sticky Stage Viewport -->
+  <div
+    id="scrolly-stage"
+    class="scrolly-stage sticky top-[56px] z-10 w-full overflow-hidden flex flex-col justify-center items-center bg-white px-4 sm:px-8"
+  >
+    <div id="hero-type-container" class="relative w-full max-w-5xl mx-auto flex flex-col items-center text-center select-none">
+      
+      <!-- Único H1 principal de la página: Accesible para SEO desde el primer render -->
+      <h1
+        id="hero-main-heading"
+        class="font-sans font-normal tracking-tight text-slate-950 text-[clamp(1.85rem,7vw,3.5rem)] sm:text-[clamp(3rem,8vw,5.5rem)] md:text-[clamp(3.8rem,8.5vw,7rem)] leading-[1.08]"
+      >
+        <!-- Texto completo para motores de búsqueda y lectores de pantalla (Accessible SEO) -->
+        <span class="sr-only">
+          {copy.seoText}
+        </span>
+
+        <!-- Composición visual tipográfica: Palabras completas e independientes -->
+        <span
+          aria-hidden="true"
+          id="hero-phrase"
+          class="inline-flex flex-nowrap items-baseline justify-center whitespace-nowrap will-change-transform"
+        >
+          <span
+            id="token-hola"
+            class="word-token token-word inline-block font-normal text-slate-950 will-change-[transform,opacity]"
+          >{copy.greeting}</span><span
+            id="token-comma"
+            class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[opacity]"
+          >{copy.comma}&nbsp;</span><span
+            id="token-soy"
+            class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[transform,opacity]"
+          >{copy.intro}&nbsp;</span><a
+            id="hero-name-link"
+            href={href("/about")}
+            class="inline-flex items-baseline font-normal text-slate-950 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded transition-colors pointer-events-none"
+            aria-label={isEn ? "About Jaume Tur — More information" : "Sobre Jaume Tur — Más información"}
+          ><span
+              id="token-jaume"
+              class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[transform,opacity]"
+            >{copy.firstName}&nbsp;</span><span
+              id="token-tur"
+              class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[transform,opacity]"
+            >{copy.lastName}</span></a>
+        </span>
+      </h1>
+
+      <!-- Presentación personal breve: se revela en el estado 5 (80-100%) -->
+      <div
+        id="hero-statement"
+        class="mt-8 sm:mt-12 max-w-2xl mx-auto opacity-0 translate-y-4 pointer-events-none will-change-[transform,opacity]"
+      >
+        <p class="font-sans text-[clamp(1.15rem,2.8vw,1.85rem)] font-light text-slate-700 tracking-tight leading-relaxed">
+          {copy.statement}
+        </p>
+
+        <div class="mt-5 flex items-center justify-center gap-3 text-xs sm:text-sm font-mono text-slate-400">
+          <span class="w-6 sm:w-8 h-px bg-slate-200"></span>
+          <span>{copy.location}</span>
+          <span class="w-6 sm:w-8 h-px bg-slate-200"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Altura calibrada para los 5 estados progresivos (0-20, 20-40, 40-60, 60-80, 80-100%) */
+  .scrolly-track {
+    height: 240vh;
+  }
+  @media (max-width: 640px) {
+    .scrolly-track {
+      height: 220vh;
+    }
+  }
+
+  .scrolly-stage {
+    height: calc(100vh - 56px);
+    height: calc(100dvh - 56px);
+  }
+
+  /* Modo accesible para preferencias de movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .scrolly-track {
+      height: auto !important;
+      padding-top: 3.5rem;
+      padding-bottom: 4rem;
+    }
+    .scrolly-stage {
+      position: relative !important;
+      top: auto !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+    #hero-phrase {
+      transform: none !important;
+    }
+    .word-token {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    #hero-name-link {
+      pointer-events: auto !important;
+    }
+    #hero-statement {
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function initHeroScrollytelling() {
+      const track = document.getElementById("scrolly-hero");
+      const phrase = document.getElementById("hero-phrase");
+      const tokenHola = document.getElementById("token-hola");
+      const tokenComma = document.getElementById("token-comma");
+      const tokenSoy = document.getElementById("token-soy");
+      const tokenJaume = document.getElementById("token-jaume");
+      const tokenTur = document.getElementById("token-tur");
+      const nameLink = document.getElementById("hero-name-link");
+      const statement = document.getElementById("hero-statement");
+      const container = document.getElementById("hero-type-container");
+
+      if (
+        !track ||
+        !phrase ||
+        !tokenHola ||
+        !tokenComma ||
+        !tokenSoy ||
+        !tokenJaume ||
+        !tokenTur ||
+        !statement ||
+        !container
+      ) {
+        return;
+      }
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (prefersReducedMotion.matches) return;
+
+      // Offsets para centrar exactamente cada estado tipográfico (píxeles relativos al centro)
+      let offset1 = 0; // Centra «Hola»
+      let offset2 = 0; // Centra «Hola, soy»
+      let offset3 = 0; // Centra «Hola, soy Jaume»
+      const offset4 = 0; // Centra «Hola, soy Jaume Tur» (la frase completa ya centrada)
+
+      let cachedTrackTop = 0;
+      let cachedTrackHeight = 0;
+      let cachedViewportHeight = window.innerHeight;
+
+      function measureOffsets() {
+        cachedViewportHeight = window.innerHeight;
+        cachedTrackHeight = track.offsetHeight;
+        const trackRect = track.getBoundingClientRect();
+        cachedTrackTop = window.scrollY + trackRect.top;
+
+        // Reset temporal de transform para medir geometría natural sin interferencias
+        phrase.style.transform = "none";
+
+        const containerRect = container.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
+
+        // 1. Centro de «Hola»
+        const holaRect = tokenHola.getBoundingClientRect();
+        const holaCenter = holaRect.left + holaRect.width / 2;
+        offset1 = containerCenter - holaCenter;
+
+        // 2. Centro de «Hola, soy»
+        const soyRect = tokenSoy.getBoundingClientRect();
+        const holaSoyCenter = (holaRect.left + soyRect.right) / 2;
+        offset2 = containerCenter - holaSoyCenter;
+
+        // 3. Centro de «Hola, soy Jaume»
+        const jaumeRect = tokenJaume.getBoundingClientRect();
+        const holaJaumeCenter = (holaRect.left + jaumeRect.right) / 2;
+        offset3 = containerCenter - holaJaumeCenter;
+      }
+
+      function clamp(val, min, max) {
+        return Math.max(min, Math.min(max, val));
+      }
+
+      function smoothstep(min, max, value) {
+        const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
+        return x * x * (3 - 2 * x);
+      }
+
+      function updateScrollytelling() {
+        if (!offset1) {
+          measureOffsets();
+        }
+
+        const scrollableDistance = cachedTrackHeight - cachedViewportHeight;
+        if (scrollableDistance <= 0) {
+          ticking = false;
+          return;
+        }
+
+        const currentScroll = window.scrollY - cachedTrackTop;
+        const progress = clamp(currentScroll / scrollableDistance, 0, 1);
+
+        let currentOffset = 0;
+        let soyOpacity = 0;
+        let soyTranslateY = 12;
+        let jaumeOpacity = 0;
+        let jaumeTranslateY = 12;
+        let turOpacity = 0;
+        let turTranslateY = 12;
+        let stmtOpacity = 0;
+        let stmtTranslateY = 16;
+
+        // ESTADO 1: 0 - 20% -> «Hola» completamente visible, centrado y protagonista
+        if (progress <= 0.20) {
+          currentOffset = offset1;
+          soyOpacity = 0;
+          jaumeOpacity = 0;
+          turOpacity = 0;
+        }
+        // ESTADO 2: 20 - 40% -> «Hola, soy»
+        else if (progress <= 0.40) {
+          const t = smoothstep(0.20, 0.35, progress);
+          currentOffset = offset1 + (offset2 - offset1) * t;
+          soyOpacity = t;
+          soyTranslateY = 12 * (1 - t);
+          jaumeOpacity = 0;
+          turOpacity = 0;
+        }
+        // ESTADO 3: 40 - 60% -> «Hola, soy Jaume»
+        else if (progress <= 0.60) {
+          currentOffset = offset2 + (offset3 - offset2) * smoothstep(0.40, 0.55, progress);
+          soyOpacity = 1;
+          soyTranslateY = 0;
+          const t = smoothstep(0.40, 0.55, progress);
+          jaumeOpacity = t;
+          jaumeTranslateY = 12 * (1 - t);
+          turOpacity = 0;
+        }
+        // ESTADO 4: 60 - 80% -> «Hola, soy Jaume Tur»
+        else if (progress <= 0.80) {
+          currentOffset = offset3 + (offset4 - offset3) * smoothstep(0.60, 0.75, progress);
+          soyOpacity = 1;
+          soyTranslateY = 0;
+          jaumeOpacity = 1;
+          jaumeTranslateY = 0;
+          const t = smoothstep(0.60, 0.75, progress);
+          turOpacity = t;
+          turTranslateY = 12 * (1 - t);
+        }
+        // ESTADO 5: 80 - 100% -> Frase completa y estable + da paso al contenido habitual
+        else {
+          currentOffset = offset4;
+          soyOpacity = 1;
+          soyTranslateY = 0;
+          jaumeOpacity = 1;
+          jaumeTranslateY = 0;
+          turOpacity = 1;
+          turTranslateY = 0;
+
+          const t5 = smoothstep(0.80, 0.95, progress);
+          stmtOpacity = t5;
+          stmtTranslateY = 16 * (1 - t5);
+        }
+
+        // Translación centrada y continua en GPU (cero reflow de layout)
+        phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
+
+        // Palabra «soy» y coma
+        tokenComma.style.opacity = soyOpacity.toFixed(3);
+        tokenSoy.style.opacity = soyOpacity.toFixed(3);
+        tokenSoy.style.transform = `translate3d(0, ${soyTranslateY.toFixed(2)}px, 0)`;
+
+        // Palabra «Jaume»
+        tokenJaume.style.opacity = jaumeOpacity.toFixed(3);
+        tokenJaume.style.transform = `translate3d(0, ${jaumeTranslateY.toFixed(2)}px, 0)`;
+
+        // Palabra «Tur»
+        tokenTur.style.opacity = turOpacity.toFixed(3);
+        tokenTur.style.transform = `translate3d(0, ${turTranslateY.toFixed(2)}px, 0)`;
+
+        // Enlace accesible del nombre activo solo cuando la frase ya está formada
+        if (nameLink) {
+          nameLink.style.pointerEvents = turOpacity > 0.8 ? "auto" : "none";
+        }
+
+        // Declaración personal (hero-statement)
+        if (statement) {
+          statement.style.opacity = stmtOpacity.toFixed(3);
+          statement.style.transform = `translate3d(0, ${stmtTranslateY.toFixed(2)}px, 0)`;
+          statement.style.pointerEvents = stmtOpacity > 0.5 ? "auto" : "none";
+        }
+
+        ticking = false;
+      }
+
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateScrollytelling);
+          ticking = true;
+        }
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          requestAnimationFrame(() => {
+            measureOffsets();
+            updateScrollytelling();
+          });
+        });
+      } else {
+        requestAnimationFrame(() => {
+          measureOffsets();
+          updateScrollytelling();
+        });
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener(
+        "resize",
+        () => {
+          measureOffsets();
+          onScroll();
+        },
+        { passive: true }
+      );
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initHeroScrollytelling);
+    } else {
+      initHeroScrollytelling();
+    }
+  })();
+</script>
