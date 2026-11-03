@@ -58,11 +58,11 @@ const copy = isEn
         <span
           aria-hidden="true"
           id="hero-phrase"
-          class="inline-flex flex-wrap sm:flex-nowrap items-baseline justify-center whitespace-normal sm:whitespace-nowrap will-change-transform text-center"
+          class="inline-flex items-center justify-center whitespace-nowrap will-change-transform text-center"
         >
           <span
             id="token-hola"
-            class="word-token token-word inline-block font-normal text-slate-950 will-change-[transform,opacity]"
+            class="word-token token-word inline-block font-bold text-slate-950"
           >{copy.greeting}</span><span
             id="token-comma"
             class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[opacity]"
@@ -72,7 +72,7 @@ const copy = isEn
           >{copy.intro}&nbsp;</span><a
             id="hero-name-link"
             href={href("/about")}
-            class="inline-flex items-baseline font-normal text-slate-950 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded transition-colors pointer-events-none"
+            class="inline-flex items-center font-normal text-slate-950 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded transition-colors pointer-events-none"
             aria-label={isEn ? "About Jaume Tur — More information" : "Sobre Jaume Tur — Más información"}
           ><span
               id="token-jaume"
@@ -118,6 +118,17 @@ const copy = isEn
   .scrolly-stage {
     height: calc(100vh - 56px);
     height: calc(100dvh - 56px);
+  }
+
+  /* Garantía tipográfica de peso bold en «Hola» y peso normal en el resto */
+  #token-hola {
+    font-weight: 700 !important;
+  }
+  #token-comma,
+  #token-soy,
+  #token-jaume,
+  #token-tur {
+    font-weight: 400 !important;
   }
 
   /* Modo accesible para preferencias de movimiento reducido */
@@ -186,8 +197,9 @@ const copy = isEn
       let offset1 = 0; // Centra «Hola»
       let offset2 = 0; // Centra «Hola, soy»
       let offset3 = 0; // Centra «Hola, soy Jaume»
-      const offset4 = 0; // Centra «Hola, soy Jaume Tur» (la frase completa ya centrada)
+      let offset4 = 0; // Centra «Hola, soy Jaume Tur»
 
+      let currentPhraseTransformX = 0;
       let cachedTrackTop = 0;
       let cachedTrackHeight = 0;
       let cachedViewportHeight = window.innerHeight;
@@ -199,36 +211,38 @@ const copy = isEn
         const trackRect = track.getBoundingClientRect();
         cachedTrackTop = window.scrollY + trackRect.top;
 
-        // Reset temporal de transform para medir geometría natural sin interferencias
-        phrase.style.transform = "none";
-
         const containerRect = container.getBoundingClientRect();
         const containerCenter = containerRect.left + containerRect.width / 2;
 
+        // Medir coordenadas respecto al origen sin transformar, sin alterar transform actual (cero parpadeo ni reflow)
         const holaRect = tokenHola.getBoundingClientRect();
+        const soyRect = tokenSoy.getBoundingClientRect();
+        const jaumeRect = tokenJaume.getBoundingClientRect();
         const turRect = tokenTur.getBoundingClientRect();
-        const isSingleLine = window.innerWidth >= 640 && Math.abs(holaRect.top - turRect.top) < 10;
 
-        if (isSingleLine) {
-          // 1. Centro de «Hola»
-          const holaCenter = holaRect.left + holaRect.width / 2;
-          offset1 = containerCenter - holaCenter;
+        const unshiftedHolaLeft = holaRect.left - currentPhraseTransformX;
+        const unshiftedHolaWidth = holaRect.width;
+        const unshiftedHolaCenter = unshiftedHolaLeft + unshiftedHolaWidth / 2;
 
-          // 2. Centro de «Hola, soy»
-          const soyRect = tokenSoy.getBoundingClientRect();
-          const holaSoyCenter = (holaRect.left + soyRect.right) / 2;
-          offset2 = containerCenter - holaSoyCenter;
+        const unshiftedSoyRight = soyRect.right - currentPhraseTransformX;
+        const unshiftedJaumeRight = jaumeRect.right - currentPhraseTransformX;
+        const unshiftedTurRight = turRect.right - currentPhraseTransformX;
 
-          // 3. Centro de «Hola, soy Jaume»
-          const jaumeRect = tokenJaume.getBoundingClientRect();
-          const holaJaumeCenter = (holaRect.left + jaumeRect.right) / 2;
-          offset3 = containerCenter - holaJaumeCenter;
-        } else {
-          // En móvil con saltos de línea naturales, el centrado es automático por flex/text-center
-          offset1 = 0;
-          offset2 = 0;
-          offset3 = 0;
-        }
+        // 1. Centro de «Hola»
+        offset1 = containerCenter - unshiftedHolaCenter;
+
+        // 2. Centro de «Hola, soy»
+        const holaSoyCenter = (unshiftedHolaLeft + unshiftedSoyRight) / 2;
+        offset2 = containerCenter - holaSoyCenter;
+
+        // 3. Centro de «Hola, soy Jaume»
+        const holaJaumeCenter = (unshiftedHolaLeft + unshiftedJaumeRight) / 2;
+        offset3 = containerCenter - holaJaumeCenter;
+
+        // 4. Centro de «Hola, soy Jaume Tur»
+        const holaTurCenter = (unshiftedHolaLeft + unshiftedTurRight) / 2;
+        offset4 = containerCenter - holaTurCenter;
+
         isMeasured = true;
       }
 
@@ -318,6 +332,7 @@ const copy = isEn
         }
 
         // Translación centrada y continua en GPU (cero reflow de layout)
+        currentPhraseTransformX = currentOffset;
         phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
 
         // Palabra «soy» y coma
@@ -370,12 +385,16 @@ const copy = isEn
         });
       }
 
+      let lastWidth = window.innerWidth;
       window.addEventListener("scroll", onScroll, { passive: true });
       window.addEventListener(
         "resize",
         () => {
-          measureOffsets();
-          onScroll();
+          if (window.innerWidth !== lastWidth) {
+            lastWidth = window.innerWidth;
+            measureOffsets();
+            onScroll();
+          }
         },
         { passive: true }
       );
