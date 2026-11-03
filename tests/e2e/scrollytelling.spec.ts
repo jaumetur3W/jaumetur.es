@@ -111,7 +111,6 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(websPopover).not.toBeVisible();
 
     const popupCloseBtn = page.locator("#capabilities-popup-close-btn");
-    const popupBackdrop = page.locator("#capabilities-popup-backdrop");
 
     // 1. Desktop hover: Hovering over 'Webs' card automatically opens the large preview popup
     const websCard = devSection.locator("#card-webs");
@@ -243,7 +242,7 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
 
       const track = page.locator("#scrolly-hero");
       const trackTop = await track.evaluate((el) => window.scrollY + el.getBoundingClientRect().top);
-      const scrollableDistance = await track.evaluate((el) => el.offsetHeight - window.innerHeight);
+      const scrollableDistance = await track.evaluate((el) => (el as HTMLElement).offsetHeight - window.innerHeight);
 
       const tokenHola = page.locator("#token-hola");
       const tokenSoy = page.locator("#token-soy");
