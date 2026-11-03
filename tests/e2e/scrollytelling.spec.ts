@@ -18,6 +18,16 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(holaToken).toBeVisible();
     await expect(holaToken).toHaveText("Hola");
 
+    // Verifica que «Hola» tiene peso bold (>= 700) y que las demás palabras mantienen peso normal (400)
+    const holaWeight = await holaToken.evaluate((el) => window.getComputedStyle(el).fontWeight);
+    expect(parseInt(holaWeight, 10)).toBeGreaterThanOrEqual(700);
+
+    const soyWeight = await soyToken.evaluate((el) => window.getComputedStyle(el).fontWeight);
+    expect(parseInt(soyWeight, 10)).toBeLessThanOrEqual(400);
+
+    const turWeight = await turToken.evaluate((el) => window.getComputedStyle(el).fontWeight);
+    expect(parseInt(turWeight, 10)).toBeLessThanOrEqual(400);
+
     const soyInitialOpacity = await soyToken.evaluate((el) => parseFloat(window.getComputedStyle(el).opacity));
     expect(soyInitialOpacity).toBeLessThan(0.1);
 
@@ -101,7 +111,6 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(websPopover).not.toBeVisible();
 
     const popupCloseBtn = page.locator("#capabilities-popup-close-btn");
-    const popupBackdrop = page.locator("#capabilities-popup-backdrop");
 
     // 1. Desktop hover: Hovering over 'Webs' card automatically opens the large preview popup
     const websCard = devSection.locator("#card-webs");
@@ -214,5 +223,80 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await page.waitForTimeout(100);
     const scrollWidthScrolled = await page.evaluate(() => document.documentElement.scrollWidth);
     expect(scrollWidthScrolled).toBeLessThanOrEqual(windowWidth + 1);
+  });
+
+  test("Centering precision and bold typography across narrow, mobile, tablet, and desktop viewports", async ({ page }) => {
+    const viewports = [
+      { name: "Móvil estrecho", width: 320, height: 568 },
+      { name: "Móvil estándar", width: 375, height: 667 },
+      { name: "Móvil ancho", width: 414, height: 896 },
+      { name: "Tablet", width: 768, height: 1024 },
+      { name: "Escritorio", width: 1280, height: 800 },
+    ];
+
+    for (const vp of viewports) {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      await page.goto("/");
+      await page.waitForLoadState("domcontentloaded");
+      await page.waitForTimeout(100);
+
+      const track = page.locator("#scrolly-hero");
+      const trackTop = await track.evaluate((el) => window.scrollY + el.getBoundingClientRect().top);
+      const scrollableDistance = await track.evaluate((el) => (el as HTMLElement).offsetHeight - window.innerHeight);
+
+      const tokenHola = page.locator("#token-hola");
+      const tokenSoy = page.locator("#token-soy");
+      const tokenJaume = page.locator("#token-jaume");
+      const tokenTur = page.locator("#token-tur");
+
+      // Verify «Hola» has bold weight (700) and «soy» has normal weight (400)
+      const holaWeight = await tokenHola.evaluate((el) => window.getComputedStyle(el).fontWeight);
+      expect(parseInt(holaWeight, 10)).toBeGreaterThanOrEqual(700);
+
+      const soyWeight = await tokenSoy.evaluate((el) => window.getComputedStyle(el).fontWeight);
+      expect(parseInt(soyWeight, 10)).toBeLessThanOrEqual(400);
+
+      // Verify exact centering in all 5 states
+      const testStates = [
+        { progress: 0.10, tokens: [tokenHola] },
+        { progress: 0.38, tokens: [tokenHola, tokenSoy] },
+        { progress: 0.58, tokens: [tokenHola, tokenJaume] },
+        { progress: 0.78, tokens: [tokenHola, tokenTur] },
+        { progress: 0.90, tokens: [tokenHola, tokenTur] },
+      ];
+
+      for (const s of testStates) {
+        await page.evaluate(({ top, dist, p }) => window.scrollTo(0, top + dist * p), {
+          top: trackTop,
+          dist: scrollableDistance,
+          p: s.progress,
+        });
+        await page.waitForTimeout(50);
+
+        const boxStart = await s.tokens[0].boundingBox();
+        const boxEnd = await s.tokens[s.tokens.length - 1].boundingBox();
+        expect(boxStart).not.toBeNull();
+        expect(boxEnd).not.toBeNull();
+
+        const visibleLeft = boxStart!.x;
+        const visibleRight = boxEnd!.x + boxEnd!.width;
+        const visibleCenter = (visibleLeft + visibleRight) / 2;
+        const viewportCenter = vp.width / 2;
+
+        // Visual center must match viewport center within 1px
+        expect(Math.abs(visibleCenter - viewportCenter)).toBeLessThan(1.0);
+      }
+
+      // Verify no horizontal overflow
+      const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+      expect(scrollWidth).toBeLessThanOrEqual(vp.width + 1);
+
+      // Verify reverse scroll back to top returns «Hola» to exact center
+      await page.evaluate(({ top }) => window.scrollTo(0, top), { top: trackTop });
+      await page.waitForTimeout(50);
+      const topBox = await tokenHola.boundingBox();
+      const topCenter = topBox!.x + topBox!.width / 2;
+      expect(Math.abs(topCenter - vp.width / 2)).toBeLessThan(1.0);
+    }
   });
 });
