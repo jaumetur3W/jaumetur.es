@@ -81,7 +81,7 @@ export default defineConfig({
 
     ...blogRedirects,
   },
-  integrations: [mdx(), sitemap(), icon()],
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes("/briefing") }), icon()],
   vite: {
     plugins: [tailwindcss()],
   },

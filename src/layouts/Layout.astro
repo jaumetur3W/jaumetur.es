@@ -16,6 +16,8 @@ export interface Props {
   lang?: string;
   canonicalURL?: string;
   isBlogPost?: boolean;
+  /** Private page that exists in one language: not indexed and without hreflang alternates. */
+  noindex?: boolean;
 }
 
 const {
@@ -28,6 +30,7 @@ const {
   lang,
   canonicalURL: customCanonical,
   isBlogPost = false,
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
@@ -203,12 +206,17 @@ const blogPostSchema = isBlogPost ? {
     />
 
     <!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) -->
-    <link rel="alternate" hreflang="es" href={spanishURL} />
-    <link rel="alternate" hreflang="en" href={englishURL} />
-    <link rel="alternate" hreflang="x-default" href={spanishURL} />
+    {!noindex && (
+      <>
+        <link rel="alternate" hreflang="es" href={spanishURL} />
+        <link rel="alternate" hreflang="en" href={englishURL} />
+        <link rel="alternate" hreflang="x-default" href={spanishURL} />
+      </>
+    )}
 
     <!-- SEO & Social OpenGraph -->
     <SEO
+      noindex={noindex}
       title={makeTitle}
       description={resolvedDescription}
       canonical={canonicalURL}
