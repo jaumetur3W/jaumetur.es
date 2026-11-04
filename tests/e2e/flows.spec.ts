@@ -15,7 +15,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Featured projects link to their case studies and label client/demo work", async ({ page }) => {
-    await page.goto("/projectes");
+    await page.goto("/projectes/");
     const projectsSection = page.locator("main");
     await expect(projectsSection).toBeVisible();
 
@@ -31,7 +31,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Case study page loads with honest verification badge and JSON-LD", async ({ page }) => {
-    await page.goto("/projectes/avisa");
+    await page.goto("/projectes/avisa/");
     await expect(page.locator("main h1")).toContainText("AVISA");
 
     // Check JSON-LD schema containing SoftwareSourceCode
@@ -41,11 +41,11 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Quality pages display localized titles and Lighthouse metrics", async ({ page }) => {
-    await page.goto("/qualitat");
+    await page.goto("/qualitat/");
     await expect(page.locator("h1")).toContainText("Compromiso de calidad y rendimiento");
     await expect(page.getByText("100", { exact: true }).first()).toBeVisible();
 
-    await page.goto("/en/qualitat");
+    await page.goto("/en/qualitat/");
     await expect(page.locator("h1")).toContainText("quality and performance");
     await expect(page.getByText("100", { exact: true }).first()).toBeVisible();
   });
@@ -124,7 +124,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Contact form triggers accessible validation on empty submit", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/contact/");
     const submitBtn = page.locator('button[type="submit"]').first();
     await submitBtn.click();
 
@@ -136,7 +136,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Pricing page displays service packages including key local digitization offer and structured FAQ", async ({ page }) => {
-    await page.goto("/pricing");
+    await page.goto("/pricing/");
     await expect(page.locator("h3").filter({ hasText: "Digitalización local y carta web" })).toBeVisible();
     await expect(page.getByText(/Propuesta destacada|Propuesta estrella/).first()).toBeVisible();
     await expect(page.getByText("Desde 290 €")).toBeVisible();
@@ -144,34 +144,34 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.getByRole("heading", { name: "Preguntas frecuentes" })).toBeVisible();
 
     // Click on detail link of key local digitization offer
-    await page.click('a[href="/pricing/digitalitzacio-local"] >> nth=0');
-    await expect(page).toHaveURL("/pricing/digitalitzacio-local");
+    await page.click('a[href="/pricing/digitalitzacio-local/"] >> nth=0');
+    await expect(page).toHaveURL("/pricing/digitalitzacio-local/");
     await expect(page.locator("h1")).toContainText("Digitalización local y carta web");
     await expect(page.getByText("El motivo de cada precio", { exact: false })).toBeVisible();
     await expect(page.getByText("¿Cómo se amortiza fácilmente este precio en pocos meses?")).toBeVisible();
     await expect(page.getByText("Demostración práctica: Pizzería en Xàtiva")).toBeVisible();
     await expect(page.getByText("Comparativa de mercado", { exact: true })).toBeVisible();
 
-    await page.goto("/en/pricing");
+    await page.goto("/en/pricing/");
     await expect(page.locator("h3").filter({ hasText: "Local Digitization & Web Menu" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Frequently Asked Questions" })).toBeVisible();
   });
 
   test("Brand kit page /marca displays official logo and download links", async ({ page }) => {
-    await page.goto("/marca");
+    await page.goto("/marca/");
     await expect(page.locator("h1, h2").filter({ hasText: "Logotipos" })).toBeVisible();
     await expect(page.locator('a[download="jt-logo-groc.png"]')).toBeVisible();
   });
 
   test("Digital card page /card displays contact pass, QR code and vCard link", async ({ page }) => {
-    await page.goto("/card");
+    await page.goto("/card/");
     await expect(page.locator("h1")).toContainText("Jaume Tur");
     await expect(page.locator("#card-download-vcf")).toBeVisible();
     await expect(page.locator('img[src="/qr-jaumetur.svg"]')).toBeVisible();
   });
 
   test("Language switcher with globe icon opens floating dropdown, preserves routes, and switches correctly", async ({ page }) => {
-    await page.goto("/about");
+    await page.goto("/about/");
     
     // Globe icon trigger button
     const langBtn = page.locator("#lang-dropdown-btn");
@@ -224,11 +224,11 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   });
 
   test("Legacy /val routes redirect cleanly to Spanish counterparts", async ({ page }) => {
-    await page.goto("/val");
+    await page.goto("/val/");
     await expect(page).toHaveURL("/");
     expect(page.url()).not.toContain("/val");
 
-    await page.goto("/val/about");
+    await page.goto("/val/about/");
     await expect(page).toHaveURL(/\/about\/?$/);
     expect(page.url()).not.toContain("/val");
   });

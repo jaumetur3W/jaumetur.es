@@ -16,10 +16,7 @@ export interface Props {
   lang?: string;
   canonicalURL?: string;
   isBlogPost?: boolean;
-<<<<<<< HEAD
-=======
-  /** Private page that exists in one language: not indexed and without hreflang alternates. */
->>>>>>> 1bbd27257bdbf55f80cba1e0489e000f3f5cc02b
+  /** Private page: not indexed and without hreflang alternates. */
   noindex?: boolean;
 }
 
@@ -221,11 +218,7 @@ const blogPostSchema = isBlogPost ? {
     />
 
     <!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) -->
-<<<<<<< HEAD
     {!shouldNoIndex && (
-=======
-    {!noindex && (
->>>>>>> 1bbd27257bdbf55f80cba1e0489e000f3f5cc02b
       <>
         <link rel="alternate" hreflang="es" href={spanishURL} />
         <link rel="alternate" hreflang="en" href={englishURL} />
@@ -235,10 +228,9 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- SEO & Social OpenGraph -->
     <SEO
-      noindex={noindex}
       title={makeTitle}
       description={resolvedDescription}
-      canonical={shouldNoIndex ? null : canonicalURL}
+      canonical={is404 ? null : canonicalURL}
       noindex={shouldNoIndex}
       nofollow={shouldNoIndex}
       twitter={{

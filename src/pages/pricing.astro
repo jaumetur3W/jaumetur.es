@@ -163,8 +163,8 @@ const faqSchema = {
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {
           packages.map((pkg) => {
-            const detailUrl = href(`/pricing/${pkg.id}`);
-            const ctaContactUrl = `${href("/contact")}?servei=${pkg.id}`;
+            const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
+            const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
             const annualCostShort = pkg.annualTotal.split('(')[0].trim();
             const dailyCostShort = pkg.dailyCostEquivalent.split('(')[0].trim();
 

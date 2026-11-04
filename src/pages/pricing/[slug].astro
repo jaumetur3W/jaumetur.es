@@ -150,7 +150,7 @@ const breadcrumbSchema = {
 
         <div class="lg:col-span-5 flex flex-col justify-center sm:items-end gap-3 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-6">
           <a
-            href={href(`/contact?servei=${service.id}`)}
+            href={`${href("/contact")}/?servei=${service.id}`}
             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-slate-950 bg-[#FFFF00] hover:bg-[#f2d900] border border-slate-950 shadow-2xs hover:shadow-md transition-all text-center"
           >
             <Icon name="bx:rocket" class="w-4 h-4" />
@@ -427,7 +427,7 @@ const breadcrumbSchema = {
         </p>
         <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
-            href={href(`/contact?servei=${service.id}`)}
+            href={`${href("/contact")}/?servei=${service.id}`}
             class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-slate-950 bg-[#FFFF00] hover:bg-[#f2d900] border border-slate-950 shadow-2xs hover:shadow-md transition-all"
           >
             <Icon name="bx:send" class="w-4 h-4" />
