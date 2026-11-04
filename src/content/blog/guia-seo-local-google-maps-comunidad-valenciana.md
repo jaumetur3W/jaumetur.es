@@ -11,7 +11,7 @@ category: "SEO local"
 author: "Jaume Tur"
 tags: [seo-local, google-maps, schema-org, valencia, xativa, negocios-locales, diseno-web]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-guia-seo-local-google-maps-comunitat-valenciana/"
+canonicalUrl: "https://jaumetur.es/blog/guia-seo-local-google-maps-comunidad-valenciana/"
 ---
 
 Aparecer en el paquete de tres resultados destacados de Google Maps (*Local 3-Pack*) suele ser el factor más decisivo para la facturación de un negocio físico. Cuando un usuario busca *«dónde cenar en Xàtiva»*, *«taller mecánico en Alzira»* o *«diseño web en Valencia»*, el algoritmo de Google evalúa la coherencia digital y la calidad técnica del negocio antes de recomendarlo.
@@ -76,7 +76,7 @@ La inmensa mayoría de búsquedas locales se realizan desde dispositivos móvile
 
 - **Diseño web optimizado:** Páginas ligeras compiladas con tecnología estática moderna (como Astro) que entreguen el primer contenido visible (FCP) en menos de 1 segundo.
 - **Acceso directo a la acción:** Teléfono enlazado con `tel:`, ubicación con enlace directo a Google Maps y carta o catálogo accesible sin necesidad de descargar pesados archivos PDF.
-- Si gestionas hostelería o comercio local, te recomendamos revisar nuestro análisis sobre [por qué el menú en PDF reduce ventas frente a una carta web interactiva](/blog/es-per-que-el-menu-en-pdf-mata-vendes-restaurant/) o consultar nuestro [pack de digitalización local](/pricing/digitalitzacio-local/).
+- Si gestionas hostelería o comercio local, te recomendamos revisar nuestro análisis sobre [por qué el menú en PDF reduce ventas frente a una carta web interactiva](/blog/por-que-el-menu-en-pdf-mata-ventas-restaurante/) o consultar nuestro [pack de digitalización local](/pricing/digitalitzacio-local/).
 
 ---
 

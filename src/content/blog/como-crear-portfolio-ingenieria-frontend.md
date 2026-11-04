@@ -11,7 +11,7 @@ category: "Carrera"
 author: "Jaume Tur"
 tags: [portfolio, ingenieria-frontend, diseno-ui, astro, carrera, clean-code]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-com-crear-un-portfolio-denginyeria-frontend/"
+canonicalUrl: "https://jaumetur.es/blog/como-crear-portfolio-ingenieria-frontend/"
 ---
 
 Si haces una búsqueda rápida en GitHub o Twitter de portfolios de desarrolladores web, encontrarás cientos de sitios prácticamente idénticos: la misma plantilla clonada, las típicas barras de progreso que dicen «HTML: 90 %, JavaScript: 80 %» (¿qué significa exactamente dominar el 80 % de un lenguaje?) y tres proyectos que son clones de una lista de tareas (*Todo App*), una aplicación del tiempo y una tienda ficticia con datos en memoria.

@@ -1,138 +1,106 @@
 ---
 draft: false
-title: "AVISA — Gestión de Incidencias en Tiempo Real"
-subtitle: "Arquitectura frontend reactiva con Angular y TypeScript para coordinar avisos e incidencias urbanas críticas."
-tagline: "Plataforma para registrar, comunicar y seguir incidencias en tiempo real, con una interfaz accesible y sin bloqueo del hilo de ejecución."
-icon: "bx:bell"
+title: "AVISA — Plataforma de Servicios Profesionales, Tareas y Reformas"
+subtitle: "Aplicación web y PWA con Angular 18 para conectar clientes y comunidades con profesionales verificados de reformas, instalaciones y mantenimiento."
+tagline: "Plataforma digital para publicar incidencias, recibir presupuestos gratuitos sin comisiones ocultas y gestionar servicios profesionales desde el móvil o la web."
+icon: "bx:wrench"
 color: "red"
-role: "Arquitectura frontend y desarrollo de interfaz"
+role: "Arquitectura frontend y desarrollo PWA"
 year: "2025 – 2026"
-client: "Proyecto Final DAW / Servicios Urbanos"
-badge: "Aplicación web · Prototipo de interfaz"
+client: "Proyecto Final DAW / Servicios y Reformas"
+badge: "Aplicación web · PWA Móvil"
 statLabel: "Métrica verificada"
-statValue: "WCAG 2.2 AA / < 150ms"
-verificationMethod: "Auditoría automática con axe-core y perfil de latencia de red en DevTools"
+statValue: "Angular 18 · PWA 24/7"
+verificationMethod: "Código fuente verificado en GitHub (FRONT-PROJECT-JJAUX) y despliegue real en Vercel"
 liveUrl: "https://front-project-jjaux-h8pw.vercel.app/"
 githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX"
-stack: ["Angular 17+", "TypeScript Estricte", "Signals", "Vercel Edge", "WCAG AA", "Reactive Forms"]
+stack: ["Angular 18", "TypeScript 5.4", "PWA Service Worker", "RxJS", "Reactive Forms", "Vercel Edge"]
 order: 1
 image: {
-  src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?fit=crop&w=1200&h=630",
-  alt: "Panel de gestión de incidencias y alertas en tiempo real AVISA"
+  src: "/img/avisa-logo.png",
+  alt: "Plataforma AVISA de servicios profesionales, tareas y reformas del hogar"
 }
 ---
 
-## 1. El problema y el contexto
+## 1. El problema y el contexto real
 
-En la gestión de los servicios públicos municipales y las emergencias leves, los canales habituales de comunicación ciudadana (llamadas telefónicas manuales, formularios estáticos desconectados o correos dispersos) generan cuellos de botella graves.
+En el sector de las reformas del hogar, las reparaciones urgentes y el mantenimiento de instalaciones (fontanería, electricidad, pintura, carpintería, climatización y albañilería), los canales tradicionales y las grandes plataformas intermediarias generan fricciones graves:
 
-Los operadores de la sala de control suelen gestionar decenas de avisos simultáneos bajo presión, lo que provoca:
-- **Retrasos en la comunicación:** La información llega tarde o duplicada, sin geolocalización exacta.
-- **Falta de visibilidad en tiempo real:** Se desconoce el estado de intervención de cada equipo sobre el terreno.
-- **Interfaces pesadas:** Paneles administrativos antiguos con contraste insuficiente, no aptos para turnos nocturnos o pantallas auxiliares.
+- **Comisiones abusivas y sobrecostes opacos:** Muchas plataformas tradicionales encarecen el precio final con comisiones por contacto o porcentajes sobre el trabajo que perjudican tanto al cliente como al profesional autónomo.
+- **Falta de confianza y proximidad:** Dificultad para encontrar especialistas locales de confianza, con teléfono directo, valoraciones reales de vecinos de la zona y perfiles revisados.
+- **Pérdida de tiempo en la gestión:** Colas telefónicas, formularios largos desconectados o presupuestos que tardan semanas en llegar.
 
-El objetivo de **AVISA** fue diseñar una aplicación web accesible, ultrarrápida y modular que redujera el tiempo entre la recepción de un aviso y su asignación operativa.
-
----
-
-## 2. El reto técnico
-
-El proyecto debía responder a tres retos de ingeniería simultáneos:
-
-1. **Reactividad sin sobrecarga de ciclos de detección:** Cuando llegan varios eventos por segundo, actualizar todo el DOM de una tabla o lista provoca tirones de fotogramas (*jank*). Había que actualizar únicamente el nodo afectado.
-2. **Accesibilidad estricta según el estándar WCAG AA:** Cumplimiento de los contrastes cromáticos en estados críticos (alertas rojas, amarillas y verdes), navegación completa con teclado y avisos audibles para lectores de pantalla mediante regiones activas ARIA (`aria-live="polite"`).
-3. **Despliegue continuo atómico en Vercel:** Automatización del proceso de validación de tipos de TypeScript y publicación en la red perimetral (*Edge*).
+El propósito de **AVISA** fue diseñar una plataforma digital directa, transparente y ágil, con una experiencia adaptada al móvil (PWA), centrada inicialmente en las comarcas valencianas (la Costera, la Safor, la Vall d'Albaida y la Ribera): conectar directamente a personas que tienen una avería o proyecto con profesionales verificados, sin intermediarios innecesarios.
 
 ---
 
-## 3. Decisiones de arquitectura
+## 2. Qué ofrece la plataforma
 
-Descartamos las arquitecturas monolíticas basadas en `NgModules` para adoptar **Standalone Components** combinados con el sistema de **Signals** de Angular, reduciendo la dependencia de `Zone.js` y liberando el hilo de ejecución principal.
+AVISA articula dos perfiles de usuario complementarios mediante una interfaz intuitiva:
 
-### Diagrama del flujo de datos y la reactividad
+### Para clientes y comunidades de vecinos
+- **Publicación ágil y gratuita:** Describir la incidencia o necesidad de reforma en menos de 2 minutos e indicar el presupuesto de referencia.
+- **Sin comisiones ocultas:** Precios justos acordados libremente entre cliente y profesional, sin letra pequeña.
+- **Profesionales verificados:** Fontaneros, electricistas, carpinteros, instaladores y albañiles con perfiles revisados, contacto directo y reseñas públicas.
+- **Contratación de packs de servicios:** Posibilidad de contratar directamente servicios a tarifa cerrada o solicitar presupuesto personalizado.
+
+### Para profesionales y autónomos
+- **Bolsa de tareas e incidencias en tiempo real:** Acceso diario a peticiones reales de su comarca.
+- **Publicación de packs de ofertas:** Catálogo de servicios de tarifa fija para que los clientes contraten directamente.
+- **Construcción de reputación:** Historial de tareas finalizadas y valoraciones verificadas para aumentar la fiabilidad.
+
+### Experiencia móvil sincronizada (PWA)
+- Toda la gestión desde el dispositivo móvil: notificaciones instantáneas cuando hay respuesta, chat directo para acordar detalles, fotos de la obra o fechas, y registro de tareas.
+
+---
+
+## 3. Decisiones de arquitectura frontend
+
+El frontend está construido con **Angular 18** siguiendo las mejores prácticas de arquitectura modular moderna:
+
+### Standalone Components y enrutado basado en dominios
+Se prescinde de los módulos monolíticos clásicos (`NgModules`) para adoptar componentes Standalone agrupados por dominios funcionales:
+- `/tasques-ofertes`: tablón de exploración y mercado de ofertas profesionales e incidencias.
+- `/avisos`: gestión del ciclo de vida de incidencias para particulares.
+- `/professional`: área privada del profesional autónomo con gestión de ofertas y presupuestos.
+- `/client`: área de seguimiento para particulares.
+- `/blog`: guías técnicas comarcales (boletines eléctricos CIE, cal en las cuencas del Xúquer, aislamiento térmico y cerraduras antibumping).
+
+### Servicios especializados y flujos de datos
+La capa lógica se estructura en servicios dedicados con **RxJS** y tipado estricto de TypeScript:
+- `incidencia.service.ts`: creación, filtrado y seguimiento de incidencias de clientes.
+- `oferta.service.ts`: publicación y gestión de packs de servicios de profesionales.
+- `pressupost.service.ts` y `proposta.service.ts`: envío y aceptación de presupuestos.
+- `tasca.service.ts`: ciclo de estado de los trabajos contratados.
+- `resenya.service.ts`: recogida y auditoría de valoraciones verificadas.
+- `usuari.service.ts`: autenticación y control de acceso según roles (`client`, `professional`, `admin`).
+
+### Soporte Progressive Web App (PWA)
+Gracias a `@angular/service-worker` y `manifest.webmanifest`, la aplicación es instalable directamente desde el navegador del móvil, con carga instantánea de los activos y comportamiento optimizado para pantallas táctiles.
+
+---
+
+## 4. Estructura técnica del repositorio
 
 ```
-   [ Sensor / Usuario ] ───▶ [ Ingesta REST / SSE ] ───▶ [ IncidenciesStore (Signal) ]
-                                                                 │
-                                          ┌──────────────────────┴──────────────────────┐
-                                          ▼                                             ▼
-                                [ computed: critiques() ]                    [ computed: resoltes() ]
-                                          │                                             │
-                                          ▼                                             ▼
-                             [ Nodo DOM: Alerta Roja ]                     [ Métricas de Rendimiento ]
-```
-
-### Fragmento de código clave: almacén de estado granular
-
-```typescript
-// services/incidencies-store.service.ts
-import { Injectable, signal, computed } from '@angular/core';
-
-export interface Incidencia {
-  readonly id: string;
-  readonly titol: string;
-  readonly gravetat: 'baixa' | 'mitjana' | 'critica';
-  readonly estat: 'oberta' | 'en_proces' | 'tancada';
-  readonly timestamp: number;
-}
-
-@Injectable({ providedIn: 'root' })
-export class IncidenciesStore {
-  // Fuente única de verdad
-  private readonly _incidencies = signal<Incidencia[]>([]);
-
-  // Señales derivadas con memoización automática
-  readonly critiques = computed(() =>
-    this._incidencies().filter((i) => i.gravetat === 'critica' && i.estat !== 'tancada')
-  );
-
-  readonly totalsPerEstat = computed(() => {
-    const llista = this._incidencies();
-    return {
-      obertes: llista.filter((i) => i.estat === 'oberta').length,
-      resoltes: llista.filter((i) => i.estat === 'tancada').length,
-    };
-  });
-
-  afegirAlerta(nova: Incidencia): void {
-    this._incidencies.update((prev) => [nova, ...prev]);
-  }
-}
+front-project-jjaux/
+├── src/
+│   ├── app/
+│   │   ├── core/           # Interceptores, guards de autenticación y configuración global
+│   │   ├── models/         # Interfaces TypeScript (Usuari, Incidencia, Oferta, Pressupost)
+│   │   ├── pages/          # Vistas Standalone (main, tasques-ofertes, avisos, client, professional, blog)
+│   │   ├── services/       # Servicios reactivos (incidencia, oferta, presupuesto, reseña, usuario)
+│   │   └── shared/         # Componentes reutilizables, navbar, footer y maquetación
+│   ├── styles.css          # Diseño corporativo con paleta oscura, carmesí neón (#ff1744) y tipografía moderna
+│   └── manifest.webmanifest# Metadatos de PWA para instalación móvil
+├── package.json            # Angular 18.2, TypeScript 5.4, RxJS 7.6, Service Worker
+└── angular.json             # Configuración del compilador y pipeline de producción
 ```
 
 ---
 
-## 4. Comparativa: antes y después
+## 5. Resultados y acceso público
 
-| Dimensión | Sistema tradicional basado en tablas | Arquitectura AVISA (Angular Signals) |
-|---|---|---|
-| **Ciclo de detección** | Renderizado completo de la vista en cada cambio | Actualización atómica únicamente del nodo modificado |
-| **Tamaño del paquete (JS)** | ~1.4 MB con bibliotecas de componentes externas | ~240 KB optimizados con tree-shaking |
-| **Accesibilidad** | Formulario estándar sin regiones ARIA | Regiones `role="alert"` y navegación con teclado |
-| **Tiempo de respuesta** | 1.8s al recargar la lista | < 150ms para mostrar la notificación |
-
----
-
-## 5. Resultados verificables y métricas de auditoría
-
-Aplicamos nuestro protocolo de verificación de honestidad técnica:
-
-- **Accesibilidad (WCAG 2.2 AA):**
-  - *Método de verificación:* Auditoría con la extensión oficial `axe DevTools` y `Lighthouse Accessibility`.
-  - *Resultado verificado:* **100/100** en Lighthouse; cero fallos detectados en el contraste del texto o en las etiquetas de entrada.
-- **Rendimiento de carga (LCP):**
-  - *Método de verificación:* Perfil de rendimiento de Google Chrome (limitación de red 4G rápida).
-  - *Resultado verificado:* **0.9s LCP** en la red global de Vercel Edge.
-- **Tasa de errores en tiempo de ejecución:**
-  - *Método de verificación:* TypeScript en modo estricto (`strict: true`, `noImplicitAny: true`).
-  - *Resultado verificado:* **Cero regresiones de tipos** registradas en producción.
-- **Tiempo medio de resolución en pruebas con usuarios:**
-  - *Método de verificación:* Pruebas de usabilidad con operadores municipales simulados.
-  - *Resultado:* Todavía no disponible; la métrica depende de la segunda fase del piloto con datos reales del municipio.
-
----
-
-## 6. Aprendizajes y conclusiones
-
-1. **Signals simplifica drásticamente la arquitectura:** Evitar `BehaviorSubject` innecesarios de RxJS en componentes locales reduce el código un 35% y elimina el riesgo de fugas de memoria por suscripciones que no se cierran.
-2. **La accesibilidad empieza en el diseño:** Pensar en la navegación con teclado desde el primer wireframe evita tener que reescribir el marcado HTML más adelante.
+- **Demostración en línea:** La aplicación está completamente desplegada y operativa en la red perimetral de Vercel: [front-project-jjaux-h8pw.vercel.app](https://front-project-jjaux-h8pw.vercel.app/).
+- **Código fuente:** El repositorio oficial con el historial completo de commits está disponible en GitHub: [github.com/jautur/FRONT-PROJECT-JJAUX](https://github.com/jautur/FRONT-PROJECT-JJAUX).
+- **Identidad visual:** Logotipo corporativo oficial con isotipo de arco y acabado carmesí sobre fondo oscuro técnico.

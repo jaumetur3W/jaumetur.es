@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "FORMA / ESPACIO — Arte · Arquitectura · Investigación"
-subtitle: "Portfolio editorial de arte, arquitectura e investigación espacial."
+subtitle: "Portfolio editorial de arte, arquitectura e investigación espacial: sitio web estático con proyectos destacados, proceso creativo y diseño editorial cuidado."
 tagline: "Un espacio visual para explorar proyectos, materia e ideas sobre arquitectura."
 icon: "bx:building"
 color: "violet"

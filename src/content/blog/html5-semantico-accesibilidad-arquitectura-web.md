@@ -11,7 +11,7 @@ category: "Estándares web"
 author: "Jaume Tur"
 tags: [html5, semantica, accesibilidad, seo, estandares-web, a11y]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-html5-semantic-accessibilitat-arquitectura-web/"
+canonicalUrl: "https://jaumetur.es/blog/html5-semantico-accesibilidad-arquitectura-web/"
 ---
 
 ## ¿Qué es el HTML5 semántico?

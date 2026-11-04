@@ -3,7 +3,7 @@ draft: false
 title: "Guía paso a paso: CI/CD para frontend con GitHub Actions y despliegue automatizado"
 snippet: "Aprende a diseñar un pipeline profesional de integración y despliegue continuos: linter, pruebas, compilación optimizada, caché eficiente y despliegue sin interrupciones."
 image: {
-    src: "/img/blog/es-pipeline-cicd-github-actions-desplegament-continu.webp",
+    src: "/img/blog/pipeline-cicd-github-actions-desplegament-continu.webp",
     alt: "Pipeline de automatización e integración continua CI/CD"
 }
 publishDate: "2026-03-14 09:15"
@@ -11,7 +11,7 @@ category: "CI/CD"
 author: "Jaume Tur"
 tags: [cicd, github-actions, devops, deploy, automatizacion, astro, angular]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-pipeline-cicd-github-actions-desplegament-continu/"
+canonicalUrl: "https://jaumetur.es/blog/pipeline-cicd-github-actions-despliegue-continuo/"
 ---
 
 El despliegue manual de software mediante FTP o arrastrando archivos por SSH es una de las mayores fuentes de errores en la industria del desarrollo web. Un archivo olvidado, una versión equivocada de Node.js o una variable de entorno desincronizada pueden dejar una aplicación en caída libre (*downtime*) en plena hora punta.

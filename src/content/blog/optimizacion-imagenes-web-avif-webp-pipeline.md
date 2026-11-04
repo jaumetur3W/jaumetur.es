@@ -11,7 +11,7 @@ category: "Desarrollo web"
 author: "Jaume Tur"
 tags: [rendimiento-web, webp, avif, core-web-vitals, frontend]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-optimitzacio-imatges-web-avif-webp-pipeline/"
+canonicalUrl: "https://jaumetur.es/blog/optimizacion-imagenes-web-avif-webp-pipeline/"
 ---
 
 En un sitio web de restauración, la imagen es el principal argumento de venta. Si la fotografía de una pizza artesanal o de una hamburguesa gourmet se ve borrosa o pixelada por un exceso de compresión, el producto pierde atractivo comercial. Pero si se sube el archivo original directamente desde la cámara (un JPEG de 4 MB), la velocidad de carga se desploma.

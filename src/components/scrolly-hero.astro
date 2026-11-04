@@ -416,7 +416,9 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
         if (stageRect.width === 0 || stageRect.height === 0) return;
 
         const oCenterX = oRect.left + oRect.width / 2 - stageRect.left;
-        const oCenterY = oRect.top + oRect.height / 2 - stageRect.top;
+        // Descuenta el desplazamiento del texto mientras sube el telón
+        const containerShiftY = new DOMMatrixReadOnly(window.getComputedStyle(container).transform).m42;
+        const oCenterY = oRect.top + oRect.height / 2 - stageRect.top - containerShiftY;
 
         const percentX = (oCenterX / stageRect.width) * 100;
         const percentY = (oCenterY / stageRect.height) * 100;
@@ -561,6 +563,24 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
         statement.style.pointerEvents = statementVisible ? "auto" : "none";
       }
 
+      // El texto sube un poco mientras el telón lo cubre
+      const curtain = document.getElementById("home-curtain");
+      let liftFrame = 0;
+
+      function renderTextLift() {
+        liftFrame = 0;
+        if (!curtain) return;
+
+        const stageRect = stage.getBoundingClientRect();
+        const curtainTop = curtain.getBoundingClientRect().top - stageRect.top;
+        const travel = Math.min(Math.max(stageRect.height - curtainTop, 0), stageRect.height);
+        container.style.transform = travel > 0 ? `translate3d(0, ${(-travel * 0.12).toFixed(1)}px, 0)` : "";
+      }
+
+      function requestTextLift() {
+        if (!liftFrame) liftFrame = requestAnimationFrame(renderTextLift);
+      }
+
       function isTrackActive() {
         const rect = track.getBoundingClientRect();
         return rect.top < window.innerHeight && rect.bottom > 56;
@@ -584,6 +604,10 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
         if (step === 1) return cachedTrackTop + scrollableDistance * 0.12;
         if (step === 2) return cachedTrackTop + scrollableDistance * 0.25;
         return cachedTrackTop + scrollableDistance * 0.38;
+      }
+
+      function isCurtainRaised() {
+        return activeStep >= 3 && window.scrollY > getStepTarget(3) + 4;
       }
 
       function canQueueStep(direction) {
@@ -652,6 +676,13 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
           return;
         }
 
+        // Si el telón está a medio subir, baja con scroll nativo en vez de saltar al paso 2
+        if (direction < 0 && isCurtainRaised()) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
         // 3. Si se hace scroll hacia arriba y ya estamos en el paso 0 (inicio):
         // Permitir scroll nativo en la cabecera sin bloquear.
         if (direction < 0 && activeStep <= 0) {
@@ -704,6 +735,11 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
           return;
         }
 
+        // Si el telón está a medio subir, baja con scroll nativo en vez de saltar al paso 2
+        if (direction < 0 && isCurtainRaised()) {
+          return;
+        }
+
         // Si se desplaza hacia arriba y ya estamos en el paso 0: permitir scroll táctil nativo
         if (direction < 0 && activeStep <= 0) {
           return;
@@ -726,6 +762,8 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
       }
 
       function onWindowScroll() {
+        requestTextLift();
+
         if (window.scrollY <= 15 && activeStep === 0) {
           enterIntro();
         } else {
@@ -763,6 +801,7 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
 
       measureOffsets();
       renderStep(activeStep, true);
+      requestTextLift();
 
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
@@ -793,6 +832,7 @@ const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
             lastHeight = window.innerHeight;
             measureOffsets();
             renderStep(activeStep, true);
+            requestTextLift();
           }
         },
         { passive: true }

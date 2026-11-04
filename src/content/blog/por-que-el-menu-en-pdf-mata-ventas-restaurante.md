@@ -11,7 +11,7 @@ category: "UI/UX"
 author: "Jaume Tur"
 tags: [ui-ux, hosteleria, conversion, mobile-first, accesibilidad]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-per-que-el-menu-en-pdf-mata-vendes-restaurant/"
+canonicalUrl: "https://jaumetur.es/blog/por-que-el-menu-en-pdf-mata-ventas-restaurante/"
 ---
 
 Después de la pandemia, el código QR en los restaurantes se convirtió en el estándar absoluto. Sin embargo, el 90% de los locales optaron por la solución más fácil y peor ejecutada: subir un documento PDF de alta resolución a Google Drive o a un servidor lento.
@@ -45,3 +45,5 @@ Un menú web ligero desarrollado directamente en HTML semántico y con estilos o
 ## 3. Impacto en la decisión de compra
 
 Cuando el menú carga al instante y permite filtrar por categorías con un solo toque, el tiempo de decisión en la mesa se reduce un 20%. Esto agiliza la rotación de mesas en hora punta y convierte la consulta de la carta en una experiencia fluida.
+
+Si tienes un restaurante o comercio y quieres sustituir el PDF por una carta web rápida, consulta el [pack de digitalización local](/pricing/digitalitzacio-local/) o [escríbeme](/contact/).

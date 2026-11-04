@@ -24,3 +24,6 @@ pnpm-debug.log*
 test-results/
 playwright-report/
 coverage/
+
+# Exportaciones de Google Search Console
+jaumetur.es-Performance-on-Search-*/

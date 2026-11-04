@@ -4,32 +4,34 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
-const valencianBlogSlugs = [
-  "arquitectura-modular-angular-standalone-signals",
-  "optimitzacio-core-web-vitals-60fps",
-  "pipeline-cicd-github-actions-desplegament-continu",
-  "accessibilitat-web-wcag-aa-guia-practica",
-  "avisa-gestio-incidencies-arquitectura-frontend",
-  "com-crear-un-portfolio-denginyeria-frontend",
-  "git-github-control-versions-flux-colaboratiu",
-  "guia-definitiva-typescript-estricte-frontend",
-  "guia-seo-local-google-maps-comunitat-valenciana",
-  "html5-semantic-accessibilitat-arquitectura-web",
-  "javascript-guia-completa-ecmascript-modern",
-  "linux-shell-bash-administracio-sistemes-devops",
-  "nodejs-arquitectura-backend-esdeveniments-apis",
-  "optimitzacio-imatges-web-avif-webp-pipeline",
-  "per-que-el-menu-en-pdf-mata-vendes-restaurant",
-  "per-que-triar-astro-sobre-wordpress-negocis-locals",
-  "seo-local-i-rendiment-pizzeria-xativa",
-  "tailwind-css-guia-disseny-atomic-modern",
-  "targetes-fidelitzacio-wallet-negocis-locals",
+// Old Catalan-based slugs -> current Spanish slugs
+const legacyBlogSlugs = [
+  ["accessibilitat-web-wcag-aa-guia-practica", "accesibilidad-web-wcag-aa-guia-practica"],
+  ["arquitectura-modular-angular-standalone-signals", "arquitectura-modular-angular-standalone-signals"],
+  ["avisa-gestio-incidencies-arquitectura-frontend", "avisa-arquitectura-frontend-angular-pwa"],
+  ["com-crear-un-portfolio-denginyeria-frontend", "como-crear-portfolio-ingenieria-frontend"],
+  ["git-github-control-versions-flux-colaboratiu", "git-github-control-de-versiones-flujo-colaborativo"],
+  ["guia-definitiva-typescript-estricte-frontend", "guia-definitiva-typescript-estricto-frontend"],
+  ["guia-seo-local-google-maps-comunitat-valenciana", "guia-seo-local-google-maps-comunidad-valenciana"],
+  ["html5-semantic-accessibilitat-arquitectura-web", "html5-semantico-accesibilidad-arquitectura-web"],
+  ["javascript-guia-completa-ecmascript-modern", "javascript-guia-completa-ecmascript-moderno"],
+  ["linux-shell-bash-administracio-sistemes-devops", "linux-shell-bash-administracion-sistemas-devops"],
+  ["nodejs-arquitectura-backend-esdeveniments-apis", "nodejs-arquitectura-backend-eventos-apis"],
+  ["optimitzacio-core-web-vitals-60fps", "optimizacion-core-web-vitals-60fps"],
+  ["optimitzacio-imatges-web-avif-webp-pipeline", "optimizacion-imagenes-web-avif-webp-pipeline"],
+  ["per-que-el-menu-en-pdf-mata-vendes-restaurant", "por-que-el-menu-en-pdf-mata-ventas-restaurante"],
+  ["per-que-triar-astro-sobre-wordpress-negocis-locals", "por-que-elegir-astro-sobre-wordpress-negocios-locales"],
+  ["pipeline-cicd-github-actions-desplegament-continu", "pipeline-cicd-github-actions-despliegue-continuo"],
+  ["seo-local-i-rendiment-pizzeria-xativa", "seo-local-y-rendimiento-pizzeria-xativa"],
+  ["tailwind-css-guia-disseny-atomic-modern", "tailwind-css-guia-diseno-atomico-moderno"],
+  ["targetes-fidelitzacio-wallet-negocis-locals", "tarjetas-fidelizacion-wallet-negocios-locales"],
 ];
 
 const blogRedirects = Object.fromEntries(
-  valencianBlogSlugs.flatMap((slug) => [
-    [`/val/blog/${slug}`, `/blog/es-${slug}/`],
-    [`/blog/${slug}`, `/blog/es-${slug}/`],
+  legacyBlogSlugs.flatMap(([oldSlug, newSlug]) => [
+    [`/val/blog/${oldSlug}`, `/blog/${newSlug}/`],
+    [`/blog/es-${oldSlug}`, `/blog/${newSlug}/`],
+    ...(oldSlug === newSlug ? [] : [[`/blog/${oldSlug}`, `/blog/${newSlug}/`]]),
   ])
 );
 

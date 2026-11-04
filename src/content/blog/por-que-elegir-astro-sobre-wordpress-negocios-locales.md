@@ -11,7 +11,7 @@ category: "Desarrollo web"
 author: "Jaume Tur"
 tags: [astro, wordpress, rendimiento, jamstack, frontend, desarrollo-web]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-per-que-triar-astro-sobre-wordpress-negocis-locals/"
+canonicalUrl: "https://jaumetur.es/blog/por-que-elegir-astro-sobre-wordpress-negocios-locales/"
 ---
 
 Durante más de una década, WordPress ha sido la respuesta por defecto para cualquier presencia digital básica. Sin embargo, para un negocio local (como una pizzería, una clínica dental o un taller), mantener una base de datos MySQL activa y decenas de plugins supone una sobrecarga innecesaria.

@@ -2,6 +2,7 @@
 import Container from "@/components/container.astro";
 import ScrollyHero from "@/components/scrolly-hero.astro";
 import CapabilitiesInteractive from "@/components/capabilities-interactive.astro";
+import CurtainWave from "@/components/curtain-wave.astro";
 import Layout from "@/layouts/Layout.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
@@ -24,8 +25,9 @@ const href = (path: string) => localizePath(path, locale);
   <!-- 2. Contenido principal con efecto telón (sube y cubre la presentación estática) -->
   <div
     id="home-curtain"
-    class="relative z-20 bg-white shadow-[0_-16px_36px_rgba(0,0,0,0.04)]"
+    class="relative z-20 bg-white"
   >
+    <CurtainWave />
     <Container>
       <div class="flex flex-col pt-6 sm:pt-10">
 

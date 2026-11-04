@@ -1,0 +1,136 @@
+---
+// Borde vivo del telón: tres cintas que ondulan siempre, se agitan con el scroll
+// y se apartan del puntero. Va dentro de #home-curtain, justo sobre su borde superior.
+---
+
+<canvas id="curtain-wave" class="curtain-wave" aria-hidden="true"></canvas>
+
+<style>
+  .curtain-wave {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% - 1px);
+    width: 100%;
+    height: clamp(72px, 13vh, 120px);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .curtain-wave {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById("curtain-wave") as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext("2d");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (canvas && ctx && !reducedMotion) {
+    // De atrás hacia delante. La última es blanca y funde con el telón.
+    const layers = [
+      { color: "#FFFF00", base: 0.36, amp: 0.15, speed: 0.75, phase: 0 },
+      { color: "#020617", base: 0.6, amp: 0.12, speed: -0.55, phase: 2.1 },
+      { color: "#FFFFFF", base: 0.82, amp: 0.09, speed: 0.95, phase: 4.2 },
+    ];
+    const STEP = 8;
+    const POINTER_RADIUS = 170;
+
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let visible = false;
+    let lastTime = 0;
+    let clock = 0;
+    let energy = 0;
+    let lastScrollY = window.scrollY;
+    let pointerX = -1;
+    let bump = 0;
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
+
+    const draw = (time: number) => {
+      const delta = Math.min((time - lastTime) / 1000, 0.05);
+      lastTime = time;
+
+      // El scroll agita las cintas y empuja la ola en su dirección; luego se calman solas
+      const scrolled = window.scrollY - lastScrollY;
+      lastScrollY = window.scrollY;
+      const targetEnergy = Math.min(Math.abs(scrolled) / 45, 1);
+      energy += (targetEnergy - energy) * (targetEnergy > energy ? 0.2 : 0.035);
+      clock += delta + scrolled * 0.0035;
+
+      bump += ((pointerX >= 0 ? 1 : 0) - bump) * 0.06;
+
+      const wavelength = Math.max(460, width * 0.55);
+      const k = (Math.PI * 2) / wavelength;
+
+      ctx.clearRect(0, 0, width, height);
+      for (const layer of layers) {
+        const amplitude = layer.amp * height * (1 + energy * 0.7);
+        ctx.beginPath();
+        // El relleno sobrepasa el canvas para que el redondeo no deje una línea en el borde
+        ctx.moveTo(-STEP, height + STEP);
+        ctx.lineTo(-STEP, layer.base * height);
+        for (let x = 0; x <= width + STEP; x += STEP) {
+          const wave =
+            Math.sin(x * k + clock * layer.speed * 1.5 + layer.phase) * 0.65 +
+            Math.sin(x * k * 2.3 - clock * layer.speed * 1.1 + layer.phase * 1.7) * 0.35;
+          const distance = (x - pointerX) / POINTER_RADIUS;
+          const lift = bump * Math.exp(-distance * distance) * height * 0.09;
+          ctx.lineTo(x, Math.max(1, layer.base * height + wave * amplitude - lift));
+        }
+        ctx.lineTo(width + STEP, height + STEP);
+        ctx.closePath();
+        ctx.fillStyle = layer.color;
+        ctx.fill();
+      }
+
+      frame = visible ? requestAnimationFrame(draw) : 0;
+    };
+
+    const start = () => {
+      if (frame) return;
+      lastTime = performance.now();
+      lastScrollY = window.scrollY;
+      frame = requestAnimationFrame(draw);
+    };
+
+    // Solo anima mientras se ve y la pestaña está activa
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !document.hidden) start();
+    }).observe(canvas);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else if (visible) {
+        start();
+      }
+    });
+
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        if (event.pointerType !== "mouse") return;
+        const rect = canvas.getBoundingClientRect();
+        const near = event.clientY > rect.top - 90 && event.clientY < rect.bottom + 60;
+        pointerX = near ? event.clientX - rect.left : -1;
+      },
+      { passive: true }
+    );
+  }
+</script>
