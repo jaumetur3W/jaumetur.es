@@ -9,7 +9,8 @@ const isEn = locale === "en";
 const pathname = stripLocale(rawPathname);
 const localizedPath = (path: string) => localizePath(path, locale);
 const spanishPath = localizePath(rawPathname, "es");
-const englishPath = localizePath(rawPathname, "en");
+// /briefing has no English version, so the switcher goes to the English home instead of a 404.
+const englishPath = pathname === "/briefing" ? "/en/" : localizePath(rawPathname, "en");
 const homeTitle = isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio";
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
