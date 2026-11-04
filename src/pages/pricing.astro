@@ -12,6 +12,19 @@ const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 
 const packages = getServicesData(isEn ? "en" : "es");
 
+// Redisseny de posicionament: Nivell 1 (Web & Negocis) amb proposta clau al centre
+const webDevPackages = [
+  packages.find((p) => p.id === "landing-page")!,
+  packages.find((p) => p.id === "digitalitzacio-local")!,
+  packages.find((p) => p.id === "angular-webapp")!,
+];
+
+// Nivell 2: Serveis especialitzats d'enginyeria i automatització
+const specializedPackages = [
+  packages.find((p) => p.id === "performance-audit")!,
+  packages.find((p) => p.id === "cicd-devops")!,
+];
+
 // Proceso de trabajo en 4 pasos
 const workflowSteps = isEn
   ? [
@@ -162,11 +175,11 @@ const faqSchema = {
         </div>
       </div>
 
-      <!-- Catálogo de Paquetes -->
+      <!-- Catálogo de Paquetes: Nivell 1 - Desenvolupament Web & Negocis -->
       <h2 class="sr-only">{isEn ? "Service packages and pricing" : "Paquetes de servicios y tarifas"}</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {
-          packages.map((pkg) => {
+          webDevPackages.map((pkg) => {
             const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
             const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
             const annualCostShort = pkg.annualTotal.split('(')[0].trim();
@@ -176,12 +189,12 @@ const faqSchema = {
               <div
                 class={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative ${
                   pkg.isFeatured
-                    ? "bg-white border-2 border-slate-950 shadow-xl ring-4 ring-[#FFFF00]/25 lg:-translate-y-2"
+                    ? "bg-white border-2 border-slate-950 shadow-xl ring-4 ring-[#FFFF00]/25 lg:-translate-y-2 z-10"
                     : "bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md"
                 }`}>
                 {pkg.isFeatured && (
                   <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span class="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 shadow-sm border border-slate-950/20 flex items-center gap-1">
+                    <span class="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 shadow-sm border border-slate-950/20 flex items-center gap-1 whitespace-nowrap">
                       <Icon name="bx:star" class="w-3.5 h-3.5 fill-current" />
                       <span>{pkg.badge}</span>
                     </span>
@@ -264,6 +277,105 @@ const faqSchema = {
             );
           })
         }
+      </div>
+
+      <!-- Nivell 2: Serveis Tècnics Especialitzats (Auditoria & CI/CD DevOps) -->
+      <div class="mt-20">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <p class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold mb-2">
+            {isEn ? "Specialized Technical Services" : "Servicios técnicos especializados"}
+          </p>
+          <h3 class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
+            {isEn ? "Engineering Audits & CI/CD Automation" : "Auditorías de ingeniería y automatización CI/CD"}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 font-light mt-2">
+            {isEn
+              ? "Targeted technical interventions to optimize existing projects, improve performance metrics, and streamline releases."
+              : "Intervenciones técnicas puntuales para optimizar proyectos existentes, mejorar métricas de rendimiento y automatizar despliegues."}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+          {
+            specializedPackages.map((pkg) => {
+              const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
+              const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
+              const annualCostShort = pkg.annualTotal.split('(')[0].trim();
+              const dailyCostShort = pkg.dailyCostEquivalent.split('(')[0].trim();
+
+              return (
+                <div class="rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md">
+                  <div>
+                    <div class="flex items-center justify-between gap-4 mb-5">
+                      <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-950">
+                        <Icon name={pkg.icon} class="w-6 h-6 text-slate-950" />
+                      </div>
+                      <span class="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border border-slate-200 text-slate-500">
+                        {pkg.badge}
+                      </span>
+                    </div>
+
+                    <h3 class="font-light text-2xl text-slate-950 tracking-tight leading-snug">
+                      {pkg.name}
+                    </h3>
+                    
+                    <p class="text-xs text-slate-600 mt-2 font-light leading-relaxed">
+                      {pkg.tagline}
+                    </p>
+
+                    <!-- Desglose de Precios Limpio y Compacto -->
+                    <div class="my-5 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 font-mono">
+                      <div class="flex items-baseline justify-between">
+                        <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"} <span class="text-[10px] text-slate-700 font-medium">({isEn ? "excl. VAT" : "sin IVA"})</span></span>
+                        <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
+                      </div>
+                      <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
+                        <span class="text-xs text-slate-500">{isEn ? "Monthly maintenance:" : "Mantenimiento:"}</span>
+                        <span class="text-sm font-semibold text-slate-900">{pkg.monthlyFee}</span>
+                      </div>
+                      <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[11px]">
+                        <span class="text-slate-700 font-medium">{annualCostShort}</span>
+                        <span class="text-slate-500">{dailyCostShort}</span>
+                      </div>
+                    </div>
+
+                    <!-- Características incluidas clave -->
+                    <div class="space-y-2.5 mb-8">
+                      <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-600">
+                        {isEn ? "Key inclusions:" : "Incluido en la propuesta:"}
+                      </p>
+                      <ul class="space-y-2 text-xs text-slate-700 font-light">
+                        {pkg.features.slice(0, 4).map((feature) => (
+                          <li class="flex items-start gap-2.5">
+                            <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">✓</span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Acciones del paquete -->
+                  <div class="space-y-2 pt-4 border-t border-slate-100">
+                    <a
+                      href={detailUrl}
+                      class="w-full inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-mono uppercase tracking-wider font-semibold transition-colors text-center bg-slate-100 hover:bg-slate-950 text-slate-800 hover:text-white border border-slate-200 hover:border-slate-950">
+                      <span>{isEn ? "See detailed breakdown & ROI" : "Ver justificación y amortización"}</span>
+                      <span aria-hidden="true">→</span>
+                    </a>
+
+                    <a
+                      href={ctaContactUrl}
+                      class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-mono text-slate-500 hover:text-slate-950 transition-colors text-center">
+                      <span>{isEn ? "Request this package" : "Solicitar este servicio"}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
 
       <!-- Muestrario de Proyectos -->

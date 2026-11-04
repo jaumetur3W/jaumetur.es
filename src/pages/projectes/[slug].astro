@@ -190,14 +190,26 @@ const breadcrumbSchema = {
         </div>
       </div>
 
-      <!-- Preview Image with Clean Backdrop -->
-      <div class="relative bg-slate-50 p-2 sm:p-4">
-        <img
-          src={entry.data.image.src}
-          alt={projectText.image.alt}
-          class="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-sm border border-slate-200/70"
-          loading="eager"
-        />
+      <!-- Architecture & Technical Console (Sense fotografies, icones estandarditzades) -->
+      <div class="relative bg-gradient-to-b from-slate-50 to-white p-8 sm:p-12 flex flex-col items-center justify-center text-center">
+        <div class="w-16 h-16 rounded-3xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shadow-xs mb-4">
+          <Icon name={entry.data.icon} class="w-8 h-8 text-slate-950" />
+        </div>
+        <h2 class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight mb-2">
+          {projectText.title}
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 font-light max-w-xl mx-auto mb-6">
+          {projectText.tagline || projectText.subtitle}
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-2 font-mono text-xs">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-800 shadow-2xs">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>{projectText.statValue}</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-700 shadow-2xs">
+            <span>{isEn ? "Year" : "Año"}: {entry.data.year}</span>
+          </span>
+        </div>
       </div>
     </div>
 
