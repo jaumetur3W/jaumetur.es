@@ -50,24 +50,24 @@ const projects: ProjectItem[] = [
   {
     id: "avisa",
     slug: "avisa",
-    title: "AVISA — Gestió d'Incidències en Temps Real",
-    tagline: "Plataforma reactiva per al registre, comunicació i seguiment d'incidències urbanes crítiques amb interfície accessible i zero bloqueig de fil.",
-    iconSeal: "bx:bell",
-    sealColor: "text-red-500 bg-red-500/10 border-red-500/20 group-hover:border-red-500/40 group-hover:bg-red-500/15",
-    badge: "Web App · Prototip UI",
-    badgeColor: "bg-red-950/80 text-red-200 border-red-500/30",
-    statBadge: "WCAG AA · < 150ms",
+    title: "AVISA — Plataforma de Serveis Professionals, Tasques i Reformes",
+    tagline: "Plataforma digital i PWA mòbil per connectar clients i comunitats amb professionals verificats de reformes, instal·lacions i manteniment sense comissions ocultes.",
+    iconSeal: "bx:wrench",
+    sealColor: "text-rose-500 bg-rose-500/10 border-rose-500/20 group-hover:border-rose-500/40 group-hover:bg-rose-500/15",
+    badge: "Web App · PWA Mòbil",
+    badgeColor: "bg-rose-950/80 text-rose-200 border-rose-500/30",
+    statBadge: "Angular 18 · PWA 24/7",
     statIcon: "bx:check-circle",
     statColor: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
     colSpan: "col-span-12 lg:col-span-7",
     previewType: "incidents",
     highlights: [
-      "Estat reactiu amb Angular Signals sense sobrecàrrega de cicles Zone.js",
-      "Compliment WCAG 2.2 nivell AA i regions actives ARIA en temps real",
+      "Arquitectura basada en Angular 18 Standalone i fluxos reactius amb RxJS",
+      "PWA instal·lable amb Service Worker per a gestió mòbil d'encàrrecs i xat directe",
       "Desplegament continu atòmic a la xarxa perimetral Edge de Vercel"
     ],
-    tags: ["Angular 17+", "TypeScript", "Signals", "Vercel Edge", "WCAG AA"],
-    verificationNote: "Verificat amb axe-core i DevTools Network Profile; el pilot encara no té dades de camp publicables.",
+    tags: ["Angular 18", "TypeScript", "PWA", "RxJS", "Vercel Edge"],
+    verificationNote: "Verificat amb el repositori obert FRONT-PROJECT-JJAUX a GitHub i l'app en producció a Vercel.",
     liveUrl: "https://front-project-jjaux-h8pw.vercel.app/",
     githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX",
   },
@@ -288,24 +288,24 @@ const projects: ProjectItem[] = [
                 <div class="space-y-2">
                   <div class="flex items-center justify-between text-[11px] pb-1 border-b border-slate-800/80 text-slate-400">
                     <span class="flex items-center gap-1.5">
-                      <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                      <span>INCIDÈNCIES ACTIVES EN TEMPS REAL</span>
+                      <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                      <span>TAULER DE TASQUES I OFERTES AVISA</span>
                     </span>
-                    <span class="text-emerald-400 text-[10px]">Latència: &lt;142ms</span>
+                    <span class="text-emerald-400 text-[10px]">PWA Operativa 24/7</span>
                   </div>
                   <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-[11px]">
                     <div class="flex items-center gap-2">
-                      <span class="text-rose-400 font-bold">#INC-402</span>
-                      <span class="text-slate-200">Enllumenat avinguda central</span>
+                      <span class="text-rose-400 font-bold">#INC-108</span>
+                      <span class="text-slate-200">Renovació elèctrica i Butlletí CIE</span>
                     </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">CRÍTICA</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">ELECTRICITAT</span>
                   </div>
                   <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900/50 border border-slate-800/80 text-[11px]">
                     <div class="flex items-center gap-2">
-                      <span class="text-amber-400 font-bold">#INC-401</span>
-                      <span class="text-slate-300">Retirada d'obstacles vorera</span>
+                      <span class="text-amber-400 font-bold">#PRO-204</span>
+                      <span class="text-slate-300">Descalcificació integral de calderes</span>
                     </div>
-                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">ASSIGNADA</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">LAMPISTERIA</span>
                   </div>
                 </div>
               )}
