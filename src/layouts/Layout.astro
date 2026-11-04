@@ -59,14 +59,46 @@ const canonicalURL = ensureTrailingSlash(customCanonical || new URL(Astro.url.pa
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
 // Dynamic, keyword-rich title generation
+const TITLE_MAX = 60;
+const DESCRIPTION_MAX = 158;
+const BRAND_SUFFIX = " | Jaume Tur";
+
+const shortenAtBoundary = (text: string, max: number) => {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const separator = Math.max(
+    cut.lastIndexOf(": "),
+    cut.lastIndexOf(", "),
+    cut.lastIndexOf(" — "),
+    cut.lastIndexOf(" – "),
+    cut.lastIndexOf(" - "),
+  );
+  const end = separator >= 25 ? separator : cut.lastIndexOf(" ");
+  return cut.slice(0, end > 0 ? end : max).replace(/[\s,:;—–-]+$/, "");
+};
+
+const buildSeoTitle = (rawTitle: string) => {
+  const core = rawTitle.replace(/\s*[|—–-]\s*Jaume Tur$/, "");
+  return core.length + BRAND_SUFFIX.length <= TITLE_MAX
+    ? `${core}${BRAND_SUFFIX}`
+    : shortenAtBoundary(core, TITLE_MAX);
+};
+
 const isHome = !title || title === "Inici" || title === "Inicio" || title === "Home";
 const makeTitle = isHome
   ? isEn
-    ? "Jaume Tur — Web Development & Custom Applications in Valencia"
-    : "Jaume Tur — Desarrollo Web y Aplicaciones a Medida en Xàtiva y Valencia"
-  : title.endsWith("Jaume Tur")
-    ? title
-    : `${title} | Jaume Tur`;
+    ? "Web Development & Custom Apps in Valencia | Jaume Tur"
+    : "Desarrollo web a medida en Xàtiva y Valencia | Jaume Tur"
+  : buildSeoTitle(title);
+
+const shortenDescription = (text: string) => {
+  if (text.length <= DESCRIPTION_MAX) return text;
+  const cut = text.slice(0, DESCRIPTION_MAX - 1);
+  const sentenceEnd = cut.lastIndexOf(". ");
+  const end = sentenceEnd >= 90 ? sentenceEnd : cut.lastIndexOf(" ");
+  return `${cut.slice(0, end > 0 ? end : cut.length).replace(/[\s.,:;]+$/, "")}…`;
+};
+const metaDescription = shortenDescription(resolvedDescription);
 
 // JSON-LD Structured Data
 const personSchema = {
@@ -229,7 +261,7 @@ const blogPostSchema = isBlogPost ? {
     <!-- SEO & Social OpenGraph -->
     <SEO
       title={makeTitle}
-      description={resolvedDescription}
+      description={metaDescription}
       canonical={is404 ? null : canonicalURL}
       noindex={shouldNoIndex}
       nofollow={shouldNoIndex}
@@ -238,7 +270,7 @@ const blogPostSchema = isBlogPost ? {
         site: "@jautur",
         card: "summary_large_image",
         title: makeTitle,
-        description: resolvedDescription,
+        description: metaDescription,
         image: resolvedImageWithDomain,
         imageAlt: makeTitle,
       }}
@@ -254,7 +286,7 @@ const blogPostSchema = isBlogPost ? {
         },
         optional: {
           siteName: isEn ? "Jaume Tur — Portfolio & Engineering" : "Jaume Tur — Portafolio y Blog de Ingeniería",
-          description: resolvedDescription,
+          description: metaDescription,
           locale: isEn ? "en_US" : "es_ES",
         },
       }}
