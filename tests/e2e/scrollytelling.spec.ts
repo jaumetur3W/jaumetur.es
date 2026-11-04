@@ -251,6 +251,41 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(page.locator("#hero-statement")).toHaveCSS("opacity", "1");
   });
 
+  test("Curtain wave keeps moving when the page is left half scrolled", async ({ page }) => {
+    await page.goto("/");
+
+    for (let step = 0; step < 3; step += 1) {
+      await page.mouse.wheel(0, 120);
+      await page.waitForTimeout(650);
+    }
+
+    const atLastStep = await page.evaluate(() => window.scrollY);
+    await page.evaluate((y) => window.scrollTo(0, y + 300), atLastStep);
+    await page.waitForTimeout(300);
+
+    // Sin tocar nada, la ola sigue cambiando.
+    const wave = page.locator("#curtain-wave");
+    const snapshot = () => wave.evaluate((el) => (el as HTMLCanvasElement).toDataURL());
+    const before = await snapshot();
+    await page.waitForTimeout(400);
+    expect(await snapshot()).not.toBe(before);
+
+    // Bajar el telón a medio camino es scroll nativo, sin saltar al paso 2.
+    const midCurtain = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, -60);
+    await page.waitForTimeout(300);
+    const afterWheel = await page.evaluate(() => window.scrollY);
+    expect(afterWheel).toBeLessThan(midCurtain);
+    expect(afterWheel).toBeGreaterThan(atLastStep);
+    await expect(page.locator("#hero-statement")).toHaveCSS("opacity", "1");
+  });
+
+  test("Curtain wave is not shown with reduced motion", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await expect(page.locator("#curtain-wave")).toBeHidden();
+  });
+
   test("Touch swipes advance and reverse one complete state at a time", async ({ browser }) => {
     const context = await browser.newContext({
       baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || "http://localhost:4321",
