@@ -42,3 +42,6 @@ Una de las ventajas técnicas más potentes de los archivos de Wallet es la incl
     "relevantText": "¡Estás cerca de la pizzería! Ven a recoger tu pedido."
   }
 ]
+```
+
+¿Tienes un negocio local y quieres una tarjeta de fidelización así? Mira el [pack de digitalización local](/pricing/digitalitzacio-local/) o [cuéntame tu caso](/contact/).

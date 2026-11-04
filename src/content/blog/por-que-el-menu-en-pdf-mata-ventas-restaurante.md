@@ -45,3 +45,5 @@ Un menú web ligero desarrollado directamente en HTML semántico y con estilos o
 ## 3. Impacto en la decisión de compra
 
 Cuando el menú carga al instante y permite filtrar por categorías con un solo toque, el tiempo de decisión en la mesa se reduce un 20%. Esto agiliza la rotación de mesas en hora punta y convierte la consulta de la carta en una experiencia fluida.
+
+Si tienes un restaurante o comercio y quieres sustituir el PDF por una carta web rápida, consulta el [pack de digitalización local](/pricing/digitalitzacio-local/) o [escríbeme](/contact/).

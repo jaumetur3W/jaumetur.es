@@ -133,23 +133,18 @@ test.describe("Canonical URLs and Redirect Validation", () => {
     ).toEqual([]);
   });
 
-  test("verifies all 38 blog article pages have final canonicals with trailing slashes pointing to 200 OK targets", () => {
-    const spanishArticles = fs
-      .readdirSync(path.join(distDir, "blog"))
-      .filter((item) => item.startsWith("es-") && fs.statSync(path.join(distDir, "blog", item)).isDirectory());
+  test("verifies all blog article pages have final canonicals with trailing slashes pointing to 200 OK targets", () => {
+    const slugs = fs
+      .readdirSync(path.resolve(process.cwd(), "src/content/blog"))
+      .filter((file) => file.endsWith(".md"))
+      .map((file) => file.replace(/\.md$/, ""));
 
-    const englishArticles = fs
-      .readdirSync(path.join(distDir, "en", "blog"))
-      .filter((item) => item.startsWith("es-") && fs.statSync(path.join(distDir, "en", "blog", item)).isDirectory());
+    expect(slugs.length).toBeGreaterThan(0);
 
-    expect(spanishArticles.length).toBe(19);
-    expect(englishArticles.length).toBe(19);
-    expect(spanishArticles.length + englishArticles.length).toBe(38);
-
-    const allArticleFolders = [
-      ...spanishArticles.map((s) => ({ folder: path.join(distDir, "blog", s), slug: s, lang: "es" })),
-      ...englishArticles.map((s) => ({ folder: path.join(distDir, "en", "blog", s), slug: s, lang: "en" })),
-    ];
+    const allArticleFolders = slugs.flatMap((slug) => [
+      { folder: path.join(distDir, "blog", slug), slug, lang: "es" },
+      { folder: path.join(distDir, "en", "blog", slug), slug, lang: "en" },
+    ]);
 
     for (const { folder, slug, lang } of allArticleFolders) {
       const htmlPath = path.join(folder, "index.html");
@@ -160,15 +155,13 @@ test.describe("Canonical URLs and Redirect Validation", () => {
       expect(match, `Canonical tag missing in ${lang} article ${slug}`).not.toBeNull();
 
       const canonical = match![1];
-      expect(canonical.endsWith("/"), `Canonical in ${lang} article ${slug} must end with a trailing slash: ${canonical}`).toBe(true);
       expect(
-        canonical.startsWith("https://jaumetur.es/blog/es-"),
-        `Canonical in ${lang} article ${slug} must point to final canonical path: ${canonical}`
-      ).toBe(true);
+        canonical,
+        `Canonical in ${lang} article ${slug} must be the final self-referencing Spanish URL`
+      ).toBe(`https://jaumetur.es/blog/${slug}/`);
 
       // Verify the canonical target file exists and is not a redirect
-      const targetSlug = new URL(canonical).pathname.replace(/^\/blog\//, "").replace(/\/$/, "");
-      const targetHtmlPath = path.join(distDir, "blog", targetSlug, "index.html");
+      const targetHtmlPath = path.join(distDir, "blog", slug, "index.html");
       expect(fs.existsSync(targetHtmlPath), `Canonical target does not exist on disk: ${targetHtmlPath}`).toBe(true);
 
       const targetContent = fs.readFileSync(targetHtmlPath, "utf-8");
