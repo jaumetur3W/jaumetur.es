@@ -40,7 +40,10 @@ const copy = isEn
     id="scrolly-stage"
     class="scrolly-stage hero-intro-dark sticky top-[56px] z-10 w-full overflow-hidden flex flex-col justify-center items-center px-4 sm:px-8"
   >
-    <div id="hero-type-container" class="relative w-full max-w-5xl mx-auto flex flex-col items-center text-center select-none">
+    <!-- Aura luminosa ambiental en modo oscuro -->
+    <div id="hero-glow-aura" class="hero-glow-aura" aria-hidden="true"></div>
+
+    <div id="hero-type-container" class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center select-none">
       
       <!-- Único H1 principal de la página: Accesible para SEO desde el primer render -->
       <h1
@@ -98,6 +101,20 @@ const copy = isEn
       </div>
 
     </div>
+
+    <!-- Indicador de scroll animado al inicio -->
+    <div
+      id="hero-scroll-cue"
+      class="hero-scroll-cue absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none select-none z-10"
+      aria-hidden="true"
+    >
+      <span class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-slate-400 font-medium cue-label">
+        {isEn ? "Scroll" : "Scroll"}
+      </span>
+      <div class="w-4 h-7 rounded-full border border-slate-600/70 flex items-start justify-center p-1 cue-pill">
+        <div class="w-1 h-1.5 rounded-full bg-[#FFFF00] cue-dot"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -116,7 +133,7 @@ const copy = isEn
     height: calc(100vh - 56px);
     height: calc(100dvh - 56px);
     background-color: #ffffff;
-    transition: background-color 750ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background-color 380ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Ejemplo 3: Entrada con fondo negro azabache y Hola en amarillo */
@@ -124,11 +141,65 @@ const copy = isEn
     background-color: #09090b !important;
   }
 
+  /* Aura luminosa ambiental en modo oscuro */
+  .hero-glow-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(260px, 44vw, 480px);
+    height: clamp(260px, 44vw, 480px);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255, 255, 0, 0.16) 0%, rgba(255, 255, 0, 0.04) 45%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(48px);
+    opacity: 0;
+    transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: heroAuraPulse 3.5s ease-in-out infinite alternate;
+  }
+
+  .scrolly-stage.hero-intro-dark .hero-glow-aura {
+    opacity: 1;
+  }
+
+  @keyframes heroAuraPulse {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.65; }
+    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.95; }
+  }
+
+  /* Indicador sutil de scroll animado al inicio */
+  .hero-scroll-cue {
+    transition: opacity 280ms ease, transform 280ms ease;
+  }
+  .cue-dot {
+    animation: cueDotBounce 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  @keyframes cueDotBounce {
+    0% { transform: translateY(0); opacity: 1; }
+    60% { transform: translateY(9px); opacity: 0.2; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .hero-scroll-cue.is-hidden {
+    opacity: 0 !important;
+    transform: translate(-50%, 14px) !important;
+    pointer-events: none !important;
+  }
+
   /* Garantía tipográfica de peso bold en «Hola» y peso normal en el resto */
   #token-hola {
     font-weight: 700 !important;
     color: #020617;
-    transition: color 750ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: heroHolaFloat 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroHolaFloat {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-3px);
+    }
   }
 
   .scrolly-stage.hero-intro-dark #token-hola {
@@ -148,6 +219,13 @@ const copy = isEn
     }
     .scrolly-stage.hero-intro-dark #token-hola {
       color: #020617 !important;
+    }
+    #token-hola {
+      animation: none !important;
+    }
+    .hero-glow-aura,
+    .hero-scroll-cue {
+      display: none !important;
     }
     .scrolly-track {
       height: auto !important;
@@ -192,6 +270,7 @@ const copy = isEn
       const track = document.getElementById("scrolly-hero");
       const stage = document.getElementById("scrolly-stage");
       const siteNavbar = document.getElementById("site-navbar-wrap");
+      const scrollCue = document.getElementById("hero-scroll-cue");
       const phrase = document.getElementById("hero-phrase");
       const tokenHola = document.getElementById("token-hola");
       const tokenComma = document.getElementById("token-comma");
@@ -224,6 +303,7 @@ const copy = isEn
         introExited = true;
         stage.classList.remove("hero-intro-dark");
         if (siteNavbar) siteNavbar.classList.remove("hero-intro-dark");
+        if (scrollCue) scrollCue.classList.add("is-hidden");
       }
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -299,9 +379,9 @@ const copy = isEn
       }
 
       const stepCount = 5;
-      const transitionDuration = 460;
-      const wheelQuietPeriod = 220;
-      const touchThreshold = 40;
+      const transitionDuration = 260;
+      const wheelQuietPeriod = 130;
+      const touchThreshold = 28;
       let activeStep = 0;
       let isAnimating = false;
       let pendingDirections = [];
@@ -312,6 +392,10 @@ const copy = isEn
       let touchHandled = false;
 
       function renderStep(step, immediate = false) {
+        if (scrollCue && step > 0) {
+          scrollCue.classList.add("is-hidden");
+        }
+
         const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : step === 2 ? offset3 : offset4;
         const soyVisible = step >= 1;
         const jaumeVisible = step >= 2;
@@ -320,30 +404,30 @@ const copy = isEn
 
         phrase.style.transition = immediate
           ? "none"
-          : `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          : `transform ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
         phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
 
         const animatedTokens = [tokenHola, tokenComma, tokenSoy, tokenJaume, tokenTur];
         animatedTokens.forEach((token) => {
           token.style.transition = immediate
             ? "none"
-            : `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+            : `opacity ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
         });
 
         // «Hola» se ve obligatoriamente en todo momento desde la carga inicial
         tokenHola.style.opacity = "1";
         tokenHola.style.transform = "translate3d(0, 0, 0)";
 
-        const soyTranslateY = soyVisible ? 0 : 12;
+        const soyTranslateY = soyVisible ? 0 : 10;
         tokenComma.style.opacity = soyVisible ? "1" : "0";
         tokenSoy.style.opacity = soyVisible ? "1" : "0";
         tokenSoy.style.transform = `translate3d(0, ${soyTranslateY}px, 0)`;
 
-        const jaumeTranslateY = jaumeVisible ? 0 : 12;
+        const jaumeTranslateY = jaumeVisible ? 0 : 10;
         tokenJaume.style.opacity = jaumeVisible ? "1" : "0";
         tokenJaume.style.transform = `translate3d(0, ${jaumeTranslateY}px, 0)`;
 
-        const turTranslateY = turVisible ? 0 : 12;
+        const turTranslateY = turVisible ? 0 : 10;
         tokenTur.style.opacity = turVisible ? "1" : "0";
         tokenTur.style.transform = `translate3d(0, ${turTranslateY}px, 0)`;
 
@@ -353,9 +437,9 @@ const copy = isEn
 
         statement.style.transition = immediate
           ? "none"
-          : `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          : `opacity ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
         statement.style.opacity = statementVisible ? "1" : "0";
-        statement.style.transform = `translate3d(0, ${statementVisible ? 0 : 16}px, 0)`;
+        statement.style.transform = `translate3d(0, ${statementVisible ? 0 : 12}px, 0)`;
         statement.style.pointerEvents = statementVisible ? "auto" : "none";
       }
 
@@ -522,6 +606,9 @@ const copy = isEn
 
       function onWindowScroll() {
         exitIntro();
+        if (scrollCue && window.scrollY > 15) {
+          scrollCue.classList.add("is-hidden");
+        }
         const step4Target = getStep4Target();
 
         if (window.scrollY >= step4Target + 60 || isCurtainCovering()) {
