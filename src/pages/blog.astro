@@ -109,7 +109,7 @@ const getCategoryIcon = (category: string) => {
               <div>
                 {/* Cover Image */}
                 {post.data.image && post.data.image.src && (
-                  <a href={href(`/blog/${post.id}`)} class="block overflow-hidden aspect-[16/9] bg-slate-100 border-b border-slate-100">
+                  <a href={href(`/blog/${post.id}/`)} class="block overflow-hidden aspect-[16/9] bg-slate-100 border-b border-slate-100">
                     <img
                       src={post.data.image.src}
                       alt={post.data.image.alt}
@@ -137,7 +137,7 @@ const getCategoryIcon = (category: string) => {
 
                   <!-- Post Title -->
                   <h2 class="text-xl sm:text-2xl font-light text-slate-950 group-hover:text-black transition-colors leading-snug mb-3 tracking-tight">
-                    <a href={href(`/blog/${post.id}`)}>
+                    <a href={href(`/blog/${post.id}/`)}>
                       {post.data.title}
                     </a>
                   </h2>
@@ -159,7 +159,7 @@ const getCategoryIcon = (category: string) => {
                   })}
                 </time>
                 <a
-                  href={href(`/blog/${post.id}`)}
+                  href={href(`/blog/${post.id}/`)}
                   class="inline-flex items-center gap-1 text-slate-950 hover:underline font-mono text-xs uppercase tracking-wider font-semibold"
                 >
                   <span>{isEn ? "Read article" : "Leer artículo"}</span>

@@ -51,7 +51,7 @@ const ensureTrailingSlash = (urlStr: string) => {
 };
 
 const is404 = Astro.url.pathname.includes("404");
-const shouldNoIndex = noindex || is404;
+const shouldNoIndex = noindex || is404 || Astro.url.pathname.includes("/en/blog");
 
 const spanishURL = ensureTrailingSlash(new URL(alternatePathsForPage.es, siteUrl).toString());
 const englishURL = ensureTrailingSlash(new URL(alternatePathsForPage.en, siteUrl).toString());

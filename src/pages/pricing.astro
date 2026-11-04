@@ -19,7 +19,7 @@ const workflowSteps = isEn
         step: "01",
         title: "Discovery & Scope",
         icon: "bx:search-alt",
-        desc: "We define project goals, core functional requirements, and realistic milestones to deliver a transparent proposal.",
+        desc: "I define project goals, core functional requirements, and realistic milestones to deliver a transparent proposal.",
       },
       {
         step: "02",
@@ -79,15 +79,15 @@ const faqs = isEn
         answer: "Uptime monitoring, security and dependency updates, regular backups, priority bug fixes, and continuous technical consulting.",
       },
       {
-        question: "What technical guarantees do you deliver?",
-        answer: "Verifiable, auditable benchmarks: 95-100 Lighthouse performance, WCAG 2.2 AA accessibility compliance, and 100% source code ownership in your private repository.",
+        question: "What technical benchmarks do you target?",
+        answer: "Verifiable, auditable benchmarks: target of 95-100 Lighthouse performance, WCAG 2.2 AA accessibility compliance, and 100% source code ownership in your private repository.",
       },
       {
-        question: "How do we communicate and track milestones?",
+        question: "How do we communicate and track progress?",
         answer: "Agile, transparent asynchronous communication via email and video calls, with continuous access to private Git staging previews before release.",
       },
       {
-        question: "How do we get started?",
+        question: "How to get started?",
         answer: "Send a message through the contact form or email jaumetur3w@gmail.com with your project outline. You will receive a tailored reply within 24 business hours.",
       },
     ]
@@ -101,15 +101,15 @@ const faqs = isEn
         answer: "Supervisión continua de disponibilidad, actualizaciones de seguridad y dependencias, copias de seguridad periódicas, resolución prioritaria de incidencias y asesoramiento técnico.",
       },
       {
-        question: "¿Qué garantías técnicas ofreces en cada entrega?",
-        answer: "Métricas auditables y contrastables: puntuaciones Lighthouse de 95-100, cumplimiento de accesibilidad WCAG 2.2 AA y propiedad total del código fuente en tu repositorio.",
+        question: "¿Qué objetivos técnicos persigues en cada entrega?",
+        answer: "Métricas auditables y contrastables: objetivo de 95-100 en Lighthouse, cumplimiento de accesibilidad WCAG 2.2 AA y propiedad total del código fuente en tu repositorio.",
       },
       {
-        question: "¿Cómo nos comunicaremos y haremos el seguimiento?",
+        question: "¿Cómo nos comunicamos y hacemos el seguimiento?",
         answer: "Comunicación fluida y transparente por correo electrónico y videollamada, con acceso directo a una vista previa en staging para revisar cada avance antes de publicar.",
       },
       {
-        question: "¿Cómo podemos empezar a trabajar juntos?",
+        question: "¿Cómo puedes empezar a trabajar conmigo?",
         answer: "Envía un mensaje a través del formulario o escribe a jaumetur3w@gmail.com con los detalles de tu idea. Recibirás una respuesta personalizada en menos de 24 horas laborables.",
       },
     ];
@@ -157,9 +157,13 @@ const faqSchema = {
           <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-slate-700" />
           <span>{isEn ? "100% auditable code & 60 FPS" : "100% código auditable y 60 FPS"}</span>
         </div>
+        <div class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-mono text-slate-600 bg-white border border-slate-200/90 shadow-2xs">
+          <span>{isEn ? "Prices excl. VAT" : "Precios sin IVA"}</span>
+        </div>
       </div>
 
       <!-- Catálogo de Paquetes -->
+      <h2 class="sr-only">{isEn ? "Service packages and pricing" : "Paquetes de servicios y tarifas"}</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {
           packages.map((pkg) => {
@@ -207,7 +211,7 @@ const faqSchema = {
                   <!-- Desglose de Precios Limpio y Compacto -->
                   <div class="my-5 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 font-mono">
                     <div class="flex items-baseline justify-between">
-                      <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"}</span>
+                      <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"} <span class="text-[10px] text-slate-700 font-medium">({isEn ? "excl. VAT" : "sin IVA"})</span></span>
                       <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
                     </div>
                     <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
@@ -285,7 +289,6 @@ const faqSchema = {
             <div>
               <div class="flex items-center justify-between mb-3">
                 <Icon name="bx:bell" class="w-5 h-5 text-slate-950" />
-                <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "In production" : "En producción"}</span>
               </div>
               <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">AVISA</h4>
               <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Incident management platform with Angular Signals and WCAG AA." : "Plataforma de incidencias con Angular Signals y WCAG AA."}</p>
@@ -356,7 +359,7 @@ const faqSchema = {
             {isEn ? "Methodology & Transparency" : "Metodología y transparencia"}
           </span>
           <h3 class="text-3xl font-light text-slate-950 tracking-tight">
-            {isEn ? "How we work together, step by step" : "Cómo trabajamos juntos paso a paso"}
+            {isEn ? "How I work with you, step by step" : "Cómo trabajo contigo paso a paso"}
           </h3>
           <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2 font-light">
             {isEn

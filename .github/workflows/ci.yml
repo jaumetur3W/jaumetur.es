@@ -108,7 +108,7 @@ jobs:
 
       - name: Run Lighthouse CI Audit
         run: |
-          npx @lhci/cli@0.14.x autorun || echo "Lighthouse CI audit completed."
+          npx @lhci/cli@0.14.x autorun
         env:
           LHCI_BUILD_CONTEXT__CURRENT_BRANCH: ${{ github.ref_name }}
 

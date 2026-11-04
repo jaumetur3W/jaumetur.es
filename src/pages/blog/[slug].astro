@@ -221,7 +221,7 @@ const breadcrumbSchema = {
               <span id="copy-link-text">{isEn ? "Copy link" : "Copiar enlace"}</span>
             </button>
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(entry.data.title)}&url=${encodeURIComponent(`https://jaumetur.es${href(`/blog/${entry.id}`)}`)}&via=jautur`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(entry.data.title)}&url=${encodeURIComponent(`https://jaumetur.es${href(`/blog/${entry.id}/`)}`)}&via=jautur`}
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono bg-slate-900 hover:bg-slate-800 text-white transition-colors"
@@ -230,7 +230,7 @@ const breadcrumbSchema = {
               <span>{isEn ? "Share" : "Compartir"}</span>
             </a>
             <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://jaumetur.es${href(`/blog/${entry.id}`)}`)}`}
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://jaumetur.es${href(`/blog/${entry.id}/`)}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono bg-[#0077b5] hover:bg-[#006097] text-white transition-colors"
@@ -357,7 +357,7 @@ const breadcrumbSchema = {
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {relatedPosts.map((rel) => (
                 <a
-                  href={href(`/blog/${rel.id}`)}
+                  href={href(`/blog/${rel.id}/`)}
                   class="group block p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 transition-all shadow-2xs hover:shadow-md"
                 >
                   <span class="text-xs font-mono text-slate-500 font-semibold uppercase tracking-wider">

@@ -176,7 +176,6 @@ const href = (path: string) => localizePath(path, isEn ? "en" : "es");
           href="https://share.google/3tihWcZBWMyYHmjBp"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={isEn ? "Jaume Tur on Google Maps (opens in new tab)" : "Ficha de Jaume Tur en Google Maps (se abre en una pestaña nueva)"}
           class="bg-white border border-slate-200/90 hover:border-slate-950 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
           <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
             <Icon name="bx:map-pin" class="w-5 h-5 text-slate-950" />
@@ -184,6 +183,7 @@ const href = (path: string) => localizePath(path, isEn ? "en" : "es");
           <div class="truncate">
             <span class="text-[9px] font-mono uppercase text-slate-600 block font-semibold">{isEn ? "Local presence · Google Maps" : "Presencia Local · Google Maps"}</span>
             <span class="text-xs font-normal text-slate-800 group-hover:text-slate-950 transition-colors">{isEn ? "View Google profile and reviews" : "Ver perfil y reseñas en Google"}</span>
+            <span class="sr-only">({isEn ? "opens in new tab" : "se abre en una pestaña nueva"})</span>
           </div>
           <Icon name="bx:link-external" class="w-4 h-4 text-slate-600 ml-auto" />
         </a>

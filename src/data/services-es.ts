@@ -76,7 +76,7 @@ const marketComparisonDigital = [
 
 const marketComparisonLanding = [
   {
-    name: "Nuestra solución (Astro e ingeniería frontend)",
+    name: "Mi solución (Astro e ingeniería frontend)",
     priceRange: "390 € de entrada + 30 €/mes",
     speedLighthouse: "Optimizado para máxima velocidad en Lighthouse",
     maintenanceCost: "30 €/mes (todo incluido, sin licencias adicionales)",
@@ -115,7 +115,7 @@ const marketComparisonLanding = [
 
 const marketComparisonAngular = [
   {
-    name: "Nuestro servicio Angular Expert",
+    name: "Mi servicio Angular Expert",
     priceRange: "1.950 € de entrada + 95 €/mes",
     speedLighthouse: "95-100/100 (60 FPS estables)",
     maintenanceCost: "95 €/mes (supervisión y evolución técnica)",
@@ -154,13 +154,13 @@ const marketComparisonAngular = [
 
 const marketComparisonAudit = [
   {
-    name: "Nuestro servicio de auditoría y corrección de rendimiento",
+    name: "Mi servicio de auditoría y corrección de rendimiento",
     priceRange: "450 € de entrada + 39 €/mes",
     speedLighthouse: "Optimizado para máximo rendimiento en Lighthouse",
     maintenanceCost: "39 €/mes (monitorización y ajustes continuos)",
     hiddenCosts: "Sin costes ocultos",
     codeOwnership: "Mejoras integradas directamente en tu repositorio",
-    summary: "No solo entregamos un PDF con problemas: también aplicamos las correcciones al código.",
+    summary: "No solo entrego un PDF con problemas: también aplico las correcciones al código.",
   },
   {
     name: "Auditorías tradicionales de agencias SEO",
@@ -193,7 +193,7 @@ const marketComparisonAudit = [
 
 const marketComparisonCicd = [
   {
-    name: "Nuestro servicio especializado de CI/CD",
+    name: "Mi servicio especializado de CI/CD",
     priceRange: "350 € de entrada + 35 €/mes",
     speedLighthouse: "Auditoría automática integrada en el flujo",
     maintenanceCost: "35 €/mes (supervisión proactiva de los pipelines)",
@@ -244,7 +244,7 @@ export const servicesCopyEs: Record<string, ServiceCopy> = {
     amortizationSummary: "Se amortiza con solo 3 o 4 cenas o pedidos de pizza al mes.",
     ctaText: "Solicitar pack de negocio local (290 €)",
     features: [
-      "Landing page y carta interactiva en HTML (carga < 0,5 s, 100/100 en Lighthouse)",
+      "Landing page y carta interactiva en HTML (objetivo de carga < 0,5 s, objetivo de 100/100 en Lighthouse)",
       "Sustitución de PDF pesados por una carta clara, adaptada a móviles y con información de alérgenos",
       "Reservas y pedidos directos por WhatsApp sin comisiones",
       "Creación y optimización de la ficha de Google Maps (Google Business Profile)",

@@ -43,7 +43,7 @@ const marketComparisonDigital = [
     maintenanceCost: "€49/month (web menu, content updates, and social channels included)",
     hiddenCosts: "€0 order commissions",
     codeOwnership: "Everything is yours: website, digital menu, and social profiles",
-    summary: "Our flagship proposal: curated Google Maps presence, active social channels, and an instant mobile menu with zero middleman fees.",
+    summary: "My flagship proposal: curated Google Maps presence, active social channels, and an instant mobile menu with zero middleman fees.",
   },
   {
     name: "Third-party Delivery Platforms (Glovo, Uber Eats, JustEat)",
@@ -81,7 +81,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
     tagline:
       "The definitive solution for local bars, pizzerias, cafes, and neighborhood shops looking to attract customers from Google Maps and social media without middleman commissions.",
     description:
-      "Inspired by the success of Pizzeria in Xàtiva: we eliminate heavy 15 MB PDFs that diners cannot open on their phones. We build your ultra-fast HTML digital menu, set up a verified Google Maps profile, and handle or optimize your social channels (Instagram/Facebook) to fill your tables without paying commissions to delivery apps.",
+      "Inspired by the success of Pizzeria in Xàtiva: eliminating heavy 15 MB PDFs that diners cannot open on their phones. I build your ultra-fast HTML digital menu, set up a verified Google Maps profile, and handle or optimize your social channels (Instagram/Facebook) to fill your tables without paying commissions to delivery apps.",
     targetAudience:
       "Small bars, pizzerias, family restaurants, cafes, bakeries, neighborhood stores, and local professionals without a website or with an outdated online presence.",
     timeline: "3 to 5 business days",
@@ -91,7 +91,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
     amortizationSummary: "Fully pays for itself with just 3 to 4 takeaway orders or dinners per month.",
     ctaText: "Start Local Digitization",
     features: [
-      "Lightweight, instant-loading HTML web menu (<0.5s) optimized for smartphones",
+      "Lightweight, instant-loading HTML web menu (target < 0.5s) optimized for smartphones",
       "Full setup, optimization, and verification of Google Maps & Google Business profile",
       "Direct WhatsApp and phone call ordering buttons with zero intermediary fees",
       "Setup and visual design for Instagram and Facebook business profiles",
@@ -113,7 +113,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
       },
       {
         title: "Goodbye to bulky PDFs that lose customers at tables",
-        metric: "Loading in < 0.5 seconds",
+        metric: "Target load < 0.5 seconds",
         description:
           "Heavy PDF menus fail to load on weak mobile data connections. A clean, native HTML web menu loads instantly, keeps customers happy, and boosts drink and dessert orders.",
       },
@@ -173,7 +173,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
       {
         name: "Custom High-Performance Landing Page",
         priceRange: "€490 upfront + €65/month",
-        speedLighthouse: "100/100 guaranteed",
+        speedLighthouse: "Target: 95-100",
         maintenanceCost: "€65/month included",
         hiddenCosts: "€0",
         codeOwnership: "100% yours",
@@ -301,7 +301,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
       {
         name: "Hands-on Technical Performance Remediation",
         priceRange: "€390 upfront + €35/month",
-        speedLighthouse: "Green Core Web Vitals guaranteed",
+        speedLighthouse: "Target: Green Core Web Vitals",
         maintenanceCost: "€35/month for continuous monitoring",
         hiddenCosts: "€0",
         codeOwnership: "Code changes implemented directly in your repository",
@@ -330,7 +330,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
     tagline:
       "Automated testing, linting, continuous integration, and atomic zero-downtime deployment workflows using GitHub Actions.",
     description:
-      "Stop manual FTP uploads and stressful releases. We set up an automated DevOps pipeline that runs tests, compiles assets, and deploys your application safely every time you push code to GitHub.",
+      "Stop manual FTP uploads and stressful releases. I set up an automated DevOps pipeline that runs tests, compiles assets, and deploys your application safely every time you push code to GitHub.",
     targetAudience:
       "Development agencies, software teams, and growing projects seeking reliable, hands-off release processes.",
     timeline: "2 to 4 business days",
