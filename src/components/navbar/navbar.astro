@@ -15,7 +15,7 @@ const canonicalPagePath = (path: string) => {
 };
 const localizedPath = (path: string) => canonicalPagePath(localizePath(path, locale));
 const spanishPath = canonicalPagePath(localizePath(rawPathname, "es"));
-const englishPath = pathname === "/briefing" ? "/en/" : canonicalPagePath(localizePath(rawPathname, "en"));
+const englishPath = canonicalPagePath(localizePath(rawPathname, "en"));
 const homeTitle = isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio";
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";

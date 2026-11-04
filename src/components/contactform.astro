@@ -3,20 +3,23 @@ import { Icon } from "astro-icon/components";
 import { localeFromPath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
+// Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
 ---
 
 <form
   id="contact-form"
   class="needs-validation space-y-4"
   novalidate
+  data-web3forms-key={web3formsKey}
   aria-label={isEn ? "Direct contact form" : "Formulario de contacto directo"}>
-  
+
   <!-- Anti-spam Honeypot Field -->
   <div class="hidden" aria-hidden="true">
     <label for="honeypot-field">{isEn ? "Do not fill this field if you are human" : "No rellenes este campo si eres una persona"}</label>
     <input
       type="text"
-      name="_gotcha"
+      name="botcheck"
       id="honeypot-field"
       tabindex="-1"
       autocomplete="off"
@@ -45,8 +48,29 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
     </p>
   </div>
 
+  <!-- Correo de respuesta -->
   <div>
-    <label for="contact-phone" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+    <label for="contact-email" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      {isEn ? "Email" : "Correo electrónico"} <span class="text-rose-500" aria-label={isEn ? "required" : "obligatorio"}>*</span>
+    </label>
+    <input
+      id="contact-email"
+      type="email"
+      name="email"
+      autocomplete="email"
+      placeholder={isEn ? "Where can I reply to you?" : "¿Dónde puedo responderte?"}
+      required
+      aria-required="true"
+      aria-describedby="email-error"
+      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
+    />
+    <p id="email-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+      {isEn ? "Please enter a valid email so I can reply to you." : "Indica un correo válido para poder responderte."}
+    </p>
+  </div>
+
+  <div>
+    <label for="contact-phone"class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
       {isEn ? "Phone (optional)" : "Teléfono (opcional)"}
     </label>
     <input
@@ -69,6 +93,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
         id="contact-service"
         name="service"
         class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-800 transition">
+        <option value="digitalitzacio-local">{isEn ? "Local digitization and web menu" : "Digitalización local"}</option>
         <option value="landing-page" selected>{isEn ? "New website or redesign" : "Nueva web o renovación de la actual"}</option>
         <option value="angular-webapp">Web App SPA (Angular / TypeScript)</option>
         <option value="performance-audit">{isEn ? "Performance optimization (60 FPS & CWV)" : "Optimización 60 FPS y WCAG AA"}</option>
@@ -134,7 +159,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       id="contact-submit-btn"
       class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
       <Icon name="bx:paper-plane" class="w-4 h-4 text-slate-400 group-hover:text-slate-950 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
-      <span id="submit-btn-text">{isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada"}</span>
+      <span id="submit-btn-text">{isEn ? "Send inquiry" : "Enviar consulta"}</span>
     </button>
   </div>
 
@@ -148,8 +173,8 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
 
   <p class="text-[11px] text-slate-600 text-center font-sans">
     {isEn
-      ? "Inquiring carries no obligation. Name is required; phone and other fields are optional. Submitting opens your email client with the pre-formatted proposal ready to send."
-      : "La consulta no implica ningún compromiso. El nombre es obligatorio; el teléfono y el resto de datos son opcionales. Al enviarla, se abrirá tu cliente de correo para que confirmes el envío."}
+      ? "Inquiring carries no obligation. Name and email are required; phone and other fields are optional."
+      : "La consulta no implica ningún compromiso. El nombre y el correo son obligatorios; el teléfono y el resto de datos son opcionales."}
   </p>
 </form>
 
@@ -162,7 +187,12 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
     const submitBtnText = document.getElementById("submit-btn-text");
     const honeypot = document.getElementById("honeypot-field");
 
+    const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+    const SUBMIT_TIMEOUT_MS = 15000;
+    const submitLabel = submitBtnText ? submitBtnText.textContent : "";
+
     const nameInput = document.getElementById("contact-name");
+    const emailInput = document.getElementById("contact-email");
     const phoneInput = document.getElementById("contact-phone");
     const messageInput = document.getElementById("contact-message");
     const serviceSelect = document.getElementById("contact-service");
@@ -170,13 +200,19 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
     const extraSelect = document.getElementById("contact-extra");
 
     const nameError = document.getElementById("name-error");
+    const emailError = document.getElementById("email-error");
     const messageError = document.getElementById("message-error");
 
     // Sincronizar parámetro URL ?servei= con el selector
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const preselectedService = urlParams.get("servei");
-      if (preselectedService && serviceSelect) {
+      // Un valor desconocido dejaría el selector vacío: se conserva la opción por defecto.
+      if (
+        preselectedService &&
+        serviceSelect &&
+        Array.from(serviceSelect.options).some((option) => option.value === preselectedService)
+      ) {
         serviceSelect.value = preselectedService;
       }
     } catch (_) {}
@@ -203,7 +239,10 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
 
         // 2. Protección Anti-Spam: Rate Limit (Mínimo 30 segundos)
         const RATE_KEY = "last_contact_submission";
-        const lastSubmission = localStorage.getItem(RATE_KEY);
+        let lastSubmission = null;
+        try {
+          lastSubmission = localStorage.getItem(RATE_KEY);
+        } catch (_) {}
         const now = Date.now();
         if (lastSubmission && now - parseInt(lastSubmission, 10) < 30 * 1000) {
           const remainingSecs = Math.ceil((30 * 1000 - (now - parseInt(lastSubmission, 10))) / 1000);
@@ -223,6 +262,15 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
           nameInput.classList.remove("border-rose-400");
         }
 
+        if (!emailInput.validity.valid) {
+          emailError.classList.remove("hidden");
+          emailInput.classList.add("border-rose-400");
+          hasErrors = true;
+        } else {
+          emailError.classList.add("hidden");
+          emailInput.classList.remove("border-rose-400");
+        }
+
         messageError.classList.add("hidden");
         messageInput.classList.remove("border-rose-400");
 
@@ -235,6 +283,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
         // 4. Preparación de datos
         const payload = {
           name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
           phone: phoneInput.value.trim(),
           service: serviceSelect?.selectedOptions[0]?.text || (isEn ? "General inquiry" : "Consulta general"),
           extra: document.getElementById("contact-extra")?.value || "cap",
@@ -245,39 +294,57 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
         };
 
         if (submitBtn) submitBtn.disabled = true;
-        if (submitBtnText) submitBtnText.textContent = isEn ? "Preparing message..." : "Preparando el mensaje...";
+        if (submitBtnText) submitBtnText.textContent = isEn ? "Sending…" : "Enviando…";
+        if (feedback) feedback.classList.add("hidden");
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
 
         try {
-          localStorage.setItem(RATE_KEY, now.toString());
+          const accessKey = form.dataset.web3formsKey;
+          if (!accessKey) throw new Error("Missing Web3Forms key");
 
-          if (typeof window.plausible === "function") {
-            window.plausible("form_submit", {
-              props: { service: payload.service, budget: payload.budget },
-            });
+          const notProvided = isEn ? "Not provided" : "No indicado";
+          const response = await fetch(WEB3FORMS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({
+              access_key: accessKey,
+              subject: (isEn ? "New project proposal: " : "Nueva propuesta de proyecto: ") + payload.service,
+              from_name: "jaumetur.es",
+              name: payload.name,
+              email: payload.email,
+              phone: payload.phone || notProvided,
+              service: payload.service,
+              extras: payload.extraLabel,
+              budget: payload.budgetLabel,
+              message: payload.message || notProvided,
+            }),
+            signal: controller.signal,
+          });
+          const result = await response.json().catch(() => null);
+          if (!response.ok || !result || result.success !== true) {
+            throw new Error("Web3Forms rejected the submission");
           }
 
-          const mailtoBody = encodeURIComponent(
-            `${isEn ? "Name" : "Nombre"}: ${payload.name}\n` +
-            `${isEn ? "Phone" : "Teléfono"}: ${payload.phone || (isEn ? "Not provided" : "No indicado")}\n` +
-            `${isEn ? "Service of interest" : "Servicio de interés"}: ${payload.service}\n` +
-            `${isEn ? "Add-ons" : "Extras"}: ${payload.extraLabel}\n` +
-            `${isEn ? "Budget" : "Presupuesto orientativo"}: ${payload.budgetLabel}\n\n` +
-            `${isEn ? "Project details & goals" : "Situación y objetivos"}:\n${payload.message || (isEn ? "Not provided" : "No indicados")}`
-          );
-          const mailtoUrl = `mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent((isEn ? "New project proposal: " : "Nueva propuesta de proyecto: ") + payload.service)}&body=${mailtoBody}`;
+          form.reset();
+          showStatus(isEn ? "Message sent. Thank you for getting in touch!" : "Mensaje enviado. ¡Gracias por escribirme!", true);
 
-          setTimeout(() => {
-            window.location.href = mailtoUrl;
-            showStatus(isEn ? "Your inquiry is prepared. Please review and confirm sending from your email client." : "La consulta está preparada. Revísala y confirma el envío desde tu cliente de correo.", true);
-            form.reset();
-            if (submitBtn) submitBtn.disabled = false;
-            if (submitBtnText) submitBtnText.textContent = isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada";
-          }, 400);
-
+          // El envío ya es correcto: un fallo aquí no debe mostrarse como error del formulario.
+          try {
+            localStorage.setItem(RATE_KEY, now.toString());
+            if (typeof window.plausible === "function") {
+              window.plausible("form_submit", {
+                props: { service: payload.service, budget: payload.budget },
+              });
+            }
+          } catch (_) {}
         } catch (err) {
-          showStatus(isEn ? "Could not prepare the email automatically. You can write directly to jaumetur3w@gmail.com." : "No se ha podido preparar el formulario automáticamente. Puedes escribir a jaumetur3w@gmail.com.", false);
+          showStatus(isEn ? "Your message could not be sent and your details are still in the form. Please try again or write to jaumetur3w@gmail.com." : "No se ha podido enviar el mensaje y tus datos siguen en el formulario. Vuelve a intentarlo o escribe a jaumetur3w@gmail.com.", false);
+        } finally {
+          clearTimeout(timeoutId);
           if (submitBtn) submitBtn.disabled = false;
-          if (submitBtnText) submitBtnText.textContent = isEn ? "Open email with prepared proposal" : "Abrir correo con la propuesta preparada";
+          if (submitBtnText) submitBtnText.textContent = submitLabel;
         }
       });
     }

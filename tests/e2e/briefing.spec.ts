@@ -18,7 +18,11 @@ async function openBriefing(page: Page) {
       calls.push(name);
     };
   });
+<<<<<<< HEAD
   await page.goto("/briefing/");
+=======
+  await page.goto("/briefing");
+>>>>>>> 1bbd27257bdbf55f80cba1e0489e000f3f5cc02b
   await page.locator("#briefing-form").evaluate((form: HTMLFormElement) => {
     form.dataset.web3formsKey = "test-key";
   });
@@ -46,7 +50,11 @@ const plausibleCalls = (page: Page) =>
 
 test.describe("Briefing form", () => {
   test("is a private Valencian page that does not offer a missing English version", async ({ page, request }) => {
+<<<<<<< HEAD
     await page.goto("/briefing/");
+=======
+    await page.goto("/briefing");
+>>>>>>> 1bbd27257bdbf55f80cba1e0489e000f3f5cc02b
     await expect(page.locator("html")).toHaveAttribute("lang", "ca");
     await expect(page.locator("h1")).toHaveText("Briefing per a la teua nova web");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
@@ -60,7 +68,11 @@ test.describe("Briefing form", () => {
   });
 
   test("shows the store and language sections only for the matching answers", async ({ page }) => {
+<<<<<<< HEAD
     await page.goto("/briefing/");
+=======
+    await page.goto("/briefing");
+>>>>>>> 1bbd27257bdbf55f80cba1e0489e000f3f5cc02b
     const store = page.locator("#section-botiga");
     const languages = page.locator("#section-idiomes-detalls");
     await expect(store).toBeHidden();

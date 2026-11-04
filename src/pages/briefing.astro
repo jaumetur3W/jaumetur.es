@@ -2,7 +2,17 @@
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
-import { briefingIntro, briefingSections, briefingTitle } from "@/data/briefing";
+import { getBriefingData } from "@/data/briefing";
+import { localeFromPath } from "@/i18n";
+
+interface Props {
+  lang?: "ca" | "en";
+}
+
+const { lang: propLang } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isEn = propLang === "en" || localeFromPath(currentPath) === "en";
+const data = getBriefingData(isEn ? "en" : "ca");
 
 // Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_BRIEFING_KEY ?? "";
@@ -11,20 +21,18 @@ const inputClass =
 const labelClass = "block text-sm font-medium text-slate-900";
 const descriptionClass = "mt-1 text-xs text-slate-600 font-light leading-relaxed";
 const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
-const requiredMessage = "Aquesta pregunta és obligatòria.";
-const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
 ---
 
-<Layout title={briefingTitle} description="Ajuda’m a entendre el teu negoci i què necessites de la web." lang="ca" noindex>
+<Layout title={data.title} description={data.description} lang={data.lang} noindex>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">{briefingTitle}</Fragment>
-      <Fragment slot="desc">{briefingIntro}</Fragment>
+      <Fragment slot="title">{data.title}</Fragment>
+      <Fragment slot="desc">{data.intro}</Fragment>
     </Sectionhead>
 
     <noscript>
       <p class="max-w-3xl mx-auto mb-6 p-4 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 text-sm">
-        Aquest formulari necessita JavaScript per a enviar-se. També pots escriure a jaumetur3w@gmail.com.
+        {data.noJsMessage}
       </p>
     </noscript>
 
@@ -33,15 +41,19 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
       class="max-w-3xl mx-auto space-y-6 mb-24"
       novalidate
       data-web3forms-key={web3formsKey}
-      aria-label={briefingTitle}
+      data-submitting-text={data.submittingLabel}
+      data-success-message={data.successMessage}
+      data-error-message={data.errorMessage}
+      data-subject-prefix={data.subjectPrefix}
+      aria-label={data.title}
     >
       <!-- Anti-spam Honeypot Field -->
       <div class="hidden" aria-hidden="true">
-        <label for="briefing-botcheck">No ompligues aquest camp si eres una persona</label>
+        <label for="briefing-botcheck">{data.botcheckLabel}</label>
         <input type="text" name="botcheck" id="briefing-botcheck" tabindex="-1" autocomplete="off" />
       </div>
 
-      {briefingSections.map((section) => (
+      {data.sections.map((section) => (
         <fieldset
           id={`section-${section.id}`}
           class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 space-y-6"
@@ -69,13 +81,13 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
             const heading = (
               <>
                 {question.label}
-                {question.required && <span class="text-rose-500" aria-label="obligatori"> *</span>}
+                {question.required && <span class="text-rose-500" aria-label={data.ariaRequiredLabel}> *</span>}
               </>
             );
             const description = question.description && <p id={`${question.id}-desc`} class={descriptionClass}>{question.description}</p>;
             const error = (
               <p id={`${question.id}-error`} class={errorClass} role="alert">
-                {question.type === "email" ? emailMessage : requiredMessage}
+                {question.type === "email" ? data.emailMessage : data.requiredMessage}
               </p>
             );
 
@@ -128,7 +140,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
           id="briefing-submit-btn"
           class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <span id="briefing-submit-text">Enviar el briefing</span>
+          <span id="briefing-submit-text">{data.submitLabel}</span>
         </button>
         <div id="briefing-feedback" class="hidden p-3 rounded-xl text-xs font-mono text-center" role="status" aria-live="polite"></div>
       </div>
@@ -148,6 +160,10 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
     const submitText = document.getElementById("briefing-submit-text");
     const honeypot = document.getElementById("briefing-botcheck");
     const submitLabel = submitText.textContent;
+    const submittingLabel = form.dataset.submittingText || "Enviant…";
+    const successMsg = form.dataset.successMessage || "Briefing enviat. Gràcies!";
+    const errorMsg = form.dataset.errorMessage || "No s’ha pogut enviar el briefing...";
+    const subjectPrefix = form.dataset.subjectPrefix || "Nou briefing:";
     const questions = Array.from(form.querySelectorAll("[data-question]"));
     const conditionalSections = Array.from(form.querySelectorAll("[data-show-question]"));
 
@@ -198,6 +214,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
         ? "p-3 rounded-xl text-xs font-mono text-center bg-emerald-50 text-emerald-800 border border-emerald-200"
         : "p-3 rounded-xl text-xs font-mono text-center bg-rose-50 text-rose-800 border border-rose-200";
       feedback.textContent = message;
+      feedback.classList.remove("hidden");
     }
 
     form.addEventListener("change", syncSections);
@@ -209,7 +226,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
       if (honeypot.value.trim() !== "") {
         form.reset();
         syncSections();
-        showStatus("Briefing enviat. Gràcies!", true);
+        showStatus(successMsg, true);
         return;
       }
 
@@ -230,7 +247,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
       const businessName = answerOf(form.querySelector('[data-question="negoci-nom"]'));
 
       submitBtn.disabled = true;
-      submitText.textContent = "Enviant…";
+      submitText.textContent = submittingLabel;
       feedback.classList.add("hidden");
 
       const controller = new AbortController();
@@ -245,7 +262,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify({
             access_key: accessKey,
-            subject: `Nou briefing: ${businessName}`,
+            subject: `${subjectPrefix} ${businessName}`,
             from_name: "jaumetur.es",
             ...answers,
           }),
@@ -258,7 +275,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
 
         form.reset();
         syncSections();
-        showStatus("Briefing enviat. Gràcies!", true);
+        showStatus(successMsg, true);
 
         // The briefing is already sent: a failure here must not look like a form error.
         try {
@@ -267,7 +284,7 @@ const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
           }
         } catch (_) {}
       } catch (err) {
-        showStatus("No s’ha pogut enviar el briefing i les teues respostes continuen en el formulari. Torna-ho a provar o escriu a jaumetur3w@gmail.com.", false);
+        showStatus(errorMsg, false);
       } finally {
         clearTimeout(timeoutId);
         submitBtn.disabled = false;
