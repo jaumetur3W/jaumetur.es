@@ -12,7 +12,7 @@ badge: "Web App · Mobile PWA"
 statLabel: "Verified Metric"
 statValue: "Angular 18 · PWA 24/7"
 verificationMethod: "Verified source code on GitHub (FRONT-PROJECT-JJAUX) and live production deployment on Vercel"
-liveUrl: "https://front-project-jjaux-h8pw.vercel.app/"
+liveUrl: "https://front-project-jjaux-h8pw.vercel.app/app"
 githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX"
 stack: ["Angular 18", "TypeScript 5.4", "PWA Service Worker", "RxJS", "Reactive Forms", "Vercel Edge"]
 order: 1
@@ -82,6 +82,6 @@ Configured with `@angular/service-worker` and `manifest.webmanifest`, enabling d
 
 ## 4. Source Code & Public Deployment
 
-- **Live Application:** Fully deployed and operational on Vercel's Edge network: [front-project-jjaux-h8pw.vercel.app](https://front-project-jjaux-h8pw.vercel.app/).
+- **Live Application:** Fully deployed and operational on Vercel's Edge network: [front-project-jjaux-h8pw.vercel.app](https://front-project-jjaux-h8pw.vercel.app/app).
 - **GitHub Repository:** The complete source code and commit history is openly available: [github.com/jautur/FRONT-PROJECT-JJAUX](https://github.com/jautur/FRONT-PROJECT-JJAUX).
 - **Brand Identity:** Official brand logo featuring an arch motif and crimson neon highlights over a dark technical theme.
