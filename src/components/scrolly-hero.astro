@@ -40,6 +40,9 @@ const copy = isEn
     id="scrolly-stage"
     class="scrolly-stage hero-intro-dark sticky top-[56px] z-10 w-full overflow-hidden flex flex-col justify-center items-center px-4 sm:px-8"
   >
+    <!-- Velo oscuro cinematográfico: apertura de luz pura al salir del modo inicial -->
+    <div id="hero-dark-veil" class="hero-dark-veil" aria-hidden="true"></div>
+
     <!-- Aura luminosa ambiental en modo oscuro -->
     <div id="hero-glow-aura" class="hero-glow-aura" aria-hidden="true"></div>
 
@@ -133,7 +136,7 @@ const copy = isEn
     height: calc(100vh - 56px);
     height: calc(100dvh - 56px);
     background-color: #ffffff;
-    transition: background-color 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background-color 440ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Ejemplo 3: Entrada con fondo negro azabache y Hola en amarillo */
@@ -141,30 +144,55 @@ const copy = isEn
     background-color: #09090b !important;
   }
 
-  /* Aura luminosa ambiental en modo oscuro */
+  /* Velo oscuro cinematográfico: se disuelve con apertura óptica de luz pura */
+  .hero-dark-veil {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, #0d0f17 0%, #09090b 100%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(14px);
+    transition: opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                filter 460ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scrolly-stage.hero-intro-dark .hero-dark-veil {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+
+  /* Aura luminosa ambiental en modo oscuro: florece hacia afuera al salir */
   .hero-glow-aura {
     position: absolute;
     top: 50%;
     left: 50%;
     width: clamp(260px, 44vw, 480px);
     height: clamp(260px, 44vw, 480px);
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(255, 255, 0, 0.16) 0%, rgba(255, 255, 0, 0.04) 45%, transparent 70%);
+    transform: translate(-50%, -50%) scale(1.35);
+    background: radial-gradient(circle, rgba(255, 255, 0, 0.18) 0%, rgba(255, 255, 0, 0.05) 45%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
-    filter: blur(48px);
+    filter: blur(52px);
     opacity: 0;
-    transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
-    animation: heroAuraPulse 3.5s ease-in-out infinite alternate;
+    z-index: 2;
+    transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 480ms cubic-bezier(0.16, 1, 0.3, 1),
+                filter 420ms ease;
   }
 
   .scrolly-stage.hero-intro-dark .hero-glow-aura {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: heroAuraPulse 3.5s ease-in-out infinite alternate;
   }
 
   @keyframes heroAuraPulse {
-    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.65; }
-    100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.95; }
+    0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.68; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.95; }
   }
 
   /* Indicador sutil de scroll animado al inicio */
@@ -189,7 +217,7 @@ const copy = isEn
   #token-hola {
     font-weight: 700 !important;
     color: #020617;
-    transition: color 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 440ms cubic-bezier(0.16, 1, 0.3, 1);
     animation: heroHolaFloat 3.2s ease-in-out infinite alternate;
   }
 
@@ -223,6 +251,7 @@ const copy = isEn
     #token-hola {
       animation: none !important;
     }
+    .hero-dark-veil,
     .hero-glow-aura,
     .hero-scroll-cue {
       display: none !important;
@@ -373,7 +402,7 @@ const copy = isEn
       // 3 estados de interacción (1: , soy | 2: Jaume Tur | 3: statement y telón al primer contenido)
       const stepCount = 4;
       const transitionDuration = 260;
-      const wheelQuietPeriod = 130;
+      const wheelQuietPeriod = 200;
       const touchThreshold = 28;
       let activeStep = 0;
       let isAnimating = false;
@@ -412,15 +441,19 @@ const copy = isEn
         tokenHola.style.transform = "translate3d(0, 0, 0)";
 
         const soyTranslateY = soyVisible ? 0 : 10;
+        tokenComma.style.transitionDelay = "0ms";
         tokenComma.style.opacity = soyVisible ? "1" : "0";
+        tokenSoy.style.transitionDelay = "0ms";
         tokenSoy.style.opacity = soyVisible ? "1" : "0";
         tokenSoy.style.transform = `translate3d(0, ${soyTranslateY}px, 0)`;
 
         const jaumeTranslateY = jaumeVisible ? 0 : 10;
+        tokenJaume.style.transitionDelay = "0ms";
         tokenJaume.style.opacity = jaumeVisible ? "1" : "0";
         tokenJaume.style.transform = `translate3d(0, ${jaumeTranslateY}px, 0)`;
 
         const turTranslateY = turVisible ? 0 : 10;
+        tokenTur.style.transitionDelay = immediate || step < 2 ? "0ms" : "35ms";
         tokenTur.style.opacity = turVisible ? "1" : "0";
         tokenTur.style.transform = `translate3d(0, ${turTranslateY}px, 0)`;
 
