@@ -1,0 +1,63 @@
+{
+  "projectType": "webapp",
+  "setup": [],
+  "assertions": [
+    {
+      "name": "astro-check",
+      "kind": "process",
+      "command": "npm",
+      "args": ["run", "check"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 180
+    },
+    {
+      "name": "tests-pass",
+      "kind": "process",
+      "command": "npm",
+      "args": ["test"],
+      "verificationMethod": "test-results",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "production-build",
+      "kind": "process",
+      "command": "npm",
+      "args": ["run", "build"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 300
+    },
+    {
+      "name": "spanish-contact-briefing-link",
+      "kind": "http-probe",
+      "startCommand": "npm",
+      "startArgs": ["run", "preview", "--", "--host", "127.0.0.1", "--port", "4322"],
+      "url": "http://127.0.0.1:4322/contact/",
+      "verificationMethod": "output-contains",
+      "expected": "href=\"/briefing/\"",
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "english-contact-briefing-link",
+      "kind": "http-probe",
+      "startCommand": "npm",
+      "startArgs": ["run", "preview", "--", "--host", "127.0.0.1", "--port", "4322"],
+      "url": "http://127.0.0.1:4322/en/contact/",
+      "verificationMethod": "output-contains",
+      "expected": "href=\"/briefing/\"",
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "spanish-briefing-page",
+      "kind": "http-probe",
+      "startCommand": "npm",
+      "startArgs": ["run", "preview", "--", "--host", "127.0.0.1", "--port", "4322"],
+      "url": "http://127.0.0.1:4322/briefing/",
+      "verificationMethod": "output-contains",
+      "expected": "Briefing per a la teua nova web",
+      "timeoutSeconds": 120
+    }
+  ]
+}

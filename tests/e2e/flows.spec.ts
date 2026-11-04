@@ -83,14 +83,14 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(desktopLinks.nth(0)).toHaveText("Inicio");
     await expect(desktopLinks.nth(0)).toHaveAttribute("href", "/");
     await expect(desktopLinks.nth(1)).toHaveText("Sobre mí");
-    await expect(desktopLinks.nth(1)).toHaveAttribute("href", "/about");
+    await expect(desktopLinks.nth(1)).toHaveAttribute("href", "/about/");
     await expect(desktopLinks.nth(2)).toHaveText("Proyectos");
-    await expect(desktopLinks.nth(2)).toHaveAttribute("href", "/projectes");
+    await expect(desktopLinks.nth(2)).toHaveAttribute("href", "/projectes/");
     await expect(desktopLinks.nth(3)).toHaveText("Contacto");
-    await expect(desktopLinks.nth(3)).toHaveAttribute("href", "/contact");
+    await expect(desktopLinks.nth(3)).toHaveAttribute("href", "/contact/");
 
     // Contact is a regular navigation destination, with no extra header CTA.
-    await expect(page.locator('header a[href="/contact"]').first()).toBeAttached();
+    await expect(page.locator('header a[href="/contact/"]').first()).toBeAttached();
 
     // Internal anchors must NOT be in the header
     const allHeaderLinks = await page.locator("header a").evaluateAll((links) =>
@@ -193,12 +193,18 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     // In Spanish page, ES is active (has aria-current='page')
     await expect(esLink).toHaveAttribute("aria-current", "page");
     await expect(enLink).not.toHaveAttribute("aria-current", "page");
-    await expect(enLink).toHaveAttribute("href", "/en/about");
+    await expect(enLink).toHaveAttribute("href", "/en/about/");
 
     // Click EN to navigate
     await enLink.click();
-    await expect(page).toHaveURL("/en/about");
+    await expect(page).toHaveURL("/en/about/");
     await expect(page.locator("h1")).toContainText("About Me");
+
+    const englishDesktopLinks = page.locator("nav[aria-label='Main navigation'] > ul > li > a");
+    await expect(englishDesktopLinks.nth(0)).toHaveAttribute("href", "/en/");
+    await expect(englishDesktopLinks.nth(1)).toHaveAttribute("href", "/en/about/");
+    await expect(englishDesktopLinks.nth(2)).toHaveAttribute("href", "/en/projectes/");
+    await expect(englishDesktopLinks.nth(3)).toHaveAttribute("href", "/en/contact/");
 
     // On English page, open globe dropdown and verify EN is active
     const enLangBtn = page.locator("#lang-dropdown-btn");
@@ -210,7 +216,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     const enEsLink = enSwitcher.locator("a").filter({ hasText: "ES" });
     const enEnLink = enSwitcher.locator("a").filter({ hasText: "EN" });
     await expect(enEnLink).toHaveAttribute("aria-current", "page");
-    await expect(enEsLink).toHaveAttribute("href", "/about");
+    await expect(enEsLink).toHaveAttribute("href", "/about/");
 
     // Close on Escape
     await page.keyboard.press("Escape");
@@ -223,7 +229,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     expect(page.url()).not.toContain("/val");
 
     await page.goto("/val/about");
-    await expect(page).toHaveURL("/about");
+    await expect(page).toHaveURL(/\/about\/?$/);
     expect(page.url()).not.toContain("/val");
   });
 });

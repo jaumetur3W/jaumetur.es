@@ -2,17 +2,17 @@ import { test, expect } from '@playwright/test';
 
 const pages = [
   '/',
-  '/about',
-  '/projectes/avisa',
-  '/projectes/pizzeria-xativa',
-  '/projectes/dashboard-telemetria',
-  '/projectes/pipeline-cicd',
-  '/pricing',
-  '/contact',
-  '/blog',
-  '/qualitat',
-  '/marca',
-  '/card'
+  '/about/',
+  '/projectes/avisa/',
+  '/projectes/pizzeria-xativa/',
+  '/projectes/dashboard-telemetria/',
+  '/projectes/pipeline-cicd/',
+  '/pricing/',
+  '/contact/',
+  '/blog/',
+  '/qualitat/',
+  '/marca/',
+  '/card/'
 ];
 
 test.describe('Responsive & Viewport QA Audit', () => {

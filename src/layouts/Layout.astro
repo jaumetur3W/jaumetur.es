@@ -16,6 +16,7 @@ export interface Props {
   lang?: string;
   canonicalURL?: string;
   isBlogPost?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   lang,
   canonicalURL: customCanonical,
   isBlogPost = false,
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
@@ -38,9 +40,21 @@ const resolvedDescription = description || (isEn
   : "Desarrollo de páginas web profesionales, aplicaciones a medida, backend y automatización en Xàtiva y Valencia. Soluciones rápidas y adaptadas a tu negocio.");
 const activeLang = lang || (isEn ? "en" : "es");
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
-const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
-const englishURL = new URL(alternatePathsForPage.en, siteUrl).toString();
-const canonicalURL = customCanonical || new URL(Astro.url.pathname, siteUrl).toString();
+
+const ensureTrailingSlash = (urlStr: string) => {
+  const url = new URL(urlStr, siteUrl);
+  if (!url.pathname.endsWith("/") && !url.pathname.includes(".") && !/\.[a-z0-9]+$/i.test(url.pathname)) {
+    url.pathname = `${url.pathname}/`;
+  }
+  return url.toString();
+};
+
+const is404 = Astro.url.pathname.includes("404");
+const shouldNoIndex = noindex || is404;
+
+const spanishURL = ensureTrailingSlash(new URL(alternatePathsForPage.es, siteUrl).toString());
+const englishURL = ensureTrailingSlash(new URL(alternatePathsForPage.en, siteUrl).toString());
+const canonicalURL = ensureTrailingSlash(customCanonical || new URL(Astro.url.pathname, siteUrl).toString());
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
 // Dynamic, keyword-rich title generation
@@ -203,15 +217,21 @@ const blogPostSchema = isBlogPost ? {
     />
 
     <!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) -->
-    <link rel="alternate" hreflang="es" href={spanishURL} />
-    <link rel="alternate" hreflang="en" href={englishURL} />
-    <link rel="alternate" hreflang="x-default" href={spanishURL} />
+    {!shouldNoIndex && (
+      <>
+        <link rel="alternate" hreflang="es" href={spanishURL} />
+        <link rel="alternate" hreflang="en" href={englishURL} />
+        <link rel="alternate" hreflang="x-default" href={spanishURL} />
+      </>
+    )}
 
     <!-- SEO & Social OpenGraph -->
     <SEO
       title={makeTitle}
       description={resolvedDescription}
-      canonical={canonicalURL}
+      canonical={shouldNoIndex ? null : canonicalURL}
+      noindex={shouldNoIndex}
+      nofollow={shouldNoIndex}
       twitter={{
         creator: "@jautur",
         site: "@jautur",

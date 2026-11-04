@@ -51,7 +51,10 @@ const copy = isEn
       >
         <!-- Texto completo para motores de búsqueda y lectores de pantalla (Accessible SEO) -->
         <span class="sr-only">
-          {copy.seoText}
+          {copy.seoText}{" "}
+          <a href={href("/about")} class="underline hover:text-black">
+            {isEn ? "About Jaume Tur — More information" : "Sobre Jaume Tur — Más información"}
+          </a>
         </span>
 
         <!-- Composición visual tipográfica: Palabras completas e independientes -->
@@ -62,7 +65,7 @@ const copy = isEn
         >
           <span
             id="token-hola"
-            class="word-token token-word inline-block font-bold text-slate-950"
+            class="word-token token-word inline-block font-bold text-slate-950 opacity-0 will-change-[transform,opacity]"
           >{copy.greeting}</span><span
             id="token-comma"
             class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[opacity]"
@@ -72,7 +75,9 @@ const copy = isEn
           >{copy.intro}&nbsp;</span><a
             id="hero-name-link"
             href={href("/about")}
-            class="inline-flex items-center font-normal text-slate-950 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded transition-colors pointer-events-none"
+            tabindex="-1"
+            aria-hidden="true"
+            class="inline-flex items-center font-normal text-slate-950 hover:text-black focus-visible:outline-none rounded transition-colors pointer-events-none"
             aria-label={isEn ? "About Jaume Tur — More information" : "Sobre Jaume Tur — Más información"}
           ><span
               id="token-jaume"
@@ -93,7 +98,7 @@ const copy = isEn
           {copy.statement}
         </p>
 
-        <div class="mt-5 flex items-center justify-center gap-3 text-xs sm:text-sm font-mono text-slate-400">
+        <div class="mt-5 flex items-center justify-center gap-3 text-xs sm:text-sm font-mono text-slate-600">
           <span class="w-6 sm:w-8 h-px bg-slate-200"></span>
           <span>{copy.location}</span>
           <span class="w-6 sm:w-8 h-px bg-slate-200"></span>
@@ -199,12 +204,10 @@ const copy = isEn
       let offset3 = 0; // Centra «Hola, soy Jaume»
       let offset4 = 0; // Centra «Hola, soy Jaume Tur»
 
-      let currentPhraseTransformX = 0;
       let cachedTrackTop = 0;
       let cachedTrackHeight = 0;
       let cachedViewportHeight = window.innerHeight;
 
-      let isMeasured = false;
       function measureOffsets() {
         cachedViewportHeight = window.innerHeight;
         cachedTrackHeight = track.offsetHeight;
@@ -213,6 +216,9 @@ const copy = isEn
 
         const containerRect = container.getBoundingClientRect();
         const containerCenter = containerRect.left + containerRect.width / 2;
+        const phraseTransformX = new DOMMatrixReadOnly(
+          window.getComputedStyle(phrase).transform
+        ).m41;
 
         // Medir coordenadas respecto al origen sin transformar, sin alterar transform actual (cero parpadeo ni reflow)
         const holaRect = tokenHola.getBoundingClientRect();
@@ -220,13 +226,13 @@ const copy = isEn
         const jaumeRect = tokenJaume.getBoundingClientRect();
         const turRect = tokenTur.getBoundingClientRect();
 
-        const unshiftedHolaLeft = holaRect.left - currentPhraseTransformX;
+        const unshiftedHolaLeft = holaRect.left - phraseTransformX;
         const unshiftedHolaWidth = holaRect.width;
         const unshiftedHolaCenter = unshiftedHolaLeft + unshiftedHolaWidth / 2;
 
-        const unshiftedSoyRight = soyRect.right - currentPhraseTransformX;
-        const unshiftedJaumeRight = jaumeRect.right - currentPhraseTransformX;
-        const unshiftedTurRight = turRect.right - currentPhraseTransformX;
+        const unshiftedSoyRight = soyRect.right - phraseTransformX;
+        const unshiftedJaumeRight = jaumeRect.right - phraseTransformX;
+        const unshiftedTurRight = turRect.right - phraseTransformX;
 
         // 1. Centro de «Hola»
         offset1 = containerCenter - unshiftedHolaCenter;
@@ -243,157 +249,191 @@ const copy = isEn
         const holaTurCenter = (unshiftedHolaLeft + unshiftedTurRight) / 2;
         offset4 = containerCenter - holaTurCenter;
 
-        isMeasured = true;
       }
 
-      function clamp(val, min, max) {
-        return Math.max(min, Math.min(max, val));
-      }
+      const stepCount = 5;
+      const transitionDuration = 460;
+      const wheelQuietPeriod = 220;
+      const touchThreshold = 40;
+      let activeStep = -1;
+      let isAnimating = false;
+      let pendingDirections = [];
+      let wheelGestureActive = false;
+      let wheelQuietTimer = 0;
+      let touchStartY = 0;
+      let touchStartX = 0;
+      let touchHandled = false;
 
-      function smoothstep(min, max, value) {
-        const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
-        return x * x * (3 - 2 * x);
-      }
+      function renderStep(step) {
+        const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : step === 2 ? offset3 : offset4;
+        const soyVisible = step >= 1;
+        const jaumeVisible = step >= 2;
+        const turVisible = step >= 3;
+        const statementVisible = step >= 4;
 
-      function updateScrollytelling() {
-        if (!isMeasured) {
-          measureOffsets();
+        phrase.style.transition = `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
+
+        const animatedTokens = [tokenHola, tokenComma, tokenSoy, tokenJaume, tokenTur];
+        animatedTokens.forEach((token) => {
+          token.style.transition = `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        });
+
+        tokenHola.style.opacity = step >= 0 ? "1" : "0";
+        tokenHola.style.transform = `translate3d(0, ${step >= 0 ? 0 : 12}px, 0)`;
+
+        const soyTranslateY = soyVisible ? 0 : 12;
+        tokenComma.style.opacity = soyVisible ? "1" : "0";
+        tokenSoy.style.opacity = soyVisible ? "1" : "0";
+        tokenSoy.style.transform = `translate3d(0, ${soyTranslateY}px, 0)`;
+
+        const jaumeTranslateY = jaumeVisible ? 0 : 12;
+        tokenJaume.style.opacity = jaumeVisible ? "1" : "0";
+        tokenJaume.style.transform = `translate3d(0, ${jaumeTranslateY}px, 0)`;
+
+        const turTranslateY = turVisible ? 0 : 12;
+        tokenTur.style.opacity = turVisible ? "1" : "0";
+        tokenTur.style.transform = `translate3d(0, ${turTranslateY}px, 0)`;
+
+        if (nameLink) {
+          nameLink.style.pointerEvents = turVisible ? "auto" : "none";
         }
 
-        const scrollableDistance = cachedTrackHeight - cachedViewportHeight;
-        if (scrollableDistance <= 0) {
-          ticking = false;
+        statement.style.transition = `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        statement.style.opacity = statementVisible ? "1" : "0";
+        statement.style.transform = `translate3d(0, ${statementVisible ? 0 : 16}px, 0)`;
+        statement.style.pointerEvents = statementVisible ? "auto" : "none";
+      }
+
+      function isTrackActive() {
+        const rect = track.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 56;
+      }
+
+      function canQueueStep(direction) {
+        const lastQueuedStep = pendingDirections.length
+          ? activeStep + pendingDirections.reduce((total, queued) => total + queued, 0)
+          : activeStep;
+        const nextStep = lastQueuedStep + direction;
+        return nextStep >= -1 && nextStep < stepCount;
+      }
+
+      function scrollToStep(step) {
+        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+        const progress = step < 0 ? 0 : step >= stepCount - 1 ? 1 : step * 0.24;
+        const target = cachedTrackTop + scrollableDistance * progress;
+        window.scrollTo({ top: target, behavior: "instant" });
+      }
+
+      function startStep(direction) {
+        const nextStep = activeStep + direction;
+        if (nextStep < -1 || nextStep >= stepCount) return;
+
+        activeStep = nextStep;
+        isAnimating = true;
+        renderStep(activeStep);
+
+        if (activeStep === stepCount - 1) {
+          const endOfTrack = cachedTrackTop + Math.max(0, cachedTrackHeight - cachedViewportHeight);
+          window.scrollTo({ top: endOfTrack, behavior: "smooth" });
+        } else {
+          scrollToStep(activeStep);
+        }
+
+        window.setTimeout(() => {
+          isAnimating = false;
+          if (pendingDirections.length > 0) {
+            startStep(pendingDirections.shift());
+          }
+        }, transitionDuration);
+      }
+
+      function queueStep(direction) {
+        if (!canQueueStep(direction)) return;
+        if (isAnimating) {
+          pendingDirections.push(direction);
+          return;
+        }
+        startStep(direction);
+      }
+
+      function onWheel(event) {
+        if (event.deltaY === 0 || !isTrackActive()) return;
+        const direction = event.deltaY > 0 ? 1 : -1;
+        if (!wheelGestureActive && !canQueueStep(direction)) return;
+
+        event.preventDefault();
+        if (!wheelGestureActive) {
+          wheelGestureActive = true;
+          queueStep(direction);
+        }
+        window.clearTimeout(wheelQuietTimer);
+        wheelQuietTimer = window.setTimeout(() => {
+          wheelGestureActive = false;
+        }, wheelQuietPeriod);
+      }
+
+      function onTouchStart(event) {
+        if (!isTrackActive() || event.touches.length !== 1) return;
+        touchStartY = event.touches[0].clientY;
+        touchStartX = event.touches[0].clientX;
+        touchHandled = false;
+      }
+
+      function onTouchMove(event) {
+        if (event.touches.length !== 1 || !isTrackActive()) return;
+        if (touchHandled) {
+          event.preventDefault();
           return;
         }
 
-        const currentScroll = window.scrollY - cachedTrackTop;
-        const progress = clamp(currentScroll / scrollableDistance, 0, 1);
+        const deltaY = touchStartY - event.touches[0].clientY;
+        const deltaX = touchStartX - event.touches[0].clientX;
+        if (Math.abs(deltaY) < touchThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
 
-        let currentOffset = 0;
-        let soyOpacity = 0;
-        let soyTranslateY = 12;
-        let jaumeOpacity = 0;
-        let jaumeTranslateY = 12;
-        let turOpacity = 0;
-        let turTranslateY = 12;
-        let stmtOpacity = 0;
-        let stmtTranslateY = 16;
+        const direction = deltaY > 0 ? 1 : -1;
+        if (!canQueueStep(direction)) return;
 
-        // ESTADO 1: 0 - 20% -> «Hola» completamente visible, centrado y protagonista
-        if (progress <= 0.20) {
-          currentOffset = offset1;
-          soyOpacity = 0;
-          jaumeOpacity = 0;
-          turOpacity = 0;
-        }
-        // ESTADO 2: 20 - 40% -> «Hola, soy»
-        else if (progress <= 0.40) {
-          const t = smoothstep(0.20, 0.35, progress);
-          currentOffset = offset1 + (offset2 - offset1) * t;
-          soyOpacity = t;
-          soyTranslateY = 12 * (1 - t);
-          jaumeOpacity = 0;
-          turOpacity = 0;
-        }
-        // ESTADO 3: 40 - 60% -> «Hola, soy Jaume»
-        else if (progress <= 0.60) {
-          currentOffset = offset2 + (offset3 - offset2) * smoothstep(0.40, 0.55, progress);
-          soyOpacity = 1;
-          soyTranslateY = 0;
-          const t = smoothstep(0.40, 0.55, progress);
-          jaumeOpacity = t;
-          jaumeTranslateY = 12 * (1 - t);
-          turOpacity = 0;
-        }
-        // ESTADO 4: 60 - 80% -> «Hola, soy Jaume Tur»
-        else if (progress <= 0.80) {
-          currentOffset = offset3 + (offset4 - offset3) * smoothstep(0.60, 0.75, progress);
-          soyOpacity = 1;
-          soyTranslateY = 0;
-          jaumeOpacity = 1;
-          jaumeTranslateY = 0;
-          const t = smoothstep(0.60, 0.75, progress);
-          turOpacity = t;
-          turTranslateY = 12 * (1 - t);
-        }
-        // ESTADO 5: 80 - 100% -> Frase completa y estable + da paso al contenido habitual
-        else {
-          currentOffset = offset4;
-          soyOpacity = 1;
-          soyTranslateY = 0;
-          jaumeOpacity = 1;
-          jaumeTranslateY = 0;
-          turOpacity = 1;
-          turTranslateY = 0;
-
-          const t5 = smoothstep(0.80, 0.95, progress);
-          stmtOpacity = t5;
-          stmtTranslateY = 16 * (1 - t5);
-        }
-
-        // Translación centrada y continua en GPU (cero reflow de layout)
-        currentPhraseTransformX = currentOffset;
-        phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
-
-        // Palabra «soy» y coma
-        tokenComma.style.opacity = soyOpacity.toFixed(3);
-        tokenSoy.style.opacity = soyOpacity.toFixed(3);
-        tokenSoy.style.transform = `translate3d(0, ${soyTranslateY.toFixed(2)}px, 0)`;
-
-        // Palabra «Jaume»
-        tokenJaume.style.opacity = jaumeOpacity.toFixed(3);
-        tokenJaume.style.transform = `translate3d(0, ${jaumeTranslateY.toFixed(2)}px, 0)`;
-
-        // Palabra «Tur»
-        tokenTur.style.opacity = turOpacity.toFixed(3);
-        tokenTur.style.transform = `translate3d(0, ${turTranslateY.toFixed(2)}px, 0)`;
-
-        // Enlace accesible del nombre activo solo cuando la frase ya está formada
-        if (nameLink) {
-          nameLink.style.pointerEvents = turOpacity > 0.8 ? "auto" : "none";
-        }
-
-        // Declaración personal (hero-statement)
-        if (statement) {
-          statement.style.opacity = stmtOpacity.toFixed(3);
-          statement.style.transform = `translate3d(0, ${stmtTranslateY.toFixed(2)}px, 0)`;
-          statement.style.pointerEvents = stmtOpacity > 0.5 ? "auto" : "none";
-        }
-
-        ticking = false;
+        event.preventDefault();
+        touchHandled = true;
+        queueStep(direction);
       }
 
-      let ticking = false;
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(updateScrollytelling);
-          ticking = true;
-        }
+      function onTouchEnd() {
+        touchHandled = false;
       }
+
+      measureOffsets();
+      renderStep(activeStep);
 
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
           requestAnimationFrame(() => {
             measureOffsets();
-            updateScrollytelling();
+            renderStep(activeStep);
           });
         });
       } else {
         requestAnimationFrame(() => {
           measureOffsets();
-          updateScrollytelling();
+          renderStep(activeStep);
         });
       }
 
       let lastWidth = window.innerWidth;
-      window.addEventListener("scroll", onScroll, { passive: true });
+      let lastHeight = window.innerHeight;
+      window.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      window.addEventListener("touchend", onTouchEnd, { passive: true });
       window.addEventListener(
         "resize",
         () => {
-          if (window.innerWidth !== lastWidth) {
+          if (window.innerWidth !== lastWidth || window.innerHeight !== lastHeight) {
             lastWidth = window.innerWidth;
+            lastHeight = window.innerHeight;
             measureOffsets();
-            onScroll();
+            renderStep(activeStep);
           }
         },
         { passive: true }

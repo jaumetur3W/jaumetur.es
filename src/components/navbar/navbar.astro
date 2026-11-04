@@ -7,9 +7,15 @@ const rawPathname = Astro.url.pathname;
 const locale = localeFromPath(rawPathname);
 const isEn = locale === "en";
 const pathname = stripLocale(rawPathname);
-const localizedPath = (path: string) => localizePath(path, locale);
-const spanishPath = localizePath(rawPathname, "es");
-const englishPath = localizePath(rawPathname, "en");
+const canonicalPagePath = (path: string) => {
+  const suffixIndex = path.search(/[?#]/);
+  const pathname = suffixIndex < 0 ? path : path.slice(0, suffixIndex);
+  const suffix = suffixIndex < 0 ? "" : path.slice(suffixIndex);
+  return pathname === "/" || pathname.endsWith("/") ? path : `${pathname}/${suffix}`;
+};
+const localizedPath = (path: string) => canonicalPagePath(localizePath(path, locale));
+const spanishPath = canonicalPagePath(localizePath(rawPathname, "es"));
+const englishPath = pathname === "/briefing" ? "/en/" : canonicalPagePath(localizePath(rawPathname, "en"));
 const homeTitle = isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio";
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
@@ -60,7 +66,7 @@ const navLinks = [
           href={localizedPath("/")}
           class="hidden md:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl p-1"
           title={homeTitle}
-          aria-label={homeTitle}
+          aria-label={isEn ? "jaume.www — Jaume Tur, Home" : "jaume.www — Jaume Tur, Inicio"}
         >
           <div class="relative w-9 h-9 shrink-0">
             <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35 group-hover:opacity-60 transition-opacity"></div>
@@ -120,11 +126,11 @@ const navLinks = [
             aria-expanded="false"
             aria-controls="lang-dropdown-menu"
             class="inline-flex items-center gap-1.5 text-sm font-normal text-slate-600 hover:text-slate-950 py-1.5 px-2.5 rounded-lg border border-transparent hover:border-slate-200 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-            aria-label={isEn ? "Select language" : "Seleccionar idioma"}
+            aria-label={isEn ? `${locale.toUpperCase()} — Select language` : `${locale.toUpperCase()} — Seleccionar idioma`}
           >
             <Icon name="bx:globe" class="w-4 h-4 text-slate-700" />
             <span class="text-xs font-mono font-medium uppercase text-slate-700">{locale.toUpperCase()}</span>
-            <span class="text-[10px] text-slate-400" aria-hidden="true">▾</span>
+            <span class="text-[10px] text-slate-600" aria-hidden="true">▾</span>
           </button>
 
           <!-- Menú flotante desplegable -->
@@ -151,7 +157,7 @@ const navLinks = [
                 <span class="w-1.5 h-1.5 rounded-full" class:list={[!isEn ? "bg-[#FFFF00] ring-1 ring-slate-900/40" : "bg-transparent"]}></span>
                 <span>Español</span>
               </div>
-              <span class="font-mono text-[10px] text-slate-400 uppercase tracking-wider">ES</span>
+              <span class="font-mono text-[10px] text-slate-600 uppercase tracking-wider font-semibold">ES</span>
             </a>
 
             <a
@@ -170,7 +176,7 @@ const navLinks = [
                 <span class="w-1.5 h-1.5 rounded-full" class:list={[isEn ? "bg-[#FFFF00] ring-1 ring-slate-900/40" : "bg-transparent"]}></span>
                 <span>English</span>
               </div>
-              <span class="font-mono text-[10px] text-slate-400 uppercase tracking-wider">EN</span>
+              <span class="font-mono text-[10px] text-slate-600 uppercase tracking-wider font-semibold">EN</span>
             </a>
           </div>
         </div>
@@ -181,7 +187,7 @@ const navLinks = [
         <summary
           id="mobile-menu-summary"
           class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white font-medium text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] transition"
-          aria-label={isEn ? "Main mobile navigation" : "Menú principal de navegación"}
+          aria-label={isEn ? "Menu — Main mobile navigation" : "Menú — Navegación móvil"}
           aria-controls="mobile-nav-panel"
           aria-expanded="false"
         >

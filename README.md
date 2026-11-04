@@ -2,7 +2,7 @@
 
 [![CI Pipeline](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/ci.yml/badge.svg)](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/ci.yml)
 [![GitHub Pages Deploy](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/deploy.yml/badge.svg)](https://github.com/jaumetur3W/jaumetur.es/actions/workflows/deploy.yml)
-[![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100%2F100-brightgreen?logo=lighthouse&logoColor=white)](https://jaumetur.es/qualitat)
+[![Lighthouse Score](https://img.shields.io/badge/Lighthouse-99%2F100-brightgreen?logo=lighthouse&logoColor=white)](https://jaumetur.es/qualitat)
 [![WCAG 2.2 AA Compliant](https://img.shields.io/badge/Accessibility-WCAG%202.2%20AA-success?logo=w3c&logoColor=white)](https://jaumetur.es/qualitat)
 [![Astro Version](https://img.shields.io/badge/Astro-v5%2Fv7-bc52ee?logo=astro&logoColor=white)](https://astro.build)
 [![TypeScript Strict](https://img.shields.io/badge/TypeScript-Strict-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -17,15 +17,14 @@
 
 Aquest repositori conté el codi font de **[jaumetur.es](https://jaumetur.es)**, el portfolio personal i laboratori d'enginyeria frontend de **Jaume Tur**, desenvolupador especialitzat en aplicacions web d'alt rendiment, arquitectures modernes amb Astro, Angular, TypeScript i processos d'automatització CI/CD.
 
-El lloc web està construït com una prova empírica de qualitat: disseny net tipus Bento Grid, 60 FPS garantits en animacions, compliment estricte de WCAG 2.2 AA, càrrega instantània amb zero FOUC (*Flash of Unstyled Content*), paleta de comandes per teclat (`Cmd/Ctrl + K`) i una pàgina pública de telemetria i mètriques en viu a [`/qualitat`](https://jaumetur.es/qualitat).
+El lloc web està construït com una prova empírica de qualitat: disseny net tipus Bento Grid, 60 FPS garantits en animacions, compliment estricte de WCAG 2.2 AA, càrrega instantània amb zero FOUC (*Flash of Unstyled Content*) i una pàgina pública de mètriques auditades a [`/qualitat`](https://jaumetur.es/qualitat).
 
 ### Pilars d'Arquitectura
 
-1. **Astro Content Collections & Islands Architecture**: Renderitzat estàtic per defecte (SSG) amb generació de zero JavaScript a la majoria de seccions. Els components interactius (paleta de comandes, selector de tema, Three.js) funcionen com a illes aïllades.
+1. **Astro Content Collections & Arquitectura Estàtica**: Renderitzat estàtic per defecte (SSG) amb generació de zero JavaScript al client en continguts estàtics.
 2. **Disseny Visual Lluminós & Alt Contrast**: Interfície cuidada exclusivament en mode clar (Light Mode), optimitzada per a la màxima llegibilitat, compliment WCAG 2.2 AA i rendiment fluid a 60 FPS.
 3. **Casos d'Estudi Verificables**: Col·leccions de contingut per a projectes d'enginyeria (`/projectes/[slug]`) amb dades estructurades `CreativeWork` i `SoftwareSourceCode` validades segons schema.org.
-4. **Paleta de Comandes (`Cmd/Ctrl + K`)**: Modal accessible amb gestió de focus, tancament amb tecla Escape, dreceres de navegació ràpida i canvi d'estat del sistema.
-5. **CI/CD Integral**: Pipeline de GitHub Actions amb etapes paral·leles de comprovació de tipus (`astro check`), linter, proves unitàries (Vitest), proves de cap a cap (Playwright) i auditoria automatitzada amb Lighthouse CI.
+4. **CI/CD Integral**: Pipeline de GitHub Actions amb etapes de comprovació estricta de tipus (`astro check`), auditoria de vulnerabilitats (`npm audit`), proves unitàries (Vitest), proves de cap a cap (Playwright) i auditoria automatitzada amb Lighthouse CI.
 
 ---
 
@@ -35,15 +34,14 @@ El lloc web està construït com una prova empírica de qualitat: disseny net ti
 
 This repository hosts the source code for **[jaumetur.es](https://jaumetur.es)**, the technical portfolio and frontend engineering playground of **Jaume Tur**, a Frontend & Web Apps Engineer specializing in high-performance web applications, modern architectures with Astro, Angular, TypeScript, and CI/CD automation pipelines.
 
-The platform is designed to practice what it preaches: high-density Bento Grid layout, verifiable 60 FPS frame rates, strict WCAG 2.2 AA accessibility, zero-FOUC theme switching, fully accessible keyboard-driven Command Palette (`Cmd/Ctrl + K`), and an auditable live metrics dashboard at [`/qualitat`](https://jaumetur.es/qualitat).
+The platform is designed to practice what it preaches: high-density Bento Grid layout, verifiable 60 FPS frame rates, strict WCAG 2.2 AA accessibility, zero-FOUC rendering, and an auditable technical metrics dashboard at [`/qualitat`](https://jaumetur.es/qualitat).
 
 ### Architectural Highlights
 
-1. **Islands Architecture**: Static-first zero-JavaScript default with client islands activated only when interactive behavior is strictly required.
+1. **Static-First Architecture**: Static-first zero-JavaScript default with high-efficiency pre-rendered HTML and minimal client-side overhead.
 2. **High-Contrast Light-First UI**: Focused exclusively on an elegant, accessible light theme, optimized for maximum readability, strict WCAG 2.2 AA contrast, and 60 FPS performance.
 3. **Evidence-Based Case Studies**: Content collections located under `/projectes/[slug]` enriched with structured `SoftwareSourceCode` and `CreativeWork` schemas.
-4. **Interactive Command Palette**: Accessible modal dialog offering quick page navigation, theme toggling, and email copying with full keyboard trapping.
-5. **Automated Platform Engineering**: Multi-stage GitHub Actions workflow encompassing static analysis, type checking, unit tests (Vitest), end-to-end tests (Playwright), and performance assertion gates (Lighthouse CI).
+4. **Automated Platform Engineering**: Multi-stage GitHub Actions workflow encompassing type checking (`astro check`), vulnerability auditing (`npm audit`), unit tests (Vitest), end-to-end tests (Playwright), and performance assertion gates (Lighthouse CI).
 
 ---
 
@@ -53,7 +51,7 @@ The platform is designed to practice what it preaches: high-density Bento Grid l
 * **Estils & Disseny:** [Tailwind CSS v4](https://tailwindcss.com/)
 * **Tipografia:** Bricolage Grotesque & Inter Variable via `@fontsource-variable`
 * **Icones Estabilitzades:** Boxicons (`@iconify-json/bx`), Simple Icons (`@iconify-json/simple-icons`) via `astro-icon` (zero emojis)
-* **Gràfics 3D:** Three.js (canvas de partícules respectuós amb `prefers-reduced-motion`)
+
 * **Qualitat & Tipus:** TypeScript (mode estricte) + `@astrojs/check`
 * **Testing:** [Vitest](https://vitest.dev/) (unitaris) + [Playwright](https://playwright.dev/) (E2E)
 * **CI/CD & Desplegament:** GitHub Actions + GitHub Pages + Lighthouse CI

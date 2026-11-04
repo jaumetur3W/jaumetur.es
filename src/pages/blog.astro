@@ -60,14 +60,14 @@ const getCategoryIcon = (category: string) => {
         <label for="blog-search-input" class="sr-only">
           {isEn ? "Search articles by title or content" : "Buscar artículos por título o contenido"}
         </label>
-        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-600">
           <Icon name="bx:search" class="h-4 w-4" />
         </div>
         <input
           id="blog-search-input"
           type="search"
           placeholder={isEn ? "Search articles (e.g. Astro, SEO, Angular, TypeScript...)" : "Buscar artículos (ej: Astro, SEO, Angular, TypeScript...)"}
-          class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-2xs outline-none transition focus:border-slate-950 focus:ring-0 font-mono"
+          class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-xs sm:text-sm text-slate-900 placeholder-slate-500 shadow-2xs outline-none transition focus:border-slate-950 focus:ring-0 font-mono"
         />
       </div>
 
@@ -173,7 +173,7 @@ const getCategoryIcon = (category: string) => {
 
       <!-- Missatge sense articles trobats -->
       <div id="no-posts-found" class="hidden py-16 text-center">
-        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-600 font-semibold">
           {isEn ? "No matches" : "Sin coincidencias"}
         </p>
         <p class="mt-2 text-sm text-slate-600 font-light">

@@ -11,7 +11,7 @@ category: "Backend"
 author: "Jaume Tur"
 tags: [nodejs, backend, javascript, api, v8, async, libuv]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-nodejs-arquitectura-backend-esdeveniments-apis"
+canonicalUrl: "https://jaumetur.es/blog/es-nodejs-arquitectura-backend-esdeveniments-apis/"
 ---
 
 ## ¿Qué es Node.js?

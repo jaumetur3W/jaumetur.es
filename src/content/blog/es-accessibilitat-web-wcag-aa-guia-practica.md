@@ -11,7 +11,7 @@ category: "Accesibilidad"
 author: "Jaume Tur"
 tags: [accesibilidad, wcag, a11y, diseno-inclusivo, aria, tailwind]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-accessibilitat-web-wcag-aa-guia-practica"
+canonicalUrl: "https://jaumetur.es/blog/es-accessibilitat-web-wcag-aa-guia-practica/"
 ---
 
 Durante demasiados años, la accesibilidad web (a menudo denominada **a11y**) se ha tratado como una lista de comprobación secundaria que se añadía al final de un proyecto si quedaba presupuesto. Ese paradigma ha muerto.

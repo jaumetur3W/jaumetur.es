@@ -11,7 +11,7 @@ category: "Sistemas y DevOps"
 author: "Jaume Tur"
 tags: [linux, bash, shell, sysadmin, devops, unix, terminal]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-linux-shell-bash-administracio-sistemes-devops"
+canonicalUrl: "https://jaumetur.es/blog/es-linux-shell-bash-administracio-sistemes-devops/"
 ---
 
 ## ¿Qué son Linux y una shell?

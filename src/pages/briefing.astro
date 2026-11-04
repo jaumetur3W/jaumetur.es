@@ -1,0 +1,278 @@
+---
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import Layout from "@/layouts/Layout.astro";
+import { briefingIntro, briefingSections, briefingTitle } from "@/data/briefing";
+
+// Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_BRIEFING_KEY ?? "";
+const inputClass =
+  "w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 transition";
+const labelClass = "block text-sm font-medium text-slate-900";
+const descriptionClass = "mt-1 text-xs text-slate-600 font-light leading-relaxed";
+const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
+const requiredMessage = "Aquesta pregunta és obligatòria.";
+const emailMessage = "Indica un correu vàlid per a poder respondre’t.";
+---
+
+<Layout title={briefingTitle} description="Ajuda’m a entendre el teu negoci i què necessites de la web." lang="ca" noindex>
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">{briefingTitle}</Fragment>
+      <Fragment slot="desc">{briefingIntro}</Fragment>
+    </Sectionhead>
+
+    <noscript>
+      <p class="max-w-3xl mx-auto mb-6 p-4 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 text-sm">
+        Aquest formulari necessita JavaScript per a enviar-se. També pots escriure a jaumetur3w@gmail.com.
+      </p>
+    </noscript>
+
+    <form
+      id="briefing-form"
+      class="max-w-3xl mx-auto space-y-6 mb-24"
+      novalidate
+      data-web3forms-key={web3formsKey}
+      aria-label={briefingTitle}
+    >
+      <!-- Anti-spam Honeypot Field -->
+      <div class="hidden" aria-hidden="true">
+        <label for="briefing-botcheck">No ompligues aquest camp si eres una persona</label>
+        <input type="text" name="botcheck" id="briefing-botcheck" tabindex="-1" autocomplete="off" />
+      </div>
+
+      {briefingSections.map((section) => (
+        <fieldset
+          id={`section-${section.id}`}
+          class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 space-y-6"
+          hidden={Boolean(section.showWhen)}
+          disabled={Boolean(section.showWhen)}
+          data-show-question={section.showWhen?.question}
+          data-show-value={section.showWhen?.value}
+        >
+          <legend class="float-left w-full">
+            <h2 class="text-2xl font-light tracking-tight text-slate-950">{section.title}</h2>
+            {section.description && <p class="mt-1 text-sm text-slate-600 font-light leading-relaxed">{section.description}</p>}
+          </legend>
+
+          {section.questions.map((question) => {
+            const describedBy = [question.description && `${question.id}-desc`, `${question.id}-error`].filter(Boolean).join(" ");
+            const dataset = {
+              id: `q-${question.id}`,
+              class: "clear-both",
+              "data-question": question.id,
+              "data-type": question.type,
+              "data-label": question.label,
+              "data-key": question.key,
+              "data-required": question.required ? "true" : undefined,
+            };
+            const heading = (
+              <>
+                {question.label}
+                {question.required && <span class="text-rose-500" aria-label="obligatori"> *</span>}
+              </>
+            );
+            const description = question.description && <p id={`${question.id}-desc`} class={descriptionClass}>{question.description}</p>;
+            const error = (
+              <p id={`${question.id}-error`} class={errorClass} role="alert">
+                {question.type === "email" ? emailMessage : requiredMessage}
+              </p>
+            );
+
+            if (question.type === "checkbox" || question.type === "radio") {
+              const choiceType = question.type;
+              return (
+                <fieldset {...dataset} aria-describedby={describedBy}>
+                  <legend class={labelClass}>{heading}</legend>
+                  {description}
+                  <div class="mt-3 grid sm:grid-cols-2 gap-2">
+                    {question.options?.map((option, index) => (
+                      <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 text-sm text-slate-800 font-light cursor-pointer transition-colors hover:border-slate-950 has-[:checked]:border-slate-950 has-[:checked]:bg-[#FFFF00]/20">
+                        <input type={choiceType} id={`${question.id}-${index}`} name={question.id} value={option} class="mt-0.5 shrink-0 accent-slate-950" />
+                        <span>{option}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {error}
+                </fieldset>
+              );
+            }
+
+            return (
+              <div {...dataset}>
+                <label for={question.id} class={labelClass}>{heading}</label>
+                {description}
+                {question.type === "textarea" ? (
+                  <textarea id={question.id} name={question.id} rows="3" aria-required={question.required ? "true" : undefined} aria-describedby={describedBy} class:list={[inputClass, "mt-2"]}></textarea>
+                ) : (
+                  <input
+                    id={question.id}
+                    type={question.type}
+                    name={question.id}
+                    autocomplete={question.type === "email" ? "email" : undefined}
+                    aria-required={question.required ? "true" : undefined}
+                    aria-describedby={describedBy}
+                    class:list={[inputClass, "mt-2"]}
+                  />
+                )}
+                {error}
+              </div>
+            );
+          })}
+        </fieldset>
+      ))}
+
+      <div class="space-y-3">
+        <button
+          type="submit"
+          id="briefing-submit-btn"
+          class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <span id="briefing-submit-text">Enviar el briefing</span>
+        </button>
+        <div id="briefing-feedback" class="hidden p-3 rounded-xl text-xs font-mono text-center" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+  </Container>
+</Layout>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById("briefing-form");
+    if (!form) return;
+
+    const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+    const SUBMIT_TIMEOUT_MS = 15000;
+    const feedback = document.getElementById("briefing-feedback");
+    const submitBtn = document.getElementById("briefing-submit-btn");
+    const submitText = document.getElementById("briefing-submit-text");
+    const honeypot = document.getElementById("briefing-botcheck");
+    const submitLabel = submitText.textContent;
+    const questions = Array.from(form.querySelectorAll("[data-question]"));
+    const conditionalSections = Array.from(form.querySelectorAll("[data-show-question]"));
+
+    // A disabled fieldset skips validation and is left out of the submission.
+    function syncSections() {
+      conditionalSections.forEach((section) => {
+        const selected = form.querySelector(`input[name="${section.dataset.showQuestion}"]:checked`);
+        const visible = Boolean(selected) && selected.value === section.dataset.showValue;
+        section.hidden = !visible;
+        section.disabled = !visible;
+      });
+    }
+
+    function controlsOf(question) {
+      return Array.from(question.querySelectorAll("input, textarea"));
+    }
+
+    function isActive(question) {
+      // :disabled also covers controls inside a disabled fieldset; the .disabled property does not.
+      return !controlsOf(question)[0].matches(":disabled");
+    }
+
+    function answerOf(question) {
+      const controls = controlsOf(question);
+      if (question.dataset.type === "checkbox" || question.dataset.type === "radio") {
+        return controls.filter((control) => control.checked).map((control) => control.value).join(", ");
+      }
+      return controls[0].value.trim();
+    }
+
+    function isValid(question) {
+      if (question.dataset.required && !answerOf(question)) return false;
+      return question.dataset.type !== "email" || controlsOf(question)[0].validity.valid;
+    }
+
+    function setError(question, hasError) {
+      question.querySelector('[role="alert"]').classList.toggle("hidden", !hasError);
+      controlsOf(question).forEach((control) => {
+        control.setAttribute("aria-invalid", hasError ? "true" : "false");
+        if (control.tagName === "TEXTAREA" || control.type === "text" || control.type === "email") {
+          control.classList.toggle("border-rose-400", hasError);
+        }
+      });
+    }
+
+    function showStatus(message, isSuccess) {
+      feedback.className = isSuccess
+        ? "p-3 rounded-xl text-xs font-mono text-center bg-emerald-50 text-emerald-800 border border-emerald-200"
+        : "p-3 rounded-xl text-xs font-mono text-center bg-rose-50 text-rose-800 border border-rose-200";
+      feedback.textContent = message;
+    }
+
+    form.addEventListener("change", syncSections);
+    syncSections();
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      if (honeypot.value.trim() !== "") {
+        form.reset();
+        syncSections();
+        showStatus("Briefing enviat. Gràcies!", true);
+        return;
+      }
+
+      const active = questions.filter(isActive);
+      questions.forEach((question) => setError(question, false));
+      const invalid = active.filter((question) => !isValid(question));
+      invalid.forEach((question) => setError(question, true));
+      if (invalid.length > 0) {
+        controlsOf(invalid[0])[0].focus();
+        return;
+      }
+
+      const answers = {};
+      active.forEach((question) => {
+        const answer = answerOf(question);
+        if (answer) answers[question.dataset.key || question.dataset.label] = answer;
+      });
+      const businessName = answerOf(form.querySelector('[data-question="negoci-nom"]'));
+
+      submitBtn.disabled = true;
+      submitText.textContent = "Enviant…";
+      feedback.classList.add("hidden");
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+
+      try {
+        const accessKey = form.dataset.web3formsKey;
+        if (!accessKey) throw new Error("Missing Web3Forms key");
+
+        const response = await fetch(WEB3FORMS_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `Nou briefing: ${businessName}`,
+            from_name: "jaumetur.es",
+            ...answers,
+          }),
+          signal: controller.signal,
+        });
+        const result = await response.json().catch(() => null);
+        if (!response.ok || !result || result.success !== true) {
+          throw new Error("Web3Forms rejected the submission");
+        }
+
+        form.reset();
+        syncSections();
+        showStatus("Briefing enviat. Gràcies!", true);
+
+        // The briefing is already sent: a failure here must not look like a form error.
+        try {
+          if (typeof window.plausible === "function") {
+            window.plausible("form_submit", { props: { form: "briefing" } });
+          }
+        } catch (_) {}
+      } catch (err) {
+        showStatus("No s’ha pogut enviar el briefing i les teues respostes continuen en el formulari. Torna-ho a provar o escriu a jaumetur3w@gmail.com.", false);
+      } finally {
+        clearTimeout(timeoutId);
+        submitBtn.disabled = false;
+        submitText.textContent = submitLabel;
+      }
+    });
+  })();
+</script>

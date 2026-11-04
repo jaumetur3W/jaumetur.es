@@ -1,0 +1,184 @@
+{
+  "planHash": "94bcd03af65db9819993c8317a22495641f168bdc378fed035410a3cc2e952cd",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-11-04T15:37:09.3284592Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 0,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "astro-check",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E jaumetur-portfolio@4.1.0 check\r\n\u003E astro check\r\n\r\n\u001B[2m16:36:52\u001B[22m \u001B[34m[content]\u001B[39m Syncing content\r\n\u001B[2m16:36:52\u001B[22m \u001B[34m[content]\u001B[39m Synced content\r\n\u001B[2m16:36:52\u001B[22m \u001B[34m[types]\u001B[39m Generated \u001B[2m635ms\u001B[22m\r\n\u001B[2m16:36:52\u001B[22m \u001B[34m[check]\u001B[39m Getting diagnostics for Astro files in C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es...\r\n\u001B[96mtests/e2e/scrollytelling.spec.ts\u001B[0m:\u001B[93m120\u001B[0m:\u001B[93m11\u001B[0m - \u001B[93mwarning\u001B[0m\u001B[90m ts(6133): \u001B[0m\u0027_popupBackdrop\u0027 is declared but its value is never read.\r\n\r\n\u001B[7m120\u001B[0m     const _popupBackdrop = page.locator(\u0022#capabilities-popup-backdrop\u0022);\r\n\u001B[7m   \u001B[0m \u001B[93m          ~~~~~~~~~~~~~~\u001B[0m\r\n\r\nResult (85 files): \r\n- 0 errors\r\n- 0 warnings\r\n- 1 hint\r\n\r\n",
+        "durationMs": 11627
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E jaumetur-portfolio@4.1.0 test\r\n\u003E vitest run\r\n\r\n\r\n RUN  v5.0.5 C:/Users/User/Desktop/jaumetur3W/jaumetur.es\r\n\r\n\r\n Test Files  3 passed (3)\r\n      Tests  16 passed (16)\r\n   Start at  16:36:59\r\n   Duration  332ms (tests 61%, import 17%, worker 15%, transform 7%)\r\n\r\n",
+        "durationMs": 1138,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 16,
+          "testsPassed": 16,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      },
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E jaumetur-portfolio@4.1.0 build\r\n\u003E astro build\r\n\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[content]\u001B[39m Syncing content\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[content]\u001B[39m Synced content\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[types]\u001B[39m Generated \u001B[2m607ms\u001B[22m\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[build]\u001B[39m output: \u001B[34m\u0022static\u0022\u001B[39m\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[build]\u001B[39m mode: \u001B[34m\u0022static\u0022\u001B[39m\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[build]\u001B[39m directory: \u001B[34mC:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es\\dist\\\u001B[39m\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[build]\u001B[39m Collecting build info...\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[build]\u001B[39m \u001B[32m\u2713 Completed in 670ms.\u001B[39m\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[build]\u001B[39m Building static entrypoints...\r\n\u001B[33m\u001B[1m16:37:04\u001B[22m [WARN] [astro-icon]\u001B[39m Failed to load icons from \u0022src/icons\u0022: ENOENT: no such file or directory, scandir \u0027C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es\\src\\icons\\\u0027\r\n\u001B[2m16:37:04\u001B[22m \u001B[34m[vite]\u001B[39m \u001B[32m\u2713 built in 722ms\u001B[39m\r\n\u001B[2m16:37:05\u001B[22m \u001B[34m[vite]\u001B[39m \u001B[32m\u2713 built in 72ms\u001B[39m\r\n\u001B[2m16:37:05\u001B[22m \u001B[34m[build]\u001B[39m Rearranging server assets...\r\n\r\n\u001B[42m\u001B[30m generating static routes \u001B[39m\u001B[49m\r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/404.html\u001B[22m \u001B[2m(\u002B18ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/about/index.html\u001B[22m \u001B[2m(\u002B11ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/accessibilitat-web-wcag-aa-guia-practica/index.html\u001B[22m \u001B[2m(\u002B3ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/arquitectura-modular-angular-standalone-signals/index.html\u001B[22m \u001B[2m(\u002B2ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/avisa-gestio-incidencies-arquitectura-frontend/index.html\u001B[22m \u001B[2m(\u002B2ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/com-crear-un-portfolio-denginyeria-frontend/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/git-github-control-versions-flux-colaboratiu/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/guia-definitiva-typescript-estricte-frontend/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/guia-seo-local-google-maps-comunitat-valenciana/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/html5-semantic-accessibilitat-arquitectura-web/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/javascript-guia-completa-ecmascript-modern/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/linux-shell-bash-administracio-sistemes-devops/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/nodejs-arquitectura-backend-esdeveniments-apis/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/optimitzacio-core-web-vitals-60fps/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/optimitzacio-imatges-web-avif-webp-pipeline/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/per-que-el-menu-en-pdf-mata-vendes-restaurant/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/per-que-triar-astro-sobre-wordpress-negocis-locals/index.html\u001B[22m \u001B[2m(\u002B2ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/pipeline-cicd-github-actions-desplegament-continu/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/seo-local-i-rendiment-pizzeria-xativa/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/tailwind-css-guia-disseny-atomic-modern/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/targetes-fidelitzacio-wallet-negocis-locals/index.html\u001B[22m \u001B[2m(\u002B1ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/es-accessibilitat-web-wcag-aa-guia-practica/index.html\u001B[22m \u001B[2m(\u002B7ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/es-arquitectura-modular-angular-standalone-signals/index.html\u001B[22m \u001B[2m(\u002B5ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/es-avisa-gestio-incidencies-arquitectura-frontend/index.html\u001B[22m \u001B[2m(\u002B4ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/es-com-crear-un-portfolio-denginyeria-frontend/index.html\u001B[22m \u001B[2m(\u002B4ms)\u001B[22m \r\n\u001B[2m16:37:05\u001B[22m   \u001B[34m\u251C\u2500\u001B[39m \u001B[2m/blog/es\n\u2026[truncated]",
+        "durationMs": 5629
+      },
+      {
+        "name": "spanish-contact-briefing-link",
+        "kind": "http-probe",
+        "verificationMethod": "output-contains",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022es\u0022 class=\u0022scroll-smooth overflow-x-clip\u0022\u003E\u003Chead\u003E\u003Cmeta charset=\u0022UTF-8\u0022\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1.0\u0022\u003E\u003Clink rel=\u0022icon\u0022 type=\u0022image/svg\u002Bxml\u0022 href=\u0022/favicon.svg\u0022\u003E\u003Clink rel=\u0022icon\u0022 type=\u0022image/png\u0022 href=\u0022/favicon.png\u0022\u003E\u003Clink rel=\u0022apple-touch-icon\u0022 href=\u0022/apple-touch-icon.png\u0022\u003E\u003Clink rel=\u0022manifest\u0022 href=\u0022/site.webmanifest\u0022\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#ffffff\u0022\u003E\u003Cmeta name=\u0022generator\u0022 content=\u0022Astro v7.4.1\u0022\u003E\u003C!-- Theme Initialization: Permanent Light Mode --\u003E\u003Cscript\u003E\n      (function() {\n        try {\n          localStorage.removeItem(\u0027theme\u0027);\n          document.documentElement.classList.remove(\u0027dark\u0027);\n        } catch (_) {}\n      })();\n    \u003C/script\u003E\u003C!-- RSS Feed Autodiscovery --\u003E\u003Clink rel=\u0022alternate\u0022 type=\u0022application/rss\u002Bxml\u0022 title=\u0022Jaume Tur \u2014 Blog T\u00E9cnico Canal RSS\u0022 href=\u0022/rss.xml\u0022\u003E\u003C!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) --\u003E\u003Clink rel=\u0022alternate\u0022 hreflang=\u0022es\u0022 href=\u0022https://jaumetur.es/contact/\u0022\u003E\u003Clink rel=\u0022alternate\u0022 hreflang=\u0022en\u0022 href=\u0022https://jaumetur.es/en/contact/\u0022\u003E\u003Clink rel=\u0022alternate\u0022 hreflang=\u0022x-default\u0022 href=\u0022https://jaumetur.es/contact/\u0022\u003E\u003C!-- SEO \u0026 Social OpenGraph --\u003E\u003Ctitle\u003EContacto | Desarrollo Web en X\u00E0tiva y Valencia | Jaume Tur\u003C/title\u003E\u003Clink rel=\u0022canonical\u0022 href=\u0022https://jaumetur.es/contact/\u0022\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Contacta con Jaume Tur para hablar sobre tu proyecto web, aplicaci\u00F3n a medida, consultor\u00EDa o colaboraci\u00F3n desde X\u00E0tiva, Valencia o en remoto.\u0022\u003E\u003Cmeta name=\u0022robots\u0022 content=\u0022index, follow\u0022\u003E\u003Cmeta property=\u0022og:title\u0022 content=\u0022Contacto | Desarrollo Web en X\u00E0tiva y Valencia | Jaume Tur\u0022\u003E\u003Cmeta property=\u0022og:type\u0022 content=\u0022website\u0022\u003E\u003Cmeta property=\u0022og:image\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta property=\u0022og:url\u0022 content=\u0022https://jaumetur.es/contact/\u0022\u003E\u003Cmeta property=\u0022og:description\u0022 content=\u0022Contacta con Jaume Tur para hablar sobre tu proyecto web, aplicaci\u00F3n a medida, consultor\u00EDa o colaboraci\u00F3n desde X\u00E0tiva, Valencia o en remoto.\u0022\u003E\u003Cmeta property=\u0022og:locale\u0022 content=\u0022es_ES\u0022\u003E\u003Cmeta property=\u0022og:site_name\u0022 content=\u0022Jaume Tur \u2014 Portafolio y Blog de Ingenier\u00EDa\u0022\u003E\u003Cmeta property=\u0022og:image:url\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta property=\u0022og:image:alt\u0022 content=\u0022Contacto | Desarrollo Web en X\u00E0tiva y Valencia | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:card\u0022 content=\u0022summary_large_image\u0022\u003E\u003Cmeta name=\u0022twitter:site\u0022 content=\u0022@jautur\u0022\u003E\u003Cmeta name=\u0022twitter:title\u0022 content=\u0022Contacto | Desarrollo Web en X\u00E0tiva y Valencia | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:image\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta name=\u0022twitter:image:alt\u0022 content=\u0022Contacto | Desarrollo Web en X\u00E0tiva y Valencia | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:description\u0022 content=\u0022Contacta con Jaume Tur para hablar sobre tu proyecto web, aplicaci\u00F3n a medida, consultor\u00EDa o colaboraci\u00F3n desde X\u00E0tiva, Valencia o en remoto.\u0022\u003E\u003Cmeta name=\u0022twitter:creator\u0022 content=\u0022@jautur\u0022\u003E\u003C!-- Preload Critical Font: Eliminates font waterfall for LCP --\u003E\u003Clink rel=\u0022preload\u0022 href=\u0022/fonts/inter-latin-wght-normal.woff2\u0022 as=\u0022font\u0022 type=\u0022font/woff2\u0022 crossorigin\u003E\u003C!-- Structured Data: JSON-LD Schemas --\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022Person\u0022,\u0022@id\u0022:\u0022https://jaumetur.es/#person\u0022,\u0022name\u0022:\u0022Jaume Tur\u0022,\u0022givenName\u0022:\u0022Jaume\u0022,\u0022familyName\u0022:\u0022Tur\u0022,\u0022jobTitle\u0022:\u0022Desarrollador Web y Aplicaciones a Medida | Backend y Sistemas\u0022,\u0022email\u0022:\u0022jaumetur3w@gmail.com\u0022,\u0022url\u0022:\u0022https://jaumetur.es\u0022,\u0022image\u0022:\u0022https://jaumetur.es/img/jt.LOGO-02.png\u0022,\u0022sameAs\u0022:[\u0022https://github.com/jaumetur3W\u0022,\u0022https://www.linkedin.com/in/jautur/\u0022,\u0022https://www.instagram.com/jaume.www/\u0022,\u0022https://twitter.com/jautur\u0022,\u0022https://share.google/3tihWcZBWMyYHmjBp\u0022],\u0022address\u0022:{\u0022@type\u0022:\u0022PostalAddress\u0022,\u0022addressLocality\u0022:\u0022X\u00E0tiva\u0022,\u0022addressRegion\u0022:\u0022Val\u00E8ncia\u0022,\u0022addressCountry\u0022:\u0022ES\u0022},\u0022knowsAbout\u0022:[\u0022Dise\u00F1o web\u0022,\u0022Desarrollo de p\u00E1ginas web\u0022,\u0022Aplicaciones web a medida\u0022,\u0022Desarrollo backend y APIs\u0022,\u0022Automatizaci\u00F3n de procesos\u0022,\u0022Angular\u0022,\u0022TypeScript\u0022,\u0022JavaScript ES6\u002B\u0022,\u0022Tailwind CSS\u0022,\u0022CI/CD\u0022,\u0022GitHub Actions\u0022,\u0022Web Performance\u0022,\u0022WCAG AA Accessibility\u0022]}\u003C/script\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@con\n\u2026[truncated]",
+        "durationMs": 3341
+      },
+      {
+        "name": "english-contact-briefing-link",
+        "kind": "http-probe",
+        "verificationMethod": "output-contains",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022en\u0022 class=\u0022scroll-smooth overflow-x-clip\u0022\u003E\u003Chead\u003E\u003Cmeta charset=\u0022UTF-8\u0022\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1.0\u0022\u003E\u003Clink rel=\u0022icon\u0022 type=\u0022image/svg\u002Bxml\u0022 href=\u0022/favicon.svg\u0022\u003E\u003Clink rel=\u0022icon\u0022 type=\u0022image/png\u0022 href=\u0022/favicon.png\u0022\u003E\u003Clink rel=\u0022apple-touch-icon\u0022 href=\u0022/apple-touch-icon.png\u0022\u003E\u003Clink rel=\u0022manifest\u0022 href=\u0022/site.webmanifest\u0022\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#ffffff\u0022\u003E\u003Cmeta name=\u0022generator\u0022 content=\u0022Astro v7.4.1\u0022\u003E\u003C!-- Theme Initialization: Permanent Light Mode --\u003E\u003Cscript\u003E\n      (function() {\n        try {\n          localStorage.removeItem(\u0027theme\u0027);\n          document.documentElement.classList.remove(\u0027dark\u0027);\n        } catch (_) {}\n      })();\n    \u003C/script\u003E\u003C!-- RSS Feed Autodiscovery --\u003E\u003Clink rel=\u0022alternate\u0022 type=\u0022application/rss\u002Bxml\u0022 title=\u0022Jaume Tur \u2014 Technical Blog RSS Feed\u0022 href=\u0022/rss.xml\u0022\u003E\u003C!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) --\u003E\u003Clink rel=\u0022alternate\u0022 hreflang=\u0022es\u0022 href=\u0022https://jaumetur.es/contact/\u0022\u003E\u003Clink rel=\u0022alternate\u0022 hreflang=\u0022en\u0022 href=\u0022https://jaumetur.es/en/contact/\u0022\u003E\u003Clink rel=\u0022alternate\u0022 hreflang=\u0022x-default\u0022 href=\u0022https://jaumetur.es/contact/\u0022\u003E\u003C!-- SEO \u0026 Social OpenGraph --\u003E\u003Ctitle\u003EContact | Web Development in Valencia \u0026 Remote | Jaume Tur\u003C/title\u003E\u003Clink rel=\u0022canonical\u0022 href=\u0022https://jaumetur.es/en/contact/\u0022\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Contact Jaume Tur to discuss your web project, custom application, consulting or collaboration. Based in Valencia, working 100% online.\u0022\u003E\u003Cmeta name=\u0022robots\u0022 content=\u0022index, follow\u0022\u003E\u003Cmeta property=\u0022og:title\u0022 content=\u0022Contact | Web Development in Valencia \u0026amp; Remote | Jaume Tur\u0022\u003E\u003Cmeta property=\u0022og:type\u0022 content=\u0022website\u0022\u003E\u003Cmeta property=\u0022og:image\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta property=\u0022og:url\u0022 content=\u0022https://jaumetur.es/en/contact/\u0022\u003E\u003Cmeta property=\u0022og:description\u0022 content=\u0022Contact Jaume Tur to discuss your web project, custom application, consulting or collaboration. Based in Valencia, working 100% online.\u0022\u003E\u003Cmeta property=\u0022og:locale\u0022 content=\u0022en_US\u0022\u003E\u003Cmeta property=\u0022og:site_name\u0022 content=\u0022Jaume Tur \u2014 Portfolio \u0026amp; Engineering\u0022\u003E\u003Cmeta property=\u0022og:image:url\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta property=\u0022og:image:alt\u0022 content=\u0022Contact | Web Development in Valencia \u0026amp; Remote | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:card\u0022 content=\u0022summary_large_image\u0022\u003E\u003Cmeta name=\u0022twitter:site\u0022 content=\u0022@jautur\u0022\u003E\u003Cmeta name=\u0022twitter:title\u0022 content=\u0022Contact | Web Development in Valencia \u0026amp; Remote | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:image\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta name=\u0022twitter:image:alt\u0022 content=\u0022Contact | Web Development in Valencia \u0026amp; Remote | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:description\u0022 content=\u0022Contact Jaume Tur to discuss your web project, custom application, consulting or collaboration. Based in Valencia, working 100% online.\u0022\u003E\u003Cmeta name=\u0022twitter:creator\u0022 content=\u0022@jautur\u0022\u003E\u003C!-- Preload Critical Font: Eliminates font waterfall for LCP --\u003E\u003Clink rel=\u0022preload\u0022 href=\u0022/fonts/inter-latin-wght-normal.woff2\u0022 as=\u0022font\u0022 type=\u0022font/woff2\u0022 crossorigin\u003E\u003C!-- Structured Data: JSON-LD Schemas --\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022Person\u0022,\u0022@id\u0022:\u0022https://jaumetur.es/#person\u0022,\u0022name\u0022:\u0022Jaume Tur\u0022,\u0022givenName\u0022:\u0022Jaume\u0022,\u0022familyName\u0022:\u0022Tur\u0022,\u0022jobTitle\u0022:\u0022Web \u0026 Application Developer | Backend \u0026 Systems\u0022,\u0022email\u0022:\u0022jaumetur3w@gmail.com\u0022,\u0022url\u0022:\u0022https://jaumetur.es\u0022,\u0022image\u0022:\u0022https://jaumetur.es/img/jt.LOGO-02.png\u0022,\u0022sameAs\u0022:[\u0022https://github.com/jaumetur3W\u0022,\u0022https://www.linkedin.com/in/jautur/\u0022,\u0022https://www.instagram.com/jaume.www/\u0022,\u0022https://twitter.com/jautur\u0022,\u0022https://share.google/3tihWcZBWMyYHmjBp\u0022],\u0022address\u0022:{\u0022@type\u0022:\u0022PostalAddress\u0022,\u0022addressLocality\u0022:\u0022X\u00E0tiva\u0022,\u0022addressRegion\u0022:\u0022Val\u00E8ncia\u0022,\u0022addressCountry\u0022:\u0022ES\u0022},\u0022knowsAbout\u0022:[\u0022Dise\u00F1o web\u0022,\u0022Desarrollo de p\u00E1ginas web\u0022,\u0022Aplicaciones web a medida\u0022,\u0022Desarrollo backend y APIs\u0022,\u0022Automatizaci\u00F3n de procesos\u0022,\u0022Angular\u0022,\u0022TypeScript\u0022,\u0022JavaScript ES6\u002B\u0022,\u0022Tailwind CSS\u0022,\u0022CI/CD\u0022,\u0022GitHub Actions\u0022,\u0022Web Performance\u0022,\u0022WCAG AA Accessibility\u0022]}\u003C/script\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@context\u0022:\u0022https:/\n\u2026[truncated]",
+        "durationMs": 11
+      },
+      {
+        "name": "spanish-briefing-page",
+        "kind": "http-probe",
+        "verificationMethod": "output-contains",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022ca\u0022 class=\u0022scroll-smooth overflow-x-clip\u0022\u003E\u003Chead\u003E\u003Cmeta charset=\u0022UTF-8\u0022\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1.0\u0022\u003E\u003Clink rel=\u0022icon\u0022 type=\u0022image/svg\u002Bxml\u0022 href=\u0022/favicon.svg\u0022\u003E\u003Clink rel=\u0022icon\u0022 type=\u0022image/png\u0022 href=\u0022/favicon.png\u0022\u003E\u003Clink rel=\u0022apple-touch-icon\u0022 href=\u0022/apple-touch-icon.png\u0022\u003E\u003Clink rel=\u0022manifest\u0022 href=\u0022/site.webmanifest\u0022\u003E\u003Cmeta name=\u0022theme-color\u0022 content=\u0022#ffffff\u0022\u003E\u003Cmeta name=\u0022generator\u0022 content=\u0022Astro v7.4.1\u0022\u003E\u003C!-- Theme Initialization: Permanent Light Mode --\u003E\u003Cscript\u003E\n      (function() {\n        try {\n          localStorage.removeItem(\u0027theme\u0027);\n          document.documentElement.classList.remove(\u0027dark\u0027);\n        } catch (_) {}\n      })();\n    \u003C/script\u003E\u003C!-- RSS Feed Autodiscovery --\u003E\u003Clink rel=\u0022alternate\u0022 type=\u0022application/rss\u002Bxml\u0022 title=\u0022Jaume Tur \u2014 Blog T\u00E9cnico Canal RSS\u0022 href=\u0022/rss.xml\u0022\u003E\u003C!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) --\u003E\u003C!-- SEO \u0026 Social OpenGraph --\u003E\u003Ctitle\u003EBriefing per a la teua nova web | Jaume Tur\u003C/title\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Ajuda\u2019m a entendre el teu negoci i qu\u00E8 necessites de la web.\u0022\u003E\u003Cmeta name=\u0022robots\u0022 content=\u0022noindex, nofollow\u0022\u003E\u003Cmeta property=\u0022og:title\u0022 content=\u0022Briefing per a la teua nova web | Jaume Tur\u0022\u003E\u003Cmeta property=\u0022og:type\u0022 content=\u0022website\u0022\u003E\u003Cmeta property=\u0022og:image\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta property=\u0022og:url\u0022 content=\u0022https://jaumetur.es/briefing/\u0022\u003E\u003Cmeta property=\u0022og:description\u0022 content=\u0022Ajuda\u2019m a entendre el teu negoci i qu\u00E8 necessites de la web.\u0022\u003E\u003Cmeta property=\u0022og:locale\u0022 content=\u0022es_ES\u0022\u003E\u003Cmeta property=\u0022og:site_name\u0022 content=\u0022Jaume Tur \u2014 Portafolio y Blog de Ingenier\u00EDa\u0022\u003E\u003Cmeta property=\u0022og:image:url\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta property=\u0022og:image:alt\u0022 content=\u0022Briefing per a la teua nova web | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:card\u0022 content=\u0022summary_large_image\u0022\u003E\u003Cmeta name=\u0022twitter:site\u0022 content=\u0022@jautur\u0022\u003E\u003Cmeta name=\u0022twitter:title\u0022 content=\u0022Briefing per a la teua nova web | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:image\u0022 content=\u0022https://jaumetur.es/opengraph.jpg\u0022\u003E\u003Cmeta name=\u0022twitter:image:alt\u0022 content=\u0022Briefing per a la teua nova web | Jaume Tur\u0022\u003E\u003Cmeta name=\u0022twitter:description\u0022 content=\u0022Ajuda\u2019m a entendre el teu negoci i qu\u00E8 necessites de la web.\u0022\u003E\u003Cmeta name=\u0022twitter:creator\u0022 content=\u0022@jautur\u0022\u003E\u003C!-- Preload Critical Font: Eliminates font waterfall for LCP --\u003E\u003Clink rel=\u0022preload\u0022 href=\u0022/fonts/inter-latin-wght-normal.woff2\u0022 as=\u0022font\u0022 type=\u0022font/woff2\u0022 crossorigin\u003E\u003C!-- Structured Data: JSON-LD Schemas --\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022Person\u0022,\u0022@id\u0022:\u0022https://jaumetur.es/#person\u0022,\u0022name\u0022:\u0022Jaume Tur\u0022,\u0022givenName\u0022:\u0022Jaume\u0022,\u0022familyName\u0022:\u0022Tur\u0022,\u0022jobTitle\u0022:\u0022Desarrollador Web y Aplicaciones a Medida | Backend y Sistemas\u0022,\u0022email\u0022:\u0022jaumetur3w@gmail.com\u0022,\u0022url\u0022:\u0022https://jaumetur.es\u0022,\u0022image\u0022:\u0022https://jaumetur.es/img/jt.LOGO-02.png\u0022,\u0022sameAs\u0022:[\u0022https://github.com/jaumetur3W\u0022,\u0022https://www.linkedin.com/in/jautur/\u0022,\u0022https://www.instagram.com/jaume.www/\u0022,\u0022https://twitter.com/jautur\u0022,\u0022https://share.google/3tihWcZBWMyYHmjBp\u0022],\u0022address\u0022:{\u0022@type\u0022:\u0022PostalAddress\u0022,\u0022addressLocality\u0022:\u0022X\u00E0tiva\u0022,\u0022addressRegion\u0022:\u0022Val\u00E8ncia\u0022,\u0022addressCountry\u0022:\u0022ES\u0022},\u0022knowsAbout\u0022:[\u0022Dise\u00F1o web\u0022,\u0022Desarrollo de p\u00E1ginas web\u0022,\u0022Aplicaciones web a medida\u0022,\u0022Desarrollo backend y APIs\u0022,\u0022Automatizaci\u00F3n de procesos\u0022,\u0022Angular\u0022,\u0022TypeScript\u0022,\u0022JavaScript ES6\u002B\u0022,\u0022Tailwind CSS\u0022,\u0022CI/CD\u0022,\u0022GitHub Actions\u0022,\u0022Web Performance\u0022,\u0022WCAG AA Accessibility\u0022]}\u003C/script\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022WebSite\u0022,\u0022@id\u0022:\u0022https://jaumetur.es/#website\u0022,\u0022url\u0022:\u0022https://jaumetur.es\u0022,\u0022name\u0022:\u0022Jaume Tur\u0022,\u0022description\u0022:\u0022Ajuda\u2019m a entendre el teu negoci i qu\u00E8 necessites de la web.\u0022,\u0022inLanguage\u0022:[\u0022es\u0022,\u0022en\u0022],\u0022publisher\u0022:{\u0022@id\u0022:\u0022https://jaumetur.es/#person\u0022}}\u003C/script\u003E\u003Cscript type=\u0022application/ld\u002Bjson\u0022\u003E{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022ProfessionalService\u0022,\u0022@id\u0022:\u0022https://jaumetur.es/#service\u0022,\u0022name\u0022:\u0022Jaume Tur \u2014 Desarrollo Web y Aplicaciones a Medida\u0022,\u0022url\u0022:\u0022https://jaumetur.es\u0022,\u0022image\u0022:\u0022https://jaumetur.es/img/jt.LOGO-02.png\u0022,\u0022email\u0022:\u0022jaumetur3w@gmail.com\u0022,\u0022pri\n\u2026[truncated]",
+        "durationMs": 13
+      }
+    ],
+    "executions": [
+      {
+        "source": "astro-check",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "check"
+        ],
+        "cwd": "C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "test"
+        ],
+        "cwd": "C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "spanish-contact-briefing-link",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "preview",
+          "--",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "4322"
+        ],
+        "cwd": "C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "english-contact-briefing-link",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "preview",
+          "--",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "4322"
+        ],
+        "cwd": "C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "spanish-briefing-page",
+        "resolvedExecutable": "C:\\Program Files\\nodejs\\npm.CMD",
+        "args": [
+          "run",
+          "preview",
+          "--",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "4322"
+        ],
+        "cwd": "C:\\Users\\User\\Desktop\\jaumetur3W\\jaumetur.es",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      }
+    ]
+  }
+}
