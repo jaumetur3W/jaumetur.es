@@ -6,13 +6,13 @@ import { getBriefingData } from "@/data/briefing";
 import { localeFromPath } from "@/i18n";
 
 interface Props {
-  lang?: "ca" | "en";
+  lang?: "es" | "en";
 }
 
 const { lang: propLang } = Astro.props;
 const currentPath = Astro.url.pathname;
 const isEn = propLang === "en" || localeFromPath(currentPath) === "en";
-const data = getBriefingData(isEn ? "en" : "ca");
+const data = getBriefingData(isEn ? "en" : "es");
 
 // Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_BRIEFING_KEY ?? "";
@@ -160,10 +160,10 @@ const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
     const submitText = document.getElementById("briefing-submit-text");
     const honeypot = document.getElementById("briefing-botcheck");
     const submitLabel = submitText.textContent;
-    const submittingLabel = form.dataset.submittingText || "Enviant…";
-    const successMsg = form.dataset.successMessage || "Briefing enviat. Gràcies!";
-    const errorMsg = form.dataset.errorMessage || "No s’ha pogut enviar el briefing...";
-    const subjectPrefix = form.dataset.subjectPrefix || "Nou briefing:";
+    const submittingLabel = form.dataset.submittingText || "Enviando…";
+    const successMsg = form.dataset.successMessage || "Briefing enviado. ¡Gracias!";
+    const errorMsg = form.dataset.errorMessage || "No se ha podido enviar el briefing y tus respuestas continúan en el formulario. Vuelve a intentarlo o escribe a jaumetur3w@gmail.com.";
+    const subjectPrefix = form.dataset.subjectPrefix || "Nuevo briefing:";
     const questions = Array.from(form.querySelectorAll("[data-question]"));
     const conditionalSections = Array.from(form.querySelectorAll("[data-show-question]"));
 

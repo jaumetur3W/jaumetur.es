@@ -77,17 +77,49 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   test("Top navbar displays standard page links without in-page anchors, and mobile menu is accessible", async ({ page }) => {
     await page.goto("/");
     
-    // Desktop navigation links in order: Inicio, Sobre mí, Proyectos, Contacto
-    const desktopLinks = page.locator("nav[aria-label='Navegación principal'] > ul > li > a");
-    await expect(desktopLinks).toHaveCount(4);
-    await expect(desktopLinks.nth(0)).toHaveText("Inicio");
-    await expect(desktopLinks.nth(0)).toHaveAttribute("href", "/");
-    await expect(desktopLinks.nth(1)).toHaveText("Sobre mí");
-    await expect(desktopLinks.nth(1)).toHaveAttribute("href", "/about/");
-    await expect(desktopLinks.nth(2)).toHaveText("Proyectos");
-    await expect(desktopLinks.nth(2)).toHaveAttribute("href", "/projectes/");
-    await expect(desktopLinks.nth(3)).toHaveText("Contacto");
-    await expect(desktopLinks.nth(3)).toHaveAttribute("href", "/contact/");
+    // Desktop navigation links and dropdown triggers: Inicio, Servicios (dropdown), Proyectos (dropdown), Sobre mí, Contacto
+    const desktopNav = page.locator("nav[aria-label='Navegación principal']");
+    await expect(desktopNav.locator('a[href="/"]')).toHaveText("Inicio");
+    
+    // Servicios dropdown
+    const servBtn = desktopNav.locator("#services-dropdown-btn");
+    await expect(servBtn).toContainText("Servicios");
+    await expect(servBtn).toHaveAttribute("aria-expanded", "false");
+    await servBtn.click();
+    await expect(servBtn).toHaveAttribute("aria-expanded", "true");
+    const servMenu = desktopNav.locator("#services-dropdown-menu");
+    await expect(servMenu).toBeVisible();
+    await expect(servMenu.locator('a[href="/pricing/landing-page/"]')).toContainText("Webs");
+    await expect(servMenu.locator('a[href="/pricing/angular-webapp/"]')).toContainText("Aplicaciones");
+    await expect(servMenu.locator('a[href="/pricing/cicd-devops/"]')).toContainText("Automatización");
+    await expect(servMenu.locator('a[href="/pricing/"]')).toContainText("Precios y tarifas");
+
+    // Close on Escape
+    await page.keyboard.press("Escape");
+    await expect(servMenu).not.toBeVisible();
+    await expect(servBtn).toHaveAttribute("aria-expanded", "false");
+
+    // Proyectos dropdown
+    const projBtn = desktopNav.locator("#projects-dropdown-btn");
+    await expect(projBtn).toContainText("Proyectos");
+    await expect(projBtn).toHaveAttribute("aria-expanded", "false");
+    await projBtn.click();
+    await expect(projBtn).toHaveAttribute("aria-expanded", "true");
+    const projMenu = desktopNav.locator("#projects-dropdown-menu");
+    await expect(projMenu).toBeVisible();
+    await expect(projMenu.locator('a[href="/projectes/pizzeria-xativa/"]')).toContainText("Pizzería Xàtiva");
+    await expect(projMenu.locator('a[href="/projectes/burger-xativa/"]')).toContainText("Burger Xàtiva");
+    await expect(projMenu.locator('a[href="/projectes/avisa/"]')).toContainText("AVISA");
+    await expect(projMenu.locator('a[href="/projectes/pipeline-cicd/"]')).toContainText("Pipeline CI/CD");
+    await expect(projMenu.locator('a[href="/projectes/"]')).toContainText("Todos los proyectos");
+
+    // Close on Escape
+    await page.keyboard.press("Escape");
+    await expect(projMenu).not.toBeVisible();
+
+    // Direct links
+    await expect(desktopNav.locator('a[href="/about/"]')).toHaveText("Sobre mí");
+    await expect(desktopNav.locator('a[href="/contact/"]')).toHaveText("Contacto");
 
     // Contact is a regular navigation destination, with no extra header CTA.
     await expect(page.locator('header a[href="/contact/"]').first()).toBeAttached();
@@ -110,17 +142,35 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(mobileDetails).toHaveAttribute("open", "");
     await expect(mobileSummary).toHaveAttribute("aria-expanded", "true");
 
+    // Check collapsible categories in mobile
+    await expect(mobileDetails.locator(".group\\/serv summary")).toContainText("Servicios");
+    await expect(mobileDetails.locator(".group\\/proj summary")).toContainText("Proyectos");
+
     // Close on Escape
     await page.keyboard.press("Escape");
     await expect(mobileDetails).not.toHaveAttribute("open", "");
     await expect(mobileSummary).toHaveAttribute("aria-expanded", "false");
 
-    // Footer contains 3 columns (Navegar, Recursos, Contacte)
+    // Minimalist Centered Footer structure
     const footer = page.locator("footer");
-    await expect(footer.getByText("Navegación")).toBeVisible();
-    await expect(footer.getByText("Recursos")).toBeVisible();
-    await expect(footer.locator("h3").filter({ hasText: "Contacto" })).toBeVisible();
-    await expect(footer.getByText("Desarrollo web y aplicaciones a medida")).toBeVisible();
+    // Main navigation column removed from footer
+    await expect(footer.locator("h3").filter({ hasText: /^Navegación$/ })).toHaveCount(0);
+    // Identity & tagline
+    await expect(footer.getByText("Jaume Tur.").first()).toBeVisible();
+    await expect(footer.getByText(/Desarrollo web · Aplicaciones · Automatización/i)).toBeVisible();
+    // Social & Contact icons
+    await expect(footer.locator('a[href="https://github.com/jaumetur3W"]')).toBeVisible();
+    await expect(footer.locator('a[href*="linkedin.com/in/jautur"]')).toBeVisible();
+    await expect(footer.locator('a[href*="instagram.com/jaume.www"]')).toBeVisible();
+    await expect(footer.locator('a[href="mailto:jaumetur3w@gmail.com"]')).toBeVisible();
+    // Legal & standards links
+    await expect(footer.locator('a[href="/privacidad/"]')).toBeVisible();
+    await expect(footer.locator('a[href="/cookies/"]')).toBeVisible();
+    await expect(footer.locator('a[href="/aviso-legal/"]')).toBeVisible();
+    await expect(footer.locator('a[href="/qualitat/"]').filter({ hasText: "Accesibilidad" })).toBeVisible();
+    await expect(footer.locator('a[href="/rss.xml"]')).toBeVisible();
+    // Bottom copyright and location
+    await expect(footer.getByText(/© \d{4} Jaume Tur · Valencia, España y remoto/i)).toBeVisible();
   });
 
   test("Contact form triggers accessible validation on empty submit", async ({ page }) => {
@@ -200,11 +250,12 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page).toHaveURL("/en/about/");
     await expect(page.locator("h1")).toContainText("About Me");
 
-    const englishDesktopLinks = page.locator("nav[aria-label='Main navigation'] > ul > li > a");
-    await expect(englishDesktopLinks.nth(0)).toHaveAttribute("href", "/en/");
-    await expect(englishDesktopLinks.nth(1)).toHaveAttribute("href", "/en/about/");
-    await expect(englishDesktopLinks.nth(2)).toHaveAttribute("href", "/en/projectes/");
-    await expect(englishDesktopLinks.nth(3)).toHaveAttribute("href", "/en/contact/");
+    const englishDesktopNav = page.locator("nav[aria-label='Main navigation']");
+    await expect(englishDesktopNav.locator('a[href="/en/"]')).toHaveText("Home");
+    await expect(englishDesktopNav.locator('#services-dropdown-btn')).toContainText("Services");
+    await expect(englishDesktopNav.locator('#projects-dropdown-btn')).toContainText("Projects");
+    await expect(englishDesktopNav.locator('a[href="/en/about/"]')).toHaveText("About me");
+    await expect(englishDesktopNav.locator('a[href="/en/contact/"]')).toHaveText("Contact");
 
     // On English page, open globe dropdown and verify EN is active
     const enLangBtn = page.locator("#lang-dropdown-btn");

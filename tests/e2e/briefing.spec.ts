@@ -1,10 +1,10 @@
 import { test, expect, type Page } from "@playwright/test";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-const STORE_YES = "Sí, vull una botiga amb pagament en línia";
-const STORE_NO = "No, només vull mostrar productes o rebre consultes";
-const LANGUAGES_YES = "Sí, en diversos idiomes";
-const LANGUAGES_NO = "No, només en un idioma";
+const STORE_YES = "Sí, quiero una tienda con pago online";
+const STORE_NO = "No, solo quiero mostrar productos o recibir consultas";
+const LANGUAGES_YES = "Sí, en varios idiomas";
+const LANGUAGES_NO = "No, solo en un idioma";
 
 const STORE_YES_EN = "Yes, I want an online store with online payment";
 const STORE_NO_EN = "No, I only want to showcase products or receive inquiries";
@@ -32,18 +32,18 @@ async function openBriefing(page: Page, path: string = "/briefing/") {
 async function fillRequiredBaseFields(page: Page) {
   await page.locator("#nom").fill("Persona de prueba");
   await page.locator("#correu").fill("prueba@example.com");
-  await page.locator("#negoci-nom").fill("Negoci de prova");
-  await page.locator("#negoci-descripcio").fill("Descripció de prova");
-  await choose(page, "objectius", "Reforçar la imatge de marca");
-  await choose(page, "objectius", "Una altra cosa");
-  await choose(page, "client-ideal", "Particulars");
-  await choose(page, "apartats", "Inici");
-  await choose(page, "estil", "Elegant i minimalista");
-  await page.locator("#accio-principal").fill("Demanar pressupost");
-  await choose(page, "funcions-web", "Botó de WhatsApp");
+  await page.locator("#negoci-nom").fill("Negocio de prueba");
+  await page.locator("#negoci-descripcio").fill("Descripción de prueba");
+  await choose(page, "objectius", "Reforzar la imagen de marca");
+  await choose(page, "objectius", "Otra cosa");
+  await choose(page, "client-ideal", "Particulares");
+  await choose(page, "apartats", "Inicio");
+  await choose(page, "estil", "Elegante y minimalista");
+  await page.locator("#accio-principal").fill("Pedir presupuesto");
+  await choose(page, "funcions-web", "Botón de WhatsApp");
   await choose(page, "pagament-online", STORE_NO);
   await choose(page, "multiidioma", LANGUAGES_NO);
-  await choose(page, "material-preparat", "Quasi tot: logotip, fotos i textos");
+  await choose(page, "material-preparat", "Casi todo: logotipo, fotos y textos");
 }
 
 async function fillRequiredBaseFieldsEn(page: Page) {
@@ -67,10 +67,10 @@ const plausibleCalls = (page: Page) =>
   page.evaluate(() => (window as unknown as { plausibleCalls: string[] }).plausibleCalls);
 
 test.describe("Briefing form", () => {
-  test("is a private Valencian page with language switcher linking to /en/briefing/", async ({ page, request }) => {
+  test("is a private Spanish page with language switcher linking to /en/briefing/", async ({ page, request }) => {
     await page.goto("/briefing/");
-    await expect(page.locator("html")).toHaveAttribute("lang", "ca");
-    await expect(page.locator("h1")).toHaveText("Briefing per a la teua nova web");
+    await expect(page.locator("html")).toHaveAttribute("lang", "es");
+    await expect(page.locator("h1")).toHaveText("Briefing para tu nueva web");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await expect(page.locator('link[hreflang="en"]')).toHaveCount(0);
 
@@ -94,7 +94,7 @@ test.describe("Briefing form", () => {
     expect(sitemap).not.toContain("/en/briefing");
   });
 
-  test("shows the store and language sections only for the matching answers (Valencian)", async ({ page }) => {
+  test("shows the store and language sections only for the matching answers (Spanish)", async ({ page }) => {
     await page.goto("/briefing/");
     const store = page.locator("#section-botiga");
     const languages = page.locator("#section-idiomes-detalls");
@@ -108,7 +108,7 @@ test.describe("Briefing form", () => {
 
     await choose(page, "multiidioma", LANGUAGES_YES);
     await expect(languages).toBeVisible();
-    await choose(page, "multiidioma", "Encara no ho tinc decidit");
+    await choose(page, "multiidioma", "Todavía no lo tengo decidido");
     await expect(languages).toBeHidden();
   });
 
@@ -147,7 +147,7 @@ test.describe("Briefing form", () => {
     expect(requests).toBe(0);
 
     await fillRequiredBaseFields(page);
-    await page.locator("#correu").fill("correu-no-valid");
+    await page.locator("#correu").fill("correo-no-valido");
     await submit.click();
     await expect(page.locator("#correu-error")).toBeVisible();
     expect(requests).toBe(0);
@@ -160,7 +160,7 @@ test.describe("Briefing form", () => {
 
     await choose(page, "pagament-online", STORE_NO);
     await submit.click();
-    await expect(page.locator("#briefing-feedback")).toContainText("Briefing enviat");
+    await expect(page.locator("#briefing-feedback")).toContainText("Briefing enviado");
     expect(requests).toBe(1);
   });
 
@@ -204,30 +204,30 @@ test.describe("Briefing form", () => {
     await openBriefing(page);
     await fillRequiredBaseFields(page);
     await choose(page, "pagament-online", STORE_YES);
-    await page.locator("#productes").fill("Resposta que no s'ha d'enviar");
+    await page.locator("#productes").fill("Respuesta que no debe enviarse");
     await choose(page, "pagament-online", STORE_NO);
 
     const submit = page.locator("#briefing-submit-btn");
     await submit.click();
     await expect(submit).toBeDisabled();
-    await expect(submit).toContainText("Enviant…");
+    await expect(submit).toContainText("Enviando…");
     expect(await plausibleCalls(page)).toEqual([]);
 
     release();
-    await expect(page.locator("#briefing-feedback")).toContainText("Briefing enviat");
+    await expect(page.locator("#briefing-feedback")).toContainText("Briefing enviado");
     await expect(page.locator("#nom")).toHaveValue("");
     await expect(submit).toBeEnabled();
     expect(await plausibleCalls(page)).toEqual(["form_submit"]);
     expect(body).toMatchObject({
       access_key: "test-key",
-      subject: "Nou briefing: Negoci de prova",
+      subject: "Nuevo briefing: Negocio de prueba",
       name: "Persona de prueba",
       email: "prueba@example.com",
-      "Què t’agradaria aconseguir amb la web?": "Reforçar la imatge de marca, Una altra cosa",
-      "Vols que els clients compren i paguen directament des de la web?": STORE_NO,
+      "¿Qué te gustaría conseguir con la web?": "Reforzar la imagen de marca, Otra cosa",
+      "¿Quieres que los clientes compren y paguen directamente desde la web?": STORE_NO,
     });
-    expect(body).not.toHaveProperty("Quins productes vens i quines dades tens de cada producte?");
-    expect(body).not.toHaveProperty("Quins colors, tipografies o elements de marca hem de respectar?");
+    expect(body).not.toHaveProperty("¿Qué productos vendes y qué datos tienes de cada producto?");
+    expect(body).not.toHaveProperty("¿Qué colores, tipografías o elementos de marca debemos respetar?");
   });
 
   test("keeps the answers and shows the email when sending fails", async ({ page }) => {

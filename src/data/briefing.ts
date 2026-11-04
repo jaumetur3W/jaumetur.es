@@ -19,7 +19,7 @@ export interface BriefingSection {
 }
 
 export interface BriefingData {
-  lang: "ca" | "en";
+  lang: "es" | "en";
   title: string;
   description: string;
   intro: string;
@@ -36,92 +36,92 @@ export interface BriefingData {
   sections: BriefingSection[];
 }
 
-const STORE_YES_CA = "Sí, vull una botiga amb pagament en línia";
-const STORE_NO_CA = "No, només vull mostrar productes o rebre consultes";
-const LANGUAGES_YES_CA = "Sí, en diversos idiomes";
-const LANGUAGES_NO_CA = "No, només en un idioma";
+const STORE_YES_ES = "Sí, quiero una tienda con pago online";
+const STORE_NO_ES = "No, solo quiero mostrar productos o recibir consultas";
+const LANGUAGES_YES_ES = "Sí, en varios idiomas";
+const LANGUAGES_NO_ES = "No, solo en un idioma";
 
 const STORE_YES_EN = "Yes, I want an online store with online payment";
 const STORE_NO_EN = "No, I only want to showcase products or receive inquiries";
 const LANGUAGES_YES_EN = "Yes, in multiple languages";
 const LANGUAGES_NO_EN = "No, only in one language";
 
-const briefingDataCa: BriefingData = {
-  lang: "ca",
-  title: "Briefing per a la teua nova web",
-  description: "Ajuda’m a entendre el teu negoci i què necessites de la web.",
+const briefingDataEs: BriefingData = {
+  lang: "es",
+  title: "Briefing para tu nueva web",
+  description: "Ayúdame a entender tu negocio y qué necesitas de la web.",
   intro:
-    "Ajuda’m a entendre el teu negoci i què necessites de la web. No cal que conegues termes tècnics. Respon amb la informació que tingues; si alguna cosa encara no està decidida, indica-ho. Després revisarem els materials i concretarem els detalls que falten.",
-  noJsMessage: "Aquest formulari necessita JavaScript per a enviar-se. També pots escriure a jaumetur3w@gmail.com.",
-  botcheckLabel: "No ompligues aquest camp si eres una persona",
-  requiredMessage: "Aquesta pregunta és obligatòria.",
-  emailMessage: "Indica un correu vàlid per a poder respondre’t.",
-  ariaRequiredLabel: "obligatori",
+    "Ayúdame a entender tu negocio y qué necesitas de la web. No hace falta que conozcas términos técnicos. Responde con la información que tengas; si algo todavía no está decidido, indícalo. Después revisaremos los materiales y concretaremos los detalles que falten.",
+  noJsMessage: "Este formulario necesita JavaScript para enviarse. También puedes escribir a jaumetur3w@gmail.com.",
+  botcheckLabel: "No rellenes este campo si eres una persona",
+  requiredMessage: "Esta pregunta es obligatoria.",
+  emailMessage: "Indica un correo válido para poder responderte.",
+  ariaRequiredLabel: "obligatorio",
   submitLabel: "Enviar el briefing",
-  submittingLabel: "Enviant…",
-  successMessage: "Briefing enviat. Gràcies!",
+  submittingLabel: "Enviando…",
+  successMessage: "Briefing enviado. ¡Gracias!",
   errorMessage:
-    "No s’ha pogut enviar el briefing i les teues respostes continuen en el formulari. Torna-ho a provar o escriu a jaumetur3w@gmail.com.",
-  subjectPrefix: "Nou briefing:",
+    "No se ha podido enviar el briefing y tus respuestas continúan en el formulario. Vuelve a intentarlo o escribe a jaumetur3w@gmail.com.",
+  subjectPrefix: "Nuevo briefing:",
   sections: [
     {
       id: "contacte",
-      title: "Les teues dades",
-      description: "Les necessite per a poder respondre’t.",
+      title: "Tus datos",
+      description: "Los necesito para poder responderte.",
       questions: [
-        { id: "nom", key: "name", label: "Com et dius?", type: "text", required: true },
-        { id: "correu", key: "email", label: "A quin correu puc respondre’t?", type: "email", required: true },
+        { id: "nom", key: "name", label: "¿Cómo te llamas?", type: "text", required: true },
+        { id: "correu", key: "email", label: "¿A qué correo puedo responderte?", type: "email", required: true },
       ],
     },
     {
       id: "negoci",
-      title: "1. El teu negoci",
-      description: "Comencem per allò essencial.",
+      title: "1. Tu negocio",
+      description: "Empecemos por lo esencial.",
       questions: [
-        { id: "negoci-nom", label: "Com es diu el negoci o projecte?", type: "text", required: true },
+        { id: "negoci-nom", label: "¿Cómo se llama el negocio o proyecto?", type: "text", required: true },
         {
           id: "negoci-descripcio",
-          label: "A què es dedica el negoci i què el fa especial?",
-          description: "Explica què ofereixes i per què un client et triaria a tu.",
+          label: "¿A qué se dedica el negocio y qué lo hace especial?",
+          description: "Explica qué ofreces y por qué un cliente te elegiría a ti.",
           type: "textarea",
           required: true,
         },
         {
           id: "objectius",
-          label: "Què t’agradaria aconseguir amb la web?",
+          label: "¿Qué te gustaría conseguir con la web?",
           type: "checkbox",
           required: true,
           options: [
-            "Aconseguir més clients o contactes",
-            "Presentar els meus productes o serveis",
-            "Vendre productes en línia",
-            "Rebre reserves o sol·licituds",
-            "Mostrar projectes o treballs anteriors",
-            "Reforçar la imatge de marca",
-            "Facilitar informació als clients",
-            "Una altra cosa",
+            "Conseguir más clientes o contactos",
+            "Presentar mis productos o servicios",
+            "Vender productos online",
+            "Recibir reservas o solicitudes",
+            "Mostrar proyectos o trabajos anteriores",
+            "Reforzar la imagen de marca",
+            "Facilitar información a los clientes",
+            "Otra cosa",
           ],
         },
         {
           id: "client-ideal",
-          label: "Qui és el teu client ideal?",
-          description: "Pots marcar més d’una opció.",
+          label: "¿Quién es tu cliente ideal?",
+          description: "Puedes marcar más de una opción.",
           type: "checkbox",
           required: true,
           options: [
-            "Particulars",
-            "Professionals, autònoms o empreses",
-            "Arquitectes o interioristes",
-            "Comerços, hotels o restaurants",
-            "Distribuïdors o altres professionals del sector",
-            "Un altre perfil",
-            "Encara no ho tinc clar",
+            "Particulares",
+            "Profesionales, autónomos o empresas",
+            "Arquitectos o interioristas",
+            "Comercios, hoteles o restaurantes",
+            "Distribuidores u otros profesionales del sector",
+            "Otro perfil",
+            "Todavía no lo tengo claro",
           ],
         },
         {
           id: "client-necessitats",
-          label: "Què busquen aquests clients i què els pots oferir?",
-          description: "Si no ho tens clar, pots deixar-ho en blanc.",
+          label: "¿Qué buscan estos clientes y qué les puedes ofrecer?",
+          description: "Si no lo tienes claro, puedes dejarlo en blanco.",
           type: "textarea",
           required: false,
         },
@@ -129,61 +129,61 @@ const briefingDataCa: BriefingData = {
     },
     {
       id: "contingut",
-      title: "2. Contingut i estil",
-      description: "No cal que sàpies quines pàgines són tècnicament necessàries; explica què t’agradaria mostrar.",
+      title: "2. Contenido y estilo",
+      description: "No hace falta que sepas qué páginas son técnicamente necesarias; explica qué te gustaría mostrar.",
       questions: [
         {
           id: "apartats",
-          label: "Quins apartats t’agradaria que tinguera la web?",
+          label: "¿Qué apartados te gustaría que tuviera la web?",
           type: "checkbox",
           required: true,
           options: [
-            "Inici",
-            "Sobre nosaltres",
-            "Productes o serveis",
-            "Catàleg o botiga en línia",
-            "Projectes, galeria o portafolis",
-            "Opinions de clients",
-            "Preguntes freqüents",
-            "Contacte i ubicació",
-            "Blog o notícies",
-            "No ho sé; proposa’m una estructura",
+            "Inicio",
+            "Sobre nosotros",
+            "Productos o servicios",
+            "Catálogo o tienda online",
+            "Proyectos, galería o portafolio",
+            "Opiniones de clientes",
+            "Preguntas frecuentes",
+            "Contacto y ubicación",
+            "Blog o noticias",
+            "No lo sé; proponme una estructura",
           ],
         },
         {
           id: "estil",
-          label: "Quin estil visual t’agrada més?",
+          label: "¿Qué estilo visual te gusta más?",
           type: "checkbox",
           required: true,
           options: [
-            "Elegant i minimalista",
-            "Modern i tecnològic",
-            "Natural, artesanal i pròxim",
-            "Atrevit i amb personalitat",
-            "Fosc i sofisticat",
-            "Net i corporatiu",
-            "Colorit i dinàmic",
-            "No ho tinc clar; m’agradaria rebre una proposta",
+            "Elegante y minimalista",
+            "Moderno y tecnológico",
+            "Natural, artesanal y cercano",
+            "Atrevido y con personalidad",
+            "Oscuro y sofisticado",
+            "Limpio y corporativo",
+            "Colorido y dinámico",
+            "No lo tengo claro; me gustaría recibir una propuesta",
           ],
         },
         {
           id: "marca",
-          label: "Quins colors, tipografies o elements de marca hem de respectar?",
-          description: "Per exemple: logotip existent, colors corporatius o elements que no vols utilitzar.",
+          label: "¿Qué colores, tipografías o elementos de marca debemos respetar?",
+          description: "Por ejemplo: logotipo existente, colores corporativos o elementos que no quieras utilizar.",
           type: "textarea",
           required: false,
         },
         {
           id: "inspiracio",
-          label: "Enllaça webs o marques que t’agraden i explica què t’agrada de cadascuna.",
-          description: "Pots posar diversos enllaços. Ens interessa la inspiració, no copiar una altra web.",
+          label: "Enlaza webs o marcas que te gusten y explica qué te gusta de cada una.",
+          description: "Puedes poner varios enlaces. Nos interesa la inspiración, no copiar otra web.",
           type: "textarea",
           required: false,
         },
         {
           id: "accio-principal",
-          label: "Quina acció principal vols que faça una persona quan entre a la web?",
-          description: "Per exemple: comprar, telefonar, demanar pressupost, reservar o visitar el local.",
+          label: "¿Qué acción principal quieres que haga una persona cuando entre en la web?",
+          description: "Por ejemplo: comprar, llamar, pedir presupuesto, reservar o visitar el local.",
           type: "textarea",
           required: true,
         },
@@ -191,115 +191,115 @@ const briefingDataCa: BriefingData = {
     },
     {
       id: "funcions",
-      title: "3. Funcions i dades de contacte",
+      title: "3. Funciones y datos de contacto",
       questions: [
         {
           id: "funcions-web",
-          label: "Quines funcions necessites?",
+          label: "¿Qué funciones necesitas?",
           type: "checkbox",
           required: true,
           options: [
-            "Botó de WhatsApp",
-            "Telèfon clicable",
-            "Mapa, adreça i horari",
-            "Formulari de contacte",
-            "Reserves o cites",
-            "Sol·licitud de pressupost",
-            "Galeria de fotos o projectes",
-            "Opinions de clients",
-            "Cercador o filtres",
-            "Idiomes múltiples",
-            "Una altra funció",
-            "No ho sé; recomana’m què necessite",
+            "Botón de WhatsApp",
+            "Teléfono clicable",
+            "Mapa, dirección y horario",
+            "Formulario de contacto",
+            "Reservas o citas",
+            "Solicitud de presupuesto",
+            "Galería de fotos o proyectos",
+            "Opiniones de clientes",
+            "Buscador o filtros",
+            "Idiomas múltiples",
+            "Otra función",
+            "No lo sé; recomiéndame qué necesito",
           ],
         },
         {
           id: "dades-contacte",
-          label: "Quines dades de contacte vols mostrar?",
+          label: "¿Qué datos de contacto quieres mostrar?",
           description:
-            "Indica les que pertoquen: correu, telèfon, WhatsApp, adreça, horari i xarxes socials. Pots afegir-les més avant.",
+            "Indica los que correspondan: correo, teléfono, WhatsApp, dirección, horario y redes sociales. Puedes añadirlos más adelante.",
           type: "textarea",
           required: false,
         },
         {
           id: "pagament-online",
-          label: "Vols que els clients compren i paguen directament des de la web?",
-          description: "La resposta determina si hauràs de completar la secció específica de botiga.",
+          label: "¿Quieres que los clientes compren y paguen directamente desde la web?",
+          description: "La respuesta determina si tendrás que completar la sección específica de tienda.",
           type: "radio",
           required: true,
-          options: [STORE_YES_CA, STORE_NO_CA],
+          options: [STORE_YES_ES, STORE_NO_ES],
         },
       ],
     },
     {
       id: "botiga",
-      title: "4. Detalls de la botiga en línia",
-      description: "Aquesta secció només és necessària si vols que els clients compren directament des de la web.",
-      showWhen: { question: "pagament-online", value: STORE_YES_CA },
+      title: "4. Detalles de la tienda online",
+      description: "Esta sección solo es necesaria si quieres que los clientes compren directamente desde la web.",
+      showWhen: { question: "pagament-online", value: STORE_YES_ES },
       questions: [
         {
           id: "productes",
-          label: "Quins productes vens i quines dades tens de cada producte?",
-          description: "Per exemple: nom, fotos, preu, descripció, materials, dimensions, variants i disponibilitat.",
+          label: "¿Qué productos vendes y qué datos tienes de cada producto?",
+          description: "Por ejemplo: nombre, fotos, precio, descripción, materiales, dimensiones, variantes y disponibilidad.",
           type: "textarea",
           required: true,
         },
         {
           id: "format-cataleg",
-          label: "En quin format tens el catàleg?",
+          label: "¿En qué formato tienes el catálogo?",
           type: "radio",
           required: true,
           options: [
-            "En un full Excel o full de càlcul",
-            "En un PDF o catàleg descarregable",
-            "En una web existent",
-            "En fitxes, documents o carpetes de fotos",
-            "Encara l’he de preparar",
-            "En diversos formats",
+            "En una hoja Excel o de cálculo",
+            "En un PDF o catálogo descargable",
+            "En una web existente",
+            "En fichas, documentos o carpetas de fotos",
+            "Todavía lo tengo que preparar",
+            "En varios formatos",
           ],
         },
         {
           id: "tipus-compra",
-          label: "Com vols que es facen les compres?",
+          label: "¿Cómo quieres que se realicen las compras?",
           type: "radio",
           required: true,
           options: [
-            "Compra directa amb cistella i pagament en línia",
-            "Comandes sense pagament immediat",
-            "Sol·licitud de pressupost",
-            "Consulta per WhatsApp abans de comprar",
-            "Una combinació d’aquestes opcions",
-            "Encara no ho tinc decidit",
+            "Compra directa con carrito y pago online",
+            "Pedidos sin pago inmediato",
+            "Solicitud de presupuesto",
+            "Consulta por WhatsApp antes de comprar",
+            "Una combinación de estas opciones",
+            "Todavía no lo tengo decidido",
           ],
         },
         {
           id: "metodes-pagament",
-          label: "Quins mètodes de pagament vols oferir?",
-          description: "Marca els que ja saps que vols. Si no ho tens decidit, selecciona l’última opció.",
+          label: "¿Qué métodos de pago quieres ofrecer?",
+          description: "Marca los que ya sabes que quieres. Si no lo tienes decidido, selecciona la última opción.",
           type: "checkbox",
           required: true,
           options: [
-            "Targeta bancària",
+            "Tarjeta bancaria",
             "PayPal",
-            "Transferència bancària",
-            "Pagament en recollir o contra reemborsament",
-            "Un altre mètode",
-            "No ho sé; necessite assessorament",
+            "Transferencia bancaria",
+            "Pago al recoger o contra reembolso",
+            "Otro método",
+            "No lo sé; necesito asesoramiento",
           ],
         },
         {
           id: "enviaments",
-          label: "Com funcionaran els enviaments i les devolucions?",
+          label: "¿Cómo funcionarán los envíos y las devoluciones?",
           description:
-            "Indica zones d’enviament, cost o gratuïtat, terminis, recollida en botiga i condicions de devolució, si ja ho saps.",
+            "Indica zonas de envío, coste o gratuidad, plazos, recogida en tienda y condiciones de devolución, si ya lo sabes.",
           type: "textarea",
           required: false,
         },
         {
           id: "plataforma",
-          label: "Tens ja una plataforma de botiga o un proveïdor de pagaments?",
+          label: "¿Tienes ya una plataforma de tienda o un proveedor de pagos?",
           description:
-            "Si sí, indica quin. No compartisques contrasenyes ni claus privades en aquest formulari.",
+            "Si es así, indica cuál. No compartas contraseñas ni claves privadas en este formulario.",
           type: "textarea",
           required: false,
         },
@@ -307,94 +307,94 @@ const briefingDataCa: BriefingData = {
     },
     {
       id: "idiomes",
-      title: "5. Idiomes de la web",
-      description: "Si només necessites un idioma, pots passar directament a la secció de materials.",
+      title: "5. Idiomas de la web",
+      description: "Si solo necesitas un idioma, puedes pasar directamente a la sección de materiales.",
       questions: [
         {
           id: "multiidioma",
-          label: "La web ha d’estar disponible en més d’un idioma?",
+          label: "¿La web debe estar disponible en más de un idioma?",
           type: "radio",
           required: true,
-          options: [LANGUAGES_YES_CA, LANGUAGES_NO_CA, "Encara no ho tinc decidit"],
+          options: [LANGUAGES_YES_ES, LANGUAGES_NO_ES, "Todavía no lo tengo decidido"],
         },
       ],
     },
     {
       id: "idiomes-detalls",
-      title: "Idiomes: detalls",
-      showWhen: { question: "multiidioma", value: LANGUAGES_YES_CA },
+      title: "Idiomas: detalles",
+      showWhen: { question: "multiidioma", value: LANGUAGES_YES_ES },
       questions: [
         {
           id: "idiomes-necessaris",
-          label: "Quins idiomes necessites?",
+          label: "¿Qué idiomas necesitas?",
           type: "checkbox",
           required: true,
-          options: ["Valencià/català", "Castellà", "Anglés", "Francés", "Alemany", "Italià", "Un altre idioma"],
+          options: ["Español", "Valenciano / catalán", "Inglés", "Francés", "Alemán", "Italiano", "Otro idioma"],
         },
         {
           id: "idioma-defecte",
-          label: "En quin idioma vols que aparega la web per defecte?",
+          label: "¿En qué idioma quieres que aparezca la web por defecto?",
           type: "radio",
           required: true,
-          options: ["Valencià/català", "Castellà", "Anglés", "Un altre dels idiomes indicats"],
+          options: ["Español", "Valenciano / catalán", "Inglés", "Otro de los idiomas indicados"],
         },
         {
           id: "traduccions",
-          label: "Tens els textos traduïts?",
+          label: "¿Tienes los textos traducidos?",
           type: "radio",
           required: true,
           options: [
-            "Sí, tinc totes les traduccions",
-            "Només tinc els textos en un idioma",
-            "Necessite ajuda amb les traduccions",
-            "Encara no ho sé",
+            "Sí, tengo todas las traducciones",
+            "Solo tengo los textos en un idioma",
+            "Necesito ayuda con las traducciones",
+            "Todavía no lo sé",
           ],
         },
       ],
     },
     {
       id: "materials",
-      title: "6. Materials disponibles",
+      title: "6. Materiales disponibles",
       description:
-        "No cal pujar-ho tot ara. Pots compartir una carpeta de Google Drive, Dropbox o un altre servei amb els materials.",
+        "No hace falta subirlo todo ahora. Puedes compartir una carpeta de Google Drive, Dropbox u otro servicio con los materiales.",
       questions: [
         {
           id: "material-preparat",
-          label: "Quin material tens preparat?",
+          label: "¿Qué material tienes preparado?",
           type: "radio",
           required: true,
           options: [
-            "Quasi tot: logotip, fotos i textos",
-            "Logotip i fotografies, però falten textos",
-            "Textos, però falten fotografies",
-            "Catàleg o documents, però cal organitzar-los",
-            "Tinc poca cosa i necessite ajuda per preparar el contingut",
+            "Casi todo: logotipo, fotos y textos",
+            "Logotipo y fotografías, pero faltan textos",
+            "Textos, pero faltan fotografías",
+            "Catálogo o documentos, pero hay que organizarlos",
+            "Tengo poca cosa y necesito ayuda para preparar el contenido",
           ],
         },
         {
           id: "carpeta",
-          label: "Enllaç a una carpeta amb el logotip, fotografies, textos, catàlegs o altres materials",
+          label: "Enlace a una carpeta con el logotipo, fotografías, textos, catálogos u otros materiales",
           description:
-            "Comprova que l’enllaç tinga permisos perquè puguem veure els fitxers. No inclogues contrasenyes ni dades sensibles.",
+            "Comprueba que el enlace tenga permisos para que podamos ver los archivos. No incluyas contraseñas ni datos sensibles.",
           type: "textarea",
           required: false,
         },
         {
           id: "web-actual",
-          label: "Enllaç a la web actual, xarxes socials o altres pàgines del negoci",
+          label: "Enlace a la web actual, redes sociales u otras páginas del negocio",
           type: "textarea",
           required: false,
         },
         {
           id: "imprescindibles",
-          label: "Hi ha alguna cosa que la web haja de tindre obligatòriament o que no vulgues veure mai?",
-          description: "Per exemple: colors a evitar, contingut que no s’ha de publicar o funcions imprescindibles.",
+          label: "¿Hay alguna cosa que la web deba tener obligatoriamente o que no quieras ver jamás?",
+          description: "Por ejemplo: colores a evitar, contenido que no se deba publicar o funciones imprescindibles.",
           type: "textarea",
           required: false,
         },
         {
           id: "altres-detalls",
-          label: "Hi ha algun altre detall important que no t’hàgem preguntat?",
+          label: "¿Hay algún otro detalle importante que no te hayamos preguntado?",
           type: "textarea",
           required: false,
         },
@@ -760,10 +760,10 @@ const briefingDataEn: BriefingData = {
   ],
 };
 
-export const briefingTitle = briefingDataCa.title;
-export const briefingIntro = briefingDataCa.intro;
-export const briefingSections = briefingDataCa.sections;
+export const briefingTitle = briefingDataEs.title;
+export const briefingIntro = briefingDataEs.intro;
+export const briefingSections = briefingDataEs.sections;
 
-export function getBriefingData(locale: string = "ca"): BriefingData {
-  return locale === "en" ? briefingDataEn : briefingDataCa;
+export function getBriefingData(locale: string = "es"): BriefingData {
+  return locale === "en" ? briefingDataEn : briefingDataEs;
 }
