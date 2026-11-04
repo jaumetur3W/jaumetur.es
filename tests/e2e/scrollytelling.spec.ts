@@ -18,6 +18,12 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(holaToken).toBeVisible();
     await expect(holaToken).toHaveText("Hola");
 
+    // Verifica que el forat negre cinematogràfic i la lletra 'o' de Hola estan presents
+    const blackHole = page.locator("#hero-black-hole");
+    await expect(blackHole).toBeAttached();
+    const letterO = page.locator("#letter-o");
+    await expect(letterO).toBeVisible();
+
     // Verifica que «Hola» tiene peso bold (>= 700) y que las demás palabras mantienen peso normal (400)
     const holaWeight = await holaToken.evaluate((el) => window.getComputedStyle(el).fontWeight);
     expect(parseInt(holaWeight, 10)).toBeGreaterThanOrEqual(700);
@@ -74,6 +80,14 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await advance();
     expect(await opacity(statement)).toBeGreaterThan(0.99);
     expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollAtHeroBeforeExit);
+
+    // El telón (#home-curtain) NO tapa el texto inferior (#hero-statement) en el paso 3
+    const curtain = page.locator("#home-curtain");
+    const curtainBox = await curtain.boundingBox();
+    const statementBox = await statement.boundingBox();
+    expect(curtainBox).not.toBeNull();
+    expect(statementBox).not.toBeNull();
+    expect(curtainBox!.y).toBeGreaterThanOrEqual(statementBox!.y + statementBox!.height);
 
     // Gestos inversos (scroll hacia arriba) regresan limpiamente hasta el estado inicial.
     await advance(-1);
