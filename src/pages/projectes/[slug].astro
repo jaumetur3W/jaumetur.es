@@ -102,8 +102,14 @@ const breadcrumbSchema = {
 
     <!-- Case Study Hero -->
     <header class="max-w-4xl mx-auto mt-6 mb-12" style={`view-transition-name: project-card-${entry.id};`}>
-      <div class="flex items-center gap-2.5 mb-4">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+      <div class="flex flex-wrap items-center gap-2.5 mb-4">
+        {entry.id === "avisa" && (
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200 shadow-2xs">
+            <Icon name="bx:star" class="w-3.5 h-3.5 text-rose-600" />
+            <span>{isEn ? "Flagship project" : "Buque insignia"}</span>
+          </span>
+        )}
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-xs">
           <Icon name={entry.data.icon} class="w-3.5 h-3.5 text-slate-950" />
           <span>{projectText.badge}</span>
         </span>
@@ -192,9 +198,19 @@ const breadcrumbSchema = {
 
       <!-- Architecture & Technical Console (Sense fotografies, icones estandarditzades) -->
       <div class="relative bg-gradient-to-b from-slate-50 to-white p-8 sm:p-12 flex flex-col items-center justify-center text-center">
-        <div class="w-16 h-16 rounded-3xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shadow-xs mb-4">
-          <Icon name={entry.data.icon} class="w-8 h-8 text-slate-950" />
-        </div>
+        {entry.id === "avisa" ? (
+          <img
+            src="/img/avisa-logo.png"
+            alt="AVISA Logo"
+            class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl object-contain shadow-md mb-4 border border-rose-500/20 bg-[#161c28] p-2"
+            width="80"
+            height="80"
+          />
+        ) : (
+          <div class="w-16 h-16 rounded-3xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shadow-xs mb-4">
+            <Icon name={entry.data.icon} class="w-8 h-8 text-slate-950" />
+          </div>
+        )}
         <h2 class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight mb-2">
           {projectText.title}
         </h2>
