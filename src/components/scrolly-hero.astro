@@ -364,6 +364,26 @@ const copy = isEn
         return rect.top < window.innerHeight && rect.bottom > 56;
       }
 
+      function isCurtainCovering() {
+        const curtain = document.getElementById("home-curtain");
+        if (!curtain) return false;
+        const rect = curtain.getBoundingClientRect();
+        return rect.top <= 70;
+      }
+
+      function getStepProgress(step) {
+        return step <= 0 ? 0 : step === 1 ? 0.12 : step === 2 ? 0.24 : step === 3 ? 0.36 : 0.48;
+      }
+
+      function getStepTarget(step) {
+        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+        return cachedTrackTop + scrollableDistance * getStepProgress(step);
+      }
+
+      function getStep4Target() {
+        return getStepTarget(4);
+      }
+
       function canQueueStep(direction) {
         const lastQueuedStep = pendingDirections.length
           ? activeStep + pendingDirections.reduce((total, queued) => total + queued, 0)
@@ -373,11 +393,7 @@ const copy = isEn
       }
 
       function scrollToStep(step) {
-        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
-        // Los pasos 0-4 ocupan el primer 48% del track.
-        // El 52% restante permite al telón (#home-curtain) subir y cubrir el texto estático.
-        const progress = step <= 0 ? 0 : step === 1 ? 0.12 : step === 2 ? 0.24 : step === 3 ? 0.36 : 0.48;
-        const target = cachedTrackTop + scrollableDistance * progress;
+        const target = getStepTarget(step);
         window.scrollTo({ top: target, behavior: "instant" });
       }
 
@@ -411,7 +427,38 @@ const copy = isEn
       function onWheel(event) {
         if (event.deltaY === 0 || !isTrackActive()) return;
         const direction = event.deltaY > 0 ? 1 : -1;
-        if (!wheelGestureActive && !canQueueStep(direction)) return;
+        const step4Target = getStep4Target();
+        const step4Threshold = step4Target + 130;
+
+        // 1. Si el telón está cubriendo el hero o estamos por debajo de la zona del hero:
+        // Permitir scroll nativo fluido en ambas direcciones sin intercepción.
+        if (isCurtainCovering() || (direction < 0 && window.scrollY > step4Threshold)) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
+        // 2. Si se hace scroll hacia abajo y ya estamos en el paso 4 (todo el texto visible):
+        // Permitir scroll nativo descendente para que el telón suba suavemente.
+        if (direction > 0 && activeStep >= 4) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
+        // 3. Si se hace scroll hacia arriba y ya estamos en el paso 0 (inicio):
+        // Permitir scroll nativo en la cabecera sin bloquear.
+        if (direction < 0 && activeStep <= 0) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
+        // 4. Comprobar si se puede encolar el paso de animación
+        if (!canQueueStep(direction)) {
+          wheelGestureActive = false;
+          return;
+        }
 
         event.preventDefault();
         if (!wheelGestureActive) {
@@ -433,16 +480,35 @@ const copy = isEn
 
       function onTouchMove(event) {
         if (event.touches.length !== 1 || !isTrackActive()) return;
-        if (touchHandled) {
-          event.preventDefault();
-          return;
-        }
 
         const deltaY = touchStartY - event.touches[0].clientY;
         const deltaX = touchStartX - event.touches[0].clientX;
         if (Math.abs(deltaY) < touchThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
 
         const direction = deltaY > 0 ? 1 : -1;
+        const step4Target = getStep4Target();
+        const step4Threshold = step4Target + 130;
+
+        // Si el telón cubre el hero o estamos por debajo del umbral del hero: scroll táctil nativo
+        if (isCurtainCovering() || (direction < 0 && window.scrollY > step4Threshold)) {
+          return;
+        }
+
+        // Si se desplaza hacia abajo y ya estamos en el paso 4: permitir scroll táctil nativo
+        if (direction > 0 && activeStep >= 4) {
+          return;
+        }
+
+        // Si se desplaza hacia arriba y ya estamos en el paso 0: permitir scroll táctil nativo
+        if (direction < 0 && activeStep <= 0) {
+          return;
+        }
+
+        if (touchHandled) {
+          event.preventDefault();
+          return;
+        }
+
         if (!canQueueStep(direction)) return;
 
         event.preventDefault();
@@ -452,6 +518,36 @@ const copy = isEn
 
       function onTouchEnd() {
         touchHandled = false;
+      }
+
+      function onWindowScroll() {
+        exitIntro();
+        const step4Target = getStep4Target();
+
+        if (window.scrollY >= step4Target + 60 || isCurtainCovering()) {
+          if (activeStep !== 4) {
+            activeStep = 4;
+            renderStep(4, false);
+          }
+        } else if (!isAnimating && !wheelGestureActive) {
+          const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+          const heroDistance = scrollableDistance * 0.48;
+          if (heroDistance > 0) {
+            const relY = Math.max(0, window.scrollY - cachedTrackTop);
+            const ratio = relY / heroDistance;
+            let targetStep = 0;
+            if (ratio >= 0.85) targetStep = 4;
+            else if (ratio >= 0.62) targetStep = 3;
+            else if (ratio >= 0.38) targetStep = 2;
+            else if (ratio >= 0.12) targetStep = 1;
+            else targetStep = 0;
+
+            if (targetStep !== activeStep) {
+              activeStep = targetStep;
+              renderStep(activeStep, true);
+            }
+          }
+        }
       }
 
       measureOffsets();
@@ -477,6 +573,7 @@ const copy = isEn
       window.addEventListener("touchstart", onTouchStart, { passive: true });
       window.addEventListener("touchmove", onTouchMove, { passive: false });
       window.addEventListener("touchend", onTouchEnd, { passive: true });
+      window.addEventListener("scroll", onWindowScroll, { passive: true });
       window.addEventListener(
         "resize",
         () => {
