@@ -3,7 +3,7 @@ draft: false
 title: "Cómo optimizar el rendimiento frontend a 60 FPS: métricas Core Web Vitals en la práctica"
 snippet: "Estrategias avanzadas de ingeniería para alcanzar 60 FPS estables, reducir el LCP a menos de 1 segundo, eliminar el Layout Shift (CLS) y dominar la métrica Interaction to Next Paint (INP)."
 image: {
-    src: "/img/blog/es-optimitzacio-core-web-vitals-60fps.webp",
+    src: "/img/blog/optimitzacio-core-web-vitals-60fps.webp",
     alt: "Gráfico de telemetría y rendimiento de altas prestaciones"
 }
 publishDate: "2026-03-12 11:30"
@@ -11,7 +11,7 @@ category: "Rendimiento"
 author: "Jaume Tur"
 tags: [rendimiento, 60fps, core-web-vitals, inp, lcp, cls, optimizacion, lighthouse]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-optimitzacio-core-web-vitals-60fps/"
+canonicalUrl: "https://jaumetur.es/blog/optimizacion-core-web-vitals-60fps/"
 ---
 
 En la web moderna, la velocidad no es un detalle cosmético: es una especificación de ingeniería innegociable. Un retraso de 100 milisegundos en la respuesta de una interfaz destruye la percepción de fluidez, reduce la retención de los usuarios y penaliza directamente el posicionamiento en los motores de búsqueda de Google.

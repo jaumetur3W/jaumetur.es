@@ -11,7 +11,7 @@ category: "JavaScript"
 author: "Jaume Tur"
 tags: [javascript, v8, ecmascript, web-standards, event-loop, frontend]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-javascript-guia-completa-ecmascript-modern/"
+canonicalUrl: "https://jaumetur.es/blog/javascript-guia-completa-ecmascript-moderno/"
 ---
 
 ## ¿Qué es JavaScript?

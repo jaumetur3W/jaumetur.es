@@ -3,7 +3,7 @@ draft: false
 title: "Arquitectura modular y escalable en Angular con Standalone Components y Signals"
 snippet: "Guía exhaustiva de ingeniería frontend: cómo diseñar aplicaciones Angular sin NgModules, utilizando reactividad basada en Signals, inyección con inject() y control de flujo moderno."
 image: {
-    src: "/img/blog/es-arquitectura-modular-angular-standalone-signals.webp",
+    src: "/img/blog/arquitectura-modular-angular-standalone-signals.webp",
     alt: "Código TypeScript en Angular y arquitectura de componentes"
 }
 publishDate: "2026-03-10 10:00"
@@ -11,7 +11,7 @@ category: "Angular"
 author: "Jaume Tur"
 tags: [angular, signals, standalone-components, typescript, arquitectura, clean-code]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-arquitectura-modular-angular-standalone-signals/"
+canonicalUrl: "https://jaumetur.es/blog/arquitectura-modular-angular-standalone-signals/"
 ---
 
 El ecosistema de Angular ha experimentado la mayor transformación de su historia reciente. Durante años, los desarrolladores tuvimos que convivir con la sobrecarga cognitiva de los `NgModules`: archivos de declaración interminables, dependencias circulares difíciles de rastrear y una reactividad basada exclusivamente en Zone.js y RxJS para cada pequeño cambio de estado en la interfaz.

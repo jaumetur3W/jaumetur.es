@@ -11,7 +11,7 @@ category: "Análisis de demo"
 author: "Jaume Tur"
 tags: [demo, carta-digital, pizza-pass, fidelizacion, hosteleria]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-seo-local-i-rendiment-pizzeria-xativa/"
+canonicalUrl: "https://jaumetur.es/blog/seo-local-y-rendimiento-pizzeria-xativa/"
 ---
 
 La web publicada de **Pizzería Xàtiva** se identifica como una plantilla de demostración, no como un restaurante real. El menú, los precios, la dirección, los horarios, las reseñas y los datos de contacto son ejemplos. Por eso, este artículo analiza las interacciones visibles de la demo y no presenta resultados comerciales ni de posicionamiento como si fueran reales.

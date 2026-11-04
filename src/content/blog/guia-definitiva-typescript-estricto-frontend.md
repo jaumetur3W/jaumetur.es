@@ -11,7 +11,7 @@ category: "TypeScript"
 author: "Jaume Tur"
 tags: [typescript, clean-code, frontend, patrones-diseno, generics, arquitectura]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-guia-definitiva-typescript-estricte-frontend/"
+canonicalUrl: "https://jaumetur.es/blog/guia-definitiva-typescript-estricto-frontend/"
 ---
 
 Muchos desarrolladores utilizan TypeScript simplemente como «JavaScript con comentarios de tipos». Declaran `string`, `number` o `boolean`, y en cuanto el compilador se queja de un tipo complejo, recurren rápidamente a `any` o a un operador de conversión forzada (`as unknown as TargetType`).

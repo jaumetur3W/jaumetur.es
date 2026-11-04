@@ -11,7 +11,7 @@ category: "Caso de estudio"
 author: "Jaume Tur"
 tags: [avisa, caso-estudio, angular, typescript, pwa, arquitectura, web-apps]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-avisa-gestio-incidencies-arquitectura-frontend/"
+canonicalUrl: "https://jaumetur.es/blog/avisa-arquitectura-frontend-angular-pwa/"
 ---
 
 En el sector de las reformas de la vivienda, las reparaciones urgentes y el mantenimiento del hogar (electricidad, fontanería, pintura, climatización y carpintería), las plataformas tradicionales suelen introducir sobrecostes opacos, comisiones abusivas por contacto y una notable falta de proximidad local.

@@ -11,7 +11,7 @@ category: "Estrategia digital"
 author: "Jaume Tur"
 tags: [wallet, fidelizacion, apple-wallet, google-wallet, hosteleria, pymes]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-targetes-fidelitzacio-wallet-negocis-locals/"
+canonicalUrl: "https://jaumetur.es/blog/tarjetas-fidelizacion-wallet-negocios-locales/"
 ---
 
 Las tarjetas de fidelización de cartón tienen un problema crónico: se pierden, se lavan dentro del bolsillo del pantalón o el cliente se las olvida en casa justo el día que vuelve al local. Por otra parte, obligar a un usuario a descargar una aplicación de 80 MB solo para acumular sellos de pizza o café tiene una tasa de rechazo superior al 90%.
