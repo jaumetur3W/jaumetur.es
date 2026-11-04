@@ -47,23 +47,19 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
       await page.waitForTimeout(650);
     };
 
-    expect(await opacity(holaToken)).toBeLessThan(0.1);
+    expect(await opacity(holaToken)).toBeGreaterThan(0.99);
     expect(await opacity(soyToken)).toBeLessThan(0.1);
 
-    // A burst of wheel events from one gesture must trigger only the first state.
+    // A burst of wheel events from one gesture must trigger only the first step (step 1).
     await page.mouse.wheel(0, 120);
     await page.mouse.wheel(0, 120);
     await page.mouse.wheel(0, 120);
     await page.waitForTimeout(650);
     expect(await opacity(holaToken)).toBeGreaterThan(0.99);
-    expect(await opacity(soyToken)).toBeLessThan(0.1);
-
-    // The animation finishes on its own; one fresh gesture reveals each next word.
-    await advance();
     expect(await opacity(soyToken)).toBeGreaterThan(0.99);
-    expect(await opacity(holaToken)).toBeGreaterThan(0.99);
     expect(await opacity(jaumeToken)).toBeLessThan(0.1);
 
+    // The animation finishes on its own; one fresh gesture reveals each next word.
     await advance();
     expect(await opacity(jaumeToken)).toBeGreaterThan(0.99);
     expect(await opacity(soyToken)).toBeGreaterThan(0.99);
@@ -84,18 +80,19 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await page.waitForTimeout(100);
     expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollAtHeroEnd);
 
-    // Reverse gestures return through earlier states to the initial hidden state.
+    // Reverse gestures return through earlier states down to step 0 (initial view).
     await advance(-1);
     expect(await opacity(turToken)).toBeGreaterThan(0.99);
     expect(await opacity(statement)).toBeLessThan(0.1);
     await advance(-1);
     expect(await opacity(jaumeToken)).toBeGreaterThan(0.99);
+    expect(await opacity(turToken)).toBeLessThan(0.1);
     await advance(-1);
     expect(await opacity(soyToken)).toBeGreaterThan(0.99);
+    expect(await opacity(jaumeToken)).toBeLessThan(0.1);
     await advance(-1);
     expect(await opacity(holaToken)).toBeGreaterThan(0.99);
-    await advance(-1);
-    expect(await opacity(holaToken)).toBeLessThan(0.1);
+    expect(await opacity(soyToken)).toBeLessThan(0.1);
 
     // 7. Scroll to #desenvolupament section smoothly
     await page.evaluate(() => {
@@ -112,63 +109,55 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(devSection.getByRole("heading", { name: "Aplicaciones" })).toBeVisible();
     await expect(devSection.getByRole("heading", { name: "Automatización" })).toBeVisible();
 
-    // Verify initial state: floating popovers are not visible initially
-    const websPopover = devSection.locator("#floating-webs");
-    await expect(websPopover).not.toBeVisible();
-
-    const popupCloseBtn = page.locator("#capabilities-popup-close-btn");
-    const _popupBackdrop = page.locator("#capabilities-popup-backdrop");
-
-    // 1. Desktop hover: Hovering over 'Webs' card automatically opens the large preview popup
+    // Verify initial state: cards are not flipped initially
     const websCard = devSection.locator("#card-webs");
-    await websCard.hover({ force: true });
-    await websCard.dispatchEvent("mouseenter");
-    await expect(websPopover).toBeVisible();
-    await expect(websPopover.getByText("Pizzería Xàtiva")).toBeVisible();
-    await expect(websPopover.getByText("Burger Xàtiva")).toBeVisible();
-
-    // Close using the discreet X button
-    await popupCloseBtn.click({ force: true });
-    await expect(websPopover).not.toBeVisible();
-
-    // Verify it does NOT re-open automatically while cursor stays on that card
-    await page.waitForTimeout(100);
-    await expect(websPopover).not.toBeVisible();
-
-    // Leaving the card and hovering again triggers the pop-up again
-    await page.mouse.move(0, 0);
-    await page.waitForTimeout(50);
-    await websCard.hover({ force: true });
-    await websCard.dispatchEvent("mouseenter");
-    await expect(websPopover).toBeVisible();
-    await popupCloseBtn.click({ force: true });
-    await expect(websPopover).not.toBeVisible();
-    await page.mouse.move(0, 0);
-
-    // 2. Apps card: hover opens apps popover with AVISA
     const appsCard = devSection.locator("#card-apps");
-    await appsCard.hover({ force: true });
-    await appsCard.dispatchEvent("mouseenter");
-    const appsPopover = devSection.locator("#floating-apps");
-    await expect(appsPopover).toBeVisible();
-    await expect(appsPopover.getByText("AVISA")).toBeVisible();
+    const autoCard = devSection.locator("#card-automation");
+
+    await expect(websCard).not.toHaveClass(/is-flipped/);
+    await expect(appsCard).not.toHaveClass(/is-flipped/);
+    await expect(autoCard).not.toHaveClass(/is-flipped/);
+
+    // 1. Hover does NOT flip the card (user requested: si no se pulsa en mas info no se ha de mostrar mas info)
+    await websCard.hover({ force: true });
+    await page.waitForTimeout(100);
+    await expect(websCard).not.toHaveClass(/is-flipped/);
+
+    // 2. Clicking 'Más información' flips the Webs card in 3D
+    const websMoreBtn = websCard.locator(".cap-more-btn");
+    await websMoreBtn.click();
+    await expect(websCard).toHaveClass(/is-flipped/);
+    const websBack = devSection.locator("#floating-webs");
+    await expect(websBack.getByText("Pizzería Xàtiva")).toBeVisible();
+    await expect(websBack.getByText("Burger Xàtiva")).toBeVisible();
+
+    // Close / unflip using the back close button (X button)
+    const websCloseBtn = websBack.locator(".cap-back-btn");
+    await websCloseBtn.click();
+    await expect(websCard).not.toHaveClass(/is-flipped/);
+
+    // 3. Apps card: clicking 'Más información' flips to show AVISA
+    const appsMoreBtn = appsCard.locator(".cap-more-btn");
+    await appsMoreBtn.click();
+    await expect(appsCard).toHaveClass(/is-flipped/);
+    const appsBack = devSection.locator("#floating-apps");
+    await expect(appsBack.getByText("AVISA")).toBeVisible();
 
     // Close using Escape key
     await page.keyboard.press("Escape");
-    await expect(appsPopover).not.toBeVisible();
-    await page.mouse.move(0, 0);
+    await expect(appsCard).not.toHaveClass(/is-flipped/);
 
-    // 3. Automation card: 'Más información' click also opens automation popover
-    const autoCard = devSection.locator("#card-automation");
+    // 4. Automation card: 'Más información' click flips to show Pipeline CI/CD
     const autoMoreBtn = autoCard.locator(".cap-more-btn");
-    await autoMoreBtn.dispatchEvent("click");
-    const autoPopover = devSection.locator("#floating-automation");
-    await expect(autoPopover).toBeVisible();
-    await expect(autoPopover.getByText(/Pipeline CI\/CD/)).toBeVisible();
+    await autoMoreBtn.click();
+    await expect(autoCard).toHaveClass(/is-flipped/);
+    const autoBack = devSection.locator("#floating-automation");
+    await expect(autoBack.getByText(/Pipeline CI\/CD/)).toBeVisible();
 
-    // Close using the discreet X button as specified in Section 4
-    await popupCloseBtn.click({ force: true });
-    await expect(autoPopover).not.toBeVisible();
+    // Close using the back text button ('Volver')
+    const autoBackTextBtn = autoBack.locator(".cap-back-text-btn");
+    await autoBackTextBtn.click();
+    await expect(autoCard).not.toHaveClass(/is-flipped/);
 
     // Verify Sobre mí section with button to /about
     const aboutSection = page.locator("#sobre-mi");
@@ -190,7 +179,8 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
 
     await expect(page.locator("#token-hola")).toHaveCSS("opacity", "1");
     await expect(page.locator("#token-soy")).toHaveCSS("opacity", "1");
-    await expect(page.locator("#token-jaume")).toHaveCSS("opacity", "0");
+    await expect(page.locator("#token-jaume")).toHaveCSS("opacity", "1");
+    await expect(page.locator("#token-tur")).toHaveCSS("opacity", "0");
   });
 
   test("English version /en reveals each word in discrete gestures and contains full SEO heading", async ({ page }) => {
@@ -207,7 +197,6 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
       await page.waitForTimeout(650);
     };
 
-    await advance();
     await advance();
     await advance();
 
@@ -283,14 +272,15 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
       await page.waitForTimeout(650);
     };
 
-    await swipe(520, 450);
     await expect(hola).toHaveCSS("opacity", "1");
     await expect(soy).toHaveCSS("opacity", "0");
 
     await swipe(520, 450);
+    await expect(hola).toHaveCSS("opacity", "1");
     await expect(soy).toHaveCSS("opacity", "1");
 
     await swipe(450, 520);
+    await expect(hola).toHaveCSS("opacity", "1");
     await expect(soy).toHaveCSS("opacity", "0");
     await context.close();
   });
@@ -326,9 +316,14 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
       const soyWeight = await tokenSoy.evaluate((el) => window.getComputedStyle(el).fontWeight);
       expect(parseInt(soyWeight, 10)).toBeLessThanOrEqual(400);
 
-      // Verify exact centering in all 5 states using one wheel gesture per state.
+      // Initial state (step 0): «Hola» is already visible and centered on load
+      const boxHola = await tokenHola.boundingBox();
+      expect(boxHola).not.toBeNull();
+      const initialCenter = boxHola!.x + boxHola!.width / 2;
+      expect(Math.abs(initialCenter - vp.width / 2), vp.name).toBeLessThan(1.0);
+
+      // Verify exact centering in all subsequent states using one wheel gesture per state.
       const testStates = [
-        { tokens: [tokenHola] },
         { tokens: [tokenHola, tokenSoy] },
         { tokens: [tokenHola, tokenJaume] },
         { tokens: [tokenHola, tokenTur] },

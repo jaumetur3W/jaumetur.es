@@ -138,7 +138,7 @@ const projectsItems = [
             />
           </div>
           <div class="flex items-center gap-1.5">
-            <span class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-slate-700 transition-colors">
+            <span class="site-brand-name font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-slate-700 transition-colors">
               jaume<span class="text-slate-900">.</span>
             </span>
             <span class="text-xs font-mono font-extrabold px-1.5 py-0.5 rounded-md bg-[#FFFF00] text-slate-950 shadow-2xs">www</span>
@@ -871,3 +871,55 @@ const projectsItems = [
     }
   })();
 </script>
+
+<style>
+  #site-navbar-wrap {
+    transition: background-color 750ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease, box-shadow 200ms ease;
+  }
+  #site-navbar-wrap.hero-intro-dark {
+    background-color: #09090b !important;
+    border-color: transparent !important;
+  }
+  #site-navbar-wrap.hero-intro-dark .site-brand-name,
+  #site-navbar-wrap.hero-intro-dark .site-brand-name span {
+    color: #ffffff !important;
+  }
+  #site-navbar-wrap.hero-intro-dark nav a,
+  #site-navbar-wrap.hero-intro-dark nav button,
+  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn,
+  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn span,
+  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn svg {
+    color: #f1f5f9 !important;
+  }
+  #site-navbar-wrap.hero-intro-dark nav a:hover,
+  #site-navbar-wrap.hero-intro-dark nav button:hover,
+  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn:hover,
+  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn:hover span,
+  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn:hover svg {
+    color: #ffffff !important;
+  }
+  #site-navbar-wrap.hero-intro-dark #mobile-menu-summary {
+    background-color: #18181b !important;
+    border-color: #27272a !important;
+    color: #f4f4f5 !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #site-navbar-wrap.hero-intro-dark {
+      background-color: #ffffff !important;
+    }
+    #site-navbar-wrap.hero-intro-dark .site-brand-name,
+    #site-navbar-wrap.hero-intro-dark .site-brand-name span {
+      color: #0f172a !important;
+    }
+    #site-navbar-wrap.hero-intro-dark nav a,
+    #site-navbar-wrap.hero-intro-dark nav button,
+    #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn {
+      color: #475569 !important;
+    }
+    #site-navbar-wrap.hero-intro-dark #mobile-menu-summary {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #1e293b !important;
+    }
+  }
+</style>

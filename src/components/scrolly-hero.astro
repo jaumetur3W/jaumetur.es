@@ -16,7 +16,6 @@ const copy = isEn
       firstName: "Jaume",
       lastName: "Tur",
       statement: "Web developer focused on performance, clean design, and well-crafted code.",
-      location: "Valencia · Remote work",
       seoText: "Hello, I'm Jaume Tur. Web developer, backend and digital solutions in Valencia.",
     }
   : {
@@ -26,7 +25,6 @@ const copy = isEn
       firstName: "Jaume",
       lastName: "Tur",
       statement: "Desarrollador web centrado en rendimiento, diseño limpio y código bien construido.",
-      location: "Valencia · Trabajo en remoto",
       seoText: "Hola, soy Jaume Tur. Desarrollador web, backend y soluciones digitales en Valencia.",
     };
 ---
@@ -37,10 +35,10 @@ const copy = isEn
   aria-label={isEn ? "Presentation of Jaume Tur" : "Presentación de Jaume Tur"}
   class="scrolly-track relative w-full bg-white text-slate-900 selection:bg-[#FFFF00] selection:text-black overflow-x-clip"
 >
-  <!-- Sticky Stage Viewport -->
+  <!-- Sticky Stage Viewport: Ejemplo 3 - Inicio con fondo negro y Hola en amarillo, transición a blanco y negro -->
   <div
     id="scrolly-stage"
-    class="scrolly-stage sticky top-[56px] z-10 w-full overflow-hidden flex flex-col justify-center items-center bg-white px-4 sm:px-8"
+    class="scrolly-stage hero-intro-dark sticky top-[56px] z-10 w-full overflow-hidden flex flex-col justify-center items-center px-4 sm:px-8"
   >
     <div id="hero-type-container" class="relative w-full max-w-5xl mx-auto flex flex-col items-center text-center select-none">
       
@@ -65,7 +63,7 @@ const copy = isEn
         >
           <span
             id="token-hola"
-            class="word-token token-word inline-block font-bold text-slate-950 opacity-0 will-change-[transform,opacity]"
+            class="word-token token-word inline-block font-bold opacity-100 will-change-[transform,opacity]"
           >{copy.greeting}</span><span
             id="token-comma"
             class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[opacity]"
@@ -97,12 +95,6 @@ const copy = isEn
         <p class="font-sans text-[clamp(1.15rem,2.8vw,1.85rem)] font-light text-slate-700 tracking-tight leading-relaxed">
           {copy.statement}
         </p>
-
-        <div class="mt-5 flex items-center justify-center gap-3 text-xs sm:text-sm font-mono text-slate-600">
-          <span class="w-6 sm:w-8 h-px bg-slate-200"></span>
-          <span>{copy.location}</span>
-          <span class="w-6 sm:w-8 h-px bg-slate-200"></span>
-        </div>
       </div>
 
     </div>
@@ -110,24 +102,37 @@ const copy = isEn
 </section>
 
 <style>
-  /* Altura calibrada para los 5 estados progresivos (0-20, 20-40, 40-60, 60-80, 80-100%) */
+  /* Altura calibrada para los 5 estados progresivos y el recorrido del telón que sube a cubrir la presentación */
   .scrolly-track {
-    height: 240vh;
+    height: 260vh;
   }
   @media (max-width: 640px) {
     .scrolly-track {
-      height: 220vh;
+      height: 240vh;
     }
   }
 
   .scrolly-stage {
     height: calc(100vh - 56px);
     height: calc(100dvh - 56px);
+    background-color: #ffffff;
+    transition: background-color 750ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Ejemplo 3: Entrada con fondo negro azabache y Hola en amarillo */
+  .scrolly-stage.hero-intro-dark {
+    background-color: #09090b !important;
   }
 
   /* Garantía tipográfica de peso bold en «Hola» y peso normal en el resto */
   #token-hola {
     font-weight: 700 !important;
+    color: #020617;
+    transition: color 750ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scrolly-stage.hero-intro-dark #token-hola {
+    color: #FFFF00 !important;
   }
   #token-comma,
   #token-soy,
@@ -138,6 +143,12 @@ const copy = isEn
 
   /* Modo accesible para preferencias de movimiento reducido */
   @media (prefers-reduced-motion: reduce) {
+    .scrolly-stage.hero-intro-dark {
+      background-color: #ffffff !important;
+    }
+    .scrolly-stage.hero-intro-dark #token-hola {
+      color: #020617 !important;
+    }
     .scrolly-track {
       height: auto !important;
       padding-top: 3.5rem;
@@ -169,8 +180,18 @@ const copy = isEn
 
 <script is:inline>
   (function () {
+    // Ejemplo 3: Sincronización del navbar con el inicio en fondo negro
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const siteNavbar = document.getElementById("site-navbar-wrap");
+      if (siteNavbar) {
+        siteNavbar.classList.add("hero-intro-dark");
+      }
+    }
+
     function initHeroScrollytelling() {
       const track = document.getElementById("scrolly-hero");
+      const stage = document.getElementById("scrolly-stage");
+      const siteNavbar = document.getElementById("site-navbar-wrap");
       const phrase = document.getElementById("hero-phrase");
       const tokenHola = document.getElementById("token-hola");
       const tokenComma = document.getElementById("token-comma");
@@ -183,6 +204,7 @@ const copy = isEn
 
       if (
         !track ||
+        !stage ||
         !phrase ||
         !tokenHola ||
         !tokenComma ||
@@ -193,6 +215,31 @@ const copy = isEn
         !container
       ) {
         return;
+      }
+
+      // Desactivar el estado intro negro/amarillo hacia blanco/negro de forma suave (únicamente al scrollear)
+      let introExited = false;
+      function exitIntro() {
+        if (introExited) return;
+        introExited = true;
+        stage.classList.remove("hero-intro-dark");
+        if (siteNavbar) siteNavbar.classList.remove("hero-intro-dark");
+      }
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        exitIntro();
+      } else {
+        if (window.scrollY > 20) {
+          exitIntro();
+        } else {
+          const onScrollAction = () => {
+            exitIntro();
+          };
+
+          window.addEventListener("wheel", onScrollAction, { once: true, passive: true });
+          window.addEventListener("touchmove", onScrollAction, { once: true, passive: true });
+          window.addEventListener("scroll", onScrollAction, { once: true, passive: true });
+        }
       }
 
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -255,7 +302,7 @@ const copy = isEn
       const transitionDuration = 460;
       const wheelQuietPeriod = 220;
       const touchThreshold = 40;
-      let activeStep = -1;
+      let activeStep = 0;
       let isAnimating = false;
       let pendingDirections = [];
       let wheelGestureActive = false;
@@ -264,23 +311,28 @@ const copy = isEn
       let touchStartX = 0;
       let touchHandled = false;
 
-      function renderStep(step) {
+      function renderStep(step, immediate = false) {
         const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : step === 2 ? offset3 : offset4;
         const soyVisible = step >= 1;
         const jaumeVisible = step >= 2;
         const turVisible = step >= 3;
         const statementVisible = step >= 4;
 
-        phrase.style.transition = `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        phrase.style.transition = immediate
+          ? "none"
+          : `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
         phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
 
         const animatedTokens = [tokenHola, tokenComma, tokenSoy, tokenJaume, tokenTur];
         animatedTokens.forEach((token) => {
-          token.style.transition = `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          token.style.transition = immediate
+            ? "none"
+            : `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
         });
 
-        tokenHola.style.opacity = step >= 0 ? "1" : "0";
-        tokenHola.style.transform = `translate3d(0, ${step >= 0 ? 0 : 12}px, 0)`;
+        // «Hola» se ve obligatoriamente en todo momento desde la carga inicial
+        tokenHola.style.opacity = "1";
+        tokenHola.style.transform = "translate3d(0, 0, 0)";
 
         const soyTranslateY = soyVisible ? 0 : 12;
         tokenComma.style.opacity = soyVisible ? "1" : "0";
@@ -299,7 +351,9 @@ const copy = isEn
           nameLink.style.pointerEvents = turVisible ? "auto" : "none";
         }
 
-        statement.style.transition = `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+        statement.style.transition = immediate
+          ? "none"
+          : `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
         statement.style.opacity = statementVisible ? "1" : "0";
         statement.style.transform = `translate3d(0, ${statementVisible ? 0 : 16}px, 0)`;
         statement.style.pointerEvents = statementVisible ? "auto" : "none";
@@ -315,30 +369,27 @@ const copy = isEn
           ? activeStep + pendingDirections.reduce((total, queued) => total + queued, 0)
           : activeStep;
         const nextStep = lastQueuedStep + direction;
-        return nextStep >= -1 && nextStep < stepCount;
+        return nextStep >= 0 && nextStep < stepCount;
       }
 
       function scrollToStep(step) {
         const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
-        const progress = step < 0 ? 0 : step >= stepCount - 1 ? 1 : step * 0.24;
+        // Los pasos 0-4 ocupan el primer 48% del track.
+        // El 52% restante permite al telón (#home-curtain) subir y cubrir el texto estático.
+        const progress = step <= 0 ? 0 : step === 1 ? 0.12 : step === 2 ? 0.24 : step === 3 ? 0.36 : 0.48;
         const target = cachedTrackTop + scrollableDistance * progress;
         window.scrollTo({ top: target, behavior: "instant" });
       }
 
       function startStep(direction) {
+        exitIntro();
         const nextStep = activeStep + direction;
-        if (nextStep < -1 || nextStep >= stepCount) return;
+        if (nextStep < 0 || nextStep >= stepCount) return;
 
         activeStep = nextStep;
         isAnimating = true;
         renderStep(activeStep);
-
-        if (activeStep === stepCount - 1) {
-          const endOfTrack = cachedTrackTop + Math.max(0, cachedTrackHeight - cachedViewportHeight);
-          window.scrollTo({ top: endOfTrack, behavior: "smooth" });
-        } else {
-          scrollToStep(activeStep);
-        }
+        scrollToStep(activeStep);
 
         window.setTimeout(() => {
           isAnimating = false;
@@ -404,19 +455,19 @@ const copy = isEn
       }
 
       measureOffsets();
-      renderStep(activeStep);
+      renderStep(activeStep, true);
 
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
           requestAnimationFrame(() => {
             measureOffsets();
-            renderStep(activeStep);
+            renderStep(activeStep, true);
           });
         });
       } else {
         requestAnimationFrame(() => {
           measureOffsets();
-          renderStep(activeStep);
+          renderStep(activeStep, true);
         });
       }
 
@@ -433,7 +484,7 @@ const copy = isEn
             lastWidth = window.innerWidth;
             lastHeight = window.innerHeight;
             measureOffsets();
-            renderStep(activeStep);
+            renderStep(activeStep, true);
           }
         },
         { passive: true }
