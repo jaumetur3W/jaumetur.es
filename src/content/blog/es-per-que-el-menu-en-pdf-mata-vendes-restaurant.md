@@ -11,7 +11,7 @@ category: "UI/UX"
 author: "Jaume Tur"
 tags: [ui-ux, hosteleria, conversion, mobile-first, accesibilidad]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-per-que-el-menu-en-pdf-mata-vendes-restaurant"
+canonicalUrl: "https://jaumetur.es/blog/es-per-que-el-menu-en-pdf-mata-vendes-restaurant/"
 ---
 
 Después de la pandemia, el código QR en los restaurantes se convirtió en el estándar absoluto. Sin embargo, el 90% de los locales optaron por la solución más fácil y peor ejecutada: subir un documento PDF de alta resolución a Google Drive o a un servidor lento.

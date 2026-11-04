@@ -163,8 +163,8 @@ const faqSchema = {
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {
           packages.map((pkg) => {
-            const detailUrl = href(`/pricing/${pkg.id}`);
-            const ctaContactUrl = `${href("/contact")}?servei=${pkg.id}`;
+            const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
+            const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
             const annualCostShort = pkg.annualTotal.split('(')[0].trim();
             const dailyCostShort = pkg.dailyCostEquivalent.split('(')[0].trim();
 
@@ -222,7 +222,7 @@ const faqSchema = {
 
                   <!-- Características incluidas clave -->
                   <div class="space-y-2.5 mb-8">
-                    <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-400">
+                    <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-600">
                       {isEn ? "Key inclusions:" : "Incluido en la propuesta:"}
                     </p>
                     <ul class="space-y-2 text-xs text-slate-700 font-light">
@@ -265,7 +265,7 @@ const faqSchema = {
       <!-- Muestrario de Proyectos -->
       <div class="mt-24 max-w-5xl mx-auto">
         <div class="text-center mb-10">
-          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
+          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
             {isEn ? "Portfolio & Functional Demos" : "Portafolio y demos funcionales"}
           </span>
           <h3 class="text-3xl font-light text-slate-950 tracking-tight">
@@ -352,7 +352,7 @@ const faqSchema = {
       <!-- Proceso de Trabajo en 4 Fases -->
       <div class="mt-24 max-w-5xl mx-auto">
         <div class="text-center mb-12">
-          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
+          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
             {isEn ? "Methodology & Transparency" : "Metodología y transparencia"}
           </span>
           <h3 class="text-3xl font-light text-slate-950 tracking-tight">
@@ -374,7 +374,7 @@ const faqSchema = {
                     <span class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-950">
                       <Icon name={ws.icon} class="w-5 h-5" />
                     </span>
-                    <span class="text-xs font-mono font-semibold text-slate-400">{ws.step}</span>
+                    <span class="text-xs font-mono font-semibold text-slate-600">{ws.step}</span>
                   </div>
                   <h4 class="font-normal text-slate-950 text-base mb-2">{ws.title}</h4>
                   <p class="text-xs text-slate-600 leading-relaxed font-light">{ws.desc}</p>
@@ -392,7 +392,7 @@ const faqSchema = {
       <!-- Sección de Preguntas Frecuentes -->
       <div class="mt-24 mb-16 max-w-3xl mx-auto">
         <div class="text-center mb-12">
-          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-400 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
+          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
             {isEn ? "FAQ & Inquiries" : "Preguntas y respuestas"}
           </span>
           <h3 class="text-3xl font-light text-slate-950 tracking-tight">

@@ -11,7 +11,7 @@ category: "Caso de estudio"
 author: "Jaume Tur"
 tags: [avisa, caso-estudio, angular, typescript, tiempo-real, arquitectura, web-apps]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-avisa-gestio-incidencies-arquitectura-frontend"
+canonicalUrl: "https://jaumetur.es/blog/es-avisa-gestio-incidencies-arquitectura-frontend/"
 ---
 
 En situaciones de emergencia o de gestión de servicios urbanos, cada segundo cuenta. Los operadores de control necesitan recibir avisos al instante, visualizar la ubicación geoespacial exacta en cuestión de milisegundos y coordinar equipos de respuesta sobre el terreno sin bloqueos ni desconexiones.

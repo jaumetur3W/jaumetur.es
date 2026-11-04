@@ -1,213 +1,99 @@
 ---
 import Container from "./container.astro";
 import { Icon } from "astro-icon/components";
-import BuildStatus from "./build-status.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const currentYear = new Date().getFullYear();
 const locale = localeFromPath(Astro.url.pathname);
 const isEn = locale === "en";
-const href = (path: string) => path.startsWith("/") && !path.startsWith("/docs/") ? localizePath(path, locale) : path;
+const href = (path: string) =>
+  path.startsWith("/") && !path.startsWith("/docs/") ? localizePath(path, locale) : path;
 
-const navCol1 = [
-  { title: isEn ? "Home" : "Inicio", path: "/" },
-  { title: isEn ? "Projects" : "Proyectos", path: "/projectes" },
-  { title: isEn ? "Engineering Blog" : "Blog de ingeniería", path: "/blog" },
-  { title: isEn ? "Services & Pricing" : "Servicios y tarifas", path: "/pricing" },
-  { title: isEn ? "About me" : "Sobre mí", path: "/about" },
-  { title: isEn ? "Contact" : "Contacto", path: "/contact" },
+const canonicalPagePath = (path: string) => {
+  const suffixIndex = path.search(/[?#]/);
+  const pathname = suffixIndex < 0 ? path : path.slice(0, suffixIndex);
+  const suffix = suffixIndex < 0 ? "" : path.slice(suffixIndex);
+  return pathname === "/" || pathname.endsWith("/") ? path : `${pathname}/${suffix}`;
+};
+
+const localized = (path: string) => canonicalPagePath(href(path));
+
+const socialLinks = [
+  { title: "GitHub", path: "https://github.com/jaumetur3W", icon: "bx:bxl-github", external: true },
+  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin", external: true },
+  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram", external: true },
+  { title: isEn ? "Email" : "Correo", path: "mailto:jaumetur3w@gmail.com", icon: "bx:envelope", external: false },
 ];
 
-const navCol2 = [
-  { title: isEn ? "Brand Kit" : "Kit de marca", path: "/marca" },
-  { title: isEn ? "Digital Card" : "Tarjeta digital", path: "/card" },
-  { title: isEn ? "Quality & CWV" : "Calidad y CWV", path: "/qualitat" },
-  { title: isEn ? "CI/CD Tools" : "Herramientas CI/CD", path: "/tools/workflow-generator" },
-  { title: isEn ? "My Setup (/uses)" : "Mi equipo (/uses)", path: "/uses" },
-  { title: isEn ? "RSS Feed" : "Canal RSS", path: "/rss.xml" },
-  { title: isEn ? "Resume (PDF) ↗" : "Currículum (PDF) ↗", path: "/docs/CV_Jaume_tur.pdf", external: true },
-];
-
-const navCol3 = [
-  { title: "jaumetur3w@gmail.com", path: "mailto:jaumetur3w@gmail.com", icon: "bx:envelope", desc: isEn ? "Professional email" : "Correo profesional" },
-  { title: "Google Maps", path: "https://share.google/3tihWcZBWMyYHmjBp", icon: "bx:map-pin", external: true, desc: isEn ? "Google profile" : "Perfil en Google" },
-  { title: "GitHub", path: "https://github.com/jaumetur3W", icon: "bx:bxl-github", external: true, desc: isEn ? "Code & repositories" : "Código y repositorios" },
-  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin", external: true, desc: isEn ? "Professional profile" : "Perfil profesional" },
-  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram", external: true, desc: "@jaume.www" },
+const legalLinks = [
+  { title: isEn ? "Privacy" : "Privacidad", path: "/privacidad" },
+  { title: isEn ? "Cookies" : "Cookies", path: "/cookies" },
+  { title: isEn ? "Legal notice" : "Aviso legal", path: "/aviso-legal" },
+  { title: isEn ? "Accessibility" : "Accesibilidad", path: "/qualitat" },
+  { title: "RSS", path: "/rss.xml", external: false },
 ];
 ---
 
-<footer class="mt-20 border-t border-slate-200/90 bg-white py-12 text-slate-600">
+<footer class="mt-20 border-t border-slate-200/80 bg-white py-12 text-slate-600">
   <Container>
-    <!-- Sección Principal del Footer: Marca + 3 Columnas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-100">
+    <div class="flex flex-col items-center text-center max-w-xl mx-auto">
       
-      <!-- Columna 0 (lg:span-2): Identidad de Marca y Descriptor -->
-      <div class="lg:col-span-2 flex flex-col gap-4">
-        <div class="flex items-center gap-3">
-          <a href={href("/")} class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl" title={isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio"}>
-            <div class="relative">
-              <div class="absolute inset-0 bg-[#FFFF00] rounded-2xl blur-xs opacity-50 group-hover:opacity-90 transition-opacity"></div>
-              <img
-                src="/img/jt.LOGO-02-128.webp"
-                alt="Logo Jaume Tur"
-                class="relative w-11 h-11 rounded-2xl shadow-xs group-hover:scale-105 transition-transform object-cover ring-1 ring-slate-900/10"
-                width="44"
-                height="44"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-slate-700 transition-colors">
-                  jaume
-                </span>
-                <span class="text-[11px] font-mono font-extrabold px-1.5 py-0.5 rounded bg-[#FFFF00] text-slate-950">.www</span>
-              </div>
-              <span class="text-xs text-slate-500 font-mono font-medium block mt-0.5">
-                {isEn ? "Web development & custom applications" : "Desarrollo web y aplicaciones a medida"}
-              </span>
-            </div>
-          </a>
+      <!-- Nombre de cabecera -->
+      <a
+        href={localized("/")}
+        class="inline-block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded"
+        title={isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio"}
+      >
+        <span class="text-xl sm:text-2xl font-bold tracking-tight text-slate-950 group-hover:text-slate-700 transition-colors">
+          Jaume Tur.
+        </span>
+      </a>
 
-          <!-- Memoji contextual -->
-          <div class="group/wink relative flex items-center justify-center cursor-pointer ml-1" title={isEn ? "Thanks for visiting!" : "¡Gracias por tu visita!"}>
-            <div class="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 p-1 shadow-2xs group-hover/wink:scale-110 transition-transform flex items-center justify-center">
-              <img
-                src="/img/6.webp"
-                alt="Jaume Tur wink"
-                class="w-full h-full object-contain"
-                width="36"
-                height="36"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <span class="absolute -top-7 left-0 sm:left-1/2 sm:-translate-x-1/2 bg-slate-900 text-white text-[10px] font-mono px-2 py-0.5 rounded shadow whitespace-nowrap opacity-0 group-hover/wink:opacity-100 transition-opacity pointer-events-none">
-              {isEn ? "Thanks for visiting!" : "¡Gracias por tu visita!"}
-            </span>
-          </div>
-        </div>
+      <!-- Descriptor -->
+      <p class="text-xs sm:text-sm text-slate-600 font-light mt-1.5">
+        {isEn ? "Web development · Applications · Automation" : "Desarrollo web · Aplicaciones · Automatización"}
+      </p>
 
-        <p class="text-xs text-slate-500 leading-relaxed max-w-sm mt-1">
-          {isEn
-            ? "Modern web engineering focused on performance (60 FPS), WCAG AA accessibility, and automated continuous deployment with CI/CD."
-            : "Ingeniería web moderna centrada en el rendimiento (60 FPS), la accesibilidad WCAG AA y la automatización del despliegue continuo con CI/CD."}
-        </p>
-
-        <div class="flex items-center gap-2 pt-1">
+      <!-- Iconos de Redes y Contacto -->
+      <div class="flex items-center justify-center gap-5 sm:gap-6 mt-4">
+        {socialLinks.map((item) => (
           <a
-            href="mailto:jaumetur3w@gmail.com"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-[#FFFF00] text-slate-700 hover:text-slate-950 border border-slate-200/80 transition text-xs font-mono font-semibold shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]">
-            <Icon name="bx:envelope" class="w-3.5 h-3.5 text-slate-950" />
-            <span>jaumetur3w@gmail.com</span>
+            href={item.path}
+            target={item.external ? "_blank" : undefined}
+            rel={item.external ? "noopener noreferrer" : undefined}
+            class="text-slate-700 hover:text-slate-950 transition-all hover:scale-110 p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-lg"
+            title={item.title}
+            aria-label={item.title}
+          >
+            <Icon name={item.icon} class="w-5 h-5" />
           </a>
-        </div>
+        ))}
       </div>
 
-      <!-- Columna 1: Navegación -->
-      <div>
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
-          <Icon name="bx:compass" class="w-4 h-4 text-slate-950" />
-          <span>{isEn ? "Navigation" : "Navegación"}</span>
-        </h3>
-        <nav aria-label={isEn ? "Footer main navigation" : "Navegación principal del pie"}>
-          <ul class="space-y-2 text-xs">
-            {navCol1.map((link) => (
-              <li>
-                <a
-                  href={href(link.path)}
-                  class="text-slate-600 hover:text-slate-950 transition inline-block py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded">
-                  {link.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+      <!-- Línea divisoria sutil -->
+      <div class="w-full border-t border-slate-200/80 my-7"></div>
 
-      <!-- Columna 2: Recursos -->
-      <div>
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
-          <Icon name="bx:folder" class="w-4 h-4 text-slate-950" />
-          <span>{isEn ? "Resources" : "Recursos"}</span>
-        </h3>
-        <nav aria-label={isEn ? "Resources and tools" : "Recursos y herramientas"}>
-          <ul class="space-y-2 text-xs">
-            {navCol2.map((link) => (
-              <li>
-                <a
-                  href={href(link.path)}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  class="text-slate-600 hover:text-slate-950 transition inline-flex items-center gap-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded">
-                  <span>{link.title}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+      <!-- Enlaces legales y de estándares -->
+      <nav aria-label={isEn ? "Legal and standards" : "Legal y estándares"} class="w-full">
+        <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 font-medium">
+          {legalLinks.map((item) => (
+            <li>
+              <a
+                href={item.path.endsWith(".xml") ? item.path : localized(item.path)}
+                class="hover:text-slate-950 hover:underline decoration-slate-300 hover:decoration-slate-950 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded py-0.5"
+              >
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-      <!-- Columna 3: Contacto -->
-      <div>
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 mb-3.5 flex items-center gap-1.5">
-          <Icon name="bx:share-alt" class="w-4 h-4 text-slate-950" />
-          <span>{isEn ? "Contact" : "Contacto"}</span>
-        </h3>
-        <nav aria-label={isEn ? "Social channels and contact" : "Redes y contacto"}>
-          <ul class="space-y-2 text-xs">
-            {navCol3.map((link) => (
-              <li>
-                <a
-                  href={link.path}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  class="text-slate-600 hover:text-slate-950 transition inline-flex items-center gap-2 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded">
-                  <Icon name={link.icon} class="w-3.5 h-3.5 text-slate-400" />
-                  <span>{link.title}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+      <!-- Copyright y ubicación -->
+      <p class="mt-4 text-xs text-slate-500 font-light">
+        © {currentYear} Jaume Tur · {isEn ? "Valencia, Spain & remote" : "Valencia, España y remoto"}
+      </p>
 
-    </div>
-
-    <!-- Barra Inferior de Créditos y Estado CI/CD -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] text-slate-500 font-mono">
-      <div class="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
-        <BuildStatus variant="pill" />
-        <p class="flex items-center gap-1.5 flex-wrap">
-          <span>© {currentYear} Jaume Tur</span>
-          <span>·</span>
-          <span>{isEn ? "Built with" : "Hecho con"}</span>
-          <Icon name="simple-icons:astro" class="w-3.5 h-3.5 text-orange-500" />
-          <span>Astro &amp;</span>
-          <Icon name="simple-icons:tailwindcss" class="w-3.5 h-3.5 text-cyan-500" />
-          <span>Tailwind CSS</span>
-        </p>
-      </div>
-      
-      <div class="flex items-center gap-3">
-        <a
-          href="https://share.google/3tihWcZBWMyYHmjBp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-slate-700 hover:text-slate-950 font-semibold flex items-center gap-1 transition"
-          title={isEn ? "View Google profile" : "Ver ficha en Google Maps"}>
-          <Icon name="bx:map-pin" class="w-3.5 h-3.5 text-slate-950" />
-          <span>{isEn ? "Valencia, Spain · Remote" : "Valencia, España y Remoto"}</span>
-        </a>
-        <span>•</span>
-        <a href="#top" class="hover:text-slate-900 transition flex items-center gap-1 font-bold group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded p-0.5">
-          <Icon name="bx:up-arrow-alt" class="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
-          <span>{isEn ? "Top" : "Arriba"}</span>
-          <span>↑</span>
-        </a>
-      </div>
     </div>
   </Container>
 </footer>

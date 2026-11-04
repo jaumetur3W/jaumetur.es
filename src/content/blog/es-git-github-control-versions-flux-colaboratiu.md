@@ -11,7 +11,7 @@ category: "DevOps y herramientas"
 author: "Jaume Tur"
 tags: [git, github, control-versiones, devops, trunk-based, gitops]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-git-github-control-versions-flux-colaboratiu"
+canonicalUrl: "https://jaumetur.es/blog/es-git-github-control-versions-flux-colaboratiu/"
 ---
 
 ## ¿Qué son Git y GitHub?

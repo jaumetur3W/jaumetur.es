@@ -11,7 +11,7 @@ category: "Rendimiento"
 author: "Jaume Tur"
 tags: [rendimiento, 60fps, core-web-vitals, inp, lcp, cls, optimizacion, lighthouse]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-optimitzacio-core-web-vitals-60fps"
+canonicalUrl: "https://jaumetur.es/blog/es-optimitzacio-core-web-vitals-60fps/"
 ---
 
 En la web moderna, la velocidad no es un detalle cosmético: es una especificación de ingeniería innegociable. Un retraso de 100 milisegundos en la respuesta de una interfaz destruye la percepción de fluidez, reduce la retención de los usuarios y penaliza directamente el posicionamiento en los motores de búsqueda de Google.

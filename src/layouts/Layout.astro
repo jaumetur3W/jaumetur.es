@@ -16,7 +16,7 @@ export interface Props {
   lang?: string;
   canonicalURL?: string;
   isBlogPost?: boolean;
-  /** Private page that exists in one language: not indexed and without hreflang alternates. */
+  /** Private page: not indexed and without hreflang alternates. */
   noindex?: boolean;
 }
 
@@ -41,9 +41,21 @@ const resolvedDescription = description || (isEn
   : "Desarrollo de páginas web profesionales, aplicaciones a medida, backend y automatización en Xàtiva y Valencia. Soluciones rápidas y adaptadas a tu negocio.");
 const activeLang = lang || (isEn ? "en" : "es");
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
-const spanishURL = new URL(alternatePathsForPage.es, siteUrl).toString();
-const englishURL = new URL(alternatePathsForPage.en, siteUrl).toString();
-const canonicalURL = customCanonical || new URL(Astro.url.pathname, siteUrl).toString();
+
+const ensureTrailingSlash = (urlStr: string) => {
+  const url = new URL(urlStr, siteUrl);
+  if (!url.pathname.endsWith("/") && !url.pathname.includes(".") && !/\.[a-z0-9]+$/i.test(url.pathname)) {
+    url.pathname = `${url.pathname}/`;
+  }
+  return url.toString();
+};
+
+const is404 = Astro.url.pathname.includes("404");
+const shouldNoIndex = noindex || is404;
+
+const spanishURL = ensureTrailingSlash(new URL(alternatePathsForPage.es, siteUrl).toString());
+const englishURL = ensureTrailingSlash(new URL(alternatePathsForPage.en, siteUrl).toString());
+const canonicalURL = ensureTrailingSlash(customCanonical || new URL(Astro.url.pathname, siteUrl).toString());
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
 // Dynamic, keyword-rich title generation
@@ -206,7 +218,7 @@ const blogPostSchema = isBlogPost ? {
     />
 
     <!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) -->
-    {!noindex && (
+    {!shouldNoIndex && (
       <>
         <link rel="alternate" hreflang="es" href={spanishURL} />
         <link rel="alternate" hreflang="en" href={englishURL} />
@@ -216,10 +228,11 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- SEO & Social OpenGraph -->
     <SEO
-      noindex={noindex}
       title={makeTitle}
       description={resolvedDescription}
-      canonical={canonicalURL}
+      canonical={is404 ? null : canonicalURL}
+      noindex={shouldNoIndex}
+      nofollow={shouldNoIndex}
       twitter={{
         creator: "@jautur",
         site: "@jautur",

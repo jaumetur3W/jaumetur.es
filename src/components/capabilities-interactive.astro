@@ -160,11 +160,11 @@ const categories: CapabilityCategory[] = [
 <!-- Sección «Qué puedo desarrollar» -->
 <section
   id="desenvolupament"
-  class="scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-28 relative"
+  class="scroll-mt-24 py-16 sm:py-24 lg:py-28 relative"
   aria-labelledby="capabilities-title"
 >
   <div class="mb-12 sm:mb-16 max-w-2xl">
-    <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
+    <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold">
       {isEn ? "Capabilities & Solutions" : "Capacidades y soluciones"}
     </p>
     <h2
@@ -180,429 +180,383 @@ const categories: CapabilityCategory[] = [
     </p>
   </div>
 
-  <!-- Cuadrícula de 3 Cuadros Originales Siempre Visibles en su Sitio -->
+  <!-- Cuadrícula de 3 Tarjetas con Vuelta 3D (Flip Card) Interactiva -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch relative">
     {categories.map((cat) => (
       <article
-        class="cap-card-wrapper relative h-full"
+        class="cap-card-wrapper relative h-[470px] sm:h-[490px] w-full"
         data-cap-id={cat.id}
       >
-        <!-- Cuadro Principal -->
+        <!-- Tarjeta con rotación 3D en su sitio -->
         <div
           id={`card-${cat.id}`}
           data-cap-id={cat.id}
-          class="cap-card group w-full h-full text-left p-6 sm:p-7 rounded-2xl border border-slate-200/90 bg-white hover:border-slate-950/40 shadow-2xs hover:shadow-md transition-all duration-200 relative flex flex-col justify-between"
+          class="cap-card w-full h-full relative"
         >
-          <div>
-            <!-- Indicador superior: Icono y etiqueta -->
-            <div class="flex items-center justify-between mb-5">
-              <div
-                class="w-11 h-11 rounded-xl bg-slate-100 border border-slate-200/80 group-hover:bg-[#FFFF00] group-hover:text-slate-950 flex items-center justify-center transition-colors duration-200 shrink-0"
-                aria-hidden="true"
-              >
-                <Icon name={cat.icon} class="w-5 h-5 text-slate-900" />
+          <!-- CARA FRONTAL -->
+          <div
+            class="cap-card-face cap-card-front w-full h-full text-left p-6 sm:p-7 rounded-2xl border border-slate-200/90 bg-white hover:border-slate-950/40 shadow-2xs hover:shadow-md transition-[border-color,box-shadow] duration-200 flex flex-col justify-between"
+          >
+            <div>
+              <!-- Indicador superior: Icono y etiqueta -->
+              <div class="flex items-center justify-between mb-5">
+                <div
+                  class="w-11 h-11 rounded-xl bg-slate-100 border border-slate-200/80 flex items-center justify-center shrink-0"
+                  aria-hidden="true"
+                >
+                  <Icon name={cat.icon} class="w-5 h-5 text-slate-900" />
+                </div>
+
+                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-600 font-semibold">
+                  {cat.tag}
+                </span>
               </div>
 
-              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
-                {cat.tag}
-              </span>
-            </div>
-
-            <!-- Título de Categoría -->
-            <h3 class="text-2xl font-light text-slate-950 tracking-tight mb-2.5">
-              {cat.title}
-            </h3>
-
-            <!-- Descripción breve del cuadro -->
-            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed mb-6">
-              {cat.shortSummary}
-            </p>
-          </div>
-
-          <!-- Botón "Más información": Único activador de la previsualización en grande -->
-          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-            <button
-              type="button"
-              class="cap-more-btn group/btn inline-flex items-center gap-2 font-mono text-xs font-semibold py-2 px-3.5 -ml-1 rounded-xl bg-slate-100 hover:bg-[#FFFF00] text-slate-900 border border-slate-200 hover:border-slate-950 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] cursor-pointer"
-              aria-label={isEn ? `More information about ${cat.title}` : `Más información sobre ${cat.title}`}
-              data-cat-id={cat.id}
-              aria-haspopup="dialog"
-              aria-expanded="false"
-              aria-controls="capabilities-popup-panel"
-            >
-              <span class="w-1.5 h-1.5 rounded-full bg-slate-950" aria-hidden="true"></span>
-              <span>{isEn ? "More information" : "Más información"}</span>
-              <span aria-hidden="true" class="cap-indicator-arrow ml-0.5 text-slate-500 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-transform duration-150">
-                →
-              </span>
-            </button>
-            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider hidden sm:inline">
-              {cat.tag}
-            </span>
-          </div>
-        </div>
-      </article>
-    ))}
-  </div>
-
-  <!-- Pop-up Superpuesto de Gran Formato (65-85% ancho, 60-80% alto del viewport) -->
-  <div
-    id="capabilities-popup-root"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 pointer-events-none invisible opacity-0 transition-opacity duration-200 ease-out motion-reduce:transition-none"
-    aria-hidden="true"
-  >
-    <!-- Telón de fondo con desenfoque sutil (cierra al hacer clic fuera) -->
-    <div
-      id="capabilities-popup-backdrop"
-      class="absolute inset-0 bg-slate-950/45 backdrop-blur-xs transition-opacity duration-200 pointer-events-auto"
-      aria-hidden="true"
-    ></div>
-
-    <!-- Panel Pop-up Visual de Gran Formato (Editorial, Moderno, Minimalista) -->
-    <div
-      id="capabilities-popup-panel"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="capabilities-popup-title"
-      class="relative z-10 w-[90vw] sm:w-[84vw] lg:w-[78vw] max-w-5xl h-auto min-h-[55vh] max-h-[85vh] overflow-y-auto rounded-3xl bg-white border-2 border-slate-950 shadow-[0_24px_64px_rgba(15,23,42,0.25),0_4px_16px_rgba(15,23,42,0.1)] transform scale-95 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto p-6 sm:p-8 lg:p-10 selection:bg-[#FFFF00] selection:text-black motion-reduce:transition-none will-change-transform"
-    >
-      <!-- Botón X pequeño y discreto en la esquina superior derecha -->
-      <button
-        id="capabilities-popup-close-btn"
-        type="button"
-        class="cap-popup-close-btn absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-[#FFFF00] text-slate-500 hover:text-slate-950 border border-slate-300 hover:border-slate-950 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] z-20"
-        aria-label={isEn ? "Close preview" : "Cerrar previsualización"}
-      >
-        <Icon name="bx:x" class="w-5 h-5 text-slate-900" />
-      </button>
-
-      <!-- Paneles de Contenido Dinámico por Categoría -->
-      {categories.map((cat) => (
-        <div
-          id={`floating-${cat.id}`}
-          data-pane-id={cat.id}
-          class="cap-pane hidden flex-col justify-between min-h-[46vh] sm:min-h-[50vh]"
-          aria-hidden="true"
-        >
-          <!-- Cabecera editorial -->
-          <div>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-950" aria-hidden="true"></span>
-                {cat.tag}
-              </span>
-            </div>
-
-            <div class="flex items-center gap-3.5 mb-6">
-              <div
-                class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-950/10 flex items-center justify-center shrink-0"
-                aria-hidden="true"
-              >
-                <Icon name={cat.icon} class="w-6 h-6 text-slate-950" />
-              </div>
-              <h3
-                id="capabilities-popup-title"
-                class="text-3xl sm:text-4xl lg:text-5xl font-light text-slate-950 tracking-tight"
-              >
+              <!-- Título de Categoría -->
+              <h3 class="text-2xl font-light text-slate-950 tracking-tight mb-2.5">
                 {cat.title}
               </h3>
+
+              <!-- Descripción breve del cuadro -->
+              <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed mb-6">
+                {cat.shortSummary}
+              </p>
             </div>
 
-            <!-- Estructura editorial en 2 columnas en pantallas medianas/grandes -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 pt-2 pb-6 border-y border-slate-100">
-              
-              <!-- Columna izquierda: Descripción, soluciones incluidas y propuesta de valor -->
-              <div class="lg:col-span-6 flex flex-col justify-between">
-                <div>
-                  <p class="text-sm sm:text-base text-slate-700 leading-relaxed font-light mb-4">
-                    {cat.description}
-                  </p>
+            <!-- Botón "Más información": Único activador para dar la vuelta a la tarjeta -->
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <button
+                type="button"
+                class="cap-more-btn group/btn inline-flex items-center gap-2 font-mono text-xs font-semibold py-2 px-3.5 -ml-1 rounded-xl bg-slate-100 hover:bg-[#FFFF00] text-slate-900 border border-slate-200 hover:border-slate-950 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] cursor-pointer"
+                aria-label={isEn ? `More information about ${cat.title}` : `Más información sobre ${cat.title}`}
+                data-cat-id={cat.id}
+                aria-expanded="false"
+                aria-controls={`floating-${cat.id}`}
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-950" aria-hidden="true"></span>
+                <span>{isEn ? "More information" : "Más información"}</span>
+                <span aria-hidden="true" class="cap-indicator-arrow ml-0.5 text-slate-500 group-hover/btn:text-slate-950 group-hover/btn:translate-x-0.5 transition-transform duration-150">
+                  →
+                </span>
+              </button>
+              <span class="text-[10px] font-mono text-slate-600 uppercase tracking-wider hidden sm:inline">
+                {cat.tag}
+              </span>
+            </div>
+          </div>
 
-                  <div class="mb-5">
-                    <p class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-2.5">
-                      {isEn ? "Solutions included:" : "Soluciones que incluye:"}
-                    </p>
-                    <ul class="space-y-2">
-                      {cat.services.map((svc) => (
-                        <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800 font-light leading-snug">
-                          <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">
-                            ✓
-                          </span>
-                          <span>{svc}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          <!-- CARA TRASERA (Más información al dar la vuelta la tarjeta) -->
+          <div
+            id={`floating-${cat.id}`}
+            class="cap-card-face cap-card-back w-full h-full text-left p-5 sm:p-6 rounded-2xl border-2 border-slate-950 bg-white shadow-xl flex flex-col justify-between overflow-hidden"
+            aria-hidden="true"
+          >
+            <!-- Cabecera de la cara trasera -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 shrink-0">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+                  {cat.tag}
+                </span>
+                <h4 class="text-base font-bold text-slate-950 tracking-tight">
+                  {cat.title}
+                </h4>
+              </div>
+              <button
+                type="button"
+                class="cap-back-btn w-8 h-8 rounded-full bg-slate-100 hover:bg-[#FFFF00] text-slate-700 hover:text-slate-950 border border-slate-200 hover:border-slate-950 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                aria-label={isEn ? `Close details of ${cat.title}` : `Cerrar detalles de ${cat.title}`}
+                data-cat-id={cat.id}
+                tabindex="-1"
+              >
+                <Icon name="bx:x" class="w-4 h-4 text-slate-900" />
+              </button>
+            </div>
 
-                  {cat.extraNote && (
-                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 font-light leading-relaxed">
-                      {cat.extraNote}
-                    </div>
-                  )}
-                </div>
-
-                <div class="mt-6">
-                  <a
-                    href={cat.pricingLink}
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-                  >
-                    <span>{cat.pricingText}</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-                </div>
+            <!-- Contenido scrollable contenido (sin aumentar la altura de la tarjeta) -->
+            <div class="flex-1 overflow-y-auto py-3 space-y-3 pr-1 text-xs text-slate-700">
+              <!-- Soluciones incluidas -->
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-wider text-slate-600 font-bold mb-1.5">
+                  {isEn ? "Solutions included:" : "Soluciones incluidas:"}
+                </p>
+                <ul class="space-y-1">
+                  {cat.services.map((svc) => (
+                    <li class="flex items-start gap-1.5 text-[11px] leading-snug text-slate-800">
+                      <span class="text-slate-950 font-bold shrink-0" aria-hidden="true">✓</span>
+                      <span>{svc}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <!-- Columna derecha: Panel visual con acento amarillo #FFFF00 y ejemplos reales -->
-              <div class="lg:col-span-6 flex flex-col justify-between rounded-2xl bg-[#FFFF00]/15 border border-[#FFFF00]/40 p-5 sm:p-6">
-                <div>
-                  <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-900/10">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-bold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-2xs">
-                      {isEn ? "Projects in Production" : "Proyectos reales"}
-                    </span>
-                    <span class="text-[11px] font-mono text-slate-500 font-medium">
-                      {cat.examples.length} {cat.examples.length === 1 ? (isEn ? "case study" : "caso de estudio") : (isEn ? "case studies" : "casos de estudio")}
-                    </span>
-                  </div>
-
-                  <div class="flex flex-col gap-3">
+              <!-- Casos reales -->
+              {cat.examples && cat.examples.length > 0 && (
+                <div class="pt-2 border-t border-slate-100">
+                  <p class="font-mono text-[10px] uppercase tracking-wider text-slate-600 font-bold mb-1.5">
+                    {isEn ? "Projects in production:" : "Proyectos reales:"}
+                  </p>
+                  <div class="space-y-1.5">
                     {cat.examples.map((ex) => (
                       <a
                         href={ex.href}
-                        class="group/case block p-4 rounded-xl border border-slate-200/90 bg-white hover:border-slate-950 shadow-2xs hover:shadow-xs transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+                        tabindex="-1"
+                        class="block p-2 rounded-lg bg-slate-50 hover:bg-[#FFFF00]/20 border border-slate-200/80 hover:border-slate-950/40 transition-colors group/ex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
                       >
-                        <div class="flex items-center justify-between mb-1.5">
-                          <span class="font-sans font-bold text-sm sm:text-base text-slate-950 group-hover/case:underline decoration-2 underline-offset-4">
+                        <div class="flex items-center justify-between">
+                          <span class="font-semibold text-xs text-slate-950 group-hover/ex:underline">
                             {ex.name}
                           </span>
-                          <span class="text-xs font-mono text-slate-600 group-hover/case:text-slate-950 flex items-center gap-1 font-medium">
-                            <span>{isEn ? "View case study" : "Ver caso"}</span>
+                          <span class="text-[10px] font-mono text-slate-600 flex items-center gap-0.5">
+                            <span>{isEn ? "View" : "Ver"}</span>
                             <span aria-hidden="true">→</span>
                           </span>
                         </div>
-                        <p class="text-xs text-slate-600 font-light leading-relaxed">
+                        <p class="text-[10px] text-slate-600 line-clamp-1 mt-0.5 font-light">
                           {ex.description}
                         </p>
                       </a>
                     ))}
                   </div>
                 </div>
+              )}
+            </div>
 
-                <div class="mt-4 pt-3 border-t border-slate-900/10 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span>{isEn ? "Audited & in production" : "Auditado y en producción"}</span>
-                  <span class="text-slate-950 font-bold">100/100 CWV</span>
-                </div>
-              </div>
-
+            <!-- Pie con enlace a precios -->
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between shrink-0">
+              <a
+                href={cat.pricingLink}
+                tabindex="-1"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-[11px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+              >
+                <span>{cat.pricingText}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <button
+                type="button"
+                tabindex="-1"
+                class="cap-back-text-btn text-[11px] font-mono text-slate-600 hover:text-slate-950 underline underline-offset-4 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded"
+                data-cat-id={cat.id}
+              >
+                {isEn ? "Back" : "Volver"}
+              </button>
             </div>
           </div>
-
-          <!-- Pie del Pop-up con atajo informativo -->
-          <div class="pt-4 mt-4 flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>{isEn ? "ESC or click X to close" : "Pulsa ESC o la X para cerrar"}</span>
-            <span class="hidden sm:inline">Jaume Tur · Frontend Engineering</span>
-          </div>
         </div>
-      ))}
-    </div>
+      </article>
+    ))}
   </div>
 </section>
 
-<!-- Script de Interacción: Hover automático en escritorio con prevención de re-apertura, Cierre con X/ESC, Táctil vía "Más información" -->
+<!-- Script de Interacción: Vuelta de tarjeta 3D por clic exclusivo, sin activación por hover -->
 <script is:inline>
   (function () {
-    function initFloatingCapabilities() {
+    function initFlipCapabilities() {
       const section = document.getElementById("desenvolupament");
       if (!section) return;
 
-      const wrappers = Array.from(section.querySelectorAll(".cap-card-wrapper"));
-      const popupRoot = document.getElementById("capabilities-popup-root");
-      const popupPanel = document.getElementById("capabilities-popup-panel");
-      const popupBackdrop = document.getElementById("capabilities-popup-backdrop");
-      const closeBtn = document.getElementById("capabilities-popup-close-btn");
-      const panes = Array.from(section.querySelectorAll(".cap-pane"));
+      const cards = Array.from(section.querySelectorAll(".cap-card"));
+      let activeCardId = null;
 
-      if (!wrappers.length || !popupRoot || !popupPanel || !panes.length) return;
-
-      let activeId = null;
-      let closedByCardId = null;
-      let currentHoveredCardId = null;
-      let lastFocusedElement = null;
-
-      // Detección de soporte de puntero de precisión (ratón / escritorio)
-      const isHoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-      function openPopup(id) {
-        if (activeId === id) return;
-
-        lastFocusedElement = document.activeElement;
-
-        // Mostrar root y panel con animación fluida acelerada por hardware
-        popupRoot.classList.remove("invisible", "opacity-0");
-        popupRoot.classList.add("visible", "opacity-100");
-        popupRoot.setAttribute("aria-hidden", "false");
-
-        popupPanel.classList.remove("scale-95");
-        popupPanel.classList.add("scale-100");
-
-        // Activar el panel correspondiente
-        panes.forEach((pane) => {
-          if (pane.dataset.paneId === id) {
-            pane.classList.remove("hidden");
-            pane.classList.add("flex");
-            pane.setAttribute("aria-hidden", "false");
-          } else {
-            pane.classList.remove("flex");
-            pane.classList.add("hidden");
-            pane.setAttribute("aria-hidden", "true");
-          }
-        });
-
-        // Actualizar aria-expanded en los botones
-        wrappers.forEach((w) => {
-          const btn = w.querySelector(".cap-more-btn");
-          if (btn) {
-            btn.setAttribute("aria-expanded", w.dataset.capId === id ? "true" : "false");
-          }
-        });
-
-        // Prevenir scroll de fondo de forma limpia
-        document.body.style.overflow = "hidden";
-
-        activeId = id;
-
-        // Enfoque accesible en el botón de cerrar
-        requestAnimationFrame(() => {
-          closeBtn?.focus();
-        });
-      }
-
-      function closePopup() {
-        if (!activeId) return;
-
-        const closingId = activeId;
-        const activeCard = document.getElementById(`card-${closingId}`);
-        let isCursorOverActiveCard = false;
-        if (activeCard) {
-          try {
-            isCursorOverActiveCard = activeCard.matches(":hover");
-          } catch (_) {}
+      function flipCard(id) {
+        if (activeCardId === id) {
+          unflipAll();
+          return;
         }
-        // Si el cursor aún sigue sobre la tarjeta que activó el pop-up, bloqueamos la re-apertura hasta que salga
-        closedByCardId = isCursorOverActiveCard ? closingId : null;
 
-        popupPanel.classList.remove("scale-100");
-        popupPanel.classList.add("scale-95");
+        unflipAll();
 
-        popupRoot.classList.remove("visible", "opacity-100");
-        popupRoot.classList.add("invisible", "opacity-0");
-        popupRoot.setAttribute("aria-hidden", "true");
+        const card = document.getElementById(`card-${id}`);
+        const moreBtn = section.querySelector(`.cap-more-btn[data-cat-id="${id}"]`);
+        const backPane = document.getElementById(`floating-${id}`);
+        const frontPane = card ? card.querySelector(".cap-card-front") : null;
 
-        panes.forEach((p) => {
-          p.classList.remove("flex");
-          p.classList.add("hidden");
-          p.setAttribute("aria-hidden", "true");
-        });
-
-        wrappers.forEach((w) => {
-          const btn = w.querySelector(".cap-more-btn");
-          if (btn) {
-            btn.setAttribute("aria-expanded", "false");
+        if (card) {
+          card.classList.add("is-flipped");
+          activeCardId = id;
+        }
+        if (moreBtn) {
+          moreBtn.setAttribute("aria-expanded", "true");
+        }
+        if (frontPane) {
+          frontPane.querySelectorAll("button, a").forEach((el) => {
+            el.setAttribute("tabindex", "-1");
+          });
+        }
+        if (backPane) {
+          backPane.setAttribute("aria-hidden", "false");
+          backPane.querySelectorAll("button, a").forEach((el) => {
+            el.setAttribute("tabindex", "0");
+          });
+          const firstFocusable = backPane.querySelector("button, a");
+          if (firstFocusable && typeof firstFocusable.focus === "function") {
+            setTimeout(() => firstFocusable.focus(), 150);
           }
-        });
-
-        document.body.style.overflow = "";
-        activeId = null;
-
-        // Devolver el foco al elemento que activó el pop-up
-        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-          lastFocusedElement.focus();
         }
       }
 
-      // Desbloquear cuando el cursor abandone físicamente el cuadro activador
-      document.addEventListener(
-        "mousemove",
-        (e) => {
-          if (!closedByCardId) return;
-          const cardEl = document.getElementById(`card-${closedByCardId}`);
-          if (cardEl) {
-            const rect = cardEl.getBoundingClientRect();
-            const isInside =
-              e.clientX >= rect.left &&
-              e.clientX <= rect.right &&
-              e.clientY >= rect.top &&
-              e.clientY <= rect.bottom;
-            if (!isInside) {
-              closedByCardId = null;
-            }
-          } else {
-            closedByCardId = null;
+      function unflipAll() {
+        cards.forEach((card) => {
+          card.classList.remove("is-flipped");
+          const frontPane = card.querySelector(".cap-card-front");
+          if (frontPane) {
+            frontPane.querySelectorAll("button, a").forEach((el) => {
+              el.setAttribute("tabindex", "0");
+            });
           }
-        },
-        { passive: true }
-      );
+        });
+        section.querySelectorAll(".cap-more-btn").forEach((btn) => {
+          btn.setAttribute("aria-expanded", "false");
+        });
+        section.querySelectorAll(".cap-card-back").forEach((pane) => {
+          pane.setAttribute("aria-hidden", "true");
+          pane.querySelectorAll("button, a").forEach((el) => {
+            el.setAttribute("tabindex", "-1");
+          });
+        });
 
-      // Eventos por tarjeta
-      wrappers.forEach((wrapper) => {
-        const id = wrapper.dataset.capId;
-        const moreBtn = wrapper.querySelector(".cap-more-btn");
+        if (activeCardId) {
+          const prevBtn = section.querySelector(`.cap-more-btn[data-cat-id="${activeCardId}"]`);
+          if (prevBtn && typeof prevBtn.focus === "function") {
+            prevBtn.focus();
+          }
+          activeCardId = null;
+        }
+      }
 
-        // Botón "Más información" (en móvil y como alternativa en escritorio)
-        moreBtn?.addEventListener("click", (e) => {
+      // Eventos de clic exclusivo en botón "Más información"
+      section.querySelectorAll(".cap-more-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          openPopup(id);
+          const id = btn.dataset.catId;
+          flipCard(id);
         });
+      });
 
-        // En escritorio: Hover abre automáticamente la previsualización
-        const card = wrapper.querySelector(".cap-card") || wrapper;
-        if (isHoverCapable) {
-          const handleEnter = () => {
-            currentHoveredCardId = id;
-            if (closedByCardId === id) return;
-            if (activeId !== id) {
-              openPopup(id);
-            }
-          };
+      // Botones de cierre en la cara trasera (botón X y texto "Volver")
+      section.querySelectorAll(".cap-back-btn, .cap-back-text-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          unflipAll();
+        });
+      });
 
-          const handleLeave = () => {
-            if (currentHoveredCardId === id) {
-              currentHoveredCardId = null;
-            }
-            if (closedByCardId === id) {
-              closedByCardId = null;
-            }
-          };
-
-          card.addEventListener("mouseenter", handleEnter);
-          card.addEventListener("mouseleave", handleLeave);
+      // Tecla Escape para des-voltear
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && activeCardId) {
+          e.preventDefault();
+          unflipAll();
         }
       });
 
-      // Botón X de Cierre
-      closeBtn?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        closePopup();
-      });
-
-      // Cierre al pulsar el telón de fondo exterior
-      popupBackdrop?.addEventListener("click", () => {
-        closePopup();
-      });
-
-      // Cierre con la tecla Escape
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && activeId) {
-          e.preventDefault();
-          closePopup();
+      // Clic fuera para des-voltear
+      document.addEventListener("click", (e) => {
+        if (!activeCardId) return;
+        const activeCard = document.getElementById(`card-${activeCardId}`);
+        if (activeCard && !activeCard.contains(e.target)) {
+          unflipAll();
         }
       });
     }
 
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initFloatingCapabilities);
+      document.addEventListener("DOMContentLoaded", initFlipCapabilities);
     } else {
-      initFloatingCapabilities();
+      initFlipCapabilities();
     }
   })();
 </script>
+
+<style>
+  .cap-card-wrapper {
+    perspective: 1200px;
+  }
+
+  .cap-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s ease, margin 0.3s ease;
+  }
+
+  .cap-card-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 1rem;
+  }
+
+  .cap-card-front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+  .cap-card:not(.is-flipped) .cap-card-back {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .cap-card-back {
+    transform: rotateY(180deg);
+    z-index: 1;
+  }
+
+  /* Estado al darse la vuelta la tarjeta */
+  .cap-card.is-flipped {
+    transform: rotateY(180deg);
+    z-index: 30;
+  }
+
+  .cap-card.is-flipped .cap-card-front {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .cap-card.is-flipped .cap-card-back {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* "se hace mas ancha si es necesario pero no mas alta":
+     En escritorio la tarjeta se expande en anchura para mayor legibilidad
+     manteniendo la misma altura exacta */
+  @media (min-width: 768px) {
+    .cap-card.is-flipped {
+      width: calc(100% + 2rem);
+      margin-left: -1rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .cap-card.is-flipped {
+      width: calc(100% + 3.5rem);
+      margin-left: -1.75rem;
+    }
+  }
+
+  /* Scrollbar estético sutil para el contenido trasero */
+  .cap-card-back .overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cap-card,
+    .cap-card.is-flipped {
+      transition: none !important;
+      animation: none !important;
+    }
+    .cap-card.is-flipped .cap-card-front {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    .cap-card.is-flipped .cap-card-back {
+      transform: none !important;
+      z-index: 10 !important;
+    }
+  }
+</style>

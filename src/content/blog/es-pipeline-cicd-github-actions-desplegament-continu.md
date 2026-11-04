@@ -11,7 +11,7 @@ category: "CI/CD"
 author: "Jaume Tur"
 tags: [cicd, github-actions, devops, deploy, automatizacion, astro, angular]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-pipeline-cicd-github-actions-desplegament-continu"
+canonicalUrl: "https://jaumetur.es/blog/es-pipeline-cicd-github-actions-desplegament-continu/"
 ---
 
 El despliegue manual de software mediante FTP o arrastrando archivos por SSH es una de las mayores fuentes de errores en la industria del desarrollo web. Un archivo olvidado, una versión equivocada de Node.js o una variable de entorno desincronizada pueden dejar una aplicación en caída libre (*downtime*) en plena hora punta.

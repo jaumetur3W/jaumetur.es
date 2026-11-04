@@ -21,117 +21,174 @@ const href = (path: string) => localizePath(path, locale);
   <!-- 1. Presentación inicial con scrollytelling -->
   <ScrollyHero isEn={isEn} />
 
-  <Container>
-    <div class="flex flex-col">
+  <!-- 2. Contenido principal con efecto telón (sube y cubre la presentación estática) -->
+  <div
+    id="home-curtain"
+    class="relative z-20 bg-white shadow-[0_-16px_36px_rgba(0,0,0,0.04)] transition-all"
+  >
+    <Container>
+      <div class="flex flex-col pt-6 sm:pt-10">
 
-      <!-- 2. Sección «Qué puedo desarrollar» con Vistas Previas Interactivas -->
-      <CapabilitiesInteractive isEn={isEn} />
+        <!-- 2. Sección «Qué puedo desarrollar» con Vistas Previas Interactivas -->
+        <CapabilitiesInteractive isEn={isEn} />
 
-      <!-- 3. Sección «Sobre mí» con avatar oficial único -->
-      <section
-        id="sobre-mi"
-        class="scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-28"
-        aria-labelledby="about-heading"
-      >
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          <!-- Avatar oficial único -->
-          <div class="md:col-span-4 lg:col-span-4 flex justify-center md:justify-start">
-            <div class="relative group/avatar">
-              <div class="absolute inset-0 bg-[#FFFF00] rounded-3xl opacity-35 blur-md group-hover/avatar:opacity-60 transition-opacity"></div>
-              <img
-                src="/img/1.webp"
-                alt="Jaume Tur"
-                class="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-56 lg:h-56 object-contain rounded-3xl ring-1 ring-slate-900/10 drop-shadow-sm group-hover/avatar:scale-105 transition-transform duration-200"
-                width="224"
-                height="224"
-                loading="lazy"
-                decoding="async"
-              />
+        <!-- 3. Sección «Sobre mí» con avatar oficial único -->
+        <section
+          id="sobre-mi"
+          class="scroll-reveal scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-28"
+          aria-labelledby="about-heading"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Avatar oficial único -->
+            <div class="md:col-span-4 lg:col-span-4 flex justify-center md:justify-start">
+              <div class="relative group/avatar">
+                <div class="absolute inset-0 bg-[#FFFF00] rounded-3xl opacity-35 blur-md group-hover/avatar:opacity-60 transition-opacity"></div>
+                <img
+                  src="/img/1.webp"
+                  alt="Jaume Tur"
+                  class="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-56 lg:h-56 object-contain rounded-3xl ring-1 ring-slate-900/10 drop-shadow-sm group-hover/avatar:scale-105 transition-transform duration-300"
+                  width="224"
+                  height="224"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
-          </div>
 
-          <!-- Presentación personal breve y auténtica -->
-          <div class="md:col-span-8 lg:col-span-8 text-left">
-            <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
-              {isEn ? "About me" : "Sobre mí"}
+            <!-- Presentación personal breve y auténtica -->
+            <div class="md:col-span-8 lg:col-span-8 text-left">
+              <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold">
+                {isEn ? "About me" : "Sobre mí"}
+              </p>
+              <h2
+                id="about-heading"
+                class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-5 leading-tight"
+              >
+                {isEn
+                  ? "Clean code, technical rigor, and attention to detail."
+                  : "Código limpio, rigor técnico y atención al detalle."}
+              </h2>
+              <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
+                {isEn
+                  ? "I'm Jaume Tur, a web and application developer based in Valencia. I combine a solid backend and systems foundation with modern, lightweight, accessible web applications designed to solve real business needs."
+                  : "Soy Jaume Tur, desarrollador de software en Valencia. Combino una sólida base técnica en backend y sistemas con aplicaciones web modernas, ligeras y accesibles pensadas para resolver problemas reales."}
+              </p>
+              <div>
+                <a
+                  href={href("/about")}
+                  class="inline-flex min-h-11 items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-white text-sm font-medium hover:bg-[#FFFF00] hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] border border-slate-950"
+                >
+                  <span>{isEn ? "More about me" : "Más sobre mí"}</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 4 y 5. Llamada a la acción para contactar y acceso a precios -->
+        <section
+          id="contacte"
+          class="scroll-reveal scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-32"
+          aria-labelledby="contact-heading"
+        >
+          <div class="max-w-3xl">
+            <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold">
+              {isEn ? "Start the conversation" : "Iniciemos la conversación"}
             </p>
             <h2
-              id="about-heading"
-              class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-5 leading-tight"
+              id="contact-heading"
+              class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-4"
             >
-              {isEn
-                ? "Clean code, technical rigor, and attention to detail."
-                : "Código limpio, rigor técnico y atención al detalle."}
+              {isEn ? "Have an idea in mind?" : "¿Tienes una idea en mente?"}
             </h2>
             <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
               {isEn
-                ? "I'm Jaume Tur, a web and application developer based in Valencia. I combine a solid backend and systems foundation with modern, lightweight, accessible web applications designed to solve real business needs."
-                : "Soy Jaume Tur, desarrollador de software en Valencia. Combino una sólida base técnica en backend y sistemas con aplicaciones web modernas, ligeras y accesibles pensadas para resolver problemas reales."}
+                ? "Tell me about the project you want to build and we'll evaluate the best technical approach together."
+                : "Cuéntame qué proyecto quieres llevar a cabo y valoraremos juntos cuál es el mejor planteamiento técnico."}
             </p>
-            <div>
+
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6">
               <a
-                href={href("/about")}
-                class="inline-flex min-h-11 items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-white text-sm font-medium hover:bg-[#FFFF00] hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] border border-slate-950"
+                href={href("/contact")}
+                class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#FFFF00] px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-[#f2d900] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFFF00]/40"
               >
-                <span>{isEn ? "More about me" : "Más sobre mí"}</span>
+                <span>{isEn ? "Contact me" : "Contactar"}</span>
                 <span aria-hidden="true">→</span>
+              </a>
+
+              <a
+                href={href("/pricing")}
+                class="inline-flex min-h-12 items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-800 hover:border-slate-950 hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
+              >
+                <span>{isEn ? "Explore services & pricing" : "Consultar servicios y tarifas"}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+
+              <a
+                href="mailto:jaumetur3w@gmail.com"
+                class="inline-flex min-h-12 items-center text-sm font-mono text-slate-500 hover:text-slate-950 transition-colors underline decoration-slate-300 decoration-1 underline-offset-8"
+              >
+                jaumetur3w@gmail.com
               </a>
             </div>
           </div>
+        </section>
 
-        </div>
-      </section>
+      </div>
+    </Container>
+  </div>
 
-      <!-- 4 y 5. Llamada a la acción para contactar y acceso a precios -->
-      <section
-        id="contacte"
-        class="scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-32"
-        aria-labelledby="contact-heading"
-      >
-        <div class="max-w-3xl">
-          <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-400">
-            {isEn ? "Start the conversation" : "Iniciemos la conversación"}
-          </p>
-          <h2
-            id="contact-heading"
-            class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-4"
-          >
-            {isEn ? "Have an idea in mind?" : "¿Tienes una idea en mente?"}
-          </h2>
-          <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
-            {isEn
-              ? "Tell me about the project you want to build and we'll evaluate the best technical approach together."
-              : "Cuéntame qué proyecto quieres llevar a cabo y valoraremos juntos cuál es el mejor planteamiento técnico."}
-          </p>
+  <style>
+    #home-curtain {
+      margin-top: calc(-100vh + 56px);
+      margin-top: calc(-100dvh + 56px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #home-curtain {
+        margin-top: 0 !important;
+      }
+    }
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
 
-          <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-            <a
-              href={href("/contact")}
-              class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#FFFF00] px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-[#f2d900] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFFF00]/40"
-            >
-              <span>{isEn ? "Contact me" : "Contactar"}</span>
-              <span aria-hidden="true">→</span>
-            </a>
-
-            <a
-              href={href("/pricing")}
-              class="inline-flex min-h-12 items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-800 hover:border-slate-950 hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-            >
-              <span>{isEn ? "Explore services & pricing" : "Consultar servicios y tarifas"}</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-
-            <a
-              href="mailto:jaumetur3w@gmail.com"
-              class="inline-flex min-h-12 items-center text-sm font-mono text-slate-500 hover:text-slate-950 transition-colors underline decoration-slate-300 decoration-1 underline-offset-8"
-            >
-              jaumetur3w@gmail.com
-            </a>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </Container>
+  <script is:inline>
+    (function () {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const reveals = document.querySelectorAll(".scroll-reveal");
+      if (!("IntersectionObserver" in window)) {
+        reveals.forEach((el) => el.classList.add("revealed"));
+        return;
+      }
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      );
+      reveals.forEach((el) => observer.observe(el));
+    })();
+  </script>
 </Layout>

@@ -10,7 +10,7 @@ const PACKAGE_IDS = [
 ];
 
 // The build used by the tests may have no key, and no test should reach the real API.
-async function openForm(page: Page, path = "/contact") {
+async function openForm(page: Page, path = "/contact/") {
   await page.addInitScript(() => {
     const calls: string[] = [];
     (window as unknown as { plausibleCalls: string[] }).plausibleCalls = calls;
@@ -34,13 +34,13 @@ const plausibleCalls = (page: Page) =>
 
 test.describe("Contact form", () => {
   for (const [pricingPath, contactPath] of [
-    ["/pricing", "/contact"],
-    ["/en/pricing", "/en/contact"],
+    ["/pricing/", "/contact/"],
+    ["/en/pricing/", "/en/contact/"],
   ]) {
     test(`every package on ${pricingPath} preselects its option`, async ({ page }) => {
       await page.goto(pricingPath);
       const hrefs = await page
-        .locator('a[href*="/contact?servei="]')
+        .locator('a[href*="/contact/"][href*="servei="], a[href*="/contact/?servei="], a[href*="/contact?servei="]')
         .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
       expect(hrefs.map((href) => href?.split("servei=")[1]).sort()).toEqual([...PACKAGE_IDS].sort());
 
@@ -54,7 +54,7 @@ test.describe("Contact form", () => {
   }
 
   test("an unknown package keeps the default option", async ({ page }) => {
-    await page.goto("/contact?servei=no-existe");
+    await page.goto("/contact/?servei=no-existe");
     await expect(page.locator("#contact-service")).toHaveValue("landing-page");
   });
 
@@ -70,7 +70,7 @@ test.describe("Contact form", () => {
       await route.fulfill({ json: { success: true } });
     });
 
-    await openForm(page, "/contact?servei=digitalitzacio-local");
+    await openForm(page, "/contact/?servei=digitalitzacio-local");
     await fillRequiredFields(page);
     const submit = page.locator("#contact-submit-btn");
     await submit.click();

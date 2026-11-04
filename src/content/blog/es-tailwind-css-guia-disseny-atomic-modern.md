@@ -11,7 +11,7 @@ category: "CSS"
 author: "Jaume Tur"
 tags: [tailwind, css, diseno-atomico, utility-first, frontend, adaptable]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-tailwind-css-guia-disseny-atomic-modern"
+canonicalUrl: "https://jaumetur.es/blog/es-tailwind-css-guia-disseny-atomic-modern/"
 ---
 
 ## ¿Qué es Tailwind CSS?

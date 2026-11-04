@@ -11,7 +11,7 @@ category: "Angular"
 author: "Jaume Tur"
 tags: [angular, signals, standalone-components, typescript, arquitectura, clean-code]
 lang: "es"
-canonicalUrl: "https://jaumetur.es/blog/es-arquitectura-modular-angular-standalone-signals"
+canonicalUrl: "https://jaumetur.es/blog/es-arquitectura-modular-angular-standalone-signals/"
 ---
 
 El ecosistema de Angular ha experimentado la mayor transformación de su historia reciente. Durante años, los desarrolladores tuvimos que convivir con la sobrecarga cognitiva de los `NgModules`: archivos de declaración interminables, dependencias circulares difíciles de rastrear y una reactividad basada exclusivamente en Zone.js y RxJS para cada pequeño cambio de estado en la interfaz.

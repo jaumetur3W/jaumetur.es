@@ -1,0 +1,61 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import { localeFromPath } from "@/i18n";
+
+const isEn = localeFromPath(Astro.url.pathname) === "en";
+---
+
+<Layout
+  title={isEn ? "Privacy Policy | Jaume Tur" : "Política de privacidad | Jaume Tur"}
+  description={isEn ? "Privacy policy and data protection details of jaumetur.es in accordance with GDPR." : "Política de privacidad y protección de datos de jaumetur.es conforme al RGPD."}
+>
+  <Container class="py-12 max-w-3xl">
+    <Sectionhead>
+      <Fragment slot="title">{isEn ? "Privacy Policy" : "Política de privacidad"}</Fragment>
+      <Fragment slot="desc">
+        {isEn ? "Transparent data processing in accordance with the EU GDPR." : "Tratamiento transparente de datos conforme al Reglamento General de Protección de Datos (RGPD)."}
+      </Fragment>
+    </Sectionhead>
+
+    <div class="mt-10 space-y-8 text-sm text-slate-700 leading-relaxed font-light">
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "1. Data Controller" : "1. Responsable del tratamiento"}</h2>
+        <p>
+          {isEn
+            ? "The data controller is Jaume Tur, based in Valencia, Spain. For any inquiry, modification, or erasure of personal information, you can reach out directly via email at jaumetur3w@gmail.com."
+            : "El responsable del tratamiento de los datos es Jaume Tur, con sede en Valencia, España. Para cualquier consulta, modificación o supresión de datos personales, puedes escribir directamente a jaumetur3w@gmail.com."}
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "2. Data Collected & Purpose" : "2. Datos recabados y finalidad"}</h2>
+        <p>
+          {isEn
+            ? "Personal data is only collected when you voluntarily provide it through the contact form, project briefing, or via direct email. This data (name, email address, and project requirements) is strictly used to answer your inquiries and provide technical proposals."
+            : "Solo se recaban datos personales cuando los proporcionas voluntariamente a través del formulario de contacto, el cuestionario de briefing o mediante correo electrónico directo. Estos datos (nombre, correo electrónico y detalles del proyecto) se utilizan exclusivamente para responder a tus consultas y elaborar propuestas técnicas."}
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "3. Form Processing & Third Parties" : "3. Procesamiento de formularios y terceros"}</h2>
+        <p>
+          {isEn
+            ? "Form submissions are handled securely via Web3Forms with end-to-end TLS encryption solely to route messages to our inbox. Your personal data is never sold, leased, or transferred to third parties for commercial or advertising purposes."
+            : "Los envíos de formularios se procesan de manera segura a través de Web3Forms mediante cifrado TLS únicamente para la entrega del mensaje en nuestra bandeja de entrada. Tus datos nunca son vendidos, cedidos ni transferidos a terceros para fines comerciales o publicitarios."}
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "4. Your Rights" : "4. Derechos de las personas usuarias"}</h2>
+        <p>
+          {isEn
+            ? "You have the right to access, rectify, or request the erasure of your personal data at any time. Simply send an email to jaumetur3w@gmail.com specifying your request."
+            : "Tienes derecho a acceder, rectificar o solicitar la supresión de tus datos personales en cualquier momento. Para ejercer estos derechos, simplemente envía un correo a jaumetur3w@gmail.com indicando tu solicitud."}
+        </p>
+      </section>
+    </div>
+  </Container>
+</Layout>
+

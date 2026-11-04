@@ -136,15 +136,15 @@ const breadcrumbSchema = {
           />
           <span class="font-semibold text-slate-900">{entry.data.author}</span>
         </div>
-        <span class="text-slate-300">•</span>
-        <time datetime={entry.data.publishDate.toISOString()} class="font-mono text-xs text-slate-500">
+        <span class="text-slate-600" aria-hidden="true">•</span>
+        <time datetime={entry.data.publishDate.toISOString()} class="font-mono text-xs text-slate-600">
           {entry.data.publishDate.toLocaleDateString(isEn ? 'en-US' : 'es-ES', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
           })}
         </time>
-        <span class="text-slate-300">•</span>
+        <span class="text-slate-600" aria-hidden="true">•</span>
         <span class="inline-flex items-center gap-1.5 font-mono text-xs text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">
           <Icon name="bx:time" class="w-3.5 h-3.5 text-slate-500" />
           <span>{isEn ? `${readingMinutes} min estimated read` : `${readingMinutes} min de lectura estimada`}</span>
@@ -398,7 +398,7 @@ const breadcrumbSchema = {
                 <a
                   href={`#${h.slug}`}
                   class={`block text-slate-600 hover:text-slate-950 transition-colors leading-relaxed ${
-                    h.depth === 3 ? "pl-3 text-slate-400 font-light" : "font-medium"
+                    h.depth === 3 ? "pl-3 text-slate-600 font-light" : "font-medium"
                   }`}
                 >
                   {h.text}

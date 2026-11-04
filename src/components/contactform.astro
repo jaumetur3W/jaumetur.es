@@ -40,7 +40,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
         required
         aria-required="true"
         aria-describedby="name-error"
-        class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
+        class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-600 transition"
       />
     </div>
     <p id="name-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
@@ -62,7 +62,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       required
       aria-required="true"
       aria-describedby="email-error"
-      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
+      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-600 transition"
     />
     <p id="email-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
       {isEn ? "Please enter a valid email so I can reply to you." : "Indica un correo válido para poder responderte."}
@@ -79,7 +79,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       name="phone"
       autocomplete="tel"
       placeholder={isEn ? "Only if you prefer a phone call" : "Solo si prefieres que te llame"}
-      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
+      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-600 transition"
     />
   </div>
 
@@ -145,7 +145,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       aria-describedby="message-error"
       placeholder={isEn ? "Project goals, desired timeline, technical requirements, or any questions..." : "Objetivo del proyecto, plazos deseados, detalles técnicos o cualquier duda..."}
       rows="4"
-      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-400 transition"
+      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 placeholder:text-slate-600 transition"
     ></textarea>
     <p id="message-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
       {isEn ? "Please write a few lines to explain your project." : "Escribe unas líneas para explicar tu consulta."}
@@ -158,7 +158,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       type="submit"
       id="contact-submit-btn"
       class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-      <Icon name="bx:paper-plane" class="w-4 h-4 text-slate-400 group-hover:text-slate-950 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
+      <Icon name="bx:paper-plane" class="w-4 h-4 text-slate-600 group-hover:text-slate-950 group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
       <span id="submit-btn-text">{isEn ? "Send inquiry" : "Enviar consulta"}</span>
     </button>
   </div>
@@ -171,7 +171,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
     aria-live="polite">
   </div>
 
-  <p class="text-[11px] text-slate-400 text-center font-sans">
+  <p class="text-[11px] text-slate-600 text-center font-sans">
     {isEn
       ? "Inquiring carries no obligation. Name and email are required; phone and other fields are optional."
       : "La consulta no implica ningún compromiso. El nombre y el correo son obligatorios; el teléfono y el resto de datos son opcionales."}
