@@ -12,6 +12,19 @@ const href = (path: string) => localizePath(path, isEn ? "en" : "es");
 
 const packages = getServicesData(isEn ? "en" : "es");
 
+// Redisseny de posicionament: Nivell 1 (Web & Negocis) amb proposta clau al centre
+const webDevPackages = [
+  packages.find((p) => p.id === "landing-page")!,
+  packages.find((p) => p.id === "digitalitzacio-local")!,
+  packages.find((p) => p.id === "angular-webapp")!,
+];
+
+// Nivell 2: Serveis especialitzats d'enginyeria i automatització
+const specializedPackages = [
+  packages.find((p) => p.id === "performance-audit")!,
+  packages.find((p) => p.id === "cicd-devops")!,
+];
+
 // Proceso de trabajo en 4 pasos
 const workflowSteps = isEn
   ? [
@@ -19,7 +32,7 @@ const workflowSteps = isEn
         step: "01",
         title: "Discovery & Scope",
         icon: "bx:search-alt",
-        desc: "We define project goals, core functional requirements, and realistic milestones to deliver a transparent proposal.",
+        desc: "I define project goals, core functional requirements, and realistic milestones to deliver a transparent proposal.",
       },
       {
         step: "02",
@@ -79,15 +92,15 @@ const faqs = isEn
         answer: "Uptime monitoring, security and dependency updates, regular backups, priority bug fixes, and continuous technical consulting.",
       },
       {
-        question: "What technical guarantees do you deliver?",
-        answer: "Verifiable, auditable benchmarks: 95-100 Lighthouse performance, WCAG 2.2 AA accessibility compliance, and 100% source code ownership in your private repository.",
+        question: "What technical benchmarks do you target?",
+        answer: "Verifiable, auditable benchmarks: target of 95-100 Lighthouse performance, WCAG 2.2 AA accessibility compliance, and 100% source code ownership in your private repository.",
       },
       {
-        question: "How do we communicate and track milestones?",
+        question: "How do we communicate and track progress?",
         answer: "Agile, transparent asynchronous communication via email and video calls, with continuous access to private Git staging previews before release.",
       },
       {
-        question: "How do we get started?",
+        question: "How to get started?",
         answer: "Send a message through the contact form or email jaumetur3w@gmail.com with your project outline. You will receive a tailored reply within 24 business hours.",
       },
     ]
@@ -101,15 +114,15 @@ const faqs = isEn
         answer: "Supervisión continua de disponibilidad, actualizaciones de seguridad y dependencias, copias de seguridad periódicas, resolución prioritaria de incidencias y asesoramiento técnico.",
       },
       {
-        question: "¿Qué garantías técnicas ofreces en cada entrega?",
-        answer: "Métricas auditables y contrastables: puntuaciones Lighthouse de 95-100, cumplimiento de accesibilidad WCAG 2.2 AA y propiedad total del código fuente en tu repositorio.",
+        question: "¿Qué objetivos técnicos persigues en cada entrega?",
+        answer: "Métricas auditables y contrastables: objetivo de 95-100 en Lighthouse, cumplimiento de accesibilidad WCAG 2.2 AA y propiedad total del código fuente en tu repositorio.",
       },
       {
-        question: "¿Cómo nos comunicaremos y haremos el seguimiento?",
+        question: "¿Cómo nos comunicamos y hacemos el seguimiento?",
         answer: "Comunicación fluida y transparente por correo electrónico y videollamada, con acceso directo a una vista previa en staging para revisar cada avance antes de publicar.",
       },
       {
-        question: "¿Cómo podemos empezar a trabajar juntos?",
+        question: "¿Cómo puedes empezar a trabajar conmigo?",
         answer: "Envía un mensaje a través del formulario o escribe a jaumetur3w@gmail.com con los detalles de tu idea. Recibirás una respuesta personalizada en menos de 24 horas laborables.",
       },
     ];
@@ -157,12 +170,16 @@ const faqSchema = {
           <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-slate-700" />
           <span>{isEn ? "100% auditable code & 60 FPS" : "100% código auditable y 60 FPS"}</span>
         </div>
+        <div class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-mono text-slate-600 bg-white border border-slate-200/90 shadow-2xs">
+          <span>{isEn ? "Prices excl. VAT" : "Precios sin IVA"}</span>
+        </div>
       </div>
 
-      <!-- Catálogo de Paquetes -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+      <!-- Catálogo de Paquetes: Nivell 1 - Desenvolupament Web & Negocis -->
+      <h2 class="sr-only">{isEn ? "Service packages and pricing" : "Paquetes de servicios y tarifas"}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {
-          packages.map((pkg) => {
+          webDevPackages.map((pkg) => {
             const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
             const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
             const annualCostShort = pkg.annualTotal.split('(')[0].trim();
@@ -172,12 +189,12 @@ const faqSchema = {
               <div
                 class={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative ${
                   pkg.isFeatured
-                    ? "bg-white border-2 border-slate-950 shadow-xl ring-4 ring-[#FFFF00]/25 lg:-translate-y-2"
+                    ? "bg-white border-2 border-slate-950 shadow-xl ring-4 ring-[#FFFF00]/25 lg:-translate-y-2 z-10"
                     : "bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md"
                 }`}>
                 {pkg.isFeatured && (
                   <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span class="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 shadow-sm border border-slate-950/20 flex items-center gap-1">
+                    <span class="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 shadow-sm border border-slate-950/20 flex items-center gap-1 whitespace-nowrap">
                       <Icon name="bx:star" class="w-3.5 h-3.5 fill-current" />
                       <span>{pkg.badge}</span>
                     </span>
@@ -207,7 +224,7 @@ const faqSchema = {
                   <!-- Desglose de Precios Limpio y Compacto -->
                   <div class="my-5 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 font-mono">
                     <div class="flex items-baseline justify-between">
-                      <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"}</span>
+                      <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"} <span class="text-[10px] text-slate-700 font-medium">({isEn ? "excl. VAT" : "sin IVA"})</span></span>
                       <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
                     </div>
                     <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
@@ -262,6 +279,105 @@ const faqSchema = {
         }
       </div>
 
+      <!-- Nivell 2: Serveis Tècnics Especialitzats (Auditoria & CI/CD DevOps) -->
+      <div class="mt-20">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <p class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold mb-2">
+            {isEn ? "Specialized Technical Services" : "Servicios técnicos especializados"}
+          </p>
+          <h3 class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
+            {isEn ? "Engineering Audits & CI/CD Automation" : "Auditorías de ingeniería y automatización CI/CD"}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 font-light mt-2">
+            {isEn
+              ? "Targeted technical interventions to optimize existing projects, improve performance metrics, and streamline releases."
+              : "Intervenciones técnicas puntuales para optimizar proyectos existentes, mejorar métricas de rendimiento y automatizar despliegues."}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+          {
+            specializedPackages.map((pkg) => {
+              const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
+              const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
+              const annualCostShort = pkg.annualTotal.split('(')[0].trim();
+              const dailyCostShort = pkg.dailyCostEquivalent.split('(')[0].trim();
+
+              return (
+                <div class="rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md">
+                  <div>
+                    <div class="flex items-center justify-between gap-4 mb-5">
+                      <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-950">
+                        <Icon name={pkg.icon} class="w-6 h-6 text-slate-950" />
+                      </div>
+                      <span class="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border border-slate-200 text-slate-500">
+                        {pkg.badge}
+                      </span>
+                    </div>
+
+                    <h3 class="font-light text-2xl text-slate-950 tracking-tight leading-snug">
+                      {pkg.name}
+                    </h3>
+                    
+                    <p class="text-xs text-slate-600 mt-2 font-light leading-relaxed">
+                      {pkg.tagline}
+                    </p>
+
+                    <!-- Desglose de Precios Limpio y Compacto -->
+                    <div class="my-5 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 font-mono">
+                      <div class="flex items-baseline justify-between">
+                        <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"} <span class="text-[10px] text-slate-700 font-medium">({isEn ? "excl. VAT" : "sin IVA"})</span></span>
+                        <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
+                      </div>
+                      <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
+                        <span class="text-xs text-slate-500">{isEn ? "Monthly maintenance:" : "Mantenimiento:"}</span>
+                        <span class="text-sm font-semibold text-slate-900">{pkg.monthlyFee}</span>
+                      </div>
+                      <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[11px]">
+                        <span class="text-slate-700 font-medium">{annualCostShort}</span>
+                        <span class="text-slate-500">{dailyCostShort}</span>
+                      </div>
+                    </div>
+
+                    <!-- Características incluidas clave -->
+                    <div class="space-y-2.5 mb-8">
+                      <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-600">
+                        {isEn ? "Key inclusions:" : "Incluido en la propuesta:"}
+                      </p>
+                      <ul class="space-y-2 text-xs text-slate-700 font-light">
+                        {pkg.features.slice(0, 4).map((feature) => (
+                          <li class="flex items-start gap-2.5">
+                            <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">✓</span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Acciones del paquete -->
+                  <div class="space-y-2 pt-4 border-t border-slate-100">
+                    <a
+                      href={detailUrl}
+                      class="w-full inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-mono uppercase tracking-wider font-semibold transition-colors text-center bg-slate-100 hover:bg-slate-950 text-slate-800 hover:text-white border border-slate-200 hover:border-slate-950">
+                      <span>{isEn ? "See detailed breakdown & ROI" : "Ver justificación y amortización"}</span>
+                      <span aria-hidden="true">→</span>
+                    </a>
+
+                    <a
+                      href={ctaContactUrl}
+                      class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-mono text-slate-500 hover:text-slate-950 transition-colors text-center">
+                      <span>{isEn ? "Request this package" : "Solicitar este servicio"}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+
       <!-- Muestrario de Proyectos -->
       <div class="mt-24 max-w-5xl mx-auto">
         <div class="text-center mb-10">
@@ -285,7 +401,6 @@ const faqSchema = {
             <div>
               <div class="flex items-center justify-between mb-3">
                 <Icon name="bx:bell" class="w-5 h-5 text-slate-950" />
-                <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "In production" : "En producción"}</span>
               </div>
               <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">AVISA</h4>
               <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Incident management platform with Angular Signals and WCAG AA." : "Plataforma de incidencias con Angular Signals y WCAG AA."}</p>
@@ -356,7 +471,7 @@ const faqSchema = {
             {isEn ? "Methodology & Transparency" : "Metodología y transparencia"}
           </span>
           <h3 class="text-3xl font-light text-slate-950 tracking-tight">
-            {isEn ? "How we work together, step by step" : "Cómo trabajamos juntos paso a paso"}
+            {isEn ? "How I work with you, step by step" : "Cómo trabajo contigo paso a paso"}
           </h3>
           <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2 font-light">
             {isEn

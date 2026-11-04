@@ -76,7 +76,7 @@ La inmensa mayoría de búsquedas locales se realizan desde dispositivos móvile
 
 - **Diseño web optimizado:** Páginas ligeras compiladas con tecnología estática moderna (como Astro) que entreguen el primer contenido visible (FCP) en menos de 1 segundo.
 - **Acceso directo a la acción:** Teléfono enlazado con `tel:`, ubicación con enlace directo a Google Maps y carta o catálogo accesible sin necesidad de descargar pesados archivos PDF.
-- Si gestionas hostelería o comercio local, te recomendamos revisar nuestro análisis sobre [por qué el menú en PDF reduce ventas frente a una carta web interactiva](/blog/es-per-que-el-menu-en-pdf-mata-vendes-restaurant) o consultar nuestro [pack de digitalización local](/pricing/digitalitzacio-local).
+- Si gestionas hostelería o comercio local, te recomendamos revisar nuestro análisis sobre [por qué el menú en PDF reduce ventas frente a una carta web interactiva](/blog/es-per-que-el-menu-en-pdf-mata-vendes-restaurant/) o consultar nuestro [pack de digitalización local](/pricing/digitalitzacio-local/).
 
 ---
 

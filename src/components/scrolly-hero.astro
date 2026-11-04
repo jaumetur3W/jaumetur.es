@@ -27,6 +27,11 @@ const copy = isEn
       statement: "Desarrollador web centrado en rendimiento, diseño limpio y código bien construido.",
       seoText: "Hola, soy Jaume Tur. Desarrollador web, backend y soluciones digitales en Valencia.",
     };
+
+const greetingText = copy.greeting;
+const oIdx = greetingText.indexOf("o");
+const greetingBeforeO = oIdx !== -1 ? greetingText.slice(0, oIdx) : greetingText;
+const greetingAfterO = oIdx !== -1 ? greetingText.slice(oIdx + 1) : "";
 ---
 
 <!-- Scrollytelling Hero: Animació per paraules completes i independents -->
@@ -40,7 +45,15 @@ const copy = isEn
     id="scrolly-stage"
     class="scrolly-stage hero-intro-dark sticky top-[56px] z-10 w-full overflow-hidden flex flex-col justify-center items-center px-4 sm:px-8"
   >
-    <div id="hero-type-container" class="relative w-full max-w-5xl mx-auto flex flex-col items-center text-center select-none">
+    <!-- Efecte Forat Negre: absorbeix tot el fons negre cap al centre de la «o» -->
+    <div id="hero-black-hole" class="hero-black-hole" aria-hidden="true">
+      <div class="hero-hole-distortion" aria-hidden="true"></div>
+    </div>
+
+    <!-- Aura luminosa ambiental en modo oscuro -->
+    <div id="hero-glow-aura" class="hero-glow-aura" aria-hidden="true"></div>
+
+    <div id="hero-type-container" class="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center select-none">
       
       <!-- Único H1 principal de la página: Accesible para SEO desde el primer render -->
       <h1
@@ -64,7 +77,7 @@ const copy = isEn
           <span
             id="token-hola"
             class="word-token token-word inline-block font-bold opacity-100 will-change-[transform,opacity]"
-          >{copy.greeting}</span><span
+          >{greetingBeforeO}<span id="letter-o" class="relative inline-block">o<span class="hole-singularity" aria-hidden="true"><span class="hole-accretion-ring"></span></span></span>{greetingAfterO}</span><span
             id="token-comma"
             class="word-token token-word inline-block font-normal text-slate-950 opacity-0 will-change-[opacity]"
           >{copy.comma}&nbsp;</span><span
@@ -87,7 +100,7 @@ const copy = isEn
         </span>
       </h1>
 
-      <!-- Presentación personal breve: se revela en el estado 5 (80-100%) -->
+      <!-- Presentación personal breve: se revela en el estado 3 -->
       <div
         id="hero-statement"
         class="mt-8 sm:mt-12 max-w-2xl mx-auto opacity-0 translate-y-4 pointer-events-none will-change-[transform,opacity]"
@@ -98,17 +111,31 @@ const copy = isEn
       </div>
 
     </div>
+
+    <!-- Indicador de scroll animado al inicio -->
+    <div
+      id="hero-scroll-cue"
+      class="hero-scroll-cue absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none select-none z-10"
+      aria-hidden="true"
+    >
+      <span class="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] text-slate-400 font-medium cue-label">
+        {isEn ? "Scroll" : "Scroll"}
+      </span>
+      <div class="w-4 h-7 rounded-full border border-slate-600/70 flex items-start justify-center p-1 cue-pill">
+        <div class="w-1 h-1.5 rounded-full bg-[#FFFF00] cue-dot"></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  /* Altura calibrada para los 5 estados progresivos y el recorrido del telón que sube a cubrir la presentación */
+  /* Altura calibrada para los 3 estados progresivos y el recorrido del telón sin tapar el texto inferior */
   .scrolly-track {
-    height: 260vh;
+    height: 250vh;
   }
   @media (max-width: 640px) {
     .scrolly-track {
-      height: 240vh;
+      height: 230vh;
     }
   }
 
@@ -116,19 +143,155 @@ const copy = isEn
     height: calc(100vh - 56px);
     height: calc(100dvh - 56px);
     background-color: #ffffff;
-    transition: background-color 750ms cubic-bezier(0.16, 1, 0.3, 1);
+    --hole-x: 50%;
+    --hole-y: 50%;
   }
 
-  /* Ejemplo 3: Entrada con fondo negro azabache y Hola en amarillo */
-  .scrolly-stage.hero-intro-dark {
-    background-color: #09090b !important;
+  /* Efecto Forat Negre cinematográfico centrado en la letra 'o' de «Hola» */
+  .hero-black-hole {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+      circle at var(--hole-x, 50%) var(--hole-y, 50%),
+      #040507 0%,
+      #07080b 40%,
+      #09090b 80%,
+      #0d0e14 100%
+    );
+    clip-path: circle(0px at var(--hole-x, 50%) var(--hole-y, 50%));
+    transition: clip-path 230ms cubic-bezier(0.7, 0, 0.2, 1);
+    will-change: clip-path;
+  }
+
+  .scrolly-stage.hero-intro-dark .hero-black-hole {
+    clip-path: circle(160vmax at var(--hole-x, 50%) var(--hole-y, 50%));
+  }
+
+  .hero-hole-distortion {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at var(--hole-x, 50%) var(--hole-y, 50%),
+      transparent 0%,
+      rgba(255, 255, 0, 0.03) 30%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  /* Singularity y disco de acreción en el centro de la 'o' */
+  #letter-o {
+    display: inline-block;
+    vertical-align: baseline;
+    position: relative;
+  }
+
+  .hole-singularity {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hole-accretion-ring {
+    position: absolute;
+    width: 130%;
+    height: 130%;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 0, 0.45);
+    box-shadow: 0 0 14px rgba(255, 255, 0, 0.35), inset 0 0 8px rgba(255, 255, 0, 0.2);
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+    transition: opacity 180ms ease, transform 230ms cubic-bezier(0.7, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+
+  .scrolly-stage.hero-intro-dark .hole-accretion-ring {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    animation: accretionSpin 9s linear infinite;
+  }
+
+  @keyframes accretionSpin {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    100% {
+      transform: scale(1) rotate(360deg);
+    }
+  }
+
+  /* Aura luminosa ambiental en modo oscuro */
+  .hero-glow-aura {
+    position: absolute;
+    top: var(--hole-y, 50%);
+    left: var(--hole-x, 50%);
+    width: clamp(260px, 44vw, 480px);
+    height: clamp(260px, 44vw, 480px);
+    transform: translate(-50%, -50%) scale(1.35);
+    background: radial-gradient(circle, rgba(255, 255, 0, 0.16) 0%, rgba(255, 255, 0, 0.04) 45%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(52px);
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 190ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 230ms cubic-bezier(0.16, 1, 0.3, 1),
+                filter 190ms ease;
+  }
+
+  .scrolly-stage.hero-intro-dark .hero-glow-aura {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: heroAuraPulse 3.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroAuraPulse {
+    0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.68; }
+    100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.95; }
+  }
+
+  /* Indicador sutil de scroll animado al inicio */
+  .hero-scroll-cue {
+    transition: opacity 280ms ease, transform 280ms ease;
+  }
+  .cue-dot {
+    animation: cueDotBounce 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  @keyframes cueDotBounce {
+    0% { transform: translateY(0); opacity: 1; }
+    60% { transform: translateY(9px); opacity: 0.2; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .hero-scroll-cue.is-hidden {
+    opacity: 0 !important;
+    transform: translate(-50%, 14px) !important;
+    pointer-events: none !important;
   }
 
   /* Garantía tipográfica de peso bold en «Hola» y peso normal en el resto */
   #token-hola {
     font-weight: 700 !important;
     color: #020617;
-    transition: color 750ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: heroHolaFloat 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroHolaFloat {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-3px);
+    }
   }
 
   .scrolly-stage.hero-intro-dark #token-hola {
@@ -148,6 +311,15 @@ const copy = isEn
     }
     .scrolly-stage.hero-intro-dark #token-hola {
       color: #020617 !important;
+    }
+    #token-hola {
+      animation: none !important;
+    }
+    .hero-black-hole,
+    .hero-glow-aura,
+    .hero-scroll-cue,
+    .hole-singularity {
+      display: none !important;
     }
     .scrolly-track {
       height: auto !important;
@@ -192,7 +364,9 @@ const copy = isEn
       const track = document.getElementById("scrolly-hero");
       const stage = document.getElementById("scrolly-stage");
       const siteNavbar = document.getElementById("site-navbar-wrap");
+      const scrollCue = document.getElementById("hero-scroll-cue");
       const phrase = document.getElementById("hero-phrase");
+      const letterO = document.getElementById("letter-o");
       const tokenHola = document.getElementById("token-hola");
       const tokenComma = document.getElementById("token-comma");
       const tokenSoy = document.getElementById("token-soy");
@@ -217,13 +391,38 @@ const copy = isEn
         return;
       }
 
-      // Desactivar el estado intro negro/amarillo hacia blanco/negro de forma suave (únicamente al scrollear)
+      // Efecte Forat Negre: absorbeix o expandeix el fons fosc centrat a la lletra 'o'
       let introExited = false;
       function exitIntro() {
         if (introExited) return;
         introExited = true;
         stage.classList.remove("hero-intro-dark");
         if (siteNavbar) siteNavbar.classList.remove("hero-intro-dark");
+        if (scrollCue) scrollCue.classList.add("is-hidden");
+      }
+
+      function enterIntro() {
+        if (!introExited) return;
+        introExited = false;
+        stage.classList.add("hero-intro-dark");
+        if (siteNavbar) siteNavbar.classList.add("hero-intro-dark");
+        if (scrollCue) scrollCue.classList.remove("is-hidden");
+      }
+
+      function updateBlackHoleCenter() {
+        if (!letterO || !stage) return;
+        const oRect = letterO.getBoundingClientRect();
+        const stageRect = stage.getBoundingClientRect();
+        if (stageRect.width === 0 || stageRect.height === 0) return;
+
+        const oCenterX = oRect.left + oRect.width / 2 - stageRect.left;
+        const oCenterY = oRect.top + oRect.height / 2 - stageRect.top;
+
+        const percentX = (oCenterX / stageRect.width) * 100;
+        const percentY = (oCenterY / stageRect.height) * 100;
+
+        stage.style.setProperty("--hole-x", `${percentX.toFixed(3)}%`);
+        stage.style.setProperty("--hole-y", `${percentY.toFixed(3)}%`);
       }
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -248,8 +447,7 @@ const copy = isEn
       // Offsets para centrar exactamente cada estado tipográfico (píxeles relativos al centro)
       let offset1 = 0; // Centra «Hola»
       let offset2 = 0; // Centra «Hola, soy»
-      let offset3 = 0; // Centra «Hola, soy Jaume»
-      let offset4 = 0; // Centra «Hola, soy Jaume Tur»
+      let offset3 = 0; // Centra «Hola, soy Jaume Tur»
 
       let cachedTrackTop = 0;
       let cachedTrackHeight = 0;
@@ -270,7 +468,6 @@ const copy = isEn
         // Medir coordenadas respecto al origen sin transformar, sin alterar transform actual (cero parpadeo ni reflow)
         const holaRect = tokenHola.getBoundingClientRect();
         const soyRect = tokenSoy.getBoundingClientRect();
-        const jaumeRect = tokenJaume.getBoundingClientRect();
         const turRect = tokenTur.getBoundingClientRect();
 
         const unshiftedHolaLeft = holaRect.left - phraseTransformX;
@@ -278,7 +475,6 @@ const copy = isEn
         const unshiftedHolaCenter = unshiftedHolaLeft + unshiftedHolaWidth / 2;
 
         const unshiftedSoyRight = soyRect.right - phraseTransformX;
-        const unshiftedJaumeRight = jaumeRect.right - phraseTransformX;
         const unshiftedTurRight = turRect.right - phraseTransformX;
 
         // 1. Centro de «Hola»
@@ -288,20 +484,18 @@ const copy = isEn
         const holaSoyCenter = (unshiftedHolaLeft + unshiftedSoyRight) / 2;
         offset2 = containerCenter - holaSoyCenter;
 
-        // 3. Centro de «Hola, soy Jaume»
-        const holaJaumeCenter = (unshiftedHolaLeft + unshiftedJaumeRight) / 2;
-        offset3 = containerCenter - holaJaumeCenter;
-
-        // 4. Centro de «Hola, soy Jaume Tur»
+        // 3. Centro de «Hola, soy Jaume Tur»
         const holaTurCenter = (unshiftedHolaLeft + unshiftedTurRight) / 2;
-        offset4 = containerCenter - holaTurCenter;
+        offset3 = containerCenter - holaTurCenter;
 
+        updateBlackHoleCenter();
       }
 
-      const stepCount = 5;
-      const transitionDuration = 460;
-      const wheelQuietPeriod = 220;
-      const touchThreshold = 40;
+      // 3 estados de interacción (1: , soy | 2: Jaume Tur | 3: statement y telón al primer contenido)
+      const stepCount = 4;
+      const transitionDuration = 260;
+      const wheelQuietPeriod = 200;
+      const touchThreshold = 28;
       let activeStep = 0;
       let isAnimating = false;
       let pendingDirections = [];
@@ -312,38 +506,46 @@ const copy = isEn
       let touchHandled = false;
 
       function renderStep(step, immediate = false) {
-        const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : step === 2 ? offset3 : offset4;
+        if (scrollCue && step > 0) {
+          scrollCue.classList.add("is-hidden");
+        }
+
+        const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : offset3;
         const soyVisible = step >= 1;
         const jaumeVisible = step >= 2;
-        const turVisible = step >= 3;
-        const statementVisible = step >= 4;
+        const turVisible = step >= 2;
+        const statementVisible = step >= 3;
 
         phrase.style.transition = immediate
           ? "none"
-          : `transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          : `transform ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
         phrase.style.transform = `translate3d(${currentOffset.toFixed(2)}px, 0, 0)`;
 
         const animatedTokens = [tokenHola, tokenComma, tokenSoy, tokenJaume, tokenTur];
         animatedTokens.forEach((token) => {
           token.style.transition = immediate
             ? "none"
-            : `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+            : `opacity ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
         });
 
         // «Hola» se ve obligatoriamente en todo momento desde la carga inicial
         tokenHola.style.opacity = "1";
         tokenHola.style.transform = "translate3d(0, 0, 0)";
 
-        const soyTranslateY = soyVisible ? 0 : 12;
+        const soyTranslateY = soyVisible ? 0 : 10;
+        tokenComma.style.transitionDelay = "0ms";
         tokenComma.style.opacity = soyVisible ? "1" : "0";
+        tokenSoy.style.transitionDelay = "0ms";
         tokenSoy.style.opacity = soyVisible ? "1" : "0";
         tokenSoy.style.transform = `translate3d(0, ${soyTranslateY}px, 0)`;
 
-        const jaumeTranslateY = jaumeVisible ? 0 : 12;
+        const jaumeTranslateY = jaumeVisible ? 0 : 10;
+        tokenJaume.style.transitionDelay = "0ms";
         tokenJaume.style.opacity = jaumeVisible ? "1" : "0";
         tokenJaume.style.transform = `translate3d(0, ${jaumeTranslateY}px, 0)`;
 
-        const turTranslateY = turVisible ? 0 : 12;
+        const turTranslateY = turVisible ? 0 : 10;
+        tokenTur.style.transitionDelay = immediate || step < 2 ? "0ms" : "35ms";
         tokenTur.style.opacity = turVisible ? "1" : "0";
         tokenTur.style.transform = `translate3d(0, ${turTranslateY}px, 0)`;
 
@@ -353,15 +555,35 @@ const copy = isEn
 
         statement.style.transition = immediate
           ? "none"
-          : `opacity ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${transitionDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+          : `opacity ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${transitionDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`;
         statement.style.opacity = statementVisible ? "1" : "0";
-        statement.style.transform = `translate3d(0, ${statementVisible ? 0 : 16}px, 0)`;
+        statement.style.transform = `translate3d(0, ${statementVisible ? 0 : 12}px, 0)`;
         statement.style.pointerEvents = statementVisible ? "auto" : "none";
       }
 
       function isTrackActive() {
         const rect = track.getBoundingClientRect();
         return rect.top < window.innerHeight && rect.bottom > 56;
+      }
+
+      function isCurtainCovering() {
+        const curtain = document.getElementById("home-curtain");
+        if (!curtain) return false;
+        const rect = curtain.getBoundingClientRect();
+        return rect.top <= 70;
+      }
+
+      function getCurtainTarget() {
+        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+        return cachedTrackTop + scrollableDistance;
+      }
+
+      function getStepTarget(step) {
+        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+        if (step <= 0) return cachedTrackTop;
+        if (step === 1) return cachedTrackTop + scrollableDistance * 0.12;
+        if (step === 2) return cachedTrackTop + scrollableDistance * 0.25;
+        return cachedTrackTop + scrollableDistance * 0.38;
       }
 
       function canQueueStep(direction) {
@@ -373,18 +595,19 @@ const copy = isEn
       }
 
       function scrollToStep(step) {
-        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
-        // Los pasos 0-4 ocupan el primer 48% del track.
-        // El 52% restante permite al telón (#home-curtain) subir y cubrir el texto estático.
-        const progress = step <= 0 ? 0 : step === 1 ? 0.12 : step === 2 ? 0.24 : step === 3 ? 0.36 : 0.48;
-        const target = cachedTrackTop + scrollableDistance * progress;
+        const target = getStepTarget(step);
         window.scrollTo({ top: target, behavior: "instant" });
       }
 
       function startStep(direction) {
-        exitIntro();
         const nextStep = activeStep + direction;
         if (nextStep < 0 || nextStep >= stepCount) return;
+
+        if (nextStep > 0) {
+          exitIntro();
+        } else if (nextStep === 0) {
+          enterIntro();
+        }
 
         activeStep = nextStep;
         isAnimating = true;
@@ -411,7 +634,37 @@ const copy = isEn
       function onWheel(event) {
         if (event.deltaY === 0 || !isTrackActive()) return;
         const direction = event.deltaY > 0 ? 1 : -1;
-        if (!wheelGestureActive && !canQueueStep(direction)) return;
+        const curtainTarget = getCurtainTarget();
+
+        // 1. Si estamos por debajo de la zona del telón (navegando por el contenido inferior):
+        // Permitir scroll nativo fluido sin intercepción.
+        if (window.scrollY > curtainTarget + 60) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
+        // 2. Si se hace scroll hacia abajo y ya estamos en el paso final (todo el texto visible y telón arriba):
+        // Permitir scroll nativo descendente para que el usuario navegue hacia abajo libremente.
+        if (direction > 0 && activeStep >= 3) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
+        // 3. Si se hace scroll hacia arriba y ya estamos en el paso 0 (inicio):
+        // Permitir scroll nativo en la cabecera sin bloquear.
+        if (direction < 0 && activeStep <= 0) {
+          wheelGestureActive = false;
+          pendingDirections = [];
+          return;
+        }
+
+        // 4. Comprobar si se puede encolar el paso de animación
+        if (!canQueueStep(direction)) {
+          wheelGestureActive = false;
+          return;
+        }
 
         event.preventDefault();
         if (!wheelGestureActive) {
@@ -433,25 +686,79 @@ const copy = isEn
 
       function onTouchMove(event) {
         if (event.touches.length !== 1 || !isTrackActive()) return;
-        if (touchHandled) {
-          event.preventDefault();
-          return;
-        }
 
         const deltaY = touchStartY - event.touches[0].clientY;
         const deltaX = touchStartX - event.touches[0].clientX;
         if (Math.abs(deltaY) < touchThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
 
         const direction = deltaY > 0 ? 1 : -1;
+        const curtainTarget = getCurtainTarget();
+
+        // Si estamos por debajo de la zona del telón: scroll táctil nativo
+        if (window.scrollY > curtainTarget + 60) {
+          return;
+        }
+
+        // Si se desplaza hacia abajo y ya estamos en el paso final: permitir scroll táctil nativo
+        if (direction > 0 && activeStep >= 3) {
+          return;
+        }
+
+        // Si se desplaza hacia arriba y ya estamos en el paso 0: permitir scroll táctil nativo
+        if (direction < 0 && activeStep <= 0) {
+          return;
+        }
+
+        if (touchHandled) {
+          event.preventDefault();
+          return;
+        }
+
         if (!canQueueStep(direction)) return;
 
-        event.preventDefault();
+        if (event.cancelable) event.preventDefault();
         touchHandled = true;
         queueStep(direction);
       }
 
       function onTouchEnd() {
         touchHandled = false;
+      }
+
+      function onWindowScroll() {
+        if (window.scrollY <= 15 && activeStep === 0) {
+          enterIntro();
+        } else {
+          exitIntro();
+        }
+
+        if (scrollCue && window.scrollY > 15) {
+          scrollCue.classList.add("is-hidden");
+        }
+        const curtainTarget = getCurtainTarget();
+
+        if (window.scrollY >= curtainTarget - 20 || isCurtainCovering()) {
+          if (activeStep !== 3) {
+            activeStep = 3;
+            renderStep(3, false);
+          }
+        } else if (!isAnimating && !wheelGestureActive) {
+          const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+          if (scrollableDistance > 0) {
+            const relY = Math.max(0, window.scrollY - cachedTrackTop);
+            const ratio = relY / scrollableDistance;
+            let targetStep = 0;
+            if (ratio >= 0.32) targetStep = 3;
+            else if (ratio >= 0.18) targetStep = 2;
+            else if (ratio >= 0.06) targetStep = 1;
+            else targetStep = 0;
+
+            if (targetStep !== activeStep) {
+              activeStep = targetStep;
+              renderStep(activeStep, true);
+            }
+          }
+        }
       }
 
       measureOffsets();
@@ -477,6 +784,7 @@ const copy = isEn
       window.addEventListener("touchstart", onTouchStart, { passive: true });
       window.addEventListener("touchmove", onTouchMove, { passive: false });
       window.addEventListener("touchend", onTouchEnd, { passive: true });
+      window.addEventListener("scroll", onWindowScroll, { passive: true });
       window.addEventListener(
         "resize",
         () => {

@@ -75,7 +75,6 @@ export default defineConfig({
     "/val/projectes/forma-espacio": "/projectes/forma-espacio/",
     "/val/projectes/pipeline-cicd": "/projectes/pipeline-cicd/",
     "/val/projectes/pizzeria-xativa": "/projectes/pizzeria-xativa/",
-    "/val/projectes/urbanstyles": "/projectes/urbanstyles/",
 
     // English project alias
     "/en/projects": "/en/projectes/",
@@ -90,6 +89,7 @@ export default defineConfig({
         if (page.includes("/briefing")) return false;
         if (page.includes("/val/") || page.endsWith("/val/")) return false;
         if (page.includes("/en/projects")) return false;
+        if (page.includes("/en/blog")) return false;
         return true;
       },
     }),

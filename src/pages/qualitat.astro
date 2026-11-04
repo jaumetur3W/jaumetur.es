@@ -29,7 +29,7 @@ const coreWebVitals = [
   { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 200 ms", status: isEn ? "Excellent" : "Excelente", desc: isEn ? "Total main thread blocking time. 0 ms thanks to eliminating render-blocking scripts." : "Tiempo total de bloqueo del hilo principal. 0 ms gracias a la eliminación de scripts bloqueantes." },
   { metric: "CLS", name: "Cumulative Layout Shift", value: "0.000", threshold: "< 0.1", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Complete visual stability without unexpected element shifts during load." : "Estabilidad visual completa, sin desplazamientos inesperados de elementos durante la carga." },
   { metric: "FCP", name: "First Contentful Paint", value: "1.1 s", threshold: "< 1.8 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until first DOM element becomes visible on screen (0.3 s on desktop)." : "Tiempo hasta que aparece el primer elemento DOM visible en pantalla (0,3 s en escritorio)." },
-  { metric: "Speed Index", name: isEn ? "Speed index" : "Índice de velocidad", value: "3.6 s", threshold: "< 3.4 s", status: isEn ? "0.3 s on desktop" : "0,3 s en escritorio", desc: isEn ? "Speed at which page visual contents become visible on mobile 4G (0.3 s on desktop)." : "Velocidad a la que el contenido visual de la página se hace visible en móvil 4G (0,3 s en escritorio)." },
+  { metric: "Speed Index", name: isEn ? "Speed index" : "Índice de velocidad", value: "3.6 s", threshold: "< 3.4 s", status: isEn ? "To improve (3.6 s > 3.4 s)" : "A mejorar (3,6 s > 3,4 s)", desc: isEn ? "Speed at which page visual contents become visible on mobile 4G (0.3 s on desktop)." : "Velocidad a la que el contenido visual de la página se hace visible en móvil 4G (0,3 s en escritorio)." },
 ];
 
 const bundleBreakdown = [
@@ -130,9 +130,15 @@ const bundleBreakdown = [
                   <td class="py-3.5 px-5 font-medium text-slate-950 text-base">{cwv.value}</td>
                   <td class="py-3.5 px-5 text-slate-600">{cwv.threshold}</td>
                   <td class="py-3.5 px-5">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20">
-                      <span>✓ {cwv.status}</span>
-                    </span>
+                    {cwv.metric === "Speed Index" ? (
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-900 border border-amber-300">
+                        <span>{cwv.status}</span>
+                      </span>
+                    ) : (
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+                        <span>✓ {cwv.status}</span>
+                      </span>
+                    )}
                   </td>
                   <td class="py-3.5 px-5 text-slate-600 font-sans text-xs hidden md:table-cell font-light">{cwv.desc}</td>
                 </tr>
@@ -196,15 +202,15 @@ const bundleBreakdown = [
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200/80">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-950 flex items-center justify-center border border-slate-200/80">
               <Icon name="bx:check-shield" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-slate-950 text-sm">{isEn ? "0 axe-core Violations (WCAG 2.2 AA)" : "0 Violaciones axe-core (WCAG 2.2 AA)"}</span>
+            <span class="font-normal text-slate-950 text-sm">{isEn ? "Automated Accessibility Auditing" : "Auditoría de accesibilidad continua"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed font-light">
             {isEn
-              ? "Automated E2E axe-core scans with Playwright across home, pricing, projects, and articles verify 0 violations under WCAG 2.0, 2.1, and 2.2 AA standards."
-              : "La auditoría automatizada E2E con @axe-core/playwright sobre la home, pricing, proyectos y artículos certifica 0 violaciones bajo los estándares WCAG 2.0, 2.1 y 2.2 AA."}
+              ? "Automated E2E axe-core scans with Playwright integrated into CI evaluate home, pricing, projects, and articles under WCAG 2.0, 2.1, and 2.2 AA standards."
+              : "La auditoría automatizada E2E con @axe-core/playwright integrada en el pipeline CI evalúa la home, pricing, proyectos y artículos bajo los estándares WCAG 2.0, 2.1 y 2.2 AA."}
           </p>
         </div>
 
@@ -224,15 +230,15 @@ const bundleBreakdown = [
 
         <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200/80">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-950 flex items-center justify-center border border-slate-200/80">
               <Icon name="bx:sun" class="w-5 h-5" />
             </div>
             <span class="font-normal text-slate-950 text-sm">{isEn ? "Color Contrast (≥ 4.5:1)" : "Contraste de color (≥ 4,5:1)"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed font-light">
             {isEn
-              ? "Every text element across the light and dark UI themes strictly complies with the minimum 4.5:1 contrast ratio required by WCAG AA."
-              : "Todos los elementos de texto en las paletas de interfaz clara y oscura cumplen estrictamente con la relación de contraste mínima de 4,5:1 exigida por WCAG AA."}
+              ? "Text elements across interface views are designed following the minimum 4.5:1 contrast ratio recommended by WCAG AA guidelines."
+              : "Los elementos de texto en las vistas de interfaz se diseñan siguiendo la relación de contraste mínima de 4,5:1 recomendada por la guía WCAG AA."}
           </p>
         </div>
       </div>

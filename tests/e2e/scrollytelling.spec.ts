@@ -18,6 +18,12 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(holaToken).toBeVisible();
     await expect(holaToken).toHaveText("Hola");
 
+    // Verifica que el forat negre cinematogràfic i la lletra 'o' de Hola estan presents
+    const blackHole = page.locator("#hero-black-hole");
+    await expect(blackHole).toBeAttached();
+    const letterO = page.locator("#letter-o");
+    await expect(letterO).toBeVisible();
+
     // Verifica que «Hola» tiene peso bold (>= 700) y que las demás palabras mantienen peso normal (400)
     const holaWeight = await holaToken.evaluate((el) => window.getComputedStyle(el).fontWeight);
     expect(parseInt(holaWeight, 10)).toBeGreaterThanOrEqual(700);
@@ -59,37 +65,39 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     expect(await opacity(soyToken)).toBeGreaterThan(0.99);
     expect(await opacity(jaumeToken)).toBeLessThan(0.1);
 
-    // The animation finishes on its own; one fresh gesture reveals each next word.
+    // 2.º gesto de rueda: se junta «Jaume» con «Tur» (la frase se completa).
     await advance();
     expect(await opacity(jaumeToken)).toBeGreaterThan(0.99);
-    expect(await opacity(soyToken)).toBeGreaterThan(0.99);
-    expect(await opacity(turToken)).toBeLessThan(0.1);
-
-    await advance();
     expect(await opacity(turToken)).toBeGreaterThan(0.99);
+    expect(await opacity(statement)).toBeLessThan(0.1);
 
     const nameLink = page.locator("#hero-name-link");
     await expect(nameLink).toBeVisible();
     await expect(nameLink).toHaveAttribute("href", "/about");
 
+    // 3.ᵉʳ gesto de rueda: se junta el subtítulo con la entrada al primer contenido (sube el telón).
+    const scrollAtHeroBeforeExit = await page.evaluate(() => window.scrollY);
     await advance();
     expect(await opacity(statement)).toBeGreaterThan(0.99);
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollAtHeroBeforeExit);
 
-    const scrollAtHeroEnd = await page.evaluate(() => window.scrollY);
-    await page.mouse.wheel(0, 120);
-    await page.waitForTimeout(100);
-    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(scrollAtHeroEnd);
+    // El telón (#home-curtain) NO tapa el texto inferior (#hero-statement) en el paso 3
+    const curtain = page.locator("#home-curtain");
+    const curtainBox = await curtain.boundingBox();
+    const statementBox = await statement.boundingBox();
+    expect(curtainBox).not.toBeNull();
+    expect(statementBox).not.toBeNull();
+    expect(curtainBox!.y).toBeGreaterThanOrEqual(statementBox!.y + statementBox!.height);
 
-    // Reverse gestures return through earlier states down to step 0 (initial view).
+    // Gestos inversos (scroll hacia arriba) regresan limpiamente hasta el estado inicial.
     await advance(-1);
     expect(await opacity(turToken)).toBeGreaterThan(0.99);
-    expect(await opacity(statement)).toBeLessThan(0.1);
-    await advance(-1);
     expect(await opacity(jaumeToken)).toBeGreaterThan(0.99);
-    expect(await opacity(turToken)).toBeLessThan(0.1);
+    expect(await opacity(statement)).toBeLessThan(0.1);
     await advance(-1);
     expect(await opacity(soyToken)).toBeGreaterThan(0.99);
     expect(await opacity(jaumeToken)).toBeLessThan(0.1);
+    expect(await opacity(turToken)).toBeLessThan(0.1);
     await advance(-1);
     expect(await opacity(holaToken)).toBeGreaterThan(0.99);
     expect(await opacity(soyToken)).toBeLessThan(0.1);
@@ -180,7 +188,7 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
     await expect(page.locator("#token-hola")).toHaveCSS("opacity", "1");
     await expect(page.locator("#token-soy")).toHaveCSS("opacity", "1");
     await expect(page.locator("#token-jaume")).toHaveCSS("opacity", "1");
-    await expect(page.locator("#token-tur")).toHaveCSS("opacity", "0");
+    await expect(page.locator("#token-tur")).toHaveCSS("opacity", "1");
   });
 
   test("English version /en reveals each word in discrete gestures and contains full SEO heading", async ({ page }) => {
@@ -306,7 +314,6 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
 
       const tokenHola = page.locator("#token-hola");
       const tokenSoy = page.locator("#token-soy");
-      const tokenJaume = page.locator("#token-jaume");
       const tokenTur = page.locator("#token-tur");
 
       // Verify «Hola» has bold weight (700) and «soy» has normal weight (400)
@@ -325,7 +332,6 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
       // Verify exact centering in all subsequent states using one wheel gesture per state.
       const testStates = [
         { tokens: [tokenHola, tokenSoy] },
-        { tokens: [tokenHola, tokenJaume] },
         { tokens: [tokenHola, tokenTur] },
         { tokens: [tokenHola, tokenTur] },
       ];
@@ -353,7 +359,7 @@ test.describe("Minimalist Scrollytelling Experience on Main", () => {
       expect(scrollWidth).toBeLessThanOrEqual(vp.width + 1);
 
       // Reverse through prior states and confirm the greeting stays centered.
-      for (let step = 0; step < 4; step += 1) {
+      for (let step = 0; step < 3; step += 1) {
         await page.mouse.wheel(0, -120);
         await page.waitForTimeout(650);
       }

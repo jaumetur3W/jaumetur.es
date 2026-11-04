@@ -71,6 +71,20 @@ const categories: CapabilityCategory[] = [
           ? "Fast-food digital menu and website optimized for mobile speed, clarity, and user conversion."
           : "Web y carta digital para restaurante de comida rápida, optimizada para móviles y conversión.",
       },
+      {
+        name: isEn ? "Mas de l'Alzina — Rural Estate" : "Mas de l'Alzina — Finca Rural",
+        href: href("/projectes/fincarural"),
+        description: isEn
+          ? "Editorial web experience for exclusive getaways, private retreats, and countryside events."
+          : "Web editorial y experiencia digital para estancias exclusivas, retiros y eventos.",
+      },
+      {
+        name: "FORMA / ESPACIO",
+        href: href("/projectes/forma-espacio"),
+        description: isEn
+          ? "Editorial portfolio for art, architecture, and spatial research with minimalist design."
+          : "Portfolio editorial de arte, arquitectura e investigación con diseño visual minimalista.",
+      },
     ],
     pricingLink: href("/pricing/landing-page"),
     pricingText: isEn ? "View web development packages" : "Ver tarifas y opciones de webs",
@@ -106,8 +120,8 @@ const categories: CapabilityCategory[] = [
         name: "AVISA",
         href: href("/projectes/avisa"),
         description: isEn
-          ? "Urban incident reporting platform with Angular Standalone, Signals, and reactive UI architecture."
-          : "Plataforma de reporte y gestión de incidencias con Angular Standalone, Signals y arquitectura reactiva.",
+          ? "Professional services, home tasks, and renovation platform built with Angular 18, Standalone components, and direct client-pro quote negotiation."
+          : "Plataforma de serveis professionals, reformes i tasques de la llar amb Angular 18, components Standalone i negociació de pressupostos.",
       },
     ],
     pricingLink: href("/pricing/angular-webapp"),
@@ -293,7 +307,7 @@ const categories: CapabilityCategory[] = [
               {cat.examples && cat.examples.length > 0 && (
                 <div class="pt-2 border-t border-slate-100">
                   <p class="font-mono text-[10px] uppercase tracking-wider text-slate-600 font-bold mb-1.5">
-                    {isEn ? "Projects in production:" : "Proyectos reales:"}
+                    {isEn ? "Projects & demos:" : "Proyectos y demos:"}
                   </p>
                   <div class="space-y-1.5">
                     {cat.examples.map((ex) => (
