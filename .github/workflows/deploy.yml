@@ -44,6 +44,9 @@ jobs:
 
       - name: Build site with Astro
         run: npm run build
+        env:
+          PUBLIC_WEB3FORMS_KEY: ${{ vars.PUBLIC_WEB3FORMS_KEY }}
+          PUBLIC_WEB3FORMS_BRIEFING_KEY: ${{ vars.PUBLIC_WEB3FORMS_BRIEFING_KEY }}
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
