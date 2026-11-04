@@ -119,13 +119,13 @@ const copy = isEn
 </section>
 
 <style>
-  /* Altura calibrada para los 5 estados progresivos y el recorrido del telón que sube a cubrir la presentación */
+  /* Altura calibrada para los 3 estados progresivos y el recorrido del telón que sube a cubrir la presentación */
   .scrolly-track {
-    height: 260vh;
+    height: 200vh;
   }
   @media (max-width: 640px) {
     .scrolly-track {
-      height: 240vh;
+      height: 190vh;
     }
   }
 
@@ -328,8 +328,7 @@ const copy = isEn
       // Offsets para centrar exactamente cada estado tipográfico (píxeles relativos al centro)
       let offset1 = 0; // Centra «Hola»
       let offset2 = 0; // Centra «Hola, soy»
-      let offset3 = 0; // Centra «Hola, soy Jaume»
-      let offset4 = 0; // Centra «Hola, soy Jaume Tur»
+      let offset3 = 0; // Centra «Hola, soy Jaume Tur»
 
       let cachedTrackTop = 0;
       let cachedTrackHeight = 0;
@@ -350,7 +349,6 @@ const copy = isEn
         // Medir coordenadas respecto al origen sin transformar, sin alterar transform actual (cero parpadeo ni reflow)
         const holaRect = tokenHola.getBoundingClientRect();
         const soyRect = tokenSoy.getBoundingClientRect();
-        const jaumeRect = tokenJaume.getBoundingClientRect();
         const turRect = tokenTur.getBoundingClientRect();
 
         const unshiftedHolaLeft = holaRect.left - phraseTransformX;
@@ -358,7 +356,6 @@ const copy = isEn
         const unshiftedHolaCenter = unshiftedHolaLeft + unshiftedHolaWidth / 2;
 
         const unshiftedSoyRight = soyRect.right - phraseTransformX;
-        const unshiftedJaumeRight = jaumeRect.right - phraseTransformX;
         const unshiftedTurRight = turRect.right - phraseTransformX;
 
         // 1. Centro de «Hola»
@@ -368,17 +365,13 @@ const copy = isEn
         const holaSoyCenter = (unshiftedHolaLeft + unshiftedSoyRight) / 2;
         offset2 = containerCenter - holaSoyCenter;
 
-        // 3. Centro de «Hola, soy Jaume»
-        const holaJaumeCenter = (unshiftedHolaLeft + unshiftedJaumeRight) / 2;
-        offset3 = containerCenter - holaJaumeCenter;
-
-        // 4. Centro de «Hola, soy Jaume Tur»
+        // 3. Centro de «Hola, soy Jaume Tur»
         const holaTurCenter = (unshiftedHolaLeft + unshiftedTurRight) / 2;
-        offset4 = containerCenter - holaTurCenter;
-
+        offset3 = containerCenter - holaTurCenter;
       }
 
-      const stepCount = 5;
+      // 3 estados de interacción (1: , soy | 2: Jaume Tur | 3: statement y telón al primer contenido)
+      const stepCount = 4;
       const transitionDuration = 260;
       const wheelQuietPeriod = 130;
       const touchThreshold = 28;
@@ -396,11 +389,11 @@ const copy = isEn
           scrollCue.classList.add("is-hidden");
         }
 
-        const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : step === 2 ? offset3 : offset4;
+        const currentOffset = step <= 0 ? offset1 : step === 1 ? offset2 : offset3;
         const soyVisible = step >= 1;
         const jaumeVisible = step >= 2;
-        const turVisible = step >= 3;
-        const statementVisible = step >= 4;
+        const turVisible = step >= 2;
+        const statementVisible = step >= 3;
 
         phrase.style.transition = immediate
           ? "none"
@@ -455,17 +448,17 @@ const copy = isEn
         return rect.top <= 70;
       }
 
-      function getStepProgress(step) {
-        return step <= 0 ? 0 : step === 1 ? 0.12 : step === 2 ? 0.24 : step === 3 ? 0.36 : 0.48;
+      function getCurtainTarget() {
+        const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
+        return cachedTrackTop + scrollableDistance;
       }
 
       function getStepTarget(step) {
         const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
-        return cachedTrackTop + scrollableDistance * getStepProgress(step);
-      }
-
-      function getStep4Target() {
-        return getStepTarget(4);
+        if (step <= 0) return cachedTrackTop;
+        if (step === 1) return cachedTrackTop + scrollableDistance * 0.2;
+        if (step === 2) return cachedTrackTop + scrollableDistance * 0.45;
+        return cachedTrackTop + scrollableDistance;
       }
 
       function canQueueStep(direction) {
@@ -511,20 +504,19 @@ const copy = isEn
       function onWheel(event) {
         if (event.deltaY === 0 || !isTrackActive()) return;
         const direction = event.deltaY > 0 ? 1 : -1;
-        const step4Target = getStep4Target();
-        const step4Threshold = step4Target + 130;
+        const curtainTarget = getCurtainTarget();
 
-        // 1. Si el telón está cubriendo el hero o estamos por debajo de la zona del hero:
-        // Permitir scroll nativo fluido en ambas direcciones sin intercepción.
-        if (isCurtainCovering() || (direction < 0 && window.scrollY > step4Threshold)) {
+        // 1. Si estamos por debajo de la zona del telón (navegando por el contenido inferior):
+        // Permitir scroll nativo fluido sin intercepción.
+        if (window.scrollY > curtainTarget + 60) {
           wheelGestureActive = false;
           pendingDirections = [];
           return;
         }
 
-        // 2. Si se hace scroll hacia abajo y ya estamos en el paso 4 (todo el texto visible):
-        // Permitir scroll nativo descendente para que el telón suba suavemente.
-        if (direction > 0 && activeStep >= 4) {
+        // 2. Si se hace scroll hacia abajo y ya estamos en el paso final (todo el texto visible y telón arriba):
+        // Permitir scroll nativo descendente para que el usuario navegue hacia abajo libremente.
+        if (direction > 0 && activeStep >= 3) {
           wheelGestureActive = false;
           pendingDirections = [];
           return;
@@ -570,16 +562,15 @@ const copy = isEn
         if (Math.abs(deltaY) < touchThreshold || Math.abs(deltaY) < Math.abs(deltaX)) return;
 
         const direction = deltaY > 0 ? 1 : -1;
-        const step4Target = getStep4Target();
-        const step4Threshold = step4Target + 130;
+        const curtainTarget = getCurtainTarget();
 
-        // Si el telón cubre el hero o estamos por debajo del umbral del hero: scroll táctil nativo
-        if (isCurtainCovering() || (direction < 0 && window.scrollY > step4Threshold)) {
+        // Si estamos por debajo de la zona del telón: scroll táctil nativo
+        if (window.scrollY > curtainTarget + 60) {
           return;
         }
 
-        // Si se desplaza hacia abajo y ya estamos en el paso 4: permitir scroll táctil nativo
-        if (direction > 0 && activeStep >= 4) {
+        // Si se desplaza hacia abajo y ya estamos en el paso final: permitir scroll táctil nativo
+        if (direction > 0 && activeStep >= 3) {
           return;
         }
 
@@ -595,7 +586,7 @@ const copy = isEn
 
         if (!canQueueStep(direction)) return;
 
-        event.preventDefault();
+        if (event.cancelable) event.preventDefault();
         touchHandled = true;
         queueStep(direction);
       }
@@ -609,24 +600,22 @@ const copy = isEn
         if (scrollCue && window.scrollY > 15) {
           scrollCue.classList.add("is-hidden");
         }
-        const step4Target = getStep4Target();
+        const curtainTarget = getCurtainTarget();
 
-        if (window.scrollY >= step4Target + 60 || isCurtainCovering()) {
-          if (activeStep !== 4) {
-            activeStep = 4;
-            renderStep(4, false);
+        if (window.scrollY >= curtainTarget - 20 || isCurtainCovering()) {
+          if (activeStep !== 3) {
+            activeStep = 3;
+            renderStep(3, false);
           }
         } else if (!isAnimating && !wheelGestureActive) {
           const scrollableDistance = Math.max(0, cachedTrackHeight - cachedViewportHeight);
-          const heroDistance = scrollableDistance * 0.48;
-          if (heroDistance > 0) {
+          if (scrollableDistance > 0) {
             const relY = Math.max(0, window.scrollY - cachedTrackTop);
-            const ratio = relY / heroDistance;
+            const ratio = relY / scrollableDistance;
             let targetStep = 0;
-            if (ratio >= 0.85) targetStep = 4;
-            else if (ratio >= 0.62) targetStep = 3;
-            else if (ratio >= 0.38) targetStep = 2;
-            else if (ratio >= 0.12) targetStep = 1;
+            if (ratio >= 0.85) targetStep = 3;
+            else if (ratio >= 0.35) targetStep = 2;
+            else if (ratio >= 0.1) targetStep = 1;
             else targetStep = 0;
 
             if (targetStep !== activeStep) {
