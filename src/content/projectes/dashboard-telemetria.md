@@ -15,7 +15,7 @@ verificationMethod: "Auditoría con Chrome DevTools Performance Profiler y FPS M
 liveUrl: "https://jautur.github.io/portfolio/#skills"
 githubUrl: "https://github.com/jautur/portfolio"
 stack: ["JavaScript ES6+", "TypeScript", "Performance API", "CSS Containment", "Virtual DOM", "Core Web Vitals"]
-order: 4
+order: 6
 image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Gráfico de telemetría y rendimiento de altas prestaciones"

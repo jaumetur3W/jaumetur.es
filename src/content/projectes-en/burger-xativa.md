@@ -14,7 +14,7 @@ statValue: "Simulated Flows · Zero Backend"
 verificationMethod: "Functional review of the published demo and interactive flows"
 liveUrl: "https://jaumetur3w.github.io/burger_xativa/"
 stack: ["Astro", "Static HTML", "Tailwind CSS", "Vanilla JavaScript", "Responsive Design"]
-order: 3
+order: 2
 image: {
   src: "/img/foto_burger.png",
   alt: "Gourmet burger featured in Burger Xàtiva demo"

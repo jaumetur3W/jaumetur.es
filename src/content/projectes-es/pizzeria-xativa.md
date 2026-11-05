@@ -14,7 +14,7 @@ statValue: "Pizza Pass · interacciones simuladas"
 verificationMethod: "Revisión de la web publicada y de los mensajes de demostración visibles"
 liveUrl: "https://jaumetur3w.github.io/pizzeria_xativa/"
 stack: ["HTML5", "Tailwind CSS CDN", "JavaScript vanilla", "WhatsApp deep links", "Apple Wallet / Google Wallet UI"]
-order: 2
+order: 4
 image: {
   src: "/img/foto_pizza.png",
   alt: "Pizza de la demo Pizzería Xàtiva"

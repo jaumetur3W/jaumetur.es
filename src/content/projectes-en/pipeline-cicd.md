@@ -15,7 +15,7 @@ verificationMethod: "GitHub Actions execution logs and live HTTP status telemetr
 liveUrl: "https://github.com/jautur/portfolio/actions"
 githubUrl: "https://github.com/jautur/portfolio"
 stack: ["GitHub Actions", "CI/CD", "Linux Shell", "ESLint", "TypeScript Check", "GitHub Pages", "npm Cache"]
-order: 5
+order: 7
 image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Continuous integration and automation CI/CD pipeline"

@@ -15,7 +15,7 @@ verificationMethod: "Revisión de la navegación interactiva, catálogo de espac
 liveUrl: "https://jaumetur3w.github.io/fincarural_web/#/"
 githubUrl: "https://github.com/jaumetur3W/fincarural_web"
 stack: ["React", "TypeScript", "Tailwind CSS", "Diseño editorial"]
-order: 7
+order: 5
 image: {
   src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
   alt: "Finca mediterránea con arquitectura serena de piedra y cal"

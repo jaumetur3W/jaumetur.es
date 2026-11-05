@@ -15,7 +15,7 @@ verificationMethod: "Interactive review of spaces catalog, reservation flows, an
 liveUrl: "https://jaumetur3w.github.io/fincarural_web/#/"
 githubUrl: "https://github.com/jaumetur3W/fincarural_web"
 stack: ["React", "TypeScript", "Tailwind CSS", "Editorial Design"]
-order: 7
+order: 5
 image: {
   src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
   alt: "Serene Mediterranean stone and limestone estate architecture"

@@ -14,7 +14,7 @@ statValue: "Flujos simulados · sin backend"
 verificationMethod: "Revisión de la demo publicada y de los textos de estado de cada flujo"
 liveUrl: "https://jaumetur3w.github.io/burger_xativa/"
 stack: ["Astro", "HTML estàtic", "Tailwind CSS", "JavaScript vanilla", "Disseny responsive", "ES / VA"]
-order: 3
+order: 2
 image: {
   src: "/img/foto_burger.png",
   alt: "Hamburguesa de la demo Burger Xàtiva"

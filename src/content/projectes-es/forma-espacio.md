@@ -15,7 +15,7 @@ verificationMethod: "Revisión de las secciones y el contenido visibles en la de
 liveUrl: "https://jaumetur3w.github.io/arq_web/"
 githubUrl: "https://github.com/jaumetur3W/arq_web"
 stack: ["HTML", "CSS", "JavaScript", "Disseny editorial"]
-order: 6
+order: 3
 image: {
   src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?fit=crop&w=1200&h=630",
   alt: "Interior arquitectónico con materiales naturales"
