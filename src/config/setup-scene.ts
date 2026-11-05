@@ -21,12 +21,20 @@ export interface SceneObject {
 export const setupScene = {
   image: {
     basePath: "/img/setup/setup-scene",
-    /** Anchos publicados de la foto fija, que es el primer fotograma del GIF. */
-    widths: [1280],
-    width: 1280,
-    height: 720,
-    /** Sustituye a la foto fija cuando ha cargado. Los objetos no se mueven: las zonas siguen valiendo. */
-    animated: "/img/setup/setup-scene.gif",
+    /** Anchos publicados de la foto nítida. */
+    widths: [1280, 1920, 2560],
+    width: 2560,
+    height: 1440,
+    /**
+     * Animación sobre la foto, que entra cuando ha cargado. Los objetos no se mueven: las zonas siguen valiendo.
+     * Las sombras se funden con la foto en modo multiplicar, sin restarle nitidez.
+     */
+    shadows: "/img/setup/setup-shadows.gif",
+    tree: "/img/setup/setup-window.gif",
+    /** Dónde va el árbol, en proporción de la imagen. */
+    treeBox: { left: 0.9431, top: 0, width: 0.0569, height: 0.6727 },
+    /** Solo los tres cristales: los travesaños de la ventana salen de la foto nítida. */
+    treeClip: "polygon(0 0, 100% 0, 100% 31.2%, 0 31.2%, 0 35.1%, 100% 35.1%, 100% 58.6%, 0 58.6%, 0 60.6%, 100% 60.6%, 100% 98.9%, 0 94.2%)",
   },
   /** Orden de tabulación: el de esta lista. */
   objects: [

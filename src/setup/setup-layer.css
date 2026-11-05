@@ -28,6 +28,16 @@
   height: 100%;
   object-fit: cover;
 }
+.setup-animated {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+.setup-animated[data-on] {
+  opacity: 1;
+}
+.setup-shadows {
+  mix-blend-mode: multiply;
+}
 
 .setup-objects {
   position: absolute;

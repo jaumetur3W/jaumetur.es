@@ -1,6 +1,7 @@
-// Genera el GIF de la entrada setup a partir de la foto base: compone los cuadros de
-// habilidades, el logo y la web en el monitor, y anima las sombras de las hojas y el Ã¡rbol
-// de la ventana en un bucle perfecto. NingÃºn objeto cambia de sitio.
+// Genera las imágenes de la entrada setup a partir de la foto base. Ningún objeto se mueve:
+// - still.png: foto nítida con los cuadros de habilidades, el logo y la web en el monitor.
+// - setup-shadows.gif: solo las sombras de las hojas, que oscurecen la foto sin restarle nitidez.
+// - setup-window.gif: el árbol de la ventana.
 // Uso, con dist/ ya compilado: node scripts/build-setup-gif.mjs foto.png carpeta-de-salida
 import { createServer } from "node:http";
 import { createReadStream, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -14,18 +15,19 @@ const [source, outDir] = process.argv.slice(2);
 if (!source || !outDir) throw new Error("Uso: node scripts/build-setup-gif.mjs foto.png carpeta-de-salida");
 mkdirSync(outDir, { recursive: true });
 
+// La composición se dibuja al doble: textos, iconos y marcos salen limpios a cualquier tamaño.
 const SIZE = { width: 1680, height: 944 };
-const OUTPUT = { width: 1280, height: 720 };
+const SCALE = 2;
+// Espacio en el que se dibujan las hojas.
+const DESIGN = { width: 1280, height: 720 };
+// Las sombras son suaves: a esta resolución no pierden nada al ampliarse y pesan muy poco.
+const SHADOWS = { width: 640, height: 360, delayMs: 60, hold: 2, colours: 128, dither: 0, maxError: 1 };
+// El árbol, tras el cristal, admite verse algo suave: a media resolución pesa una fracción.
+const TREE = { scale: 0.5, delayMs: 100, hold: 5, colours: 128, dither: 0.3, maxError: 2 };
 // Movimiento lento en un bucle largo: a menos de 1 px por fotograma, el ojo lo ve continuo.
 const LOOP_MS = 8000;
-const DELAY_MS = 80;
-const FRAMES = Math.round(LOOP_MS / DELAY_MS);
-// Un píxel solo cambia si se aleja más que este margen: es lo que hace asumible el peso del GIF.
-const HOLD_THRESHOLD = 4;
-// Margen del codificador, solo para absorber el ruido de la paleta.
-const GIF_MAX_ERROR = 2;
 
-// Coordenadas normalizadas sobre la foto base (medidas sobre la foto a 1600Ã—899).
+// Coordenadas normalizadas sobre la foto base (medidas sobre la foto a 1600×899).
 const n = (x, y) => [x / 1600, y / 899];
 const SCENE = {
   posters: [
@@ -38,10 +40,10 @@ const SCENE = {
   deskTop: 632 / 899,
   deskFront: 820 / 899,
   windowLeft: 1430 / 1600,
-  glass: { left: 1495 / 1600, bottom: 605 / 899 },
+  glass: { left: 1509 / 1600, bottom: 605 / 899 },
 };
 
-// Habilidades que constan en la web. Palabras vÃ¡lidas en espaÃ±ol e inglÃ©s: hay una sola imagen.
+// Habilidades que constan en la web. Palabras válidas en español e inglés: hay una sola imagen.
 const SKILLS = [
   { word: "FRONTEND", icon: "layout" },
   { word: "BACKEND", icon: "server" },
@@ -65,6 +67,11 @@ function homography(width, height, [[x0, y0], [x1, y1], [x2, y2], [x3, y3]]) {
 }
 
 const px = ([x, y]) => [x * SIZE.width, y * SIZE.height];
+const box = ({ topLeft, bottomRight }) => {
+  const [left, top] = px(topLeft);
+  const [right, bottom] = px(bottomRight);
+  return `left:${left}px;top:${top}px;width:${right - left}px;height:${bottom - top}px`;
+};
 
 async function logoInk() {
   const logo = join(root, "public/img/jt.LOGO-02.png");
@@ -78,14 +85,11 @@ async function logoInk() {
 
 function composeHtml() {
   const posters = SCENE.posters
-    .map(({ topLeft, bottomRight }, index) => {
-      const [left, top] = px(topLeft);
-      const [right, bottom] = px(bottomRight);
+    .map((poster, index) => {
       const skill = SKILLS[index];
       if (!icons[skill.icon]) throw new Error(`Icono inexistente: ${skill.icon}`);
       const dark = index % 2 === 0;
-      const frame = (right - left) * 0.039;
-      return `<div class="mat" style="left:${left + frame}px;top:${top + frame}px;width:${right - left - frame * 2}px;height:${bottom - top - frame * 2}px">
+      return `<div class="frame" style="${box(poster)}">
         <div class="poster" style="background:${dark ? "#090D16" : "#FFFF00"};color:${dark ? "#FFFF00" : "#090D16"}">
           <svg viewBox="0 0 24 24" fill="currentColor">${icons[skill.icon].body}</svg>
           <span>${skill.word}</span>
@@ -94,8 +98,6 @@ function composeHtml() {
     })
     .join("");
 
-  const [screenLeft, screenTop] = px(SCENE.screen.topLeft);
-  const [screenRight, screenBottom] = px(SCENE.screen.bottomRight);
   const [mugX, mugY] = px(SCENE.mugLogo.center);
   const mugSize = SCENE.mugLogo.size * SIZE.width;
   const postit = homography(300, 120, SCENE.postit.map(px));
@@ -104,31 +106,41 @@ function composeHtml() {
     @font-face { font-family: Inter; src: url(/fonts/inter-latin-wght-normal.woff2) format("woff2"); font-weight: 100 900; }
     html, body { margin: 0; }
     #scene { position: relative; width: ${SIZE.width}px; height: ${SIZE.height}px; background: url(/__source) 0 0 / 100% 100%; overflow: hidden; }
-    .mat { position: absolute; padding: 11px; box-sizing: border-box; background: #f6f3ec; box-shadow: inset 0 1px 4px rgba(0,0,0,.2); }
+    .frame { position: absolute; padding: 13px; box-sizing: border-box; border: 6px solid #14120f; background: #f6f3ec; box-shadow: inset 0 1px 4px rgba(0,0,0,.2); }
     .poster { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; font: 800 15px/1 Inter, sans-serif; letter-spacing: .02em; }
     .poster svg { width: 54%; }
     .poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(125deg, rgba(255,255,255,.14), transparent 42%); }
-    #hero { position: absolute; left: ${screenLeft}px; top: ${screenTop}px; width: ${screenRight - screenLeft}px; height: ${screenBottom - screenTop}px; object-fit: cover; }
-    #glass { position: absolute; left: ${screenLeft}px; top: ${screenTop}px; width: ${screenRight - screenLeft}px; height: ${screenBottom - screenTop}px; background: linear-gradient(112deg, transparent 58%, rgba(255,255,255,.05) 74%, rgba(255,255,255,.015) 88%); }
+    #hero, #glass { position: absolute; ${box(SCENE.screen)}; }
+    #hero { object-fit: cover; }
+    #glass { background: linear-gradient(112deg, transparent 58%, rgba(255,255,255,.05) 74%, rgba(255,255,255,.015) 88%); }
+    #bezel { position: absolute; ${box(SCENE.monitor)}; box-sizing: border-box; border: 2.5px solid #0d0d0f; border-radius: 3px; }
     #logo { position: absolute; left: ${mugX - mugSize / 2}px; top: ${mugY - mugSize / 2}px; width: ${mugSize}px; height: ${mugSize}px; opacity: .9; }
     #note { position: absolute; left: 0; top: 0; width: 300px; height: 120px; transform-origin: 0 0; transform: ${postit}; display: flex; align-items: center; justify-content: center; font: 700 46px "Segoe Print", cursive; color: #1b1b1f; mix-blend-mode: multiply; }
   </style><div id="scene">${posters}
     <img id="hero" src="/__hero">
     <div id="glass"></div>
+    <div id="bezel"></div>
     <img id="logo" src="/__logo">
     <div id="note">jaume.www</div>
   </div>`;
 }
 
-// Compone la imagen fija con un navegador real: tipografÃ­as, fusiones y perspectiva.
+// Compone la imagen fija con un navegador real: tipografías, fusiones y perspectiva.
 async function composeStill() {
   const dist = join(root, "dist");
   const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".avif": "image/avif", ".woff2": "font/woff2" };
   let hero = null;
   const logo = await logoInk();
+  // La foto se amplía con un filtro de calidad y un enfoque suave antes de componer.
+  const photo = await sharp(source)
+    .removeAlpha()
+    .resize(SIZE.width * SCALE, SIZE.height * SCALE, { fit: "fill", kernel: "lanczos3" })
+    .sharpen({ sigma: 1.1, m1: 0.4, m2: 1.2 })
+    .png()
+    .toBuffer();
   const server = createServer((req, res) => {
     const path = new URL(req.url, "http://x").pathname;
-    if (path === "/__source") return createReadStream(source).pipe(res);
+    if (path === "/__source") return res.end(photo);
     if (path === "/__hero") return res.end(hero);
     if (path === "/__logo") return res.end(logo);
     if (path === "/__compose") {
@@ -160,7 +172,7 @@ async function composeStill() {
     hero = await heroPage.screenshot();
     await heroPage.close();
 
-    const page = await browser.newPage({ viewport: SIZE });
+    const page = await browser.newPage({ viewport: SIZE, deviceScaleFactor: SCALE });
     await page.goto(`${base}/__compose`);
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(300);
@@ -171,7 +183,7 @@ async function composeStill() {
   }
 }
 
-// Sombras de hojas: copas que entran desde la ventana, con cada hoja meciÃ©ndose en bucle.
+// Sombras de hojas: copas que entran desde la ventana, con cada hoja meciéndose en bucle.
 function mulberry32(seed) {
   return () => {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -184,7 +196,7 @@ function mulberry32(seed) {
 function createClumps() {
   const random = mulberry32(20261105);
   const gaussian = () => (random() + random() + random() - 1.5) / 1.5;
-  const { width: W, height: H } = OUTPUT;
+  const { width: W, height: H } = DESIGN;
   // Copas de hojas: centro y radio normalizados. Las de la mesa van aplastadas por la perspectiva.
   const wall = [
     [0.885, 0.09, 92], [0.8, 0.17, 88], [0.71, 0.08, 70], [0.61, 0.15, 52],
@@ -218,7 +230,7 @@ function createClumps() {
 }
 
 function shadowSvg(clumps, t) {
-  const { width: W, height: H } = OUTPUT;
+  const { width: W, height: H } = DESIGN;
   const tau = Math.PI * 2;
   const layers = { near: [], far: [], mass: [], twigs: [] };
   for (const clump of clumps) {
@@ -253,16 +265,17 @@ function shadowSvg(clumps, t) {
   </svg>`;
 }
 
-// Aplica el margen por píxel dando dos vueltas al bucle: en la segunda, el primer fotograma parte
-// de lo que dejó el último, así que el reinicio del bucle no da ningún salto.
-function holdSmallChanges(rawFrames) {
+// Un píxel solo cambia si se aleja más que el margen: es lo que hace asumible el peso del GIF.
+// Se aplica dando dos vueltas al bucle: en la segunda, el primer fotograma parte de lo que dejó
+// el último, así que el reinicio del bucle no da ningún salto.
+function holdSmallChanges(rawFrames, threshold) {
   const held = Buffer.from(rawFrames.at(-1));
   const apply = (frame) => {
     for (let p = 0; p < held.length; p += 3) {
       if (
-        Math.abs(frame[p] - held[p]) > HOLD_THRESHOLD ||
-        Math.abs(frame[p + 1] - held[p + 1]) > HOLD_THRESHOLD ||
-        Math.abs(frame[p + 2] - held[p + 2]) > HOLD_THRESHOLD
+        Math.abs(frame[p] - held[p]) > threshold ||
+        Math.abs(frame[p + 1] - held[p + 1]) > threshold ||
+        Math.abs(frame[p + 2] - held[p + 2]) > threshold
       ) {
         held[p] = frame[p];
         held[p + 1] = frame[p + 1];
@@ -282,13 +295,14 @@ const smooth = (a, b, value) => {
   return x * x * (3 - 2 * x);
 };
 
-function createShadowMap() {
-  const { width: W, height: H } = OUTPUT;
+// Dónde puede caer sombra: en la pared y la mesa, no sobre el monitor ni la ventana.
+function createShadowMap({ width: W, height: H }) {
   const map = new Float32Array(W * H);
-  const monitorLeft = SCENE.monitor.topLeft[0] * W;
-  const monitorRight = SCENE.monitor.bottomRight[0] * W;
-  const monitorTop = SCENE.monitor.topLeft[1] * H;
-  const monitorBottom = SCENE.monitor.bottomRight[1] * H;
+  const inset = 1.5;
+  const monitorLeft = SCENE.monitor.topLeft[0] * W + inset;
+  const monitorRight = SCENE.monitor.bottomRight[0] * W - inset;
+  const monitorTop = SCENE.monitor.topLeft[1] * H + inset;
+  const monitorBottom = SCENE.monitor.bottomRight[1] * H - inset;
   const windowLeft = SCENE.windowLeft * W;
   const deskTop = SCENE.deskTop * H;
   const deskFront = SCENE.deskFront * H;
@@ -297,7 +311,6 @@ function createShadowMap() {
       if (y >= deskFront) continue;
       const onDesk = y >= deskTop;
       if (!onDesk && x >= windowLeft) continue;
-      if (!onDesk && x >= monitorLeft && x <= monitorRight && y >= monitorTop && y <= monitorBottom) continue;
       if (y >= monitorTop && y < monitorBottom && x >= monitorLeft && x <= monitorRight) continue;
       map[y * W + x] = smooth(0.46, 0.8, x / W) * (onDesk ? 0.62 : 1);
     }
@@ -305,37 +318,40 @@ function createShadowMap() {
   return map;
 }
 
-function animateFrame(base, leafMask, shadowMap, t) {
-  const { width: W, height: H } = OUTPUT;
-  const out = Buffer.from(base);
+// Fotograma de sombras: blanco donde no hay sombra, para fundirlo con la foto en modo multiplicar.
+function shadowFrame(leafMask, shadowMap, { width: W, height: H }) {
+  const out = Buffer.alloc(W * H * 3, 255);
   const strength = 0.28;
   const deskStart = Math.floor(SCENE.deskTop * H) * W;
   for (let i = 0, p = 0; i < W * H; i++, p += 3) {
     const shade = (leafMask[i] / 255) * shadowMap[i] * strength;
     if (shade <= 0) continue;
-    // En la pared, sombra algo frÃ­a; sobre la madera conserva su tono cÃ¡lido.
+    // En la pared, sombra algo fría; sobre la madera conserva su tono cálido.
     const onDesk = i >= deskStart;
-    out[p] = base[p] * (1 - shade * (onDesk ? 0.82 : 1));
-    out[p + 1] = base[p + 1] * (1 - shade * (onDesk ? 1 : 0.97));
-    out[p + 2] = base[p + 2] * (1 - shade * (onDesk ? 1 : 0.88));
+    out[p] = 255 * (1 - shade * (onDesk ? 0.82 : 1));
+    out[p + 1] = 255 * (1 - shade * (onDesk ? 1 : 0.97));
+    out[p + 2] = 255 * (1 - shade * (onDesk ? 1 : 0.88));
   }
+  return out;
+}
 
-  // Hojas de la ventana: leve ondulaciÃ³n solo sobre el verde, no sobre el marco blanco.
+// Árbol de la ventana: leve ondulación solo sobre el verde, no sobre el marco blanco.
+function treeFrame(base, W, H, t, scale) {
+  const out = Buffer.from(base);
   const tau = Math.PI * 2;
-  const left = Math.floor(SCENE.glass.left * W);
-  const bottom = Math.floor(SCENE.glass.bottom * H);
-  for (let y = 0; y < bottom; y++) {
-    for (let x = left; x < W; x++) {
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
       const p = (y * W + x) * 3;
       const r = base[p], g = base[p + 1], b = base[p + 2];
       const max = Math.max(r, g, b);
       const saturation = max === 0 ? 0 : (max - Math.min(r, g, b)) / max;
       const amount = smooth(0.12, 0.3, saturation);
       if (amount <= 0) continue;
-      const dx = 1.9 * Math.sin(tau * t + y * 0.05 + x * 0.03) + 0.8 * Math.sin(tau * 2 * t + x * 0.09 + y * 0.02);
-      const dy = 1.3 * Math.sin(tau * t + x * 0.06 + 1.1) + 0.6 * Math.sin(tau * 2 * t + y * 0.08);
-      const sx = Math.min(Math.max(x + dx, left), W - 2);
-      const sy = Math.min(Math.max(y + dy, 0), bottom - 2);
+      const [fx0, fy0] = [x / scale, y / scale];
+      const dx = scale * (2.5 * Math.sin(tau * t + fy0 * 0.038 + fx0 * 0.023) + 1 * Math.sin(tau * 2 * t + fx0 * 0.07 + fy0 * 0.015));
+      const dy = scale * (1.7 * Math.sin(tau * t + fx0 * 0.046 + 1.1) + 0.8 * Math.sin(tau * 2 * t + fy0 * 0.06));
+      const sx = Math.min(Math.max(x + dx, 0), W - 2);
+      const sy = Math.min(Math.max(y + dy, 0), H - 2);
       const x0 = Math.floor(sx), y0 = Math.floor(sy);
       const fx = sx - x0, fy = sy - y0;
       for (let c = 0; c < 3; c++) {
@@ -351,26 +367,41 @@ function animateFrame(base, leafMask, shadowMap, t) {
   return out;
 }
 
-const started = Date.now();
-const still = await composeStill();
-writeFileSync(join(outDir, "still-1680.png"), still);
-
-const { data: base } = await sharp(still).removeAlpha().resize(OUTPUT.width, OUTPUT.height, { fit: "fill" }).raw().toBuffer({ resolveWithObject: true });
-const clumps = createClumps();
-const shadowMap = createShadowMap();
-const rawFrames = [];
-for (let index = 0; index < FRAMES; index++) {
-  const t = index / FRAMES;
-  const mask = await sharp(Buffer.from(shadowSvg(clumps, t))).greyscale().raw().toBuffer();
-  rawFrames.push(animateFrame(base, mask, shadowMap, t));
+async function writeGif(name, rawFrames, width, height, { delayMs, hold, colours, dither, maxError }) {
+  const raw = { raw: { width, height, channels: 3 } };
+  const frames = await Promise.all(holdSmallChanges(rawFrames, hold).map((frame) => sharp(frame, raw).png({ compressionLevel: 1 }).toBuffer()));
+  const file = join(outDir, name);
+  await sharp(frames, { join: { animated: true } })
+    .gif({ delay: delayMs, loop: 0, colours, dither, effort: 10, reuse: true, interFrameMaxError: maxError, interPaletteMaxError: 24 })
+    .toFile(file);
+  console.log(`${name}: ${width}×${height}, ${frames.length} fotogramas a ${delayMs} ms, ${(statSync(file).size / 1024).toFixed(0)} KB`);
 }
-const raw = { raw: { width: OUTPUT.width, height: OUTPUT.height, channels: 3 } };
-const frames = await Promise.all(holdSmallChanges(rawFrames).map((frame) => sharp(frame, raw).png({ compressionLevel: 1 }).toBuffer()));
-writeFileSync(join(outDir, "frame-00.png"), frames[0]);
-console.log(`Fotogramas: ${FRAMES} en ${((Date.now() - started) / 1000).toFixed(1)} s`);
 
-const gif = join(outDir, "setup-scene.gif");
-await sharp(frames, { join: { animated: true } })
-  .gif({ delay: DELAY_MS, loop: 0, colours: 256, dither: 0.5, effort: 10, reuse: true, interFrameMaxError: GIF_MAX_ERROR, interPaletteMaxError: 24 })
-  .toFile(gif);
-console.log(`GIF ${OUTPUT.width}×${OUTPUT.height}, ${FRAMES} fotogramas a ${DELAY_MS} ms: ${(statSync(gif).size / 1024 / 1024).toFixed(2)} MB`);
+const still = await composeStill();
+writeFileSync(join(outDir, "still.png"), still);
+
+// Sombras.
+const clumps = createClumps();
+const shadowMap = createShadowMap(SHADOWS);
+const shadowFrames = [];
+const shadowCount = Math.round(LOOP_MS / SHADOWS.delayMs);
+for (let index = 0; index < shadowCount; index++) {
+  const mask = await sharp(Buffer.from(shadowSvg(clumps, index / shadowCount))).greyscale().resize(SHADOWS.width, SHADOWS.height).raw().toBuffer();
+  shadowFrames.push(shadowFrame(mask, shadowMap, SHADOWS));
+}
+await writeGif("setup-shadows.gif", shadowFrames, SHADOWS.width, SHADOWS.height, SHADOWS);
+
+// Árbol de la ventana: un recorte a la resolución de la foto.
+const glassLeft = Math.floor(SCENE.glass.left * SIZE.width);
+const glassHeight = Math.floor(SCENE.glass.bottom * SIZE.height);
+const glassWidth = SIZE.width - glassLeft;
+const treeWidth = Math.round(glassWidth * TREE.scale);
+const treeHeight = Math.round(glassHeight * TREE.scale);
+const stillAtSize = await sharp(still).removeAlpha().resize(SIZE.width, SIZE.height, { fit: "fill" }).png().toBuffer();
+const treeBase = await sharp(stillAtSize).extract({ left: glassLeft, top: 0, width: glassWidth, height: glassHeight }).resize(treeWidth, treeHeight).raw().toBuffer();
+const treeCount = Math.round(LOOP_MS / TREE.delayMs);
+const treeFrames = Array.from({ length: treeCount }, (_, index) => treeFrame(treeBase, treeWidth, treeHeight, index / treeCount, TREE.scale));
+await writeGif("setup-window.gif", treeFrames, treeWidth, treeHeight, TREE);
+
+const round = (value) => +value.toFixed(4);
+console.log(`En src/config/setup-scene.ts: windowBox: { left: ${round(glassLeft / SIZE.width)}, top: 0, width: ${round(glassWidth / SIZE.width)}, height: ${round(glassHeight / SIZE.height)} }`);

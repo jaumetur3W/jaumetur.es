@@ -127,7 +127,20 @@ export function mountSetup(boot: SetupBoot) {
 
   let closing = false;
 
-  // La foto fija se ve al instante. El GIF, su mismo primer fotograma en movimiento, entra al cargar.
+  // La foto nítida se ve al instante. Las sombras y el árbol entran con un fundido cuando han cargado.
+  const addAnimation = (className: string, src: string, place?: (gif: HTMLImageElement) => void) => {
+    const gif = new Image();
+    gif.className = `setup-animated ${className}`;
+    gif.alt = "";
+    place?.(gif);
+    gif.addEventListener("load", () => {
+      if (closing) return;
+      picture.after(gif);
+      void gif.offsetWidth;
+      gif.dataset.on = "";
+    });
+    gif.src = src;
+  };
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
   if (!reducedMotion && !saveData) {
     image
@@ -135,13 +148,15 @@ export function mountSetup(boot: SetupBoot) {
       .catch(() => undefined)
       .then(() => {
         if (closing) return;
-        const gif = new Image();
-        gif.className = "setup-animated";
-        gif.alt = "";
-        gif.addEventListener("load", () => {
-          if (!closing) picture.after(gif);
+        const { shadows, tree, treeBox, treeClip } = setupScene.image;
+        addAnimation("setup-shadows", shadows);
+        addAnimation("setup-tree", tree, (gif) => {
+          gif.style.left = `${treeBox.left * 100}%`;
+          gif.style.top = `${treeBox.top * 100}%`;
+          gif.style.width = `${treeBox.width * 100}%`;
+          gif.style.height = `${treeBox.height * 100}%`;
+          gif.style.clipPath = treeClip;
         });
-        gif.src = setupScene.image.animated;
       });
   }
 

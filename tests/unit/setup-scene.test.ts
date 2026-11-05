@@ -31,8 +31,9 @@ describe("setupScene", () => {
     }
   });
 
-  it("tiene publicado el GIF", () => {
-    expect(existsSync(`public${setupScene.image.animated}`)).toBe(true);
+  it("tiene publicados los GIF", () => {
+    expect(existsSync(`public${setupScene.image.shadows}`)).toBe(true);
+    expect(existsSync(`public${setupScene.image.tree}`)).toBe(true);
   });
 
   it("mantiene las coordenadas normalizadas", () => {

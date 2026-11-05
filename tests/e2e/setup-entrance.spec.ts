@@ -101,14 +101,23 @@ test.describe("Entrada setup: flujo", () => {
     await expect(page.locator("iframe")).toHaveCount(0);
   });
 
-  test("el GIF sustituye a la foto fija cuando ha cargado", async ({ page }) => {
+  test("las sombras y el árbol entran sobre la foto cuando han cargado", async ({ page }) => {
     await page.goto("/");
-    const animated = page.locator("img.setup-animated");
-    await expect(animated).toBeVisible({ timeout: 15000 });
-    expect(await animated.evaluate((el: HTMLImageElement) => el.currentSrc)).toContain("/img/setup/setup-scene.gif");
-    expect(await animated.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
-    // Queda debajo de las zonas: se sigue pudiendo pulsar.
-    await expect(object(page, "keyboard").locator("polygon")).toBeAttached();
+    const shadows = page.locator("img.setup-shadows");
+    const tree = page.locator("img.setup-tree");
+    await expect(shadows).toBeVisible({ timeout: 15000 });
+    await expect(tree).toBeVisible({ timeout: 15000 });
+    expect(await shadows.evaluate((el: HTMLImageElement) => el.currentSrc)).toContain(setupScene.image.shadows);
+    expect(await tree.evaluate((el: HTMLImageElement) => el.currentSrc)).toContain(setupScene.image.tree);
+    await expect(shadows).toHaveCSS("mix-blend-mode", "multiply");
+
+    // La foto nítida sigue debajo y el árbol queda sobre la ventana.
+    await expect(page.locator(".setup-photo img")).toBeVisible();
+    const box = (await tree.boundingBox())!;
+    expect(box.x + box.width).toBeCloseTo(1280, 0);
+    expect(box.y).toBeCloseTo(0, 0);
+
+    // Quedan debajo de las zonas: se sigue pudiendo pulsar.
     await clickObject(page, "keyboard");
     await expect(page).toHaveURL("/contact/");
   });
