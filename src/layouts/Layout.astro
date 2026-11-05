@@ -299,6 +299,10 @@ const blogPostSchema = isBlogPost ? {
     -->
     <style is:inline>
       html[data-setup-pending]::after { content: ""; position: fixed; inset: 0; z-index: 2147483646; background: #0a0a0a; }
+      /* Al salir de la entrada, la página llega deslizándose desde abajo. No afecta a ninguna otra navegación. */
+      ::view-transition-old(root) { animation: none; }
+      ::view-transition-new(root) { animation: setup-slide-in 520ms cubic-bezier(0.22, 1, 0.36, 1); }
+      @keyframes setup-slide-in { from { transform: translateY(100%); } }
     </style>
     <script is:inline define:vars={{ setupDev: import.meta.env.DEV, setupSrcsetAvif: setupSrcset("avif"), setupSizes: SETUP_IMAGE_SIZES }}>
       var root = document.documentElement;
@@ -319,12 +323,25 @@ const blogPostSchema = isBlogPost ? {
         navigator.webdriver === true;
       var calibrate = setupDev && params.has("calibrate");
 
+      // Se viene de pulsar un objeto de la entrada: esta página llega deslizándose.
+      var SLIDE_KEY = "jt-setup-slide";
+      var slideIn = !!(storage && storage.getItem(SLIDE_KEY));
+      if (slideIn) storage.removeItem(SLIDE_KEY);
+
       var show = false;
       if (calibrate) {
         show = true;
-      } else if (storage && !params.has("nosetup") && !fromCampaign && !unsuitable) {
+      } else if (!slideIn && storage && !params.has("nosetup") && !fromCampaign && !unsuitable) {
         if (type === "reload") storage.removeItem(KEY);
         show = type === "reload" || (type === "navigate" && isRoot && !storage.getItem(KEY));
+      }
+
+      // Las dos páginas deben activarlo: solo la entrada y la página a la que lleva.
+      if (slideIn || (show && !matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+        var viewTransition = document.createElement("style");
+        viewTransition.setAttribute("data-setup-slide", "");
+        viewTransition.textContent = "@view-transition { navigation: auto; }";
+        document.head.appendChild(viewTransition);
       }
 
       if (!show) {

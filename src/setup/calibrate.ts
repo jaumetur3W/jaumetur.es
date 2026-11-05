@@ -2,7 +2,7 @@ import { setupScene } from "@/config/setup-scene";
 
 /** Modo de calibración: solo se incluye en desarrollo (`/?calibrate=1`). */
 export function mountCalibration(layer: HTMLElement, camera: HTMLElement) {
-  const targets = ["screen", ...setupScene.objects.map((object) => object.id)];
+  const targets = setupScene.objects.map((object) => object.id);
   const points = new Map<string, [number, number][]>(targets.map((name) => [name, []]));
 
   const svg = camera.querySelector<SVGElement>(".setup-objects");
@@ -40,7 +40,7 @@ export function mountCalibration(layer: HTMLElement, camera: HTMLElement) {
       .filter(([, list]) => list.length)
       .map(([name, list]) => {
         const coords = `[${list.map(([x, y]) => `[${x}, ${y}]`).join(", ")}]`;
-        return name === "screen" ? `screen: ${coords},` : `// ${name}\npolygon: ${coords},`;
+        return `// ${name}\npolygon: ${coords},`;
       })
       .join("\n");
     output.value = text;

@@ -18,11 +18,9 @@ describe("setupScene", () => {
     }
   });
 
-  it("da acceso a todos los proyectos", () => {
+  it("da acceso a contacto, proyectos, sobre mí y servicios", () => {
     const paths = setupScene.objects.map((object) => object.path);
-    for (const project of ["avisa", "burger-xativa", "dashboard-telemetria", "fincarural", "forma-espacio", "pipeline-cicd", "pizzeria-xativa"]) {
-      expect(paths, project).toContain(`/projectes/${project}`);
-    }
+    for (const path of ["/contact", "/projectes", "/about", "/pricing"]) expect(paths).toContain(path);
   });
 
   it("tiene todas las variantes de imagen publicadas", () => {
@@ -33,8 +31,12 @@ describe("setupScene", () => {
     }
   });
 
+  it("tiene publicado el GIF", () => {
+    expect(existsSync(`public${setupScene.image.animated}`)).toBe(true);
+  });
+
   it("mantiene las coordenadas normalizadas", () => {
-    const points = [...setupScene.screen, ...setupScene.objects.flatMap((object) => object.polygon)];
+    const points = setupScene.objects.flatMap((object) => object.polygon);
     for (const [x, y] of points) {
       expect(x).toBeGreaterThanOrEqual(0);
       expect(x).toBeLessThanOrEqual(1);

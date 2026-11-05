@@ -94,22 +94,43 @@ test.describe("Entrada setup: flujo", () => {
 
   test("la foto se carga y no hay ninguna web incrustada", async ({ page }) => {
     await page.goto("/");
-    const image = page.locator("#setup-layer img");
+    const image = page.locator(".setup-photo img");
     await expect(image).toBeVisible();
     await expect.poll(() => image.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
     expect(await image.evaluate((el: HTMLImageElement) => el.currentSrc)).toContain("/img/setup/setup-scene-");
     await expect(page.locator("iframe")).toHaveCount(0);
   });
 
-  test("el monitor hace zoom y termina en la web real", async ({ page }) => {
+  test("el GIF sustituye a la foto fija cuando ha cargado", async ({ page }) => {
+    await page.goto("/");
+    const animated = page.locator("img.setup-animated");
+    await expect(animated).toBeVisible({ timeout: 15000 });
+    expect(await animated.evaluate((el: HTMLImageElement) => el.currentSrc)).toContain("/img/setup/setup-scene.gif");
+    expect(await animated.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
+    // Queda debajo de las zonas: se sigue pudiendo pulsar.
+    await expect(object(page, "keyboard").locator("polygon")).toBeAttached();
+    await clickObject(page, "keyboard");
+    await expect(page).toHaveURL("/contact/");
+  });
+
+  test("el monitor desliza la web real, sin zoom", async ({ page }) => {
+    await page.addInitScript(() => {
+      const original = document.startViewTransition?.bind(document);
+      const counter = window as unknown as { transitions: number };
+      counter.transitions = 0;
+      if (original) {
+        document.startViewTransition = ((callback: () => void) => {
+          counter.transitions++;
+          return original(callback);
+        }) as typeof document.startViewTransition;
+      }
+    });
     await page.goto("/");
     await expect(layer(page)).toBeVisible();
 
-    const started = Date.now();
     await clickObject(page, "monitor");
-    await expect(layer(page)).toHaveAttribute("data-zooming", "");
     await expect(layer(page)).toHaveCount(0, { timeout: 15000 });
-    expect(Date.now() - started).toBeGreaterThanOrEqual(1700);
+    expect(await page.evaluate(() => (window as unknown as { transitions: number }).transitions)).toBe(1);
 
     await expect(page).toHaveURL("/");
     await expect(page.locator("#token-hola")).toBeVisible();
@@ -148,35 +169,92 @@ test.describe("Entrada setup: flujo", () => {
   test("el hover muestra la etiqueta y precarga el destino", async ({ page }) => {
     await page.goto("/");
     await expect(layer(page)).toBeVisible();
-    await object(page, "project-avisa").locator("polygon").hover({ force: true });
-    await expect(page.locator(".setup-label")).toHaveText("AVISA");
-    await expect(page.locator('link[rel="prefetch"][href="/projectes/avisa/"]')).toHaveCount(1);
+    await object(page, "postit").locator("polygon").hover({ force: true });
+    await expect(page.locator(".setup-label")).toHaveText("Proyectos");
+    await expect(page.locator('link[rel="prefetch"][href="/projectes/"]')).toHaveCount(1);
   });
 
-  test("sin mover el ratón aparece el latido a los 3 s", async ({ page }) => {
+  test("un mensaje junto al cursor indica la sección, sin rodear el objeto", async ({ page }) => {
     await page.goto("/");
     await expect(layer(page)).toBeVisible();
-    await expect(layer(page)).toHaveAttribute("data-idle", "", { timeout: 15000 });
+    const polygon = object(page, "mug").locator("polygon");
+    const box = (await polygon.boundingBox())!;
+    const [x, y] = [box.x + box.width / 2, box.y + box.height / 2];
+    await page.mouse.move(x, y);
+
+    const label = page.locator(".setup-label");
+    await expect(label).toHaveText("Sobre mí");
+    await expect(polygon).toHaveCSS("stroke-opacity", "0");
+    const near = async (cursorX: number, cursorY: number) => {
+      const position = (await label.boundingBox())!;
+      expect(Math.abs(position.x - cursorX)).toBeLessThan(40);
+      expect(Math.abs(position.y - cursorY)).toBeLessThan(40);
+    };
+    await near(x, y);
+
+    // El mensaje sigue al cursor y desaparece al salir del objeto.
+    await page.mouse.move(x + 12, y + 8);
+    await near(x + 12, y + 8);
+    await page.mouse.move(40, 400);
+    await expect(label).toBeHidden();
+  });
+
+  test("el mensaje no se sale de la ventana junto a los bordes", async ({ page }) => {
+    await page.goto("/");
+    await expect(layer(page)).toBeVisible();
+    const box = (await object(page, "keyboard").locator("polygon").boundingBox())!;
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.evaluate(() => {
+      document.querySelector('a[data-object="keyboard"]')!.dispatchEvent(new PointerEvent("pointermove", { bubbles: true, clientX: 1278, clientY: 718 }));
+    });
+    const position = (await page.locator(".setup-label").boundingBox())!;
+    expect(position.x + position.width).toBeLessThanOrEqual(1280);
+    expect(position.y + position.height).toBeLessThanOrEqual(720);
+  });
+
+  test("con teclado, el foco se ve y el mensaje sale junto al objeto", async ({ page }) => {
+    await page.goto("/");
+    await expect(layer(page)).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(object(page, "monitor")).toBeFocused();
+    await expect(object(page, "monitor").locator("polygon")).toHaveCSS("stroke-opacity", "1");
+    await expect(page.locator(".setup-label")).toHaveText("Entrar a la web");
+  });
+
+  test("las demás páginas llegan con la misma transición, y solo desde la entrada", async ({ page }) => {
+    await page.addInitScript(() => {
+      window.addEventListener("pagereveal", (event) => {
+        (window as unknown as { revealed: boolean }).revealed = !!(event as Event & { viewTransition?: unknown }).viewTransition;
+      });
+    });
+    const revealedWithTransition = () => page.evaluate(() => (window as unknown as { revealed?: boolean }).revealed);
+
+    await page.goto("/");
+    await expect(layer(page)).toBeVisible();
+    await expect(page.locator("style[data-setup-slide]")).toHaveCount(1);
+    await clickObject(page, "keyboard");
+    await expect(page).toHaveURL("/contact/");
+    await expect(page.locator("style[data-setup-slide]")).toHaveCount(1);
+    await expect.poll(revealedWithTransition).toBe(true);
+    expect(await page.evaluate(() => sessionStorage.getItem("jt-setup-slide"))).toBeNull();
+
+    // La navegación normal de la web no lleva transición.
+    await page.locator('#site-header nav a[href="/about/"]:visible').first().click();
+    await expect(page).toHaveURL("/about/");
+    await expect(page.locator("style[data-setup-slide]")).toHaveCount(0);
+    await expect.poll(revealedWithTransition).toBe(false);
   });
 
   test("con movimiento reducido se muestra y entra sin animación", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     await expect(layer(page)).toBeVisible();
-    // Sin latido: nada se mueve en la capa.
-    await page.waitForTimeout(3300);
-    const animations = await page.evaluate(() => document.getElementById("setup-layer")!.getAnimations({ subtree: true }).length);
-    expect(animations).toBe(0);
-    // Sin animación de cámara: la capa se retira en cuanto se pulsa.
-    await page.evaluate(() => {
-      const zooms: boolean[] = [];
-      new MutationObserver(() => zooms.push(document.getElementById("setup-layer")?.hasAttribute("data-zooming") ?? false)).observe(document.getElementById("setup-layer")!, { attributes: true });
-      (window as unknown as { zooms: boolean[] }).zooms = zooms;
-    });
+    // Sin GIF ni fundido: la capa se retira en cuanto se pulsa.
+    await page.waitForTimeout(800);
+    await expect(page.locator("img.setup-animated")).toHaveCount(0);
     await clickObject(page, "monitor");
     await expect(layer(page)).toHaveCount(0);
     await expect(page.locator("#main-content")).toBeFocused();
-    expect(await page.evaluate(() => (window as unknown as { zooms: boolean[] }).zooms.includes(true))).toBe(false);
   });
 
   test("la rueda no mueve el hero mientras está la capa", async ({ page }) => {

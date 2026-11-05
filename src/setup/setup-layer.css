@@ -19,7 +19,8 @@
 }
 
 .setup-photo,
-.setup-photo img {
+.setup-photo img,
+.setup-animated {
   position: absolute;
   inset: 0;
   display: block;
@@ -42,57 +43,34 @@
 .setup-objects polygon {
   fill: transparent;
   stroke: #ffff00;
-  stroke-width: 2.5px;
+  stroke-width: 3px;
   stroke-linejoin: round;
   stroke-opacity: 0;
   vector-effect: non-scaling-stroke;
   pointer-events: all;
-  filter: drop-shadow(0 0 7px rgba(255, 255, 0, 0.75));
-  transition: stroke-opacity 180ms ease;
 }
-.setup-objects a:hover polygon,
+/* Solo al navegar con teclado: sin él no se vería qué objeto tiene el foco. */
 .setup-objects a:focus-visible polygon {
   stroke-opacity: 1;
 }
-.setup-objects a:focus-visible polygon {
-  stroke-width: 4px;
-}
-#setup-layer[data-idle] .setup-objects a:not(:hover):not(:focus-visible) polygon {
-  animation: setup-pulse 2.6s ease-in-out infinite;
-}
-@keyframes setup-pulse {
-  0%, 100% { stroke-opacity: 0; }
-  50% { stroke-opacity: 0.45; }
-}
 
 .setup-label {
-  position: absolute;
-  transform: translate(-50%, calc(-100% - 10px));
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
   padding: 5px 11px;
   border-radius: 8px;
-  background: #ffff00;
-  color: #090d16;
+  background: #090d16;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
   pointer-events: none;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
 }
-.setup-label[data-below] {
-  transform: translate(-50%, 10px);
-}
-.setup-label[hidden],
-#setup-layer[data-zooming] .setup-label {
+.setup-label[hidden] {
   display: none;
-}
-
-/* Durante la cámara se anima una sola capa y se retira lo caro de repintar. */
-#setup-layer[data-zooming] .setup-camera {
-  will-change: transform;
-}
-#setup-layer[data-zooming] .setup-objects,
-#setup-layer[data-zooming] .setup-skip {
-  visibility: hidden;
 }
 
 .setup-skip {
@@ -119,12 +97,4 @@
 .setup-skip:focus-visible {
   outline: 3px solid #ffff00;
   outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #setup-layer *,
-  #setup-layer[data-idle] .setup-objects a polygon {
-    animation: none !important;
-    transition: none !important;
-  }
 }

@@ -1,14 +1,11 @@
-import { SETUP_IMAGE_SIZES, setupScene, setupSrcset, type Point, type SceneObject } from "@/config/setup-scene";
+import { SETUP_IMAGE_SIZES, setupScene, setupSrcset } from "@/config/setup-scene";
 import { localeFromPath, localizePath } from "@/i18n";
 import css from "./setup-layer.css?inline";
 
 const SESSION_KEY = "jt-setup-done";
-const ZOOM_MS = 1400;
-const PUSH_MS = 700;
-const FADE_MS = 400;
-const EASING = "cubic-bezier(.65,0,.25,1)";
-const IDLE_MS = 3000;
-const STALL_MARGIN_MS = 800;
+const SLIDE_KEY = "jt-setup-slide";
+const CURSOR_GAP = 16;
+const EDGE_GAP = 8;
 
 export interface SetupBoot {
   expired?: boolean;
@@ -32,14 +29,6 @@ function markDone() {
   } catch {
     /* Sin almacenamiento, el setup simplemente se decide en cada carga. */
   }
-}
-
-function boundingBox(points: readonly Point[]) {
-  const xs = points.map(([x]) => x);
-  const ys = points.map(([, y]) => y);
-  const left = Math.min(...xs);
-  const top = Math.min(...ys);
-  return { left, top, width: Math.max(...xs) - left, height: Math.max(...ys) - top };
 }
 
 function buildLayer() {
@@ -77,7 +66,7 @@ function buildLayer() {
   image.alt = "";
   image.width = width;
   image.height = height;
-  image.src = `${basePath}-${widths[1]}.webp`;
+  image.src = `${basePath}-${widths.at(-1)}.webp`;
   image.setAttribute("fetchpriority", "high");
   picture.append(image);
   camera.append(picture);
@@ -102,9 +91,9 @@ function buildLayer() {
   const label = document.createElement("div");
   label.className = "setup-label";
   label.hidden = true;
-  camera.append(label);
+  layer.append(label);
 
-  return { layer, skip, camera, anchors, label };
+  return { layer, skip, camera, picture, image, anchors, label };
 }
 
 export function mountSetup(boot: SetupBoot) {
@@ -115,13 +104,13 @@ export function mountSetup(boot: SetupBoot) {
   boot.mounted = true;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const { layer, skip, camera, anchors, label } = buildLayer();
+  const { layer, skip, camera, picture, image, anchors, label } = buildLayer();
 
   const coveredPage = [...document.body.children].filter((element) => element.tagName !== "SCRIPT");
   coveredPage.forEach((element) => {
     element.setAttribute("inert", "");
-    // Tapada por completo: no hace falta pintarla durante el zoom, y sigue en el DOM con su layout.
-    // Con movimiento reducido no hay zoom, y la transición global de visibility impediría devolverle el foco.
+    // Tapada por completo: no hace falta pintarla, y sigue en el DOM con su layout.
+    // Con movimiento reducido, la transición global de visibility impediría devolverle el foco.
     if (!reducedMotion) (element as HTMLElement).style.visibility = "hidden";
   });
   const restorePage = () => {
@@ -137,12 +126,27 @@ export function mountSetup(boot: SetupBoot) {
   skip.focus({ preventScroll: true });
 
   let closing = false;
-  let idleTimer = 0;
+
+  // La foto fija se ve al instante. El GIF, su mismo primer fotograma en movimiento, entra al cargar.
+  const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+  if (!reducedMotion && !saveData) {
+    image
+      .decode()
+      .catch(() => undefined)
+      .then(() => {
+        if (closing) return;
+        const gif = new Image();
+        gif.className = "setup-animated";
+        gif.alt = "";
+        gif.addEventListener("load", () => {
+          if (!closing) picture.after(gif);
+        });
+        gif.src = setupScene.image.animated;
+      });
+  }
 
   const teardown = () => {
-    window.clearTimeout(idleTimer);
     document.removeEventListener("keydown", onKeydown, true);
-    document.removeEventListener("mousemove", armIdle);
     window.removeEventListener("pageshow", onPageShow);
     restorePage();
     boot.release();
@@ -161,55 +165,17 @@ export function mountSetup(boot: SetupBoot) {
     focusPage();
   };
 
-  const untilFinished = async (animation: Animation, duration: number) => {
-    // Si el navegador se queda sin fotogramas, la entrada no debe atascarse.
-    const guard = setTimeout(() => animation.finish(), duration + STALL_MARGIN_MS);
-    await animation.finished;
-    clearTimeout(guard);
-  };
-
-  const cameraTo = (box: ReturnType<typeof boundingBox>, scale: number, duration: number) => {
-    const { width, height } = camera.getBoundingClientRect();
-    const x = window.innerWidth / 2 - camera.offsetLeft - (box.left + box.width / 2) * width * scale;
-    const y = window.innerHeight / 2 - camera.offsetTop - (box.top + box.height / 2) * height * scale;
-    const animation = camera.animate(
-      [{ transform: "translate(0, 0) scale(1)" }, { transform: `translate(${x}px, ${y}px) scale(${scale})` }],
-      { duration, easing: EASING, fill: "forwards" },
-    );
-    return untilFinished(animation, duration);
-  };
-
-  // Zoom hasta que la pantalla de la foto llena la ventana y fundido a la web, que ya está debajo.
-  const enterSite = async () => {
+  // La web ya está cargada debajo: entra deslizándose, igual que las demás páginas.
+  const enterSite = () => {
     if (closing) return;
     closing = true;
     markDone();
-    if (reducedMotion) {
+    const reveal = () => {
       teardown();
       focusPage();
-      return;
-    }
-    layer.dataset.zooming = "";
-    const box = boundingBox(setupScene.screen);
-    const { width, height } = camera.getBoundingClientRect();
-    const scale = Math.max(window.innerWidth / (box.width * width), window.innerHeight / (box.height * height));
-    await cameraTo(box, scale, ZOOM_MS);
-    restorePage();
-    const fade = layer.animate([{ opacity: 1 }, { opacity: 0 }], { duration: FADE_MS, easing: "ease", fill: "forwards" });
-    await untilFinished(fade, FADE_MS);
-    teardown();
-    focusPage();
-  };
-
-  const goTo = async (object: SceneObject, href: string) => {
-    if (closing) return;
-    closing = true;
-    markDone();
-    if (!reducedMotion) {
-      layer.dataset.zooming = "";
-      await cameraTo(boundingBox(object.polygon), 1.7, PUSH_MS);
-    }
-    window.location.assign(href);
+    };
+    if (reducedMotion || !document.startViewTransition) reveal();
+    else document.startViewTransition(reveal);
   };
 
   const prefetched = new Set<string>();
@@ -222,37 +188,55 @@ export function mountSetup(boot: SetupBoot) {
     document.head.append(link);
   };
 
-  const showLabel = (object: SceneObject) => {
-    const box = boundingBox(object.polygon);
-    label.textContent = t(object.label);
-    label.style.left = `${(box.left + box.width / 2) * 100}%`;
-    // Si no cabe encima del objeto, va debajo.
-    const cameraTop = camera.getBoundingClientRect().top;
-    const roomAbove = cameraTop + box.top * camera.offsetHeight > 44;
-    label.toggleAttribute("data-below", !roomAbove);
-    label.style.top = `${(roomAbove ? box.top : box.top + box.height) * 100}%`;
+  // Mensaje junto al cursor con la sección a la que lleva el objeto.
+  const placeLabel = (x: number, y: number) => {
     label.hidden = false;
+    const { width, height } = label.getBoundingClientRect();
+    const left = Math.max(EDGE_GAP, Math.min(x + CURSOR_GAP, window.innerWidth - width - EDGE_GAP));
+    const below = y + CURSOR_GAP + height <= window.innerHeight - EDGE_GAP;
+    label.style.transform = `translate(${Math.round(left)}px, ${Math.round(below ? y + CURSOR_GAP : y - CURSOR_GAP - height)}px)`;
   };
 
   for (const { anchor, object } of anchors) {
     const href = anchor.getAttribute("href") as string;
-    const activate = () => {
-      showLabel(object);
+    const name = t(object.label);
+    const announce = () => {
+      label.textContent = name;
       if (object.kind === "link") prefetch(href);
     };
-    anchor.addEventListener("pointerenter", activate);
-    anchor.addEventListener("focus", activate);
     const hide = () => {
       label.hidden = true;
     };
+    anchor.addEventListener("pointerenter", (event) => {
+      announce();
+      placeLabel(event.clientX, event.clientY);
+    });
+    anchor.addEventListener("pointermove", (event) => placeLabel(event.clientX, event.clientY));
     anchor.addEventListener("pointerleave", hide);
+    // Con teclado no hay cursor: el mensaje sale junto al objeto.
+    anchor.addEventListener("focus", () => {
+      if (!anchor.matches(":focus-visible")) return;
+      announce();
+      const box = anchor.getBoundingClientRect();
+      placeLabel(box.left + box.width / 2, box.top + box.height / 2);
+    });
     anchor.addEventListener("blur", hide);
     anchor.addEventListener("click", (event) => {
       // Ctrl/Cmd+clic y similares conservan su comportamiento de enlace.
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      if (object.kind === "enter") void enterSite();
-      else void goTo(object, href);
+      if (object.kind === "enter") {
+        event.preventDefault();
+        enterSite();
+        return;
+      }
+      markDone();
+      if (!reducedMotion) {
+        try {
+          sessionStorage.setItem(SLIDE_KEY, "1");
+        } catch {
+          /* Sin almacenamiento, la página entra sin deslizarse. */
+        }
+      }
     });
   }
 
@@ -265,17 +249,7 @@ export function mountSetup(boot: SetupBoot) {
   }
   document.addEventListener("keydown", onKeydown, true);
 
-  function armIdle() {
-    delete layer.dataset.idle;
-    window.clearTimeout(idleTimer);
-    idleTimer = window.setTimeout(() => {
-      layer.dataset.idle = "";
-    }, IDLE_MS);
-  }
-  document.addEventListener("mousemove", armIdle);
-  armIdle();
-
-  // Al volver desde la caché del navegador no debe quedar la cámara a medio camino.
+  // Al volver atrás desde la caché del navegador, la entrada ya no debe seguir ahí.
   function onPageShow(event: PageTransitionEvent) {
     if (!event.persisted) return;
     closing = true;
