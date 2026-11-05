@@ -1,6 +1,6 @@
 // Genera el GIF de la entrada setup a partir de la foto base: compone los cuadros de
-// habilidades, el logo y la web en el monitor, y anima las sombras de las hojas y el árbol
-// de la ventana en un bucle perfecto. Ningún objeto cambia de sitio.
+// habilidades, el logo y la web en el monitor, y anima las sombras de las hojas y el Ã¡rbol
+// de la ventana en un bucle perfecto. NingÃºn objeto cambia de sitio.
 // Uso, con dist/ ya compilado: node scripts/build-setup-gif.mjs foto.png carpeta-de-salida
 import { createServer } from "node:http";
 import { createReadStream, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -16,10 +16,16 @@ mkdirSync(outDir, { recursive: true });
 
 const SIZE = { width: 1680, height: 944 };
 const OUTPUT = { width: 1280, height: 720 };
-const FRAMES = 30;
-const DELAY_MS = 100;
+// Movimiento lento en un bucle largo: a menos de 1 px por fotograma, el ojo lo ve continuo.
+const LOOP_MS = 8000;
+const DELAY_MS = 80;
+const FRAMES = Math.round(LOOP_MS / DELAY_MS);
+// Un píxel solo cambia si se aleja más que este margen: es lo que hace asumible el peso del GIF.
+const HOLD_THRESHOLD = 4;
+// Margen del codificador, solo para absorber el ruido de la paleta.
+const GIF_MAX_ERROR = 2;
 
-// Coordenadas normalizadas sobre la foto base (medidas sobre la foto a 1600×899).
+// Coordenadas normalizadas sobre la foto base (medidas sobre la foto a 1600Ã—899).
 const n = (x, y) => [x / 1600, y / 899];
 const SCENE = {
   posters: [
@@ -35,7 +41,7 @@ const SCENE = {
   glass: { left: 1495 / 1600, bottom: 605 / 899 },
 };
 
-// Habilidades que constan en la web. Palabras válidas en español e inglés: hay una sola imagen.
+// Habilidades que constan en la web. Palabras vÃ¡lidas en espaÃ±ol e inglÃ©s: hay una sola imagen.
 const SKILLS = [
   { word: "FRONTEND", icon: "layout" },
   { word: "BACKEND", icon: "server" },
@@ -114,7 +120,7 @@ function composeHtml() {
   </div>`;
 }
 
-// Compone la imagen fija con un navegador real: tipografías, fusiones y perspectiva.
+// Compone la imagen fija con un navegador real: tipografÃ­as, fusiones y perspectiva.
 async function composeStill() {
   const dist = join(root, "dist");
   const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".avif": "image/avif", ".woff2": "font/woff2" };
@@ -165,7 +171,7 @@ async function composeStill() {
   }
 }
 
-// Sombras de hojas: copas que entran desde la ventana, con cada hoja meciéndose en bucle.
+// Sombras de hojas: copas que entran desde la ventana, con cada hoja meciÃ©ndose en bucle.
 function mulberry32(seed) {
   return () => {
     seed = (seed + 0x6d2b79f5) | 0;
@@ -192,8 +198,9 @@ function createClumps() {
     radius,
     squash,
     phase: random(),
-    swayX: 9 + random() * 9,
-    swayY: 4 + random() * 4,
+    phase2: random(),
+    swayX: 7 + random() * 5,
+    swayY: 3 + random() * 2.5,
     leaves: Array.from({ length: Math.round(radius * 0.72) }, () => ({
       offsetX: gaussian() * radius,
       offsetY: gaussian() * radius * 0.85,
@@ -201,8 +208,9 @@ function createClumps() {
       breadth: 7 + random() * 7,
       angle: 200 + (random() - 0.5) * 120,
       phase: random(),
-      flutter: 8 + random() * 14,
-      wiggle: 1.6 + random() * 2.4,
+      flutter: 6 + random() * 8,
+      wiggle: 1.1 + random() * 1.5,
+      beat: 2 + Math.floor(random() * 2),
       layer: random() < 0.45 ? "near" : "far",
     })),
   });
@@ -214,15 +222,15 @@ function shadowSvg(clumps, t) {
   const tau = Math.PI * 2;
   const layers = { near: [], far: [], mass: [], twigs: [] };
   for (const clump of clumps) {
-    const swayX = clump.swayX * Math.sin(tau * (t + clump.phase));
-    const swayY = clump.swayY * Math.sin(tau * (t + clump.phase + 0.23));
+    const swayX = clump.swayX * (0.75 * Math.sin(tau * (t + clump.phase)) + 0.25 * Math.sin(tau * (2 * t + clump.phase2)));
+    const swayY = clump.swayY * (0.75 * Math.sin(tau * (t + clump.phase + 0.23)) + 0.25 * Math.sin(tau * (2 * t + clump.phase2 + 0.4)));
     const cx = clump.x + swayX;
     const cy = clump.y + swayY * clump.squash;
     layers.mass.push(`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${(clump.radius * 0.8).toFixed(1)}" ry="${(clump.radius * 0.62 * clump.squash).toFixed(1)}"/>`);
     layers.twigs.push(`<path d="M${W * 1.03} ${(clump.y - 34 * clump.squash).toFixed(1)}Q${((W * 1.03 + cx) / 2).toFixed(1)} ${(clump.y + 20 * clump.squash).toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)}"/>`);
     for (const leaf of clump.leaves) {
-      const x = cx + leaf.offsetX + leaf.wiggle * Math.sin(tau * (2 * t + leaf.phase));
-      const y = cy + (leaf.offsetY + leaf.wiggle * 0.7 * Math.sin(tau * (2 * t + leaf.phase + 0.31))) * clump.squash;
+      const x = cx + leaf.offsetX + leaf.wiggle * Math.sin(tau * (leaf.beat * t + leaf.phase));
+      const y = cy + (leaf.offsetY + leaf.wiggle * 0.7 * Math.sin(tau * (leaf.beat * t + leaf.phase + 0.31))) * clump.squash;
       const angle = leaf.angle + leaf.flutter * Math.sin(tau * (t + leaf.phase));
       const half = leaf.length / 2;
       const wide = leaf.breadth * 0.75;
@@ -243,6 +251,30 @@ function shadowSvg(clumps, t) {
     <g fill="#fff" fill-opacity=".72" filter="url(#b)">${layers.far.join("")}</g>
     <g fill="#fff" fill-opacity=".9" filter="url(#a)">${layers.near.join("")}</g>
   </svg>`;
+}
+
+// Aplica el margen por píxel dando dos vueltas al bucle: en la segunda, el primer fotograma parte
+// de lo que dejó el último, así que el reinicio del bucle no da ningún salto.
+function holdSmallChanges(rawFrames) {
+  const held = Buffer.from(rawFrames.at(-1));
+  const apply = (frame) => {
+    for (let p = 0; p < held.length; p += 3) {
+      if (
+        Math.abs(frame[p] - held[p]) > HOLD_THRESHOLD ||
+        Math.abs(frame[p + 1] - held[p + 1]) > HOLD_THRESHOLD ||
+        Math.abs(frame[p + 2] - held[p + 2]) > HOLD_THRESHOLD
+      ) {
+        held[p] = frame[p];
+        held[p + 1] = frame[p + 1];
+        held[p + 2] = frame[p + 2];
+      }
+    }
+  };
+  rawFrames.forEach(apply);
+  return rawFrames.map((frame) => {
+    apply(frame);
+    return Buffer.from(held);
+  });
 }
 
 const smooth = (a, b, value) => {
@@ -281,14 +313,14 @@ function animateFrame(base, leafMask, shadowMap, t) {
   for (let i = 0, p = 0; i < W * H; i++, p += 3) {
     const shade = (leafMask[i] / 255) * shadowMap[i] * strength;
     if (shade <= 0) continue;
-    // En la pared, sombra algo fría; sobre la madera conserva su tono cálido.
+    // En la pared, sombra algo frÃ­a; sobre la madera conserva su tono cÃ¡lido.
     const onDesk = i >= deskStart;
     out[p] = base[p] * (1 - shade * (onDesk ? 0.82 : 1));
     out[p + 1] = base[p + 1] * (1 - shade * (onDesk ? 1 : 0.97));
     out[p + 2] = base[p + 2] * (1 - shade * (onDesk ? 1 : 0.88));
   }
 
-  // Hojas de la ventana: leve ondulación solo sobre el verde, no sobre el marco blanco.
+  // Hojas de la ventana: leve ondulaciÃ³n solo sobre el verde, no sobre el marco blanco.
   const tau = Math.PI * 2;
   const left = Math.floor(SCENE.glass.left * W);
   const bottom = Math.floor(SCENE.glass.bottom * H);
@@ -300,8 +332,8 @@ function animateFrame(base, leafMask, shadowMap, t) {
       const saturation = max === 0 ? 0 : (max - Math.min(r, g, b)) / max;
       const amount = smooth(0.12, 0.3, saturation);
       if (amount <= 0) continue;
-      const dx = 2.3 * Math.sin(tau * t + y * 0.05 + x * 0.03) + 1.3 * Math.sin(tau * 2 * t + x * 0.09 + y * 0.02);
-      const dy = 1.7 * Math.sin(tau * t + x * 0.06 + 1.1) + 0.9 * Math.sin(tau * 2 * t + y * 0.08);
+      const dx = 1.9 * Math.sin(tau * t + y * 0.05 + x * 0.03) + 0.8 * Math.sin(tau * 2 * t + x * 0.09 + y * 0.02);
+      const dy = 1.3 * Math.sin(tau * t + x * 0.06 + 1.1) + 0.6 * Math.sin(tau * 2 * t + y * 0.08);
       const sx = Math.min(Math.max(x + dx, left), W - 2);
       const sy = Math.min(Math.max(y + dy, 0), bottom - 2);
       const x0 = Math.floor(sx), y0 = Math.floor(sy);
@@ -326,22 +358,19 @@ writeFileSync(join(outDir, "still-1680.png"), still);
 const { data: base } = await sharp(still).removeAlpha().resize(OUTPUT.width, OUTPUT.height, { fit: "fill" }).raw().toBuffer({ resolveWithObject: true });
 const clumps = createClumps();
 const shadowMap = createShadowMap();
-const frames = [];
+const rawFrames = [];
 for (let index = 0; index < FRAMES; index++) {
   const t = index / FRAMES;
   const mask = await sharp(Buffer.from(shadowSvg(clumps, t))).greyscale().raw().toBuffer();
-  const frame = animateFrame(base, mask, shadowMap, t);
-  frames.push(await sharp(frame, { raw: { width: OUTPUT.width, height: OUTPUT.height, channels: 3 } }).png({ compressionLevel: 1 }).toBuffer());
+  rawFrames.push(animateFrame(base, mask, shadowMap, t));
 }
+const raw = { raw: { width: OUTPUT.width, height: OUTPUT.height, channels: 3 } };
+const frames = await Promise.all(holdSmallChanges(rawFrames).map((frame) => sharp(frame, raw).png({ compressionLevel: 1 }).toBuffer()));
 writeFileSync(join(outDir, "frame-00.png"), frames[0]);
 console.log(`Fotogramas: ${FRAMES} en ${((Date.now() - started) / 1000).toFixed(1)} s`);
 
-const animated = () => sharp(frames, { join: { animated: true } });
-const report = (name, file) => console.log(`${name} ${(statSync(file).size / 1024 / 1024).toFixed(2)} MB`);
-
 const gif = join(outDir, "setup-scene.gif");
-await animated()
-  .gif({ delay: DELAY_MS, loop: 0, colours: 256, dither: 0.5, effort: 10, reuse: true, interFrameMaxError: 6, interPaletteMaxError: 24 })
+await sharp(frames, { join: { animated: true } })
+  .gif({ delay: DELAY_MS, loop: 0, colours: 256, dither: 0.5, effort: 10, reuse: true, interFrameMaxError: GIF_MAX_ERROR, interPaletteMaxError: 24 })
   .toFile(gif);
-report(`GIF ${OUTPUT.width}×${OUTPUT.height}`, gif);
-
+console.log(`GIF ${OUTPUT.width}×${OUTPUT.height}, ${FRAMES} fotogramas a ${DELAY_MS} ms: ${(statSync(gif).size / 1024 / 1024).toFixed(2)} MB`);
