@@ -3,6 +3,7 @@ import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import EasterEggs from "@/components/easter-eggs.astro";
+import { SETUP_IMAGE_SIZES, setupSrcset } from "@/config/setup-scene";
 import { alternatePaths, localeFromPath } from "@/i18n";
 import "../styles/global.css";
 
@@ -292,6 +293,80 @@ const blogPostSchema = isBlogPost ? {
       }}
     />
 
+    <!--
+      Entrada «setup»: decide antes de pintar si se muestra. El contenido sigue en el HTML;
+      la capa se monta en cliente y una cobertura con tope de 2 s evita el parpadeo de la home.
+    -->
+    <style is:inline>
+      html[data-setup-pending]::after { content: ""; position: fixed; inset: 0; z-index: 2147483646; background: #0a0a0a; }
+    </style>
+    <script is:inline define:vars={{ setupDev: import.meta.env.DEV, setupSrcsetAvif: setupSrcset("avif"), setupSizes: SETUP_IMAGE_SIZES }}>
+      var root = document.documentElement;
+      var params = new URLSearchParams(location.search);
+      var KEY = "jt-setup-done";
+      var storage = null;
+      try { storage = window.sessionStorage; } catch (_) {}
+
+      var entry = performance.getEntriesByType("navigation")[0];
+      var type = entry ? entry.type : "navigate";
+      var path = location.pathname;
+      var isRoot = path === "/" || path === "/en" || path === "/en/";
+      var fromCampaign = params.has("gclid") || Array.from(params.keys()).some(function (key) { return key.indexOf("utm_") === 0; });
+      var unsuitable =
+        innerWidth < 768 ||
+        innerWidth / innerHeight < 1.3 ||
+        matchMedia("(hover: none)").matches ||
+        navigator.webdriver === true;
+      var calibrate = setupDev && params.has("calibrate");
+
+      var show = false;
+      if (calibrate) {
+        show = true;
+      } else if (storage && !params.has("nosetup") && !fromCampaign && !unsuitable) {
+        if (type === "reload") storage.removeItem(KEY);
+        show = type === "reload" || (type === "navigate" && isRoot && !storage.getItem(KEY));
+      }
+
+      if (!show) {
+        // Una entrada sin setup cuenta como vista: el logo o volver a la raíz no deben mostrarlo después.
+        if (storage) storage.setItem(KEY, "1");
+      } else {
+        root.setAttribute("data-setup-pending", "");
+        if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+        var preload = document.createElement("link");
+        preload.rel = "preload";
+        preload.as = "image";
+        preload.type = "image/avif";
+        preload.setAttribute("imagesrcset", setupSrcsetAvif);
+        preload.setAttribute("imagesizes", setupSizes);
+        preload.setAttribute("fetchpriority", "high");
+        document.head.appendChild(preload);
+
+        // Mientras dure la capa, la rueda no debe llegar al hero que hay debajo.
+        var block = function (event) { event.preventDefault(); event.stopPropagation(); };
+        var options = { capture: true, passive: false };
+        window.addEventListener("wheel", block, options);
+        window.addEventListener("touchmove", block, options);
+
+        var boot = (window.__jtSetup = {
+          calibrate: calibrate,
+          uncover: function () { root.removeAttribute("data-setup-pending"); },
+          release: function () {
+            window.removeEventListener("wheel", block, options);
+            window.removeEventListener("touchmove", block, options);
+          },
+        });
+        setTimeout(function () {
+          if (boot.mounted) return;
+          boot.expired = true;
+          boot.uncover();
+          boot.release();
+          if (storage) storage.setItem(KEY, "1");
+        }, 2000);
+      }
+    </script>
+
     <!-- Preload Critical Font: Eliminates font waterfall for LCP -->
     <link
       rel="preload"
@@ -327,6 +402,24 @@ const blogPostSchema = isBlogPost ? {
 
     <!-- Interactive Layer: Easter Eggs -->
     <EasterEggs />
+    <!-- Entrada «setup»: su código solo se descarga cuando se va a mostrar -->
+    <script>
+      const boot = (window as unknown as { __jtSetup?: import("@/setup/setup-layer").SetupBoot & { calibrate?: boolean } }).__jtSetup;
+      if (boot) {
+        import("@/setup/setup-layer")
+          .then(async ({ mountSetup }) => {
+            const mounted = mountSetup(boot);
+            if (import.meta.env.DEV && mounted && boot.calibrate) {
+              const { mountCalibration } = await import("@/setup/calibrate");
+              mountCalibration(mounted.layer, mounted.camera);
+            }
+          })
+          .catch(() => {
+            boot.uncover();
+            boot.release();
+          });
+      }
+    </script>
     <!-- Motion Budget: Lightweight IntersectionObserver for single-pass section reveals -->
     <script is:inline>
       function initSectionReveals() {
