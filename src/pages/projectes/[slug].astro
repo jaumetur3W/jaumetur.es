@@ -1,354 +1,157 @@
 ---
 import { getCollection, render } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 export async function getStaticPaths() {
   const allProjects = await getCollection("projectes");
-  return allProjects.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return allProjects.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
 const isEn = localeFromPath(Astro.url.pathname) === "en";
-const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+const to = (path: string) => {
+  const p = localizePath(path, isEn ? "en" : "es");
+  return p === "/" || p.endsWith("/") ? p : `${p}/`;
+};
+const siteUrl = "https://jaumetur.es";
 
-const allProjects = isEn ? await getCollection("projectes-en") : await getCollection("projectes");
-const currentIndex = allProjects.findIndex((p) => p.id === entry.id);
-const prev = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
-const next = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null;
+const allProjects = (isEn ? await getCollection("projectes-en") : await getCollection("projectes")).sort(
+  (a, b) => (a.data.order || 99) - (b.data.order || 99),
+);
+const idx = allProjects.findIndex((p) => p.id === entry.id);
+const prev = allProjects[(idx - 1 + allProjects.length) % allProjects.length];
+const next = allProjects[(idx + 1) % allProjects.length];
 
-// Get English version of this project if we are on /en/
-let entryToRender: any = entry;
-if (isEn) {
-  const enProjects = await getCollection("projectes-en");
-  const matchingEn = enProjects.find((p) => p.id === entry.id);
-  if (matchingEn) {
-    entryToRender = matchingEn;
-  }
-}
-
+const entryToRender = isEn ? (allProjects.find((p) => p.id === entry.id) ?? entry) : entry;
 const { Content } = await render(entryToRender);
+const d = entryToRender.data;
 
-const projectText = entryToRender.data;
-const projectStack = entry.data.stack;
+const projectImages: Record<string, string> = {
+  avisa: "/img/preview-avisa.webp",
+  "pizzeria-xativa": "/img/foto_pizza.webp",
+  "burger-xativa": "/img/foto_burger.webp",
+  "dashboard-telemetria": "/img/preview-dashboard.webp",
+  "pipeline-cicd": "/img/preview-pipeline.webp",
+};
+const cover = projectImages[entry.id];
+const shortTitle = (x: string) => x.split(" — ")[0];
 
-// JSON-LD Structured Data for SoftwareSourceCode / CreativeWork
+const serviceFor =
+  entry.id === "pizzeria-xativa" || entry.id === "burger-xativa"
+    ? "/pricing/digitalitzacio-local"
+    : entry.id === "dashboard-telemetria"
+      ? "/pricing/performance-audit"
+      : entry.id === "pipeline-cicd"
+        ? "/pricing/cicd-devops"
+        : entry.id === "forma-espacio" || entry.id === "fincarural"
+          ? "/pricing/landing-page"
+          : "/pricing/angular-webapp";
+
+const t = isEn
+  ? {
+      home: "Home", projects: "Projects", client: "Client / context", year: "Year", role: "My role", verify: "How it was checked",
+      live: "View live project", code: "Source code", stack: "Technologies", flagship: "Flagship project",
+      ctaTitle: "Want something like this for your business?", ctaText: "See what the equivalent service includes and its price, or tell me about your project.",
+      ctaA: "View service & pricing", ctaB: "Talk to Jaume", prev: "Previous project", next: "Next project", titleSuffix: "Case study",
+    }
+  : {
+      home: "Inicio", projects: "Proyectos", client: "Cliente / contexto", year: "Año", role: "Mi papel", verify: "Cómo se ha comprobado",
+      live: "Ver proyecto en línea", code: "Código fuente", stack: "Tecnologías", flagship: "Buque insignia",
+      ctaTitle: "¿Quieres algo así para tu negocio?", ctaText: "Mira qué incluye el servicio equivalente y su precio, o cuéntame tu proyecto.",
+      ctaA: "Ver servicio y precios", ctaB: "Hablar con Jaume", prev: "Proyecto anterior", next: "Proyecto siguiente", titleSuffix: "Caso de estudio",
+    };
+
 const schemaData = {
   "@context": "https://schema.org",
-  "@type": "SoftwareSourceCode",
-  "name": projectText.title,
-  "description": projectText.subtitle,
-  "programmingLanguage": projectStack,
-  "author": {
-    "@type": "Person",
-    "name": "Jaume Tur",
-    "url": "https://jaumetur.es"
-  },
-  "url": entry.data.liveUrl || `https://jaumetur.es${href(`/projectes/${entry.id}`)}`,
-  ...(entry.data.githubUrl ? { "codeRepository": entry.data.githubUrl } : {}),
+  "@type": "CreativeWork",
+  "name": d.title,
+  "description": d.subtitle,
+  "author": { "@id": `${siteUrl}/#person` },
   "dateCreated": entry.data.year,
+  "keywords": entry.data.stack.join(", "),
+  "url": `${siteUrl}${to(`/projectes/${entry.id}`)}`,
+  ...(entry.data.githubUrl ? { "codeRepository": entry.data.githubUrl } : {}),
 };
-
-const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
-const breadcrumbSchema = {
+const breadcrumb = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": isEn ? "Home" : "Inicio",
-      "item": new URL(href("/"), siteUrl).toString(),
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": isEn ? "Projects" : "Proyectos",
-      "item": new URL(href("/projectes"), siteUrl).toString(),
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": projectText.title,
-      "item": new URL(Astro.url.pathname, siteUrl).toString(),
-    },
+    { "@type": "ListItem", "position": 1, "name": t.home, "item": `${siteUrl}${to("/")}` },
+    { "@type": "ListItem", "position": 2, "name": t.projects, "item": `${siteUrl}${to("/projectes")}` },
+    { "@type": "ListItem", "position": 3, "name": d.title, "item": `${siteUrl}${to(`/projectes/${entry.id}`)}` },
   ],
 };
 ---
 
-<Layout
-  title={`${projectText.title} — ${isEn ? "Case Study" : "Caso de estudio"}`}
-  description={projectText.subtitle}
-  image={entry.data.image.src}
->
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-
-  <Container>
-    <!-- Breadcrumbs -->
-    <nav aria-label={isEn ? "Navigation path" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-600 flex items-center gap-2 flex-wrap">
-      <a href={href("/")} class="hover:text-slate-950 transition-colors">{isEn ? "Home" : "Inicio"}</a>
-      <span>/</span>
-      <a href={href("/projectes")} class="hover:text-slate-950 transition-colors">{isEn ? "Projects" : "Proyectos"}</a>
-      <span>/</span>
-      <span class="text-slate-950 font-medium">{projectText.title}</span>
-    </nav>
-
-    <!-- Case Study Hero -->
-    <header class="max-w-4xl mx-auto mt-6 mb-12" style={`view-transition-name: project-card-${entry.id};`}>
-      <div class="flex flex-wrap items-center gap-2.5 mb-4">
-        {entry.id === "avisa" && (
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200 shadow-2xs">
-            <Icon name="bx:star" class="w-3.5 h-3.5 text-rose-600" />
-            <span>{isEn ? "Flagship project" : "Buque insignia"}</span>
-          </span>
-        )}
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-xs">
-          <Icon name={entry.data.icon} class="w-3.5 h-3.5 text-slate-950" />
-          <span>{projectText.badge}</span>
-        </span>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-slate-100 border border-slate-200 text-slate-800">
-          <span class="w-1.5 h-1.5 rounded-full bg-slate-950"></span>
-          <span>{projectText.statValue}</span>
-        </span>
-      </div>
-
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-slate-950 tracking-tight leading-tight mb-4">
-        {projectText.title}
-      </h1>
-
-      <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8">
-        {projectText.subtitle}
-      </p>
-
-      <!-- Project Metadata Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs text-xs font-mono mb-8">
-        <div>
-          <span class="text-slate-600 block uppercase tracking-wider text-[10px] font-semibold">{isEn ? "Client / context" : "Cliente / contexto"}</span>
-          <span class="text-slate-950 font-normal mt-1 block">{projectText.client}</span>
+<Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
+  <section class="border-b-2 border-ink bg-brand px-4 pb-14 pt-8 sm:px-5">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 font-mono text-xs font-bold">
+        <a href={to("/")} class="underline underline-offset-4 hover:no-underline">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/projectes")} class="underline underline-offset-4 hover:no-underline">{t.projects}</a><span aria-hidden="true">/</span>
+        <span aria-current="page">{shortTitle(d.title)}</span>
+      </nav>
+      <div class="mt-10 grid items-center gap-10 lg:grid-cols-12">
+        <div class:list={[cover ? "lg:col-span-6" : "lg:col-span-12"]}>
+          <div class="flex flex-wrap gap-2">
+            {entry.id === "avisa" && <span class="chip bg-ink! text-brand"><Icon name="bx:star" class="h-4 w-4" />{t.flagship}</span>}
+            <span class="chip bg-white"><Icon name={entry.data.icon} class="h-4 w-4" />{d.badge}</span>
+          </div>
+          <h1 class="display mt-5 text-[clamp(2.1rem,5vw,4rem)]">{d.title}</h1>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/85">{d.subtitle}</p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ink">{t.live} <span aria-hidden="true">↗</span></a>}
+            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.code} <span aria-hidden="true">↗</span></a>}
+          </div>
         </div>
-        <div>
-          <span class="text-slate-600 block uppercase tracking-wider text-[10px] font-semibold">{isEn ? "Development year" : "Año de desarrollo"}</span>
-          <span class="text-slate-950 font-normal mt-1 block">{entry.data.year}</span>
-        </div>
-        <div>
-          <span class="text-slate-600 block uppercase tracking-wider text-[10px] font-semibold">{isEn ? "Engineering role" : "Rol de ingeniería"}</span>
-          <span class="text-slate-950 font-normal mt-1 block">{projectText.role}</span>
-        </div>
-        <div>
-          <span class="text-slate-600 block uppercase tracking-wider text-[10px] font-semibold">{isEn ? "Verification method" : "Método de verificación"}</span>
-          <span class="text-slate-950 font-normal mt-1 block truncate" title={projectText.verificationMethod}>
-            {projectText.verificationMethod.split('&')[0]}
-          </span>
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex flex-wrap items-center gap-3">
-        {entry.data.liveUrl && (
-          <a
-            href={entry.data.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 border border-slate-950 transition-colors shadow-xs"
-          >
-            <Icon name="bx:link-external" class="w-4 h-4 text-slate-950" />
-            <span>{isEn ? "View live demo" : "Ver la demostración en línea"}</span>
-            <span class="text-slate-950 text-[10px]">↗</span>
-          </a>
-        )}
-        {entry.data.githubUrl && (
-          <a
-            href={entry.data.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 border border-slate-950 transition-colors shadow-xs"
-          >
-            <Icon name="bx:bxl-github" class="w-4 h-4 text-white group-hover:text-slate-950" />
-            <span>{isEn ? "Source code on GitHub" : "Código fuente en GitHub"}</span>
-            <span class="text-slate-400 text-[10px]">↗</span>
-          </a>
-        )}
-      </div>
-    </header>
-
-    <!-- Browser Frame / Device Mockup Preview -->
-    <div class="max-w-5xl mx-auto mb-16 rounded-3xl overflow-hidden border border-slate-200/90 bg-white shadow-md">
-      <!-- Browser Top Bar -->
-      <div class="px-5 py-3 bg-slate-100/80 border-b border-slate-200/80 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
-          <span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
-          <span class="w-3 h-3 rounded-full bg-slate-300 inline-block"></span>
-        </div>
-        <div class="flex-1 max-w-md mx-auto bg-white px-4 py-1.5 rounded-lg border border-slate-200 text-[11px] font-mono text-slate-600 truncate flex items-center gap-2 shadow-2xs">
-          <Icon name="bx:lock-alt" class="w-3 h-3 text-slate-950 shrink-0" />
-          <span class="truncate">{entry.data.liveUrl || `https://jaumetur.es${href(`/projectes/${entry.id}`)}`}</span>
-        </div>
-        <div class="flex items-center gap-2 text-slate-600">
-          <Icon name="bx:refresh" class="w-4 h-4" />
-        </div>
-      </div>
-
-      <!-- Architecture & Technical Console (Sense fotografies, icones estandarditzades) -->
-      <div class="relative bg-gradient-to-b from-slate-50 to-white p-8 sm:p-12 flex flex-col items-center justify-center text-center">
-        {entry.id === "avisa" ? (
-          <img
-            src="/img/avisa-logo.png"
-            alt="AVISA Logo"
-            class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl object-contain shadow-md mb-4 border border-rose-500/20 bg-[#161c28] p-2"
-            width="80"
-            height="80"
-          />
-        ) : (
-          <div class="w-16 h-16 rounded-3xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shadow-xs mb-4">
-            <Icon name={entry.data.icon} class="w-8 h-8 text-slate-950" />
+        {cover && (
+          <div class="lg:col-span-6">
+            <div class="card overflow-hidden bg-white">
+              <img src={cover} alt={entry.data.image.alt} width="1200" height="675" class="aspect-[16/10] w-full object-cover" fetchpriority="high" decoding="async" />
+            </div>
           </div>
         )}
-        <h2 class="text-xl sm:text-2xl font-light text-slate-950 tracking-tight mb-2">
-          {projectText.title}
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-600 font-light max-w-xl mx-auto mb-6">
-          {projectText.tagline || projectText.subtitle}
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-2 font-mono text-xs">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-800 shadow-2xs">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            <span>{projectText.statValue}</span>
-          </span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-700 shadow-2xs">
-            <span>{isEn ? "Year" : "Año"}: {entry.data.year}</span>
-          </span>
-        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Tech Stack Pill Ribbon -->
-    <div class="max-w-4xl mx-auto mb-14 p-5 rounded-3xl bg-white border border-slate-200/90 shadow-2xs flex flex-wrap items-center gap-2">
-      <span class="text-xs font-mono text-slate-600 mr-2 flex items-center gap-1.5 font-semibold">
-        <Icon name="bx:layer" class="w-3.5 h-3.5 text-slate-950" />
-        <span>{isEn ? "Technologies:" : "Tecnologías:"}</span>
-      </span>
-      {projectStack.map((tech) => (
-        <span class="text-xs font-mono px-3 py-1 rounded-xl bg-slate-100 border border-slate-200 text-slate-800">
-          {tech}
-        </span>
-      ))}
-    </div>
+  <section class="px-4 py-14 sm:px-5 sm:py-20">
+    <div class="mx-auto max-w-4xl">
+      <dl class="card grid gap-5 bg-white p-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{t.client}</dt><dd class="mt-1 font-semibold leading-snug">{d.client}</dd></div>
+        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{t.year}</dt><dd class="mt-1 font-semibold">{entry.data.year}</dd></div>
+        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{t.role}</dt><dd class="mt-1 font-semibold leading-snug">{d.role}</dd></div>
+        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{t.verify}</dt><dd class="mt-1 text-sm leading-snug">{d.verificationMethod}</dd></div>
+      </dl>
 
-    <!-- Main Case Study Content (Prose) -->
-    <div class="max-w-4xl mx-auto prose prose-slate max-w-none prose-headings:font-light prose-headings:tracking-tight prose-headings:text-slate-950 prose-a:text-slate-950 prose-a:underline prose-a:decoration-[#FFFF00] prose-a:decoration-2 prose-a:underline-offset-4 prose-pre:bg-slate-950 prose-pre:border prose-pre:border-slate-800 mb-16 font-light">
-      <Content />
-    </div>
-
-    <!-- Related Service CTA Banner (Internal Linking) -->
-    <div class="max-w-4xl mx-auto mb-16 p-6 sm:p-8 rounded-3xl bg-slate-950 text-white border-2 border-slate-950 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 selection:bg-[#FFFF00] selection:text-black">
-      <div class="space-y-2 text-center md:text-left">
-        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-[#FFFF00]">
-          {isEn ? "Equivalent professional service" : "Servicio profesional equivalente"}
-        </span>
-        <h3 class="text-xl sm:text-2xl font-light text-white tracking-tight">
-          {isEn ? "Want to implement a solution like this for your business?" : "¿Quieres implementar una solución como esta en tu negocio?"}
-        </h3>
-        <p class="text-sm text-slate-300 max-w-xl font-light leading-relaxed">
-          {isEn ? "Check package details, transparent pricing, and technical comparison before starting." : "Consulta los detalles del paquete, el precio transparente y la comparativa técnica antes de comenzar."}
-        </p>
+      <div class="mt-8 flex flex-wrap items-center gap-2">
+        <span class="mr-1 font-mono text-xs font-bold uppercase tracking-wider">{t.stack}</span>
+        {entry.data.stack.map((x) => <span class="chip">{x}</span>)}
       </div>
-      <div class="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
-        <a
-          href={href(
-            entry.id === "pizzeria-xativa" || entry.id === "burger-xativa"
-              ? "/pricing/digitalitzacio-local"
-              : entry.id === "dashboard-telemetria"
-              ? "/pricing/performance-audit"
-              : entry.id === "pipeline-cicd"
-              ? "/pricing/cicd-devops"
-              : entry.id === "forma-espacio"
-              ? "/pricing/landing-page"
-              : "/pricing/angular-webapp"
-          )}
-          class="px-5 py-3 rounded-xl bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold text-center border border-slate-950 transition-colors shadow-xs"
-        >
-          {isEn ? "View service & pricing" : "Ver servicio y precios"}
-        </a>
-        <a
-          href={href("/contact")}
-          class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs uppercase tracking-wider font-semibold text-center border border-slate-800 transition-colors"
-        >
-          {isEn ? "Talk to Jaume" : "Hablar con Jaume"}
-        </a>
+
+      <div class="prose prose-lg prose-neutral mt-12 max-w-none prose-headings:text-ink prose-a:text-ink prose-a:underline prose-a:decoration-2 prose-a:decoration-brand prose-strong:text-ink prose-li:marker:text-ink">
+        <Content />
       </div>
     </div>
+  </section>
 
-    <!-- Honesty & Verification Card -->
-    {entry.data.statLabel === "Mètrica Verificada" && (
-    <div class="max-w-4xl mx-auto mb-16 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-2xs">
-      <div class="flex items-center gap-2 mb-3">
-        <Icon name="bx:check-shield" class="w-5 h-5 text-slate-950" />
-        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600">
-          {isEn ? "Technical honesty and verifiability protocol" : "Protocolo de honestidad técnica y verificabilidad"}
-        </span>
+  <section class="border-y-2 border-ink bg-ink px-4 py-16 text-white sm:px-5 sm:py-20">
+    <div class="on-dark mx-auto flex max-w-4xl flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h2 class="display text-[clamp(1.8rem,4vw,2.75rem)] text-brand">{t.ctaTitle}</h2>
+        <p class="mt-3 max-w-lg text-white/80">{t.ctaText}</p>
       </div>
-      <h3 class="text-xl font-light text-slate-950 tracking-tight mb-2">{isEn ? "How do we verify these metrics?" : "¿Cómo comprobamos estas métricas?"}</h3>
-      <p class="text-sm text-slate-600 font-light leading-relaxed mb-5">
-        {isEn ? "All metrics in this case study were validated with standard frontend engineering tools:" : "Todas las métricas de este caso de estudio se han validado con herramientas estándar de ingeniería frontend:"}
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono text-slate-700">
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <span class="text-slate-950 font-semibold block mb-1">Google Lighthouse</span>
-          <span class="text-slate-600 font-normal">{isEn ? "Mobile profile with network throttling to audit LCP, CLS, and SEO." : "Perfil móvil con emulación de red para auditar LCP, CLS y SEO."}</span>
-        </div>
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <span class="text-slate-950 font-semibold block mb-1">axe-core / DevTools</span>
-          <span class="text-slate-600 font-normal">{isEn ? "DOM inspection to verify WCAG 2.2 AA accessibility compliance." : "Inspección del documento para verificar el cumplimiento de WCAG 2.2 AA."}</span>
-        </div>
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <span class="text-slate-950 font-semibold block mb-1">Chrome Performance</span>
-          <span class="text-slate-600 font-normal">{isEn ? "FPS Meter measurement and INP responsiveness latency." : "Medición de fotogramas por segundo (FPS Meter) y latencia INP."}</span>
-        </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={to(serviceFor)} class="btn btn-brand">{t.ctaA}</a>
+        <a href={to("/contact")} class="btn btn-ink">{t.ctaB}</a>
       </div>
     </div>
-    )}
+  </section>
 
-    <!-- Previous / Next Case Study Navigation -->
-    <nav aria-label={isEn ? "Project navigation" : "Navegación entre proyectos"} class="max-w-4xl mx-auto pt-8 pb-16 border-t border-slate-200/90 grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {prev && (
-        <a
-          href={href(`/projectes/${prev.id}`)}
-          class="group p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 transition-all duration-200 text-left flex flex-col justify-between shadow-2xs hover:shadow-md"
-        >
-          <span class="text-xs font-mono text-slate-600 font-semibold flex items-center gap-1 mb-2">
-            <span>←</span>
-            <span>{isEn ? "Previous project" : "Proyecto anterior"}</span>
-          </span>
-          <span class="text-base font-normal text-slate-950 group-hover:underline decoration-1 underline-offset-4 transition-colors flex items-center gap-2">
-            <Icon name={prev.data.icon} class="w-4 h-4 text-slate-950" />
-            <span>{prev.data.title}</span>
-          </span>
-        </a>
-      )}
-
-      {next && (
-        <a
-          href={href(`/projectes/${next.id}`)}
-          class="group p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 transition-all duration-200 text-right flex flex-col justify-between sm:items-end shadow-2xs hover:shadow-md"
-        >
-          <span class="text-xs font-mono text-slate-600 font-semibold flex items-center justify-end gap-1 mb-2">
-            <span>{isEn ? "Next project" : "Proyecto siguiente"}</span>
-            <span>→</span>
-          </span>
-          <span class="text-base font-normal text-slate-950 group-hover:underline decoration-1 underline-offset-4 transition-colors flex items-center justify-end gap-2">
-            <span>{next.data.title}</span>
-            <Icon name={next.data.icon} class="w-4 h-4 text-slate-950" />
-          </span>
-        </a>
-      )}
-    </nav>
-  </Container>
+  <nav aria-label={t.projects} class="mx-auto grid max-w-4xl gap-4 px-4 py-14 sm:grid-cols-2 sm:px-5">
+    <a href={to(`/projectes/${prev.id}`)} class="card bg-white p-5"><span class="font-mono text-xs font-bold uppercase">← {t.prev}</span><span class="mt-1 block font-display text-lg font-extrabold leading-snug">{shortTitle(prev.data.title)}</span></a>
+    <a href={to(`/projectes/${next.id}`)} class="card bg-white p-5 sm:text-right"><span class="font-mono text-xs font-bold uppercase">{t.next} →</span><span class="mt-1 block font-display text-lg font-extrabold leading-snug">{shortTitle(next.data.title)}</span></a>
+  </nav>
 </Layout>

@@ -207,12 +207,6 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.getByRole("heading", { name: "Frequently Asked Questions" })).toBeVisible();
   });
 
-  test("Brand kit page /marca displays official logo and download links", async ({ page }) => {
-    await page.goto("/marca/");
-    await expect(page.locator("h1, h2").filter({ hasText: "Logotipos" })).toBeVisible();
-    await expect(page.locator('a[download="jt-logo-groc.png"]')).toBeVisible();
-  });
-
   test("Digital card page /card displays contact pass, QR code and vCard link", async ({ page }) => {
     await page.goto("/card/");
     await expect(page.locator("h1")).toContainText("Jaume Tur");

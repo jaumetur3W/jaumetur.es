@@ -1,273 +1,126 @@
 ---
 import Contactform from "@/components/contactform.astro";
-import Container from "@/components/container.astro";
-import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
-import { localeFromPath, localizePath } from "@/i18n";
+import { localeFromPath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
-const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+const subject = encodeURIComponent(isEn ? "New project inquiry" : "Nueva consulta de proyecto");
+const mailto = `mailto:jaumetur3w@gmail.com?subject=${subject}`;
+
+const t = isEn
+  ? {
+      title: "Contact — get a web design quote in Valencia | Jaume Tur",
+      desc: "Tell Jaume Tur about your website, digital menu or app. Based in Xàtiva, working in Valencia and 100% remote. Replies within 24 business hours.",
+      eyebrow: "Contact", h1: "Let's talk about your project.",
+      lead: "Web developer based in Xàtiva, available for web projects, custom applications and technical collaborations in person in Valencia or 100% online.",
+      reply: "Typical response time: < 24 business hours",
+      mail: "Write to Jaume", direct: "Direct email", copy: "Copy",
+      brief: "Fill out a more detailed questionnaire", cv: "Download full CV (PDF)", maps: "View Google profile and reviews",
+      formTitle: "Proposal form", formText: "Fill in your details and you will receive a technical proposal without commitment.", nocaptcha: "No CAPTCHA",
+      pricing: "See services & pricing first", loc: "Xàtiva / Valencia, Spain. Remote work.",
+    }
+  : {
+      title: "Contacto — pide presupuesto de diseño web en Valencia | Jaume Tur",
+      desc: "Cuéntale a Jaume Tur tu web, carta digital o aplicación. Desde Xàtiva, para Valencia y 100 % en remoto. Respuesta en menos de 24 horas laborables.",
+      eyebrow: "Contacto", h1: "Hablemos de tu proyecto.",
+      lead: "Desarrollador web desde Xàtiva, disponible para proyectos web, aplicaciones a medida y colaboraciones técnicas, en Valencia o 100 % en línea.",
+      reply: "Tiempo de respuesta habitual: < 24 horas laborables",
+      mail: "Escribir a Jaume", direct: "Correo directo", copy: "Copiar",
+      brief: "Haz un cuestionario más extenso", cv: "Descargar CV completo (PDF)", maps: "Ver perfil y reseñas en Google",
+      formTitle: "Formulario de propuesta", formText: "Completa los datos y recibirás una valoración técnica sin compromiso.", nocaptcha: "Sin CAPTCHA",
+      pricing: "Ver servicios y precios antes", loc: "Xàtiva / Valencia, España. Trabajo en línea.",
+    };
+const base = isEn ? "/en" : "";
 ---
 
-<Layout
-  title={isEn ? "Contact | Web Development in Valencia & Remote | Jaume Tur" : "Contacto | Desarrollo Web en Xàtiva y Valencia | Jaume Tur"}
-  description={isEn ? "Contact Jaume Tur to discuss your web project, custom application, consulting or collaboration. Based in Valencia, working 100% online." : "Contacta con Jaume Tur para hablar sobre tu proyecto web, aplicación a medida, consultoría o colaboración desde Xàtiva, Valencia o en remoto."}>
-  <Container>
-    <!-- Capçalera -->
-    <Sectionhead>
-      <Fragment slot="title">{isEn ? "Let's talk about your project" : "Hablemos de tu proyecto"}</Fragment>
-      <Fragment slot="desc">
-        {isEn
-          ? "Web developer available for web projects, custom applications, and technical collaborations 100% remotely."
-          : "Desarrollador web desde Xàtiva disponible para proyectos web, aplicaciones a medida y colaboraciones técnicas en modalidad 100% en línea."}
-      </Fragment>
-    </Sectionhead>
-
-    <!-- Indicador de Resposta Ràpida -->
-    <div class="flex justify-center mt-6 mb-12">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90 shadow-2xs">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-        <span>{isEn ? "Typical response time: < 24 business hours" : "Tiempo de respuesta habitual: < 24 horas laborables"}</span>
-      </div>
+<Layout fresh title={t.title} description={t.desc}>
+  <section class="border-b-2 border-ink bg-brand px-4 pb-14 pt-14 sm:px-5 sm:pt-20">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1 class="display mt-4 max-w-4xl text-[clamp(2.4rem,6.5vw,5rem)]">{t.h1}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/85">{t.lead}</p>
+      <p class="chip mt-6"><span class="h-2 w-2 rounded-full bg-emerald-600"></span>{t.reply}</p>
     </div>
+  </section>
 
-    <div class="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto items-start mb-24">
-      
-      <!-- Columna Esquerra: Canals Directes & Prova Social (5 columnes) -->
-      <div class="lg:col-span-5 space-y-4">
-        
-        <!-- Targeta d'identitat amb Memoji 3.webp -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200 relative overflow-visible group">
-          <div class="flex items-center gap-4">
-            <div class="relative shrink-0 -my-4 -ml-2 z-10">
-              <img
-                src="/img/3.webp"
-                alt="Memoji de Jaume Tur"
-                class="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_8px_16px_rgba(15,23,42,0.16)] group-hover:scale-105 transition-transform duration-200"
-                width="112"
-                height="112"
-                loading="eager"
-                fetchpriority="high"
-              />
-            </div>
-            <div>
-              <span class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-600 block">
-                {isEn ? "Web development & custom apps" : "Desarrollo web y aplicaciones a medida"}
-              </span>
-              <h2 class="font-light text-2xl text-slate-950 tracking-tight leading-tight mt-1">
-                Jaume Tur
-              </h2>
-              <p class="text-xs text-slate-500 mt-1 font-light leading-relaxed">
-                {isEn ? "Valencia, Spain. 100% remote work." : "Xàtiva / Valencia, España. Trabajo 100% en línea."}
-              </p>
-            </div>
+  <section class="px-4 py-14 sm:px-5 sm:py-20">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) items-start gap-8 lg:grid-cols-12">
+      <div class="space-y-4 lg:col-span-5">
+        <div class="card flex items-center gap-4 bg-white p-5">
+          <img src="/img/3.webp" alt="Jaume Tur" width="96" height="96" class="h-24 w-24 shrink-0 object-contain" loading="eager" decoding="async" />
+          <div>
+            <p class="font-display text-2xl font-extrabold">Jaume Tur</p>
+            <p class="text-sm text-ink/70">{t.loc}</p>
           </div>
         </div>
 
-        <!-- Contacte directe per correu -->
-        <a
-          href={`mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent(isEn ? "New project inquiry" : "Nueva consulta de proyecto")}`}
-          id="contact-email-cta"
-          class="p-4 rounded-2xl bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 font-mono text-xs font-semibold flex items-center justify-between border border-slate-950 shadow-xs transition-colors group cursor-pointer">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-950 text-white flex items-center justify-center shrink-0">
-              <Icon name="bx:envelope" class="w-5 h-5 group-hover:scale-110 transition-transform" />
-            </div>
-            <div>
-              <span class="text-[10px] uppercase font-mono tracking-wider opacity-80 block">{isEn ? "Direct email" : "Correo directo"}</span>
-              <span class="text-sm font-semibold">{isEn ? "Write to Jaume" : "Escribir a Jaume"}</span>
-            </div>
-          </div>
-          <span class="text-slate-950 text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+        <a href={mailto} id="contact-email-cta" class="btn btn-ink w-full justify-between">
+          <span class="flex items-center gap-3"><Icon name="bx:envelope" class="h-6 w-6" />{t.mail}</span><span aria-hidden="true">→</span>
         </a>
 
-        <a
-          href={isEn ? "/en/briefing/" : "/briefing/"}
-          class="p-4 rounded-2xl bg-white hover:bg-slate-50 text-slate-950 font-mono text-xs font-semibold flex items-center justify-between border border-slate-300 hover:border-slate-950 shadow-2xs transition-colors group">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-950 flex items-center justify-center shrink-0">
-              <Icon name="bx:clipboard" class="w-5 h-5 group-hover:scale-110 transition-transform" />
-            </div>
-            <span class="text-sm font-semibold">{isEn ? "Fill out a more detailed questionnaire" : "Haz un cuestionario más extenso"}</span>
+        <div class="card flex items-center justify-between gap-3 bg-white p-4">
+          <div class="min-w-0">
+            <p class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{t.direct}</p>
+            <a id="contact-email-link" href={mailto} class="block truncate font-semibold underline decoration-2 decoration-brand underline-offset-4">jaumetur3w@gmail.com</a>
           </div>
-          <span class="text-slate-600 text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
-        </a>
-
-        <!-- Correu Electrònic amb 1-Click Copy -->
-        <div class="bg-white border border-slate-200/90 hover:border-slate-950 rounded-2xl p-4 flex items-center justify-between gap-2 shadow-2xs transition-colors">
-          <div class="flex items-center gap-3 overflow-hidden">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 text-slate-950 flex items-center justify-center shrink-0">
-              <Icon name="bx:envelope" class="w-4 h-4" />
-            </div>
-            <div class="truncate">
-              <span class="text-[10px] font-mono font-semibold text-slate-600 uppercase tracking-wider block">{isEn ? "Direct email" : "Correo directo"}</span>
-              <a
-                href={`mailto:jaumetur3w@gmail.com?subject=${encodeURIComponent(isEn ? "New project inquiry" : "Nueva consulta de proyecto")}`}
-                id="contact-email-link"
-                class="text-xs sm:text-sm font-normal text-slate-950 hover:underline decoration-1 underline-offset-4 transition truncate block">
-                jaumetur3w@gmail.com
-              </a>
-            </div>
-          </div>
-          <button
-            id="copy-email-btn"
-            type="button"
-            class="shrink-0 text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-[#FFFF00] hover:text-slate-950 border border-slate-200 text-slate-700 transition-colors flex items-center gap-1 cursor-pointer"
-            title={isEn ? "Copy email" : "Copiar correo electrónico"}>
-            <Icon name="bx:copy" class="w-3.5 h-3.5" />
-            <span id="copy-btn-label">{isEn ? "Copy" : "Copiar"}</span>
-          </button>
+          <button id="copy-email-btn" type="button" class="chip hover:bg-brand"><Icon name="bx:copy" class="h-4 w-4" /><span id="copy-btn-label">{t.copy}</span></button>
         </div>
 
-        <!-- Descàrrega de CV Oficial -->
-        <a
-          href="/docs/CV_Jaume_tur.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          id="contact-cv-btn"
-          class="bg-white border border-slate-200/90 hover:border-slate-950 rounded-2xl p-4 flex items-center justify-between transition group shadow-2xs">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 text-slate-950 flex items-center justify-center shrink-0">
-              <Icon name="bx:file" class="w-4 h-4 text-slate-900 group-hover:text-black transition-colors" />
-            </div>
-            <div>
-              <span class="text-[10px] font-mono font-semibold text-slate-600 uppercase tracking-wider block">{isEn ? "Professional resume" : "Currículum profesional"}</span>
-              <span class="text-xs sm:text-sm font-normal text-slate-950 group-hover:underline decoration-1 underline-offset-4 transition-colors">
-                {isEn ? "Download full CV (PDF)" : "Descargar CV completo (PDF)"}
-              </span>
-            </div>
-          </div>
-          <span class="text-slate-600 group-hover:text-slate-950 text-xs font-mono font-semibold">↗</span>
+        <a href={`${base}/briefing/`} class="card flex items-center justify-between gap-3 bg-white p-4 font-semibold">
+          <span class="flex items-center gap-3"><Icon name="bx:clipboard" class="h-5 w-5" />{t.brief}</span><span aria-hidden="true">→</span>
+        </a>
+        <a href={`${base}/pricing/`} class="card flex items-center justify-between gap-3 bg-brand p-4 font-semibold">
+          <span class="flex items-center gap-3"><Icon name="bx:tag" class="h-5 w-5" />{t.pricing}</span><span aria-hidden="true">→</span>
         </a>
 
-        <!-- Xarxes Professionals Reals (Prioritat Tècnica: GitHub & LinkedIn) -->
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <a
-            href="https://github.com/jaumetur3W"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-white border border-slate-200/90 hover:border-slate-950 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <Icon name="bx:bxl-github" class="w-5 h-5 text-slate-950" />
-            </div>
-            <div class="truncate">
-              <span class="text-[9px] font-mono uppercase text-slate-600 block font-semibold">{isEn ? "Code & repos" : "Código y repositorios"}</span>
-              <span class="text-xs font-normal text-slate-800 group-hover:text-slate-950 transition-colors">GitHub (@jaumetur3W)</span>
-            </div>
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/jautur/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-white border border-slate-200/90 hover:border-slate-950 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-              <Icon name="bx:bxl-linkedin" class="w-5 h-5 text-slate-950" />
-            </div>
-            <div class="truncate">
-              <span class="text-[9px] font-mono uppercase text-slate-600 block font-semibold">{isEn ? "Career" : "Trayectoria"}</span>
-              <span class="text-xs font-normal text-slate-800 group-hover:text-slate-950 transition-colors">LinkedIn (in/jautur)</span>
-            </div>
-          </a>
+        <div class="grid grid-cols-2 gap-4">
+          <a href="https://www.instagram.com/jaume.www/" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:bxl-instagram" class="h-5 w-5" />Instagram</a>
+          <a href="https://www.linkedin.com/in/jautur/" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:bxl-linkedin" class="h-5 w-5" />LinkedIn</a>
+          <a href="https://github.com/jaumetur3W" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:bxl-github" class="h-5 w-5" />GitHub</a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" id="contact-cv-btn" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:file" class="h-5 w-5" />CV (PDF)</a>
         </div>
-
-        <a
-          href="https://share.google/3tihWcZBWMyYHmjBp"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="bg-white border border-slate-200/90 hover:border-slate-950 rounded-2xl p-3.5 flex items-center gap-3 transition group shadow-2xs">
-          <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-            <Icon name="bx:map-pin" class="w-5 h-5 text-slate-950" />
-          </div>
-          <div class="truncate">
-            <span class="text-[9px] font-mono uppercase text-slate-600 block font-semibold">{isEn ? "Local presence · Google Maps" : "Presencia Local · Google Maps"}</span>
-            <span class="text-xs font-normal text-slate-800 group-hover:text-slate-950 transition-colors">{isEn ? "View Google profile and reviews" : "Ver perfil y reseñas en Google"}</span>
-            <span class="sr-only">({isEn ? "opens in new tab" : "se abre en una pestaña nueva"})</span>
-          </div>
-          <Icon name="bx:link-external" class="w-4 h-4 text-slate-600 ml-auto" />
+        <a href="https://share.google/3tihWcZBWMyYHmjBp" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-3 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!">
+          <Icon name="bx:map-pin" class="h-5 w-5" />{t.maps}<span class="sr-only">({isEn ? "opens in new tab" : "se abre en una pestaña nueva"})</span>
         </a>
-
-        <!-- Caixa de Garantia & Prova Social Real -->
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700 space-y-1.5 font-sans">
-          <span class="font-semibold text-slate-950 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider">
-            <Icon name="bx:shield-quarter" class="w-4 h-4 text-slate-950" />
-            <span>{isEn ? "Honesty and transparency" : "Honestidad y transparencia"}</span>
-          </span>
-          <p class="text-[11px] leading-relaxed text-slate-600 font-light">
-            {isEn ? "All projects include public technical documentation and auditable code. Check the " : "Todos los proyectos incluyen documentación técnica pública y código auditable. Consulta los "}<a href={href("/pricing")} class="font-normal text-slate-950 underline decoration-1 underline-offset-2">{isEn ? "service packages" : "paquetes de servicios"}</a>{isEn ? " or the " : " o los "}<a href={href("/projectes")} class="font-normal text-slate-950 underline decoration-1 underline-offset-2">{isEn ? "real case studies" : "casos de estudio reales"}</a>.
-          </p>
-        </div>
-
       </div>
 
-      <!-- Columna Dreta: Formulari Accessible (7 columnes) -->
-      <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md p-6 sm:p-8 transition-all duration-200">
-        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+      <div class="card bg-white p-6 sm:p-8 lg:col-span-7">
+        <div class="mb-6 flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink pb-5">
           <div>
-            <h3 class="font-light text-2xl text-slate-950 tracking-tight flex items-center gap-2">
-              <Icon name="bx:message-square-edit" class="w-5 h-5 text-slate-950" />
-              <span>{isEn ? "Proposal form" : "Formulario de propuesta"}</span>
-            </h3>
-            <p class="text-xs text-slate-500 mt-1 font-light">
-              {isEn ? "Fill in your details and you will receive a technical proposal without commitment." : "Completa los datos y recibirás una valoración técnica sin compromiso."}
-            </p>
+            <h2 class="font-display text-3xl font-extrabold tracking-tight">{t.formTitle}</h2>
+            <p class="mt-1 text-sm text-ink/70">{t.formText}</p>
           </div>
-          <span class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-950 bg-[#FFFF00] px-2.5 py-1 rounded-full border border-slate-950/20">
-            {isEn ? "No CAPTCHA" : "Sin CAPTCHA"}
-          </span>
+          <span class="chip chip-brand">{t.nocaptcha}</span>
         </div>
-
         <Contactform />
       </div>
-
     </div>
-  </Container>
+  </section>
 </Layout>
 
 <script is:inline>
-  // Còpia ràpida del correu amb feedback accessible
-  const copyBtn = document.getElementById("copy-email-btn");
-  const copyLabel = document.getElementById("copy-btn-label");
-  if (copyBtn && copyLabel) {
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText("jaumetur3w@gmail.com").then(() => {
-        const isEnglish = document.documentElement.lang.startsWith("en");
-        copyLabel.textContent = isEnglish ? "Copied!" : "¡Copiado!";
-        copyBtn.className = "shrink-0 text-xs font-mono font-bold px-3 py-1.5 rounded-lg bg-[#FFFF00] border border-slate-950 text-slate-950 transition flex items-center gap-1";
-        setTimeout(() => {
-          copyLabel.textContent = isEnglish ? "Copy" : "Copiar";
-          copyBtn.className = "shrink-0 text-xs font-mono font-semibold px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-[#FFFF00] hover:text-slate-950 border border-slate-200 text-slate-700 transition flex items-center gap-1 cursor-pointer";
-        }, 2000);
+  (function () {
+    var track = function (name) {
+      if (typeof window.plausible === "function") window.plausible(name, { props: { location: "contact_page" } });
+    };
+    var copyBtn = document.getElementById("copy-email-btn");
+    var copyLabel = document.getElementById("copy-btn-label");
+    if (copyBtn && copyLabel) {
+      copyBtn.addEventListener("click", function () {
+        navigator.clipboard.writeText("jaumetur3w@gmail.com").then(function () {
+          var en = document.documentElement.lang.indexOf("en") === 0;
+          var prev = copyLabel.textContent;
+          copyLabel.textContent = en ? "Copied!" : "¡Copiado!";
+          setTimeout(function () { copyLabel.textContent = prev; }, 2000);
+        });
       });
+    }
+    ["contact-email-cta", "contact-email-link"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { track("email_click"); });
     });
-  }
-
-  // Seguiment del contacte directe per correu
-  const emailCta = document.getElementById("contact-email-cta");
-  if (emailCta) {
-    emailCta.addEventListener("click", () => {
-      if (typeof window.plausible === "function") {
-        window.plausible("email_click", { props: { location: "contact_page" } });
-      }
-    });
-  }
-
-  const cvBtn = document.getElementById("contact-cv-btn");
-  if (cvBtn) {
-    cvBtn.addEventListener("click", () => {
-      if (typeof window.plausible === "function") {
-        window.plausible("cv_download", { props: { location: "contact_page", format: "pdf" } });
-      }
-    });
-  }
-
-  const emailLink = document.getElementById("contact-email-link");
-  if (emailLink) {
-    emailLink.addEventListener("click", () => {
-      if (typeof window.plausible === "function") {
-        window.plausible("email_click", { props: { location: "contact_page" } });
-      }
-    });
-  }
+    var cv = document.getElementById("contact-cv-btn");
+    if (cv) cv.addEventListener("click", function () { if (typeof window.plausible === "function") window.plausible("cv_download", { props: { location: "contact_page", format: "pdf" } }); });
+  })();
 </script>

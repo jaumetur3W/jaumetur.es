@@ -2,7 +2,7 @@
 import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
-import EasterEggs from "@/components/easter-eggs.astro";
+import { getServicesData } from "@/data/services";
 import { alternatePaths, localeFromPath } from "@/i18n";
 import "../styles/global.css";
 
@@ -10,13 +10,13 @@ export interface Props {
   title?: string;
   description?: string;
   image?: string;
-  publishDate?: Date | string;
-  author?: string;
-  tags?: string[];
   lang?: string;
   canonicalURL?: string;
-  isBlogPost?: boolean;
-  /** Private page: not indexed and without hreflang alternates. */
+  /** Bloques JSON-LD adicionales de la página (FAQ, migas de pan, servicios…). */
+  jsonLd?: object[];
+  /** Página con el diseño nuevo: omite el ajuste tipográfico de las páginas heredadas. */
+  fresh?: boolean;
+  /** Página privada: sin indexar y sin alternates hreflang. */
   noindex?: boolean;
 }
 
@@ -24,41 +24,41 @@ const {
   title,
   description,
   image = "/opengraph.jpg",
-  publishDate,
-  author = "Jaume Tur",
-  tags = [],
   lang,
   canonicalURL: customCanonical,
-  isBlogPost = false,
+  jsonLd = [],
+  fresh = false,
   noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
 const locale = localeFromPath(Astro.url.pathname);
 const isEn = locale === "en";
-const resolvedDescription = description || (isEn
-  ? "Professional web development, custom applications, backend architecture, and process automation based in Valencia. High-speed, robust digital solutions."
-  : "Desarrollo de páginas web profesionales, aplicaciones a medida, backend y automatización en Xàtiva y Valencia. Soluciones rápidas y adaptadas a tu negocio.");
+const resolvedDescription =
+  description ||
+  (isEn
+    ? "Custom websites, digital menus, Google Maps and Instagram presence for local businesses in Xàtiva and Valencia. From €290."
+    : "Páginas web a medida, cartas digitales y presencia en Google Maps e Instagram para negocios de Xàtiva y Valencia. Desde 290 €.");
 const activeLang = lang || (isEn ? "en" : "es");
 const alternatePathsForPage = alternatePaths(Astro.url.pathname);
 
 const ensureTrailingSlash = (urlStr: string) => {
   const url = new URL(urlStr, siteUrl);
-  if (!url.pathname.endsWith("/") && !url.pathname.includes(".") && !/\.[a-z0-9]+$/i.test(url.pathname)) {
+  if (!url.pathname.endsWith("/") && !/\.[a-z0-9]+$/i.test(url.pathname)) {
     url.pathname = `${url.pathname}/`;
   }
   return url.toString();
 };
 
 const is404 = Astro.url.pathname.includes("404");
-const shouldNoIndex = noindex || is404 || Astro.url.pathname.includes("/en/blog");
+const shouldNoIndex = noindex || is404;
 
 const spanishURL = ensureTrailingSlash(new URL(alternatePathsForPage.es, siteUrl).toString());
 const englishURL = ensureTrailingSlash(new URL(alternatePathsForPage.en, siteUrl).toString());
 const canonicalURL = ensureTrailingSlash(customCanonical || new URL(Astro.url.pathname, siteUrl).toString());
 const resolvedImageWithDomain = new URL(image, siteUrl).toString();
 
-// Dynamic, keyword-rich title generation
+// Títulos y descripciones con longitud segura para los resultados de Google
 const TITLE_MAX = 60;
 const DESCRIPTION_MAX = 158;
 const BRAND_SUFFIX = " | Jaume Tur";
@@ -87,8 +87,8 @@ const buildSeoTitle = (rawTitle: string) => {
 const isHome = !title || title === "Inici" || title === "Inicio" || title === "Home";
 const makeTitle = isHome
   ? isEn
-    ? "Web Development & Custom Apps in Valencia | Jaume Tur"
-    : "Desarrollo web a medida en Xàtiva y Valencia | Jaume Tur"
+    ? "Web Design in Valencia & Xàtiva, from €290 | Jaume Tur"
+    : "Diseño web en Xàtiva y Valencia, desde 290 € | Jaume Tur"
   : buildSeoTitle(title);
 
 const shortenDescription = (text: string) => {
@@ -100,7 +100,17 @@ const shortenDescription = (text: string) => {
 };
 const metaDescription = shortenDescription(resolvedDescription);
 
-// JSON-LD Structured Data
+// ---------------------------------------------------------------
+// Datos estructurados (JSON-LD). Solo datos reales ya publicados en la web.
+// ---------------------------------------------------------------
+const sameAs = [
+  "https://github.com/jaumetur3W",
+  "https://www.linkedin.com/in/jautur/",
+  "https://www.instagram.com/jaume.www/",
+  "https://twitter.com/jautur",
+  "https://share.google/3tihWcZBWMyYHmjBp",
+];
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -108,73 +118,69 @@ const personSchema = {
   "name": "Jaume Tur",
   "givenName": "Jaume",
   "familyName": "Tur",
-  "jobTitle": isEn ? "Web & Application Developer | Backend & Systems" : "Desarrollador Web y Aplicaciones a Medida | Backend y Sistemas",
+  "jobTitle": isEn ? "Web developer and custom applications" : "Desarrollador web y de aplicaciones a medida",
   "email": "jaumetur3w@gmail.com",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
-  "sameAs": [
-    "https://github.com/jaumetur3W",
-    "https://www.linkedin.com/in/jautur/",
-    "https://www.instagram.com/jaume.www/",
-    "https://twitter.com/jautur",
-    "https://share.google/3tihWcZBWMyYHmjBp"
-  ],
+  "sameAs": sameAs,
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Xàtiva",
     "addressRegion": "València",
-    "addressCountry": "ES"
+    "addressCountry": "ES",
   },
   "knowsAbout": [
     "Diseño web",
     "Desarrollo de páginas web",
+    "Carta digital para restaurantes",
+    "SEO local y Google Business Profile",
     "Aplicaciones web a medida",
-    "Desarrollo backend y APIs",
-    "Automatización de procesos",
     "Angular",
     "TypeScript",
-    "JavaScript ES6+",
     "Tailwind CSS",
+    "Astro",
     "CI/CD",
-    "GitHub Actions",
-    "Web Performance",
-    "WCAG AA Accessibility"
-  ]
+    "Accesibilidad web WCAG",
+    "Rendimiento web",
+  ],
 };
 
+const services = getServicesData(isEn ? "en" : "es");
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": `${siteUrl}/#service`,
-  "name": isEn ? "Jaume Tur — Web Development & Custom Applications" : "Jaume Tur — Desarrollo Web y Aplicaciones a Medida",
+  "name": isEn ? "Jaume Tur — Web design and custom applications" : "Jaume Tur — Diseño web y aplicaciones a medida",
   "url": siteUrl,
   "image": `${siteUrl}/img/jt.LOGO-02.png`,
   "email": "jaumetur3w@gmail.com",
-  "priceRange": "€€",
+  "founder": { "@id": `${siteUrl}/#person` },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Xàtiva",
     "addressRegion": "València",
-    "addressCountry": "ES"
+    "addressCountry": "ES",
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 38.9897,
-    "longitude": -0.5197
-  },
-  "areaServed": [
-    "Xàtiva",
-    "La Costera",
-    "València",
-    "Comunitat Valenciana",
-    "España",
-    "Remote"
-  ],
+  "geo": { "@type": "GeoCoordinates", "latitude": 38.9897, "longitude": -0.5197 },
+  "areaServed": ["Xàtiva", "La Costera", "València", "Comunitat Valenciana", "España"],
   "hasMap": "https://share.google/3tihWcZBWMyYHmjBp",
-  "sameAs": [
-    "https://share.google/3tihWcZBWMyYHmjBp"
-  ],
-  "serviceArea": isEn ? "Valencia, Spain & Worldwide Remote" : "Xàtiva, Valencia y Remoto"
+  "sameAs": sameAs,
+  "knowsLanguage": ["es", "en"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": isEn ? "Services and pricing" : "Servicios y precios",
+    "itemListElement": services.map((service) => ({
+      "@type": "Offer",
+      "price": service.creationPriceNumber,
+      "priceCurrency": "EUR",
+      "url": `${siteUrl}${isEn ? "/en" : ""}/pricing/${service.id}/`,
+      "itemOffered": {
+        "@type": "Service",
+        "name": service.name,
+        "description": service.tagline,
+      },
+    })),
+  },
 };
 
 const websiteSchema = {
@@ -185,39 +191,8 @@ const websiteSchema = {
   "name": "Jaume Tur",
   "description": resolvedDescription,
   "inLanguage": ["es", "en"],
-  "publisher": {
-    "@id": `${siteUrl}/#person`
-  }
+  "publisher": { "@id": `${siteUrl}/#person` },
 };
-
-const blogPostSchema = isBlogPost ? {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": title,
-  "description": resolvedDescription,
-  "image": resolvedImageWithDomain,
-  "datePublished": publishDate ? new Date(publishDate).toISOString() : undefined,
-  "dateModified": publishDate ? new Date(publishDate).toISOString() : undefined,
-  "author": {
-    "@type": "Person",
-    "name": author,
-    "url": siteUrl
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Jaume Tur",
-    "url": siteUrl,
-    "logo": {
-      "@type": "ImageObject",
-      "url": `${siteUrl}/jt-monogram.svg`
-    }
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": canonicalURL
-  },
-  "keywords": tags.join(", ")
-} : null;
 ---
 
 <!doctype html>
@@ -229,27 +204,11 @@ const blogPostSchema = isBlogPost ? {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffff00" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>document.documentElement.classList.add("js");</script>
 
-    <!-- Theme Initialization: Permanent Light Mode -->
-    <script is:inline>
-      (function() {
-        try {
-          localStorage.removeItem('theme');
-          document.documentElement.classList.remove('dark');
-        } catch (_) {}
-      })();
-    </script>
-    <!-- RSS Feed Autodiscovery -->
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title={isEn ? "Jaume Tur — Technical Blog RSS Feed" : "Jaume Tur — Blog Técnico Canal RSS"}
-      href="/rss.xml"
-    />
-
-    <!-- Hreflang Tags for i18n (Canonical is managed by SEO component below) -->
+    <!-- Hreflang (el canonical lo gestiona el componente SEO) -->
     {!shouldNoIndex && (
       <>
         <link rel="alternate" hreflang="es" href={spanishURL} />
@@ -258,7 +217,6 @@ const blogPostSchema = isBlogPost ? {
       </>
     )}
 
-    <!-- SEO & Social OpenGraph -->
     <SEO
       title={makeTitle}
       description={metaDescription}
@@ -277,91 +235,67 @@ const blogPostSchema = isBlogPost ? {
       openGraph={{
         basic: {
           url: canonicalURL,
-          type: isBlogPost ? "article" : "website",
+          type: "website",
           title: makeTitle,
           image: resolvedImageWithDomain,
         },
-        image: {
-          alt: makeTitle,
-        },
+        image: { alt: makeTitle },
         optional: {
-          siteName: isEn ? "Jaume Tur — Portfolio & Engineering" : "Jaume Tur — Portafolio y Blog de Ingeniería",
+          siteName: "Jaume Tur",
           description: metaDescription,
           locale: isEn ? "en_US" : "es_ES",
         },
       }}
     />
 
-    <!-- Preload Critical Font: Eliminates font waterfall for LCP -->
-    <link
-      rel="preload"
-      href="/fonts/inter-latin-wght-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <!-- Fuentes críticas: evita la cascada que retrasa el LCP -->
+    <link rel="preload" href="/fonts/bricolage-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Structured Data: JSON-LD Schemas -->
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
-    {isBlogPost && blogPostSchema && (
-      <script type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
-    )}
+    {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
-  <body class="bg-white text-slate-900 antialiased selection:bg-[#FFFF00] selection:text-black min-h-screen flex flex-col justify-between overflow-x-clip">
-    <!-- Accessible Skip Link for Keyboard and Screen Reader Navigation -->
+  <body class="bg-[#fafaf3] text-[#0b0b0f] antialiased selection:bg-[#ffff00] selection:text-black min-h-screen flex flex-col overflow-x-clip">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-slate-950 focus:text-[#FFFF00] focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-[#FFFF00]/40 transition">
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#0b0b0f] focus:text-[#ffff00] focus:font-bold focus:rounded-xl focus:outline-none focus:ring-4 focus:ring-[#ffff00]/40"
+    >
       {isEn ? "Skip to main content" : "Saltar al contenido principal"}
     </a>
-    <div id="top"></div>
-    <div class="flex-1 w-full flex flex-col">
-      <Navbar />
-      <main id="main-content" class="outline-none" tabindex="-1">
-        <slot />
-      </main>
-    </div>
+    <Navbar />
+    <main id="main-content" class="flex-1 outline-none" tabindex="-1" data-fresh={fresh ? "" : undefined}>
+      <slot />
+    </main>
     <Footer />
 
-    <!-- Interactive Layer: Easter Eggs -->
-    <EasterEggs />
-    <!-- Motion Budget: Lightweight IntersectionObserver for single-pass section reveals -->
+    <!-- Revelado suave de secciones (un solo observer, sin dependencias) -->
     <script is:inline>
-      function initSectionReveals() {
-        const reveals = document.querySelectorAll('.reveal-fade-up');
-        if (!reveals.length) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-          reveals.forEach((el) => el.classList.add('is-visible'));
+      (function () {
+        var els = document.querySelectorAll(".reveal-fade-up");
+        if (!els.length) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+          els.forEach(function (el) { el.classList.add("is-visible"); });
           return;
         }
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
             }
           });
-        }, { rootMargin: '0px 0px -40px 0px', threshold: 0.08 });
-
-        reveals.forEach((el) => {
-          if (!el.classList.contains('is-visible')) {
-            observer.observe(el);
-          }
-        });
-      }
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(initSectionReveals);
-      } else {
-        window.addEventListener("load", () => setTimeout(initSectionReveals, 300));
-      }
+        }, { rootMargin: "0px 0px -40px 0px", threshold: 0.08 });
+        els.forEach(function (el) { io.observe(el); });
+      })();
     </script>
-    <!-- Privacy-friendly Web Analytics (Plausible / Umami Ready) -->
+
+    <!-- Analítica respetuosa con la privacidad (Plausible) -->
     <script is:inline>
       function initAnalytics() {
         if (typeof window !== "undefined" && window.location.hostname === "jaumetur.es") {
-          const s = document.createElement("script");
+          var s = document.createElement("script");
           s.defer = true;
           s.dataset.domain = "jaumetur.es";
           s.src = "https://plausible.io/js/script.js";
@@ -371,7 +305,7 @@ const blogPostSchema = isBlogPost ? {
       if ("requestIdleCallback" in window) {
         requestIdleCallback(initAnalytics);
       } else {
-        window.addEventListener("load", () => setTimeout(initAnalytics, 1500));
+        window.addEventListener("load", function () { setTimeout(initAnalytics, 1500); });
       }
     </script>
   </body>

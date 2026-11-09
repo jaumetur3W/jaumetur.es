@@ -1,196 +1,458 @@
 ---
-import Container from "@/components/container.astro";
-import ScrollyHero from "@/components/scrolly-hero.astro";
-import CapabilitiesInteractive from "@/components/capabilities-interactive.astro";
-import CurtainWave from "@/components/curtain-wave.astro";
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
+import { getServicesData } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
 const isEn = locale === "en";
-const href = (path: string) => localizePath(path, locale);
+const to = (path: string) => {
+  const p = localizePath(path, locale);
+  const [base, hash] = p.split("#");
+  const b = base === "/" || base.endsWith("/") ? base : `${base}/`;
+  return hash ? `${b}#${hash}` : b;
+};
+
+const services = getServicesData(locale);
+const featured = services.find((s) => s.isFeatured) ?? services[0];
+const others = services.filter((s) => s.id !== featured.id);
+const monthly = (n: number) => (isEn ? `€${n}/month` : `${n} €/mes`);
+const euro = (n: number) => (isEn ? `€${n.toLocaleString("en-US")}` : `${n.toLocaleString("es-ES")} €`);
+
+const rawProjects = await getCollection(isEn ? "projectes-en" : "projectes");
+const projects = rawProjects.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const projectImages: Record<string, string> = {
+  avisa: "/img/preview-avisa.webp",
+  "pizzeria-xativa": "/img/foto_pizza.webp",
+  "burger-xativa": "/img/foto_burger.webp",
+  "dashboard-telemetria": "/img/preview-dashboard.webp",
+  "pipeline-cicd": "/img/preview-pipeline.webp",
+};
+const shortTitle = (t: string) => t.split(" — ")[0];
+
+const t = isEn
+  ? {
+      eyebrow: "Web design · Xàtiva · Valencia · Remote",
+      h1a: "Your website and social media,",
+      h1b: "ready to attract customers.",
+      lead: "I'm Jaume Tur, a web developer based in Xàtiva. I build fast websites, digital menus and polished Google Maps, Instagram and Facebook profiles for businesses in Xàtiva, Valencia and remote.",
+      cta1: "Get a free quote",
+      cta2: "See prices from €290",
+      trust: [
+        { big: "From €290", small: "Clear pricing from day one" },
+        { big: "3–5 days", small: "Delivery of the local business pack" },
+        { big: "100% yours", small: "Code, menu and profiles belong to you" },
+        { big: "< 24 h", small: "Usual reply time on business days" },
+      ],
+      marquee: ["Websites", "Digital menus", "Google Maps", "Instagram & Facebook", "Local SEO", "Landing pages", "Web apps", "WhatsApp orders", "Accessibility"],
+      svcEyebrow: "Services",
+      svcTitle: "Everything your business needs to be found online.",
+      svcLead: "Fixed starting prices, a clear scope and one person in charge of the whole project.",
+      recommended: "Most recommended",
+      from: "From",
+      deliveryLabel: "Delivery",
+      seeDetail: "See details and pricing",
+      requestPack: "Request this pack",
+      allPricing: "Compare all plans",
+      painEyebrow: "Local businesses",
+      painTitle: "From invisible to easy to choose.",
+      pain: [
+        { before: "A heavy PDF menu nobody can open", after: "A clear, mobile-friendly web menu with allergen info", icon: "bx:restaurant" },
+        { before: "An outdated Google Maps listing", after: "A Google Business Profile created or optimised with your hours and contact", icon: "bx:map" },
+        { before: "Social profiles with no care", after: "Instagram and Facebook profiles created or managed", icon: "bx:bxl-instagram" },
+        { before: "Orders through third-party platforms", after: "Direct bookings and orders via WhatsApp, no commissions", icon: "bx:bxl-whatsapp" },
+      ],
+      beforeLabel: "Before",
+      afterLabel: "After",
+      projEyebrow: "Projects",
+      projTitle: "Real work you can open and try.",
+      projLead: "Some are demos with sample data and are labelled as such. Each page explains what it is and what I did.",
+      viewProject: "View project",
+      allProjects: "See all projects",
+      procEyebrow: "How I work",
+      procTitle: "A simple process, no surprises.",
+      steps: [
+        { n: "01", t: "We talk", d: "Analysis of requirements and project scope. You tell me what you need; I tell you what makes sense." },
+        { n: "02", t: "Design and build", d: "I design and implement the agreed solution with the technologies we choose." },
+        { n: "03", t: "Quality review", d: "Quality, performance and accessibility review is included in the scope." },
+        { n: "04", t: "Delivery", d: "Delivery of the code and documentation of the work done, and ongoing support during the contracted period." },
+      ],
+      aboutEyebrow: "Who you'll work with",
+      aboutTitle: "One person, start to finish.",
+      aboutText:
+        "I'm Jaume Tur, a software developer based in Xàtiva (Valencia). I hold a Higher Technical Certificate in Web Application Development (DAW) and an intermediate certificate in Microcomputer Systems and Networks (SMX). I work with local businesses and remote teams.",
+      aboutCta: "More about me",
+      cv: "Download CV (PDF)",
+      faqEyebrow: "FAQ",
+      faqTitle: "Questions before you start.",
+      finalTitle: "Let's talk about your website.",
+      finalText: "Tell me about your business and what you need. I'll reply on business days, usually within 24 hours.",
+      finalCta: "Write to me",
+      finalCta2: "Detailed questionnaire",
+      finalCta3: "Contact page",
+      avail: "Available for projects",
+    }
+  : {
+      eyebrow: "Diseño web · Xàtiva · Valencia · Remoto",
+      h1a: "Tu web y tus redes,",
+      h1b: "listas para atraer clientes.",
+      lead: "Soy Jaume Tur, desarrollador web en Xàtiva. Creo páginas web rápidas, cartas digitales y perfiles cuidados de Google Maps, Instagram y Facebook para negocios de Xàtiva, Valencia y en remoto.",
+      cta1: "Pedir presupuesto",
+      cta2: "Ver precios desde 290 €",
+      trust: [
+        { big: "Desde 290 €", small: "Precio claro desde el primer día" },
+        { big: "3–5 días", small: "Entrega del pack de negocio local" },
+        { big: "100 % tuyo", small: "Código, carta y perfiles son tuyos" },
+        { big: "< 24 h", small: "Respuesta habitual en días laborables" },
+      ],
+      marquee: ["Páginas web", "Carta digital", "Google Maps", "Instagram y Facebook", "SEO local", "Landing pages", "Aplicaciones web", "Pedidos por WhatsApp", "Accesibilidad"],
+      svcEyebrow: "Servicios",
+      svcTitle: "Todo lo que tu negocio necesita para que lo encuentren en internet.",
+      svcLead: "Precios de partida fijos, un alcance claro y una sola persona al frente de todo el proyecto.",
+      recommended: "Más recomendado",
+      from: "Desde",
+      deliveryLabel: "Entrega",
+      seeDetail: "Ver detalle y precios",
+      requestPack: "Solicitar este pack",
+      allPricing: "Comparar todos los planes",
+      painEyebrow: "Negocios locales",
+      painTitle: "De pasar desapercibido a ser fácil de elegir.",
+      pain: [
+        { before: "Una carta en PDF pesado que nadie puede abrir", after: "Una carta web clara, para móvil y con información de alérgenos", icon: "bx:restaurant" },
+        { before: "Una ficha de Google Maps desactualizada", after: "Ficha de Google Business Profile creada u optimizada, con horarios y contacto", icon: "bx:map" },
+        { before: "Redes sociales sin cuidar", after: "Perfiles de Instagram y Facebook creados o gestionados", icon: "bx:bxl-instagram" },
+        { before: "Pedidos a través de plataformas de terceros", after: "Reservas y pedidos directos por WhatsApp, sin comisiones", icon: "bx:bxl-whatsapp" },
+      ],
+      beforeLabel: "Antes",
+      afterLabel: "Después",
+      projEyebrow: "Proyectos",
+      projTitle: "Trabajo real que puedes abrir y probar.",
+      projLead: "Algunos son demos con datos de ejemplo y están indicados como tales. Cada ficha explica qué es y qué hice yo.",
+      viewProject: "Ver proyecto",
+      allProjects: "Ver todos los proyectos",
+      procEyebrow: "Cómo trabajo",
+      procTitle: "Un proceso sencillo, sin sorpresas.",
+      steps: [
+        { n: "01", t: "Hablamos", d: "Análisis de requisitos y alcance del proyecto. Tú me cuentas qué necesitas; yo te digo qué tiene sentido." },
+        { n: "02", t: "Diseño y desarrollo", d: "Diseño e implementación de la solución acordada con las tecnologías que elijamos." },
+        { n: "03", t: "Revisión de calidad", d: "La revisión de calidad, rendimiento y accesibilidad está incluida en el alcance." },
+        { n: "04", t: "Entrega", d: "Entrega del código y documentación del trabajo realizado, con soporte continuado durante el periodo contratado." },
+      ],
+      aboutEyebrow: "Con quién vas a trabajar",
+      aboutTitle: "Una sola persona, de principio a fin.",
+      aboutText:
+        "Soy Jaume Tur, desarrollador de software afincado en Xàtiva (Valencia). Tengo el CFGS en Desarrollo de Aplicaciones Web (DAW) y el Grado Medio en Sistemas Microinformáticos y Redes (SMX). Trabajo con negocios locales y con equipos en remoto.",
+      aboutCta: "Más sobre mí",
+      cv: "Descargar CV (PDF)",
+      faqEyebrow: "Preguntas frecuentes",
+      faqTitle: "Dudas antes de empezar.",
+      finalTitle: "Hablemos de tu web.",
+      finalText: "Cuéntame tu negocio y qué necesitas. Respondo en días laborables, normalmente en menos de 24 horas.",
+      finalCta: "Escríbeme",
+      finalCta2: "Cuestionario detallado",
+      finalCta3: "Página de contacto",
+      avail: "Disponible para proyectos",
+    };
+
+const local = services.find((s) => s.id === "digitalitzacio-local")!;
+const landing = services.find((s) => s.id === "landing-page")!;
+const webapp = services.find((s) => s.id === "angular-webapp")!;
+const audit = services.find((s) => s.id === "performance-audit")!;
+
+const faqs = isEn
+  ? [
+      { q: "How much does a website cost?", a: `Prices start at ${euro(local.creationPriceNumber)} for the local business pack (digital menu, Google Maps and social profiles) and at ${euro(landing.creationPriceNumber)} for a high-performance landing page. Web applications start at ${euro(webapp.creationPriceNumber)}. Each plan adds a monthly maintenance fee (${monthly(local.monthlyFeeNumber)} for the local pack, ${monthly(landing.monthlyFeeNumber)} for the landing page) with a one-year minimum.` },
+      { q: "How long does it take?", a: `The local business pack takes ${local.timeline.toLowerCase()}; a landing page, ${landing.timeline.toLowerCase()}; a web application, ${webapp.timeline.toLowerCase()}. Timelines depend on the final scope.` },
+      { q: "Can you improve my Google Maps listing and social media?", a: "Yes. The local business pack includes creating or optimising your Google Business Profile and creating or managing Instagram and Facebook profiles, plus periodic updates of prices, seasonal dishes and menus." },
+      { q: "Will the website be mine?", a: "Yes. The code is 100% the client's and lives in a repository you own. You don't depend on a closed platform." },
+      { q: "Is there a minimum commitment?", a: "Maintenance requires a minimum commitment of one year, as stated in the offer. It lets me provide continuous technical follow-up: updates, incident handling and advice." },
+      { q: "Do you only work in Xàtiva and Valencia?", a: "I'm based in Xàtiva and work with clients in Valencia and the surrounding area, but I also work 100% remotely with clients and teams anywhere." },
+      { q: "I already have a website that is slow. Can you fix it?", a: `Yes. The optimisation and accessibility service (from ${euro(audit.creationPriceNumber)}) audits Core Web Vitals and accessibility, applies the fixes to your code and delivers a before-and-after report.` },
+    ]
+  : [
+      { q: "¿Cuánto cuesta una página web?", a: `Los precios parten de ${euro(local.creationPriceNumber)} para el pack de negocio local (carta digital, Google Maps y redes) y de ${euro(landing.creationPriceNumber)} para una landing page de alto rendimiento. Las aplicaciones web parten de ${euro(webapp.creationPriceNumber)}. Cada plan suma una cuota mensual de mantenimiento (${monthly(local.monthlyFeeNumber)} el pack local, ${monthly(landing.monthlyFeeNumber)} la landing) con permanencia mínima de un año.` },
+      { q: "¿Cuánto se tarda?", a: `El pack de negocio local, ${local.timeline.toLowerCase()}; una landing page, ${landing.timeline.toLowerCase()}; una aplicación web, ${webapp.timeline.toLowerCase()}. Los plazos dependen del alcance final.` },
+      { q: "¿Podéis mejorar mi ficha de Google Maps y mis redes sociales?", a: "Sí. El pack de negocio local incluye crear u optimizar la ficha de Google Business Profile y crear o gestionar los perfiles de Instagram y Facebook, además de la actualización periódica de precios, platos de temporada y menús." },
+      { q: "¿La web será mía?", a: "Sí. El código es 100 % del cliente y queda en un repositorio de tu propiedad. No dependes de una plataforma cerrada." },
+      { q: "¿Hay permanencia?", a: "El mantenimiento requiere una permanencia mínima de un año, tal como se indica en la oferta. Permite dar continuidad al seguimiento técnico: actualizaciones, incidencias y asesoramiento." },
+      { q: "¿Solo trabajas en Xàtiva y Valencia?", a: "Estoy en Xàtiva y trabajo con clientes de Valencia y alrededores, pero también trabajo 100 % en remoto con clientes y equipos de cualquier lugar." },
+      { q: "Ya tengo una web lenta. ¿Se puede arreglar?", a: `Sí. El servicio de optimización y accesibilidad (desde ${euro(audit.creationPriceNumber)}) audita Core Web Vitals y accesibilidad, aplica las correcciones en tu código y entrega un informe comparativo antes y después.` },
+    ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
 ---
 
 <Layout
+  fresh
   title={isEn ? "Home" : "Inicio"}
   description={
     isEn
-      ? "I'm Jaume Tur, web and application developer based in Valencia. High-performance engineering, clean design, and custom software solutions."
-      : "Soy Jaume Tur, desarrollador de aplicaciones web, backend y soluciones digitales en Valencia."
+      ? "Custom websites, digital menus, Google Maps and Instagram presence for local businesses in Xàtiva and Valencia. From €290. Get a quote."
+      : "Creo páginas web a medida, cartas digitales y presencia en Google Maps e Instagram para negocios de Xàtiva y Valencia. Desde 290 €. Pide presupuesto."
   }
+  jsonLd={[faqSchema]}
 >
-  <!-- 1. Presentación inicial con scrollytelling -->
-  <ScrollyHero isEn={isEn} />
-
-  <!-- 2. Contenido principal con efecto telón (sube y cubre la presentación estática) -->
-  <div
-    id="home-curtain"
-    class="relative z-20 bg-white"
-  >
-    <CurtainWave />
-    <Container>
-      <div class="flex flex-col pt-6 sm:pt-10">
-
-        <!-- 2. Sección «Qué puedo desarrollar» con Vistas Previas Interactivas -->
-        <CapabilitiesInteractive isEn={isEn} />
-
-        <!-- 3. Sección «Sobre mí» con avatar oficial único -->
-        <section
-          id="sobre-mi"
-          class="scroll-reveal scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-28"
-          aria-labelledby="about-heading"
-        >
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            <!-- Avatar oficial único -->
-            <div class="md:col-span-4 lg:col-span-4 flex justify-center md:justify-start">
-              <div class="relative group/avatar">
-                <div class="absolute inset-0 bg-[#FFFF00] rounded-3xl opacity-35 blur-md group-hover/avatar:opacity-60 transition-opacity"></div>
-                <img
-                  src="/img/1.webp"
-                  alt="Jaume Tur"
-                  class="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-56 lg:h-56 object-contain rounded-3xl ring-1 ring-slate-900/10 drop-shadow-sm group-hover/avatar:scale-105 transition-transform duration-300"
-                  width="224"
-                  height="224"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-
-            <!-- Presentación personal breve y auténtica -->
-            <div class="md:col-span-8 lg:col-span-8 text-left">
-              <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold">
-                {isEn ? "About me" : "Sobre mí"}
-              </p>
-              <h2
-                id="about-heading"
-                class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-5 leading-tight"
-              >
-                {isEn
-                  ? "Clean code, technical rigor, and attention to detail."
-                  : "Código limpio, rigor técnico y atención al detalle."}
-              </h2>
-              <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
-                {isEn
-                  ? "I'm Jaume Tur, a web and application developer based in Valencia. I combine a solid backend and systems foundation with modern, lightweight, accessible web applications designed to solve real business needs."
-                  : "Soy Jaume Tur, desarrollador de software en Valencia. Combino una sólida base técnica en backend y sistemas con aplicaciones web modernas, ligeras y accesibles pensadas para resolver problemas reales."}
-              </p>
-              <div>
-                <a
-                  href={href("/about")}
-                  class="inline-flex min-h-11 items-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-white text-sm font-medium hover:bg-[#FFFF00] hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] border border-slate-950"
-                >
-                  <span>{isEn ? "More about me" : "Más sobre mí"}</span>
-                  <span aria-hidden="true">→</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- 4 y 5. Llamada a la acción para contactar y acceso a precios -->
-        <section
-          id="contacte"
-          class="scroll-reveal scroll-mt-24 border-t border-slate-200 py-16 sm:py-24 lg:py-32"
-          aria-labelledby="contact-heading"
-        >
-          <div class="max-w-3xl">
-            <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold">
-              {isEn ? "Start the conversation" : "Iniciemos la conversación"}
-            </p>
-            <h2
-              id="contact-heading"
-              class="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-slate-950 mb-4"
-            >
-              {isEn ? "Have an idea in mind?" : "¿Tienes una idea en mente?"}
-            </h2>
-            <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-2xl">
-              {isEn
-                ? "Tell me about the project you want to build and we'll evaluate the best technical approach together."
-                : "Cuéntame qué proyecto quieres llevar a cabo y valoraremos juntos cuál es el mejor planteamiento técnico."}
-            </p>
-
-            <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-              <a
-                href={href("/contact")}
-                class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#FFFF00] px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-[#f2d900] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFFF00]/40"
-              >
-                <span>{isEn ? "Contact me" : "Contactar"}</span>
-                <span aria-hidden="true">→</span>
-              </a>
-
-              <a
-                href={href("/pricing")}
-                class="inline-flex min-h-12 items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 text-sm font-medium text-slate-800 hover:border-slate-950 hover:text-slate-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-              >
-                <span>{isEn ? "Explore services & pricing" : "Consultar servicios y tarifas"}</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-
-              <a
-                href="mailto:jaumetur3w@gmail.com"
-                class="inline-flex min-h-12 items-center text-sm font-mono text-slate-500 hover:text-slate-950 transition-colors underline decoration-slate-300 decoration-1 underline-offset-8"
-              >
-                jaumetur3w@gmail.com
-              </a>
-            </div>
-          </div>
-        </section>
-
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden border-b-2 border-ink bg-brand" aria-labelledby="hero-title">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) items-center gap-10 px-4 pb-14 pt-12 sm:px-5 sm:pt-16 lg:grid-cols-12 lg:pb-20 lg:pt-20">
+      <div class="lg:col-span-7">
+        <p class="eyebrow">{t.eyebrow}</p>
+        <h1 id="hero-title" class="display mt-5 text-[clamp(2.5rem,7vw,5.25rem)]">
+          {t.h1a}<br />
+          <span class="hl-ink">{t.h1b}</span>
+        </h1>
+        <p class="mt-7 max-w-xl text-lg leading-relaxed text-ink/85 sm:text-xl">{t.lead}</p>
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a href={to("/contact")} class="btn btn-ink">{t.cta1} <span aria-hidden="true">→</span></a>
+          <a href={to("/pricing")} class="btn btn-white">{t.cta2}</a>
+        </div>
       </div>
-    </Container>
+
+      <div class="relative mx-auto w-full max-w-sm lg:col-span-5 lg:max-w-none">
+        <div class="card relative mx-auto aspect-square w-full max-w-md overflow-hidden bg-white">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#fff_0,#fffbd0_45%,#f6ee7a_100%)]"></div>
+          <img
+            src="/img/3.webp"
+            alt="Jaume Tur"
+            width="320"
+            height="320"
+            class="relative h-full w-full object-contain p-6"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <span class="chip chip-brand bob absolute -left-1 top-6 shadow-[3px_3px_0_#0b0b0f] sm:-left-4" style="--r:-6deg">
+          <span class="h-2 w-2 rounded-full bg-ink"></span>{t.avail}
+        </span>
+        <span class="chip bob absolute -right-1 bottom-8 shadow-[3px_3px_0_#0b0b0f] sm:-right-4" style="--r:5deg; animation-delay:-2s">
+          <Icon name="bx:map-pin" class="h-4 w-4" />Xàtiva · Valencia
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Datos de confianza -->
+  <section class="border-b-2 border-ink bg-paper" aria-label={isEn ? "Key facts" : "Datos clave"}>
+    <ul class="mx-auto grid max-w-(--breakpoint-xl) grid-cols-2 lg:grid-cols-4">
+      {t.trust.map((x, i) => (
+        <li class:list={["px-4 py-7 sm:px-5", i % 2 === 0 ? "border-r-2 border-ink" : "", i < 2 ? "border-b-2 border-ink lg:border-b-0" : "", i === 1 ? "lg:border-r-2" : ""]}>
+          <p class="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{x.big}</p>
+          <p class="mt-1 text-sm text-ink/75 sm:text-base">{x.small}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Cinta -->
+  <div class="marquee overflow-hidden border-b-2 border-ink bg-ink py-4 text-brand" aria-hidden="true">
+    <div class="marquee-track flex gap-10 whitespace-nowrap font-display text-2xl font-extrabold uppercase tracking-tight">
+      {[0, 1].map(() => (
+        <div class="flex gap-10">
+          {t.marquee.map((w) => (
+            <span class="flex items-center gap-10">{w}<span>✦</span></span>
+          ))}
+        </div>
+      ))}
+    </div>
   </div>
 
-  <style>
-    #home-curtain {
-      margin-top: calc(-100vh + 56px);
-      margin-top: calc(-100dvh + 56px);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #home-curtain {
-        margin-top: 0 !important;
-      }
-    }
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
-    }
-    .scroll-reveal.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .scroll-reveal {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-    }
-  </style>
+  <!-- ============ SERVICIOS ============ -->
+  <section id="servicios" class="scroll-mt-20 px-4 py-20 sm:px-5 sm:py-28" aria-labelledby="svc-title">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <div class="max-w-3xl reveal-fade-up">
+        <p class="eyebrow">{t.svcEyebrow}</p>
+        <h2 id="svc-title" class="display mt-4 text-[clamp(2rem,5.5vw,3.75rem)]">{t.svcTitle}</h2>
+        <p class="mt-5 text-lg text-ink/80">{t.svcLead}</p>
+      </div>
 
-  <script is:inline>
-    (function () {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const reveals = document.querySelectorAll(".scroll-reveal");
-      if (!("IntersectionObserver" in window)) {
-        reveals.forEach((el) => el.classList.add("revealed"));
-        return;
-      }
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("revealed");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-      );
-      reveals.forEach((el) => observer.observe(el));
-    })();
-  </script>
+      <!-- Destacado -->
+      <article class="card reveal-fade-up mt-12 grid overflow-hidden bg-brand lg:grid-cols-12">
+        <div class="p-7 sm:p-10 lg:col-span-7">
+          <span class="chip bg-ink! text-brand"><Icon name="bx:star" class="h-4 w-4" />{t.recommended}</span>
+          <h3 class="display mt-5 text-3xl sm:text-5xl">{featured.name}</h3>
+          <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink/85">{featured.tagline}</p>
+          <ul class="mt-6 grid gap-2.5 sm:grid-cols-2">
+            {featured.features.slice(0, 6).map((f) => (
+              <li class="flex gap-2.5 text-[0.95rem] leading-snug">
+                <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-brand" aria-hidden="true">✓</span>
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="flex flex-col justify-between gap-8 border-t-2 border-ink bg-ink p-7 text-white sm:p-10 lg:col-span-5 lg:border-l-2 lg:border-t-0">
+          <div>
+            <p class="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand">{t.from}</p>
+            <p class="display mt-1 text-6xl text-brand sm:text-7xl">{euro(featured.creationPriceNumber)}</p>
+            <p class="mt-2 text-lg text-white/85">+ {monthly(featured.monthlyFeeNumber)}</p>
+            <p class="mt-5 text-sm text-white/70">{t.deliveryLabel}: {featured.timeline}</p>
+          </div>
+          <div class="on-dark flex flex-wrap gap-3">
+            <a href={to("/contact")} class="btn btn-brand">{t.requestPack}</a>
+            <a href={to(`/pricing/${featured.id}`)} class="btn btn-ink">{t.seeDetail}</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Resto -->
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {others.map((s, i) => (
+          <a href={to(`/pricing/${s.id}`)} class="card reveal-fade-up group flex flex-col p-6" style={`transition-delay:${i * 60}ms`}>
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-ink bg-brand">
+              <Icon name={s.icon} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-5 font-display text-2xl font-extrabold leading-tight tracking-tight">{s.name}</h3>
+            <p class="mt-3 flex-1 text-[0.95rem] leading-relaxed text-ink/75">{s.tagline}</p>
+            <div class="mt-6 border-t-2 border-ink pt-4">
+              <p class="font-display text-3xl font-extrabold">{t.from} {euro(s.creationPriceNumber)}</p>
+              <p class="text-sm text-ink/70">+ {monthly(s.monthlyFeeNumber)} · {s.timeline}</p>
+              <p class="mt-3 inline-flex items-center gap-1.5 text-sm font-bold underline decoration-2 underline-offset-4 group-hover:bg-brand">{t.seeDetail} →</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <p class="mt-8"><a href={to("/pricing")} class="btn btn-white">{t.allPricing} <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <!-- ============ ANTES / DESPUÉS ============ -->
+  <section class="on-dark border-y-2 border-ink bg-ink px-4 py-20 text-white sm:px-5 sm:py-28" aria-labelledby="pain-title">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <div class="max-w-3xl reveal-fade-up">
+        <p class="eyebrow text-brand">{t.painEyebrow}</p>
+        <h2 id="pain-title" class="display mt-4 text-[clamp(2rem,5.5vw,3.75rem)]">{t.painTitle}</h2>
+      </div>
+      <ul class="mt-12 grid gap-5 md:grid-cols-2">
+        {t.pain.map((p) => (
+          <li class="reveal-fade-up overflow-hidden rounded-3xl border-2 border-brand">
+            <div class="flex gap-3 bg-white/5 p-5 text-white/70">
+              <span class="mt-1 shrink-0 rounded-md border border-white/30 px-2 py-0.5 font-mono text-[0.7rem] font-bold uppercase tracking-wider">{t.beforeLabel}</span>
+              <p class="line-through decoration-white/40 decoration-2">{p.before}</p>
+            </div>
+            <div class="flex gap-3 bg-brand p-5 text-ink">
+              <span class="mt-1 shrink-0 rounded-md border-2 border-ink bg-ink px-2 py-0.5 font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{t.afterLabel}</span>
+              <p class="flex-1 font-display text-xl font-bold leading-snug">{p.after}</p>
+              <Icon name={p.icon} class="hidden h-8 w-8 shrink-0 sm:block" />
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PROYECTOS ============ -->
+  <section id="proyectos" class="scroll-mt-20 px-4 py-20 sm:px-5 sm:py-28" aria-labelledby="proj-title">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <div class="max-w-3xl reveal-fade-up">
+        <p class="eyebrow">{t.projEyebrow}</p>
+        <h2 id="proj-title" class="display mt-4 text-[clamp(2rem,5.5vw,3.75rem)]">{t.projTitle}</h2>
+        <p class="mt-5 text-lg text-ink/80">{t.projLead}</p>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => (
+          <a href={to(`/projectes/${p.id}`)} class="card reveal-fade-up group flex flex-col overflow-hidden">
+            <div class="relative aspect-[16/9] overflow-hidden border-b-2 border-ink bg-brand">
+              {projectImages[p.id] ? (
+                <img src={projectImages[p.id]} alt={p.data.image.alt} width="1200" height="675" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              ) : (
+                <div class="flex h-full w-full items-center justify-center p-6">
+                  <span class="display text-center text-3xl">{shortTitle(p.data.title)}</span>
+                </div>
+              )}
+            </div>
+            <div class="flex flex-1 flex-col p-5">
+              <span class="chip chip-brand self-start text-[0.72rem]">{p.data.badge}</span>
+              <h3 class="mt-3 font-display text-2xl font-extrabold leading-tight tracking-tight">{shortTitle(p.data.title)}</h3>
+              <p class="mt-2 line-clamp-3 flex-1 text-[0.95rem] leading-relaxed text-ink/75">{p.data.subtitle}</p>
+              <p class="mt-4 text-sm font-bold underline decoration-2 underline-offset-4 group-hover:bg-brand">{t.viewProject} →</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <p class="mt-10"><a href={to("/projectes")} class="btn btn-ink">{t.allProjects} <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <!-- ============ PROCESO ============ -->
+  <section id="proceso" class="scroll-mt-20 border-y-2 border-ink bg-brand px-4 py-20 sm:px-5 sm:py-28" aria-labelledby="proc-title">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <div class="max-w-3xl reveal-fade-up">
+        <p class="eyebrow">{t.procEyebrow}</p>
+        <h2 id="proc-title" class="display mt-4 text-[clamp(2rem,5.5vw,3.75rem)]">{t.procTitle}</h2>
+      </div>
+      <ol class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {t.steps.map((s) => (
+          <li class="card reveal-fade-up p-6">
+            <span class="display text-6xl text-brand [-webkit-text-stroke:2px_#0b0b0f]">{s.n}</span>
+            <h3 class="mt-3 font-display text-2xl font-extrabold tracking-tight">{s.t}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-ink/80">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ SOBRE MÍ ============ -->
+  <section id="sobre-mi" class="scroll-mt-20 px-4 py-20 sm:px-5 sm:py-28" aria-labelledby="about-title">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) items-center gap-10 lg:grid-cols-12">
+      <div class="reveal-fade-up lg:col-span-4">
+        <div class="card mx-auto aspect-square w-full max-w-xs bg-brand">
+          <img src="/img/1.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="h-full w-full object-contain p-4" />
+        </div>
+      </div>
+      <div class="reveal-fade-up lg:col-span-8">
+        <p class="eyebrow">{t.aboutEyebrow}</p>
+        <h2 id="about-title" class="display mt-4 text-[clamp(2rem,5vw,3.5rem)]">{t.aboutTitle}</h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/85">{t.aboutText}</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href={to("/about")} class="btn btn-ink">{t.aboutCta} <span aria-hidden="true">→</span></a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.cv}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" class="scroll-mt-20 border-t-2 border-ink bg-sand px-4 py-20 sm:px-5 sm:py-28" aria-labelledby="faq-title">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) gap-10 lg:grid-cols-12">
+      <div class="reveal-fade-up lg:col-span-4">
+        <p class="eyebrow">{t.faqEyebrow}</p>
+        <h2 id="faq-title" class="display mt-4 text-[clamp(2rem,5vw,3.25rem)]">{t.faqTitle}</h2>
+      </div>
+      <div class="space-y-3 lg:col-span-8">
+        {faqs.map((f) => (
+          <details class="group card reveal-fade-up bg-white shadow-[4px_4px_0_#0b0b0f]!">
+            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded-3xl px-5 py-4 font-display text-lg font-bold leading-snug [&::-webkit-details-marker]:hidden">
+              <span>{f.q}</span>
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-brand text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-5 pb-5 text-base leading-relaxed text-ink/85">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="border-t-2 border-ink bg-brand px-4 py-20 sm:px-5 sm:py-28" aria-labelledby="final-title">
+    <div class="mx-auto max-w-(--breakpoint-xl) text-center">
+      <h2 id="final-title" class="display mx-auto max-w-4xl text-[clamp(2.5rem,8vw,6rem)]">{t.finalTitle}</h2>
+      <p class="mx-auto mt-6 max-w-xl text-lg text-ink/85">{t.finalText}</p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a href="mailto:jaumetur3w@gmail.com" class="btn btn-ink">{t.finalCta} <span aria-hidden="true">→</span></a>
+        <a href={to("/contact")} class="btn btn-white">{t.finalCta3}</a>
+        <a href={isEn ? "/en/briefing/" : "/briefing/"} class="btn btn-white">{t.finalCta2}</a>
+      </div>
+      <p class="mt-8 font-mono text-sm font-bold">jaumetur3w@gmail.com</p>
+    </div>
+  </section>
 </Layout>

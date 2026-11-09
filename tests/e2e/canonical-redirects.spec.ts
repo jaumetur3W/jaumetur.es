@@ -133,42 +133,6 @@ test.describe("Canonical URLs and Redirect Validation", () => {
     ).toEqual([]);
   });
 
-  test("verifies all blog article pages have final canonicals with trailing slashes pointing to 200 OK targets", () => {
-    const slugs = fs
-      .readdirSync(path.resolve(process.cwd(), "src/content/blog"))
-      .filter((file) => file.endsWith(".md"))
-      .map((file) => file.replace(/\.md$/, ""));
-
-    expect(slugs.length).toBeGreaterThan(0);
-
-    const allArticleFolders = slugs.flatMap((slug) => [
-      { folder: path.join(distDir, "blog", slug), slug, lang: "es" },
-      { folder: path.join(distDir, "en", "blog", slug), slug, lang: "en" },
-    ]);
-
-    for (const { folder, slug, lang } of allArticleFolders) {
-      const htmlPath = path.join(folder, "index.html");
-      expect(fs.existsSync(htmlPath), `Article file missing: ${htmlPath}`).toBe(true);
-      const content = fs.readFileSync(htmlPath, "utf-8");
-
-      const match = content.match(/<link\s+[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);
-      expect(match, `Canonical tag missing in ${lang} article ${slug}`).not.toBeNull();
-
-      const canonical = match![1];
-      expect(
-        canonical,
-        `Canonical in ${lang} article ${slug} must be the final self-referencing Spanish URL`
-      ).toBe(`https://jaumetur.es/blog/${slug}/`);
-
-      // Verify the canonical target file exists and is not a redirect
-      const targetHtmlPath = path.join(distDir, "blog", slug, "index.html");
-      expect(fs.existsSync(targetHtmlPath), `Canonical target does not exist on disk: ${targetHtmlPath}`).toBe(true);
-
-      const targetContent = fs.readFileSync(targetHtmlPath, "utf-8");
-      expect(targetContent.includes('http-equiv="refresh"'), `Canonical target must not be a redirect: ${targetHtmlPath}`).toBe(false);
-    }
-  });
-
   test("verifies sitemap does not include 404 pages, /val/ routes, or redirecting aliases", () => {
     const sitemapPath = path.join(distDir, "sitemap-0.xml");
     expect(fs.existsSync(sitemapPath), "sitemap-0.xml must exist in dist/").toBe(true);

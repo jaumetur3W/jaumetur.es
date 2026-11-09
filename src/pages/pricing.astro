@@ -1,543 +1,162 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Container from "@/components/container.astro";
-import Sectionhead from "@/components/sectionhead.astro";
 import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout.astro";
 import { getServicesData } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
 const isEn = locale === "en";
-const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+const to = (path: string) => {
+  const p = localizePath(path, locale);
+  return p === "/" || p.endsWith("/") ? p : `${p}/`;
+};
+const services = getServicesData(locale);
+const monthly = (n: number) => (isEn ? `€${n}/month` : `${n} €/mes`);
+const euro = (n: number) => (isEn ? `€${n.toLocaleString("en-US")}` : `${n.toLocaleString("es-ES")} €`);
 
-const packages = getServicesData(isEn ? "en" : "es");
+const t = isEn
+  ? {
+      title: "Web design services and pricing in Valencia | Jaume Tur",
+      desc: "Transparent prices for websites, digital menus, landing pages, web apps, optimisation and CI/CD. From €290. Based in Xàtiva, working across Valencia and remote.",
+      eyebrow: "Services & pricing",
+      h1: "Clear prices. Clear scope. No surprises.",
+      lead: "Every plan has a starting price for creation plus a monthly maintenance fee (one-year minimum). You see what's included before you ask.",
+      from: "From",
+      deliver: "Delivery",
+      forWho: "Ideal for",
+      includes: "Includes",
+      firstYear: "First year",
+      detail: "See full detail",
+      request: "Request this plan",
+      recommended: "Most recommended",
+      noteTitle: "How the pricing works",
+      notes: [
+        "Creation price: one-off payment for analysis, design, development, quality review and delivery of the code and documentation.",
+        "Monthly fee: continued technical maintenance, incident follow-up, included updates and advice. Minimum commitment of one year, as stated in each offer.",
+        "Final scope and timeline are agreed with you before starting.",
+      ],
+      ctaTitle: "Not sure which plan fits?",
+      ctaText: "Tell me about your business and I'll recommend what makes sense — even if that's the smallest plan.",
+      cta: "Ask for a quote",
+    }
+  : {
+      title: "Servicios y precios de diseño web en Valencia | Jaume Tur",
+      desc: "Precios transparentes de páginas web, cartas digitales, landing pages, apps web, optimización y CI/CD. Desde 290 €. Desde Xàtiva para Valencia y en remoto.",
+      eyebrow: "Servicios y precios",
+      h1: "Precios claros. Alcance claro. Sin sorpresas.",
+      lead: "Cada plan tiene un precio de creación de partida y una cuota mensual de mantenimiento (permanencia mínima de un año). Ves lo que incluye antes de pedir nada.",
+      from: "Desde",
+      deliver: "Entrega",
+      forWho: "Ideal para",
+      includes: "Incluye",
+      firstYear: "Primer año",
+      detail: "Ver detalle completo",
+      request: "Solicitar este plan",
+      recommended: "Más recomendado",
+      noteTitle: "Cómo funcionan los precios",
+      notes: [
+        "Precio de creación: pago único por el análisis, el diseño, el desarrollo, la revisión de calidad y la entrega del código y la documentación.",
+        "Cuota mensual: mantenimiento técnico continuado, seguimiento de incidencias, actualizaciones incluidas y asesoramiento. Permanencia mínima de un año, como se indica en cada oferta.",
+        "El alcance final y el plazo se acuerdan contigo antes de empezar.",
+      ],
+      ctaTitle: "¿No sabes qué plan te encaja?",
+      ctaText: "Cuéntame tu negocio y te recomiendo lo que tenga sentido, aunque sea el plan más pequeño.",
+      cta: "Pedir presupuesto",
+    };
 
-// Redisseny de posicionament: Nivell 1 (Web & Negocis) amb proposta clau al centre
-const webDevPackages = [
-  packages.find((p) => p.id === "landing-page")!,
-  packages.find((p) => p.id === "digitalitzacio-local")!,
-  packages.find((p) => p.id === "angular-webapp")!,
-];
-
-// Nivell 2: Serveis especialitzats d'enginyeria i automatització
-const specializedPackages = [
-  packages.find((p) => p.id === "performance-audit")!,
-  packages.find((p) => p.id === "cicd-devops")!,
-];
-
-// Proceso de trabajo en 4 pasos
-const workflowSteps = isEn
-  ? [
-      {
-        step: "01",
-        title: "Discovery & Scope",
-        icon: "bx:search-alt",
-        desc: "I define project goals, core functional requirements, and realistic milestones to deliver a transparent proposal.",
-      },
-      {
-        step: "02",
-        title: "Architecture & UX",
-        icon: "bx:layer",
-        desc: "Optimal tech stack selection, clean component hierarchy, and interactive prototypes for a solid foundation.",
-      },
-      {
-        step: "03",
-        title: "Development & Testing",
-        icon: "bx:code-curly",
-        desc: "Modular clean code with strict TypeScript, automated tests, 60 FPS rendering, and WCAG AA accessibility.",
-      },
-      {
-        step: "04",
-        title: "Deployment & Delivery",
-        icon: "bx:check-shield",
-        desc: "Zero-downtime atomic release, final performance audit, and 100% intellectual property ownership in your Git repository.",
-      },
-    ]
-  : [
-      {
-        step: "01",
-        title: "Descubrimiento y alcance",
-        icon: "bx:search-alt",
-        desc: "Definición conjunta de objetivos, requisitos funcionales y plazos de entrega en una propuesta clara y sin sorpresas.",
-      },
-      {
-        step: "02",
-        title: "Arquitectura y prototipado",
-        icon: "bx:layer",
-        desc: "Selección del stack idóneo, diseño de la jerarquía de componentes y validación de prototipos interactivos.",
-      },
-      {
-        step: "03",
-        title: "Desarrollo y calidad",
-        icon: "bx:code-curly",
-        desc: "Código modular con TypeScript estricto, pruebas automáticas, rendimiento a 60 FPS y accesibilidad WCAG AA.",
-      },
-      {
-        step: "04",
-        title: "Despliegue y entrega",
-        icon: "bx:check-shield",
-        desc: "Publicación atómica sin caídas de servicio, auditoría técnica final y entrega con propiedad total de tu repositorio.",
-      },
-    ];
-
-// Preguntas frecuentes optimizadas y concisas
-const faqs = isEn
-  ? [
-      {
-        question: "How are the upfront fee and monthly maintenance structured?",
-        answer: "Every project has a transparent upfront development fee plus a monthly maintenance plan (one-year minimum commitment) to ensure your application stays fast, secure, and continuously updated.",
-      },
-      {
-        question: "What is included in the monthly maintenance plan?",
-        answer: "Uptime monitoring, security and dependency updates, regular backups, priority bug fixes, and continuous technical consulting.",
-      },
-      {
-        question: "What technical benchmarks do you target?",
-        answer: "Verifiable, auditable benchmarks: target of 95-100 Lighthouse performance, WCAG 2.2 AA accessibility compliance, and 100% source code ownership in your private repository.",
-      },
-      {
-        question: "How do we communicate and track progress?",
-        answer: "Agile, transparent asynchronous communication via email and video calls, with continuous access to private Git staging previews before release.",
-      },
-      {
-        question: "How to get started?",
-        answer: "Send a message through the contact form or email jaumetur3w@gmail.com with your project outline. You will receive a tailored reply within 24 business hours.",
-      },
-    ]
-  : [
-      {
-        question: "¿Cómo se estructuran el pago inicial y el mantenimiento mensual?",
-        answer: "Cada proyecto cuenta con una cuota inicial de desarrollo transparente y una mensualidad de mantenimiento (permanencia mínima de un año) para garantizar que la web se mantenga rápida, segura y actualizada.",
-      },
-      {
-        question: "¿Qué incluye el mantenimiento mensual?",
-        answer: "Supervisión continua de disponibilidad, actualizaciones de seguridad y dependencias, copias de seguridad periódicas, resolución prioritaria de incidencias y asesoramiento técnico.",
-      },
-      {
-        question: "¿Qué objetivos técnicos persigues en cada entrega?",
-        answer: "Métricas auditables y contrastables: objetivo de 95-100 en Lighthouse, cumplimiento de accesibilidad WCAG 2.2 AA y propiedad total del código fuente en tu repositorio.",
-      },
-      {
-        question: "¿Cómo nos comunicamos y hacemos el seguimiento?",
-        answer: "Comunicación fluida y transparente por correo electrónico y videollamada, con acceso directo a una vista previa en staging para revisar cada avance antes de publicar.",
-      },
-      {
-        question: "¿Cómo puedes empezar a trabajar conmigo?",
-        answer: "Envía un mensaje a través del formulario o escribe a jaumetur3w@gmail.com con los detalles de tu idea. Recibirás una respuesta personalizada en menos de 24 horas laborables.",
-      },
-    ];
-
-const faqSchema = {
+const itemList = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map((f) => ({
-    "@type": "Question",
-    "name": f.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": f.answer,
-    },
+  "@type": "ItemList",
+  "name": t.eyebrow,
+  "itemListElement": services.map((s, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": s.name,
+    "url": `https://jaumetur.es${to(`/pricing/${s.id}`)}`,
   })),
+};
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": isEn ? "Home" : "Inicio", "item": `https://jaumetur.es${to("/")}` },
+    { "@type": "ListItem", "position": 2, "name": t.eyebrow, "item": `https://jaumetur.es${to("/pricing")}` },
+  ],
 };
 ---
 
-<Layout
-  title={isEn ? "Web Development & Custom Application Services | Jaume Tur" : "Servicios de Diseño Web y Aplicaciones en Xàtiva y Valencia | Jaume Tur"}
-  description={isEn ? "Transparent pricing and professional packages for high-speed websites, custom web applications, backend architecture, and CI/CD automation." : "Servicios profesionales de diseño web, creación de páginas para negocios, aplicaciones web a medida, backend y CI/CD desde Xàtiva y Valencia."}>
-  
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
-  <Container>
-    <div class="py-12 md:py-16">
-      <Sectionhead>
-        <Fragment slot="title">{isEn ? "Web development & application services" : "Servicios de desarrollo web y aplicaciones"}</Fragment>
-        <Fragment slot="desc">
-          {isEn ? "Transparent, high-impact collaboration for building business websites, landing pages, and custom applications." : "Colaboración profesional y transparente para crear páginas web para negocios, landing pages y aplicaciones rápidas en Xàtiva, Valencia y en remoto."}
-        </Fragment>
-      </Sectionhead>
-
-      <!-- Indicadores -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mt-8 mb-16">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90 shadow-2xs">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          <span>{isEn ? "Availability for projects: active" : "Disponibilidad para proyectos: activa"}</span>
-        </div>
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20 shadow-2xs">
-          <Icon name="bx:star" class="w-3.5 h-3.5 text-slate-950" />
-          <span>{isEn ? "Featured: local digitization & web menu" : "Propuesta destacada: digitalización local y carta web"}</span>
-        </div>
-        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium bg-slate-100 text-slate-800 border border-slate-200/90 shadow-2xs">
-          <Icon name="bx:shield-quarter" class="w-3.5 h-3.5 text-slate-700" />
-          <span>{isEn ? "100% auditable code & 60 FPS" : "100% código auditable y 60 FPS"}</span>
-        </div>
-        <div class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-mono text-slate-600 bg-white border border-slate-200/90 shadow-2xs">
-          <span>{isEn ? "Prices excl. VAT" : "Precios sin IVA"}</span>
-        </div>
-      </div>
-
-      <!-- Catálogo de Paquetes: Nivell 1 - Desenvolupament Web & Negocis -->
-      <h2 class="sr-only">{isEn ? "Service packages and pricing" : "Paquetes de servicios y tarifas"}</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-        {
-          webDevPackages.map((pkg) => {
-            const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
-            const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
-            const annualCostShort = pkg.annualTotal.split('(')[0].trim();
-            const dailyCostShort = pkg.dailyCostEquivalent.split('(')[0].trim();
-
-            return (
-              <div
-                class={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative ${
-                  pkg.isFeatured
-                    ? "bg-white border-2 border-slate-950 shadow-xl ring-4 ring-[#FFFF00]/25 lg:-translate-y-2 z-10"
-                    : "bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md"
-                }`}>
-                {pkg.isFeatured && (
-                  <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span class="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-[#FFFF00] text-slate-950 shadow-sm border border-slate-950/20 flex items-center gap-1 whitespace-nowrap">
-                      <Icon name="bx:star" class="w-3.5 h-3.5 fill-current" />
-                      <span>{pkg.badge}</span>
-                    </span>
-                  </div>
-                )}
-
-                <div>
-                  <div class="flex items-center justify-between gap-4 mb-5">
-                    <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-950">
-                      <Icon name={pkg.icon} class="w-6 h-6 text-slate-950" />
-                    </div>
-                    {!pkg.isFeatured && (
-                      <span class="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border border-slate-200 text-slate-500">
-                        {pkg.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  <h3 class="font-light text-2xl text-slate-950 tracking-tight leading-snug">
-                    {pkg.name}
-                  </h3>
-                  
-                  <p class="text-xs text-slate-600 mt-2 font-light leading-relaxed">
-                    {pkg.tagline}
-                  </p>
-
-                  <!-- Desglose de Precios Limpio y Compacto -->
-                  <div class="my-5 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 font-mono">
-                    <div class="flex items-baseline justify-between">
-                      <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"} <span class="text-[10px] text-slate-700 font-medium">({isEn ? "excl. VAT" : "sin IVA"})</span></span>
-                      <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
-                    </div>
-                    <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
-                      <span class="text-xs text-slate-500">{isEn ? "Monthly maintenance:" : "Mantenimiento:"}</span>
-                      <span class="text-sm font-semibold text-slate-900">{pkg.monthlyFee}</span>
-                    </div>
-                    <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[11px]">
-                      <span class="text-slate-700 font-medium">{annualCostShort}</span>
-                      <span class="text-slate-500">{dailyCostShort}</span>
-                    </div>
-                  </div>
-
-                  <!-- Características incluidas clave -->
-                  <div class="space-y-2.5 mb-8">
-                    <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-600">
-                      {isEn ? "Key inclusions:" : "Incluido en la propuesta:"}
-                    </p>
-                    <ul class="space-y-2 text-xs text-slate-700 font-light">
-                      {pkg.features.slice(0, 4).map((feature) => (
-                        <li class="flex items-start gap-2.5">
-                          <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">✓</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <!-- Acciones del paquete -->
-                <div class="space-y-2 pt-4 border-t border-slate-100">
-                  <a
-                    href={detailUrl}
-                    class={`w-full inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-mono uppercase tracking-wider font-semibold transition-colors text-center ${
-                      pkg.isFeatured
-                        ? "bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 border border-slate-950 shadow-sm"
-                        : "bg-slate-100 hover:bg-slate-950 text-slate-800 hover:text-white border border-slate-200 hover:border-slate-950"
-                    }`}>
-                    <span>{isEn ? "See detailed breakdown & ROI" : "Ver justificación y amortización"}</span>
-                    <span aria-hidden="true">→</span>
-                  </a>
-
-                  <a
-                    href={ctaContactUrl}
-                    class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-mono text-slate-500 hover:text-slate-950 transition-colors text-center">
-                    <span>{isEn ? "Request this package" : "Solicitar este servicio"}</span>
-                    <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </div>
-            );
-          })
-        }
-      </div>
-
-      <!-- Nivell 2: Serveis Tècnics Especialitzats (Auditoria & CI/CD DevOps) -->
-      <div class="mt-20">
-        <div class="text-center max-w-2xl mx-auto mb-10">
-          <p class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold mb-2">
-            {isEn ? "Specialized Technical Services" : "Servicios técnicos especializados"}
-          </p>
-          <h3 class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
-            {isEn ? "Engineering Audits & CI/CD Automation" : "Auditorías de ingeniería y automatización CI/CD"}
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-600 font-light mt-2">
-            {isEn
-              ? "Targeted technical interventions to optimize existing projects, improve performance metrics, and streamline releases."
-              : "Intervenciones técnicas puntuales para optimizar proyectos existentes, mejorar métricas de rendimiento y automatizar despliegues."}
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
-          {
-            specializedPackages.map((pkg) => {
-              const detailUrl = `${href(`/pricing/${pkg.id}`)}/`;
-              const ctaContactUrl = `${href("/contact")}/?servei=${pkg.id}`;
-              const annualCostShort = pkg.annualTotal.split('(')[0].trim();
-              const dailyCostShort = pkg.dailyCostEquivalent.split('(')[0].trim();
-
-              return (
-                <div class="rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-200 relative bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md">
-                  <div>
-                    <div class="flex items-center justify-between gap-4 mb-5">
-                      <div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-950">
-                        <Icon name={pkg.icon} class="w-6 h-6 text-slate-950" />
-                      </div>
-                      <span class="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border border-slate-200 text-slate-500">
-                        {pkg.badge}
-                      </span>
-                    </div>
-
-                    <h3 class="font-light text-2xl text-slate-950 tracking-tight leading-snug">
-                      {pkg.name}
-                    </h3>
-                    
-                    <p class="text-xs text-slate-600 mt-2 font-light leading-relaxed">
-                      {pkg.tagline}
-                    </p>
-
-                    <!-- Desglose de Precios Limpio y Compacto -->
-                    <div class="my-5 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 font-mono">
-                      <div class="flex items-baseline justify-between">
-                        <span class="text-xs text-slate-500">{isEn ? "Upfront creation:" : "Creación inicial:"} <span class="text-[10px] text-slate-700 font-medium">({isEn ? "excl. VAT" : "sin IVA"})</span></span>
-                        <span class="text-2xl font-light text-slate-950 tracking-tight">{pkg.creationPrice}</span>
-                      </div>
-                      <div class="flex items-baseline justify-between pt-2 border-t border-slate-200/60">
-                        <span class="text-xs text-slate-500">{isEn ? "Monthly maintenance:" : "Mantenimiento:"}</span>
-                        <span class="text-sm font-semibold text-slate-900">{pkg.monthlyFee}</span>
-                      </div>
-                      <div class="flex items-center justify-between pt-2 border-t border-slate-200/60 text-[11px]">
-                        <span class="text-slate-700 font-medium">{annualCostShort}</span>
-                        <span class="text-slate-500">{dailyCostShort}</span>
-                      </div>
-                    </div>
-
-                    <!-- Características incluidas clave -->
-                    <div class="space-y-2.5 mb-8">
-                      <p class="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-600">
-                        {isEn ? "Key inclusions:" : "Incluido en la propuesta:"}
-                      </p>
-                      <ul class="space-y-2 text-xs text-slate-700 font-light">
-                        {pkg.features.slice(0, 4).map((feature) => (
-                          <li class="flex items-start gap-2.5">
-                            <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#FFFF00] text-slate-950 text-[10px] font-bold mt-0.5 shrink-0 ring-1 ring-slate-950/20" aria-hidden="true">✓</span>
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <!-- Acciones del paquete -->
-                  <div class="space-y-2 pt-4 border-t border-slate-100">
-                    <a
-                      href={detailUrl}
-                      class="w-full inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl text-xs font-mono uppercase tracking-wider font-semibold transition-colors text-center bg-slate-100 hover:bg-slate-950 text-slate-800 hover:text-white border border-slate-200 hover:border-slate-950">
-                      <span>{isEn ? "See detailed breakdown & ROI" : "Ver justificación y amortización"}</span>
-                      <span aria-hidden="true">→</span>
-                    </a>
-
-                    <a
-                      href={ctaContactUrl}
-                      class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-mono text-slate-500 hover:text-slate-950 transition-colors text-center">
-                      <span>{isEn ? "Request this package" : "Solicitar este servicio"}</span>
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  </div>
-                </div>
-              );
-            })
-          }
-        </div>
-      </div>
-
-      <!-- Muestrario de Proyectos -->
-      <div class="mt-24 max-w-5xl mx-auto">
-        <div class="text-center mb-10">
-          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
-            {isEn ? "Portfolio & Functional Demos" : "Portafolio y demos funcionales"}
-          </span>
-          <h3 class="text-3xl font-light text-slate-950 tracking-tight">
-            {isEn ? "Real, auditable software projects" : "Proyectos desarrollados y verificables"}
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-2 font-light">
-            {isEn
-              ? "Each project features an in-depth case study and verifiable technical metrics:"
-              : "Cada proyecto cuenta con un caso de estudio técnico y código auditable:"}
-          </p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <a
-            href={href("/projectes/avisa")}
-            class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <Icon name="bx:bell" class="w-5 h-5 text-slate-950" />
-              </div>
-              <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">AVISA</h4>
-              <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Incident management platform with Angular Signals and WCAG AA." : "Plataforma de incidencias con Angular Signals y WCAG AA."}</p>
-            </div>
-            <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
-              <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-              <span aria-hidden="true">→</span>
-            </span>
-          </a>
-
-          <a
-            href={href("/projectes/pizzeria-xativa")}
-            class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <Icon name="bx:restaurant" class="w-5 h-5 text-slate-950" />
-                <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "Interactive demo" : "Demo interactiva"}</span>
-              </div>
-              <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">Pizzeria Xàtiva</h4>
-              <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "85 KB digital menu prototype, instant WhatsApp cart orders, and Wallet pass." : "Prototipo de carta digital de 85 KB, pedidos de muestra y pase Wallet."}</p>
-            </div>
-            <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
-              <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-              <span aria-hidden="true">→</span>
-            </span>
-          </a>
-
-          <a
-            href={href("/projectes/dashboard-telemetria")}
-            class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <Icon name="bx:line-chart" class="w-5 h-5 text-slate-950" />
-                <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">60 FPS</span>
-              </div>
-              <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">Dashboard Telemetría</h4>
-              <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Real-time smooth rendering and green Core Web Vitals." : "Renderizado fluido en tiempo real y Core Web Vitals estrictos."}</p>
-            </div>
-            <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
-              <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-              <span aria-hidden="true">→</span>
-            </span>
-          </a>
-
-          <a
-            href={href("/projectes/pipeline-cicd")}
-            class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-slate-950 hover:shadow-md transition-all duration-200 group flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-3">
-                <Icon name="bx:git-repo-forked" class="w-5 h-5 text-slate-950" />
-                <span class="text-[10px] font-mono text-slate-950 bg-[#FFFF00] px-2 py-0.5 rounded-full font-semibold border border-slate-950/20">{isEn ? "Automated" : "Automático"}</span>
-              </div>
-              <h4 class="font-normal text-slate-950 text-base group-hover:underline decoration-1 underline-offset-4 transition-colors">Pipeline CI/CD</h4>
-              <p class="text-xs text-slate-600 font-light mt-1.5 leading-relaxed">{isEn ? "Atomic GitHub Actions releases, zero downtime, and automated tests." : "GitHub Actions atómico, sin tiempo de inactividad y con pruebas automáticas."}</p>
-            </div>
-            <span class="text-xs font-mono text-slate-500 group-hover:text-slate-950 mt-4 flex items-center gap-1">
-              <span>{isEn ? "View case study" : "Ver caso de estudio"}</span>
-              <span aria-hidden="true">→</span>
-            </span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Proceso de Trabajo en 4 Fases -->
-      <div class="mt-24 max-w-5xl mx-auto">
-        <div class="text-center mb-12">
-          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
-            {isEn ? "Methodology & Transparency" : "Metodología y transparencia"}
-          </span>
-          <h3 class="text-3xl font-light text-slate-950 tracking-tight">
-            {isEn ? "How I work with you, step by step" : "Cómo trabajo contigo paso a paso"}
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2 font-light">
-            {isEn
-              ? "A structured, transparent engineering process to guarantee on-time delivery with zero surprises."
-              : "Un proceso claro y estructurado para evitar sorpresas y cumplir los plazos."}
-          </p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {
-            workflowSteps.map((ws) => (
-              <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 hover:shadow-md transition-all duration-200 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-950">
-                      <Icon name={ws.icon} class="w-5 h-5" />
-                    </span>
-                    <span class="text-xs font-mono font-semibold text-slate-600">{ws.step}</span>
-                  </div>
-                  <h4 class="font-normal text-slate-950 text-base mb-2">{ws.title}</h4>
-                  <p class="text-xs text-slate-600 leading-relaxed font-light">{ws.desc}</p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-mono text-slate-600">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-950/20" aria-hidden="true"></span>
-                  <span>{isEn ? "Verified phase" : "Fase verificada"}</span>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <!-- Sección de Preguntas Frecuentes -->
-      <div class="mt-24 mb-16 max-w-3xl mx-auto">
-        <div class="text-center mb-12">
-          <span class="text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold flex items-center justify-center gap-1.5 w-max mx-auto mb-2">
-            {isEn ? "FAQ & Inquiries" : "Preguntas y respuestas"}
-          </span>
-          <h3 class="text-3xl font-light text-slate-950 tracking-tight">
-            {isEn ? "Frequently Asked Questions" : "Preguntas frecuentes"}
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mt-2 font-light">
-            {isEn
-              ? "Everything you need to know before initiating a project."
-              : "Todo lo que necesitas saber antes de empezar un proyecto."}
-          </p>
-        </div>
-
-        <div class="space-y-4">
-          {
-            faqs.map((faq) => (
-              <details class="group bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs open:shadow-md hover:border-slate-950 transition-all duration-200">
-                <summary class="font-normal text-sm sm:text-base text-slate-950 cursor-pointer list-none flex items-center justify-between gap-4">
-                  <span>{faq.question}</span>
-                  <span class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform">
-                    <Icon name="bx:chevron-down" class="w-4 h-4 text-slate-600" />
-                  </span>
-                </summary>
-                <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-light border-t border-slate-100 pt-3">
-                  {faq.answer}
-                </p>
-              </details>
-            ))
-          }
-        </div>
-      </div>
+<Layout fresh title={t.title} description={t.desc} jsonLd={[itemList, breadcrumb]}>
+  <section class="border-b-2 border-ink bg-brand px-4 pb-14 pt-14 sm:px-5 sm:pt-20">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1 class="display mt-4 max-w-4xl text-[clamp(2.4rem,6.5vw,5rem)]">{t.h1}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/85">{t.lead}</p>
     </div>
-  </Container>
+  </section>
+
+  <section class="px-4 py-16 sm:px-5 sm:py-24">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) gap-8 lg:grid-cols-2">
+      {services.map((s) => (
+        <article class:list={["card flex flex-col overflow-hidden", s.isFeatured ? "bg-brand lg:col-span-2" : ""]}>
+          <div class:list={["grid flex-1", s.isFeatured ? "lg:grid-cols-12" : ""]}>
+            <div class:list={["p-7 sm:p-9", s.isFeatured ? "lg:col-span-7" : ""]}>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="flex h-11 w-11 items-center justify-center rounded-2xl border-2 border-ink bg-brand">
+                  <Icon name={s.icon} class="h-6 w-6" />
+                </span>
+                {s.isFeatured && <span class="chip bg-ink! text-brand">{t.recommended}</span>}
+              </div>
+              <h2 class="mt-4 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">{s.name}</h2>
+              <p class="mt-3 text-lg leading-relaxed text-ink/80">{s.tagline}</p>
+              <p class="mt-4 text-sm text-ink/75"><strong>{t.forWho}:</strong> {s.targetAudience}</p>
+              <h3 class="mt-6 font-mono text-xs font-bold uppercase tracking-[0.14em]">{t.includes}</h3>
+              <ul class="mt-3 space-y-2">
+                {s.features.map((f) => (
+                  <li class="flex gap-2.5 text-[0.95rem] leading-snug">
+                    <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-brand" aria-hidden="true">✓</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class:list={["flex flex-col justify-between gap-6 border-t-2 border-ink bg-ink p-7 text-white sm:p-9", s.isFeatured ? "lg:col-span-5 lg:border-l-2 lg:border-t-0" : ""]}>
+              <div>
+                <p class="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand">{t.from}</p>
+                <p class="display mt-1 text-6xl text-brand">{euro(s.creationPriceNumber)}</p>
+                <p class="mt-2 text-lg">+ {monthly(s.monthlyFeeNumber)}</p>
+                <dl class="mt-5 space-y-1.5 text-sm text-white/80">
+                  <div><dt class="inline font-bold text-white">{t.deliver}:</dt> <dd class="inline">{s.timeline}</dd></div>
+                  <div><dt class="inline font-bold text-white">{t.firstYear}:</dt> <dd class="inline">{s.annualTotal}</dd></div>
+                </dl>
+              </div>
+              <div class="on-dark flex flex-wrap gap-3">
+                <a href={to("/contact")} class="btn btn-brand btn-sm">{t.request}</a>
+                <a href={to(`/pricing/${s.id}`)} class="btn btn-ink btn-sm">{t.detail}</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-y-2 border-ink bg-sand px-4 py-16 sm:px-5">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <h2 class="display text-[clamp(1.8rem,4vw,3rem)]">{t.noteTitle}</h2>
+      <ul class="mt-8 grid gap-5 md:grid-cols-3">
+        {t.notes.map((n, i) => (
+          <li class="card bg-white p-6">
+            <span class="display text-4xl text-brand [-webkit-text-stroke:2px_#0b0b0f]">0{i + 1}</span>
+            <p class="mt-3 leading-relaxed">{n}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-brand px-4 py-16 text-center sm:px-5 sm:py-24">
+    <h2 class="display mx-auto max-w-3xl text-[clamp(2rem,5.5vw,4rem)]">{t.ctaTitle}</h2>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-ink/85">{t.ctaText}</p>
+    <p class="mt-8"><a href={to("/contact")} class="btn btn-ink">{t.cta} <span aria-hidden="true">→</span></a></p>
+  </section>
 </Layout>

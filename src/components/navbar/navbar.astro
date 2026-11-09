@@ -1,6 +1,4 @@
 ---
-import Container from "@/components/container.astro";
-import { Icon } from "astro-icon/components";
 import { localizePath, localeFromPath, stripLocale } from "@/i18n";
 
 const rawPathname = Astro.url.pathname;
@@ -8,918 +6,135 @@ const locale = localeFromPath(rawPathname);
 const isEn = locale === "en";
 const pathname = stripLocale(rawPathname);
 
-const canonicalPagePath = (path: string) => {
-  const suffixIndex = path.search(/[?#]/);
-  const pathname = suffixIndex < 0 ? path : path.slice(0, suffixIndex);
-  const suffix = suffixIndex < 0 ? "" : path.slice(suffixIndex);
-  return pathname === "/" || pathname.endsWith("/") ? path : `${pathname}/${suffix}`;
+const withSlash = (path: string) => {
+  const hashIndex = path.indexOf("#");
+  const base = hashIndex < 0 ? path : path.slice(0, hashIndex);
+  const hash = hashIndex < 0 ? "" : path.slice(hashIndex);
+  return `${base === "/" || base.endsWith("/") ? base : `${base}/`}${hash}`;
 };
+const to = (path: string) => withSlash(localizePath(path, locale));
+const spanishPath = withSlash(localizePath(rawPathname, "es"));
+const englishPath = withSlash(localizePath(rawPathname, "en"));
 
-const localizedPath = (path: string) => canonicalPagePath(localizePath(path, locale));
-const spanishPath = canonicalPagePath(localizePath(rawPathname, "es"));
-const englishPath = canonicalPagePath(localizePath(rawPathname, "en"));
-const homeTitle = isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio";
-
-const isServicesActive = pathname.startsWith("/pricing");
-const isProjectsActive = pathname.startsWith("/projectes") || pathname.startsWith("/projects");
-
-// Items para el desplegable de Servicios
-const servicesItems = [
-  {
-    title: isEn ? "Websites" : "Webs",
-    desc: isEn ? "High-performance business sites & landing pages" : "Landing pages y webs corporativas rápidas",
-    path: "/pricing/landing-page",
-    icon: "bx:rocket",
-  },
-  {
-    title: isEn ? "Applications" : "Aplicaciones",
-    desc: isEn ? "Reactive SPA web apps & platforms" : "Aplicaciones SPA y productos reactivos",
-    path: "/pricing/angular-webapp",
-    icon: "simple-icons:angular",
-  },
-  {
-    title: isEn ? "Automation" : "Automatización",
-    desc: isEn ? "Automated CI/CD pipelines & DevOps" : "Pipelines CI/CD y despliegue continuo",
-    path: "/pricing/cicd-devops",
-    icon: "bx:git-branch",
-  },
-  {
-    title: isEn ? "Pricing & Plans" : "Precios y tarifas",
-    desc: isEn ? "Full service catalog & investment breakdown" : "Catálogo completo, cuotas y amortización",
-    path: "/pricing",
-    icon: "bx:tag",
-    isCatalog: true,
-  },
+const links = [
+  { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
+  { label: isEn ? "Projects" : "Proyectos", path: "/projectes", active: pathname.startsWith("/projectes") },
+  { label: isEn ? "How I work" : "Cómo trabajo", path: "/#proceso", active: false },
+  { label: isEn ? "FAQ" : "Preguntas", path: "/#faq", active: false },
+  { label: isEn ? "About" : "Sobre mí", path: "/about", active: pathname.startsWith("/about") },
 ];
-
-// Items para el desplegable de Proyectos
-const projectsItems = [
-  {
-    title: isEn ? "Pizzeria Xàtiva" : "Pizzería Xàtiva",
-    desc: isEn ? "Digital menu & Pizza Pass demo" : "Demo interactiva · Carta web y Pizza Pass",
-    path: "/projectes/pizzeria-xativa",
-    icon: "bx:restaurant",
-  },
-  {
-    title: "Burger Xàtiva",
-    desc: isEn ? "Interactive restaurant demo" : "Demo gastronómica interactiva",
-    path: "/projectes/burger-xativa",
-    icon: "bx:restaurant",
-  },
-  {
-    title: "AVISA",
-    desc: isEn ? "Real-time incident management" : "Gestión de incidencias en tiempo real",
-    path: "/projectes/avisa",
-    icon: "bx:bell",
-  },
-  {
-    title: "Pipeline CI/CD",
-    desc: isEn ? "Zero-downtime automated deployment" : "Automatización y despliegue continuo atómico",
-    path: "/projectes/pipeline-cicd",
-    icon: "bx:git-repo-forked",
-  },
-  {
-    title: isEn ? "All projects" : "Todos los proyectos",
-    desc: isEn ? "Case studies & auditable software" : "Casos de estudio y software verificable",
-    path: "/projectes",
-    icon: "bx:right-arrow-alt",
-    isAllProjects: true,
-  },
-];
+const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 ---
 
-<div
-  id="site-navbar-wrap"
-  class="sticky top-0 z-50 w-full bg-white border-b border-transparent data-[scrolled=true]:border-slate-200/80 transition-[border-color,box-shadow] duration-200"
->
-  <Container>
-    <header id="site-header" class="relative flex items-center justify-between py-2.5 min-h-[56px]">
-      
-      <!-- Logo: Isotipo oficial en el extremo izquierdo -->
-      <div class="flex items-center">
-        <!-- Isotipo en móvil -->
-        <a
-          href={localizedPath("/")}
-          class="flex md:hidden items-center p-1 rounded-xl min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-          title={homeTitle}
-          aria-label={homeTitle}
-        >
-          <div class="relative w-9 h-9 shrink-0">
-            <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35"></div>
-            <img
-              src="/img/jt.LOGO-02-128.webp"
-              alt="Isotip oficial de Jaume Tur"
-              class="relative w-9 h-9 rounded-xl ring-1 ring-slate-900/10 shadow-sm object-cover"
-              width="36"
-              height="36"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-        </a>
+<header class="sticky top-0 z-50 w-full border-b-2 border-ink bg-[#fafaf3]/95 backdrop-blur supports-[backdrop-filter]:bg-[#fafaf3]/85">
+  <div class="mx-auto flex max-w-(--breakpoint-xl) items-center justify-between gap-4 px-4 py-2.5 sm:px-5">
+    <a
+      href={to("/")}
+      class="flex min-h-11 items-center gap-2.5 rounded-xl"
+      aria-label={isEn ? "jaume.www — Jaume Tur, home" : "jaume.www — Jaume Tur, inicio"}
+    >
+      <img
+        src="/img/jt.LOGO-02-128.webp"
+        alt=""
+        width="40"
+        height="40"
+        class="h-10 w-10 rounded-xl border-2 border-ink"
+        decoding="async"
+      />
+      <span class="font-display text-xl font-extrabold tracking-tight leading-none">
+        jaume<span class="rounded-md bg-brand px-1.5 py-0.5 ml-0.5 text-base border-2 border-ink">.www</span>
+      </span>
+    </a>
 
-        <!-- Wordmark y logotipo en escritorio -->
-        <a
-          href={localizedPath("/")}
-          class="hidden md:flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded-xl p-1"
-          title={homeTitle}
-          aria-label={isEn ? "jaume.www — Jaume Tur, Home" : "jaume.www — Jaume Tur, Inicio"}
-        >
-          <div class="relative w-9 h-9 shrink-0">
-            <div class="absolute inset-0 bg-[#FFFF00] rounded-xl opacity-35 group-hover:opacity-60 transition-opacity"></div>
-            <img
-              src="/img/jt.LOGO-02-128.webp"
-              alt="Isotip Jaume Tur"
-              class="relative w-9 h-9 rounded-xl ring-1 ring-slate-900/10 shadow-sm group-hover:scale-105 transition-transform object-cover"
-              width="36"
-              height="36"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="site-brand-name font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-slate-700 transition-colors">
-              jaume<span class="text-slate-900">.</span>
-            </span>
-            <span class="text-xs font-mono font-extrabold px-1.5 py-0.5 rounded-md bg-[#FFFF00] text-slate-950 shadow-2xs">www</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Navegación de escritorio: Enlaces alineados a la derecha seguidos del selector de idioma -->
-      <div class="hidden md:flex items-center gap-6 lg:gap-7">
-        <nav aria-label={isEn ? "Main navigation" : "Navegación principal"}>
-          <ul class="flex items-center gap-5 lg:gap-6">
-            
-            <!-- 1. Inicio -->
-            <li>
-              <a
-                href={localizedPath("/")}
-                class:list={[
-                  "text-sm tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded py-1 px-1",
-                  pathname === "/"
-                    ? "text-slate-950 font-medium"
-                    : "text-slate-600 hover:text-slate-950 font-normal"
-                ]}
-                aria-current={pathname === "/" ? "page" : undefined}
-              >
-                <span>{isEn ? "Home" : "Inicio"}</span>
-              </a>
-            </li>
-
-            <!-- 2. Servicios (Desplegable) -->
-            <li class="relative dropdown-group" id="services-dropdown-wrap">
-              <button
-                type="button"
-                id="services-dropdown-btn"
-                aria-haspopup="menu"
-                aria-expanded="false"
-                aria-controls="services-dropdown-menu"
-                class:list={[
-                  "inline-flex items-center gap-1 text-sm tracking-tight transition-colors py-1 px-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] cursor-pointer",
-                  isServicesActive
-                    ? "text-slate-950 font-medium"
-                    : "text-slate-600 hover:text-slate-950 font-normal"
-                ]}
-              >
-                <span>{isEn ? "Services" : "Servicios"}</span>
-                <Icon name="bx:chevron-down" class="w-3.5 h-3.5 text-slate-500 transition-transform duration-200 dropdown-chevron" aria-hidden="true" />
-              </button>
-
-              <div
-                id="services-dropdown-menu"
-                role="menu"
-                class="hidden absolute left-0 top-full mt-2 w-72 rounded-2xl border border-slate-200/90 bg-white p-2 shadow-xl shadow-slate-950/5 ring-1 ring-slate-950/5 z-50 text-xs font-sans transition-all duration-150"
-                aria-labelledby="services-dropdown-btn"
-                aria-label={isEn ? "Services menu" : "Menú de servicios"}
-              >
-                <div class="space-y-1">
-                  {servicesItems.map((item) => {
-                    const isItemActive = item.isCatalog
-                      ? pathname === "/pricing" || pathname === "/pricing/"
-                      : pathname === item.path || pathname === `${item.path}/`;
-                    return (
-                      <>
-                        {item.isCatalog && <div class="border-t border-slate-100 my-1"></div>}
-                        <a
-                          href={localizedPath(item.path)}
-                          role="menuitem"
-                          aria-current={isItemActive ? "page" : undefined}
-                          class:list={[
-                            "flex items-start gap-3 px-3 py-2 rounded-xl transition-colors group/item",
-                            isItemActive
-                              ? "bg-slate-100 text-slate-950 font-medium"
-                              : "text-slate-700 hover:text-slate-950 hover:bg-slate-50 font-normal"
-                          ]}
-                        >
-                          <div class="w-6 h-6 rounded-lg bg-slate-100 border border-slate-200/80 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:border-slate-950 transition-colors">
-                            <Icon name={item.icon} class="w-3.5 h-3.5 text-slate-900" />
-                          </div>
-                          <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-1">
-                              <span class="text-xs font-medium tracking-tight text-slate-950">
-                                {item.title}
-                              </span>
-                              {isItemActive && (
-                                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-900/40 shrink-0" aria-hidden="true"></span>
-                              )}
-                            </div>
-                            <p class="text-[11px] text-slate-500 font-light leading-snug line-clamp-1 mt-0.5">
-                              {item.desc}
-                            </p>
-                          </div>
-                        </a>
-                      </>
-                    );
-                  })}
-                </div>
-              </div>
-            </li>
-
-            <!-- 3. Proyectos (Desplegable) -->
-            <li class="relative dropdown-group" id="projects-dropdown-wrap">
-              <button
-                type="button"
-                id="projects-dropdown-btn"
-                aria-haspopup="menu"
-                aria-expanded="false"
-                aria-controls="projects-dropdown-menu"
-                class:list={[
-                  "inline-flex items-center gap-1 text-sm tracking-tight transition-colors py-1 px-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] cursor-pointer",
-                  isProjectsActive
-                    ? "text-slate-950 font-medium"
-                    : "text-slate-600 hover:text-slate-950 font-normal"
-                ]}
-              >
-                <span>{isEn ? "Projects" : "Proyectos"}</span>
-                <Icon name="bx:chevron-down" class="w-3.5 h-3.5 text-slate-500 transition-transform duration-200 dropdown-chevron" aria-hidden="true" />
-              </button>
-
-              <div
-                id="projects-dropdown-menu"
-                role="menu"
-                class="hidden absolute left-0 top-full mt-2 w-72 rounded-2xl border border-slate-200/90 bg-white p-2 shadow-xl shadow-slate-950/5 ring-1 ring-slate-950/5 z-50 text-xs font-sans transition-all duration-150"
-                aria-labelledby="projects-dropdown-btn"
-                aria-label={isEn ? "Projects menu" : "Menú de proyectos"}
-              >
-                <div class="space-y-1">
-                  {projectsItems.map((item) => {
-                    const isItemActive = item.isAllProjects
-                      ? pathname === "/projectes" || pathname === "/projectes/"
-                      : pathname === item.path || pathname === `${item.path}/`;
-                    return (
-                      <>
-                        {item.isAllProjects && <div class="border-t border-slate-100 my-1"></div>}
-                        <a
-                          href={localizedPath(item.path)}
-                          role="menuitem"
-                          aria-current={isItemActive ? "page" : undefined}
-                          class:list={[
-                            "flex items-start gap-3 px-3 py-2 rounded-xl transition-colors group/item",
-                            isItemActive
-                              ? "bg-slate-100 text-slate-950 font-medium"
-                              : "text-slate-700 hover:text-slate-950 hover:bg-slate-50 font-normal"
-                          ]}
-                        >
-                          <div class="w-6 h-6 rounded-lg bg-slate-100 border border-slate-200/80 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:border-slate-950 transition-colors">
-                            <Icon name={item.icon} class="w-3.5 h-3.5 text-slate-900" />
-                          </div>
-                          <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between gap-1">
-                              <span class="text-xs font-medium tracking-tight text-slate-950">
-                                {item.title}
-                              </span>
-                              {isItemActive && (
-                                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-900/40 shrink-0" aria-hidden="true"></span>
-                              )}
-                            </div>
-                            <p class="text-[11px] text-slate-500 font-light leading-snug line-clamp-1 mt-0.5">
-                              {item.desc}
-                            </p>
-                          </div>
-                        </a>
-                      </>
-                    );
-                  })}
-                </div>
-              </div>
-            </li>
-
-            <!-- 4. Sobre mí -->
-            <li>
-              <a
-                href={localizedPath("/about")}
-                class:list={[
-                  "text-sm tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded py-1 px-1",
-                  pathname.startsWith("/about")
-                    ? "text-slate-950 font-medium"
-                    : "text-slate-600 hover:text-slate-950 font-normal"
-                ]}
-                aria-current={pathname.startsWith("/about") ? "page" : undefined}
-              >
-                <span>{isEn ? "About me" : "Sobre mí"}</span>
-              </a>
-            </li>
-
-            <!-- 5. Contacto -->
-            <li>
-              <a
-                href={localizedPath("/contact")}
-                class:list={[
-                  "text-sm tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] rounded py-1 px-1",
-                  pathname.startsWith("/contact")
-                    ? "text-slate-950 font-medium"
-                    : "text-slate-600 hover:text-slate-950 font-normal"
-                ]}
-                aria-current={pathname.startsWith("/contact") ? "page" : undefined}
-              >
-                <span>{isEn ? "Contact" : "Contacto"}</span>
-              </a>
-            </li>
-
-          </ul>
-        </nav>
-
-        <!-- 6. Selector de idioma con icono de globo terráqueo -->
-        <div class="relative" id="lang-dropdown-wrapper">
-          <button
-            type="button"
-            id="lang-dropdown-btn"
-            aria-haspopup="menu"
-            aria-expanded="false"
-            aria-controls="lang-dropdown-menu"
-            class="inline-flex items-center gap-1.5 text-sm font-normal text-slate-600 hover:text-slate-950 py-1.5 px-2.5 rounded-lg border border-transparent hover:border-slate-200 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]"
-            aria-label={isEn ? `${locale.toUpperCase()} — Select language` : `${locale.toUpperCase()} — Seleccionar idioma`}
-          >
-            <Icon name="bx:globe" class="w-4 h-4 text-slate-700" />
-            <span class="text-xs font-mono font-medium uppercase text-slate-700">{locale.toUpperCase()}</span>
-            <span class="text-[10px] text-slate-600" aria-hidden="true">▾</span>
-          </button>
-
-          <!-- Menú flotante desplegable de idioma -->
-          <div
-            id="lang-dropdown-menu"
-            role="menu"
-            class="hidden absolute right-0 top-full mt-2 w-44 rounded-xl border border-slate-200/90 bg-white p-1.5 shadow-lg shadow-slate-950/5 ring-1 ring-slate-950/5 z-50 text-xs font-sans"
-            aria-labelledby="lang-dropdown-btn"
-            aria-label={isEn ? "Language selector" : "Selector de idioma"}
-          >
+    <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {links.map((l) => (
+          <li>
             <a
-              href={spanishPath}
-              role="menuitem"
-              lang="es"
-              aria-current={!isEn ? "page" : undefined}
+              href={to(l.path)}
+              aria-current={l.active ? "page" : undefined}
               class:list={[
-                "flex items-center justify-between px-3 py-2 rounded-lg transition-colors",
-                !isEn
-                  ? "bg-slate-100/90 text-slate-950 font-medium"
-                  : "text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-normal"
+                "inline-flex min-h-11 items-center rounded-full px-4 text-[0.95rem] font-semibold transition-colors hover:bg-brand",
+                l.active ? "bg-brand" : "",
               ]}
             >
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full" class:list={[!isEn ? "bg-[#FFFF00] ring-1 ring-slate-900/40" : "bg-transparent"]}></span>
-                <span>Español</span>
-              </div>
-              <span class="font-mono text-[10px] text-slate-600 uppercase tracking-wider font-semibold">ES</span>
+              {l.label}
             </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
 
-            <a
-              href={englishPath}
-              role="menuitem"
-              lang="en"
-              aria-current={isEn ? "page" : undefined}
-              class:list={[
-                "flex items-center justify-between px-3 py-2 rounded-lg transition-colors mt-0.5",
-                isEn
-                  ? "bg-slate-100/90 text-slate-950 font-medium"
-                  : "text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-normal"
-              ]}
-            >
-              <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full" class:list={[isEn ? "bg-[#FFFF00] ring-1 ring-slate-900/40" : "bg-transparent"]}></span>
-                <span>English</span>
-              </div>
-              <span class="font-mono text-[10px] text-slate-600 uppercase tracking-wider font-semibold">EN</span>
-            </a>
-          </div>
-        </div>
+    <div class="flex items-center gap-2.5">
+      <div class="hidden sm:flex items-center rounded-full border-2 border-ink bg-white p-0.5 text-xs font-bold" role="group" aria-label={isEn ? "Language" : "Idioma"}>
+        <a
+          href={spanishPath}
+          hreflang="es"
+          lang="es"
+          aria-current={!isEn ? "true" : undefined}
+          class:list={["rounded-full px-2.5 py-1.5 min-w-9 text-center", !isEn ? "bg-ink text-white" : "hover:bg-brand"]}>ES</a>
+        <a
+          href={englishPath}
+          hreflang="en"
+          lang="en"
+          aria-current={isEn ? "true" : undefined}
+          class:list={["rounded-full px-2.5 py-1.5 min-w-9 text-center", isEn ? "bg-ink text-white" : "hover:bg-brand"]}>EN</a>
       </div>
 
-      <!-- Menú Móvil (<details>/<summary> accesible y limpio) -->
-      <details id="mobile-menu-details" class="md:hidden group">
-        <summary
-          id="mobile-menu-summary"
-          class="min-h-[44px] min-w-[44px] px-3 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white font-medium text-xs text-slate-800 cursor-pointer list-none select-none hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00] transition"
-          aria-label={isEn ? "Menu — Main mobile navigation" : "Menú — Navegación móvil"}
-          aria-controls="mobile-nav-panel"
-          aria-expanded="false"
-        >
-          <span>{isEn ? "Menu" : "Menú"}</span>
-          <Icon name="bx:menu" class="w-4 h-4 block group-open:hidden" aria-hidden="true" />
-          <Icon name="bx:x" class="w-4 h-4 hidden group-open:block" aria-hidden="true" />
-        </summary>
+      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">{ctaLabel}</a>
 
-        <div
-          id="mobile-nav-panel"
-          class="absolute left-0 right-0 top-full w-full bg-white border-b border-slate-200/90 shadow-md p-4 transition-all max-h-[85vh] overflow-y-auto"
-        >
-          <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"}>
-            <ul class="flex flex-col gap-1">
-              
-              <!-- 1. Inicio -->
-              <li>
-                <a
-                  href={localizedPath("/")}
-                  class:list={[
-                    "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-lg text-sm tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                    pathname === "/"
-                      ? "bg-slate-100 text-slate-950 font-medium"
-                      : "text-slate-700 hover:bg-slate-50 font-normal"
-                  ]}
-                  aria-current={pathname === "/" ? "page" : undefined}
-                >
-                  <span>{isEn ? "Home" : "Inicio"}</span>
-                </a>
-              </li>
+      <button
+        id="nav-toggle"
+        type="button"
+        class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-ink bg-white"
+        aria-expanded="false"
+        aria-controls="nav-panel"
+        aria-label={isEn ? "Open menu" : "Abrir menú"}
+        data-open-label={isEn ? "Open menu" : "Abrir menú"}
+        data-close-label={isEn ? "Close menu" : "Cerrar menú"}
+      >
+        <svg id="nav-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        <svg id="nav-icon-close" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+  </div>
 
-              <!-- 2. Servicios (Acordeón accesible) -->
-              <li>
-                <details class="group/serv">
-                  <summary
-                    class:list={[
-                      "flex items-center justify-between px-3.5 py-3 min-h-[44px] rounded-lg text-sm tracking-tight transition cursor-pointer list-none select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                      isServicesActive
-                        ? "bg-slate-100 text-slate-950 font-medium"
-                        : "text-slate-700 hover:bg-slate-50 font-normal"
-                    ]}
-                  >
-                    <span>{isEn ? "Services" : "Servicios"}</span>
-                    <Icon name="bx:chevron-down" class="w-4 h-4 text-slate-500 group-open/serv:rotate-180 transition-transform duration-200" aria-hidden="true" />
-                  </summary>
-                  <ul class="pl-4 pr-1 py-1.5 space-y-1 border-l-2 border-slate-100 ml-4 mt-1">
-                    {servicesItems.map((item) => {
-                      const isItemActive = item.isCatalog
-                        ? pathname === "/pricing" || pathname === "/pricing/"
-                        : pathname === item.path || pathname === `${item.path}/`;
-                      return (
-                        <li>
-                          <a
-                            href={localizedPath(item.path)}
-                            class:list={[
-                              "flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-lg text-xs tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                              isItemActive
-                                ? "bg-slate-100 text-slate-950 font-medium"
-                                : "text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-normal"
-                            ]}
-                            aria-current={isItemActive ? "page" : undefined}
-                          >
-                            <span>{item.title}</span>
-                            {isItemActive && (
-                              <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-900/40 shrink-0" aria-hidden="true"></span>
-                            )}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </details>
-              </li>
-
-              <!-- 3. Proyectos (Acordeón accesible) -->
-              <li>
-                <details class="group/proj">
-                  <summary
-                    class:list={[
-                      "flex items-center justify-between px-3.5 py-3 min-h-[44px] rounded-lg text-sm tracking-tight transition cursor-pointer list-none select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                      isProjectsActive
-                        ? "bg-slate-100 text-slate-950 font-medium"
-                        : "text-slate-700 hover:bg-slate-50 font-normal"
-                    ]}
-                  >
-                    <span>{isEn ? "Projects" : "Proyectos"}</span>
-                    <Icon name="bx:chevron-down" class="w-4 h-4 text-slate-500 group-open/proj:rotate-180 transition-transform duration-200" aria-hidden="true" />
-                  </summary>
-                  <ul class="pl-4 pr-1 py-1.5 space-y-1 border-l-2 border-slate-100 ml-4 mt-1">
-                    {projectsItems.map((item) => {
-                      const isItemActive = item.isAllProjects
-                        ? pathname === "/projectes" || pathname === "/projectes/"
-                        : pathname === item.path || pathname === `${item.path}/`;
-                      return (
-                        <li>
-                          <a
-                            href={localizedPath(item.path)}
-                            class:list={[
-                              "flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-lg text-xs tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                              isItemActive
-                                ? "bg-slate-100 text-slate-950 font-medium"
-                                : "text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-normal"
-                            ]}
-                            aria-current={isItemActive ? "page" : undefined}
-                          >
-                            <span>{item.title}</span>
-                            {isItemActive && (
-                              <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-900/40 shrink-0" aria-hidden="true"></span>
-                            )}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </details>
-              </li>
-
-              <!-- 4. Sobre mí -->
-              <li>
-                <a
-                  href={localizedPath("/about")}
-                  class:list={[
-                    "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-lg text-sm tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                    pathname.startsWith("/about")
-                      ? "bg-slate-100 text-slate-950 font-medium"
-                      : "text-slate-700 hover:bg-slate-50 font-normal"
-                  ]}
-                  aria-current={pathname.startsWith("/about") ? "page" : undefined}
-                >
-                  <span>{isEn ? "About me" : "Sobre mí"}</span>
-                </a>
-              </li>
-
-              <!-- 5. Contacto -->
-              <li>
-                <a
-                  href={localizedPath("/contact")}
-                  class:list={[
-                    "flex items-center gap-2.5 px-3.5 py-3 min-h-[44px] rounded-lg text-sm tracking-tight transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                    pathname.startsWith("/contact")
-                      ? "bg-slate-100 text-slate-950 font-medium"
-                      : "text-slate-700 hover:bg-slate-50 font-normal"
-                  ]}
-                  aria-current={pathname.startsWith("/contact") ? "page" : undefined}
-                >
-                  <span>{isEn ? "Contact" : "Contacto"}</span>
-                </a>
-              </li>
-
-              <!-- 6. Selector de idioma en móvil -->
-              <li class="mt-2 flex items-center justify-between border-t border-slate-100 pt-3 px-3.5 text-xs">
-                <span class="inline-flex items-center gap-1.5 text-slate-500 font-mono">
-                  <Icon name="bx:globe" class="w-4 h-4 text-slate-700" />
-                  <span>{isEn ? "Language" : "Idioma"}</span>
-                </span>
-                <div class="flex items-center gap-2 font-mono" aria-label={isEn ? "Language selector" : "Selector de idioma"}>
-                  <a
-                    href={spanishPath}
-                    lang="es"
-                    aria-current={!isEn ? "page" : undefined}
-                    class:list={[
-                      "min-h-9 px-2.5 py-1.5 inline-flex items-center rounded-lg text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                      !isEn ? "bg-slate-950 text-white font-medium" : "text-slate-600 hover:text-slate-950 bg-slate-100 font-normal"
-                    ]}
-                  >
-                    ES
-                  </a>
-                  <a
-                    href={englishPath}
-                    lang="en"
-                    aria-current={isEn ? "page" : undefined}
-                    class:list={[
-                      "min-h-9 px-2.5 py-1.5 inline-flex items-center rounded-lg text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFF00]",
-                      isEn ? "bg-slate-950 text-white font-medium" : "text-slate-600 hover:text-slate-950 bg-slate-100 font-normal"
-                    ]}
-                  >
-                    EN
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </details>
-    </header>
-  </Container>
-</div>
+  <div id="nav-panel" class="hidden lg:hidden border-t-2 border-ink bg-brand">
+    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="mx-auto max-w-(--breakpoint-xl) px-4 py-4 sm:px-5">
+      <ul class="grid gap-1.5">
+        {links.map((l) => (
+          <li>
+            <a href={to(l.path)} class="flex min-h-12 items-center justify-between rounded-xl border-2 border-ink bg-white px-4 font-display text-lg font-bold">
+              <span>{l.label}</span><span aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+        <li class="mt-1 flex items-center gap-2">
+          <a href={to("/contact")} class="btn btn-ink flex-1">{ctaLabel}</a>
+          <a href={spanishPath} hreflang="es" lang="es" class:list={["btn btn-white btn-sm", !isEn ? "ring-4 ring-ink/20" : ""]}>ES</a>
+          <a href={englishPath} hreflang="en" lang="en" class:list={["btn btn-white btn-sm", isEn ? "ring-4 ring-ink/20" : ""]}>EN</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
 <script is:inline>
   (function () {
-    // 1. Navegación móvil con <details>/<summary>
-    function setupMobileNav() {
-      const details = document.getElementById("mobile-menu-details");
-      const summary = document.getElementById("mobile-menu-summary");
-      if (!details || !summary || details.dataset.navInit === "true") return;
-      details.dataset.navInit = "true";
-
-      details.addEventListener("toggle", function () {
-        summary.setAttribute("aria-expanded", details.open ? "true" : "false");
-      });
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && details.open) {
-          details.open = false;
-          summary.setAttribute("aria-expanded", "false");
-          summary.focus();
-        }
-      });
-
-      details.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          details.open = false;
-          summary.setAttribute("aria-expanded", "false");
-        });
-      });
+    var btn = document.getElementById("nav-toggle");
+    var panel = document.getElementById("nav-panel");
+    if (!btn || !panel) return;
+    var openIcon = document.getElementById("nav-icon-open");
+    var closeIcon = document.getElementById("nav-icon-close");
+    function setOpen(open) {
+      panel.classList.toggle("hidden", !open);
+      openIcon.classList.toggle("hidden", open);
+      closeIcon.classList.toggle("hidden", !open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? btn.dataset.closeLabel : btn.dataset.openLabel);
     }
-
-    // 2. Desplegables de escritorio (Servicios y Proyectos)
-    function setupDesktopDropdowns() {
-      const dropdownConfigs = [
-        {
-          wrapId: "services-dropdown-wrap",
-          btnId: "services-dropdown-btn",
-          menuId: "services-dropdown-menu",
-        },
-        {
-          wrapId: "projects-dropdown-wrap",
-          btnId: "projects-dropdown-btn",
-          menuId: "projects-dropdown-menu",
-        },
-      ];
-
-      dropdownConfigs.forEach(function (cfg) {
-        const wrap = document.getElementById(cfg.wrapId);
-        const btn = document.getElementById(cfg.btnId);
-        const menu = document.getElementById(cfg.menuId);
-        if (!wrap || !btn || !menu || wrap.dataset.dropdownInit === "true") return;
-        wrap.dataset.dropdownInit = "true";
-
-        let closeTimer = null;
-
-        function openMenu() {
-          if (closeTimer) {
-            clearTimeout(closeTimer);
-            closeTimer = null;
-          }
-
-          // Cerrar el otro desplegable
-          dropdownConfigs.forEach(function (other) {
-            if (other.wrapId !== cfg.wrapId) {
-              const otherWrap = document.getElementById(other.wrapId);
-              const otherBtn = document.getElementById(other.btnId);
-              const otherMenu = document.getElementById(other.menuId);
-              if (otherWrap && otherBtn && otherMenu) {
-                otherWrap.removeAttribute("data-open");
-                otherBtn.setAttribute("aria-expanded", "false");
-                otherMenu.classList.add("hidden");
-                const chevron = otherBtn.querySelector(".dropdown-chevron");
-                if (chevron) chevron.classList.remove("rotate-180");
-              }
-            }
-          });
-
-          // Cerrar el selector de idioma si estuviese abierto
-          const langMenu = document.getElementById("lang-dropdown-menu");
-          const langBtn = document.getElementById("lang-dropdown-btn");
-          if (langMenu && langBtn) {
-            langMenu.classList.add("hidden");
-            langBtn.setAttribute("aria-expanded", "false");
-          }
-
-          wrap.setAttribute("data-open", "true");
-          btn.setAttribute("aria-expanded", "true");
-          menu.classList.remove("hidden");
-          const chevron = btn.querySelector(".dropdown-chevron");
-          if (chevron) chevron.classList.add("rotate-180");
-        }
-
-        function closeMenu() {
-          if (closeTimer) {
-            clearTimeout(closeTimer);
-            closeTimer = null;
-          }
-          wrap.removeAttribute("data-open");
-          btn.setAttribute("aria-expanded", "false");
-          menu.classList.add("hidden");
-          const chevron = btn.querySelector(".dropdown-chevron");
-          if (chevron) chevron.classList.remove("rotate-180");
-        }
-
-        // Clic para abrir y mantener abierto
-        btn.addEventListener("click", function (e) {
-          e.stopPropagation();
-          openMenu();
-        });
-
-        // Hover suave con margen de tiempo (evita parpadeos)
-        wrap.addEventListener("mouseenter", function () {
-          openMenu();
-        });
-
-        wrap.addEventListener("mouseleave", function () {
-          closeTimer = setTimeout(closeMenu, 150);
-        });
-
-        // Teclado Escape
-        wrap.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && wrap.getAttribute("data-open") === "true") {
-            closeMenu();
-            btn.focus();
-          }
-        });
-
-        // Cerrar al hacer clic en un enlace del desplegable
-        menu.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", function () {
-            closeMenu();
-          });
-        });
-      });
-
-      // Clic fuera para cerrar cualquier desplegable
-      document.addEventListener("click", function (e) {
-        dropdownConfigs.forEach(function (cfg) {
-          const wrap = document.getElementById(cfg.wrapId);
-          const btn = document.getElementById(cfg.btnId);
-          const menu = document.getElementById(cfg.menuId);
-          if (wrap && btn && menu && !wrap.contains(e.target)) {
-            wrap.removeAttribute("data-open");
-            btn.setAttribute("aria-expanded", "false");
-            menu.classList.add("hidden");
-            const chevron = btn.querySelector(".dropdown-chevron");
-            if (chevron) chevron.classList.remove("rotate-180");
-          }
-        });
-      });
-
-      // Escape global
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-          dropdownConfigs.forEach(function (cfg) {
-            const wrap = document.getElementById(cfg.wrapId);
-            const btn = document.getElementById(cfg.btnId);
-            const menu = document.getElementById(cfg.menuId);
-            if (wrap && btn && menu && wrap.getAttribute("data-open") === "true") {
-              wrap.removeAttribute("data-open");
-              btn.setAttribute("aria-expanded", "false");
-              menu.classList.add("hidden");
-              const chevron = btn.querySelector(".dropdown-chevron");
-              if (chevron) chevron.classList.remove("rotate-180");
-              btn.focus();
-            }
-          });
-        }
-      });
-    }
-
-    // 3. Desplegable flotante de idioma con icono de globo terráqueo
-    function setupLanguageDropdown() {
-      const btn = document.getElementById("lang-dropdown-btn");
-      const menu = document.getElementById("lang-dropdown-menu");
-      const wrapper = document.getElementById("lang-dropdown-wrapper");
-      if (!btn || !menu || !wrapper || btn.dataset.langInit === "true") return;
-      btn.dataset.langInit = "true";
-
-      function closeOtherDropdowns() {
-        ["services-dropdown-wrap", "projects-dropdown-wrap"].forEach(function (id) {
-          const wrap = document.getElementById(id);
-          if (wrap) {
-            wrap.removeAttribute("data-open");
-            const b = wrap.querySelector("button");
-            const m = wrap.querySelector('[role="menu"]');
-            if (b) {
-              b.setAttribute("aria-expanded", "false");
-              const chevron = b.querySelector(".dropdown-chevron");
-              if (chevron) chevron.classList.remove("rotate-180");
-            }
-            if (m) m.classList.add("hidden");
-          }
-        });
-      }
-
-      function openMenu() {
-        closeOtherDropdowns();
-        menu.classList.remove("hidden");
-        btn.setAttribute("aria-expanded", "true");
-      }
-
-      function closeMenu() {
-        menu.classList.add("hidden");
-        btn.setAttribute("aria-expanded", "false");
-      }
-
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        const isOpen = !menu.classList.contains("hidden");
-        if (isOpen) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-      });
-
-      document.addEventListener("click", function (e) {
-        if (!wrapper.contains(e.target)) {
-          closeMenu();
-        }
-      });
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && !menu.classList.contains("hidden")) {
-          closeMenu();
-          btn.focus();
-        }
-      });
-
-      menu.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          closeMenu();
-        });
-      });
-    }
-
-    function initNavbar() {
-      setupMobileNav();
-      setupDesktopDropdowns();
-      setupLanguageDropdown();
-    }
-
-    // 4. Inicialización
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initNavbar);
-    } else {
-      initNavbar();
-    }
-    document.addEventListener("astro:page-load", initNavbar);
-
-    // 5. Borde reactivo al scroll
-    const navWrap = document.getElementById("site-navbar-wrap");
-    if (navWrap) {
-      const isHome =
-        window.location.pathname === "/" ||
-        window.location.pathname === "/en" ||
-        window.location.pathname === "/en/";
-      if (!isHome) {
-        navWrap.setAttribute("data-scrolled", "true");
-      } else {
-        const updateNavBorder = () => {
-          if (window.scrollY > 15) {
-            navWrap.setAttribute("data-scrolled", "true");
-          } else {
-            navWrap.removeAttribute("data-scrolled");
-          }
-        };
-        window.addEventListener("scroll", updateNavBorder, { passive: true });
-        updateNavBorder();
-      }
-    }
+    btn.addEventListener("click", function () { setOpen(btn.getAttribute("aria-expanded") !== "true"); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    panel.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
   })();
 </script>
-
-<style>
-  #site-navbar-wrap {
-    transition: background-color 220ms cubic-bezier(0.16, 1, 0.3, 1), border-color 220ms ease, box-shadow 220ms ease;
-  }
-  #site-navbar-wrap.hero-intro-dark {
-    background-color: #09090b !important;
-    border-color: transparent !important;
-  }
-  #site-navbar-wrap.hero-intro-dark .site-brand-name,
-  #site-navbar-wrap.hero-intro-dark .site-brand-name span {
-    color: #ffffff !important;
-  }
-  #site-navbar-wrap.hero-intro-dark nav a,
-  #site-navbar-wrap.hero-intro-dark nav button,
-  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn,
-  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn span,
-  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn svg {
-    color: #f1f5f9 !important;
-  }
-  #site-navbar-wrap.hero-intro-dark nav a:hover,
-  #site-navbar-wrap.hero-intro-dark nav button:hover,
-  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn:hover,
-  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn:hover span,
-  #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn:hover svg {
-    color: #ffffff !important;
-  }
-  #site-navbar-wrap.hero-intro-dark #mobile-menu-summary {
-    background-color: #18181b !important;
-    border-color: #27272a !important;
-    color: #f4f4f5 !important;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    #site-navbar-wrap.hero-intro-dark {
-      background-color: #ffffff !important;
-    }
-    #site-navbar-wrap.hero-intro-dark .site-brand-name,
-    #site-navbar-wrap.hero-intro-dark .site-brand-name span {
-      color: #0f172a !important;
-    }
-    #site-navbar-wrap.hero-intro-dark nav a,
-    #site-navbar-wrap.hero-intro-dark nav button,
-    #site-navbar-wrap.hero-intro-dark #lang-dropdown-btn {
-      color: #475569 !important;
-    }
-    #site-navbar-wrap.hero-intro-dark #mobile-menu-summary {
-      background-color: #ffffff !important;
-      border-color: #e2e8f0 !important;
-      color: #1e293b !important;
-    }
-  }
-</style>

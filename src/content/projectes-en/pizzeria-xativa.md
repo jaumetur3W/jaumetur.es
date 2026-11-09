@@ -16,7 +16,7 @@ liveUrl: "https://jaumetur3w.github.io/pizzeria_xativa/"
 stack: ["HTML5", "Tailwind CSS CDN", "Vanilla JavaScript", "WhatsApp Deep Links", "Apple Wallet / Google Wallet UI"]
 order: 2
 image: {
-  src: "/img/foto_pizza.png",
+  src: "/img/foto_pizza.webp",
   alt: "Artisan pizza featured in Pizzeria Xàtiva demo"
 }
 ---

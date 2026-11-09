@@ -16,7 +16,7 @@ liveUrl: "https://jaumetur3w.github.io/burger_xativa/"
 stack: ["Astro", "Static HTML", "Tailwind CSS", "Vanilla JavaScript", "Responsive Design"]
 order: 3
 image: {
-  src: "/img/foto_burger.png",
+  src: "/img/foto_burger.webp",
   alt: "Gourmet burger featured in Burger Xàtiva demo"
 }
 ---

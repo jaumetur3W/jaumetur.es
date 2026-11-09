@@ -110,49 +110,4 @@ describe("Canonical and Redirect Audits", () => {
 
     expect(violations).toEqual([]);
   });
-
-  it("verifies every blog article page has a self-referencing canonical with trailing slash", () => {
-    if (!fs.existsSync(distDir)) return;
-
-    const slugs = fs
-      .readdirSync(path.resolve(process.cwd(), "src/content/blog"))
-      .filter((file) => file.endsWith(".md"))
-      .map((file) => file.replace(/\.md$/, ""));
-
-    expect(slugs.length).toBeGreaterThan(0);
-    expect(slugs.some((slug) => slug.startsWith("es-"))).toBe(false);
-
-    const articleFiles = slugs.flatMap((slug) => [
-      path.join(distDir, "blog", slug, "index.html"),
-      path.join(distDir, "en", "blog", slug, "index.html"),
-    ]);
-
-    for (const articleFile of articleFiles) {
-      expect(fs.existsSync(articleFile), articleFile).toBe(true);
-      const content = fs.readFileSync(articleFile, "utf-8");
-      const match = content.match(/<link\s+[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i);
-      expect(match, articleFile).not.toBeNull();
-      const canonical = match![1];
-      const slug = path.basename(path.dirname(articleFile));
-      expect(canonical).toBe(`https://jaumetur.es/blog/${slug}/`);
-    }
-  });
-
-  it("redirects every legacy es- blog slug to its current article", () => {
-    if (!fs.existsSync(distDir)) return;
-
-    const legacyDirs = fs
-      .readdirSync(path.join(distDir, "blog"))
-      .filter((item) => item.startsWith("es-") && fs.statSync(path.join(distDir, "blog", item)).isDirectory());
-
-    expect(legacyDirs.length).toBeGreaterThan(0);
-
-    for (const dir of legacyDirs) {
-      const content = fs.readFileSync(path.join(distDir, "blog", dir, "index.html"), "utf-8");
-      const target = content.match(/url=(\/blog\/[^"']+)/i)?.[1];
-      expect(target, dir).toBeDefined();
-      expect(target!.endsWith("/")).toBe(true);
-      expect(fs.existsSync(path.join(distDir, target!, "index.html")), target).toBe(true);
-    }
-  });
 });

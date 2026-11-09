@@ -1,22 +1,24 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout.astro";
 import { servicesData, getLocalizedService, type ServicePackage } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
-const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+const to = (path: string) => {
+  const p = localizePath(path, isEn ? "en" : "es");
+  return p === "/" || p.endsWith("/") ? p : `${p}/`;
+};
 
 export async function getStaticPaths() {
-  return servicesData.map((service, index) => {
-    const prev = index > 0 ? servicesData[index - 1] : servicesData[servicesData.length - 1];
-    const next = index < servicesData.length - 1 ? servicesData[index + 1] : servicesData[0];
-    return {
-      params: { slug: service.id },
-      props: { service, prev, next },
-    };
-  });
+  return servicesData.map((service, index) => ({
+    params: { slug: service.id },
+    props: {
+      service,
+      prev: servicesData[(index - 1 + servicesData.length) % servicesData.length],
+      next: servicesData[(index + 1) % servicesData.length],
+    },
+  }));
 }
 
 interface Props {
@@ -26,434 +28,184 @@ interface Props {
 }
 
 const { service, prev, next } = Astro.props;
-const serviceCopy = getLocalizedService(service, isEn ? "en" : "es");
-const previousCopy = getLocalizedService(prev, isEn ? "en" : "es");
-const nextCopy = getLocalizedService(next, isEn ? "en" : "es");
+const loc = isEn ? "en" : "es";
+const s = getLocalizedService(service, loc);
+const p = getLocalizedService(prev, loc);
+const n = getLocalizedService(next, loc);
+const monthly = (v: number) => (isEn ? `€${v}/month` : `${v} €/mes`);
+const euro = (v: number) => (isEn ? `€${v.toLocaleString("en-US")}` : `${v.toLocaleString("es-ES")} €`);
+const siteUrl = "https://jaumetur.es";
 
-// JSON-LD Service Schema
-const schemaData = {
+const t = isEn
+  ? {
+      home: "Home", services: "Services & pricing", from: "From", deliver: "Delivery", firstYear: "First year",
+      forWho: "Ideal for", includes: "What's included", why: "Where the price comes from", creation: "Creation price covers",
+      maint: "Monthly fee covers", commit: "Why a one-year commitment", worth: "How it pays off",
+      worthNote: "Results depend on each business; these are the ways the investment can pay off.",
+      compare: "How it compares with the alternatives", price: "Price", maintenance: "Maintenance", hidden: "Hidden costs", ownership: "Ownership",
+      request: "Request this plan", other: "Other plans", prev: "Previous", next: "Next", ctaTitle: "Shall we talk about it?",
+      ctaText: "Tell me about your project and I'll confirm scope, price and timeline.",
+      title: `${s.name} — pricing and what's included`,
+      desc: `${s.tagline} From ${euro(service.creationPriceNumber)} + ${monthly(service.monthlyFeeNumber)}. See what's included and how it compares.`,
+    }
+  : {
+      home: "Inicio", services: "Servicios y precios", from: "Desde", deliver: "Entrega", firstYear: "Primer año",
+      forWho: "Ideal para", includes: "Qué incluye", why: "De dónde sale el precio", creation: "El precio de creación cubre",
+      maint: "La cuota mensual cubre", commit: "Por qué una permanencia de un año", worth: "Cómo se amortiza",
+      worthNote: "Los resultados dependen de cada negocio; estas son las vías por las que la inversión puede amortizarse.",
+      compare: "Comparativa con las alternativas", price: "Precio", maintenance: "Mantenimiento", hidden: "Costes ocultos", ownership: "Propiedad",
+      request: "Solicitar este plan", other: "Otros planes", prev: "Anterior", next: "Siguiente", ctaTitle: "¿Lo hablamos?",
+      ctaText: "Cuéntame tu proyecto y te confirmo alcance, precio y plazo.",
+      title: `${s.name} — precio y qué incluye`,
+      desc: `${s.tagline} Desde ${euro(service.creationPriceNumber)} + ${monthly(service.monthlyFeeNumber)}. Qué incluye y cómo se compara.`,
+    };
+
+const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": serviceCopy.name,
-  "description": serviceCopy.description,
-  "provider": {
-    "@type": "Person",
-    "name": "Jaume Tur",
-    "url": "https://jaumetur.es",
-  },
+  "name": s.name,
+  "description": s.description,
+  "provider": { "@id": `${siteUrl}/#service` },
+  "areaServed": ["Xàtiva", "València", "España"],
+  "audience": { "@type": "Audience", "audienceType": s.targetAudience },
   "offers": {
     "@type": "Offer",
     "price": service.creationPriceNumber,
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStock",
-    "description": isEn
-      ? `Creation price ${serviceCopy.creationPrice} plus monthly maintenance of ${service.monthlyFee} (one year minimum).`
-      : `Precio de creación ${serviceCopy.creationPrice} más mantenimiento mensual de ${service.monthlyFee} (mínimo un año).`,
+    "url": `${siteUrl}${to(`/pricing/${service.id}`)}`,
+    "description": `${s.creationPrice} + ${monthly(service.monthlyFeeNumber)}`,
   },
-  "url": `https://jaumetur.es/pricing/${service.id}`,
 };
-
-const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
-const breadcrumbSchema = {
+const breadcrumb = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": isEn ? "Home" : "Inicio",
-      "item": new URL(href("/"), siteUrl).toString(),
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": isEn ? "Services & Pricing" : "Servicios y precios",
-      "item": new URL(href("/pricing"), siteUrl).toString(),
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": serviceCopy.name,
-      "item": new URL(Astro.url.pathname, siteUrl).toString(),
-    },
+    { "@type": "ListItem", "position": 1, "name": t.home, "item": `${siteUrl}${to("/")}` },
+    { "@type": "ListItem", "position": 2, "name": t.services, "item": `${siteUrl}${to("/pricing")}` },
+    { "@type": "ListItem", "position": 3, "name": s.name, "item": `${siteUrl}${to(`/pricing/${service.id}`)}` },
   ],
 };
 ---
 
-<Layout
-  title={`${serviceCopy.name} — ${isEn ? "Pricing, market comparison & ROI" : "Precio, comparativa y amortización"}`}
-  description={isEn ? `Discover pricing for ${serviceCopy.name}, comparison with alternative solutions, and expected return on investment.` : `Descubre el precio de ${serviceCopy.name}, la comparativa con WordPress o Wix y cómo se amortiza.`}
->
-  <!-- Schema JSON-LD -->
-  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-
-  <Container>
-    <!-- Ruta de navegació / Breadcrumbs -->
-    <nav aria-label={isEn ? "Breadcrumb navigation" : "Ruta de navegación"} class="pt-8 pb-4 text-xs font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-      <a href={href("/")} class="hover:text-slate-950 transition-colors">{isEn ? "Home" : "Inicio"}</a>
-      <span class="text-slate-400" aria-hidden="true">/</span>
-      <a href={href("/pricing")} class="hover:text-slate-950 transition-colors">{isEn ? "Services & Pricing" : "Servicios y precios"}</a>
-      <span class="text-slate-400" aria-hidden="true">/</span>
-      <span class="text-slate-950 font-semibold">{serviceCopy.name}</span>
-    </nav>
-
-    <!-- Hero de l'Oferta -->
-    <header class="py-8 md:py-12 border-b border-slate-200/80">
-      <div class="flex items-center gap-2.5 mb-4">
-        <span class={`text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border shadow-2xs ${service.badgeColor}`}>
-          {serviceCopy.badge}
-        </span>
-        <span class="text-xs font-mono text-slate-500">
-          {isEn ? "Delivery timeline:" : "Plazo de entrega:"} <strong class="text-slate-800">{serviceCopy.timeline}</strong>
-        </span>
-      </div>
-
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-light text-slate-950 tracking-tight leading-[1.15] mb-4">
-        {serviceCopy.name}
-      </h1>
-
-      <p class="text-base sm:text-lg text-slate-600 font-light max-w-3xl leading-relaxed mb-8">
-        {serviceCopy.tagline}
-      </p>
-
-      <!-- Caixa Destacada de Preu & Amortització Ràpida -->
-      <div class="grid lg:grid-cols-12 gap-6 bg-slate-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-900">
-        <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
-          <div>
-            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
-              {isEn ? "Transparent engagement model" : "Modelo de contratación transparente"}
-            </span>
-            <div class="flex items-baseline gap-3 flex-wrap">
-              <span class="text-3xl sm:text-4xl font-light text-white font-mono">
-                {serviceCopy.creationPrice}
-              </span>
-              <span class="text-xl sm:text-2xl font-bold text-[#FFFF00] font-mono">
-                + {service.monthlyFee}
-              </span>
-              <span class="text-xs text-slate-400 font-mono">
-                {isEn ? "(prices excl. VAT · maintenance included · 1-year minimum commitment)" : "(precios sin IVA · mantenimiento incluido · permanencia mínima de un año)"}
-              </span>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs sm:text-sm text-slate-300 space-y-1.5 leading-relaxed font-light">
-            <div class="flex items-center gap-2 font-mono font-semibold text-[#FFFF00]">
-              <Icon name="bx:trending-up" class="w-4 h-4 shrink-0" />
-              <span>{isEn ? "Return on investment (ROI):" : "Retorno de la inversión:"} {serviceCopy.amortizationSummary}</span>
-            </div>
-            <p class="text-slate-400 text-xs font-mono">
-              {isEn ? "Total 1st-year investment:" : "Inversión total del primer año:"} <strong class="text-white font-bold">{serviceCopy.annualTotal}</strong> ({serviceCopy.dailyCostEquivalent}).
-            </p>
-          </div>
+<Layout fresh title={t.title} description={t.desc} jsonLd={[serviceSchema, breadcrumb]}>
+  <section class="border-b-2 border-ink bg-brand px-4 pb-14 pt-8 sm:px-5">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 font-mono text-xs font-bold">
+        <a href={to("/")} class="underline underline-offset-4 hover:no-underline">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/pricing")} class="underline underline-offset-4 hover:no-underline">{t.services}</a><span aria-hidden="true">/</span>
+        <span aria-current="page">{s.name}</span>
+      </nav>
+      <div class="mt-10 grid items-end gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-7">
+          <span class="chip bg-ink! text-brand"><Icon name={s.icon} class="h-4 w-4" />{s.badge}</span>
+          <h1 class="display mt-5 text-[clamp(2.2rem,5.5vw,4.25rem)]">{s.name}</h1>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/85">{s.description}</p>
         </div>
-
-        <div class="lg:col-span-5 flex flex-col justify-center sm:items-end gap-3 pt-4 lg:pt-0 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-6">
-          <a
-            href={`${href("/contact")}/?servei=${service.id}`}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-slate-950 bg-[#FFFF00] hover:bg-[#f2d900] border border-slate-950 shadow-2xs hover:shadow-md transition-all text-center"
-          >
-            <Icon name="bx:rocket" class="w-4 h-4" />
-            <span>{serviceCopy.ctaText}</span>
-          </a>
-          <span class="text-[11px] text-slate-400 font-mono text-center sm:text-right">
-            {isEn ? "Zero hidden fees or proprietary licensing" : "Sin sorpresas ni licencias ocultas"}
-          </span>
+        <div class="on-dark card bg-ink p-7 text-white lg:col-span-5">
+          <p class="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand">{t.from}</p>
+          <p class="display mt-1 text-6xl text-brand sm:text-7xl">{euro(service.creationPriceNumber)}</p>
+          <p class="mt-2 text-lg">+ {monthly(service.monthlyFeeNumber)}</p>
+          <p class="mt-4 text-sm text-white/80"><strong class="text-white">{t.deliver}:</strong> {s.timeline}</p>
+          <p class="mt-1 text-sm text-white/80"><strong class="text-white">{t.firstYear}:</strong> {s.annualTotal}</p>
+          <a href={to("/contact")} class="btn btn-brand mt-6 w-full">{s.ctaText}</a>
         </div>
       </div>
+    </div>
+  </section>
 
-      {service.id === "digitalitzacio-local" && (
-        <div class="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shrink-0 text-slate-950 font-bold">
-              <Icon name="bx:restaurant" class="w-5 h-5" />
-            </div>
-            <div>
-              <strong class="text-slate-950 font-semibold block">{isEn ? "Hands-on Showcase: Pizzeria in Xàtiva" : "Demostración práctica: Pizzería en Xàtiva"}</strong>
-              <span class="text-slate-600 font-light text-xs">{isEn ? "Discover how replacing slow PDF downloads with an instant 85 KB web menu boosts diner retention." : "Descubre cómo sustituir los PDF pesados por una carta web interactiva de solo 85 KB."}</span>
-            </div>
-          </div>
-          <a
-            href={href("/projectes/pizzeria-xativa")}
-            class="shrink-0 inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-slate-950 bg-white hover:border-slate-950 border border-slate-200 px-3.5 py-2 rounded-xl transition shadow-2xs"
-          >
-            <span>{isEn ? "View demo case study" : "Ver el caso de estudio de la demo"}</span>
-            <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
-          </a>
-        </div>
-      )}
-    </header>
-
-    <!-- SECCIÓ 1: PER QUÈ AQUEST PREU? (Desglossament de cada euro) -->
-    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="why-price-heading">
-      <div class="max-w-3xl mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-slate-100 text-slate-800 border border-slate-200 mb-3">
-          <Icon name="bx:coin-stack" class="w-4 h-4" />
-          <span>{isEn ? "Total Transparency" : "Transparencia radical"}</span>
-        </div>
-        <h2 id="why-price-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
-          {isEn ? "The rationale behind my pricing: what are you paying for?" : "El motivo de cada precio: ¿qué estás pagando exactamente?"}
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
-          {isEn ? "Far from inflated agency retainers or opaque templates, every fee represents hands-on engineering, clean code, and operational peace of mind." : "Lejos de tarifas infladas o precios opacos de agencia, cada euro responde a horas de ingeniería, código útil y tranquilidad técnica."}
-        </p>
+  <section class="px-4 py-16 sm:px-5 sm:py-24">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <h2 class="display text-[clamp(1.8rem,4vw,3rem)]">{t.includes}</h2>
+        <ul class="mt-6 space-y-3">
+          {s.features.map((f) => (
+            <li class="card flex gap-3 p-4 shadow-[3px_3px_0_#0b0b0f]! leading-snug">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold ring-2 ring-ink" aria-hidden="true">✓</span>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
       </div>
+      <aside class="lg:col-span-5">
+        <div class="card bg-sand p-7">
+          <h2 class="font-display text-2xl font-extrabold">{t.forWho}</h2>
+          <p class="mt-3 leading-relaxed">{s.targetAudience}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Entrada / Creació -->
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-2xs hover:border-slate-950 transition-colors">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600">{isEn ? "Upfront fee" : "Cuota inicial"}</span>
-            <span class="text-xl font-bold font-mono text-slate-950">{serviceCopy.creationPrice}</span>
-          </div>
-          <h3 class="text-lg font-light text-slate-950 mb-2">
-            {isEn ? "What upfront creation covers:" : "Qué incluye la creación inicial:"}
-          </h3>
-          <p class="text-xs text-slate-500 font-light mb-5 leading-relaxed">
-            {isEn ? "I architect and develop clean software from scratch, with zero purchased template bloat and zero superfluous dependencies." : "Diseño y desarrollo una arquitectura limpia desde cero, sin cargar plantillas compradas ni miles de líneas de JavaScript innecesarias."}
-          </p>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700 font-light">
-            {serviceCopy.whyThisPrice.creationBreakdown.map((item) => (
-              <li class="flex items-start gap-2.5">
-                <Icon name="bx:check-circle" class="w-4 h-4 text-slate-950 shrink-0 mt-0.5" />
-                <span>{item}</span>
-              </li>
-            ))}
+  <section class="border-y-2 border-ink bg-sand px-4 py-16 sm:px-5 sm:py-24">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <h2 class="display text-[clamp(1.8rem,4vw,3rem)]">{t.why}</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <div class="card bg-white p-6">
+          <h3 class="font-display text-xl font-extrabold">{t.creation}</h3>
+          <ul class="mt-4 space-y-2 text-[0.95rem] leading-relaxed">
+            {s.whyThisPrice.creationBreakdown.map((x) => <li class="flex gap-2"><span aria-hidden="true">▸</span><span>{x}</span></li>)}
           </ul>
         </div>
-
-        <!-- Mensualitat -->
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-2xs hover:border-slate-950 transition-colors">
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600">{isEn ? "Monthly fee" : "Cuota mensual"}</span>
-            <span class="text-xl font-bold font-mono text-slate-950">+{service.monthlyFee}</span>
-          </div>
-          <h3 class="text-lg font-light text-slate-950 mb-2">
-            {isEn ? "What ongoing maintenance covers:" : "Qué incluye el mantenimiento continuo:"}
-          </h3>
-          <p class="text-xs text-slate-500 font-light mb-5 leading-relaxed">
-            {isEn ? "A digital product is not abandoned on launch day. Active preventative maintenance ensures your site never suffers downtime or security exploits." : "Una web no se abandona el día que se publica. El mantenimiento es activo y preventivo para que no pierdas clientes por caídas o vulnerabilidades."}
-          </p>
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-700 font-light">
-            {serviceCopy.whyThisPrice.monthlyBreakdown.map((item) => (
-              <li class="flex items-start gap-2.5">
-                <Icon name="bx:shield-quarter" class="w-4 h-4 text-slate-950 shrink-0 mt-0.5" />
-                <span>{item}</span>
-              </li>
-            ))}
+        <div class="card bg-white p-6">
+          <h3 class="font-display text-xl font-extrabold">{t.maint}</h3>
+          <ul class="mt-4 space-y-2 text-[0.95rem] leading-relaxed">
+            {s.whyThisPrice.monthlyBreakdown.map((x) => <li class="flex gap-2"><span aria-hidden="true">▸</span><span>{x}</span></li>)}
           </ul>
         </div>
       </div>
-
-      <!-- Raó de la Permanència de 1 Any -->
-      <div class="mt-8 p-6 rounded-3xl bg-slate-50 border border-slate-200/90 flex items-start gap-4">
-        <div class="w-10 h-10 rounded-2xl bg-[#FFFF00] border border-slate-950/20 flex items-center justify-center shrink-0 text-slate-950">
-          <Icon name="bx:lock-alt" class="w-5 h-5" />
-        </div>
-        <div class="text-xs sm:text-sm text-slate-700 leading-relaxed font-light">
-          <h4 class="font-semibold text-sm sm:text-base text-slate-950 mb-1">
-            {isEn ? "Why is there a minimum 1-year commitment?" : "¿Por qué se establece una permanencia mínima de un año?"}
-          </h4>
-          <p>
-            {serviceCopy.whyThisPrice.whyCommitmentOneYear}
-          </p>
-        </div>
+      <div class="card mt-6 bg-brand p-6">
+        <h3 class="font-display text-xl font-extrabold">{t.commit}</h3>
+        <p class="mt-2 leading-relaxed">{s.whyThisPrice.whyCommitmentOneYear}</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECCIÓ 2: COM S'AMORTITZA FÀCILMENT? (Retorn de la Inversió / ROI) -->
-    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="amortization-heading">
-      <div class="max-w-3xl mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-slate-100 text-slate-800 border border-slate-200 mb-3">
-          <Icon name="bx:line-chart" class="w-4 h-4" />
-          <span>{isEn ? "Return on Investment (ROI)" : "Retorno de la inversión (ROI)"}</span>
-        </div>
-        <h2 id="amortization-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
-          {isEn ? "How this investment easily pays for itself within months:" : "¿Cómo se amortiza fácilmente este precio en pocos meses?"}
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
-          {isEn ? "A digital product should never be a sunk cost; it is an income-generating business asset from day one. Here are the realistic metrics:" : "Una página web o aplicación no debe ser un gasto a fondo perdido, sino un activo que genera rendimiento económico desde el primer día. Veamos las cifras:"}
-        </p>
-      </div>
+  <section class="px-4 py-16 sm:px-5 sm:py-24">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <h2 class="display text-[clamp(1.8rem,4vw,3rem)]">{t.worth}</h2>
+      <p class="mt-4 max-w-2xl text-ink/75">{t.worthNote}</p>
+      <p class="mt-4 text-lg font-bold">{s.amortizationSummary}</p>
+      <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+        {s.amortizationPoints.map((a) => (
+          <li class="card p-6">
+            <p class="chip chip-brand">{a.metric}</p>
+            <h3 class="mt-3 font-display text-xl font-extrabold leading-snug">{a.title}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-ink/80">{a.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
-      <!-- Graella de punts d'amortització -->
-      <div class="grid sm:grid-cols-2 gap-6 mb-10">
-        {serviceCopy.amortizationPoints.map((point) => (
-          <div class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-7 shadow-2xs hover:border-slate-950 transition-colors">
-            <div class="inline-block px-3 py-1 rounded-xl bg-slate-100 text-slate-900 font-mono font-semibold text-xs sm:text-sm mb-3 border border-slate-200">
-              {point.metric}
-            </div>
-            <h3 class="text-base sm:text-lg font-light text-slate-950 mb-2">
-              {point.title}
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
-              {point.description}
-            </p>
-          </div>
+  <section class="border-y-2 border-ink bg-sand px-4 py-16 sm:px-5 sm:py-24">
+    <div class="mx-auto max-w-(--breakpoint-xl)">
+      <h2 class="display text-[clamp(1.8rem,4vw,3rem)]">{t.compare}</h2>
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        {s.marketComparison.map((m, i) => (
+          <article class:list={["card p-6", i === 0 ? "bg-brand" : "bg-white"]}>
+            <h3 class="font-display text-xl font-extrabold leading-snug">{m.name}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed">{m.summary}</p>
+            <dl class="mt-4 space-y-1.5 border-t-2 border-ink pt-4 text-sm">
+              <div><dt class="inline font-bold">{t.price}:</dt> <dd class="inline">{m.priceRange}</dd></div>
+              <div><dt class="inline font-bold">{t.maintenance}:</dt> <dd class="inline">{m.maintenanceCost}</dd></div>
+              <div><dt class="inline font-bold">{t.hidden}:</dt> <dd class="inline">{m.hiddenCosts}</dd></div>
+              <div><dt class="inline font-bold">{t.ownership}:</dt> <dd class="inline">{m.codeOwnership}</dd></div>
+            </dl>
+          </article>
         ))}
       </div>
+    </div>
+  </section>
 
-      <!-- Exemple Numèric d'Amortització -->
-      <div class="p-6 sm:p-8 rounded-3xl bg-slate-950 text-white shadow-xl border border-slate-900">
-        <h3 class="text-lg sm:text-xl font-light mb-4 flex items-center gap-2">
-          <Icon name="bx:calculator" class="w-5 h-5 text-[#FFFF00]" />
-          <span>{isEn ? "Realistic Amortization Financial Simulation" : "Simulación económica de amortización real"}</span>
-        </h3>
-        <div class="grid sm:grid-cols-3 gap-6 pt-4 border-t border-slate-800 font-mono text-xs sm:text-sm">
-          <div>
-            <span class="text-slate-400 text-xs uppercase block mb-1">{isEn ? "Total 1st year cost" : "Coste total del primer año"}</span>
-            <span class="text-xl sm:text-2xl font-light text-white block">{serviceCopy.annualTotal.split('(')[0]}</span>
-            <span class="text-slate-400 text-[11px] mt-1 block">{isEn ? "Creation + 12 maintenance installments" : "Creación + 12 cuotas de mantenimiento"}</span>
-          </div>
-          <div>
-            <span class="text-slate-400 text-xs uppercase block mb-1">{isEn ? "Daily cost equivalent" : "Coste diario equivalente"}</span>
-            <span class="text-xl sm:text-2xl font-bold text-[#FFFF00] block">{serviceCopy.dailyCostEquivalent.split('(')[0]}</span>
-            <span class="text-slate-400 text-[11px] mt-1 block">{isEn ? "Less than a cup of coffee per day" : "Menos que el coste de un café al día"}</span>
-          </div>
-          <div>
-            <span class="text-slate-400 text-xs uppercase block mb-1">{isEn ? "Break-even point" : "Punto de equilibrio (break-even)"}</span>
-            <span class="text-xl sm:text-2xl font-bold text-emerald-400 block">{isEn ? "1st Quarter" : "1.er trimestre"}</span>
-            <span class="text-slate-400 text-[11px] mt-1 block">{isEn ? "With minimum new client acquisition" : "Con la captación mínima de nuevos clientes"}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓ 3: COMPARATIVA AMB EL MERCAT (Comparem amb altres opcions) -->
-    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="comparison-heading">
-      <div class="max-w-3xl mb-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20 mb-3">
-          <Icon name="bx:git-compare" class="w-4 h-4" />
-          <span>{isEn ? "Market Comparison" : "Comparativa de mercado"}</span>
-        </div>
-        <h2 id="comparison-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
-          {isEn ? "How does my proposal compare to market alternatives?" : "¿Cómo se compara mi propuesta con otras alternativas?"}
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
-          {isEn ? "Compare my high-speed, custom architecture with traditional WordPress agencies, generic SaaS site builders (Wix/Squarespace), or untested freelancers." : "Compara mi modelo con el de una agencia tradicional de WordPress, plataformas cerradas de suscripción (Wix/Squarespace) o la contratación de profesionales independientes sin garantías."}
-        </p>
-      </div>
-
-      {(
-        <>
-          <!-- Taula Comparativa per a Escriptori -->
-          <div class="hidden lg:block overflow-x-auto rounded-3xl border border-slate-200 shadow-2xs mb-8">
-            <table class="w-full text-left border-collapse text-xs">
-              <thead>
-                <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-mono uppercase text-[11px]">
-                  <th class="p-4 font-bold">{isEn ? "Market option" : "Opción de mercado"}</th>
-                  <th class="p-4 font-bold">{isEn ? "Initial investment" : "Inversión inicial"}</th>
-                  <th class="p-4 font-bold">{isEn ? "Speed / Lighthouse" : "Velocidad / Lighthouse"}</th>
-                  <th class="p-4 font-bold">{isEn ? "Monthly maintenance" : "Mantenimiento mensual"}</th>
-                  <th class="p-4 font-bold">{isEn ? "Hidden costs" : "Costes ocultos"}</th>
-                  <th class="p-4 font-bold">{isEn ? "Code ownership" : "Propiedad del código"}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200">
-                {serviceCopy.marketComparison.map((alt, idx) => (
-                  <tr class={idx === 0 ? "bg-yellow-50/60 font-medium" : "bg-white hover:bg-slate-50/70"}>
-                    <td class="p-4">
-                      <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                        {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-slate-950 fill-slate-950" />}
-                        <span>{alt.name}</span>
-                      </div>
-                      <span class="text-[11px] text-slate-500 mt-0.5 block">{alt.summary}</span>
-                    </td>
-                    <td class="p-4 font-mono font-bold text-slate-900">{alt.priceRange}</td>
-                    <td class="p-4 font-mono">
-                      <span class={idx === 0 ? "text-emerald-700 font-bold" : "text-slate-600"}>{alt.speedLighthouse}</span>
-                    </td>
-                    <td class="p-4 font-mono text-slate-700">{alt.maintenanceCost}</td>
-                    <td class="p-4 text-slate-600 font-light">{alt.hiddenCosts}</td>
-                    <td class="p-4 text-slate-700">{alt.codeOwnership}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Targetes Comparatives per a Mòbil i Tablet -->
-          <div class="lg:hidden space-y-4">
-            {serviceCopy.marketComparison.map((alt, idx) => (
-              <div class={`rounded-2xl p-5 border ${idx === 0 ? "bg-slate-50 border-slate-950 shadow-2xs" : "bg-white border-slate-200"}`}>
-                <div class="flex items-center justify-between gap-2 mb-2">
-                  <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                    {idx === 0 && <Icon name="bx:star" class="w-4 h-4 text-slate-950" />}
-                    <span>{alt.name}</span>
-                  </h3>
-                  <span class="font-mono text-xs font-bold text-slate-950">{alt.priceRange}</span>
-                </div>
-                <p class="text-xs text-slate-600 font-light mb-3 leading-relaxed">{alt.summary}</p>
-                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono border-t border-slate-200/60 pt-2.5">
-                  <div><span class="text-slate-600 block">{isEn ? "Speed:" : "Velocidad:"}</span><span class={idx === 0 ? "text-emerald-700 font-bold" : "text-slate-700"}>{alt.speedLighthouse}</span></div>
-                  <div><span class="text-slate-600 block">{isEn ? "Maintenance:" : "Mantenimiento:"}</span><span class="text-slate-700">{alt.maintenanceCost}</span></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </section>
-
-    <!-- SECCIÓ 4: QUÈ INCLOU EXACTAMENT (Garanties de Lliurament) -->
-    <section class="py-12 md:py-16 border-b border-slate-200/80" aria-labelledby="features-heading">
-      <div class="max-w-3xl mb-8">
-        <h2 id="features-heading" class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
-          {isEn ? "Technical Deliverables & Guarantees Included" : "Entregables técnicos y garantías incluidas"}
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600 font-light mt-2 leading-relaxed">
-          {isEn ? "Every project is finalized with auditable performance verification and 100% intellectual property ownership." : "Todos los proyectos se entregan con verificación de métricas y propiedad total para ti."}
-        </p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        {serviceCopy.features.map((feat) => (
-          <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-950 transition-colors">
-            <Icon name="bx:check-circle" class="w-5 h-5 text-slate-950 shrink-0 mt-0.5" />
-            <span class="text-xs sm:text-sm text-slate-700 font-light">{feat}</span>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- Call To Action Final -->
-    <section class="py-12 md:py-16 text-center">
-      <div class="max-w-2xl mx-auto space-y-6">
-        <h2 class="text-2xl sm:text-3xl font-light text-slate-950 tracking-tight">
-          {isEn ? "Ready to launch your project with rock-solid engineering?" : "¿Preparado para impulsar tu proyecto con una base técnica sólida?"}
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600 font-light leading-relaxed">
-          {isEn ? "Start with a low-upfront, continuous maintenance model. Zero hidden terms, clear documentation, and complete source code ownership." : "Empieza con un modelo de baja inversión inicial y mantenimiento continuo. Sin letra pequeña, con documentación clara y el código fuente en tu propiedad."}
-        </p>
-        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a
-            href={`${href("/contact")}/?servei=${service.id}`}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-slate-950 bg-[#FFFF00] hover:bg-[#f2d900] border border-slate-950 shadow-2xs hover:shadow-md transition-all"
-          >
-            <Icon name="bx:send" class="w-4 h-4" />
-            <span>{isEn ? "Request" : "Solicitar"} {serviceCopy.name}</span>
-          </a>
-          <a
-            href={href("/pricing")}
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-mono text-xs font-semibold text-slate-800 hover:text-slate-950 bg-white hover:border-slate-950 border border-slate-200 shadow-2xs transition-all"
-          >
-            <Icon name="bx:arrow-back" class="w-4 h-4" />
-            <span>{isEn ? "All Services" : "Todos los servicios"}</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Enllaços a l'anterior i següent paquet -->
-    <nav aria-label={isEn ? "Navigation between services" : "Navegación entre servicios"} class="py-8 border-t border-slate-200/80 flex items-center justify-between text-xs font-mono text-slate-500">
-      <a href={href(`/pricing/${prev.id}`)} class="hover:text-slate-950 flex items-center gap-1.5 transition-colors">
-        <Icon name="bx:left-arrow-alt" class="w-4 h-4" />
-        <span>{previousCopy.name}</span>
-      </a>
-      <a href={href(`/pricing/${next.id}`)} class="hover:text-slate-950 flex items-center gap-1.5 transition-colors">
-        <span>{nextCopy.name}</span>
-        <Icon name="bx:right-arrow-alt" class="w-4 h-4" />
-      </a>
+  <section class="bg-brand px-4 py-16 text-center sm:px-5 sm:py-24">
+    <h2 class="display mx-auto max-w-3xl text-[clamp(2rem,5.5vw,4rem)]">{t.ctaTitle}</h2>
+    <p class="mx-auto mt-5 max-w-xl text-lg text-ink/85">{t.ctaText}</p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+      <a href={to("/contact")} class="btn btn-ink">{s.ctaText} <span aria-hidden="true">→</span></a>
+    </div>
+    <nav aria-label={t.other} class="mx-auto mt-12 grid max-w-3xl gap-4 text-left sm:grid-cols-2">
+      <a href={to(`/pricing/${prev.id}`)} class="card bg-white p-5"><span class="font-mono text-xs font-bold uppercase">← {t.prev}</span><span class="mt-1 block font-display text-lg font-extrabold leading-snug">{p.name}</span></a>
+      <a href={to(`/pricing/${next.id}`)} class="card bg-white p-5 sm:text-right"><span class="font-mono text-xs font-bold uppercase">{t.next} →</span><span class="mt-1 block font-display text-lg font-extrabold leading-snug">{n.name}</span></a>
     </nav>
-  </Container>
+  </section>
 </Layout>

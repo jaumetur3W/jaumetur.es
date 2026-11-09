@@ -9,9 +9,7 @@ const pages = [
   '/projectes/pipeline-cicd/',
   '/pricing/',
   '/contact/',
-  '/blog/',
   '/qualitat/',
-  '/marca/',
   '/card/'
 ];
 

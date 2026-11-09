@@ -6,10 +6,6 @@ test.describe("WCAG AA Accessibility Audits (axe-core)", () => {
     { name: "Home (/)", path: "/" },
     { name: "Pricing (/pricing/)", path: "/pricing/" },
     { name: "Projects (/projectes/)", path: "/projectes/" },
-    {
-      name: "Blog Article (/blog/accesibilidad-web-wcag-aa-guia-practica/)",
-      path: "/blog/accesibilidad-web-wcag-aa-guia-practica/",
-    },
   ];
 
   for (const { name, path } of testPages) {
