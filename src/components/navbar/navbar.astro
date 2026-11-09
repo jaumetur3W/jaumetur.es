@@ -26,36 +26,43 @@ const links = [
 const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 ---
 
-<header class="sticky top-0 z-50 w-full border-b-2 border-ink bg-[#fafaf3]/95 backdrop-blur supports-[backdrop-filter]:bg-[#fafaf3]/85">
-  <div class="mx-auto flex max-w-(--breakpoint-xl) items-center justify-between gap-4 px-4 py-2.5 sm:px-5">
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#070709]/85 backdrop-blur-xl supports-[backdrop-filter]:bg-[#070709]/75 transition-all">
+  <div class="mx-auto flex max-w-(--breakpoint-xl) items-center justify-between gap-4 px-4 py-3 sm:px-6">
     <a
       href={to("/")}
-      class="flex min-h-11 items-center gap-2.5 rounded-xl"
-      aria-label={isEn ? "jaume.www — Jaume Tur, home" : "jaume.www — Jaume Tur, inicio"}
+      class="group flex min-h-11 items-center gap-3 rounded-xl focus:outline-none"
+      aria-label={isEn ? "Jaume Tur — Home" : "Jaume Tur — Inicio"}
     >
-      <img
-        src="/img/jt.LOGO-02-128.webp"
-        alt=""
-        width="40"
-        height="40"
-        class="h-10 w-10 rounded-xl border-2 border-ink"
-        decoding="async"
-      />
-      <span class="font-display text-xl font-extrabold tracking-tight leading-none">
-        jaume<span class="rounded-md bg-brand px-1.5 py-0.5 ml-0.5 text-base border-2 border-ink">.www</span>
-      </span>
+      <div class="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-white/5 transition-transform group-hover:scale-105 group-hover:border-brand/70 shadow-sm">
+        <img
+          src="/img/jt.LOGO-02-128.webp"
+          alt="Jaume Tur Logo"
+          width="40"
+          height="40"
+          class="h-full w-full object-cover"
+          decoding="async"
+        />
+      </div>
+      <div class="flex flex-col">
+        <span class="font-display text-lg font-bold tracking-tight text-white leading-none">
+          jaume<span class="text-brand">.www</span>
+        </span>
+        <span class="font-mono text-[0.62rem] tracking-wider text-white/50 uppercase mt-0.5">
+          Web Dev · Xàtiva
+        </span>
+      </div>
     </a>
 
     <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} class="hidden lg:block">
-      <ul class="flex items-center gap-1">
+      <ul class="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1 backdrop-blur-md">
         {links.map((l) => (
           <li>
             <a
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "inline-flex min-h-11 items-center rounded-full px-4 text-[0.95rem] font-semibold transition-colors hover:bg-brand",
-                l.active ? "bg-brand" : "",
+                "inline-flex min-h-9 items-center rounded-full px-4 text-xs font-semibold tracking-wide transition-all",
+                l.active ? "bg-brand text-black font-bold shadow-sm" : "text-white/80 hover:text-brand hover:bg-white/5",
               ]}
             >
               {l.label}
@@ -65,54 +72,64 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
       </ul>
     </nav>
 
-    <div class="flex items-center gap-2.5">
-      <div class="hidden sm:flex items-center rounded-full border-2 border-ink bg-white p-0.5 text-xs font-bold" role="group" aria-label={isEn ? "Language" : "Idioma"}>
+    <div class="flex items-center gap-3">
+      <!-- Selector de idioma compacto y elegante -->
+      <div class="hidden sm:flex items-center rounded-full border border-white/10 bg-white/[0.03] p-0.5 text-xs font-mono font-medium" role="group" aria-label={isEn ? "Language" : "Idioma"}>
         <a
           href={spanishPath}
           hreflang="es"
           lang="es"
           aria-current={!isEn ? "true" : undefined}
-          class:list={["rounded-full px-2.5 py-1.5 min-w-9 text-center", !isEn ? "bg-ink text-white" : "hover:bg-brand"]}>ES</a>
+          class:list={["rounded-full px-2.5 py-1 text-center transition-colors", !isEn ? "bg-brand text-black font-bold" : "text-white/60 hover:text-white"]}>ES</a>
         <a
           href={englishPath}
           hreflang="en"
           lang="en"
           aria-current={isEn ? "true" : undefined}
-          class:list={["rounded-full px-2.5 py-1.5 min-w-9 text-center", isEn ? "bg-ink text-white" : "hover:bg-brand"]}>EN</a>
+          class:list={["rounded-full px-2.5 py-1 text-center transition-colors", isEn ? "bg-brand text-black font-bold" : "text-white/60 hover:text-white"]}>EN</a>
       </div>
 
-      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">{ctaLabel}</a>
+      <!-- CTA Principal -->
+      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">
+        <span>{ctaLabel}</span>
+        <span aria-hidden="true" class="text-xs">→</span>
+      </a>
 
+      <!-- Botón móvil -->
       <button
         id="nav-toggle"
         type="button"
-        class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-ink bg-white"
+        class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:text-brand"
         aria-expanded="false"
         aria-controls="nav-panel"
         aria-label={isEn ? "Open menu" : "Abrir menú"}
         data-open-label={isEn ? "Open menu" : "Abrir menú"}
         data-close-label={isEn ? "Close menu" : "Cerrar menú"}
       >
-        <svg id="nav-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-        <svg id="nav-icon-close" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        <svg id="nav-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        <svg id="nav-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </button>
     </div>
   </div>
 
-  <div id="nav-panel" class="hidden lg:hidden border-t-2 border-ink bg-brand">
-    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="mx-auto max-w-(--breakpoint-xl) px-4 py-4 sm:px-5">
-      <ul class="grid gap-1.5">
+  <div id="nav-panel" class="hidden lg:hidden border-t border-white/10 bg-[#0c0c11]/95 px-4 py-5 backdrop-blur-2xl">
+    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="mx-auto max-w-(--breakpoint-xl)">
+      <ul class="grid gap-2">
         {links.map((l) => (
           <li>
-            <a href={to(l.path)} class="flex min-h-12 items-center justify-between rounded-xl border-2 border-ink bg-white px-4 font-display text-lg font-bold">
-              <span>{l.label}</span><span aria-hidden="true">→</span>
+            <a href={to(l.path)} class="flex min-h-12 items-center justify-between rounded-xl border border-white/10 bg-white/[0.02] px-4 font-display text-base font-semibold text-white hover:border-brand/50 hover:text-brand transition-colors">
+              <span>{l.label}</span>
+              <span class="text-brand" aria-hidden="true">→</span>
             </a>
           </li>
         ))}
-        <li class="mt-1 flex items-center gap-2">
-          <a href={to("/contact")} class="btn btn-ink flex-1">{ctaLabel}</a>
-          <a href={spanishPath} hreflang="es" lang="es" class:list={["btn btn-white btn-sm", !isEn ? "ring-4 ring-ink/20" : ""]}>ES</a>
-          <a href={englishPath} hreflang="en" lang="en" class:list={["btn btn-white btn-sm", isEn ? "ring-4 ring-ink/20" : ""]}>EN</a>
+        <li class="mt-2 pt-3 border-t border-white/10 flex flex-col gap-2">
+          <a href={to("/contact")} class="btn btn-brand w-full justify-center">{ctaLabel}</a>
+          <div class="flex items-center justify-center gap-2 pt-1 font-mono text-xs">
+            <span class="text-white/40">Idioma:</span>
+            <a href={spanishPath} hreflang="es" lang="es" class:list={["px-3 py-1 rounded-md", !isEn ? "bg-brand text-black font-bold" : "text-white/60"]}>Español</a>
+            <a href={englishPath} hreflang="en" lang="en" class:list={["px-3 py-1 rounded-md", isEn ? "bg-brand text-black font-bold" : "text-white/60"]}>English</a>
+          </div>
         </li>
       </ul>
     </nav>

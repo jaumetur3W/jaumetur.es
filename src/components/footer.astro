@@ -37,74 +37,96 @@ const legalLinks = [
 ];
 ---
 
-<footer class="on-dark mt-auto border-t-2 border-ink bg-ink text-white">
-  <div class="mx-auto max-w-(--breakpoint-xl) px-4 pb-8 pt-14 sm:px-5 sm:pt-16">
+<footer class="on-dark mt-auto border-t border-white/10 bg-[#050507] text-white">
+  <div class="mx-auto max-w-(--breakpoint-xl) px-4 pb-12 pt-16 sm:px-6 sm:pt-20">
     <div class="grid gap-12 lg:grid-cols-12">
+      <!-- Columna 1: Identidad y Contacto Directo -->
       <div class="lg:col-span-5">
-        <a href={to("/")} class="inline-flex items-center gap-3 rounded-xl" aria-label={isEn ? "Jaume Tur — home" : "Jaume Tur — inicio"}>
-          <img src="/img/jt.LOGO-02-128.webp" alt="" width="48" height="48" class="h-12 w-12 rounded-xl border-2 border-brand" loading="lazy" decoding="async" />
-          <span class="font-display text-3xl font-extrabold tracking-tight">
-            jaume<span class="ml-0.5 rounded-md border-2 border-brand bg-brand px-1.5 py-0.5 text-xl text-ink">.www</span>
+        <a href={to("/")} class="inline-flex items-center gap-3 rounded-xl focus:outline-none group" aria-label={isEn ? "Jaume Tur — home" : "Jaume Tur — inicio"}>
+          <div class="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-white/5 transition-transform group-hover:scale-105 group-hover:border-brand/70">
+            <img src="/img/jt.LOGO-02-128.webp" alt="Jaume Tur Logo" width="44" height="44" class="h-full w-full object-cover" loading="lazy" decoding="async" />
+          </div>
+          <span class="font-display text-2xl font-bold tracking-tight text-white">
+            jaume<span class="text-brand">.www</span>
           </span>
         </a>
-        <p class="mt-5 max-w-md text-base leading-relaxed text-white/80">
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
           {isEn
-            ? "Websites, digital menus and web applications for businesses in Xàtiva, Valencia and remote."
-            : "Páginas web, cartas digitales y aplicaciones web para negocios de Xàtiva, Valencia y en remoto."}
+            ? "High-performance websites, interactive menus and local SEO for businesses in Xàtiva, Valencia and remote across Spain."
+            : "Desarrollo web a medida, cartas digitales interactivas y posicionamiento en Google Maps para negocios en Xàtiva, Valencia y toda España."}
         </p>
-        <a href="mailto:jaumetur3w@gmail.com" class="mt-6 inline-block break-all font-display text-xl font-bold text-brand underline decoration-2 underline-offset-8 hover:no-underline sm:text-2xl">
-          jaumetur3w@gmail.com
+
+        <!-- Acreditación técnica oficial -->
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="inline-flex items-center rounded-md border border-brand/30 bg-brand/10 px-2.5 py-1 font-mono text-[0.7rem] font-bold text-brand">
+            CFGS DAW
+          </span>
+          <span class="inline-flex items-center rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[0.7rem] text-white/70">
+            GM SMX
+          </span>
+        </div>
+
+        <a href="mailto:jaumetur3w@gmail.com" class="mt-6 inline-flex items-center gap-2 font-mono text-sm font-semibold text-brand transition-colors hover:text-white">
+          <Icon name="bx:envelope" class="h-4 w-4" />
+          <span>jaumetur3w@gmail.com</span>
         </a>
-        <ul class="mt-6 flex items-center gap-3">
+
+        <ul class="mt-6 flex items-center gap-2.5">
           {socialLinks.map((item) => (
             <li>
               <a
                 href={item.path}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/30 transition-colors hover:border-brand hover:bg-brand hover:text-ink"
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.03] text-white/70 transition-all hover:border-brand hover:bg-brand hover:text-black hover:scale-105"
                 title={item.title}
                 aria-label={item.title}
               >
-                <Icon name={item.icon} class="h-5 w-5" />
+                <Icon name={item.icon} class="h-4 w-4" />
               </a>
             </li>
           ))}
         </ul>
       </div>
 
+      <!-- Columna 2: Servicios -->
       <nav class="lg:col-span-4" aria-label={isEn ? "Services" : "Servicios"}>
-        <h2 class="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand">{isEn ? "Services" : "Servicios"}</h2>
-        <ul class="mt-4 space-y-1">
+        <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-brand">{isEn ? "Services & Solutions" : "Servicios y Soluciones"}</h2>
+        <ul class="mt-4 space-y-2">
           {services.map((s) => (
             <li>
-              <a href={to(`/pricing/${s.id}`)} class="inline-flex min-h-9 items-center text-[0.95rem] text-white/85 underline-offset-4 hover:text-brand hover:underline">
-                {s.name}
+              <a href={to(`/pricing/${s.id}`)} class="text-xs text-white/70 hover:text-brand transition-colors flex items-center gap-1.5">
+                <span class="text-brand/50">›</span>
+                <span>{s.name}</span>
               </a>
             </li>
           ))}
         </ul>
       </nav>
 
+      <!-- Columna 3: Navegación y Legales -->
       <nav class="lg:col-span-3" aria-label={isEn ? "Site" : "Sitio"}>
-        <h2 class="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand">{isEn ? "Site" : "Sitio"}</h2>
-        <ul class="mt-4 space-y-1">
+        <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-brand">{isEn ? "Navigation" : "Navegación"}</h2>
+        <ul class="mt-4 space-y-2">
           {navLinks.map((item) => (
             <li>
-              <a href={to(item.path)} class="inline-flex min-h-9 items-center text-[0.95rem] text-white/85 underline-offset-4 hover:text-brand hover:underline">{item.title}</a>
+              <a href={to(item.path)} class="text-xs text-white/70 hover:text-brand transition-colors">
+                {item.title}
+              </a>
             </li>
           ))}
         </ul>
       </nav>
     </div>
 
-    <div class="mt-12 flex flex-col gap-4 border-t border-white/20 pt-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
+    <!-- Barra inferior de copyright y ubicación -->
+    <div class="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
       <p>© {currentYear} Jaume Tur · {isEn ? "Xàtiva / Valencia, Spain & remote" : "Xàtiva / Valencia, España y remoto"}</p>
       <nav aria-label={isEn ? "Legal" : "Legal"}>
         <ul class="flex flex-wrap gap-x-5 gap-y-1">
           {legalLinks.map((item) => (
             <li>
-              <a href={to(item.path)} class="inline-flex min-h-8 items-center underline-offset-4 hover:text-brand hover:underline">{item.title}</a>
+              <a href={to(item.path)} class="inline-flex min-h-8 items-center text-white/45 hover:text-white transition-colors">{item.title}</a>
             </li>
           ))}
         </ul>

@@ -35,58 +35,61 @@ const base = isEn ? "/en" : "";
 ---
 
 <Layout fresh title={t.title} description={t.desc}>
-  <section class="border-b-2 border-ink bg-brand px-4 pb-14 pt-14 sm:px-5 sm:pt-20">
+  <section class="border-b border-white/10 bg-gradient-to-b from-[#111118] to-[#070709] px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
     <div class="mx-auto max-w-(--breakpoint-xl)">
       <p class="eyebrow">{t.eyebrow}</p>
-      <h1 class="display mt-4 max-w-4xl text-[clamp(2.4rem,6.5vw,5rem)]">{t.h1}</h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/85">{t.lead}</p>
-      <p class="chip mt-6"><span class="h-2 w-2 rounded-full bg-emerald-600"></span>{t.reply}</p>
+      <h1 class="display mt-4 max-w-4xl text-[clamp(2.5rem,6.5vw,4.8rem)] text-white">{t.h1}</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/80">{t.lead}</p>
+      <p class="chip mt-6 border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-semibold"><span class="h-2 w-2 rounded-full bg-emerald-400"></span>{t.reply}</p>
     </div>
   </section>
 
-  <section class="px-4 py-14 sm:px-5 sm:py-20">
-    <div class="mx-auto grid max-w-(--breakpoint-xl) items-start gap-8 lg:grid-cols-12">
+  <section class="px-4 py-16 sm:px-6 sm:py-24">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) items-start gap-10 lg:grid-cols-12">
       <div class="space-y-4 lg:col-span-5">
-        <div class="card flex items-center gap-4 bg-white p-5">
-          <img src="/img/3.webp" alt="Jaume Tur" width="96" height="96" class="h-24 w-24 shrink-0 object-contain" loading="eager" decoding="async" />
+        <div class="card flex items-center gap-4 border border-white/10 bg-surface p-6">
+          <div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-brand bg-[#1c1c24]">
+            <img src="/img/3.webp" alt="Jaume Tur" width="96" height="96" class="h-full w-full object-contain pt-1" loading="eager" decoding="async" />
+          </div>
           <div>
-            <p class="font-display text-2xl font-extrabold">Jaume Tur</p>
-            <p class="text-sm text-ink/70">{t.loc}</p>
+            <p class="font-display text-2xl font-bold text-white">Jaume Tur</p>
+            <p class="text-xs font-semibold text-brand">Desarrollador Web</p>
+            <p class="mt-1 text-xs text-white/60">{t.loc}</p>
           </div>
         </div>
 
-        <a href={mailto} id="contact-email-cta" class="btn btn-ink w-full justify-between">
-          <span class="flex items-center gap-3"><Icon name="bx:envelope" class="h-6 w-6" />{t.mail}</span><span aria-hidden="true">→</span>
+        <a href="https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20una%20web" target="_blank" rel="noopener noreferrer" class="btn btn-brand w-full justify-between">
+          <span class="flex items-center gap-3"><Icon name="bx:bxl-whatsapp" class="h-6 w-6" />Hablar directamente por WhatsApp</span><span aria-hidden="true">→</span>
         </a>
 
-        <div class="card flex items-center justify-between gap-3 bg-white p-4">
+        <div class="card flex items-center justify-between gap-3 border border-white/10 bg-surface p-4">
           <div class="min-w-0">
-            <p class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{t.direct}</p>
-            <a id="contact-email-link" href={mailto} class="block truncate font-semibold underline decoration-2 decoration-brand underline-offset-4">jaumetur3w@gmail.com</a>
+            <p class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{t.direct}</p>
+            <a id="contact-email-link" href={mailto} class="block truncate font-semibold text-white hover:text-brand transition-colors">jaumetur3w@gmail.com</a>
           </div>
-          <button id="copy-email-btn" type="button" class="chip hover:bg-brand"><Icon name="bx:copy" class="h-4 w-4" /><span id="copy-btn-label">{t.copy}</span></button>
+          <button id="copy-email-btn" type="button" class="chip hover:bg-brand hover:text-black transition-colors cursor-pointer"><Icon name="bx:copy" class="h-4 w-4" /><span id="copy-btn-label">{t.copy}</span></button>
         </div>
 
-        <a href={`${base}/briefing/`} class="card flex items-center justify-between gap-3 bg-white p-4 font-semibold">
-          <span class="flex items-center gap-3"><Icon name="bx:clipboard" class="h-5 w-5" />{t.brief}</span><span aria-hidden="true">→</span>
+        <a href={`${base}/briefing/`} class="card flex items-center justify-between gap-3 border border-white/10 bg-surface p-4 font-semibold text-white hover:border-brand/60 transition-colors">
+          <span class="flex items-center gap-3"><Icon name="bx:clipboard" class="h-5 w-5 text-brand" />{t.brief}</span><span aria-hidden="true" class="text-brand">→</span>
         </a>
-        <a href={`${base}/pricing/`} class="card flex items-center justify-between gap-3 bg-brand p-4 font-semibold">
-          <span class="flex items-center gap-3"><Icon name="bx:tag" class="h-5 w-5" />{t.pricing}</span><span aria-hidden="true">→</span>
+        <a href={`${base}/pricing/`} class="card flex items-center justify-between gap-3 border border-brand/40 bg-brand/10 p-4 font-semibold text-white hover:border-brand transition-colors">
+          <span class="flex items-center gap-3"><Icon name="bx:tag" class="h-5 w-5 text-brand" />{t.pricing}</span><span aria-hidden="true" class="text-brand">→</span>
         </a>
 
-        <div class="grid grid-cols-2 gap-4">
-          <a href="https://www.instagram.com/jaume.www/" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:bxl-instagram" class="h-5 w-5" />Instagram</a>
-          <a href="https://www.linkedin.com/in/jautur/" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:bxl-linkedin" class="h-5 w-5" />LinkedIn</a>
-          <a href="https://github.com/jaumetur3W" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:bxl-github" class="h-5 w-5" />GitHub</a>
-          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" id="contact-cv-btn" class="card flex items-center gap-2.5 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!"><Icon name="bx:file" class="h-5 w-5" />CV (PDF)</a>
+        <div class="grid grid-cols-2 gap-3">
+          <a href="https://www.instagram.com/jaume.www/" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 border border-white/10 bg-surface p-3.5 text-xs font-semibold text-white hover:border-brand hover:text-brand transition-colors"><Icon name="bx:bxl-instagram" class="h-4 w-4" />Instagram</a>
+          <a href="https://www.linkedin.com/in/jautur/" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 border border-white/10 bg-surface p-3.5 text-xs font-semibold text-white hover:border-brand hover:text-brand transition-colors"><Icon name="bx:bxl-linkedin" class="h-4 w-4" />LinkedIn</a>
+          <a href="https://github.com/jaumetur3W" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-2.5 border border-white/10 bg-surface p-3.5 text-xs font-semibold text-white hover:border-brand hover:text-brand transition-colors"><Icon name="bx:bxl-github" class="h-4 w-4" />GitHub</a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" id="contact-cv-btn" class="card flex items-center gap-2.5 border border-white/10 bg-surface p-3.5 text-xs font-semibold text-white hover:border-brand hover:text-brand transition-colors"><Icon name="bx:file" class="h-4 w-4" />CV (PDF)</a>
         </div>
-        <a href="https://share.google/3tihWcZBWMyYHmjBp" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-3 bg-white p-3.5 text-sm font-semibold shadow-[3px_3px_0_#0b0b0f]!">
-          <Icon name="bx:map-pin" class="h-5 w-5" />{t.maps}<span class="sr-only">({isEn ? "opens in new tab" : "se abre en una pestaña nueva"})</span>
+        <a href="https://share.google/3tihWcZBWMyYHmjBp" target="_blank" rel="noopener noreferrer" class="card flex items-center gap-3 border border-white/10 bg-surface p-3.5 text-xs font-semibold text-white hover:border-brand hover:text-brand transition-colors">
+          <Icon name="bx:map-pin" class="h-4 w-4 text-brand" />{t.maps}<span class="sr-only">({isEn ? "opens in new tab" : "se abre en una pestaña nueva"})</span>
         </a>
       </div>
 
-      <div class="card bg-white p-6 sm:p-8 lg:col-span-7">
-        <div class="mb-6 flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink pb-5">
+      <div class="card border border-white/10 bg-surface p-6 sm:p-8 lg:col-span-7">
+        <div class="mb-6 flex flex-wrap items-start justify-between gap-3 border-b border-white/10 pb-5">
           <div>
             <h2 class="font-display text-3xl font-extrabold tracking-tight">{t.formTitle}</h2>
             <p class="mt-1 text-sm text-ink/70">{t.formText}</p>

@@ -46,47 +46,49 @@ const t = isEn
 ---
 
 <Layout fresh title={t.title} description={t.desc}>
-  <section class="border-b-2 border-ink bg-brand px-4 pb-16 pt-14 sm:px-5 sm:pt-20">
-    <div class="mx-auto grid max-w-(--breakpoint-xl) items-center gap-10 lg:grid-cols-12">
+  <section class="border-b border-white/10 bg-gradient-to-b from-[#111118] to-[#070709] px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
+    <div class="mx-auto grid max-w-(--breakpoint-xl) items-center gap-12 lg:grid-cols-12">
       <div class="lg:col-span-7">
         <p class="eyebrow">{t.eyebrow}</p>
-        <h1 class="display mt-4 text-[clamp(2.4rem,6.5vw,5rem)]">{t.h1}</h1>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/90">{t.bio}</p>
+        <h1 class="display mt-4 text-[clamp(2.5rem,6.5vw,4.8rem)] text-white">{t.h1}</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/80">{t.bio}</p>
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href={to("/contact")} class="btn btn-ink">{t.contact} <span aria-hidden="true">→</span></a>
+          <a href={to("/contact")} class="btn btn-brand">{t.contact} <span aria-hidden="true">→</span></a>
           <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.cv}</a>
         </div>
       </div>
       <div class="relative mx-auto w-full max-w-sm lg:col-span-5">
-        <div class="card aspect-square bg-white"><img src="/img/1.webp" alt="Jaume Tur" width="320" height="320" class="h-full w-full object-contain p-6" fetchpriority="high" decoding="async" /></div>
-        <span class="chip chip-brand bob absolute -left-2 top-6 shadow-[3px_3px_0_#0b0b0f]" style="--r:-5deg"><span class="h-2 w-2 rounded-full bg-ink"></span>{t.avail}</span>
+        <div class="card aspect-square overflow-hidden border border-brand/40 bg-gradient-to-b from-[#181822] to-[#0d0d12] p-6 shadow-[0_0_40px_rgba(255,255,0,0.15)]">
+          <img src="/img/1.webp" alt="Jaume Tur" width="320" height="320" class="h-full w-full object-contain" fetchpriority="high" decoding="async" />
+        </div>
+        <span class="chip chip-brand absolute -left-2 top-6 shadow-md"><span class="h-2 w-2 rounded-full bg-black"></span>{t.avail}</span>
       </div>
     </div>
   </section>
 
-  <section class="border-b-2 border-ink">
+  <section class="border-b border-white/10 bg-[#09090d]">
     <dl class="mx-auto grid max-w-(--breakpoint-xl) grid-cols-2 lg:grid-cols-4">
       {facts.map((f, i) => (
-        <div class:list={["px-4 py-6 sm:px-5", i % 2 === 0 ? "border-r-2 border-ink" : "", i < 2 ? "border-b-2 border-ink lg:border-b-0" : "", i === 1 ? "lg:border-r-2" : ""]}>
-          <dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-ink/60">{f.label}</dt>
-          <dd class="mt-1 font-display text-xl font-bold leading-snug">{f.val}</dd>
+        <div class:list={["px-6 py-6", i % 2 === 0 ? "border-r border-white/10" : "", i < 2 ? "border-b border-white/10 lg:border-b-0" : "", i === 1 ? "lg:border-r border-white/10" : ""]}>
+          <dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{f.label}</dt>
+          <dd class="mt-1 font-display text-lg font-bold text-white">{f.val}</dd>
         </div>
       ))}
     </dl>
   </section>
 
-  <section class="px-4 py-16 sm:px-5 sm:py-24">
+  <section class="px-4 py-16 sm:px-6 sm:py-24">
     <div class="mx-auto max-w-(--breakpoint-xl)">
       <p class="eyebrow">{t.how}</p>
-      <h2 class="display mt-4 text-[clamp(2rem,5vw,3.5rem)]">{t.howTitle}</h2>
+      <h2 class="display mt-4 text-[clamp(2rem,5vw,3.5rem)] text-white">{t.howTitle}</h2>
       <div class="mt-10 grid gap-6 md:grid-cols-3">
         {pillars.map((p) => (
-          <article class="card p-7">
-            <span class="flex h-12 w-12 items-center justify-center rounded-2xl border-2 border-ink bg-brand"><Icon name={p.icon} class="h-6 w-6" /></span>
-            <h3 class="mt-5 font-display text-2xl font-extrabold leading-tight">{p.title}</h3>
+          <article class="card border border-white/10 bg-surface p-8 transition-all hover:border-brand/50">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand/15 text-brand"><Icon name={p.icon} class="h-6 w-6" /></span>
+            <h3 class="mt-5 font-display text-xl font-bold text-white">{p.title}</h3>
             <ul class="mt-4 space-y-2.5">
               {p.points.map((pt) => (
-                <li class="flex gap-2.5 leading-snug"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink text-xs font-bold text-brand" aria-hidden="true">✓</span><span>{pt}</span></li>
+                <li class="flex items-start gap-2.5 text-sm text-ink/80"><span class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-brand text-[10px] font-black text-black" aria-hidden="true">✓</span><span>{pt}</span></li>
               ))}
             </ul>
           </article>
