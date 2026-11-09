@@ -20,3 +20,9 @@ Base: `origin/main` (última versión fiable). Sin datos nuevos: todo el conteni
 ## Pendiente de revisar
 - Las pruebas E2E (`tests/e2e/flows.spec.ts`, etc.) describen la interfaz antigua y necesitan actualizarse.
 - Las páginas heredadas (legales, briefing, calidad, tarjeta) conservan su maquetación con la nueva tipografía.
+
+---
+## Idea B (rama `propuesta-web-nueva-2`): «Modo oscuro premium»
+Mismo contenido y estructura, concepto visual distinto: fondo casi negro, amarillo neón de acento,
+tarjetas bento con borde fino y brillo al pasar el cursor, tipografía Space Grotesk + Inter,
+servicios en rejilla bento, proyectos en carrusel horizontal y proceso como línea de tiempo.
