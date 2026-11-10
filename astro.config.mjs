@@ -81,6 +81,7 @@ export default defineConfig({
     "/val/projectes/pipeline-cicd": "/projectes/pipeline-cicd/",
     "/val/projectes/pizzeria-xativa": "/projectes/pizzeria-xativa/",
     "/val/projectes/trania": "/projectes/trania/",
+    "/val/projectes/worksy": "/projectes/worksy/",
 
     // English project alias
     "/en/projects": "/en/projectes/",
