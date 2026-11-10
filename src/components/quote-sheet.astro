@@ -1,0 +1,69 @@
+---
+/**
+ * Hoja de presupuesto interactiva (solo CSS): el radio marcado muestra la partida
+ * correspondiente. Los importes salen de los datos reales de los servicios.
+ */
+import type { ServicePackage } from "@/data/services";
+
+export interface Props {
+  services: Array<Pick<ServicePackage, "id" | "name" | "timeline" | "creationPriceNumber" | "monthlyFeeNumber">>;
+  isEn: boolean;
+  contactHref: (id: string) => string;
+  detailHref: (id: string) => string;
+}
+const { services, isEn, contactHref, detailHref } = Astro.props;
+
+const euro = (n: number) => (isEn ? `€${n.toLocaleString("en-US")}` : `${n.toLocaleString("es-ES")} €`);
+const monthly = (n: number) => (isEn ? `€${n}/mo` : `${n} €/mes`);
+const t = isEn
+  ? { legend: "Pick a service", creation: "Creation (one-off)", maint: "Monthly maintenance", deadline: "Delivery", year1: "First year", cta: "Request this quote", incl: "See what's included", note: "From price. Scope and timeline are confirmed with you before starting." }
+  : { legend: "Elige un servicio", creation: "Creación (pago único)", maint: "Mantenimiento mensual", deadline: "Plazo de entrega", year1: "Primer año", cta: "Pedir este presupuesto", incl: "Ver qué incluye", note: "Precios «desde». Alcance y plazo se confirman contigo antes de empezar." };
+
+const rules = services
+  .map((_, i) => `.quote-sheet:has(#q-svc-${i}:checked) [data-panel="${i}"]{display:block}.quote-sheet:has(#q-svc-${i}:checked) label[for="q-svc-${i}"]{background:#0b0b09;color:#fff}`)
+  .join("");
+---
+
+<div class="quote-sheet sheet px-5 pb-12 pt-6 sm:px-7 sm:pt-7">
+  <fieldset>
+    <legend class="font-display text-[1.7rem] font-extrabold leading-none" style="font-stretch:80%">{t.legend}</legend>
+    <div class="mt-4 grid gap-1.5">
+      {services.map((s, i) => (
+        <div>
+          <input class="peer sr-only" type="radio" name="quote-service" id={`q-svc-${i}`} value={s.id} checked={i === 0} />
+          <label
+            for={`q-svc-${i}`}
+            class="leader-row min-h-11 cursor-pointer rounded-sm border-2 border-[#0b0b09] px-3 py-2 text-[0.95rem] font-semibold leading-tight transition-colors hover:bg-[#0b0b09]/10 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#0b0b09]"
+          >
+            <span>{s.name}</span>
+            <span class="leader" aria-hidden="true"></span>
+            <span class="num whitespace-nowrap font-mono text-[0.85rem]">{euro(s.creationPriceNumber)}</span>
+          </label>
+        </div>
+      ))}
+    </div>
+  </fieldset>
+
+  <div class="mt-6 border-t-2 border-dotted border-[#0b0b09]/50 pt-5" aria-live="polite">
+    {services.map((s, i) => (
+      <div data-panel={i} class="stamp">
+        <dl class="grid gap-2.5 text-[0.95rem]">
+          <div class="leader-row"><dt>{t.creation}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-bold">{euro(s.creationPriceNumber)}</dd></div>
+          <div class="leader-row"><dt>{t.maint}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-bold">{monthly(s.monthlyFeeNumber)}</dd></div>
+          <div class="leader-row"><dt>{t.deadline}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-semibold">{s.timeline}</dd></div>
+          <div class="leader-row border-t border-[#0b0b09]/40 pt-2.5"><dt class="font-bold">{t.year1}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono text-lg font-extrabold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</dd></div>
+        </dl>
+        <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <a href={contactHref(s.id)} class="btn btn-dark">{t.cta} <span aria-hidden="true">→</span></a>
+          <a href={detailHref(s.id)} class="inline-flex min-h-11 items-center font-semibold underline decoration-2 underline-offset-4">{t.incl}</a>
+        </div>
+      </div>
+    ))}
+    <p class="mt-4 text-[0.8rem] leading-snug text-[#0b0b09]/80">{t.note}</p>
+  </div>
+</div>
+
+<style is:global set:html={rules}></style>
+<style is:global>
+  .quote-sheet [data-panel] { display: none; }
+</style>

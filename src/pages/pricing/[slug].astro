@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
+import CtaBand from "@/components/cta-band.astro";
 import { servicesData, getLocalizedService, type ServicePackage } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
@@ -91,109 +92,107 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[serviceSchema, breadcrumb]}>
-  <section class="border-b border-white/10 bg-gradient-to-b from-[#111118] to-[#070709] px-4 pb-14 pt-10 sm:px-6">
-    <div class="mx-auto max-w-(--breakpoint-xl)">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 font-mono text-xs text-white/50">
-        <a href={to("/")} class="hover:text-brand transition-colors">{t.home}</a><span aria-hidden="true">/</span>
-        <a href={to("/pricing")} class="hover:text-brand transition-colors">{t.services}</a><span aria-hidden="true">/</span>
-        <span aria-current="page" class="text-brand">{s.name}</span>
+  <header class="border-b border-white/15 pb-12 pt-8 sm:pb-16">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-white/70">
+        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/pricing")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.services}</a><span aria-hidden="true">/</span>
+        <span aria-current="page" class="text-white">{s.name}</span>
       </nav>
-      <div class="mt-8 grid items-end gap-10 lg:grid-cols-12">
+      <div class="mt-6 grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
         <div class="lg:col-span-7">
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand/10 px-3.5 py-1 text-xs font-bold text-brand"><Icon name={s.icon} class="h-4 w-4" />{s.badge}</span>
-          <h1 class="display mt-5 text-[clamp(2.2rem,5.5vw,4.25rem)] text-white">{s.name}</h1>
-          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">{s.description}</p>
+          <p class="chip"><Icon name={s.icon} class="h-4 w-4 text-brand" />{s.badge}</p>
+          <h1 class="h-page mt-5">{s.name}</h1>
+          <p class="lede mt-6">{s.description}</p>
         </div>
-        <div class="card border border-brand/40 bg-[#121218] p-8 text-white lg:col-span-5 shadow-[0_0_35px_rgba(255,255,0,0.15)]">
-          <p class="font-mono text-xs font-bold uppercase tracking-wider text-brand">{t.from}</p>
-          <p class="display mt-1 text-5xl font-black text-white sm:text-6xl">{euro(service.creationPriceNumber)}</p>
-          <p class="mt-2 text-sm text-ink/75">+ {monthly(service.monthlyFeeNumber)} de mantenimiento</p>
-          <div class="mt-6 space-y-2 border-t border-white/10 pt-4 text-xs text-white/70">
-            <div class="flex justify-between"><span class="text-white/50">{t.deliver}:</span> <span class="font-semibold text-white">{s.timeline}</span></div>
-            <div class="flex justify-between"><span class="text-white/50">{t.firstYear}:</span> <span class="font-semibold text-white">{s.annualTotal}</span></div>
-          </div>
-          <a href={to(`/contact?servei=${service.id}`)} class="btn btn-brand mt-6 w-full justify-center">{s.ctaText}</a>
+        <div class="sheet px-6 pb-12 pt-7 lg:col-span-5">
+          <p class="label">{t.from}</p>
+          <p class="num font-display text-[4rem] font-extrabold leading-none" style="font-stretch:80%">{euro(service.creationPriceNumber)}</p>
+          <dl class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[#0b0b09]/50 pt-5 text-[0.95rem]">
+            <div class="leader-row"><dt>{isEn ? "Maintenance" : "Mantenimiento"}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{monthly(service.monthlyFeeNumber)}</dd></div>
+            <div class="leader-row"><dt>{t.deliver}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-bold">{s.timeline}</dd></div>
+            <div class="leader-row"><dt>{t.firstYear}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{euro(service.creationPriceNumber + 12 * service.monthlyFeeNumber)}</dd></div>
+          </dl>
+          <a href={to(`/contact?servei=${service.id}`)} class="btn btn-dark mt-6 w-full">{s.ctaText} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="px-4 py-16 sm:px-5 sm:py-24">
-    <div class="mx-auto grid max-w-(--breakpoint-xl) gap-10 lg:grid-cols-12">
+  <section class="section" aria-labelledby="inc-title">
+    <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-7">
-        <h2 class="display text-[clamp(1.8rem,4vw,3rem)]">{t.includes}</h2>
-        <ul class="mt-6 space-y-3">
+        <h2 id="inc-title" class="h-section">{t.includes}</h2>
+        <ul class="mt-8 border-b border-white/15">
           {s.features.map((f) => (
-            <li class="card flex gap-3 p-4 border border-white/10 bg-surface leading-snug">
-              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-black ring-2 ring-white/10" aria-hidden="true">✓</span>
-              <span class="text-white/90">{f}</span>
+            <li class="flex gap-4 border-t border-white/15 py-4 leading-snug">
+              <svg class="mt-[0.2em] h-5 w-5 shrink-0 text-brand" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
+              <span>{f}</span>
             </li>
           ))}
         </ul>
       </div>
       <aside class="lg:col-span-5">
-        <div class="card border border-white/10 bg-surface p-7">
-          <h2 class="font-display text-2xl font-extrabold text-white">{t.forWho}</h2>
-          <p class="mt-3 leading-relaxed text-zinc-300">{s.targetAudience}</p>
+        <div class="border-t-2 border-brand pt-5">
+          <h2 class="font-display text-[1.8rem] font-bold leading-none" style="font-stretch:82%">{t.forWho}</h2>
+          <p class="muted mt-4 leading-relaxed">{s.targetAudience}</p>
         </div>
       </aside>
     </div>
   </section>
 
-  <section class="border-y border-white/10 bg-[#09090d] px-4 py-16 sm:px-6 sm:py-24">
-    <div class="mx-auto max-w-(--breakpoint-xl)">
-      <h2 class="display text-[clamp(1.8rem,4vw,3rem)] text-white">{t.why}</h2>
-      <div class="mt-8 grid gap-6 md:grid-cols-2">
-        <div class="card border border-white/10 bg-surface p-6 sm:p-8">
-          <h3 class="font-display text-xl font-bold text-white">{t.creation}</h3>
-          <ul class="mt-4 space-y-2 text-sm text-ink/80 leading-relaxed">
-            {s.whyThisPrice.creationBreakdown.map((x) => <li class="flex gap-2"><span class="text-brand font-bold" aria-hidden="true">▸</span><span>{x}</span></li>)}
+  <section class="section border-t border-white/15" aria-labelledby="why-title">
+    <div class="wrap">
+      <h2 id="why-title" class="h-section max-w-3xl">{t.why}</h2>
+      <div class="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
+        <div class="border-t-2 border-brand pt-5">
+          <h3 class="font-display text-[1.5rem] font-bold leading-tight" style="font-stretch:84%">{t.creation}</h3>
+          <ul class="muted mt-4 grid gap-2.5 leading-snug">
+            {s.whyThisPrice.creationBreakdown.map((x) => <li class="flex gap-3"><span class="text-brand" aria-hidden="true">–</span><span>{x}</span></li>)}
           </ul>
         </div>
-        <div class="card border border-white/10 bg-surface p-6 sm:p-8">
-          <h3 class="font-display text-xl font-bold text-white">{t.maint}</h3>
-          <ul class="mt-4 space-y-2 text-sm text-ink/80 leading-relaxed">
-            {s.whyThisPrice.monthlyBreakdown.map((x) => <li class="flex gap-2"><span class="text-brand font-bold" aria-hidden="true">▸</span><span>{x}</span></li>)}
+        <div class="border-t-2 border-brand pt-5">
+          <h3 class="font-display text-[1.5rem] font-bold leading-tight" style="font-stretch:84%">{t.maint}</h3>
+          <ul class="muted mt-4 grid gap-2.5 leading-snug">
+            {s.whyThisPrice.monthlyBreakdown.map((x) => <li class="flex gap-3"><span class="text-brand" aria-hidden="true">–</span><span>{x}</span></li>)}
           </ul>
         </div>
       </div>
-      <div class="card mt-6 border border-brand/40 bg-brand/10 p-6 sm:p-8">
-        <h3 class="font-display text-xl font-bold text-white">{t.commit}</h3>
-        <p class="mt-2 text-sm text-ink/80 leading-relaxed">{s.whyThisPrice.whyCommitmentOneYear}</p>
+      <div class="mt-12 max-w-3xl">
+        <h3 class="font-display text-[1.5rem] font-bold leading-tight" style="font-stretch:84%">{t.commit}</h3>
+        <p class="muted mt-3 leading-relaxed">{s.whyThisPrice.whyCommitmentOneYear}</p>
       </div>
     </div>
   </section>
 
-  <section class="px-4 py-16 sm:px-6 sm:py-24">
-    <div class="mx-auto max-w-(--breakpoint-xl)">
-      <h2 class="display text-[clamp(1.8rem,4vw,3rem)] text-white">{t.worth}</h2>
-      <p class="mt-4 max-w-2xl text-ink/75">{t.worthNote}</p>
-      <p class="mt-4 text-lg font-bold text-brand">{s.amortizationSummary}</p>
-      <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+  <section class="section border-t border-white/15" aria-labelledby="worth-title">
+    <div class="wrap">
+      <h2 id="worth-title" class="h-section max-w-3xl">{t.worth}</h2>
+      <p class="lede mt-4">{t.worthNote}</p>
+      <ul class="mt-10 grid gap-x-12 gap-y-9 sm:grid-cols-2">
         {s.amortizationPoints.map((a) => (
-          <li class="card border border-white/10 bg-surface p-6">
-            <p class="inline-flex rounded-md bg-brand px-2.5 py-1 text-xs font-bold text-black">{a.metric}</p>
-            <h3 class="mt-3 font-display text-lg font-bold text-white">{a.title}</h3>
-            <p class="mt-2 text-sm text-ink/75 leading-relaxed">{a.description}</p>
+          <li class="border-t border-white/25 pt-5">
+            <h3 class="font-display text-[1.45rem] font-bold leading-tight" style="font-stretch:84%">{a.title}</h3>
+            <p class="muted mt-2 leading-relaxed">{a.description}</p>
           </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <section class="border-y border-white/10 bg-[#09090d] px-4 py-16 sm:px-6 sm:py-24">
-    <div class="mx-auto max-w-(--breakpoint-xl)">
-      <h2 class="display text-[clamp(1.8rem,4vw,3rem)] text-white">{t.compare}</h2>
-      <div class="mt-8 grid gap-5 md:grid-cols-2">
+  <section class="section border-t border-white/15" aria-labelledby="cmp-title">
+    <div class="wrap">
+      <h2 id="cmp-title" class="h-section max-w-3xl">{t.compare}</h2>
+      <div class="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-2">
         {s.marketComparison.map((m, i) => (
-          <article class:list={["card p-6 border", i === 0 ? "border-brand/60 bg-gradient-to-br from-brand/10 to-surface" : "border-white/10 bg-surface"]}>
-            <h3 class="font-display text-xl font-bold text-white">{m.name}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ink/75">{m.summary}</p>
-            <dl class="mt-4 space-y-1.5 border-t border-white/10 pt-4 text-xs text-white/70">
-              <div><dt class="inline text-white/50">{t.price}:</dt> <dd class="inline font-semibold text-white">{m.priceRange}</dd></div>
-              <div><dt class="inline text-white/50">{t.maintenance}:</dt> <dd class="inline font-semibold text-white">{m.maintenanceCost}</dd></div>
-              <div><dt class="inline text-white/50">{t.hidden}:</dt> <dd class="inline font-semibold text-white">{m.hiddenCosts}</dd></div>
-              <div><dt class="inline text-white/50">{t.ownership}:</dt> <dd class="inline font-semibold text-white">{m.codeOwnership}</dd></div>
+          <article class:list={["border-t-2 pt-5", i === 0 ? "border-brand" : "border-white/25"]}>
+            <h3 class="font-display text-[1.45rem] font-bold leading-tight" style="font-stretch:84%">{m.name}</h3>
+            <p class="muted mt-2 leading-relaxed">{m.summary}</p>
+            <dl class="mt-4 grid gap-1.5 text-[0.92rem]">
+              <div><dt class="faint inline">{t.price}:</dt> <dd class="inline font-semibold">{m.priceRange}</dd></div>
+              <div><dt class="faint inline">{t.maintenance}:</dt> <dd class="inline font-semibold">{m.maintenanceCost}</dd></div>
+              <div><dt class="faint inline">{t.hidden}:</dt> <dd class="inline font-semibold">{m.hiddenCosts}</dd></div>
+              <div><dt class="faint inline">{t.ownership}:</dt> <dd class="inline font-semibold">{m.codeOwnership}</dd></div>
             </dl>
           </article>
         ))}
@@ -201,18 +200,10 @@ const breadcrumb = {
     </div>
   </section>
 
-  <section class="relative overflow-hidden px-4 py-20 text-center sm:px-6 sm:py-28">
-    <div class="pointer-events-none absolute left-1/2 top-1/2 h-[22rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/15 blur-[120px]" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-3xl">
-      <h2 class="display text-[clamp(2rem,5vw,3.6rem)] text-white">{t.ctaTitle}</h2>
-      <p class="mx-auto mt-4 max-w-xl text-base text-ink/80">{t.ctaText}</p>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <a href={to("/contact")} class="btn btn-brand">{s.ctaText} <span aria-hidden="true">→</span></a>
-      </div>
-      <nav aria-label={t.other} class="mx-auto mt-12 grid max-w-3xl gap-4 text-left sm:grid-cols-2">
-        <a href={to(`/pricing/${prev.id}`)} class="card border border-white/10 bg-surface p-5 hover:border-brand/50 transition-colors"><span class="font-mono text-xs font-bold uppercase text-brand">← {t.prev}</span><span class="mt-1 block font-display text-base font-bold text-white">{p.name}</span></a>
-        <a href={to(`/pricing/${next.id}`)} class="card border border-white/10 bg-surface p-5 sm:text-right hover:border-brand/50 transition-colors"><span class="font-mono text-xs font-bold uppercase text-brand">{t.next} →</span><span class="mt-1 block font-display text-base font-bold text-white">{n.name}</span></a>
-      </nav>
-    </div>
-  </section>
+  <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: to(`/contact?servei=${service.id}`), label: s.ctaText }} secondary={{ href: to("/pricing"), label: t.services }} />
+
+  <nav aria-label={t.other} class="wrap grid gap-6 border-t border-white/15 py-10 sm:grid-cols-2">
+    <a href={to(`/pricing/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{p.name}</span></a>
+    <a href={to(`/pricing/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{n.name}</span></a>
+  </nav>
 </Layout>

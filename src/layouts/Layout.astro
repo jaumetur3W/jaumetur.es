@@ -204,7 +204,7 @@ const websiteSchema = {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#ffff00" />
+    <meta name="theme-color" content="#0b0b09" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>document.documentElement.classList.add("js");</script>
 
@@ -249,18 +249,18 @@ const websiteSchema = {
     />
 
     <!-- Fuentes críticas: evita la cascada que retrasa el LCP -->
-    <link rel="preload" href="/fonts/space-grotesk-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bricolage-latin-wdth.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/atkinson-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
 
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
-  <body class="bg-[#0a0a0c] text-[#f4f4f6] antialiased selection:bg-[#ffff00] selection:text-white min-h-screen flex flex-col overflow-x-clip">
+  <body class="bg-[#0b0b09] text-white antialiased selection:bg-[#ffff00] selection:text-[#0b0b09] min-h-screen flex flex-col overflow-x-clip">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2.5 focus:bg-[#0b0b0f] focus:text-[#ffff00] focus:font-bold focus:rounded-xl focus:outline-none focus:ring-4 focus:ring-[#ffff00]/40"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-3 focus:bg-[#ffff00] focus:text-[#0b0b09] focus:font-bold focus:rounded-sm focus:outline-2 focus:outline-white"
     >
       {isEn ? "Skip to main content" : "Saltar al contenido principal"}
     </a>

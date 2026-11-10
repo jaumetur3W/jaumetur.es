@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
+import CtaBand from "@/components/cta-band.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 export async function getStaticPaths() {
@@ -86,72 +87,66 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
-  <section class="border-b border-white/10 bg-gradient-to-b from-[#111118] to-[#070709] px-4 pb-14 pt-10 sm:px-6">
-    <div class="mx-auto max-w-(--breakpoint-xl)">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 font-mono text-xs text-white/50">
-        <a href={to("/")} class="hover:text-brand transition-colors">{t.home}</a><span aria-hidden="true">/</span>
-        <a href={to("/projectes")} class="hover:text-brand transition-colors">{t.projects}</a><span aria-hidden="true">/</span>
-        <span aria-current="page" class="text-brand">{shortTitle(d.title)}</span>
+  <header class="border-b border-white/15 pb-12 pt-8 sm:pb-16">
+    <div class="wrap">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-white/70">
+        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/projectes")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.projects}</a><span aria-hidden="true">/</span>
+        <span aria-current="page" class="text-white">{shortTitle(d.title)}</span>
       </nav>
-      <div class="mt-8 grid items-center gap-10 lg:grid-cols-12">
+      <div class="mt-6 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
         <div class:list={[cover ? "lg:col-span-6" : "lg:col-span-12"]}>
-          <div class="flex flex-wrap gap-2">
-            {entry.id === "avisa" && <span class="rounded-full bg-brand px-3 py-0.5 text-xs font-bold text-black"><Icon name="bx:star" class="h-3.5 w-3.5 inline mr-1" />{t.flagship}</span>}
-            <span class="rounded-full border border-white/15 bg-white/5 px-3 py-0.5 text-[0.72rem] font-semibold text-white/80"><Icon name={entry.data.icon} class="h-3.5 w-3.5 inline mr-1 text-brand" />{d.badge}</span>
-          </div>
-          <h1 class="display mt-5 text-[clamp(2.1rem,5vw,4rem)] text-white">{d.title}</h1>
-          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/80">{d.subtitle}</p>
-          <div class="mt-8 flex flex-wrap gap-4">
-            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand">{t.live} <span aria-hidden="true">↗</span></a>}
-            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.code} <span aria-hidden="true">↗</span></a>}
+          <p class="flex flex-wrap items-center gap-2">
+            {entry.id === "avisa" && <span class="chip chip-brand">{t.flagship}</span>}
+            <span class="chip"><Icon name={entry.data.icon} class="h-4 w-4 text-brand" />{d.badge}</span>
+          </p>
+          <h1 class="h-page mt-5 !text-[clamp(2.2rem,5.4vw,4.2rem)]">{d.title}</h1>
+          <p class="lede mt-5">{d.subtitle}</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand">{t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.code} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
           </div>
         </div>
         {cover && (
           <div class="lg:col-span-6">
-            <div class="card overflow-hidden border border-white/10 bg-[#14141a]">
-              <img src={cover} alt={entry.data.image.alt} width="1200" height="675" class="aspect-[16/10] w-full object-cover" fetchpriority="high" decoding="async" />
+            <div class="overflow-hidden rounded-sm border border-white/15 bg-[#141412]">
+              <img src={cover} alt={entry.data.image.alt} width="1200" height="750" class="aspect-[16/10] w-full object-cover" fetchpriority="high" decoding="async" />
             </div>
           </div>
         )}
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="px-4 py-14 sm:px-6 sm:py-20">
-    <div class="mx-auto max-w-4xl">
-      <dl class="card grid gap-5 border border-white/10 bg-surface p-6 sm:grid-cols-2 lg:grid-cols-4">
-        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{t.client}</dt><dd class="mt-1 font-semibold text-white leading-snug">{d.client}</dd></div>
-        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{t.year}</dt><dd class="mt-1 font-semibold text-white">{entry.data.year}</dd></div>
-        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{t.role}</dt><dd class="mt-1 font-semibold text-white leading-snug">{d.role}</dd></div>
-        <div><dt class="font-mono text-[0.7rem] font-bold uppercase tracking-wider text-brand">{t.verify}</dt><dd class="mt-1 text-sm text-ink/80 leading-snug">{d.verificationMethod}</dd></div>
+  <section class="section">
+    <div class="wrap-narrow">
+      <dl class="grid gap-x-8 gap-y-6 border-y border-white/20 py-7 sm:grid-cols-2">
+        <div><dt class="label">{t.client}</dt><dd class="mt-1 font-semibold leading-snug">{d.client}</dd></div>
+        <div><dt class="label">{t.year}</dt><dd class="mt-1 font-semibold">{entry.data.year}</dd></div>
+        <div><dt class="label">{t.role}</dt><dd class="mt-1 font-semibold leading-snug">{d.role}</dd></div>
+        <div><dt class="label">{t.verify}</dt><dd class="muted mt-1 text-[0.95rem] leading-snug">{d.verificationMethod}</dd></div>
       </dl>
 
-      <div class="mt-8 flex flex-wrap items-center gap-2">
-        <span class="mr-1 font-mono text-xs font-bold uppercase tracking-wider text-brand">{t.stack}</span>
-        {entry.data.stack.map((x) => <span class="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 font-mono text-xs text-white/70">{x}</span>)}
-      </div>
+      <p class="mt-7 flex flex-wrap items-center gap-2">
+        <span class="label mr-1">{t.stack}</span>
+        {entry.data.stack.map((x) => <span class="chip font-normal">{x}</span>)}
+      </p>
 
-      <div class="prose prose-lg mt-12 max-w-none text-ink/80 prose-headings:text-white prose-a:text-brand prose-strong:text-white prose-li:marker:text-brand">
+      <div class="prose prose-lg prose-invert mt-12 max-w-none prose-headings:font-display prose-headings:text-white prose-p:text-[#d2d2cb] prose-a:text-brand prose-strong:text-white prose-li:text-[#d2d2cb] prose-li:marker:text-brand">
         <Content />
       </div>
     </div>
   </section>
 
-  <section class="border-y border-white/10 bg-[#09090d] px-4 py-16 text-white sm:px-6 sm:py-20">
-    <div class="mx-auto flex max-w-4xl flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
-      <div>
-        <h2 class="display text-[clamp(1.8rem,4vw,2.75rem)] text-white">{t.ctaTitle}</h2>
-        <p class="mt-3 max-w-lg text-ink/80">{t.ctaText}</p>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <a href={to(serviceFor)} class="btn btn-brand">{t.ctaA}</a>
-        <a href={to("/contact")} class="btn btn-white">{t.ctaB}</a>
-      </div>
-    </div>
-  </section>
+  <CtaBand
+    title={t.ctaTitle}
+    text={t.ctaText}
+    primary={{ href: to(serviceFor), label: t.ctaA }}
+    secondary={{ href: to("/contact"), label: t.ctaB }}
+  />
 
-  <nav aria-label={t.projects} class="mx-auto grid max-w-4xl gap-4 px-4 py-14 sm:grid-cols-2 sm:px-6">
-    <a href={to(`/projectes/${prev.id}`)} class="card border border-white/10 bg-surface p-5 hover:border-brand/50 transition-colors"><span class="font-mono text-xs font-bold uppercase text-brand">← {t.prev}</span><span class="mt-1 block font-display text-base font-bold text-white leading-snug">{shortTitle(prev.data.title)}</span></a>
-    <a href={to(`/projectes/${next.id}`)} class="card border border-white/10 bg-surface p-5 sm:text-right hover:border-brand/50 transition-colors"><span class="font-mono text-xs font-bold uppercase text-brand">{t.next} →</span><span class="mt-1 block font-display text-base font-bold text-white leading-snug">{shortTitle(next.data.title)}</span></a>
+  <nav aria-label={t.projects} class="wrap grid gap-6 border-t border-white/15 py-10 sm:grid-cols-2">
+    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{shortTitle(prev.data.title)}</span></a>
+    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{shortTitle(next.data.title)}</span></a>
   </nav>
 </Layout>

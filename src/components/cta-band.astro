@@ -1,0 +1,24 @@
+---
+/** Cierre de página: pregunta, una frase y dos acciones. */
+export interface Props {
+  title: string;
+  text?: string;
+  primary: { href: string; label: string; external?: boolean };
+  secondary?: { href: string; label: string; external?: boolean };
+}
+const { title, text, primary, secondary } = Astro.props;
+const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer" } : {});
+---
+
+<section class="section border-t border-white/15" aria-labelledby="cta-band-title">
+  <div class="wrap grid items-end gap-8 lg:grid-cols-12">
+    <div class="lg:col-span-8">
+      <h2 id="cta-band-title" class="h-section">{title}</h2>
+      {text && <p class="lede mt-5">{text}</p>}
+    </div>
+    <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+      <a href={primary.href} class="btn btn-brand" {...ext(primary.external)}>{primary.label} <span aria-hidden="true">→</span></a>
+      {secondary && <a href={secondary.href} class="btn btn-white" {...ext(secondary.external)}>{secondary.label}</a>}
+    </div>
+  </div>
+</section>

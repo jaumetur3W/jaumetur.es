@@ -91,7 +91,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
     amortizationSummary: "Fully pays for itself with just 3 to 4 takeaway orders or dinners per month.",
     ctaText: "Start Local Digitization",
     features: [
-      "Lightweight, instant-loading HTML web menu (target < 0.5s) optimized for smartphones",
+      "Lightweight, instant-loading HTML web menu (built to load fast) optimized for smartphones",
       "Full setup, optimization, and verification of Google Maps & Google Business profile",
       "Direct WhatsApp and phone call ordering buttons with zero intermediary fees",
       "Setup and visual design for Instagram and Facebook business profiles",
@@ -107,13 +107,13 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
       },
       {
         title: "Top ranking on Google Maps and proximity search",
-        metric: "+60% local visibility",
+        metric: "Google Maps presence",
         description:
-          "Over 75% of consumers searching for 'where to eat' or 'restaurants near me' visit a local business within 24 hours. Having an optimized Google Maps presence with opening hours and instant WhatsApp contact is the single biggest new customer driver.",
+          "Many people searching for 'where to eat' or 'restaurants near me' on their phone head to a nearby venue the same day. A well-kept Google Maps listing with opening hours and a direct WhatsApp contact makes it easy for them to choose you.",
       },
       {
         title: "Goodbye to bulky PDFs that lose customers at tables",
-        metric: "Target load < 0.5 seconds",
+        metric: "Fast mobile loading",
         description:
           "Heavy PDF menus fail to load on weak mobile data connections. A clean, native HTML web menu loads instantly, keeps customers happy, and boosts drink and dessert orders.",
       },
@@ -166,7 +166,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
         title: "Higher conversion rate from visitors to clients",
         metric: "+25% conversion lift",
         description:
-          "Every second of delay costs 7% in conversions. Sub-second load times ensure every visitor engages with your value proposition immediately.",
+          "Slow pages lose visitors before they read anything. A fast page gets your value proposition in front of every visitor straight away.",
       },
     ],
     marketComparison: [
@@ -228,7 +228,7 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
       },
       {
         title: "Enterprise-grade reliability without vendor lock-in",
-        metric: "99.9% uptime",
+        metric: "Built to last",
         description:
           "Modular code ensures that your software can evolve gracefully for years without expensive rewrites.",
       },
@@ -292,9 +292,9 @@ export const servicesCopyEn: Record<string, ServiceCopy> = {
       },
       {
         title: "Immediate reduction in bounce rate",
-        metric: "-40% immediate drop",
+        metric: "Fewer abandoned visits",
         description:
-          "More than half of mobile visitors leave if a page takes over 3 seconds to load. Speed optimization stops lost sales immediately.",
+          "Many mobile visitors leave if a page takes too long to load. Speed optimization stops those lost visits.",
       },
     ],
     marketComparison: [

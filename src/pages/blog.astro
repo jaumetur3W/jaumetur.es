@@ -72,7 +72,7 @@ const getCategoryIcon = (category: string) => {
             id="blog-search-input"
             type="search"
             placeholder={isEn ? "Search articles (e.g. Astro, SEO, Angular, TypeScript...)" : "Buscar artículos (ej: Astro, SEO, Angular, TypeScript...)"}
-            class="w-full rounded-xl border border-white/10 bg-[#121216] py-2.5 pl-10 pr-4 text-xs sm:text-sm text-white placeholder-zinc-500 shadow-inner outline-none transition focus:border-brand font-mono"
+            class="w-full rounded-sm border border-white/10 bg-[#121216] py-2.5 pl-10 pr-4 text-xs sm:text-sm text-white placeholder-zinc-500 shadow-inner outline-none transition focus:border-brand font-mono"
           />
         </div>
 
@@ -82,7 +82,7 @@ const getCategoryIcon = (category: string) => {
             <button
               type="button"
               data-category={cat}
-              class={`filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
+              class={`filter-btn px-3.5 py-2 min-h-[44px] rounded-sm text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
                 idx === 0
                   ? "bg-[#FFFF00] text-black border-brand font-bold shadow-xs active"
                   : "bg-white/5 text-zinc-300 border-white/10 hover:text-white hover:border-brand/40"
@@ -105,7 +105,7 @@ const getCategoryIcon = (category: string) => {
 
             return (
               <article
-                class="post-card surface-card group flex flex-col justify-between rounded-3xl bg-[#121216] border border-white/10 hover:border-brand/40 transition-all duration-300 p-6 sm:p-8"
+                class="post-card surface-card group flex flex-col justify-between rounded-sm bg-[#121216] border border-white/10 hover:border-brand/40 transition-all duration-300 p-6 sm:p-8"
                 data-title={post.data.title.toLowerCase()}
                 data-category={post.data.category}
                 data-snippet={post.data.snippet.toLowerCase()}
@@ -114,7 +114,7 @@ const getCategoryIcon = (category: string) => {
                 <div>
                   <!-- Header with Icon & Meta Pills -->
                   <div class="flex items-start justify-between gap-4 mb-5">
-                    <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand group-hover:bg-[#FFFF00] group-hover:text-black transition-colors shrink-0">
+                    <div class="w-12 h-12 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-brand group-hover:bg-[#FFFF00] group-hover:text-black transition-colors shrink-0">
                       <Icon name={iconName} class="w-6 h-6" />
                     </div>
 
@@ -175,7 +175,7 @@ const getCategoryIcon = (category: string) => {
         </div>
 
         <!-- Newsletter CTA Card -->
-        <section class="mt-20 surface-card p-8 sm:p-10 rounded-3xl bg-[#121216] border border-brand/30 shadow-xl relative overflow-hidden">
+        <section class="mt-20 surface-card p-8 sm:p-10 rounded-sm bg-[#121216] border border-brand/30 shadow-xl relative overflow-hidden">
           <div class="max-w-2xl relative z-10">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FFFF00] text-black border border-brand mb-4">
               <Icon name="bx:envelope" class="w-3.5 h-3.5" />
@@ -197,7 +197,7 @@ const getCategoryIcon = (category: string) => {
                 name="email"
                 placeholder={isEn ? "your.email@company.com" : "tu.correo@empresa.com"}
                 required
-                class="px-4 py-2.5 rounded-xl bg-[#0a0a0c] border border-white/10 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-brand flex-1 font-mono"
+                class="px-4 py-2.5 rounded-sm bg-[#0a0a0c] border border-white/10 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-brand flex-1 font-mono"
               />
               <button
                 type="submit"
@@ -269,8 +269,8 @@ const getCategoryIcon = (category: string) => {
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;
             b.className = isCurrent
-              ? "filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-[#FFFF00] text-black border-brand font-bold shadow-xs active"
-              : "filter-btn px-3.5 py-2 min-h-[44px] rounded-xl text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-white/5 text-zinc-300 border-white/10 hover:text-white hover:border-brand/40";
+              ? "filter-btn px-3.5 py-2 min-h-[44px] rounded-sm text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-[#FFFF00] text-black border-brand font-bold shadow-xs active"
+              : "filter-btn px-3.5 py-2 min-h-[44px] rounded-sm text-xs font-mono transition-all border flex items-center gap-1.5 cursor-pointer bg-white/5 text-zinc-300 border-white/10 hover:text-white hover:border-brand/40";
           });
 
           filterPosts();

@@ -77,7 +77,7 @@ El Cumulative Layout Shift se produce casi siempre por dos causas:
 
 ```css
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Atkinson Hyperlegible Next Variable';
   src: url('/fonts/InterVariable.woff2') format('woff2');
   font-weight: 100 900;
   font-display: swap; /* Muestra el texto de inmediato con la fuente del sistema */
