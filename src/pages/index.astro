@@ -18,8 +18,6 @@ const to = (path: string) => {
 };
 
 const services = getServicesData(locale);
-const monthly = (n: number) => (isEn ? `€${n}/mo` : `${n} €/mes`);
-const euro = (n: number) => (isEn ? `€${n.toLocaleString("en-US")}` : `${n.toLocaleString("es-ES")} €`);
 
 // Solo los dos proyectos insignia reales y demostrables
 const rawProjects = await getCollection(isEn ? "projectes-en" : "projectes");
@@ -36,15 +34,16 @@ const WA = "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3
 
 const t = isEn
   ? {
-      title: "Web Development & Local SEO in Valencia | Jaume Tur",
-      desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain. Published prices from €290 and a launch offer for the first clients.",
-      h1: "Websites and apps made to measure, by the person who codes them.",
-      lede: "Websites, digital menus and web applications for businesses in Xàtiva, Valencia and the rest of Spain. Price and scope are fixed before we start, and the code and accounts are yours.",
+      title: "Custom Web Design in Xàtiva and Valencia | Jaume Tur",
+      desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain, built by the developer you talk to. Quote and launch offer for the first clients.",
+      h1: "Custom websites and web apps in Xàtiva and Valencia.",
+      lede: "Built and maintained by the same person who answers you. Websites, digital menus and web applications for businesses in Xàtiva, Valencia and the rest of Spain; price and scope are fixed before we start, and the code and accounts are yours.",
       cta1: "Get a quote", cta2: "See services & pricing", wa: "WhatsApp",
       reply: "Reply within 24 business hours.",
       launchLink: "Launch offer for the first clients",
-      svcTitle: "Five services, with published prices.",
-      svcLede: "Each one has a creation price and a monthly maintenance fee (one-year minimum). Scope and timeline are confirmed with you before starting.",
+      svcTitle: "Five services for your business.",
+      svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum); you can see them in the quote above and on each service page. Scope and timeline are confirmed with you before starting.",
+      allPrices: "See all prices",
       from: "From", delivery: "Delivery", more: "See what's included",
       whyTitle: "Whoever answers you is whoever builds it.",
       why: [
@@ -83,15 +82,16 @@ const t = isEn
       finalWa: "Message on WhatsApp", finalForm: "Send the form",
     }
   : {
-      title: "Desarrollo Web y SEO Local en Valencia | Jaume Tur",
-      desc: "Páginas web, cartas digitales y aplicaciones a medida para negocios de Xàtiva, València y toda España. Precios publicados desde 290 € y oferta de lanzamiento para los primeros clientes.",
-      h1: "Webs y aplicaciones a medida, hechas por quien las programa.",
-      lede: "Páginas web, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España. Precio y alcance cerrados antes de empezar, y el código y las cuentas son tuyos.",
+      title: "Diseño web a medida en Xàtiva y Valencia | Jaume Tur",
+      desc: "Diseño web a medida, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España, hechas por quien las programa. Pide presupuesto; oferta de lanzamiento para los primeros clientes.",
+      h1: "Páginas web y aplicaciones a medida en Xàtiva y València.",
+      lede: "Hechas y mantenidas por la misma persona que te atiende. Páginas web, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España; precio y alcance cerrados antes de empezar, y el código y las cuentas son tuyos.",
       cta1: "Pedir presupuesto", cta2: "Ver servicios y precios", wa: "WhatsApp",
       reply: "Respuesta en menos de 24 horas laborables.",
       launchLink: "Oferta de lanzamiento para los primeros clientes",
-      svcTitle: "Cinco servicios, con el precio a la vista.",
-      svcLede: "Cada uno tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año). Alcance y plazo se confirman contigo antes de empezar.",
+      svcTitle: "Cinco servicios para tu negocio.",
+      svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en el presupuesto de arriba y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar.",
+      allPrices: "Ver todos los precios",
       from: "Desde", delivery: "Entrega", more: "Ver qué incluye",
       whyTitle: "Quien te atiende es quien lo construye.",
       why: [
@@ -177,7 +177,10 @@ const faqSchema = {
     <div class="wrap">
       <div class="grid gap-6 lg:grid-cols-12">
         <h2 id="svc-title" class="h-section lg:col-span-7">{t.svcTitle}</h2>
-        <p class="lede lg:col-span-5 lg:self-end">{t.svcLede}</p>
+        <div class="lg:col-span-5 lg:self-end">
+          <p class="lede">{t.svcLede}</p>
+          <a href={to("/pricing")} class="link-arrow mt-3 min-h-11">{t.allPrices} <span aria-hidden="true">→</span></a>
+        </div>
       </div>
       <ul class="mt-10 border-b border-white/15 sm:mt-14">
         {services.map((s) => (
@@ -190,10 +193,9 @@ const faqSchema = {
                 {s.tagline}
                 <span class="mt-2 block text-[0.9rem] font-semibold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
               </span>
-              <span class="flex flex-wrap items-baseline gap-x-3 gap-y-1 lg:col-span-3 lg:block lg:text-right">
-                <span class="label lg:block">{t.from}</span>
-                <span class="num font-display text-[2rem] font-extrabold leading-none lg:block" style="font-stretch:85%">{euro(s.creationPriceNumber)}</span>
-                <span class="num text-[0.9rem] lg:mt-1 lg:block">+ {monthly(s.monthlyFeeNumber)} · {s.timeline}</span>
+              <span class="lg:col-span-3 lg:text-right">
+                <span class="label block">{t.delivery}</span>
+                <span class="block font-semibold">{s.timeline}</span>
               </span>
             </a>
           </li>
@@ -304,7 +306,7 @@ const faqSchema = {
     <div class="wrap grid items-center gap-10 lg:grid-cols-12">
       <div class="lg:col-span-3">
         <div class="mx-auto aspect-square w-40 overflow-hidden rounded-sm border border-white/20 bg-[#1c1c19] sm:w-48 lg:mx-0 lg:w-full lg:max-w-56">
-          <img src="/img/1.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="h-full w-full object-contain" />
+          <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="h-full w-full object-contain" />
         </div>
       </div>
       <div class="lg:col-span-8">

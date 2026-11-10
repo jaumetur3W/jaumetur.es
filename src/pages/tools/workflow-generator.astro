@@ -2,11 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
-import { localeFromPath, localizePath } from "@/i18n";
+import { localeFromPath, localizePath, localizeHref } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
-const blogPath = localizePath("/blog", isEn ? "en" : "es");
-const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
+const blogPath = localizeHref("/blog", isEn ? "en" : "es");
+const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
 ---
 
 <Layout

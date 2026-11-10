@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
+import { getCollection } from "astro:content";
 import { servicesData, getLocalizedService, type ServicePackage } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
@@ -39,6 +40,23 @@ const monthly = (v: number) => (isEn ? `€${v}/month` : `${v} €/mes`);
 const euro = (v: number) => (isEn ? `€${v.toLocaleString("en-US")}` : `${v.toLocaleString("es-ES")} €`);
 const siteUrl = "https://jaumetur.es";
 
+// Lecturas del blog que apoyan cada servicio (enlazado interno con sentido temático)
+const relatedByService: Record<string, string[]> = {
+  "digitalitzacio-local": [
+    "por-que-el-menu-en-pdf-mata-ventas-restaurante",
+    "guia-seo-local-google-maps-comunidad-valenciana",
+    "tarjetas-fidelizacion-wallet-negocios-locales",
+  ],
+  "landing-page": ["por-que-elegir-astro-sobre-wordpress-negocios-locales", "optimizacion-imagenes-web-avif-webp-pipeline", "accesibilidad-web-wcag-aa-guia-practica"],
+  "angular-webapp": ["arquitectura-modular-angular-standalone-signals", "guia-definitiva-typescript-estricto-frontend", "avisa-arquitectura-frontend-angular-pwa"],
+  "performance-audit": ["optimizacion-core-web-vitals-60fps", "accesibilidad-web-wcag-aa-guia-practica", "optimizacion-imagenes-web-avif-webp-pipeline"],
+  "cicd-devops": ["pipeline-cicd-github-actions-despliegue-continuo", "git-github-control-de-versiones-flujo-colaborativo"],
+};
+const blogPosts = await getCollection("blog", ({ data }) => !data.draft && data.lang === "es");
+const readings = (relatedByService[service.id] ?? [])
+  .map((id) => blogPosts.find((post) => post.id === id))
+  .filter((post): post is NonNullable<typeof post> => Boolean(post));
+
 const t = isEn
   ? {
       home: "Home", services: "Services & pricing", from: "From", deliver: "Delivery", firstYear: "First year",
@@ -48,7 +66,7 @@ const t = isEn
       compare: "How it compares with the alternatives", price: "Price", maintenance: "Maintenance", hidden: "Hidden costs", ownership: "Ownership",
       request: "Request this plan", other: "Other plans", prev: "Previous", next: "Next", ctaTitle: "Shall we talk about it?",
       ctaText: "Tell me about your project and I'll confirm scope, price and timeline.",
-      title: `${s.name} — pricing and what's included`,
+      title: `${s.name} — pricing & scope`,
       desc: `${s.tagline} From ${euro(service.creationPriceNumber)} + ${monthly(service.monthlyFeeNumber)}. See what's included and how it compares.`,
     }
   : {
@@ -199,6 +217,24 @@ const breadcrumb = {
       </div>
     </div>
   </section>
+
+  {readings.length > 0 && (
+    <section class="section border-t border-white/15" aria-labelledby="read-title">
+      <div class="wrap">
+        <h2 id="read-title" class="h-section max-w-3xl">{isEn ? "Related reading (in Spanish)" : "Para leer antes de decidir"}</h2>
+        <ul class="mt-8 border-b border-white/15">
+          {readings.map((post) => (
+            <li class="contents">
+              <a href={`/blog/${post.id}/`} class="item">
+                <span class="font-display text-[1.4rem] font-bold leading-tight sm:text-[1.7rem]" style="font-stretch:84%">{post.data.title}</span>
+                <span class="muted max-w-3xl">{post.data.snippet}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: to(`/contact?servei=${service.id}`), label: s.ctaText }} secondary={{ href: to("/pricing"), label: t.services }} />
 

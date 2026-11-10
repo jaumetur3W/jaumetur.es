@@ -33,11 +33,9 @@ const rules = services
           <input class="peer sr-only" type="radio" name="quote-service" id={`q-svc-${i}`} value={s.id} checked={i === 0} />
           <label
             for={`q-svc-${i}`}
-            class="leader-row min-h-11 cursor-pointer rounded-sm border-2 border-[#0b0b09] px-3 py-2 text-[0.95rem] font-semibold leading-tight transition-colors hover:bg-[#0b0b09]/10 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#0b0b09]"
+            class="flex min-h-11 items-center cursor-pointer rounded-sm border-2 border-[#0b0b09] px-3 py-2 text-[0.95rem] font-semibold leading-tight transition-colors hover:bg-[#0b0b09]/10 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#0b0b09]"
           >
             <span>{s.name}</span>
-            <span class="leader" aria-hidden="true"></span>
-            <span class="num whitespace-nowrap font-mono text-[0.85rem]">{euro(s.creationPriceNumber)}</span>
           </label>
         </div>
       ))}

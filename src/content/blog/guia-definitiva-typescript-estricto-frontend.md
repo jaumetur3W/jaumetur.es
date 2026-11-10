@@ -163,4 +163,4 @@ designColors.secondary.map(c => c * 2);
 
 Escribir TypeScript estricto requiere un cambio de mentalidad: los tipos no son un obstáculo que haya que superar, sino la herramienta de diseño más potente que tenemos como ingenieros frontend. Invertir tiempo en modelar correctamente el dominio ahorra cientos de horas de depuración en el futuro.
 
-¿Tienes un equipo que quiere subir el nivel de TypeScript o auditar su código? [Hablemos](/contact).
+¿Tienes un equipo que quiere subir el nivel de TypeScript o auditar su código? [Hablemos](/contact/).

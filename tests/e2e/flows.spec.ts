@@ -195,7 +195,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     // Click EN to navigate
     await enLink.click();
     await expect(page).toHaveURL("/en/about/");
-    await expect(page.locator("h1")).toContainText("The person who'll build your website");
+    await expect(page.locator("h1")).toContainText("Jaume Tur, web developer in Xàtiva and Valencia");
 
     const englishDesktopNav = page.locator("nav[aria-label='Main navigation']");
     await expect(englishDesktopNav.locator('a[href="/en/pricing/"]')).toHaveText("Services");

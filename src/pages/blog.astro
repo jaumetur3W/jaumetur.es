@@ -3,10 +3,10 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
-import { localeFromPath, localizePath } from "@/i18n";
+import { localeFromPath, localizePath, localizeHref } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
-const href = (path: string) => localizePath(path, isEn ? "en" : "es");
+const href = (path: string) => localizeHref(path, isEn ? "en" : "es");
 
 // Filter blog entries with 'draft: false' & date before current date
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
@@ -43,7 +43,7 @@ const getCategoryIcon = (category: string) => {
   <header class="border-b border-white/15 pb-10 pt-12 sm:pb-14 sm:pt-20">
     <div class="wrap">
       <h1 class="h-page max-w-4xl">
-        {isEn ? "Articles, patterns and architecture." : "Artículos, patrones y arquitectura."}
+        {isEn ? "Web development blog: guides, patterns and architecture." : "Blog de desarrollo web: guías, patrones y arquitectura."}
       </h1>
       <p class="lede mt-6">
         {isEn

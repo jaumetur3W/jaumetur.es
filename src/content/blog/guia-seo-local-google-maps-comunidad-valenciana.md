@@ -94,5 +94,5 @@ Las reseñas en Google Business Profile no solo influyen en el posicionamiento; 
 
 Si tienes una empresa, comercio o proyecto profesional en Xàtiva, la comarca de La Costera o Valencia y quieres una página web rápida, visible en Google Maps y con soporte técnico continuo:
 
-- Revisa nuestros [paquetes y precios de desarrollo web](/pricing).
-- O [ponte en contacto con Jaume Tur](/contact) para estudiar tu caso particular sin ningún compromiso.
+- Revisa nuestros [paquetes y precios de desarrollo web](/pricing/).
+- O [ponte en contacto con Jaume Tur](/contact/) para estudiar tu caso particular sin ningún compromiso.

@@ -14,8 +14,9 @@ const withSlash = (path: string) => {
   return `${base === "/" || base.endsWith("/") ? base : `${base}/`}${hash}`;
 };
 const to = (path: string) => withSlash(localizePath(path, locale));
-const spanishPath = withSlash(localizePath(rawPathname, "es"));
-const englishPath = withSlash(localizePath(rawPathname, "en"));
+const is404 = rawPathname.includes("404");
+const spanishPath = is404 ? "/" : withSlash(localizePath(rawPathname, "es"));
+const englishPath = is404 ? "/en/" : withSlash(localizePath(rawPathname, "en"));
 
 const links = [
   { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
