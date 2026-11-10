@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh pr *)",
+      "Bash(PLAYWRIGHT_TEST_BASE_URL=http://localhost:4322 npx playwright test tests/e2e/seo.spec.ts)"
+    ]
+  }
+}
