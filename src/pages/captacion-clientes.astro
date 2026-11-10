@@ -1,0 +1,234 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import QuoteSheet from "@/components/quote-sheet.astro";
+import CtaBand from "@/components/cta-band.astro";
+import { getServicesData } from "@/data/services";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const locale = localeFromPath(Astro.url.pathname);
+const isEn = locale === "en";
+const services = getServicesData(locale);
+
+const to = (path: string) => {
+  const [rest, query] = path.split("?");
+  const p = localizePath(rest, locale);
+  const [base, hash] = p.split("#");
+  const b = base === "/" || base.endsWith("/") ? base : `${base}/`;
+  return `${b}${query ? `?${query}` : ""}${hash ? `#${hash}` : ""}`;
+};
+
+const contactLink = (serviceId: string) => `${to("/contact/")}?service=${serviceId}`;
+const detailLink = (serviceId: string) => to(`/pricing/${serviceId}/`);
+
+const t = isEn
+  ? {
+      title: "Client Acquisition: Launch Offer | Jaume Tur Web Developer",
+      desc: "Limited-time launch offer: your website created without development fees. Ideal for businesses wanting to join the first group of clients and feature in a real-world portfolio.",
+      h1: "Acquire your first clients with a website designed for growth.",
+      lede: "During this launch period, I'm offering selected websites without charging development fees. You only cover the domain and hosting, and your project becomes part of my portfolio. Limited places available.",
+      sectionTitle: "Why join now?",
+      reasons: [
+        { emoji: "🚀", title: "Limited places", desc: "The launch offer is temporary. First come, first served." },
+        { emoji: "📈", title: "Real portfolio", desc: "Your project appears in a real-world case study with measurable results." },
+        { emoji: "🤝", title: "Direct support", desc: "You work with the developer who builds your site, not a sales rep." },
+      ],
+      quoteTitle: "See what you get",
+      quoteLede: "Choose a service above and view the total cost. You only pay for VPS, domain and maintenance (no development fees). Your project remains yours forever.",
+      processTitle: "How the process works",
+      processLede: "From briefing to launch, you own everything: source code, Git repository, domain and accounts.",
+      steps: [
+        { n: "1", title: "Brief and agreement", desc: "We define what you need, scope, timeline and terms in writing before any code is written." },
+        { n: "2", title: "Custom development", desc: "Modern development with previews so you see progress and can feedback early." },
+        { n: "3", title: "Review and launch", desc: "Accessibility, SEO and performance checks before going live." },
+        { n: "4", title: "Handover", desc: "Git repository, domain and accounts transferred to your name." },
+      ],
+      conditionsTitle: "Launch offer terms",
+      conditions: [
+        "Development fees waived for selected projects during the launch period.",
+        "You cover VPS, domain and ongoing maintenance (infrastructure only).",
+        "Your project can be featured in my portfolio with real results and case study.",
+        "Exact scope, timeline and terms confirmed in writing before starting.",
+        "Limited to businesses in Xàtiva, Valencia, or remote teams across Spain.",
+        "Standard rates resume after the launch period ends.",
+        "Project and code are yours forever, regardless of the offer ending.",
+      ],
+      faqTitle: "Common questions",
+      faqs: [
+        { q: "How long does it take?", a: "Local digitisation: 3–5 business days. Landing pages: 1–2 weeks. Web applications: 3–6 weeks. We agree the timeline before starting." },
+        { q: "Will I own the code?", a: "Yes. The source code is delivered in a Git repository under your name, with the domain and accounts, with no lock-in." },
+        { q: "When does the launch offer end?", a: "The offer is limited and temporary. Once places are full or the period ends, standard rates apply. Get in touch to check availability." },
+        { q: "What about ongoing maintenance?", a: "You cover the VPS and domain costs. Maintenance (updates, monitoring, fixes) is handled by you or a team of your choice once launched." },
+      ],
+      cta: "Request a place",
+      ctaNote: "Reply within 24 business hours.",
+    }
+  : {
+      title: "Captación de clientes: oferta de lanzamiento | Jaume Tur",
+      desc: "Oferta limitada de lanzamiento: tu web creada sin honorarios de desarrollo. Ideal para negocios que quieren formar parte de los primeros clientes y aparecer en un portafolio real.",
+      h1: "Capta tus primeros clientes con una web diseñada para crecer.",
+      lede: "Durante este período de lanzamiento ofrezco webs seleccionadas sin cobrar honorarios de desarrollo. Tú cubres solo VPS, dominio y mantenimiento básico; tu proyecto pasa a ser parte de mi portafolio. Plazas limitadas.",
+      sectionTitle: "¿Por qué ahora?",
+      reasons: [
+        { emoji: "🚀", title: "Plazas limitadas", desc: "La oferta de lanzamiento es temporal. Por orden de llegada." },
+        { emoji: "📈", title: "Portafolio real", desc: "Tu proyecto aparece en un caso de estudio real con resultados medibles." },
+        { emoji: "🤝", title: "Atención directa", desc: "Trabajas con el desarrollador que construye tu web, sin intermediarios." },
+      ],
+      quoteTitle: "Ve qué incluye",
+      quoteLede: "Elige un servicio arriba y mira el coste total. Tú solo cubres VPS, dominio y mantenimiento básico (sin honorarios de desarrollo). Tu proyecto es tuyo para siempre.",
+      processTitle: "Cómo funciona el proceso",
+      processLede: "Del briefing al lanzamiento, todo es tuyo: código fuente, repositorio Git, dominio y cuentas.",
+      steps: [
+        { n: "1", title: "Briefing y acuerdo", desc: "Definimos por escrito qué necesitas, alcance, plazo y términos antes de escribir una línea de código." },
+        { n: "2", title: "Desarrollo a medida", desc: "Programación moderna con previsualizaciones para que veas el avance y corrijas pronto." },
+        { n: "3", title: "Revisión y lanzamiento", desc: "Comprobaciones de accesibilidad, SEO y rendimiento antes de ir a producción." },
+        { n: "4", title: "Entrega", desc: "Repositorio Git, dominio y cuentas transferidas a tu nombre." },
+      ],
+      conditionsTitle: "Términos de la oferta de lanzamiento",
+      conditions: [
+        "Honorarios de desarrollo sin cobrar para proyectos seleccionados durante el período de lanzamiento.",
+        "Tú cubres VPS, dominio y mantenimiento básico de infraestructura.",
+        "Tu proyecto puede aparecer en mi portafolio con resultados reales y caso de estudio.",
+        "Alcance exacto, plazo y términos se confirman por escrito antes de empezar.",
+        "Abierta a negocios de Xàtiva, València y, en remoto, de toda España.",
+        "Las tarifas habituales rigen después del período de lanzamiento.",
+        "El proyecto y el código son tuyos para siempre, aunque termine la oferta.",
+      ],
+      faqTitle: "Dudas frecuentes",
+      faqs: [
+        { q: "¿Cuánto tarda?", a: "Digitalización local: 3–5 días. Landing pages: 1–2 semanas. Aplicaciones web: 3–6 semanas. Acordamos el plazo antes de empezar." },
+        { q: "¿Seré propietario del código?", a: "Sí. El código fuente se entrega en un repositorio Git a tu nombre, junto con el dominio y las cuentas, sin cautividad." },
+        { q: "¿Cuándo termina la oferta de lanzamiento?", a: "La oferta es limitada y temporal. Una vez llenas las plazas o termina el período, rigen las tarifas habituales. Ponte en contacto para consultar disponibilidad." },
+        { q: "¿Incluye mantenimiento?", a: "Tú cubres VPS y dominio. El mantenimiento (actualizaciones, monitoreo, reparaciones) lo gestionas tú o un equipo que elijas una vez lanzada la web." },
+      ],
+      cta: "Solicitar plaza",
+      ctaNote: "Respuesta en menos de 24 horas laborables.",
+    };
+
+const breadcrumbs = [
+  { name: isEn ? "Home" : "Inicio", url: to("/") },
+  { name: t.h1, url: to("/captacion-clientes/") },
+];
+
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((item, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: item.name,
+    item: `https://jaumetur.es${item.url}`,
+  })),
+};
+---
+
+<Layout
+  title={t.title}
+  description={t.desc}
+  jsonLd={[breadcrumbSchema]}
+>
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="section h-page md:h-section">
+      <div class="space-y-3">
+        <div class="label">{t.sectionTitle}</div>
+        <h1 class="h-hero">{t.h1}</h1>
+        <p class="lede max-w-2xl">{t.lede}</p>
+      </div>
+    </section>
+
+    <!-- Why now -->
+    <section class="section">
+      <div class="space-y-6">
+        <h2 class="h-page">{t.sectionTitle}</h2>
+        <div class="grid gap-4 sm:grid-cols-3">
+          {
+            t.reasons.map((reason) => (
+              <div class="space-y-2">
+                <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ffff00] text-xl">
+                  {reason.emoji}
+                </div>
+                <h3 class="font-semibold">{reason.title}</h3>
+                <p class="text-sm text-[#0b0b09]/70">{reason.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote sheet -->
+    <section class="section">
+      <div class="space-y-4">
+        <h2 class="h-page">{t.quoteTitle}</h2>
+        <p class="lede text-base">{t.quoteLede}</p>
+      </div>
+      <div class="mt-6">
+        <QuoteSheet
+          services={services}
+          isEn={isEn}
+          contactHref={(id) => contactLink(id)}
+          detailHref={(id) => detailLink(id)}
+        />
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section">
+      <div class="space-y-6">
+        <div>
+          <h2 class="h-page">{t.processTitle}</h2>
+          <p class="lede mt-3">{t.processLede}</p>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {
+            t.steps.map((step) => (
+              <div class="space-y-2">
+                <div class="text-2xl font-extrabold text-[#ffff00] tabular-nums">{step.n}</div>
+                <h3 class="font-semibold leading-snug">{step.title}</h3>
+                <p class="text-sm text-[#0b0b09]/70">{step.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Conditions -->
+    <section class="section">
+      <h2 class="h-page">{t.conditionsTitle}</h2>
+      <ul class="mt-6 space-y-2">
+        {
+          t.conditions.map((condition) => (
+            <li class="flex gap-3">
+              <span class="shrink-0 text-[#ffff00]">✓</span>
+              <span>{condition}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <h2 class="h-page">{t.faqTitle}</h2>
+      <div class="mt-6 space-y-4">
+        {
+          t.faqs.map((faq) => (
+            <details class="group open:bg-[#0b0b09]/5 open:p-4 open:rounded-sm cursor-pointer">
+              <summary class="font-semibold leading-snug flex items-center gap-2">
+                {faq.q}
+                <span class="ml-auto group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p class="mt-3 text-sm text-[#0b0b09]/70">{faq.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <CtaBand
+    title={t.h1}
+    text={t.ctaNote}
+    primary={{ href: to("/contact/"), label: t.cta }}
+  />
+</Layout>
