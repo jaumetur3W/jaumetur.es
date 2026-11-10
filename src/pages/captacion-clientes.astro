@@ -147,8 +147,8 @@ const breadcrumbSchema = {
                 <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ffff00]">
                   <Icon name={reason.icon} class="h-6 w-6 text-[#0b0b09]" />
                 </div>
-                <h3 class="font-semibold">{reason.title}</h3>
-                <p class="text-sm text-[#0b0b09]/70">{reason.desc}</p>
+                <h3 class="font-semibold text-[#0b0b09]">{reason.title}</h3>
+                <p class="text-sm text-[#0b0b09]/80">{reason.desc}</p>
               </div>
             ))
           }
@@ -185,7 +185,7 @@ const breadcrumbSchema = {
               <div class="space-y-2">
                 <div class="text-2xl font-extrabold text-[#ffff00] tabular-nums">{step.n}</div>
                 <h3 class="font-semibold leading-snug">{step.title}</h3>
-                <p class="text-sm text-[#0b0b09]/70">{step.desc}</p>
+                <p class="text-sm text-white/70">{step.desc}</p>
               </div>
             ))
           }
@@ -219,7 +219,7 @@ const breadcrumbSchema = {
                 {faq.q}
                 <span class="ml-auto group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <p class="mt-3 text-sm text-[#0b0b09]/70">{faq.a}</p>
+              <p class="mt-3 text-sm text-white/70">{faq.a}</p>
             </details>
           ))
         }
