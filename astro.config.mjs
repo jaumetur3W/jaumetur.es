@@ -80,6 +80,7 @@ export default defineConfig({
     "/val/projectes/forma-espacio": "/projectes/forma-espacio/",
     "/val/projectes/pipeline-cicd": "/projectes/pipeline-cicd/",
     "/val/projectes/pizzeria-xativa": "/projectes/pizzeria-xativa/",
+    "/val/projectes/trania": "/projectes/trania/",
 
     // English project alias
     "/en/projects": "/en/projectes/",
