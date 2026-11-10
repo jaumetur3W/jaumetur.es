@@ -13,11 +13,22 @@ const to = (path: string) => {
 const projects = (await getCollection(isEn ? "projectes-en" : "projectes")).sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 const projectImages: Record<string, string> = {
   avisa: "/img/preview-avisa.webp",
+  trania: "/img/preview-trania.webp",
+  worksy: "/img/preview-worksy.webp",
   "pizzeria-xativa": "/img/foto_pizza.webp",
   "burger-xativa": "/img/foto_burger.webp",
   "dashboard-telemetria": "/img/preview-dashboard.webp",
   "pipeline-cicd": "/img/preview-pipeline.webp",
 };
+
+const featuredIds = ["avisa", "trania", "worksy", "pizzeria-xativa"];
+
+const featuredProjects = featuredIds
+  .map((id) => projects.find((p) => p.id === id))
+  .filter(Boolean) as typeof projects;
+
+const secondaryProjects = projects.filter((p) => !featuredIds.includes(p.id));
+
 const shortTitle = (x: string) => x.split(" — ")[0];
 const t = isEn
   ? {
@@ -26,6 +37,9 @@ const t = isEn
       eyebrow: "Projects", h1: "Web projects and case studies you can open and try.",
       lead: "Websites, interactive demos and web applications. Demos with sample data are labelled as such. Each page explains what it is, my role and the technologies used.",
       view: "View case study", flagship: "Flagship", ctaTitle: "Your project could be next.", cta: "Get a quote", home: "Home",
+      secondaryEyebrow: "Technical archive & experiments",
+      secondaryHeading: "Other demos, DevOps & mockups",
+      secondaryDesc: "Interactive demos, continuous integration pipelines, and editorial mockups complementing the main showcase.",
     }
   : {
       title: "Proyectos y casos de estudio web | Jaume Tur",
@@ -33,6 +47,9 @@ const t = isEn
       eyebrow: "Proyectos", h1: "Proyectos y casos de estudio web que puedes abrir y probar.",
       lead: "Páginas web, demos interactivas y aplicaciones web. Las demos con datos de ejemplo están indicadas como tales. Cada ficha explica qué es, mi papel y las tecnologías usadas.",
       view: "Ver caso de estudio", flagship: "Insignia", ctaTitle: "Tu proyecto puede ser el siguiente.", cta: "Pedir presupuesto", home: "Inicio",
+      secondaryEyebrow: "Archivo técnico y exploraciones",
+      secondaryHeading: "Otras demos, DevOps y maquetas",
+      secondaryDesc: "Demos interactivas, pipelines de integración continua y maquetas editoriales que complementan los proyectos principales.",
     };
 const list = {
   "@context": "https://schema.org",
@@ -49,31 +66,63 @@ const list = {
 
   <section class="section" aria-label={t.eyebrow}>
     <ul class="wrap grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-12">
-      {projects.map((p, i) => (
-        <li class:list={[i === 0 ? "sm:col-span-2 lg:col-span-12" : i % 3 === 1 ? "lg:col-span-7" : "lg:col-span-5"]}>
-          <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-6", i === 0 ? "lg:grid-cols-12 lg:items-center lg:gap-12" : ""]}>
-            <div class:list={["overflow-hidden rounded-sm border border-white/15 bg-[#141412]", i === 0 ? "lg:col-span-7" : ""]}>
-              {projectImages[p.id] ? (
+      {featuredProjects.map((p, i) => {
+        const isWide = i === 0 || i === 3;
+        return (
+          <li class:list={[isWide ? "sm:col-span-2 lg:col-span-12" : "lg:col-span-6"]}>
+            <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-6", isWide ? "lg:grid-cols-12 lg:items-center lg:gap-12" : ""]}>
+              <div class:list={["overflow-hidden rounded-sm border border-white/15 bg-[#141412]", isWide ? "lg:col-span-7" : ""]}>
                 <img src={projectImages[p.id]} alt="" width="1200" height="750" loading={i < 2 ? "eager" : "lazy"} decoding="async" class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-              ) : (
-                <div class="flex aspect-[16/10] w-full items-center justify-center bg-[#1c1c19] p-6"><span class="h-section text-center text-brand">{shortTitle(p.data.title)}</span></div>
-              )}
-            </div>
-            <div class:list={["flex flex-col", i === 0 ? "lg:col-span-5" : ""]}>
-              <p class="label flex flex-wrap items-center gap-3">
-                {i === 0 && <span class="chip chip-brand !normal-case !tracking-normal">{t.flagship}</span>}
-                <span>{p.data.badge}</span>
-              </p>
-              <h2 class:list={["mt-3 font-display font-bold leading-[1.02] group-hover:text-brand", i === 0 ? "text-[2.6rem] sm:text-[3.4rem]" : "text-[2rem] sm:text-[2.3rem]"]} style="font-stretch:80%">{shortTitle(p.data.title)}</h2>
-              <p class="muted mt-3 max-w-xl leading-relaxed">{p.data.subtitle}</p>
-              <p class="faint mt-3 text-[0.9rem]">{p.data.stack.slice(0, 4).join(" · ")}</p>
-              <p class="link-arrow mt-4">{t.view} <span aria-hidden="true">→</span></p>
-            </div>
-          </a>
-        </li>
-      ))}
+              </div>
+              <div class:list={["flex flex-col", isWide ? "lg:col-span-5" : ""]}>
+                <p class="label flex flex-wrap items-center gap-3">
+                  {i === 0 && <span class="chip chip-brand !normal-case !tracking-normal">{t.flagship}</span>}
+                  <span>{p.data.badge}</span>
+                </p>
+                <h2 class:list={["mt-3 font-display font-bold leading-[1.02] group-hover:text-brand", isWide ? "text-[2.4rem] sm:text-[3rem]" : "text-[2rem] sm:text-[2.4rem]"]} style="font-stretch:80%">{shortTitle(p.data.title)}</h2>
+                <p class="muted mt-3 max-w-xl leading-relaxed">{p.data.subtitle}</p>
+                <p class="faint mt-3 text-[0.9rem] font-mono">{p.data.stack.slice(0, 4).join(" · ")}</p>
+                <p class="link-arrow mt-4">{t.view} <span aria-hidden="true">→</span></p>
+              </div>
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </section>
+
+  {secondaryProjects.length > 0 && (
+    <section class="section border-t border-white/15 pt-12 sm:pt-16" aria-labelledby="other-projects-title">
+      <div class="wrap">
+        <div class="max-w-2xl">
+          <p class="eyebrow">{t.secondaryEyebrow}</p>
+          <h2 id="other-projects-title" class="h-section mt-3">{t.secondaryHeading}</h2>
+          <p class="muted mt-3 leading-relaxed">{t.secondaryDesc}</p>
+        </div>
+
+        <div class="mt-10 border-b border-white/15">
+          {secondaryProjects.map((p) => (
+            <article class="flex">
+              <a href={to(`/projectes/${p.id}`)} class="item w-full lg:grid-cols-12 lg:items-baseline">
+                <div class="lg:col-span-3">
+                  <span class="label block">{p.data.badge}</span>
+                  <span class="faint mt-1 block font-mono text-[0.8rem]">{p.data.year} · {p.data.client}</span>
+                </div>
+                <div class="lg:col-span-6">
+                  <h3 class="font-display text-[1.4rem] font-bold leading-tight sm:text-[1.6rem]" style="font-stretch:82%">{shortTitle(p.data.title)}</h3>
+                  <p class="muted mt-1.5 leading-relaxed text-[0.95rem]">{p.data.subtitle}</p>
+                  <p class="faint mt-2 font-mono text-[0.82rem]">{p.data.stack.slice(0, 4).join(" · ")}</p>
+                </div>
+                <div class="flex items-center gap-2 lg:col-span-3 lg:justify-end">
+                  <span class="link-arrow text-sm font-semibold">{t.view} <span aria-hidden="true">→</span></span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <CtaBand
     title={t.ctaTitle}
