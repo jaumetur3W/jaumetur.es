@@ -1,4 +1,4 @@
----
+﻿---
 import { Icon } from "astro-icon/components";
 
 interface Props {
@@ -25,13 +25,13 @@ const isEn = Astro.url.pathname.startsWith("/en");
       </span>
 
       <span class="flex items-center gap-1.5">
-        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-900 transition-colors" />
+        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-slate-600 group-hover:text-white transition-colors" />
         <span>CI/CD:</span>
         <span id="build-status-label" class="font-bold text-emerald-800">{isEn ? "Passing" : "Correcto"}</span>
       </span>
 
       <span class="text-[10px] text-slate-600 font-mono hidden sm:inline" id="build-commit-sha">#main</span>
-      <Icon name="bx:link-external" class="w-3 h-3 text-slate-600 group-hover:text-slate-900 transition-colors" />
+      <Icon name="bx:link-external" class="w-3 h-3 text-slate-600 group-hover:text-white transition-colors" />
     </a>
   )
 }
@@ -44,14 +44,14 @@ const isEn = Astro.url.pathname.startsWith("/en");
     >
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div class="flex items-center gap-2">
-          <Icon name="bx:rocket" class="w-5 h-5 text-slate-900" />
-          <h3 class="font-bold text-sm text-slate-900">{isEn ? "Live CI/CD pipeline status" : "Estado real del pipeline CI/CD"}</h3>
+          <Icon name="bx:rocket" class="w-5 h-5 text-white" />
+          <h3 class="font-bold text-sm text-white">{isEn ? "Live CI/CD pipeline status" : "Estado real del pipeline CI/CD"}</h3>
         </div>
         <a
           href="https://github.com/jaumetur3W/jaumetur.es/actions"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-[11px] text-slate-700 hover:text-slate-950 hover:underline"
+          class="inline-flex items-center gap-1 text-[11px] text-slate-700 hover:text-white hover:underline"
         >
           <span>GitHub Actions</span>
           <Icon name="bx:link-external" class="w-3 h-3" />
@@ -197,3 +197,4 @@ const isEn = Astro.url.pathname.startsWith("/en");
     window.addEventListener("load", () => setTimeout(fetchGitHubBuildStatus, 2000));
   }
 </script>
+

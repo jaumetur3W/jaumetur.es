@@ -19,9 +19,9 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </Fragment>
     </Sectionhead>
 
-    <div class="mt-10 space-y-8 text-sm text-slate-700 leading-relaxed font-light">
+    <div class="mt-10 space-y-8 text-sm text-zinc-300 leading-relaxed font-light">
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "1. No Tracking Cookies" : "1. Sin cookies de seguimiento ni publicidad"}</h2>
+        <h2 class="text-lg font-semibold text-white font-sans">{isEn ? "1. No Tracking Cookies" : "1. Sin cookies de seguimiento ni publicidad"}</h2>
         <p>
           {isEn
             ? "jaumetur.es does not use advertising cookies, remarketing pixels, or third-party profiling scripts. We believe in high performance and privacy by default, which is why we do not interrupt your navigation with cookie consent banners."
@@ -30,7 +30,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "2. Privacy-Friendly Analytics" : "2. Analítica ética sin cookies"}</h2>
+        <h2 class="text-lg font-semibold text-white font-sans">{isEn ? "2. Privacy-Friendly Analytics" : "2. Analítica ética sin cookies"}</h2>
         <p>
           {isEn
             ? "We measure website visits and key technical conversions using Plausible Analytics. Plausible is completely cookie-free, operates under strict European GDPR standards, and does not store any persistent personal identifiers."
@@ -39,7 +39,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-slate-950 font-sans">{isEn ? "3. Browser Controls" : "3. Control en el navegador"}</h2>
+        <h2 class="text-lg font-semibold text-white font-sans">{isEn ? "3. Browser Controls" : "3. Control en el navegador"}</h2>
         <p>
           {isEn
             ? "You can configure your browser to block or alert you about the storage of cookies on any website. Because this website does not store cookies, no data will be written to your local storage for tracking purposes."

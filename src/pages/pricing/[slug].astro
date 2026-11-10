@@ -6,8 +6,10 @@ import { localeFromPath, localizePath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
 const to = (path: string) => {
-  const p = localizePath(path, isEn ? "en" : "es");
-  return p === "/" || p.endsWith("/") ? p : `${p}/`;
+  const [base, query] = path.split("?");
+  const p = localizePath(base, isEn ? "en" : "es");
+  const normalized = p === "/" || p.endsWith("/") ? p : `${p}/`;
+  return query ? `${normalized}?${query}` : normalized;
 };
 
 export async function getStaticPaths() {
@@ -110,7 +112,7 @@ const breadcrumb = {
             <div class="flex justify-between"><span class="text-white/50">{t.deliver}:</span> <span class="font-semibold text-white">{s.timeline}</span></div>
             <div class="flex justify-between"><span class="text-white/50">{t.firstYear}:</span> <span class="font-semibold text-white">{s.annualTotal}</span></div>
           </div>
-          <a href={to("/contact")} class="btn btn-brand mt-6 w-full justify-center">{s.ctaText}</a>
+          <a href={to(`/contact?servei=${service.id}`)} class="btn btn-brand mt-6 w-full justify-center">{s.ctaText}</a>
         </div>
       </div>
     </div>
@@ -123,16 +125,16 @@ const breadcrumb = {
         <ul class="mt-6 space-y-3">
           {s.features.map((f) => (
             <li class="card flex gap-3 p-4 border border-white/10 bg-surface leading-snug">
-              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold ring-2 ring-ink" aria-hidden="true">✓</span>
-              <span>{f}</span>
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-black ring-2 ring-white/10" aria-hidden="true">✓</span>
+              <span class="text-white/90">{f}</span>
             </li>
           ))}
         </ul>
       </div>
       <aside class="lg:col-span-5">
-        <div class="card bg-sand p-7">
-          <h2 class="font-display text-2xl font-extrabold">{t.forWho}</h2>
-          <p class="mt-3 leading-relaxed">{s.targetAudience}</p>
+        <div class="card border border-white/10 bg-surface p-7">
+          <h2 class="font-display text-2xl font-extrabold text-white">{t.forWho}</h2>
+          <p class="mt-3 leading-relaxed text-zinc-300">{s.targetAudience}</p>
         </div>
       </aside>
     </div>

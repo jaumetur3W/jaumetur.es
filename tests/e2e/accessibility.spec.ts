@@ -6,6 +6,10 @@ test.describe("WCAG AA Accessibility Audits (axe-core)", () => {
     { name: "Home (/)", path: "/" },
     { name: "Pricing (/pricing/)", path: "/pricing/" },
     { name: "Projects (/projectes/)", path: "/projectes/" },
+    { name: "Blog Index (/blog/)", path: "/blog/" },
+    { name: "Blog Article (/blog/accesibilidad-web-wcag-aa-guia-practica/)", path: "/blog/accesibilidad-web-wcag-aa-guia-practica/" },
+    { name: "HTML Creator Tool (/tools/creador-html/)", path: "/tools/creador-html/" },
+    { name: "Workflow Generator Tool (/tools/workflow-generator/)", path: "/tools/workflow-generator/" },
   ];
 
   for (const { name, path } of testPages) {

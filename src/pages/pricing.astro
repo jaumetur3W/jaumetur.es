@@ -7,8 +7,10 @@ import { localeFromPath, localizePath } from "@/i18n";
 const locale = localeFromPath(Astro.url.pathname);
 const isEn = locale === "en";
 const to = (path: string) => {
-  const p = localizePath(path, locale);
-  return p === "/" || p.endsWith("/") ? p : `${p}/`;
+  const [base, query] = path.split("?");
+  const p = localizePath(base, locale);
+  const normalized = p === "/" || p.endsWith("/") ? p : `${p}/`;
+  return query ? `${normalized}?${query}` : normalized;
 };
 const services = getServicesData(locale);
 const monthly = (n: number) => (isEn ? `€${n}/month` : `${n} €/mes`);
@@ -145,7 +147,7 @@ const breadcrumb = {
               </div>
 
               <div class="flex flex-wrap gap-3">
-                <a href={to("/contact")} class="btn btn-brand btn-sm flex-1 text-center justify-center">{t.request}</a>
+                <a href={to(`/contact?servei=${s.id}`)} class="btn btn-brand btn-sm flex-1 text-center justify-center">{t.request}</a>
                 <a href={to(`/pricing/${s.id}`)} class="btn btn-white btn-sm">{t.detail}</a>
               </div>
             </div>

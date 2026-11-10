@@ -1,0 +1,55 @@
+---
+import Container from "@/components/container.astro";
+import { getFormattedDate } from "@/utils/all";
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+  <div class="px-5 py-12">
+    <Container>
+      <div class="mx-auto max-w-[760px] mt-8">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FFFF00] text-black border border-brand uppercase tracking-wider">
+          {frontmatter.category}
+        </span>
+        <h1
+          class="display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mt-4 leading-tight">
+          {frontmatter.title}
+        </h1>
+        <div class="flex gap-2 mt-4 items-center flex-wrap text-xs font-mono text-zinc-400">
+          <span class="text-white font-medium">
+            {frontmatter.author}
+          </span>
+          <span>•</span>
+          <time datetime={frontmatter.publishDate}>
+            {getFormattedDate(frontmatter.publishDate)}
+          </time>
+          {frontmatter.tags && (
+            <>
+              <span class="hidden md:inline">•</span>
+              <div class="flex flex-wrap gap-2">
+                {frontmatter.tags.map((tag: string) => (
+                  <span class="text-zinc-500">#{tag}</span>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div class="mx-auto prose prose-invert prose-headings:font-display prose-headings:text-white prose-p:text-zinc-300 prose-a:text-brand prose-pre:bg-[#050507] prose-pre:border prose-pre:border-white/10 prose-strong:text-white max-w-[760px] mt-8">
+        <slot />
+      </div>
+
+      <div class="text-center mt-12 mb-8">
+        <a
+          href="/blog"
+          class="btn btn-white btn-sm px-6"
+        >
+          ← Volver al blog
+        </a>
+      </div>
+    </Container>
+  </div>
+</Layout>

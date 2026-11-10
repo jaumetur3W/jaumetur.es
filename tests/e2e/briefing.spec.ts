@@ -74,8 +74,7 @@ test.describe("Briefing form", () => {
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await expect(page.locator('link[hreflang="en"]')).toHaveCount(0);
 
-    await page.locator("#lang-dropdown-btn").click();
-    await expect(page.locator('#lang-dropdown-menu a[lang="en"]')).toHaveAttribute("href", "/en/briefing/");
+    await expect(page.locator('header a[hreflang="en"]').first()).toHaveAttribute("href", "/en/briefing/");
 
     const sitemap = await (await request.get("/sitemap-0.xml")).text();
     expect(sitemap).not.toContain("/briefing");
@@ -87,8 +86,7 @@ test.describe("Briefing form", () => {
     await expect(page.locator("h1")).toHaveText("Briefing for your new website");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 
-    await page.locator("#lang-dropdown-btn").click();
-    await expect(page.locator('#lang-dropdown-menu a[lang="es"]')).toHaveAttribute("href", "/briefing/");
+    await expect(page.locator('header a[hreflang="es"]').first()).toHaveAttribute("href", "/briefing/");
 
     const sitemap = await (await request.get("/sitemap-0.xml")).text();
     expect(sitemap).not.toContain("/en/briefing");

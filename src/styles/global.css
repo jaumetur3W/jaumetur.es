@@ -3,9 +3,10 @@
 @plugin '@tailwindcss/typography';
 
 /* ---------------------------------------------------------------
-   Tipografías (alojadas en local, WOFF2 variable, font-display: swap)
-   - Display: Space Grotesk → titulares técnicos, limpios y modernos
-   - Sans:    Inter         → lectura editorial impecable
+   ANTIGRAVITY DESIGN SYSTEM — Clean, Accessible, Apple-Grade
+   Tipografías: Space Grotesk (Display) + Inter (Body)
+   Paleta: Grafito Oscuro (#0a0a0c) + Amarillo Puro #FFFF00
+   Filosofía: Claridad · Fluidez · Jerarquía Equilibrada
 ---------------------------------------------------------------- */
 @font-face {
   font-family: 'Space Grotesk Variable';
@@ -45,43 +46,56 @@
   --font-display: 'Space Grotesk Variable', 'Inter Variable', Inter, system-ui, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
 
-  /* Identidad cromática Studio Grade: Negro Profundo + Amarillo Puro (#FFFF00) */
   --color-brand: #ffff00;
   --color-brand-yellow: #ffff00;
-  --color-brand-dark: #070709;
-  --color-ink: #070709;
-  --color-ink-soft: #8e8e99;
-  --color-paper: #070709;
-  --color-sand: #111116;
+  --color-brand-dark: #0a0a0c;
+  --color-ink: #ffffff;
+  --color-ink-soft: #d4d4d8;
+  --color-paper: #0a0a0c;
+  --color-sand: #121216;
 }
 
 :root {
   color-scheme: dark;
   --brand: #ffff00;
-  --brand-glow: rgba(255, 255, 0, 0.45);
-  --bg-deep: #070709;
-  --bg-surface: #0e0e13;
-  --bg-surface-elevated: #16161f;
+  --brand-glow: rgba(255, 255, 0, 0.35);
+  
+  /* Paleta de fondo limpia, no saturada, altamente legible */
+  --bg-main: #0a0a0c;
+  --bg-surface: #121216;
+  --bg-surface-elevated: #181820;
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --bg-glass-hover: rgba(255, 255, 255, 0.06);
+  
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 0, 0.6);
-  --text-main: #f5f5f7;
-  --text-muted: #9c9ca8;
-  --text-faint: #626270;
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-hover: rgba(255, 255, 0, 0.5);
+  
+  --text-main: #f4f4f6;
+  --text-muted: #d4d4d8;
+  --text-faint: #a1a1aa;
+  
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ---------------------------------------------------------------
+   BASE
+---------------------------------------------------------------- */
 @layer base {
   html {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    scroll-padding-top: 5.5rem;
-    background-color: var(--bg-deep);
+    font-optical-sizing: auto;
+    scroll-padding-top: 5rem;
+    background-color: var(--bg-main);
     color: var(--text-main);
   }
   body {
-    background: var(--bg-deep);
+    background: var(--bg-main);
     color: var(--text-main);
     overflow-x: clip;
     min-height: 100vh;
@@ -89,6 +103,7 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.03em;
+    line-height: 1.1;
   }
   *, ::after, ::before, ::backdrop, ::file-selector-button {
     border-color: var(--border-subtle);
@@ -100,13 +115,17 @@
     outline: 2px solid var(--brand);
     outline-offset: 3px;
   }
+  ::selection {
+    background: #ffff00;
+    color: #ffffff;
+  }
 }
 
 /* ---------------------------------------------------------------
-   Componentes del Nuevo Sistema de Diseño
+   COMPONENTES DE DISEÑO LIMPIO
 ---------------------------------------------------------------- */
 @layer components {
-  /* Eyebrows de sección con línea lateral y tipografía de precisión */
+  /* Eyebrows compactos */
   .eyebrow {
     display: inline-flex;
     align-items: center;
@@ -114,156 +133,156 @@
     font-family: var(--font-mono);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--brand);
   }
   .eyebrow::before {
     content: '';
-    width: 1.5rem;
-    height: 2px;
+    width: 1.25rem;
+    height: 1.5px;
     background: var(--brand);
   }
 
-  /* Titulares imponentes con tracking tight */
+  /* Titulares precisos */
   .display {
     font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.02;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
   }
 
-  /* Botones Studio-Grade */
+  /* Tarjeta de superficie limpia con borde sutil */
+  .surface-card {
+    position: relative;
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.25rem;
+    background: var(--bg-surface);
+    transition: border-color 0.25s var(--ease-fluid), transform 0.25s var(--ease-fluid), box-shadow 0.25s;
+  }
+  .surface-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 0, 0.15);
+  }
+
+  /* Tarjeta de vidrio sutil */
+  .glass-card {
+    position: relative;
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.25rem;
+    background: rgba(18, 18, 22, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: border-color 0.25s var(--ease-fluid), transform 0.25s var(--ease-fluid), box-shadow 0.25s;
+  }
+  .glass-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 0, 0.15);
+  }
+
+  /* Compatibilidad simple */
+  .card {
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.25rem;
+    background: var(--bg-surface);
+    transition: border-color 0.25s, transform 0.25s var(--ease-fluid), box-shadow 0.25s;
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Botones Apple-grade */
   .btn {
     display: inline-flex;
-    min-height: 3.25rem;
+    min-height: 3rem;
     align-items: center;
     justify-content: center;
-    gap: 0.65rem;
-    padding: 0.8rem 1.75rem;
+    gap: 0.55rem;
+    padding: 0.75rem 1.75rem;
     border-radius: 9999px;
     font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 0.92rem;
+    font-weight: 700;
     letter-spacing: -0.01em;
     line-height: 1;
     text-decoration: none;
-    transition: all 0.22s var(--ease-out);
-    position: relative;
+    transition: all 0.2s var(--ease-fluid);
     white-space: nowrap;
+  }
+  .btn:active {
+    transform: scale(0.97) !important;
   }
 
   /* Botón Principal Amarillo (#FFFF00) */
   .btn-brand, .btn-ink {
-    background-color: var(--brand);
-    color: #000000;
-    border: 1px solid var(--brand);
-    box-shadow: 0 0 25px -4px rgba(255, 255, 0, 0.4);
+    background: #ffff00;
+    color: #000000 !important;
+    border: 1px solid #ffff00;
+    box-shadow: 0 0 20px -3px rgba(255, 255, 0, 0.35);
+  }
+  .btn-brand *, .btn-ink * {
+    color: #000000 !important;
   }
   .btn-brand:hover, .btn-ink:hover {
-    background-color: #ffffff;
+    background: #ffffff;
     border-color: #ffffff;
-    color: #000000;
-    transform: translateY(-2px);
-    box-shadow: 0 0 35px -2px rgba(255, 255, 255, 0.5);
+    color: #000000 !important;
+    transform: translateY(-1.5px);
+    box-shadow: 0 0 28px -2px rgba(255, 255, 255, 0.4);
+  }
+  .btn-brand:hover *, .btn-ink:hover * {
+    color: #000000 !important;
+  }
+  .btn-brand:focus-visible, .btn-ink:focus-visible {
+    color: #000000 !important;
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
   }
   .btn-brand:active, .btn-ink:active {
-    transform: translateY(0);
+    color: #000000 !important;
+  }
+  .btn-brand:active *, .btn-ink:active * {
+    color: #000000 !important;
   }
 
-  /* Botón Secundario Translúcido de Cristal */
+  /* Botón Secundario Elegante */
   .btn-white {
     background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    backdrop-filter: blur(12px);
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.14);
   }
   .btn-white:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1.5px);
   }
 
   .btn-sm {
-    min-height: 2.6rem;
-    padding: 0.55rem 1.25rem;
-    font-size: 0.85rem;
-  }
-
-  /* Tarjetas Elevadas con Borde Fino y Resplandor al Hover */
-  .card {
-    border: 1px solid var(--border-subtle);
-    border-radius: 1.5rem;
-    background: var(--bg-surface);
-    transition: border-color 0.25s, transform 0.25s var(--ease-out), box-shadow 0.25s;
-    position: relative;
-  }
-  a.card:hover, .card-hover:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-hover);
-    box-shadow: 0 20px 45px -15px rgba(255, 255, 0, 0.25);
-  }
-
-  /* Chips y Píldoras */
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.35rem 0.85rem;
-    border: 1px solid var(--border-subtle);
-    border-radius: 9999px;
-    background: var(--bg-surface-elevated);
-    font-size: 0.78rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--text-main);
-  }
-  .chip-brand {
-    background: var(--brand) !important;
-    color: #000000 !important;
-    border-color: var(--brand) !important;
-  }
-
-  /* Luces de cuadrícula suave para fondos de gran escala */
-  .grid-dots {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 28px 28px;
+    min-height: 2.5rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.84rem;
   }
 }
 
-/* Cinta continua (Marquee) */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee 35s linear infinite;
-  width: max-content;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-/* Pulso animado de radar */
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 0, 0.7); }
-  50% { box-shadow: 0 0 0 8px rgba(255, 255, 0, 0); }
-}
-.pulse-dot {
-  animation: pulse-dot 2s infinite;
-}
-
-/* Revelado suave en scroll */
-.reveal-fade-up {
+/* ---------------------------------------------------------------
+   TRANSICIONES Y ACCESIBILIDAD
+---------------------------------------------------------------- */
+.reveal, .reveal-fade-up, .reveal-stagger {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  transform: translateY(18px);
+  transition: opacity 0.5s var(--ease-fluid), transform 0.5s var(--ease-fluid);
 }
-.reveal-fade-up.is-visible {
+.reveal.is-visible, .reveal-fade-up.is-visible, .reveal-stagger.is-visible {
   opacity: 1;
   transform: none;
 }
-html:not(.js) .reveal-fade-up {
+html:not(.js) .reveal-fade-up,
+html:not(.js) .reveal,
+html:not(.js) .reveal-stagger {
   opacity: 1;
   transform: none;
 }
@@ -275,54 +294,35 @@ html:not(.js) .reveal-fade-up {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal-fade-up { opacity: 1; transform: none; }
-  .marquee-track { animation: none; }
+  .reveal, .reveal-stagger, .reveal-fade-up {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-/* ---------------------------------------------------------------
-   Header y Footer de Alta Gama Oscura
----------------------------------------------------------------- */
+/* Header translúcido sobrio */
 header.sticky {
-  background: rgba(7, 7, 9, 0.82) !important;
+  background: rgba(10, 10, 12, 0.85) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle) !important;
-  color: #ffffff;
 }
-header.sticky a {
-  color: var(--text-main);
-}
-header.sticky a:hover {
-  color: var(--brand);
-}
+
 footer.on-dark {
-  background: #040405 !important;
+  background: #08080a !important;
   border-top: 1px solid var(--border-subtle) !important;
 }
 
-/* Lectura de fichas Markdown y Proyectos */
-.prose {
-  color: var(--text-muted);
+/* Accesibilidad en bloques de código markdown / Shiki (WCAG AA > 4.5:1) */
+pre.astro-code {
+  background-color: #0d1117 !important;
 }
-.prose :is(h1, h2, h3, h4, strong, th) {
-  color: #ffffff;
-  font-family: var(--font-display);
-}
-.prose a {
-  color: var(--brand);
-  text-decoration-color: rgba(255, 255, 0, 0.4);
-}
-.prose code {
-  color: var(--brand);
-  background: rgba(255, 255, 0, 0.1);
-  padding: 0.15rem 0.35rem;
-  border-radius: 0.3rem;
-}
-.prose pre {
-  background: #000000;
-  border: 1px solid var(--border-subtle);
-}
-.prose blockquote {
-  border-left-color: var(--brand);
-  color: var(--text-main);
+pre.astro-code span[style*="color:#6A737D"],
+pre.astro-code span[style*="color: #6a737d"],
+pre.astro-code span[style*="color:#6a737d"],
+pre.astro-code span[style*="color:#8b949e"],
+pre.astro-code span[style*="color: #8b949e"],
+pre.astro-code span[style*="color:#795e26"],
+pre.astro-code span[style*="color:#6e7781"] {
+  color: #abbcd5 !important;
 }

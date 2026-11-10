@@ -17,8 +17,8 @@ const data = getBriefingData(isEn ? "en" : "es");
 // Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_BRIEFING_KEY ?? "";
 const inputClass =
-  "w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-slate-900 transition";
-const labelClass = "block text-sm font-medium text-slate-900";
+  "w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white transition";
+const labelClass = "block text-sm font-medium text-white";
 const descriptionClass = "mt-1 text-xs text-slate-600 font-light leading-relaxed";
 const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
 ---
@@ -63,7 +63,7 @@ const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
           data-show-value={section.showWhen?.value}
         >
           <legend class="float-left w-full">
-            <h2 class="text-2xl font-light tracking-tight text-slate-950">{section.title}</h2>
+            <h2 class="text-2xl font-light tracking-tight text-white">{section.title}</h2>
             {section.description && <p class="mt-1 text-sm text-slate-600 font-light leading-relaxed">{section.description}</p>}
           </legend>
 
@@ -138,7 +138,7 @@ const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
         <button
           type="submit"
           id="briefing-submit-btn"
-          class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-slate-950 font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-black font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span id="briefing-submit-text">{data.submitLabel}</span>
         </button>
@@ -293,3 +293,4 @@ const errorClass = "hidden text-rose-600 text-xs mt-1.5 font-sans";
     });
   })();
 </script>
+

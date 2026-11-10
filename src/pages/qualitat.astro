@@ -51,7 +51,7 @@ const bundleBreakdown = [
         {isEn ? "Technical Audit & Transparency" : "Auditoría técnica y transparencia"}
       </p>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-slate-950 tracking-tight leading-tight">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-tight">
         {isEn ? "Commitment to " : "Compromiso de "}<span class="decoration-[#FFFF00] decoration-2 underline underline-offset-4">{isEn ? "quality and performance." : "calidad y rendimiento."}</span>
       </h1>
 
@@ -69,27 +69,27 @@ const bundleBreakdown = [
 
     <!-- 4 Lighthouse Score Cards -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="lighthouse-heading">
-      <h2 id="lighthouse-heading" class="text-2xl font-light text-slate-950 tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:tachometer" class="w-5 h-5 text-slate-950" />
+      <h2 id="lighthouse-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:tachometer" class="w-5 h-5 text-white" />
         <span>{isEn ? "Google Lighthouse scores (mobile & desktop)" : "Puntuaciones de Google Lighthouse (móvil y escritorio)"}</span>
       </h2>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         {lighthouseScores.map((item) => (
           <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col items-center text-center justify-between">
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-slate-100 border border-slate-200/80 mb-3 text-slate-950">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-slate-100 border border-slate-200/80 mb-3 text-white">
               <Icon name={item.icon} class="w-6 h-6" />
             </div>
             
             <div class="my-3">
-              <span class="text-4xl sm:text-5xl font-light font-mono tracking-tight text-slate-950">
+              <span class="text-4xl sm:text-5xl font-light font-mono tracking-tight text-white">
                 {item.score}
               </span>
               <span class="text-xs font-mono text-slate-600 block mt-0.5">/ 100</span>
             </div>
 
             <div>
-              <span class="text-sm font-normal text-slate-950 block">{item.label}</span>
+              <span class="text-sm font-normal text-white block">{item.label}</span>
               <span class="text-[11px] font-mono text-slate-500 mt-1 inline-flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-950/20" aria-hidden="true"></span>
                 <span>{isEn ? "Target" : "Objetivo"} {item.target}</span>
@@ -102,8 +102,8 @@ const bundleBreakdown = [
 
     <!-- Core Web Vitals Table -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="cwv-heading">
-      <h2 id="cwv-heading" class="text-2xl font-light text-slate-950 tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:pulse" class="w-5 h-5 text-slate-950" />
+      <h2 id="cwv-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:pulse" class="w-5 h-5 text-white" />
         <span>{isEn ? "Audited Core Web Vitals metrics" : "Métricas Core Web Vitals auditadas"}</span>
       </h2>
 
@@ -122,11 +122,11 @@ const bundleBreakdown = [
             <tbody class="divide-y divide-slate-100 font-mono">
               {coreWebVitals.map((cwv) => (
                 <tr class="hover:bg-slate-50/50 transition-colors">
-                  <td class="py-3.5 px-5 font-medium text-slate-950">
-                    <span class="text-slate-950 font-bold">{cwv.metric}</span>
+                  <td class="py-3.5 px-5 font-medium text-white">
+                    <span class="text-white font-bold">{cwv.metric}</span>
                     <span class="text-[11px] text-slate-600 block font-normal font-sans">{cwv.name}</span>
                   </td>
-                  <td class="py-3.5 px-5 font-medium text-slate-950 text-base">{cwv.value}</td>
+                  <td class="py-3.5 px-5 font-medium text-white text-base">{cwv.value}</td>
                   <td class="py-3.5 px-5 text-slate-600">{cwv.threshold}</td>
                   <td class="py-3.5 px-5">
                     {cwv.metric === "Speed Index" ? (
@@ -134,7 +134,7 @@ const bundleBreakdown = [
                         <span>{cwv.status}</span>
                       </span>
                     ) : (
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-slate-950 border border-slate-950/20">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-white border border-slate-950/20">
                         <span>✓ {cwv.status}</span>
                       </span>
                     )}
@@ -150,8 +150,8 @@ const bundleBreakdown = [
 
     <!-- Multi-page Production Audit (5-run Medians) -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="pages-heading">
-      <h2 id="pages-heading" class="text-2xl font-light text-slate-950 tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:devices" class="w-5 h-5 text-slate-950" />
+      <h2 id="pages-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:devices" class="w-5 h-5 text-white" />
         <span>{isEn ? "Production page audit medians (5 runs per target)" : "Medianas de auditoría en producción (5 ejecuciones por página)"}</span>
       </h2>
 
@@ -174,8 +174,8 @@ const bundleBreakdown = [
             <tbody class="divide-y divide-slate-100 font-mono text-xs">
               {auditedPages.map((row) => (
                 <tr class="hover:bg-slate-50/50 transition-colors">
-                  <td class="py-3.5 px-5 font-medium text-slate-950 font-sans">{row.page}</td>
-                  <td class="py-3.5 px-4 text-center font-bold text-slate-950">{row.perf}</td>
+                  <td class="py-3.5 px-5 font-medium text-white font-sans">{row.page}</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-white">{row.perf}</td>
                   <td class="py-3.5 px-4 text-center font-semibold text-slate-800">{row.a11y}</td>
                   <td class="py-3.5 px-4 text-center text-slate-700">{row.bp}</td>
                   <td class="py-3.5 px-4 text-center text-slate-700">{row.seo}</td>
@@ -193,18 +193,18 @@ const bundleBreakdown = [
 
     <!-- Axe-core Accessibility Report Details -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="a11y-heading">
-      <h2 id="a11y-heading" class="text-2xl font-light text-slate-950 tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:accessibility" class="w-5 h-5 text-slate-950" />
+      <h2 id="a11y-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:accessibility" class="w-5 h-5 text-white" />
         <span>{isEn ? "Accessibility Audit (axe-core & WCAG 2.2 AA)" : "Auditoría de accesibilidad (axe-core y WCAG 2.2 AA)"}</span>
       </h2>
 
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-950 flex items-center justify-center border border-slate-200/80">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 text-white flex items-center justify-center border border-slate-200/80">
               <Icon name="bx:check-shield" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-slate-950 text-sm">{isEn ? "Automated Accessibility Auditing" : "Auditoría de accesibilidad continua"}</span>
+            <span class="font-normal text-white text-sm">{isEn ? "Automated Accessibility Auditing" : "Auditoría de accesibilidad continua"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed font-light">
             {isEn
@@ -215,10 +215,10 @@ const bundleBreakdown = [
 
         <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-950 flex items-center justify-center">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 text-white flex items-center justify-center">
               <Icon name="bx:pointer" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-slate-950 text-sm">{isEn ? "Keyboard Navigation" : "Navegación con teclado"}</span>
+            <span class="font-normal text-white text-sm">{isEn ? "Keyboard Navigation" : "Navegación con teclado"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed font-light">
             {isEn
@@ -229,10 +229,10 @@ const bundleBreakdown = [
 
         <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-950 flex items-center justify-center border border-slate-200/80">
+            <div class="w-9 h-9 rounded-xl bg-slate-100 text-white flex items-center justify-center border border-slate-200/80">
               <Icon name="bx:sun" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-slate-950 text-sm">{isEn ? "Color Contrast (≥ 4.5:1)" : "Contraste de color (≥ 4,5:1)"}</span>
+            <span class="font-normal text-white text-sm">{isEn ? "Color Contrast (≥ 4.5:1)" : "Contraste de color (≥ 4,5:1)"}</span>
           </div>
           <p class="text-xs text-slate-600 leading-relaxed font-light">
             {isEn
@@ -245,8 +245,8 @@ const bundleBreakdown = [
 
     <!-- Bundle & Payload Breakdown -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="bundle-heading">
-      <h2 id="bundle-heading" class="text-2xl font-light text-slate-950 tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:package" class="w-5 h-5 text-slate-950" />
+      <h2 id="bundle-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:package" class="w-5 h-5 text-white" />
         <span>{isEn ? "Resource payload and performance budget" : "Peso de los recursos y presupuesto de rendimiento"}</span>
       </h2>
 
@@ -254,7 +254,7 @@ const bundleBreakdown = [
         <div class="p-6 border-b border-slate-100 flex items-center justify-between flex-wrap gap-4">
           <div>
             <span class="text-xs font-mono uppercase tracking-wider text-slate-600 block">{isEn ? "Total first-load transfer" : "Peso total en la primera carga"}</span>
-            <span class="text-2xl sm:text-3xl font-light font-mono text-slate-950 mt-1 block">~ 113.4 KB ({isEn ? "Transferred across wire" : "Transferido en red"})</span>
+            <span class="text-2xl sm:text-3xl font-light font-mono text-white mt-1 block">~ 113.4 KB ({isEn ? "Transferred across wire" : "Transferido en red"})</span>
           </div>
           <span class="text-xs font-mono text-slate-700 bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200/80">
             {isEn ? "Max budget:" : "Presupuesto máximo:"} &lt; 150 KB ({isEn ? "achieved" : "alcanzado"})
@@ -274,9 +274,9 @@ const bundleBreakdown = [
             <tbody class="divide-y divide-slate-100 font-mono text-xs">
               {bundleBreakdown.map((item) => (
                 <tr class="hover:bg-slate-50/50">
-                  <td class="py-3.5 px-5 font-normal text-slate-950">{item.asset}</td>
+                  <td class="py-3.5 px-5 font-normal text-white">{item.asset}</td>
                   <td class="py-3.5 px-5 text-slate-600">{item.size}</td>
-                  <td class="py-3.5 px-5 font-semibold text-slate-950">{item.gzipped}</td>
+                  <td class="py-3.5 px-5 font-semibold text-white">{item.gzipped}</td>
                   <td class="py-3.5 px-5 text-slate-600 font-sans font-light">{item.tech}</td>
                 </tr>
               ))}
@@ -293,7 +293,7 @@ const bundleBreakdown = [
     </section>
 
     <!-- Reproduce Audit Instructions -->
-    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-3xl bg-slate-950 text-slate-200 border-2 border-slate-950 font-mono text-xs selection:bg-[#FFFF00] selection:text-black" aria-labelledby="reproduce-heading">
+    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-3xl bg-slate-950 text-slate-200 border-2 border-slate-950 font-mono text-xs selection:bg-[#FFFF00] selection:text-white" aria-labelledby="reproduce-heading">
       <div class="flex items-center gap-2 text-white font-normal mb-3 text-sm">
         <Icon name="bx:terminal" class="w-4 h-4 text-[#FFFF00]" />
         <h3 id="reproduce-heading">{isEn ? "Audit reproduction protocol" : "Protocolo para reproducir la auditoría"}</h3>
@@ -316,7 +316,7 @@ const bundleBreakdown = [
           href="https://github.com/jaumetur3W/jaumetur.es"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#FFFF00] hover:bg-[#f2d900] text-slate-950 rounded-xl font-mono text-xs font-semibold transition shadow-xs">
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#FFFF00] hover:bg-[#f2d900] text-black rounded-xl font-mono text-xs font-semibold transition shadow-xs">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
           <span>{isEn ? "Examine source code on GitHub" : "Examinar el código en GitHub"}</span>
           <span class="text-[10px]">↗</span>
@@ -331,3 +331,4 @@ const bundleBreakdown = [
     </section>
   </Container>
 </Layout>
+

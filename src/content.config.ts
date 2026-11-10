@@ -4,6 +4,25 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // 2. Define your collection(s)
+const blogCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z.object({
+    draft: z.boolean(),
+    title: z.string(),
+    snippet: z.string(),
+    image: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    publishDate: z.coerce.date(),
+    author: z.string().default('Jaume Tur'),
+    category: z.string(),
+    tags: z.array(z.string()),
+    lang: z.enum(['ca', 'es', 'en']).default('es').optional(),
+    canonicalUrl: z.string().optional(),
+  }),
+});
+
 const projectSchema = z.object({
     draft: z.boolean().default(false),
     title: z.string(),
@@ -45,6 +64,7 @@ const projectesEnCollection = defineCollection({
 
 // 3. Export a single `collections` object to register your collection(s)
 export const collections = {
+  'blog': blogCollection,
   'projectes': projectesCollection,
   'projectes-es': projectesEsCollection,
   'projectes-en': projectesEnCollection,
