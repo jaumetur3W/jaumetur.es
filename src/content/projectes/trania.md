@@ -76,7 +76,7 @@ El módulo de administración proporciona a los propietarios, gerentes y coordin
 
 A diferencia de las aplicaciones de fitness convencionales basadas en rutinas genéricas, TranIA sustenta su inteligencia en **seis motores matemáticos y biomecánicos especializados**:
 
-![Esquema de arquitectura de TranIA Intelligence: 6 motores deportivos deterministas y asistente Coach IA](/img/trania-intelligence-esquema.webp)
+<img src="/img/trania-intelligence-esquema.webp" alt="Esquema de arquitectura de TranIA Intelligence: 6 motores deportivos deterministas y asistente Coach IA" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
 
 1. **Training Intelligence:** Creación y planificación algorítmica de rutinas personalizadas según el nivel físico, objetivo (fuerza, hipertrofia, resistencia, salud), frecuencia disponible y restricciones anatómicas.
 2. **Performance Tracking:** Registro analítico de sobrecarga progresiva: tonelaje, repeticiones efectivas, cálculo dinámico de 1RM, escala de esfuerzo percibido (RPE) y curvas de rendimiento temporal.

@@ -150,7 +150,7 @@ Worksy customizes analytics and key metrics based on each user's operational sco
 
 Worksy is engineered as a domain-driven modular monolith, combining rapid development velocity, clean boundaries, and high reliability:
 
-![Worksy Technical Architecture Scheme](/img/worksy-architecture-scheme-en.webp)
+<img src="/img/worksy-architecture-scheme-en.webp" alt="Worksy Technical Architecture Scheme" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
 
 ### Technology Stack
 - **Frontend:** React 18, Strict TypeScript, Vite build tool, Tailwind CSS, and accessible shadcn/ui components. State managed with TanStack Query and Zustand.

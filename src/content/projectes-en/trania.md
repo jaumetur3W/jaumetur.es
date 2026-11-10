@@ -76,7 +76,7 @@ The administrative module equips gym owners, club managers, and coordinators wit
 
 Unlike generic fitness apps that rely on hardcoded static workout lists, TranIA powers workout science using **six specialized mathematical and biomechanical calculation engines**:
 
-![TranIA Intelligence architecture schema: 6 deterministic sports engines and AI Coach assistant](/img/trania-intelligence-scheme-en.webp)
+<img src="/img/trania-intelligence-scheme-en.webp" alt="TranIA Intelligence architecture schema: 6 deterministic sports engines and AI Coach assistant" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
 
 1. **Training Intelligence:** Algorithmic generation and progressive planning of custom training routines based on individual fitness level, primary goals (strength, hypertrophy, endurance, health), training frequency, and biomechanical constraints.
 2. **Performance Tracking:** Continuous progressive overload tracking: total tonnage, effective reps, real-time estimated 1RM calculations, Rate of Perceived Exertion (RPE), and longitudinal progression curves.

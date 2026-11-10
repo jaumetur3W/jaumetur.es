@@ -150,7 +150,7 @@ Worksy adapta la presentación de métricas según las responsabilidades y nivel
 
 La plataforma está diseñada mediante una arquitectura modular monolítica orientada a dominios (*modular monolith*), garantizando rapidez de desarrollo, facilidad de despliegue y máxima estabilidad operativa:
 
-![Esquema de arquitectura técnica de Worksy](/img/worksy-architecture-esquema.webp)
+<img src="/img/worksy-architecture-esquema.webp" alt="Esquema de arquitectura técnica de Worksy" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
 
 ### Pila tecnológica (Tech Stack)
 - **Frontend:** React 18, TypeScript en modo estricto, Vite como empaquetador ultrarrápido, Tailwind CSS y catálogo de componentes accesibles shadcn/ui. Gestión de estado con TanStack Query y Zustand.
