@@ -20,8 +20,13 @@ const projectImages: Record<string, string> = {
   "pipeline-cicd": "/img/preview-pipeline.webp",
 };
 
-const featuredProjects = projects.filter((p) => Boolean(projectImages[p.id]));
-const secondaryProjects = projects.filter((p) => !projectImages[p.id]);
+const featuredIds = ["avisa", "trania", "pizzeria-xativa"];
+
+const featuredProjects = featuredIds
+  .map((id) => projects.find((p) => p.id === id))
+  .filter(Boolean) as typeof projects;
+
+const secondaryProjects = projects.filter((p) => !featuredIds.includes(p.id));
 
 const shortTitle = (x: string) => x.split(" — ")[0];
 const t = isEn
@@ -31,9 +36,9 @@ const t = isEn
       eyebrow: "Projects", h1: "Web projects and case studies you can open and try.",
       lead: "Websites, interactive demos and web applications. Demos with sample data are labelled as such. Each page explains what it is, my role and the technologies used.",
       view: "View case study", flagship: "Flagship", ctaTitle: "Your project could be next.", cta: "Get a quote", home: "Home",
-      secondaryEyebrow: "Concepts & experiments",
-      secondaryHeading: "Other web mockups & design concepts",
-      secondaryDesc: "Editorial prototypes and interface layouts crafted to explore typography, spatial design, and thematic client experiences.",
+      secondaryEyebrow: "Technical archive & experiments",
+      secondaryHeading: "Other demos, DevOps & mockups",
+      secondaryDesc: "Interactive demos, continuous integration pipelines, and editorial mockups complementing the main showcase.",
     }
   : {
       title: "Proyectos y casos de estudio web | Jaume Tur",
@@ -41,9 +46,9 @@ const t = isEn
       eyebrow: "Proyectos", h1: "Proyectos y casos de estudio web que puedes abrir y probar.",
       lead: "Páginas web, demos interactivas y aplicaciones web. Las demos con datos de ejemplo están indicadas como tales. Cada ficha explica qué es, mi papel y las tecnologías usadas.",
       view: "Ver caso de estudio", flagship: "Insignia", ctaTitle: "Tu proyecto puede ser el siguiente.", cta: "Pedir presupuesto", home: "Inicio",
-      secondaryEyebrow: "Maquetas y conceptos",
-      secondaryHeading: "Otras exploraciones y maquetas web",
-      secondaryDesc: "Prototipos editoriales y ejercicios de maquetación web desarrollados para explorar tipografía, diseño espacial y experiencias temáticas.",
+      secondaryEyebrow: "Archivo técnico y exploraciones",
+      secondaryHeading: "Otras demos, DevOps y maquetas",
+      secondaryDesc: "Demos interactivas, pipelines de integración continua y maquetas editoriales que complementan los proyectos principales.",
     };
 const list = {
   "@context": "https://schema.org",
@@ -61,17 +66,17 @@ const list = {
   <section class="section" aria-label={t.eyebrow}>
     <ul class="wrap grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-12">
       {featuredProjects.map((p, i) => (
-        <li class:list={[i === 0 ? "sm:col-span-2 lg:col-span-12" : i === 1 ? "lg:col-span-7" : i === 2 ? "lg:col-span-5" : i === 3 ? "lg:col-span-5" : i === 4 ? "lg:col-span-7" : "sm:col-span-2 lg:col-span-12"]}>
-          <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-6", (i === 0 || i === 5) ? "lg:grid-cols-12 lg:items-center lg:gap-12" : ""]}>
-            <div class:list={["overflow-hidden rounded-sm border border-white/15 bg-[#141412]", (i === 0 || i === 5) ? "lg:col-span-7" : ""]}>
+        <li class:list={[i === 0 ? "sm:col-span-2 lg:col-span-12" : i === 1 ? "lg:col-span-7" : "lg:col-span-5"]}>
+          <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-6", i === 0 ? "lg:grid-cols-12 lg:items-center lg:gap-12" : ""]}>
+            <div class:list={["overflow-hidden rounded-sm border border-white/15 bg-[#141412]", i === 0 ? "lg:col-span-7" : ""]}>
               <img src={projectImages[p.id]} alt="" width="1200" height="750" loading={i < 2 ? "eager" : "lazy"} decoding="async" class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
             </div>
-            <div class:list={["flex flex-col", (i === 0 || i === 5) ? "lg:col-span-5" : ""]}>
+            <div class:list={["flex flex-col", i === 0 ? "lg:col-span-5" : ""]}>
               <p class="label flex flex-wrap items-center gap-3">
                 {i === 0 && <span class="chip chip-brand !normal-case !tracking-normal">{t.flagship}</span>}
                 <span>{p.data.badge}</span>
               </p>
-              <h2 class:list={["mt-3 font-display font-bold leading-[1.02] group-hover:text-brand", (i === 0 || i === 5) ? "text-[2.4rem] sm:text-[3.2rem]" : "text-[2rem] sm:text-[2.3rem]"]} style="font-stretch:80%">{shortTitle(p.data.title)}</h2>
+              <h2 class:list={["mt-3 font-display font-bold leading-[1.02] group-hover:text-brand", i === 0 ? "text-[2.6rem] sm:text-[3.4rem]" : "text-[2rem] sm:text-[2.4rem]"]} style="font-stretch:80%">{shortTitle(p.data.title)}</h2>
               <p class="muted mt-3 max-w-xl leading-relaxed">{p.data.subtitle}</p>
               <p class="faint mt-3 text-[0.9rem] font-mono">{p.data.stack.slice(0, 4).join(" · ")}</p>
               <p class="link-arrow mt-4">{t.view} <span aria-hidden="true">→</span></p>
