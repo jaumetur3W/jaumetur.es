@@ -7,28 +7,29 @@ import { localeFromPath, localizePath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
 const homePath = localizePath("/", isEn ? "en" : "es");
-const lastAuditDate = isEn ? "November 4, 2026" : "4 de noviembre de 2026";
+const lastAuditDate = isEn ? "November 10, 2026" : "10 de noviembre de 2026";
 
-// Median scores measured with Google Lighthouse v13 (5 runs on production)
+// Median scores measured with Google Lighthouse 12 (3 runs each, mobile preset, local production build)
 const lighthouseScores = [
-  { label: isEn ? "Performance" : "Rendimiento", score: 99, target: "≥ 90", icon: "bx:bxs-zap" },
-  { label: isEn ? "Accessibility" : "Accesibilidad", score: 91, target: "100", icon: "bx:accessibility" },
+  { label: isEn ? "Performance" : "Rendimiento", score: 100, target: "≥ 90", icon: "bx:bxs-zap" },
+  { label: isEn ? "Accessibility" : "Accesibilidad", score: 100, target: "100", icon: "bx:accessibility" },
   { label: isEn ? "Best practices" : "Buenas prácticas", score: 100, target: "100", icon: "bx:shield-quarter" },
   { label: isEn ? "Technical SEO" : "SEO técnico", score: 100, target: "100", icon: "bx:line-chart" },
 ];
 
 const auditedPages = [
-  { page: isEn ? "Home (Mobile)" : "Inicio (Móvil)", perf: 99, a11y: 91, bp: 100, seo: 100, lcp: "1.1 s", tbt: "0 ms", cls: "0.000", si: "3.6 s" },
-  { page: isEn ? "Home (Desktop)" : "Inicio (Escritorio)", perf: 100, a11y: 91, bp: 100, seo: 100, lcp: "0.3 s", tbt: "0 ms", cls: "0.000", si: "0.3 s" },
-  { page: isEn ? "Pricing (/pricing Mobile)" : "Precios (/pricing Móvil)", perf: 100, a11y: 93, bp: 100, seo: 100, lcp: "1.1 s", tbt: "0 ms", cls: "0.000", si: "1.1 s" },
+  { page: isEn ? "Home (Mobile)" : "Inicio (Móvil)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "1.8 s", tbt: "0 ms", cls: "0.000", si: "0.9 s" },
+  { page: isEn ? "Home (Desktop)" : "Inicio (Escritorio)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "0.5 s", tbt: "0 ms", cls: "0.000", si: "0.3 s" },
+  { page: isEn ? "Pricing (/pricing Mobile)" : "Precios (/pricing Móvil)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "1.8 s", tbt: "0 ms", cls: "0.000", si: "0.9 s" },
+  { page: isEn ? "Blog article (Mobile)" : "Artículo del blog (Móvil)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "1.9 s", tbt: "0 ms", cls: "0.000", si: "0.9 s" },
 ];
 
 const coreWebVitals = [
-  { metric: "LCP", name: "Largest Contentful Paint", value: "1.1 s", threshold: "< 2.5 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until main block renders completely (0.3 s on desktop)." : "Tiempo hasta que el bloque principal se ha renderizado por completo (0,3 s en escritorio)." },
+  { metric: "LCP", name: "Largest Contentful Paint", value: "1.8 s", threshold: "< 2.5 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until main block renders completely (0.5 s on desktop)." : "Tiempo hasta que el bloque principal se ha renderizado por completo (0,5 s en escritorio)." },
   { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 200 ms", status: isEn ? "Excellent" : "Excelente", desc: isEn ? "Total main thread blocking time. 0 ms thanks to eliminating render-blocking scripts." : "Tiempo total de bloqueo del hilo principal. 0 ms gracias a la eliminación de scripts bloqueantes." },
   { metric: "CLS", name: "Cumulative Layout Shift", value: "0.000", threshold: "< 0.1", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Complete visual stability without unexpected element shifts during load." : "Estabilidad visual completa, sin desplazamientos inesperados de elementos durante la carga." },
-  { metric: "FCP", name: "First Contentful Paint", value: "1.1 s", threshold: "< 1.8 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until first DOM element becomes visible on screen (0.3 s on desktop)." : "Tiempo hasta que aparece el primer elemento DOM visible en pantalla (0,3 s en escritorio)." },
-  { metric: "Speed Index", name: isEn ? "Speed index" : "Índice de velocidad", value: "3.6 s", threshold: "< 3.4 s", status: isEn ? "To improve (3.6 s > 3.4 s)" : "A mejorar (3,6 s > 3,4 s)", desc: isEn ? "Speed at which page visual contents become visible on mobile 4G (0.3 s on desktop)." : "Velocidad a la que el contenido visual de la página se hace visible en móvil 4G (0,3 s en escritorio)." },
+  { metric: "FCP", name: "First Contentful Paint", value: "0.9 s", threshold: "< 1.8 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until first DOM element becomes visible on screen (0.3 s on desktop)." : "Tiempo hasta que aparece el primer elemento DOM visible en pantalla (0,3 s en escritorio)." },
+  { metric: "Speed Index", name: isEn ? "Speed index" : "Índice de velocidad", value: "0.9 s", threshold: "< 3.4 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Speed at which page visual contents become visible on mobile 4G (0.3 s on desktop)." : "Velocidad a la que el contenido visual de la página se hace visible en móvil 4G (0,3 s en escritorio)." },
 ];
 
 const bundleBreakdown = [
