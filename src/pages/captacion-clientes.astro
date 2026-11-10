@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import QuoteSheet from "@/components/quote-sheet.astro";
 import CtaBand from "@/components/cta-band.astro";
@@ -28,9 +29,9 @@ const t = isEn
       lede: "During this launch period, I'm offering selected websites without charging development fees. You only cover the domain and hosting, and your project becomes part of my portfolio. Limited places available.",
       sectionTitle: "Why join now?",
       reasons: [
-        { emoji: "🚀", title: "Limited places", desc: "The launch offer is temporary. First come, first served." },
-        { emoji: "📈", title: "Real portfolio", desc: "Your project appears in a real-world case study with measurable results." },
-        { emoji: "🤝", title: "Direct support", desc: "You work with the developer who builds your site, not a sales rep." },
+        { icon: "bx:bxs-rocket", title: "Limited places", desc: "The launch offer is temporary. First come, first served." },
+        { icon: "bx:trending-up", title: "Real portfolio", desc: "Your project appears in a real-world case study with measurable results." },
+        { icon: "bx:user-check", title: "Direct support", desc: "You work with the developer who builds your site, not a sales rep." },
       ],
       quoteTitle: "See what you get",
       quoteLede: "Choose a service above and view the total cost. You only pay for VPS, domain and maintenance (no development fees). Your project remains yours forever.",
@@ -69,9 +70,9 @@ const t = isEn
       lede: "Durante este período de lanzamiento ofrezco webs seleccionadas sin cobrar honorarios de desarrollo. Tú cubres solo VPS, dominio y mantenimiento básico; tu proyecto pasa a ser parte de mi portafolio. Plazas limitadas.",
       sectionTitle: "¿Por qué ahora?",
       reasons: [
-        { emoji: "🚀", title: "Plazas limitadas", desc: "La oferta de lanzamiento es temporal. Por orden de llegada." },
-        { emoji: "📈", title: "Portafolio real", desc: "Tu proyecto aparece en un caso de estudio real con resultados medibles." },
-        { emoji: "🤝", title: "Atención directa", desc: "Trabajas con el desarrollador que construye tu web, sin intermediarios." },
+        { icon: "bx:bxs-rocket", title: "Plazas limitadas", desc: "La oferta de lanzamiento es temporal. Por orden de llegada." },
+        { icon: "bx:trending-up", title: "Portafolio real", desc: "Tu proyecto aparece en un caso de estudio real con resultados medibles." },
+        { icon: "bx:user-check", title: "Atención directa", desc: "Trabajas con el desarrollador que construye tu web, sin intermediarios." },
       ],
       quoteTitle: "Ve qué incluye",
       quoteLede: "Elige un servicio arriba y mira el coste total. Tú solo cubres VPS, dominio y mantenimiento básico (sin honorarios de desarrollo). Tu proyecto es tuyo para siempre.",
@@ -143,11 +144,11 @@ const breadcrumbSchema = {
           {
             t.reasons.map((reason) => (
               <div class="space-y-2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ffff00] text-xl">
-                  {reason.emoji}
+                <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ffff00]">
+                  <Icon name={reason.icon} class="h-6 w-6 text-[#0b0b09]" />
                 </div>
                 <h3 class="font-semibold">{reason.title}</h3>
-                <p class="text-sm text-[#0b0b09]/70">{reason.desc}</p>
+                <p class="text-sm text-white/70">{reason.desc}</p>
               </div>
             ))
           }
@@ -184,7 +185,7 @@ const breadcrumbSchema = {
               <div class="space-y-2">
                 <div class="text-2xl font-extrabold text-[#ffff00] tabular-nums">{step.n}</div>
                 <h3 class="font-semibold leading-snug">{step.title}</h3>
-                <p class="text-sm text-[#0b0b09]/70">{step.desc}</p>
+                <p class="text-sm text-white/70">{step.desc}</p>
               </div>
             ))
           }
@@ -218,7 +219,7 @@ const breadcrumbSchema = {
                 {faq.q}
                 <span class="ml-auto group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <p class="mt-3 text-sm text-[#0b0b09]/70">{faq.a}</p>
+              <p class="mt-3 text-sm text-white/70">{faq.a}</p>
             </details>
           ))
         }
