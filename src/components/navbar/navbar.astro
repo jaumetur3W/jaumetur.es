@@ -14,131 +14,89 @@ const withSlash = (path: string) => {
   return `${base === "/" || base.endsWith("/") ? base : `${base}/`}${hash}`;
 };
 const to = (path: string) => withSlash(localizePath(path, locale));
-const spanishPath = withSlash(localizePath(rawPathname, "es"));
-const englishPath = withSlash(localizePath(rawPathname, "en"));
+const is404 = rawPathname.includes("404");
+const spanishPath = is404 ? "/" : withSlash(localizePath(rawPathname, "es"));
+const englishPath = is404 ? "/en/" : withSlash(localizePath(rawPathname, "en"));
 
 const links = [
   { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
   { label: isEn ? "Projects" : "Proyectos", path: "/projectes", active: pathname.startsWith("/projectes") },
-  { label: isEn ? "Blog" : "Blog", path: "/blog", active: pathname.startsWith("/blog") },
-  { label: isEn ? "Tools" : "Herramientas", path: "/tools/creador-html", active: pathname.startsWith("/tools") },
+  { label: "Blog", path: "/blog", active: pathname.startsWith("/blog") },
   { label: isEn ? "About" : "Sobre mí", path: "/about", active: pathname.startsWith("/about") },
 ];
-const ctaLabel = isEn ? "Start a project" : "Iniciar proyecto";
+const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 ---
 
-<header id="site-header" class="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0a0a0c]/85 backdrop-blur-xl supports-[backdrop-filter]:bg-[#0a0a0c]/80 transition-all">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
-    <!-- Logo — Minimal, Spatial -->
-    <a
-      href={to("/")}
-      class="group flex min-h-11 items-center gap-3.5 rounded-2xl focus:outline-none"
-    >
-      <div class="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] transition-all duration-300 group-hover:scale-110 group-hover:border-brand/40 group-hover:shadow-[0_0_20px_rgba(255,255,0,0.15)]">
-        <img
-          src="/img/jt.LOGO-02-128.webp"
-          alt="JT"
-          width="40"
-          height="40"
-          class="h-full w-full object-cover"
-          decoding="async"
-        />
-      </div>
-      <div class="flex flex-col">
-        <span class="font-display text-lg font-bold tracking-tight text-white leading-none">
-          jaume<span class="text-brand">tur</span>
-        </span>
-        <span class="font-mono text-[0.58rem] tracking-[0.2em] text-zinc-400 uppercase mt-0.5">
-          {isEn ? "developer" : "developer"}
-        </span>
-      </div>
+<header id="site-header" class="site-header sticky top-0 z-50 w-full">
+  <div class="wrap flex items-center justify-between gap-4 py-3">
+    <a href={to("/")} class="flex min-h-11 items-center gap-3" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
+      <img src="/img/jt.LOGO-02-128.webp" alt="" width="36" height="36" class="h-9 w-9 rounded-sm" decoding="async" />
+      <span class="font-display text-[1.35rem] font-extrabold leading-none tracking-tight" style="font-stretch:85%">jaume<span class="text-brand">tur</span></span>
     </a>
 
-    <!-- Desktop Nav — Floating pill -->
     <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} class="hidden lg:block">
-      <ul class="flex items-center gap-0.5 rounded-full border border-white/[0.06] bg-white/[0.02] p-1 backdrop-blur-xl">
+      <ul class="flex items-center gap-1">
         {links.map((l) => (
           <li>
             <a
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "inline-flex min-h-9 items-center rounded-full px-4 text-[0.8rem] font-medium tracking-wide transition-all duration-300",
-                l.active
-                  ? "bg-brand text-black font-bold shadow-[0_0_15px_rgba(255,255,0,0.2)]"
-                  : "text-white/60 hover:text-white hover:bg-white/[0.05]",
+                "inline-flex min-h-11 items-center px-3.5 text-[0.95rem] font-medium underline decoration-2 underline-offset-[0.5em] transition-colors",
+                l.active ? "text-white decoration-brand" : "text-white/80 decoration-transparent hover:text-white hover:decoration-white/60",
               ]}
-            >
-              {l.label}
-            </a>
+            >{l.label}</a>
           </li>
         ))}
       </ul>
     </nav>
 
-    <div class="flex items-center gap-3">
-      <!-- Language toggle -->
-      <div class="hidden sm:flex items-center rounded-full border border-white/[0.06] bg-white/[0.02] p-0.5 text-xs font-mono font-medium" role="group" aria-label={isEn ? "Language" : "Idioma"}>
-        <a
-          href={spanishPath}
-          hreflang="es"
-          lang="es"
-          aria-current={!isEn ? "true" : undefined}
-          class:list={["rounded-full px-2.5 py-1 text-center transition-all duration-300", !isEn ? "bg-brand text-black font-bold shadow-sm" : "text-zinc-400 hover:text-white"]}
-        >ES</a>
-        <a
-          href={englishPath}
-          hreflang="en"
-          lang="en"
-          aria-current={isEn ? "true" : undefined}
-          class:list={["rounded-full px-2.5 py-1 text-center transition-all duration-300", isEn ? "bg-brand text-black font-bold shadow-sm" : "text-zinc-400 hover:text-white"]}
-        >EN</a>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <div class="hidden items-center text-sm font-semibold sm:flex" role="group" aria-label={isEn ? "Language" : "Idioma"}>
+        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}
+           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", !isEn ? "text-brand" : "text-white/70 hover:text-white"]}>ES</a>
+        <span class="text-white/30" aria-hidden="true">/</span>
+        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}
+           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", isEn ? "text-brand" : "text-white/70 hover:text-white"]}>EN</a>
       </div>
 
-      <!-- CTA -->
-      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">
-        <span>{ctaLabel}</span>
-        <span aria-hidden="true" class="text-xs transition-transform group-hover:translate-x-0.5">→</span>
-      </a>
+      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">{ctaLabel}</a>
 
-      <!-- Mobile toggle -->
       <button
         id="nav-toggle"
         type="button"
-        class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] text-white transition-all duration-300 hover:border-brand/40 hover:text-brand active:scale-95"
+        class="inline-flex min-h-11 items-center gap-2 rounded-sm border border-white/25 px-3.5 text-sm font-semibold text-white transition-colors hover:border-brand hover:text-brand lg:hidden"
         aria-expanded="false"
         aria-controls="nav-panel"
-        aria-label={isEn ? "Open menu" : "Abrir menú"}
-        data-open-label={isEn ? "Open menu" : "Abrir menú"}
-        data-close-label={isEn ? "Close menu" : "Cerrar menú"}
+        data-open-label={isEn ? "Menu" : "Menú"}
+        data-close-label={isEn ? "Close" : "Cerrar"}
       >
-        <svg id="nav-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-        <svg id="nav-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        <span id="nav-toggle-label">{isEn ? "Menu" : "Menú"}</span>
+        <svg id="nav-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
+        <svg id="nav-icon-close" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile panel -->
-  <div id="nav-panel" class="hidden lg:hidden border-t border-white/10 bg-[#101014]/98 px-5 py-6 backdrop-blur-2xl">
-    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="mx-auto max-w-7xl">
-      <ul class="grid gap-2">
+  <div id="nav-panel" class="hidden border-t border-white/15 bg-[#0b0b09] lg:hidden" style="max-height:calc(100dvh - 4.25rem);overflow-y:auto">
+    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="wrap pb-6 pt-2">
+      <ul>
         {links.map((l) => (
-          <li>
-            <a href={to(l.path)} class="flex min-h-13 items-center justify-between rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 font-display text-base font-semibold text-white hover:border-brand/30 hover:text-brand transition-all duration-300">
+          <li class="border-b border-white/15">
+            <a href={to(l.path)} aria-current={l.active ? "page" : undefined}
+               class:list={["flex min-h-14 items-center justify-between font-display text-3xl font-bold", l.active ? "text-brand" : "text-white"]} style="font-stretch:82%">
               <span>{l.label}</span>
-              <span class="text-brand/50" aria-hidden="true">→</span>
+              <span aria-hidden="true" class="text-xl text-brand">→</span>
             </a>
           </li>
         ))}
-        <li class="mt-3 pt-4 border-t border-white/[0.06] flex flex-col gap-3">
-          <a href={to("/contact")} class="btn btn-brand w-full justify-center">{ctaLabel}</a>
-          <div class="flex items-center justify-center gap-2 pt-1 font-mono text-xs">
-            <span class="text-zinc-400">Idioma:</span>
-            <a href={spanishPath} hreflang="es" lang="es" class:list={["px-3 py-1.5 rounded-lg transition-all", !isEn ? "bg-brand text-black font-bold" : "text-zinc-400 hover:text-white"]}>Español</a>
-            <a href={englishPath} hreflang="en" lang="en" class:list={["px-3 py-1.5 rounded-lg transition-all", isEn ? "bg-brand text-black font-bold" : "text-zinc-400 hover:text-white"]}>English</a>
-          </div>
-        </li>
       </ul>
+      <a href={to("/contact")} class="btn btn-brand mt-6 w-full">{ctaLabel}</a>
+      <p class="mt-5 flex items-center gap-1 text-sm">
+        <span class="text-white/70">{isEn ? "Language" : "Idioma"}:</span>
+        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-3 font-semibold", !isEn ? "text-brand" : "text-white/80"]}>Español</a>
+        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-3 font-semibold", isEn ? "text-brand" : "text-white/80"]}>English</a>
+      </p>
     </nav>
   </div>
 </header>
@@ -150,15 +108,17 @@ const ctaLabel = isEn ? "Start a project" : "Iniciar proyecto";
     if (!btn || !panel) return;
     var openIcon = document.getElementById("nav-icon-open");
     var closeIcon = document.getElementById("nav-icon-close");
+    var label = document.getElementById("nav-toggle-label");
     function setOpen(open) {
       panel.classList.toggle("hidden", !open);
       openIcon.classList.toggle("hidden", open);
       closeIcon.classList.toggle("hidden", !open);
+      label.textContent = open ? btn.dataset.closeLabel : btn.dataset.openLabel;
       btn.setAttribute("aria-expanded", String(open));
-      btn.setAttribute("aria-label", open ? btn.dataset.closeLabel : btn.dataset.openLabel);
     }
     btn.addEventListener("click", function () { setOpen(btn.getAttribute("aria-expanded") !== "true"); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { setOpen(false); btn.focus(); } });
     panel.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", function (e) { if (e.matches) setOpen(false); });
   })();
 </script>

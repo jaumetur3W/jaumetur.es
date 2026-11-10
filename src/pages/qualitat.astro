@@ -7,35 +7,36 @@ import { localeFromPath, localizePath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
 const homePath = localizePath("/", isEn ? "en" : "es");
-const lastAuditDate = isEn ? "November 4, 2026" : "4 de noviembre de 2026";
+const lastAuditDate = isEn ? "November 10, 2026" : "10 de noviembre de 2026";
 
-// Median scores measured with Google Lighthouse v13 (5 runs on production)
+// Median scores measured with Google Lighthouse 12 (3 runs each, mobile preset, local production build)
 const lighthouseScores = [
-  { label: isEn ? "Performance" : "Rendimiento", score: 99, target: "≥ 90", icon: "bx:bxs-zap" },
-  { label: isEn ? "Accessibility" : "Accesibilidad", score: 91, target: "100", icon: "bx:accessibility" },
+  { label: isEn ? "Performance" : "Rendimiento", score: 100, target: "≥ 90", icon: "bx:bxs-zap" },
+  { label: isEn ? "Accessibility" : "Accesibilidad", score: 100, target: "100", icon: "bx:accessibility" },
   { label: isEn ? "Best practices" : "Buenas prácticas", score: 100, target: "100", icon: "bx:shield-quarter" },
   { label: isEn ? "Technical SEO" : "SEO técnico", score: 100, target: "100", icon: "bx:line-chart" },
 ];
 
 const auditedPages = [
-  { page: isEn ? "Home (Mobile)" : "Inicio (Móvil)", perf: 99, a11y: 91, bp: 100, seo: 100, lcp: "1.1 s", tbt: "0 ms", cls: "0.000", si: "3.6 s" },
-  { page: isEn ? "Home (Desktop)" : "Inicio (Escritorio)", perf: 100, a11y: 91, bp: 100, seo: 100, lcp: "0.3 s", tbt: "0 ms", cls: "0.000", si: "0.3 s" },
-  { page: isEn ? "Pricing (/pricing Mobile)" : "Precios (/pricing Móvil)", perf: 100, a11y: 93, bp: 100, seo: 100, lcp: "1.1 s", tbt: "0 ms", cls: "0.000", si: "1.1 s" },
+  { page: isEn ? "Home (Mobile)" : "Inicio (Móvil)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "1.8 s", tbt: "0 ms", cls: "0.000", si: "0.9 s" },
+  { page: isEn ? "Home (Desktop)" : "Inicio (Escritorio)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "0.5 s", tbt: "0 ms", cls: "0.000", si: "0.3 s" },
+  { page: isEn ? "Pricing (/pricing Mobile)" : "Precios (/pricing Móvil)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "1.8 s", tbt: "0 ms", cls: "0.000", si: "0.9 s" },
+  { page: isEn ? "Blog article (Mobile)" : "Artículo del blog (Móvil)", perf: 100, a11y: 100, bp: 100, seo: 100, lcp: "1.9 s", tbt: "0 ms", cls: "0.000", si: "0.9 s" },
 ];
 
 const coreWebVitals = [
-  { metric: "LCP", name: "Largest Contentful Paint", value: "1.1 s", threshold: "< 2.5 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until main block renders completely (0.3 s on desktop)." : "Tiempo hasta que el bloque principal se ha renderizado por completo (0,3 s en escritorio)." },
+  { metric: "LCP", name: "Largest Contentful Paint", value: "1.8 s", threshold: "< 2.5 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until main block renders completely (0.5 s on desktop)." : "Tiempo hasta que el bloque principal se ha renderizado por completo (0,5 s en escritorio)." },
   { metric: "TBT", name: "Total Blocking Time", value: "0 ms", threshold: "< 200 ms", status: isEn ? "Excellent" : "Excelente", desc: isEn ? "Total main thread blocking time. 0 ms thanks to eliminating render-blocking scripts." : "Tiempo total de bloqueo del hilo principal. 0 ms gracias a la eliminación de scripts bloqueantes." },
   { metric: "CLS", name: "Cumulative Layout Shift", value: "0.000", threshold: "< 0.1", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Complete visual stability without unexpected element shifts during load." : "Estabilidad visual completa, sin desplazamientos inesperados de elementos durante la carga." },
-  { metric: "FCP", name: "First Contentful Paint", value: "1.1 s", threshold: "< 1.8 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until first DOM element becomes visible on screen (0.3 s on desktop)." : "Tiempo hasta que aparece el primer elemento DOM visible en pantalla (0,3 s en escritorio)." },
-  { metric: "Speed Index", name: isEn ? "Speed index" : "Índice de velocidad", value: "3.6 s", threshold: "< 3.4 s", status: isEn ? "To improve (3.6 s > 3.4 s)" : "A mejorar (3,6 s > 3,4 s)", desc: isEn ? "Speed at which page visual contents become visible on mobile 4G (0.3 s on desktop)." : "Velocidad a la que el contenido visual de la página se hace visible en móvil 4G (0,3 s en escritorio)." },
+  { metric: "FCP", name: "First Contentful Paint", value: "0.9 s", threshold: "< 1.8 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Time until first DOM element becomes visible on screen (0.3 s on desktop)." : "Tiempo hasta que aparece el primer elemento DOM visible en pantalla (0,3 s en escritorio)." },
+  { metric: "Speed Index", name: isEn ? "Speed index" : "Índice de velocidad", value: "0.9 s", threshold: "< 3.4 s", status: isEn ? "Optimal" : "Óptimo", desc: isEn ? "Speed at which page visual contents become visible on mobile 4G (0.3 s on desktop)." : "Velocidad a la que el contenido visual de la página se hace visible en móvil 4G (0,3 s en escritorio)." },
 ];
 
 const bundleBreakdown = [
   { asset: isEn ? "HTML document" : "Documento HTML", size: "99.8 KB", gzipped: "22.5 KB", tech: isEn ? "Astro SSG (pre-rendered static HTML)" : "Astro SSG (HTML estático pre-renderizado)" },
   { asset: isEn ? "CSS stylesheets" : "Hojas de estilo CSS", size: "130.6 KB", gzipped: "20.8 KB", tech: isEn ? "Tailwind CSS v4 minified" : "Tailwind CSS v4 minificado" },
-  { asset: isEn ? "Typography (Inter Variable)" : "Tipografías (Inter Variable)", size: "48.3 KB", gzipped: "48.4 KB", tech: isEn ? "Self-hosted font subset with font-display: swap" : "Tipografía autoalojada con font-display: swap" },
-  { asset: isEn ? "Origin JavaScript" : "JavaScript de origen", size: "0 KB", gzipped: "0 KB", tech: isEn ? "Native inline scripts (zero runtime framework, zero View Transitions)" : "Scripts nativos inline (sin runtime de framework ni View Transitions)" },
+  { asset: isEn ? "Typography (Bricolage Grotesque + Atkinson Hyperlegible Next)" : "Tipografías (Bricolage Grotesque + Atkinson Hyperlegible Next)", size: "109.5 KB", gzipped: "109.5 KB", tech: isEn ? "Self-hosted font subset with font-display: swap" : "Tipografía autoalojada con font-display: swap" },
+  { asset: isEn ? "Origin JavaScript" : "JavaScript de origen", size: "0 KB", gzipped: "0 KB", tech: isEn ? "Native inline scripts (zero runtime framework; page transitions are pure CSS)" : "Scripts nativos inline (sin runtime de framework; las transiciones de página son CSS puro)" },
   { asset: isEn ? "Analytics (Plausible)" : "Analítica (Plausible)", size: "2.8 KB", gzipped: "1.9 KB", tech: isEn ? "Async privacy-friendly lightweight analytics script" : "Script asíncrono y ligero que preserva la privacidad" },
 ];
 ---
@@ -47,7 +48,7 @@ const bundleBreakdown = [
   <Container>
     <!-- Header -->
     <header class="max-w-4xl mx-auto pt-12 pb-10 sm:pt-16 sm:pb-12 text-center sm:text-left">
-      <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-slate-600 font-semibold">
+      <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-[#d2d2cb] font-semibold">
         {isEn ? "Technical Audit & Transparency" : "Auditoría técnica y transparencia"}
       </p>
 
@@ -55,15 +56,15 @@ const bundleBreakdown = [
         {isEn ? "Commitment to " : "Compromiso de "}<span class="decoration-[#FFFF00] decoration-2 underline underline-offset-4">{isEn ? "quality and performance." : "calidad y rendimiento."}</span>
       </h1>
 
-      <p class="text-sm sm:text-base text-slate-600 mt-4 max-w-2xl leading-relaxed font-light">
+      <p class="text-sm sm:text-base text-[#d2d2cb] mt-4 max-w-2xl leading-relaxed font-light">
         {isEn
           ? "In software engineering, quality isn't asserted: it's measured and proven. This dashboard reports real performance data, WCAG 2.2 AA accessibility, and code efficiency from this website."
           : "En ingeniería de software, la calidad no se afirma: se mide y se demuestra. Este panel recoge datos reales de rendimiento, accesibilidad WCAG 2.2 AA y eficiencia del código del propio sitio web."}
       </p>
 
-      <div class="flex items-center gap-2 mt-5 text-xs font-mono text-slate-600">
-        <Icon name="bx:calendar" class="w-4 h-4 text-slate-600" />
-        <span>{isEn ? "Last audited measurement:" : "Última medición auditada:"} <strong class="text-slate-700 font-normal">{lastAuditDate}</strong></span>
+      <div class="flex items-center gap-2 mt-5 text-xs font-mono text-[#d2d2cb]">
+        <Icon name="bx:calendar" class="w-4 h-4 text-[#d2d2cb]" />
+        <span>{isEn ? "Last audited measurement:" : "Última medición auditada:"} <strong class="text-white font-normal">{lastAuditDate}</strong></span>
       </div>
     </header>
 
@@ -76,8 +77,8 @@ const bundleBreakdown = [
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         {lighthouseScores.map((item) => (
-          <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col items-center text-center justify-between">
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-slate-100 border border-slate-200/80 mb-3 text-white">
+          <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col items-center text-center justify-between">
+            <div class="w-12 h-12 rounded-sm flex items-center justify-center bg-[#1c1c19] border border-slate-200/80 mb-3 text-white">
               <Icon name={item.icon} class="w-6 h-6" />
             </div>
             
@@ -85,13 +86,13 @@ const bundleBreakdown = [
               <span class="text-4xl sm:text-5xl font-light font-mono tracking-tight text-white">
                 {item.score}
               </span>
-              <span class="text-xs font-mono text-slate-600 block mt-0.5">/ 100</span>
+              <span class="text-xs font-mono text-[#d2d2cb] block mt-0.5">/ 100</span>
             </div>
 
             <div>
               <span class="text-sm font-normal text-white block">{item.label}</span>
-              <span class="text-[11px] font-mono text-slate-500 mt-1 inline-flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-slate-950/20" aria-hidden="true"></span>
+              <span class="text-[11px] font-mono text-[#a3a39b] mt-1 inline-flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-white/20" aria-hidden="true"></span>
                 <span>{isEn ? "Target" : "Objetivo"} {item.target}</span>
               </span>
             </div>
@@ -107,10 +108,10 @@ const bundleBreakdown = [
         <span>{isEn ? "Audited Core Web Vitals metrics" : "Métricas Core Web Vitals auditadas"}</span>
       </h2>
 
-      <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-2xs">
+      <div class="bg-[#141412] rounded-sm border border-white/15 overflow-hidden shadow-2xs">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm font-sans">
-            <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-mono uppercase text-slate-600">
+            <thead class="bg-[#1c1c19] border-b border-white/15 text-[11px] font-mono uppercase text-[#d2d2cb]">
               <tr>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Key metric" : "Métrica clave"}</th>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Measured value" : "Valor medido"}</th>
@@ -124,22 +125,22 @@ const bundleBreakdown = [
                 <tr class="hover:bg-slate-50/50 transition-colors">
                   <td class="py-3.5 px-5 font-medium text-white">
                     <span class="text-white font-bold">{cwv.metric}</span>
-                    <span class="text-[11px] text-slate-600 block font-normal font-sans">{cwv.name}</span>
+                    <span class="text-[11px] text-[#d2d2cb] block font-normal font-sans">{cwv.name}</span>
                   </td>
                   <td class="py-3.5 px-5 font-medium text-white text-base">{cwv.value}</td>
-                  <td class="py-3.5 px-5 text-slate-600">{cwv.threshold}</td>
+                  <td class="py-3.5 px-5 text-[#d2d2cb]">{cwv.threshold}</td>
                   <td class="py-3.5 px-5">
                     {cwv.metric === "Speed Index" ? (
-                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-900 border border-amber-300">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-transparent text-white border border-white/50">
                         <span>{cwv.status}</span>
                       </span>
                     ) : (
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-white border border-slate-950/20">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-[#0b0b09] border border-white/20">
                         <span>✓ {cwv.status}</span>
                       </span>
                     )}
                   </td>
-                  <td class="py-3.5 px-5 text-slate-600 font-sans text-xs hidden md:table-cell font-light">{cwv.desc}</td>
+                  <td class="py-3.5 px-5 text-[#d2d2cb] font-sans text-xs hidden md:table-cell font-light">{cwv.desc}</td>
                 </tr>
               ))}
             </tbody>
@@ -155,10 +156,10 @@ const bundleBreakdown = [
         <span>{isEn ? "Production page audit medians (5 runs per target)" : "Medianas de auditoría en producción (5 ejecuciones por página)"}</span>
       </h2>
 
-      <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-2xs">
+      <div class="bg-[#141412] rounded-sm border border-white/15 overflow-hidden shadow-2xs">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm font-sans">
-            <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-mono uppercase text-slate-600">
+            <thead class="bg-[#1c1c19] border-b border-white/15 text-[11px] font-mono uppercase text-[#d2d2cb]">
               <tr>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Target page" : "Página auditada"}</th>
                 <th class="py-3.5 px-4 font-semibold text-center">{isEn ? "Perf" : "Rend."}</th>
@@ -176,13 +177,13 @@ const bundleBreakdown = [
                 <tr class="hover:bg-slate-50/50 transition-colors">
                   <td class="py-3.5 px-5 font-medium text-white font-sans">{row.page}</td>
                   <td class="py-3.5 px-4 text-center font-bold text-white">{row.perf}</td>
-                  <td class="py-3.5 px-4 text-center font-semibold text-slate-800">{row.a11y}</td>
-                  <td class="py-3.5 px-4 text-center text-slate-700">{row.bp}</td>
-                  <td class="py-3.5 px-4 text-center text-slate-700">{row.seo}</td>
-                  <td class="py-3.5 px-4 text-slate-800">{row.lcp}</td>
-                  <td class="py-3.5 px-4 text-slate-800">{row.tbt}</td>
-                  <td class="py-3.5 px-4 text-slate-800">{row.cls}</td>
-                  <td class="py-3.5 px-4 text-slate-800">{row.si}</td>
+                  <td class="py-3.5 px-4 text-center font-semibold text-white">{row.a11y}</td>
+                  <td class="py-3.5 px-4 text-center text-white">{row.bp}</td>
+                  <td class="py-3.5 px-4 text-center text-white">{row.seo}</td>
+                  <td class="py-3.5 px-4 text-white">{row.lcp}</td>
+                  <td class="py-3.5 px-4 text-white">{row.tbt}</td>
+                  <td class="py-3.5 px-4 text-white">{row.cls}</td>
+                  <td class="py-3.5 px-4 text-white">{row.si}</td>
                 </tr>
               ))}
             </tbody>
@@ -199,42 +200,42 @@ const bundleBreakdown = [
       </h2>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
+        <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-white flex items-center justify-center border border-slate-200/80">
+            <div class="w-9 h-9 rounded-sm bg-[#1c1c19] text-white flex items-center justify-center border border-slate-200/80">
               <Icon name="bx:check-shield" class="w-5 h-5" />
             </div>
             <span class="font-normal text-white text-sm">{isEn ? "Automated Accessibility Auditing" : "Auditoría de accesibilidad continua"}</span>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-light">
+          <p class="text-xs text-[#d2d2cb] leading-relaxed font-light">
             {isEn
               ? "Automated E2E axe-core scans with Playwright integrated into CI evaluate home, pricing, projects, and articles under WCAG 2.0, 2.1, and 2.2 AA standards."
               : "La auditoría automatizada E2E con @axe-core/playwright integrada en el pipeline CI evalúa la home, pricing, proyectos y artículos bajo los estándares WCAG 2.0, 2.1 y 2.2 AA."}
           </p>
         </div>
 
-        <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
+        <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-white flex items-center justify-center">
+            <div class="w-9 h-9 rounded-sm bg-[#1c1c19] text-white flex items-center justify-center">
               <Icon name="bx:pointer" class="w-5 h-5" />
             </div>
             <span class="font-normal text-white text-sm">{isEn ? "Keyboard Navigation" : "Navegación con teclado"}</span>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-light">
+          <p class="text-xs text-[#d2d2cb] leading-relaxed font-light">
             {isEn
               ? "Skip-to-content link, logical tab sequence, and active focus outlines across all interactive elements."
               : "Enlace para saltar al contenido, orden de tabulación secuencial y anillos de foco visibles en todos los enlaces y botones."}
           </p>
         </div>
 
-        <div class="p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-slate-950 shadow-2xs hover:shadow-md transition-all duration-200">
+        <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 text-white flex items-center justify-center border border-slate-200/80">
+            <div class="w-9 h-9 rounded-sm bg-[#1c1c19] text-white flex items-center justify-center border border-slate-200/80">
               <Icon name="bx:sun" class="w-5 h-5" />
             </div>
             <span class="font-normal text-white text-sm">{isEn ? "Color Contrast (≥ 4.5:1)" : "Contraste de color (≥ 4,5:1)"}</span>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-light">
+          <p class="text-xs text-[#d2d2cb] leading-relaxed font-light">
             {isEn
               ? "Text elements across interface views are designed following the minimum 4.5:1 contrast ratio recommended by WCAG AA guidelines."
               : "Los elementos de texto en las vistas de interfaz se diseñan siguiendo la relación de contraste mínima de 4,5:1 recomendada por la guía WCAG AA."}
@@ -250,20 +251,20 @@ const bundleBreakdown = [
         <span>{isEn ? "Resource payload and performance budget" : "Peso de los recursos y presupuesto de rendimiento"}</span>
       </h2>
 
-      <div class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-2xs">
+      <div class="bg-[#141412] rounded-sm border border-white/15 overflow-hidden shadow-2xs">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between flex-wrap gap-4">
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-slate-600 block">{isEn ? "Total first-load transfer" : "Peso total en la primera carga"}</span>
+            <span class="text-xs font-mono uppercase tracking-wider text-[#d2d2cb] block">{isEn ? "Total first-load transfer" : "Peso total en la primera carga"}</span>
             <span class="text-2xl sm:text-3xl font-light font-mono text-white mt-1 block">~ 113.4 KB ({isEn ? "Transferred across wire" : "Transferido en red"})</span>
           </div>
-          <span class="text-xs font-mono text-slate-700 bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200/80">
+          <span class="text-xs font-mono text-white bg-[#1c1c19] px-3.5 py-1.5 rounded-sm border border-slate-200/80">
             {isEn ? "Max budget:" : "Presupuesto máximo:"} &lt; 150 KB ({isEn ? "achieved" : "alcanzado"})
           </span>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm">
-            <thead class="bg-slate-50 border-b border-slate-200 text-[11px] font-mono uppercase text-slate-600 font-semibold">
+            <thead class="bg-[#1c1c19] border-b border-white/15 text-[11px] font-mono uppercase text-[#d2d2cb] font-semibold">
               <tr>
                 <th class="py-3.5 px-5">{isEn ? "Resource" : "Recurso"}</th>
                 <th class="py-3.5 px-5">{isEn ? "Uncompressed size" : "Tamaño sin comprimir"}</th>
@@ -275,9 +276,9 @@ const bundleBreakdown = [
               {bundleBreakdown.map((item) => (
                 <tr class="hover:bg-slate-50/50">
                   <td class="py-3.5 px-5 font-normal text-white">{item.asset}</td>
-                  <td class="py-3.5 px-5 text-slate-600">{item.size}</td>
+                  <td class="py-3.5 px-5 text-[#d2d2cb]">{item.size}</td>
                   <td class="py-3.5 px-5 font-semibold text-white">{item.gzipped}</td>
-                  <td class="py-3.5 px-5 text-slate-600 font-sans font-light">{item.tech}</td>
+                  <td class="py-3.5 px-5 text-[#d2d2cb] font-sans font-light">{item.tech}</td>
                 </tr>
               ))}
             </tbody>
@@ -293,21 +294,21 @@ const bundleBreakdown = [
     </section>
 
     <!-- Reproduce Audit Instructions -->
-    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-3xl bg-slate-950 text-slate-200 border-2 border-slate-950 font-mono text-xs selection:bg-[#FFFF00] selection:text-white" aria-labelledby="reproduce-heading">
+    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-sm bg-[#0b0b09] text-white border-2 border-white/40 font-mono text-xs selection:bg-[#FFFF00] selection:text-[#0b0b09]" aria-labelledby="reproduce-heading">
       <div class="flex items-center gap-2 text-white font-normal mb-3 text-sm">
         <Icon name="bx:terminal" class="w-4 h-4 text-[#FFFF00]" />
         <h3 id="reproduce-heading">{isEn ? "Audit reproduction protocol" : "Protocolo para reproducir la auditoría"}</h3>
       </div>
-      <p class="text-slate-400 text-xs mb-4 font-sans leading-relaxed font-light">
+      <p class="text-[#a3a39b] text-xs mb-4 font-sans leading-relaxed font-light">
         {isEn ? "You can run the same audits in your local environment to independently verify all metrics:" : "Puedes ejecutar las mismas auditorías desde tu entorno local para comprobar los datos de forma independiente:"}
       </p>
 
-      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 space-y-2">
-        <div><span class="text-slate-400"># 1. {isEn ? "Build production bundle" : "Compilar la versión de producción"}</span></div>
+      <div class="p-4 rounded-sm bg-[#0b0b09] border border-slate-800 text-slate-300 space-y-2">
+        <div><span class="text-[#a3a39b]"># 1. {isEn ? "Build production bundle" : "Compilar la versión de producción"}</span></div>
         <div class="text-[#FFFF00]">npm run build && npm run preview</div>
-        <div class="pt-2"><span class="text-slate-400"># 2. {isEn ? "Run Lighthouse CLI audit" : "Ejecutar la auditoría Lighthouse CLI"}</span></div>
+        <div class="pt-2"><span class="text-[#a3a39b]"># 2. {isEn ? "Run Lighthouse CLI audit" : "Ejecutar la auditoría Lighthouse CLI"}</span></div>
         <div class="text-[#FFFF00]">npx lighthouse http://localhost:4321/ --preset=desktop --view</div>
-        <div class="pt-2"><span class="text-slate-400"># 3. {isEn ? "Run axe-core accessibility audit" : "Ejecutar la auditoría de accesibilidad axe-core"}</span></div>
+        <div class="pt-2"><span class="text-[#a3a39b]"># 3. {isEn ? "Run axe-core accessibility audit" : "Ejecutar la auditoría de accesibilidad axe-core"}</span></div>
         <div class="text-[#FFFF00]">npx @axe-core/cli http://localhost:4321/</div>
       </div>
 
@@ -316,14 +317,14 @@ const bundleBreakdown = [
           href="https://github.com/jaumetur3W/jaumetur.es"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#FFFF00] hover:bg-[#f2d900] text-black rounded-xl font-mono text-xs font-semibold transition shadow-xs">
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#FFFF00] hover:bg-[#f2d900] text-black rounded-sm font-mono text-xs font-semibold transition shadow-xs">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
           <span>{isEn ? "Examine source code on GitHub" : "Examinar el código en GitHub"}</span>
           <span class="text-[10px]">↗</span>
         </a>
         <a
           href={homePath}
-          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-200 rounded-xl font-mono text-xs font-semibold transition border border-slate-700">
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#0b0b09] hover:bg-slate-800 text-white rounded-sm font-mono text-xs font-semibold transition border border-slate-700">
           <Icon name="bx:home-alt" class="w-4 h-4" />
           <span>{isEn ? "Back to home" : "Volver al inicio"}</span>
         </a>

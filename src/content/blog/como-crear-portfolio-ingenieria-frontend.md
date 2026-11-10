@@ -62,7 +62,7 @@ Aplicamos tres reglas visuales:
 
 La mejor manera de demostrar competencia es crear utilidades que la propia comunidad de desarrolladores utilice en su día a día.
 
-En nuestro caso, creamos [/tools/workflow-generator](/tools/workflow-generator): una herramienta que permite configurar archivos de GitHub Actions para Astro, Angular y React con un solo clic. Esto no solo genera tráfico orgánico y menciones en redes sociales, sino que es una prueba real de que sabes construir interfaces interactivas útiles.
+En nuestro caso, creamos [/tools/workflow-generator](/tools/workflow-generator/): una herramienta que permite configurar archivos de GitHub Actions para Astro, Angular y React con un solo clic. Esto no solo genera tráfico orgánico y menciones en redes sociales, sino que es una prueba real de que sabes construir interfaces interactivas útiles.
 
 ---
 
@@ -78,4 +78,4 @@ Un desarrollador profesional es transparente con su flujo de trabajo:
 
 Tu portfolio es el proyecto más importante de tu carrera: trabaja para ti las 24 horas del día, los 7 días de la semana. Trátalo con la misma exigencia, arquitectura y rigor que aplicarías a la aplicación más crítica de tu cliente más importante.
 
-¿Quieres mejorar la presencia digital de tu proyecto o necesitas apoyo en desarrollo frontend? [Contacta conmigo](/contact).
+¿Quieres mejorar la presencia digital de tu proyecto o necesitas apoyo en desarrollo frontend? [Contacta conmigo](/contact/).

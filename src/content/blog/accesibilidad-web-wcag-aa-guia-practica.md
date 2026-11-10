@@ -169,4 +169,4 @@ test('La pàgina principal no ha de tenir violacions WCAG AA detectables', async
 
 La accesibilidad no es una tarea aislada: es una cultura de calidad del código. Crear aplicaciones accesibles mejora el SEO, optimiza el rendimiento y garantiza que tu plataforma esté preparada para atender al 100 % de los usuarios potenciales.
 
-¿Quieres evaluar la accesibilidad de tu sitio web o preparar tu plataforma para la Directiva Europea? [Solicita una auditoría de accesibilidad con nosotros](/contact).
+¿Quieres evaluar la accesibilidad de tu sitio web o preparar tu plataforma para la Directiva Europea? [Solicita una auditoría de accesibilidad con nosotros](/contact/).

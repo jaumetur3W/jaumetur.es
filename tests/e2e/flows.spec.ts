@@ -73,15 +73,28 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     expect(boundingBox?.y).toBeLessThanOrEqual(5);
   });
 
+  test("Home quote sheet switches the line items with the selected service", async ({ page }) => {
+    await page.goto("/");
+    const sheet = page.locator(".quote-sheet");
+    await expect(sheet.locator('[data-panel="0"]')).toBeVisible();
+    await expect(sheet.locator('[data-panel="0"]')).toContainText("290");
+    await sheet.locator('label[for="q-svc-2"]').click();
+    await expect(sheet.locator('[data-panel="2"]')).toBeVisible();
+    await expect(sheet.locator('[data-panel="0"]')).toBeHidden();
+    await expect(sheet.locator('[data-panel="2"]')).toContainText("1950");
+    await expect(sheet.locator('[data-panel="2"] a.btn')).toHaveAttribute("href", /\/contact\/\?servei=angular-webapp/);
+  });
+
   test("Top navbar displays standard page links without in-page anchors, and mobile menu is accessible", async ({ page }) => {
     await page.goto("/");
     
-    // Desktop navigation links: Servicios, Proyectos, Blog, Herramientas, Sobre mí
+    // Desktop navigation links: Servicios, Proyectos, Blog, Sobre mí
     const desktopNav = page.locator("nav[aria-label='Navegación principal']");
     await expect(desktopNav.locator('a[href="/pricing/"]')).toHaveText("Servicios");
     await expect(desktopNav.locator('a[href="/projectes/"]')).toHaveText("Proyectos");
     await expect(desktopNav.locator('a[href="/blog/"]')).toHaveText("Blog");
-    await expect(desktopNav.locator('a[href="/tools/creador-html/"]')).toHaveText("Herramientas");
+    // Las herramientas viven en el pie, no en la navegación principal
+    await expect(desktopNav.locator('a[href="/tools/creador-html/"]')).toHaveCount(0);
     await expect(desktopNav.locator('a[href="/about/"]')).toHaveText("Sobre mí");
 
     // Contact CTA
@@ -116,6 +129,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(footer.getByText("Jaume Tur").first()).toBeVisible();
 
     // Social & Contact icons
+    await expect(footer.locator('a[href="/tools/creador-html/"]')).toBeVisible();
     await expect(footer.locator('a[href="https://github.com/jaumetur3W"]')).toBeVisible();
     await expect(footer.locator('a[href*="linkedin.com/in/jautur"]')).toBeVisible();
     await expect(footer.locator('a[href*="instagram.com/jaume.www"]')).toBeVisible();
@@ -181,7 +195,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     // Click EN to navigate
     await enLink.click();
     await expect(page).toHaveURL("/en/about/");
-    await expect(page.locator("h1")).toContainText("The person who'll build your website");
+    await expect(page.locator("h1")).toContainText("Jaume Tur, web developer in Xàtiva and Valencia");
 
     const englishDesktopNav = page.locator("nav[aria-label='Main navigation']");
     await expect(englishDesktopNav.locator('a[href="/en/pricing/"]')).toHaveText("Services");

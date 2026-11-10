@@ -1,82 +1,59 @@
-# 🔍 SEO_AUDIT.md — Auditoria SEO Tècnic, Rendiment i Arquitectura de Contingut
+# Auditoría SEO y optimización — jaumetur.es (noviembre 2026)
 
-**Lloc web auditat:** [https://jaumetur.es](https://jaumetur.es)  
-**Objectiu:** Convertir el portal de Jaume Tur en una referència orgànica per al desenvolupament frontend a València i a la comunitat catalanoparlant/hispanoparlant.  
-**Auditor:** Head of Technical SEO & Growth Engineering  
-**Data d'auditoria:** 19 d'octubre de 2026  
+Sustituye a la auditoría anterior (octubre 2026), que describía una versión ya obsoleta del sitio (catalán, blog de plantilla, `/uses`, etc.). Se conserva en el historial de git.
 
----
+**Alcance:** 92 páginas generadas (69 indexables, 23 no indexables o de redirección lógica: 404, briefing y copias `/en/blog/<artículo>`) más 81 stubs de redirección. Auditoría sobre la build local (`dist/`) — **no sobre producción**, que aún sirve la versión anterior.
 
-## 1. Resum Executiu & Puntuació Inicial
+## Herramientas realmente utilizadas
+- **Plugin Claude SEO 2.5.0** (26 skills: audit, technical, schema, local, geo, images, sitemap, hreflang, content, page…): está instalado en `~/.claude/plugins`, pero **sus skills no se cargaron como invocables en esta sesión** (el plugin se instaló durante la sesión). Se leyó su metodología (`seo-audit`) y se aplicó con un rastreador propio sobre `dist/`; no se ejecutó ninguna de sus skills ni scripts.
+- **Datos reales de Search Console:** solo la exportación CSV del 4-nov-2026 (no hay API autenticada).
+- **Sin acceso** a DataForSEO, Keyword Planner, PageSpeed API ni backlinks: no se citan volúmenes, dificultad, CrUX ni autoridad.
+- **Playwright** (suite `tests/e2e/seo.spec.ts` nueva + 43 pruebas previas) y medición de laboratorio en navegador con CPU ×4 y 4G lenta.
 
-| Àrea d'Auditoria | Estat Inicial | Impacte | Nivell de Prioritat |
-| :--- | :--- | :--- | :--- |
-| **Metadades & Títols** | Títol genèric "Inici \| Jaume Tur", sense paraules clau geo ni d'especialitat. | Altíssim (Pèrdua de clics a SERPs) | 🔴 P0 (Crític) |
-| **Dades Estructurades (JSON-LD)**| Inexistents o incompletes. Sense schemas de `Person`, `LocalBusiness`, `BlogPosting`. | Alt (Manca de Rich Snippets a Google) | 🔴 P0 (Crític) |
-| **Internacionalització (hreflang)**| Únicament declarat `<html lang="ca">`, sense relació `hreflang` multilingüe. | Mitjà-Alt (Audiència restringida) | 🟡 P1 (Alta) |
-| **Arquitectura del Blog** | 4 posts de plantilla amb text "Lorem Ipsum", sense temps de lectura ni RSS. | Altíssim (Zero trànsit orgànic) | 🔴 P0 (Crític) |
-| **SEO Local (València)** | Paraules clau locals inexistents a URLs, títols o etiquetes de servei. | Alt (No apareix per "freelance frontend València") | 🔴 P0 (Crític) |
-| **Indexació & Rastrejabilitat** | Sitemap XML configurat, robots.txt apuntant correctament, CNAME i .nojekyll en ordre. | Baix (Tècnicament correcte) | 🟢 P3 (Mantindre) |
-| **Core Web Vitals** | Arquitectura SSG ràpida amb Astro. Manca atributs explícits en algunes imatges. | Mitjà (LCP i CLS a polir) | 🟡 P1 (Alta) |
+## Problemas encontrados → estado
+| # | Problema | Gravedad | Estado |
+|---|---|---|---|
+| 1 | 18 copias `/en/blog/<artículo>` con contenido en español: indexables, en sitemap, con hreflang `en` y canonical al ES (señales contradictorias, contenido duplicado) | Alta | **Corregido**: `noindex, follow`, canonical a la versión ES, sin hreflang, fuera del sitemap; `<html lang="es">` |
+| 2 | Artículos sin schema `BlogPosting` (solo migas) y con una miga falsa (`#categoría`) | Alta | **Corregido**: `BlogPosting` autocontenido + `BreadcrumbList` real |
+| 3 | `/tools/html-generator` duplicaba `/tools/creador-html` (mismo título, descripción y contenido) | Media | **Corregido**: redirección y eliminada la página |
+| 4 | Títulos recortados en el `:` (p. ej. «HTML5 semántico: estructura», «JavaScript moderno: origen») | Media | **Corregido**: títulos completos o cortados en un límite natural |
+| 5 | Schema `Person` + `ProfessionalService` + `OfferCatalog` repetidos en las 92 páginas; coordenadas `geo` no verificadas | Media | **Corregido**: entidades completas solo en `/`, `/about/`, `/contact/` (y EN); `WebPage` en cada página que referencia por `@id`; `geo` eliminado |
+| 6 | Teléfono ausente del schema y de la web (NAP incompleto) | Media | **Corregido**: WhatsApp +34 644 525 838 visible en pie y contacto y en `telephone`/`contactPoint` |
+| 7 | Enlaces internos sin barra final (`/blog`, `/contact`, `/pricing`…): redirecciones innecesarias y 404 en el servidor de pruebas | Media | **Corregido** en plantillas y en los artículos del blog (nuevo `localizeHref`) |
+| 8 | Selector de idioma de la 404 apuntaba a `/404/` | Baja | **Corregido** |
+| 9 | H1 genéricos («Precios claros…», «Hablemos de tu proyecto», «La persona que construirá tu web») sin intención de búsqueda | Media | **Corregido** (ver mapa) |
+| 10 | Portada: título sin la palabra clave principal y demasiados precios a la vista | Media | **Corregido**: precio solo del servicio elegido en el presupuesto; el resto, en `/pricing/` |
+| 11 | Títulos/descripciones cortas (aviso legal) | Baja | **Corregido** |
+| 12 | Estadísticas sin fuente en descripciones (EN) | Media | **Corregido** (ya en la entrega anterior) |
+| 13 | URLs antiguas `/blog/es-*` y `/val/*` aún en el índice de Google | Info | **No resoluble en el código**: GitHub Pages no permite 301; las redirecciones son `meta refresh` + `canonical`. Se resolverá con el tiempo |
+| 14 | Mediciones de `/qualitat/` de 4-nov (previas al rediseño) | Baja | **Pendiente**: volver a medir |
 
----
+## Estado actual verificado (build local)
+- 92 páginas, 69 indexables; **0** títulos duplicados entre páginas indexables, **0** descripciones duplicadas, **1 H1** por página, **0** saltos de encabezado, **0** imágenes sin `alt` ni sin dimensiones, **0** enlaces internos rotos, **0** huérfanas.
+- Canonical autorreferente en todas las páginas indexables; hreflang `es`/`en`/`x-default` coherente.
+- JSON-LD: todos los bloques parsean; sin `@id` duplicados dentro de una página; un solo `WebSite` por página.
+- Sitemap: 69 URLs únicas con barra final, sin `/val/`, 404, briefing ni copias noindex. `robots.txt` permite el rastreo y declara el sitemap.
 
-## 2. Diagnòstic Tècnic Detallat
+## Rendimiento (laboratorio local, build de producción, móvil, 4G lenta y CPU ×4)
+Valores de una sola ejecución en esta máquina; **no son datos de campo (CrUX)**.
+- LCP 1,0–1,5 s, CLS 0–0,03 (`/projectes/`), TBT estimado ≤ 40 ms (un pico de 217 ms en `/contact/` por la limitación de CPU).
+- 5–8 peticiones, 250–370 KB sin comprimir (CSS 98 KB, fuentes 110 KB, documento 30–60 KB, sin JavaScript de terceros). Imágenes ya en WebP con dimensiones y `loading="lazy"`.
+- Cabeceras de caché: las fija GitHub Pages; no controlables desde el código.
 
-### 2.1 Metadades & Snippets de Cerca
-- **Problema:** El títol de la pàgina principal era `Inici | Jaume Tur`. Aquest títol desaprofita completament els 60 caràcters visibles a Google i no posiciona per cap terme de cerca amb intenció comercial o formativa.
-- **Solució:** Optimitzar el títol principal a:  
-  `Jaume Tur — Desenvolupador Frontend & Web Apps a València | Angular & TypeScript`  
-  i assignar meta descriptions úniques amb crida a l'acció per a cada pàgina (`/about`, `/blog`, `/pricing`, `/contact`, `/uses`, `/tools/workflow-generator`).
+## Datos estructurados implementados
+`WebSite` (todas) · `WebPage` (todas las indexables) · `ProfessionalService` con `OfferCatalog` + `ContactPoint` (inicio, sobre mí, contacto) · `Person` (ídem) · `Service` + `BreadcrumbList` (servicios) · `ItemList` (servicios, proyectos) · `CreativeWork` + `BreadcrumbList` (casos) · `BlogPosting` + `BreadcrumbList` (artículos) · `FAQPage` (inicio). `LocalBusiness`/dirección postal: solo localidad (Xàtiva) — no hay dirección física pública verificable, no se inventa.
 
-### 2.2 Dades Estructurades Schema.org (JSON-LD)
-- **Problema:** Google no comprenia entitats ni connexions del professional (estudis, ciutat, xarxes socials, projectes de programari de codi obert).
-- **Solució:** Inserir a `<head>` els següents esquemes:
-  1. `Person`: Nom, rol, URL, xarxes (GitHub, LinkedIn, Twitter/X), especialitats (Angular, TypeScript, CI/CD).
-  2. `WebSite`: URL canònica, cerca interna, nom del lloc.
-  3. `LocalBusiness` / `ProfessionalService`: Desenvolupament web freelance i serveis frontend amb àrea geogràfica a València i modalitat en remot.
-  4. `BlogPosting`: Autor, data de publicació, data de modificació, imatge destacada, temps de lectura i editor per a cada article tècnic.
-  5. `BreadcrumbList`: Estructura jeràrquica clara per a bots de cerca.
+## Imágenes
+Todas WebP, con `alt` donde aportan contenido, `alt=""` en decorativas (enlazadas con texto adyacente) y `width`/`height`. Renombradas `1.webp`→`jaume-tur-desarrollador-web.webp` y `3.webp`→`jaume-tur-contacto.webp`. Sin cambios: nombres de las portadas de blog (descriptivos, en catalán) y `2.webp`, `4.webp`… (avatares sin valor SEO).
 
-### 2.3 Internacionalització i Etiquetes `hreflang`
-- **Problema:** El català és la llengua nativa i prioritats del lloc, però hi ha una gran oportunitat d'atracció orgànica en castellà i anglès per a termes com *"Angular Signals guía completa"*, *"Optimizar Core Web Vitals 60 FPS"* o *"GitHub Actions frontend CI/CD"*.
-- **Solució:** Implementar etiquetes canòniques i `<link rel="alternate" hreflang="..." />`:
-  - `hreflang="ca"`: Versió principal.
-  - `hreflang="es"`: Articles estratègics traduïts al castellà per captar trànsit estatal i de Llatinoamèrica.
-  - `hreflang="x-default"`: Redirecció intel·ligent a la versió principal canònica.
+## Recomendaciones (requieren datos o decisión)
+1. Verificar y reclamar la ficha de Google Business Profile y mantener nombre/teléfono idénticos a la web.
+2. Enviar el sitemap y revisar cobertura en Search Console tras desplegar; comprobar la indexación real (no se ha comprobado ninguna URL).
+3. Medir CrUX/PageSpeed reales tras el despliegue y actualizar `/qualitat/`.
+4. Contenido nuevo solo con datos reales: casos con permiso del cliente, reseñas verificables, página local de hostelería.
+5. Traducir de verdad (o no) los artículos del blog; hasta entonces la copia EN permanece noindex.
+6. Valorar un dominio con redirecciones 301 reales (Cloudflare/Netlify) para limpiar `/val/*` y `/blog/es-*`.
+7. `llms.txt` y archivos similares: no se han añadido; no hay evidencia de beneficio demostrable.
 
-### 2.4 Feed RSS i Sitemaps
-- **Problema:** Els desenvolupadors utilitzen lectors RSS (Feedly, NetNewsWire, agregadors) i plataformes com Dev.to o Daily.dev importen continguts via RSS.
-- **Solució:** Instal·lar `@astrojs/rss` i crear el feed a `/rss.xml` amb metadades completes per a cada article.
-
-### 2.5 SEO Local a València
-- **Problema:** Moltes empreses tecnològiques de València (Marina d'Empreses, Lanzadera, parcs tecnològics de Paterna o Burjassot) cerquen perfils locals per a models híbrids o contractació freelance.
-- **Solució:** Afegir mencions semàntiques naturals a [`pricing.astro`](file:///c:/Users/User/Desktop/jaumetur.es/src/pages/pricing.astro) i [`contact.astro`](file:///c:/Users/User/Desktop/jaumetur.es/src/pages/contact.astro) posicionant per:
-  - *Desenvolupador web València*
-  - *Freelance frontend València*
-  - *Consultor Angular & TypeScript Comunitat Valenciana*
-
----
-
-## 3. Matriu d'Impacte vs Esforç
-
-```
-  Impacte Alt ▲
-              │  [Blog Tècnic Real]        [Metadades & Títols SERP]
-              │  [JSON-LD Schemas]          [SEO Local València]
-              │  
-              │  [Feed RSS & Subscripció]   [Pàgina /uses & Tools]
-              │
-              └────────────────────────────────────────────────►
-                                                      Esforç
-```
-
-## 4. Pla d'Acció Immediat
-1. [x] Crear arquitectura de dades estructurades JSON-LD a [`Layout.astro`](file:///c:/Users/User/Desktop/jaumetur.es/src/layouts/Layout.astro).
-2. [x] Optimitzar títols, meta descriptions i OpenGraph per pàgina.
-3. [x] Crear generador de feed RSS a `src/pages/rss.xml.ts`.
-4. [x] Desenvolupar 8 articles tècnics originals i pràctics en català (+ 3 en castellà).
-5. [x] Crear eina gratuïta per a desenvolupadors a `/tools/workflow-generator` com a iman d'enllaços.
-6. [x] Crear pàgina `/uses` per atraure trànsit i backlinks orgànics.
-7. [x] Redactar `CONTENT_PLAN.md`, `DISTRIBUCION.md` i `MEDICION.md`.
-
+## Pendiente de tiempo/datos de Google
+Cualquier mejora de posiciones, impresiones, CTR o indexación **no puede afirmarse todavía**: depende del despliegue, del rastreo de Google y de semanas de datos.

@@ -38,4 +38,4 @@ La interacción observada es local e ilustrativa: no se aprecia la emisión de u
 
 Esta demo sirve para explorar una experiencia de carta y fidelización. No disponemos de datos para afirmar que haya mejorado las conversiones, el rendimiento o el posicionamiento en Google Maps.
 
-Si tienes un proyecto web y quieres hablar de ello, [escríbeme](/contact).
+Si tienes un proyecto web y quieres hablar de ello, [escríbeme](/contact/).

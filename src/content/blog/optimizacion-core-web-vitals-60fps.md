@@ -77,7 +77,7 @@ El Cumulative Layout Shift se produce casi siempre por dos causas:
 
 ```css
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Atkinson Hyperlegible Next Variable';
   src: url('/fonts/InterVariable.woff2') format('woff2');
   font-weight: 100 900;
   font-display: swap; /* Muestra el texto de inmediato con la fuente del sistema */
@@ -175,4 +175,4 @@ Al aplicar esta metodología rigurosa hemos conseguido puntuaciones constantes e
 - **SEO:** 100/100
 - **LCP:** 0.8s | **CLS:** 0.00 | **INP:** < 28ms
 
-El rendimiento no es fruto del azar: es el resultado directo de un diseño consciente y una ejecución técnica impecable. Si necesitas una auditoría de Core Web Vitals para tu plataforma, [hablemos](/contact).
+El rendimiento no es fruto del azar: es el resultado directo de un diseño consciente y una ejecución técnica impecable. Si necesitas una auditoría de Core Web Vitals para tu plataforma, [hablemos](/contact/).

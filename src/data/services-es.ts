@@ -244,7 +244,7 @@ export const servicesCopyEs: Record<string, ServiceCopy> = {
     amortizationSummary: "Se amortiza con solo 3 o 4 cenas o pedidos de pizza al mes.",
     ctaText: "Solicitar pack de negocio local (290 €)",
     features: [
-      "Landing page y carta interactiva en HTML (objetivo de carga < 0,5 s, objetivo de 100/100 en Lighthouse)",
+      "Landing page y carta interactiva en HTML (diseñada para cargar rápido en el móvil)",
       "Sustitución de PDF pesados por una carta clara, adaptada a móviles y con información de alérgenos",
       "Reservas y pedidos directos por WhatsApp sin comisiones",
       "Creación y optimización de la ficha de Google Maps (Google Business Profile)",

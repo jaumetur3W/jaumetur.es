@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/page-header.astro";
+import CtaBand from "@/components/cta-band.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
@@ -21,14 +23,14 @@ const t = isEn
   ? {
       title: "Web projects and case studies | Jaume Tur",
       desc: "Websites, digital menus and web applications built by Jaume Tur in Xàtiva and Valencia. Open the live projects and see what was done in each one.",
-      eyebrow: "Projects", h1: "Work you can open and try.",
+      eyebrow: "Projects", h1: "Web projects and case studies you can open and try.",
       lead: "Websites, interactive demos and web applications. Demos with sample data are labelled as such. Each page explains what it is, my role and the technologies used.",
       view: "View case study", flagship: "Flagship", ctaTitle: "Your project could be next.", cta: "Get a quote", home: "Home",
     }
   : {
       title: "Proyectos y casos de estudio web | Jaume Tur",
       desc: "Páginas web, cartas digitales y aplicaciones web creadas por Jaume Tur en Xàtiva y Valencia. Abre los proyectos y mira qué se hizo en cada uno.",
-      eyebrow: "Proyectos", h1: "Trabajo que puedes abrir y probar.",
+      eyebrow: "Proyectos", h1: "Proyectos y casos de estudio web que puedes abrir y probar.",
       lead: "Páginas web, demos interactivas y aplicaciones web. Las demos con datos de ejemplo están indicadas como tales. Cada ficha explica qué es, mi papel y las tecnologías usadas.",
       view: "Ver caso de estudio", flagship: "Insignia", ctaTitle: "Tu proyecto puede ser el siguiente.", cta: "Pedir presupuesto", home: "Inicio",
     };
@@ -43,35 +45,29 @@ const list = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[list]}>
-  <section class="border-b border-white/10 bg-gradient-to-b from-[#111118] to-[#070709] px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
-    <div class="mx-auto max-w-(--breakpoint-xl)">
-      <p class="eyebrow">{t.eyebrow}</p>
-      <h1 class="display mt-4 max-w-4xl text-[clamp(2.5rem,6.5vw,4.8rem)] text-white">{t.h1}</h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink/80">{t.lead}</p>
-    </div>
-  </section>
+  <PageHeader title={t.h1} lede={t.lead} />
 
-  <section class="px-4 py-16 sm:px-6 sm:py-24">
-    <ul class="mx-auto grid max-w-(--breakpoint-xl) gap-8 sm:grid-cols-2 lg:grid-cols-3">
+  <section class="section" aria-label={t.eyebrow}>
+    <ul class="wrap grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-12">
       {projects.map((p, i) => (
-        <li class:list={[i === 0 ? "sm:col-span-2 lg:col-span-3" : ""]}>
-          <a href={to(`/projectes/${p.id}`)} class:list={["card group grid h-full overflow-hidden border border-white/10 bg-surface transition-all duration-300 hover:border-brand/70", i === 0 ? "lg:grid-cols-2" : ""]}>
-            <div class:list={["relative overflow-hidden bg-[#16161c]", i === 0 ? "border-b border-white/10 lg:border-b-0 lg:border-r" : "border-b border-white/10 aspect-[16/10]"]}>
+        <li class:list={[i === 0 ? "sm:col-span-2 lg:col-span-12" : i % 3 === 1 ? "lg:col-span-7" : "lg:col-span-5"]}>
+          <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-6", i === 0 ? "lg:grid-cols-12 lg:items-center lg:gap-12" : ""]}>
+            <div class:list={["overflow-hidden rounded-sm border border-white/15 bg-[#141412]", i === 0 ? "lg:col-span-7" : ""]}>
               {projectImages[p.id] ? (
-                <img src={projectImages[p.id]} alt={p.data.image.alt} width="1200" height="675" loading={i < 3 ? "eager" : "lazy"} decoding="async" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src={projectImages[p.id]} alt="" width="1200" height="750" loading={i < 2 ? "eager" : "lazy"} decoding="async" class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
               ) : (
-                <div class="flex aspect-[16/9] h-full w-full items-center justify-center p-6 bg-radial from-brand/20 to-transparent"><span class="display text-center text-3xl text-brand">{shortTitle(p.data.title)}</span></div>
+                <div class="flex aspect-[16/10] w-full items-center justify-center bg-[#1c1c19] p-6"><span class="h-section text-center text-brand">{shortTitle(p.data.title)}</span></div>
               )}
             </div>
-            <div class="flex flex-col p-6 sm:p-8">
-              <div class="flex flex-wrap items-center gap-2">
-                {i === 0 && <span class="rounded-full bg-brand px-3 py-0.5 text-xs font-bold text-black">{t.flagship}</span>}
-                <span class="rounded-full border border-white/15 bg-white/5 px-3 py-0.5 text-[0.72rem] font-semibold text-white/80">{p.data.badge}</span>
-              </div>
-              <h2 class:list={["mt-4 font-display font-bold tracking-tight text-white group-hover:text-brand transition-colors", i === 0 ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"]}>{shortTitle(p.data.title)}</h2>
-              <p class="mt-3 flex-1 text-sm leading-relaxed text-ink/75">{p.data.subtitle}</p>
-              <ul class="mt-5 flex flex-wrap gap-1.5">{p.data.stack.slice(0, 4).map((s) => <li class="rounded-md bg-white/5 px-2.5 py-1 font-mono text-[0.7rem] text-white/60">{s}</li>)}</ul>
-              <p class="mt-6 text-sm font-semibold text-brand">{t.view} →</p>
+            <div class:list={["flex flex-col", i === 0 ? "lg:col-span-5" : ""]}>
+              <p class="label flex flex-wrap items-center gap-3">
+                {i === 0 && <span class="chip chip-brand !normal-case !tracking-normal">{t.flagship}</span>}
+                <span>{p.data.badge}</span>
+              </p>
+              <h2 class:list={["mt-3 font-display font-bold leading-[1.02] group-hover:text-brand", i === 0 ? "text-[2.6rem] sm:text-[3.4rem]" : "text-[2rem] sm:text-[2.3rem]"]} style="font-stretch:80%">{shortTitle(p.data.title)}</h2>
+              <p class="muted mt-3 max-w-xl leading-relaxed">{p.data.subtitle}</p>
+              <p class="faint mt-3 text-[0.9rem]">{p.data.stack.slice(0, 4).join(" · ")}</p>
+              <p class="link-arrow mt-4">{t.view} <span aria-hidden="true">→</span></p>
             </div>
           </a>
         </li>
@@ -79,12 +75,10 @@ const list = {
     </ul>
   </section>
 
-  <section class="relative overflow-hidden px-4 py-20 text-center sm:px-6 sm:py-28">
-    <div class="pointer-events-none absolute left-1/2 top-1/2 h-[22rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/15 blur-[120px]" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-3xl">
-      <h2 class="display text-[clamp(2rem,5vw,3.6rem)] text-white">{t.ctaTitle}</h2>
-      <p class="mx-auto mt-4 max-w-xl text-base text-ink/80">¿Tienes una idea o necesitas actualizar la presencia de tu negocio? Hablemos sin compromiso.</p>
-      <p class="mt-8"><a href={to("/contact")} class="btn btn-brand">{t.cta} <span aria-hidden="true">→</span></a></p>
-    </div>
-  </section>
+  <CtaBand
+    title={t.ctaTitle}
+    text={isEn ? "Got an idea, or need to update your business's online presence? Let's talk, no obligation." : "¿Tienes una idea o necesitas actualizar la presencia de tu negocio? Hablemos sin compromiso."}
+    primary={{ href: to("/contact"), label: t.cta }}
+    secondary={{ href: to("/pricing"), label: isEn ? "Services & pricing" : "Servicios y precios" }}
+  />
 </Layout>

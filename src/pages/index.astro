@@ -2,216 +2,132 @@
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
+import QuoteSheet from "@/components/quote-sheet.astro";
+import CtaBand from "@/components/cta-band.astro";
 import { getServicesData } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
 const isEn = locale === "en";
 const to = (path: string) => {
-  const p = localizePath(path, locale);
+  const [rest, query] = path.split("?");
+  const p = localizePath(rest, locale);
   const [base, hash] = p.split("#");
   const b = base === "/" || base.endsWith("/") ? base : `${base}/`;
-  return hash ? `${b}#${hash}` : b;
+  return `${b}${query ? `?${query}` : ""}${hash ? `#${hash}` : ""}`;
 };
 
 const services = getServicesData(locale);
-const euro = (n: number) => (isEn ? `€${n.toLocaleString("en-US")}` : `${n.toLocaleString("es-ES")} €`);
 
-// Seleccionamos EXCLUSIVAMENTE los 2 proyectos insignia reales y demostrables
+// Solo los dos proyectos insignia reales y demostrables
 const rawProjects = await getCollection(isEn ? "projectes-en" : "projectes");
 const flagshipProjects = ["avisa", "pizzeria-xativa"]
   .map((id) => rawProjects.find((p) => p.id === id))
   .filter(Boolean) as typeof rawProjects;
-
-const projectImages: Record<string, string> = {
-  avisa: "/img/preview-avisa.webp",
-  "pizzeria-xativa": "/img/foto_pizza.webp",
+const projectImages: Record<string, { src: string; w: number; h: number }> = {
+  avisa: { src: "/img/preview-avisa.webp", w: 1200, h: 750 },
+  "pizzeria-xativa": { src: "/img/foto_pizza.webp", w: 1200, h: 575 },
 };
-const shortTitle = (t: string) => t.split(" — ")[0];
+const shortTitle = (x: string) => x.split(" — ")[0];
 
-/* ──────────────── COPY BILINGÜE: CLARO, DIRECTO Y EQUILIBRADO ──────────────── */
+const WA = "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto";
+
 const t = isEn
   ? {
-      // Hero
-      heroTag: "Launch Campaign 2026 · Limited Partner Slots",
-      heroTitle: "Custom web development",
-      heroHighlight: "built to grow your business.",
-      heroSub: "High-speed websites, interactive hospitality menus, and local SEO ranking. Clean code, zero middlemen, built directly by an accredited software developer.",
-      ctaPrimary: "Start your project",
-      ctaSecondary: "Explore services",
-      ctaWa: "WhatsApp chat",
-
-      // Services
-      svcEyebrow: "Solutions & Pricing",
-      svcTitle: "Transparent services built for real commercial growth.",
-      svcSub: "Balanced digital solutions for local shops, hospitality, SMEs, and digital products. Fixed budgets and direct developer collaboration.",
-      from: "From",
-      timelineLabel: "Delivery",
-      seeDetails: "View full scope",
-
-      // Differential values
-      valuesEyebrow: "Why Work With Us",
-      valuesTitle: "High-performance digital engineering without the agency bloat.",
-      values: [
-        {
-          icon: "bx:bxs-zap",
-          title: "Sub-second load times",
-          desc: "Built on modern frameworks (Astro, Angular, Tailwind). 100/100 Lighthouse speed scores without bloated templates.",
-        },
-        {
-          icon: "bx:code-block",
-          title: "100% Client code ownership",
-          desc: "All source code, Git repositories, domain and accounts belong entirely to you. Zero vendor lock-in or captive monthly traps.",
-        },
-        {
-          icon: "bx:user-check",
-          title: "Direct developer communication",
-          desc: "No sales reps or subcontracted juniors. You collaborate directly with the accredited engineer coding your platform.",
-        },
+      title: "Custom Web Design in Xàtiva and Valencia | Jaume Tur",
+      desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain, built by the developer you talk to. Quote and launch offer for the first clients.",
+      h1: "Custom websites and web apps in Xàtiva and Valencia.",
+      lede: "Built and maintained by the same person who answers you. Websites, digital menus and web applications for businesses in Xàtiva, Valencia and the rest of Spain; price and scope are fixed before we start, and the code and accounts are yours.",
+      cta1: "Get a quote", cta2: "See services & pricing", wa: "WhatsApp",
+      reply: "Reply within 24 business hours.",
+      launchLink: "Launch offer for the first clients",
+      svcTitle: "Five services for your business.",
+      svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum); you can see them in the quote above and on each service page. Scope and timeline are confirmed with you before starting.",
+      allPrices: "See all prices",
+      from: "From", delivery: "Delivery", more: "See what's included",
+      whyTitle: "Whoever answers you is whoever builds it.",
+      why: [
+        { t: "Direct contact", d: "You talk to the person who designs and programs your site. No sales reps, no subcontracting." },
+        { t: "Everything is yours", d: "Source code, Git repository, domain and accounts are handed over in your name. No captive platforms." },
+        { t: "Price fixed up front", d: "You see what's included and what it costs before asking for anything, and we agree scope and timeline before starting." },
       ],
-
-      // Launch program
-      launchEyebrow: "Launch Opportunity",
-      launchTitle: "0 € Development Fee for First Partner Clients",
-      launchBadge: "Exclusive Launch Program",
-      launchDesc: "To demonstrate our technical standards and build prominent public case studies, we are selecting a limited number of local businesses. We engineer and design your website with zero creation fees — you only handle minimal hosting and domain operating costs.",
-      launchCondition: "Strictly limited slots · Available for businesses in Xàtiva, Valencia, and remote Spain.",
-      launchCta: "Apply for launch program",
-
-      // Curated Work
-      projEyebrow: "Verified Case Studies",
-      projTitle: "Featured production work you can inspect right now.",
-      projSub: "Selected case studies demonstrating our technical capacity in hospitality digitalization and complex reactive web applications.",
-      viewStudy: "Read case study",
-      tryDemo: "Live demo",
-      allProjects: "View all projects",
-
-      // Methodology
-      procEyebrow: "Methodology",
-      procTitle: "Predictable process. Zero technical debt.",
+      projTitle: "Work you can open and try.",
+      projLede: "Two projects in production. Demos with sample data are labelled as such.",
+      viewStudy: "Read the case study", live: "Open live project", allProjects: "All projects",
+      procTitle: "How a project runs.",
       steps: [
-        { n: "01", t: "Briefing & Scope", d: "Clear requirements and fixed budget with zero surprises." },
-        { n: "02", t: "Custom Architecture", d: "Modern web build with real-time progress reviews." },
-        { n: "03", t: "SEO & Optimization", d: "Google Maps sync, structured data, and Core Web Vitals audit." },
-        { n: "04", t: "Launch & Code Transfer", d: "Production deploy, full Git repo handover, and ongoing support." },
+        { n: "1", t: "Brief and scope", d: "We define what you need, what's included and the price, in writing, before any code is written." },
+        { n: "2", t: "Custom build", d: "Modern development with previews along the way, so you see progress and can correct early." },
+        { n: "3", t: "Review and SEO", d: "Google Business Profile, structured data, accessibility and performance checks." },
+        { n: "4", t: "Delivery and code", d: "Production launch and handover of the repository, with maintenance if you've contracted it." },
       ],
-
-      // Profile
-      aboutEyebrow: "Accredited Engineer",
-      aboutTitle: "The developer behind your digital platform.",
-      aboutLead: "Based in Xàtiva (Valencia), working locally and remotely across Spain.",
-      aboutText: "I hold state-certified qualifications in Web Application Development (CFGS DAW) and Microcomputer Systems & Networks (GM SMX). I focus on resilient technical architecture, fast UX, and measurable local SEO rankings.",
-      aboutCta: "Career profile",
-      cv: "Download CV (PDF)",
-
-      // FAQ
-      faqEyebrow: "FAQ",
-      faqTitle: "Clear answers before starting.",
+      launchTag: "Launch offer · limited places",
+      launchTitle: "Your website created without development fees, for the first clients.",
+      launchText: "I'm opening my studio to a first group of clients and I want to work on real projects I can later show. During this launch offer I build your site without charging for development; you only cover the domain and hosting, and agree that the project can feature in my portfolio.",
+      launchNote: "It's a temporary, limited opportunity: the usual rates above remain my standard prices. Exact terms are confirmed in writing before starting. Open to businesses in Xàtiva, Valencia and, remotely, the rest of Spain.",
+      launchCta: "Apply for a place",
+      aboutTitle: "Jaume Tur, web developer in Xàtiva.",
+      aboutText: "Certified in Web Application Development (CFGS DAW) and in Microcomputer Systems and Networks (GM SMX). I build fast websites and web applications for local businesses and remote teams.",
+      aboutCta: "More about me", cv: "Download CV (PDF)",
+      faqTitle: "Questions before starting.",
       faqs: [
-        { q: "How does the 0 € development launch program work?", a: "To expand our verified case studies, we build selected websites with zero design and creation fees. In return for featuring the project publicly, the client only covers the minimal domain, SSL, and VPS hosting costs necessary to keep the site active." },
-        { q: "Are development services normally free?", a: "No. Professional software engineering carries real commercial value. Our standard creation rates range from €290 to €1,950+ depending on architectural scope. The €0 development condition is strictly an exclusive, temporary launch opportunity." },
-        { q: "Will I own 100% of the code and digital assets?", a: "Yes, completely. The source code is clean, fully documented, and transferred directly into a Git repository under your ownership." },
-        { q: "What is the typical delivery timeframe?", a: "Local digitalization packages take 3 to 5 business days; landing pages take 1 to 2 weeks; complex web applications require 3 to 6 weeks." },
-        { q: "Do you only work with businesses in Xàtiva?", a: "I have my base in Xàtiva and serve the Valencia metropolitan area directly, but I also build projects 100% remotely for businesses and startups throughout Spain." },
+        { q: "How does the launch offer work?", a: "To grow my portfolio of real projects, I create selected websites without charging development fees. In return the project can be shown in my portfolio, and you only pay for the domain and hosting needed to keep it online. Places are limited and the terms are confirmed in writing first." },
+        { q: "Are your services normally free?", a: "No. This is professional work with a price: creation starts at €290 and goes up to €1,950+ depending on scope, plus a monthly maintenance fee. The launch offer is temporary and only for the first clients." },
+        { q: "Will I own the code and the accounts?", a: "Yes. The source code is delivered in a Git repository in your name, together with the domain and accounts, with no lock-in to proprietary platforms." },
+        { q: "How long does it take?", a: "Local digitisation packs take 3 to 5 business days, landing pages 1 to 2 weeks and web applications 3 to 6 weeks. The exact timeline is agreed before starting." },
+        { q: "Do you only work in Xàtiva?", a: "I'm based in Xàtiva and can meet in person around Valencia, but I also work fully remotely with businesses and teams across Spain." },
       ],
-
-      // Final CTA
-      finalTag: "Direct Consultation · No Obligation",
-      finalTitle: "Ready to build a high-performance web presence?",
-      finalSub: "Apply for our limited launch program or request a tailored proposal for your business. Speak directly with the developer.",
-      finalCta: "Chat on WhatsApp",
-      finalCta2: "Send contact form",
+      finalTitle: "Have a project in mind?",
+      finalText: "Tell me what you need and I'll reply with scope, price and timeline. No obligation.",
+      finalWa: "Message on WhatsApp", finalForm: "Send the form",
     }
   : {
-      // Hero
-      heroTag: "Campaña de Lanzamiento 2026 · Plazas Limitadas",
-      heroTitle: "Desarrollo web a medida para",
-      heroHighlight: "hacer crecer tu negocio.",
-      heroSub: "Páginas web ultrarrápidas, cartas digitales para hostelería y posicionamiento SEO local en Google Maps. Código limpio y trato directo con el programador, sin intermediarios.",
-      ctaPrimary: "Iniciar proyecto",
-      ctaSecondary: "Ver servicios",
-      ctaWa: "WhatsApp directo",
-
-      // Services
-      svcEyebrow: "Servicios y Tarifas",
-      svcTitle: "Soluciones digitales con tarifas claras y transparentes.",
-      svcSub: "Propuestas equilibradas para comercios, hostelería, pymes y productos digitales. Presupuestos cerrados y soporte continuo.",
-      from: "Desde",
-      timelineLabel: "Entrega",
-      seeDetails: "Ver desglose",
-
-      // Differential values
-      valuesEyebrow: "Por Qué Nosotros",
-      valuesTitle: "Ingeniería web de alto rendimiento sin los costes inflados de agencia.",
-      values: [
-        {
-          icon: "bx:bxs-zap",
-          title: "Carga en menos de 0,5 segundos",
-          desc: "Desarrollado sobre tecnologías modernas (Astro, Angular, Tailwind). Puntuaciones de 100/100 en Lighthouse sin plantillas pesadas.",
-        },
-        {
-          icon: "bx:code-block",
-          title: "Código 100% de tu propiedad",
-          desc: "El código fuente, repositorio Git, dominio y cuentas son íntegramente tuyos. Sin permanencias forzosas ni plataformas cautivas.",
-        },
-        {
-          icon: "bx:user-check",
-          title: "Trato directo con el programador",
-          desc: "Sin comerciales ni intermediarios. Hablas y decides directamente con el profesional titulado que diseña y programa tu web.",
-        },
+      title: "Diseño web a medida en Xàtiva y Valencia | Jaume Tur",
+      desc: "Diseño web a medida, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España, hechas por quien las programa. Pide presupuesto; oferta de lanzamiento para los primeros clientes.",
+      h1: "Páginas web y aplicaciones a medida en Xàtiva y València.",
+      lede: "Hechas y mantenidas por la misma persona que te atiende. Páginas web, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España; precio y alcance cerrados antes de empezar, y el código y las cuentas son tuyos.",
+      cta1: "Pedir presupuesto", cta2: "Ver servicios y precios", wa: "WhatsApp",
+      reply: "Respuesta en menos de 24 horas laborables.",
+      launchLink: "Oferta de lanzamiento para los primeros clientes",
+      svcTitle: "Cinco servicios para tu negocio.",
+      svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en el presupuesto de arriba y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar.",
+      allPrices: "Ver todos los precios",
+      from: "Desde", delivery: "Entrega", more: "Ver qué incluye",
+      whyTitle: "Quien te atiende es quien lo construye.",
+      why: [
+        { t: "Trato directo", d: "Hablas con la persona que diseña y programa tu web. Sin comerciales ni subcontratas." },
+        { t: "Todo es tuyo", d: "El código, el repositorio Git, el dominio y las cuentas se entregan a tu nombre. Sin plataformas cautivas." },
+        { t: "Precio cerrado", d: "Ves qué incluye y cuánto cuesta antes de pedir nada, y acordamos alcance y plazo antes de empezar." },
       ],
-
-      // Launch program
-      launchEyebrow: "Oportunidad de Lanzamiento",
-      launchTitle: "0 € en Costes de Desarrollo para Primeros Clientes",
-      launchBadge: "Programa Exclusivo de Lanzamiento",
-      launchDesc: "Para dar a conocer la calidad de nuestro trabajo y sumar casos de éxito demostrables a nuestro portfolio público, seleccionamos un número limitado de negocios. Te diseñamos y programamos la web sin honorarios de creación; tú solo cubres el alojamiento y dominio mínimos.",
-      launchCondition: "Plazas estrictamente limitadas · Válido para negocios de Xàtiva, Valencia y ámbito nacional.",
-      launchCta: "Solicitar plaza de lanzamiento",
-
-      // Curated Work
-      projEyebrow: "Casos Demostrables",
-      projTitle: "Proyectos en producción que puedes comprobar ahora mismo.",
-      projSub: "Una selección cuidada que demuestra nuestra capacidad técnica en digitalización de hostelería local y aplicaciones web reactivas complejas.",
-      viewStudy: "Ver caso de estudio",
-      tryDemo: "Demo en vivo",
-      allProjects: "Ver todos los proyectos",
-
-      // Methodology
-      procEyebrow: "Metodología",
-      procTitle: "Un proceso claro, predecible y sin sorpresas.",
+      projTitle: "Trabajo que puedes abrir y probar.",
+      projLede: "Dos proyectos en producción. Las demos con datos de ejemplo están indicadas como tales.",
+      viewStudy: "Ver el caso de estudio", live: "Abrir proyecto en línea", allProjects: "Todos los proyectos",
+      procTitle: "Cómo se desarrolla un proyecto.",
       steps: [
-        { n: "01", t: "Briefing y alcance", d: "Requisitos claros y presupuesto cerrado antes de escribir una línea de código." },
-        { n: "02", t: "Desarrollo a medida", d: "Programación moderna con revisiones y previsualizaciones en tiempo real." },
-        { n: "03", t: "SEO y optimización", d: "Sincronización con Google Maps, datos estructurados y velocidad Core Web Vitals." },
-        { n: "04", t: "Entrega y código", d: "Despliegue en producción, cesión completa del repositorio y soporte continuo." },
+        { n: "1", t: "Briefing y alcance", d: "Definimos por escrito qué necesitas, qué incluye y cuánto cuesta, antes de escribir una línea de código." },
+        { n: "2", t: "Desarrollo a medida", d: "Programación moderna con previsualizaciones por el camino, para que veas el avance y corrijas pronto." },
+        { n: "3", t: "Revisión y SEO", d: "Ficha de Google Business, datos estructurados, y comprobaciones de accesibilidad y rendimiento." },
+        { n: "4", t: "Entrega y código", d: "Publicación en producción y entrega del repositorio, con mantenimiento si lo has contratado." },
       ],
-
-      // Profile
-      aboutEyebrow: "Perfil Profesional",
-      aboutTitle: "El desarrollador detrás de tu presencia digital.",
-      aboutLead: "Afincado en Xàtiva (Valencia), trabajando de forma cercana y en remoto.",
-      aboutText: "Cuento con las titulaciones oficiales de Técnico Superior en Desarrollo de Aplicaciones Web (CFGS DAW) y Técnico en Sistemas Microinformáticos y Redes (GM SMX). Combino rigor arquitectónico con interfaces comerciales ágiles para maximizar tus ventas.",
-      aboutCta: "Mi trayectoria",
-      cv: "Descargar CV (PDF)",
-
-      // FAQ
-      faqEyebrow: "Preguntas Frecuentes",
-      faqTitle: "Resolvemos tus dudas con total transparencia.",
+      launchTag: "Oferta de lanzamiento · plazas limitadas",
+      launchTitle: "Tu web creada sin honorarios de desarrollo, para los primeros clientes.",
+      launchText: "Estoy abriendo mi estudio a un primer grupo de clientes y quiero trabajar en proyectos reales que pueda enseñar después. Durante esta oferta de lanzamiento creo tu web sin cobrar el desarrollo; tú cubres solo el dominio y el alojamiento, y aceptas que el proyecto pueda aparecer en mi portfolio.",
+      launchNote: "Es una oportunidad temporal y limitada: las tarifas de arriba siguen siendo mis precios habituales. Las condiciones exactas se confirman por escrito antes de empezar. Abierta a negocios de Xàtiva, València y, en remoto, del resto de España.",
+      launchCta: "Solicitar plaza",
+      aboutTitle: "Jaume Tur, desarrollador web en Xàtiva.",
+      aboutText: "Titulado en Desarrollo de Aplicaciones Web (CFGS DAW) y en Sistemas Microinformáticos y Redes (GM SMX). Hago páginas y aplicaciones web rápidas para negocios locales y equipos en remoto.",
+      aboutCta: "Más sobre mí", cv: "Descargar CV (PDF)",
+      faqTitle: "Dudas antes de empezar.",
       faqs: [
-        { q: "¿En qué consiste la oportunidad de desarrollo a 0 €?", a: "Para ampliar nuestros casos de éxito públicos, seleccionamos negocios a los que creamos su web sin costes de programación. A cambio de mostrar el caso en nuestro portfolio, el cliente únicamente asume el coste técnico de servidor VPS y dominio indispensable para mantener la web activa." },
-        { q: "¿Vuestros servicios son habitualmente gratuitos?", a: "No. El desarrollo de software profesional tiene un valor económico real. Las tarifas estándar de creación parten de 290 € hasta 1.950 €+ según la envergadura técnica. La condición de 0 € en creación es una oportunidad promocional exclusiva y temporal de lanzamiento." },
-        { q: "¿La web y el código serán 100% de mi propiedad?", a: "Sí, con total garantía. El código fuente es limpio, estructurado y se entrega en un repositorio Git a tu nombre sin ataduras a plataformas propietarias." },
-        { q: "¿Cuánto se tarda en completar el desarrollo?", a: "El pack de digitalización local se entrega en 3–5 días laborables; una landing page en 1–2 semanas; y una aplicación web interactiva en 3–6 semanas." },
-        { q: "¿Solo trabajáis en Xàtiva?", a: "Tengo mi sede en Xàtiva y doy cobertura presencial y cercana en Valencia y comarcas, pero desarrollo proyectos 100% en remoto para empresas y profesionales de toda España." },
+        { q: "¿Cómo funciona la oferta de lanzamiento?", a: "Para ampliar mi portfolio de proyectos reales, creo webs seleccionadas sin cobrar honorarios de desarrollo. A cambio, el proyecto puede mostrarse en mi portfolio, y tú solo pagas el dominio y el alojamiento necesarios para mantenerlo en línea. Las plazas son limitadas y las condiciones se confirman antes por escrito." },
+        { q: "¿Vuestros servicios son habitualmente gratuitos?", a: "No. Es trabajo profesional con precio: la creación parte de 290 € y llega a 1.950 € o más según el alcance, más una cuota mensual de mantenimiento. La oferta de lanzamiento es temporal y solo para los primeros clientes." },
+        { q: "¿El código y las cuentas serán míos?", a: "Sí. El código fuente se entrega en un repositorio Git a tu nombre, junto con el dominio y las cuentas, sin ataduras a plataformas propietarias." },
+        { q: "¿Cuánto se tarda?", a: "El pack de digitalización local, de 3 a 5 días laborables; una landing, de 1 a 2 semanas; una aplicación web, de 3 a 6 semanas. El plazo exacto se acuerda antes de empezar." },
+        { q: "¿Solo trabajas en Xàtiva?", a: "Tengo base en Xàtiva y puedo reunirme en persona por Valencia y comarcas, pero también trabajo 100 % en remoto con negocios y equipos de toda España." },
       ],
-
-      // Final CTA
-      finalTag: "Consulta Técnica Directa · Sin Compromiso",
-      finalTitle: "¿Hablamos de tu próximo proyecto digital?",
-      finalSub: "Aprovecha las plazas de la campaña de lanzamiento o solicita una propuesta adaptada a tus objetivos comerciales. Habla directamente con el desarrollador.",
-      finalCta: "Contactar por WhatsApp",
-      finalCta2: "Enviar formulario",
+      finalTitle: "¿Tienes un proyecto en mente?",
+      finalText: "Cuéntame qué necesitas y te respondo con alcance, precio y plazo. Sin compromiso.",
+      finalWa: "Escribir por WhatsApp", finalForm: "Enviar el formulario",
     };
 
 const faqSchema = {
@@ -225,249 +141,122 @@ const faqSchema = {
 };
 ---
 
-<Layout
-  fresh
-  title={isEn ? "Web Development & Local SEO in Valencia | Jaume Tur" : "Desarrollo Web y SEO Local en Valencia | Jaume Tur"}
-  description={
-    isEn
-      ? "Custom web development, interactive hospitality menus, and local SEO in Xàtiva & Valencia. Clean code and transparent launch conditions."
-      : "Desarrollo web a medida, cartas digitales para hostelería y SEO local en Xàtiva y Valencia. Código limpio y campaña de lanzamiento para primeros clientes."
-  }
-  jsonLd={[faqSchema]}
->
-
-  <!-- ══════════════════════════════════════════════════════════
-       1. HERO — SIMPLIFICADO, CONTUNDENTE Y MOBILE-FIRST
-       Sin bloques de texto interminables, sin elementos compitiendo.
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="relative overflow-hidden pt-10 pb-16 sm:pt-18 sm:pb-24 border-b border-white/5" aria-labelledby="hero-title">
-    <!-- Luz ambiental sutil y limpia (sin círculos giratorios ni ruido) -->
-    <div class="pointer-events-none absolute inset-x-0 -top-20 h-96 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,255,0,0.06),transparent_70%)]" aria-hidden="true"></div>
-
-    <div class="relative mx-auto max-w-5xl px-5 text-center">
-      <!-- Badge discreto de lanzamiento -->
-      <div class="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-3.5 py-1 text-xs font-semibold text-brand">
-        <span class="h-1.5 w-1.5 rounded-full bg-brand"></span>
-        <span>{t.heroTag}</span>
+<Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
+  <!-- 1. Apertura: titular + hoja de presupuesto con selector real -->
+  <section class="border-b border-white/15 pb-14 pt-10 sm:pb-20 sm:pt-16" aria-labelledby="hero-title">
+    <div class="wrap grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+      <div class="lg:col-span-7">
+        <h1 id="hero-title" class="h-hero">{t.h1}</h1>
+        <p class="lede mt-6">{t.lede}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href={to("/contact")} class="btn btn-brand">{t.cta1} <span aria-hidden="true">→</span></a>
+          <a href="#servicios" class="btn btn-white">{t.cta2}</a>
+          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 px-2 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
+            <Icon name="bx:bxl-whatsapp" class="h-5 w-5 text-brand" />
+            <span>{t.wa}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></span>
+          </a>
+        </div>
+        <p class="mt-5 text-[0.95rem] text-white/80">
+          {t.reply}
+          <a href="#lanzamiento" class="ml-1 font-semibold text-brand underline decoration-2 underline-offset-4 hover:decoration-white">{t.launchLink} →</a>
+        </p>
       </div>
-
-      <!-- Titular breve y de alto impacto -->
-      <h1 id="hero-title" class="mt-6 font-display text-[clamp(2.3rem,6vw,4.5rem)] font-bold text-white tracking-tight leading-[1.08]">
-        {t.heroTitle} <br class="hidden sm:inline" />
-        <span class="text-brand">{t.heroHighlight}</span>
-      </h1>
-
-      <!-- Subtítulo de 1–2 líneas máximo -->
-      <p class="mx-auto mt-4 max-w-2xl text-base sm:text-lg leading-relaxed text-zinc-300">
-        {t.heroSub}
-      </p>
-
-      <!-- Llamadas a la acción principales y directas -->
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-        <a href={to("/contact")} class="btn btn-brand min-h-12 px-7 text-sm sm:text-base">
-          <span>{t.ctaPrimary}</span>
-          <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
-        </a>
-        <a href="#servicios" class="btn btn-white min-h-12 px-6 text-sm sm:text-base">
-          {t.ctaSecondary}
-        </a>
-        <a href="https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 text-xs sm:text-sm font-semibold text-emerald-400 transition-all hover:bg-emerald-500/20 active:scale-97">
-          <Icon name="bx:bxl-whatsapp" class="h-4.5 w-4.5" />
-          <span>{t.ctaWa}</span>
-        </a>
+      <div class="lg:col-span-5">
+        <QuoteSheet
+          services={services}
+          isEn={isEn}
+          contactHref={(id) => to(`/contact?servei=${id}`)}
+          detailHref={(id) => to(`/pricing/${id}`)}
+        />
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════
-       2. SERVICIOS — CUADRÍCULA COMPLETAMENTE EQUILIBRADA
-       Misma jerarquía, proporciones idénticas, sin desproporciones.
-  ═══════════════════════════════════════════════════════════ -->
-  <section id="servicios" class="scroll-mt-16 px-5 py-16 sm:py-24" aria-labelledby="svc-title">
-    <div class="mx-auto max-w-6xl">
-      <div class="text-center max-w-2xl mx-auto">
-        <p class="eyebrow justify-center">{t.svcEyebrow}</p>
-        <h2 id="svc-title" class="display mt-3 text-2xl sm:text-4xl text-white">{t.svcTitle}</h2>
-        <p class="mt-3 text-sm sm:text-base text-zinc-400">{t.svcSub}</p>
+  <!-- 2. Servicios: tarifa en filas, no tarjetas -->
+  <section id="servicios" class="section scroll-mt-20" aria-labelledby="svc-title">
+    <div class="wrap">
+      <div class="grid gap-6 lg:grid-cols-12">
+        <h2 id="svc-title" class="h-section lg:col-span-7">{t.svcTitle}</h2>
+        <div class="lg:col-span-5 lg:self-end">
+          <p class="lede">{t.svcLede}</p>
+          <a href={to("/pricing")} class="link-arrow mt-3 min-h-11">{t.allPrices} <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-
-      <!-- Cuadrícula limpia y uniforme para los 5 servicios -->
-      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-10 border-b border-white/15 sm:mt-14">
         {services.map((s) => (
-          <article class="surface-card group flex flex-col justify-between p-6">
-            <div>
-              <!-- Cabecera de la tarjeta con icono y precio -->
-              <div class="flex items-center justify-between gap-3">
-                <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 text-brand transition-colors group-hover:bg-brand group-hover:text-black">
-                  <Icon name={s.icon} class="h-5 w-5" />
-                </span>
-                <span class="font-mono text-xs font-bold text-brand bg-brand/10 border border-brand/25 px-2.5 py-1 rounded-full">
-                  {t.from} {euro(s.creationPriceNumber)}
-                </span>
-              </div>
-
-              <!-- Nombre y descripción uniforme -->
-              <h3 class="mt-4 font-display text-lg font-bold text-white group-hover:text-brand transition-colors">
-                <a href={to(`/pricing/${s.id}`)}>{s.name}</a>
-              </h3>
-              <p class="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed line-clamp-3">
+          <li class="contents">
+            <a href={to(`/pricing/${s.id}`)} class="item lg:grid-cols-12 lg:items-center">
+              <span class="lg:col-span-5">
+                <span class="block font-display text-[1.75rem] font-bold leading-[1.05] sm:text-[2.1rem]" style="font-stretch:82%">{s.name}</span>
+              </span>
+              <span class="muted lg:col-span-4 lg:pr-4">
                 {s.tagline}
-              </p>
-
-              <!-- Características destacadas (2 puntos clave) -->
-              <ul class="mt-4 space-y-2 border-t border-white/5 pt-3.5">
-                {s.features.slice(0, 2).map((f) => (
-                  <li class="flex items-start gap-2 text-xs text-zinc-400">
-                    <span class="mt-0.5 text-brand font-bold">✓</span>
-                    <span class="line-clamp-1">{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <!-- Pie de tarjeta con plazo y llamada a la acción uniforme -->
-            <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs">
-              <span class="text-zinc-400 font-mono">{t.timelineLabel}: {s.timeline}</span>
-              <a href={to(`/pricing/${s.id}`)} class="font-semibold text-brand hover:underline flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                <span>{t.seeDetails}</span>
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════════
-       3. VALORES DIFERENCIALES — 3 PILARES CLAROS Y NO REPETITIVOS
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="border-y border-white/5 bg-[#0e0e12] px-5 py-16 sm:py-20" aria-labelledby="values-title">
-    <div class="mx-auto max-w-6xl">
-      <div class="max-w-xl">
-        <p class="eyebrow">{t.valuesEyebrow}</p>
-        <h2 id="values-title" class="display mt-3 text-2xl sm:text-3xl text-white">{t.valuesTitle}</h2>
-      </div>
-
-      <div class="mt-10 grid gap-6 sm:grid-cols-3">
-        {t.values.map((v) => (
-          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-5 sm:p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
-              <Icon name={v.icon} class="h-5 w-5" />
-            </span>
-            <h3 class="mt-4 font-display text-base font-bold text-white">{v.title}</h3>
-            <p class="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">{v.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════════════
-       4. PROGRAMA DE LANZAMIENTO — EXPLICACIÓN CONCISA Y ELEGANTE
-       Aparece como una oportunidad comercial destacada pero delimitada.
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="px-5 py-16 sm:py-24" aria-labelledby="launch-title">
-    <div class="mx-auto max-w-5xl">
-      <div class="surface-card relative overflow-hidden border border-brand/35 bg-gradient-to-r from-brand/[0.08] via-surface to-brand/[0.03] p-7 sm:p-10">
-        <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-          <div class="max-w-2xl">
-            <span class="inline-block rounded-md bg-brand px-2.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wider text-black">
-              {t.launchBadge}
-            </span>
-            <h2 id="launch-title" class="display mt-3 text-2xl sm:text-3xl text-white">
-              {t.launchTitle}
-            </h2>
-            <p class="mt-3 text-sm sm:text-base text-zinc-300 leading-relaxed">
-              {t.launchDesc}
-            </p>
-            <p class="mt-2 text-xs font-mono text-brand">
-              ● {t.launchCondition}
-            </p>
-          </div>
-
-          <div class="shrink-0">
-            <a href={to("/contact")} class="btn btn-brand min-h-12 px-7 text-sm font-bold">
-              <span>{t.launchCta}</span>
-              <span aria-hidden="true">→</span>
+                <span class="mt-2 block text-[0.9rem] font-semibold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
+              </span>
+              <span class="lg:col-span-3 lg:text-right">
+                <span class="label block">{t.delivery}</span>
+                <span class="block font-semibold">{s.timeline}</span>
+              </span>
             </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Por qué: tres compromisos, texto sobre fondo -->
+  <section class="section border-t border-white/15" aria-labelledby="why-title">
+    <div class="wrap">
+      <h2 id="why-title" class="h-section max-w-3xl">{t.whyTitle}</h2>
+      <div class="mt-10 grid gap-x-10 gap-y-10 sm:mt-14 md:grid-cols-3">
+        {t.why.map((w) => (
+          <div class="border-t-2 border-brand pt-5">
+            <h3 class="font-display text-[1.6rem] font-bold leading-none" style="font-stretch:82%">{w.t}</h3>
+            <p class="muted mt-3 max-w-sm">{w.d}</p>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════
-       5. CASOS DEMOSTRABLES — SOLO 2 PROYECTOS INSIGNIA REALES
-       Eliminadas demos genéricas y de relleno; máxima calidad.
-  ═══════════════════════════════════════════════════════════ -->
-  <section id="proyectos" class="scroll-mt-16 border-t border-white/5 bg-[#0e0e12] px-5 py-16 sm:py-24" aria-labelledby="proj-title">
-    <div class="mx-auto max-w-6xl">
-      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+  <!-- 4. Proyectos reales -->
+  <section id="proyectos" class="section scroll-mt-20 border-t border-white/15" aria-labelledby="proj-title">
+    <div class="wrap">
+      <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
-          <p class="eyebrow">{t.projEyebrow}</p>
-          <h2 id="proj-title" class="display mt-3 text-2xl sm:text-4xl text-white">{t.projTitle}</h2>
-          <p class="mt-2 text-sm sm:text-base text-zinc-400 max-w-2xl">{t.projSub}</p>
+          <h2 id="proj-title" class="h-section">{t.projTitle}</h2>
+          <p class="lede mt-4">{t.projLede}</p>
         </div>
-        <a href={to("/projectes")} class="text-xs sm:text-sm font-semibold text-brand hover:underline inline-flex items-center gap-1 self-start sm:self-auto">
-          <span>{t.allProjects}</span>
-          <span aria-hidden="true">→</span>
-        </a>
+        <a href={to("/projectes")} class="link-arrow shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
       </div>
 
-      <!-- Presentación de 2 columnas de los proyectos de referencia -->
-      <div class="mt-10 grid gap-6 md:grid-cols-2">
-        {flagshipProjects.map((p) => {
-          const imgSrc = projectImages[p.id] || p.data.image?.src;
+      <div class="mt-10 grid gap-x-8 gap-y-14 sm:mt-14 lg:grid-cols-12">
+        {flagshipProjects.map((p, i) => {
+          const img = projectImages[p.id];
           return (
-            <article class="surface-card group overflow-hidden flex flex-col justify-between">
-              <div>
-                <!-- Previsualización -->
-                <a href={to(`/projectes/${p.id}`)} class="relative block aspect-[16/9] overflow-hidden bg-[#16161c]">
-                  {imgSrc ? (
-                    <img
-                      src={imgSrc}
-                      alt={p.data.image?.alt || p.data.title}
-                      width="700"
-                      height="400"
-                      loading="lazy"
-                      decoding="async"
-                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
-                    />
-                  ) : null}
-                  <span class="absolute bottom-3 left-3 rounded-md bg-black/75 px-2.5 py-1 text-[0.7rem] font-semibold text-white backdrop-blur-md">
-                    {p.data.badge}
-                  </span>
-                </a>
-
-                <!-- Contenido -->
-                <div class="p-6">
-                  <h3 class="font-display text-xl font-bold text-white group-hover:text-brand transition-colors">
-                    <a href={to(`/projectes/${p.id}`)}>{shortTitle(p.data.title)}</a>
-                  </h3>
-                  <p class="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed line-clamp-3">
-                    {p.data.subtitle}
-                  </p>
-
-                  <div class="mt-4 flex flex-wrap gap-1.5">
-                    {p.data.stack?.slice(0, 4).map((st) => (
-                      <span class="rounded bg-white/5 px-2 py-0.5 text-[0.7rem] font-mono text-zinc-300">
-                        {st}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <!-- Enlaces directos -->
-              <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-white/5 text-xs font-semibold">
-                <a href={to(`/projectes/${p.id}`)} class="text-brand hover:underline">
-                  {t.viewStudy} →
-                </a>
+            <article class:list={["flex flex-col", i === 0 ? "lg:col-span-7" : "lg:col-span-5 lg:mt-24"]}>
+              <a href={to(`/projectes/${p.id}`)} class="group block overflow-hidden rounded-sm border border-white/15 bg-[#141412]" tabindex="-1" aria-hidden="true">
+                <img
+                  src={img.src}
+                  alt=""
+                  width={img.w}
+                  height={img.h}
+                  loading="lazy"
+                  decoding="async"
+                  class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+              </a>
+              <p class="label mt-5">{p.data.badge}</p>
+              <h3 class="mt-2 font-display text-[2rem] font-bold leading-none sm:text-[2.4rem]" style="font-stretch:82%">
+                <a href={to(`/projectes/${p.id}`)} class="hover:text-brand">{shortTitle(p.data.title)}</a>
+              </h3>
+              <p class="muted mt-3 max-w-xl">{p.data.subtitle}</p>
+              <p class="faint mt-3 text-[0.9rem]">{p.data.stack?.slice(0, 4).join(" · ")}</p>
+              <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
+                <a href={to(`/projectes/${p.id}`)} class="link-arrow min-h-11">{t.viewStudy} <span aria-hidden="true">→</span></a>
                 {p.data.liveUrl && (
-                  <a href={p.data.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors">
-                    <Icon name="bx:link-external" class="h-3.5 w-3.5 text-brand" />
-                    <span>{t.tryDemo}</span>
+                  <a href={p.data.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
+                    {t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span>
                   </a>
                 )}
               </div>
@@ -478,115 +267,85 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════
-       6. METODOLOGÍA (PROCESO EN 4 PASOS)
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="px-5 py-16 sm:py-20" aria-labelledby="proc-title">
-    <div class="mx-auto max-w-6xl">
-      <div class="max-w-xl">
-        <p class="eyebrow">{t.procEyebrow}</p>
-        <h2 id="proc-title" class="display mt-3 text-2xl sm:text-3xl text-white">{t.procTitle}</h2>
-      </div>
-
-      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <!-- 5. Proceso: la secuencia sí importa -->
+  <section class="section border-t border-white/15" aria-labelledby="proc-title">
+    <div class="wrap">
+      <h2 id="proc-title" class="h-section max-w-3xl">{t.procTitle}</h2>
+      <ol class="mt-10 grid gap-x-8 gap-y-10 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
         {t.steps.map((s) => (
-          <div class="rounded-xl border border-white/5 bg-[#121216] p-5">
-            <span class="font-mono text-xs font-bold text-brand bg-brand/10 px-2 py-0.5 rounded">
-              {s.n}
-            </span>
-            <h3 class="mt-3 font-display text-base font-bold text-white">{s.t}</h3>
-            <p class="mt-1.5 text-xs sm:text-sm text-zinc-400 leading-relaxed">{s.d}</p>
-          </div>
+          <li class="relative border-t border-white/30 pt-5">
+            <span class="absolute -top-[5px] left-0 h-[9px] w-12 bg-brand" aria-hidden="true"></span>
+            <p class="num font-display text-[3rem] font-extrabold leading-none text-brand" style="font-stretch:80%"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
+            <h3 class="mt-3 font-display text-[1.45rem] font-bold leading-tight" style="font-stretch:85%">{s.t}</h3>
+            <p class="muted mt-2 text-[0.97rem]">{s.d}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════
-       7. PERFIL DEL DESARROLLADOR (JAUME TUR)
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="border-t border-white/5 bg-[#0e0e12] px-5 py-16 sm:py-20" aria-labelledby="about-title">
-    <div class="mx-auto max-w-5xl">
-      <div class="surface-card p-6 sm:p-8 flex flex-col md:flex-row items-center gap-8">
-        <div class="h-36 w-36 shrink-0 overflow-hidden rounded-2xl border border-brand/35 bg-[#14141c]">
-          <img src="/img/1.webp" alt="Jaume Tur" width="160" height="160" loading="lazy" decoding="async" class="h-full w-full object-contain" />
+  <!-- 6. Oferta de lanzamiento: la copia amarilla -->
+  <section id="lanzamiento" class="section scroll-mt-20 border-t border-white/15" aria-labelledby="launch-title">
+    <div class="wrap">
+      <div class="sheet grid gap-8 px-6 pb-14 pt-8 sm:px-10 sm:pt-10 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-8">
+          <p class="label">{t.launchTag}</p>
+          <h2 id="launch-title" class="h-section mt-3">{t.launchTitle}</h2>
+          <p class="mt-5 max-w-2xl text-[1.05rem] leading-relaxed">{t.launchText}</p>
+          <p class="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-[#0b0b09]/85">{t.launchNote}</p>
         </div>
-        <div>
-          <p class="eyebrow">{t.aboutEyebrow}</p>
-          <h2 id="about-title" class="display mt-2 text-2xl sm:text-3xl text-white">{t.aboutTitle}</h2>
-          <p class="mt-1 text-sm font-semibold text-brand">{t.aboutLead}</p>
-          <p class="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">{t.aboutText}</p>
-          
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="rounded bg-brand/10 border border-brand/25 px-2.5 py-1 font-mono text-xs font-bold text-brand">
-              CFGS DAW
-            </span>
-            <span class="rounded bg-white/5 border border-white/10 px-2.5 py-1 font-mono text-xs text-zinc-300">
-              GM SMX
-            </span>
-            <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="rounded bg-white/5 border border-white/10 px-3 py-1 font-mono text-xs text-white hover:border-brand/40 transition-colors">
-              {t.cv} ↗
-            </a>
-          </div>
+        <div class="flex lg:col-span-4 lg:items-end lg:justify-end">
+          <a href={to("/contact?servei=lanzamiento")} class="btn btn-dark w-full sm:w-auto">{t.launchCta} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════
-       8. PREGUNTAS FRECUENTES (FAQ)
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="px-5 py-16 sm:py-20" aria-labelledby="faq-title">
-    <div class="mx-auto max-w-4xl">
-      <div class="text-center max-w-xl mx-auto">
-        <p class="eyebrow justify-center">{t.faqEyebrow}</p>
-        <h2 id="faq-title" class="display mt-3 text-2xl sm:text-3xl text-white">{t.faqTitle}</h2>
+  <!-- 7. Quién -->
+  <section class="section border-t border-white/15" aria-labelledby="about-title">
+    <div class="wrap grid items-center gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-3">
+        <div class="mx-auto aspect-square w-40 overflow-hidden rounded-sm border border-white/20 bg-[#1c1c19] sm:w-48 lg:mx-0 lg:w-full lg:max-w-56">
+          <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="h-full w-full object-contain" />
+        </div>
       </div>
+      <div class="lg:col-span-8">
+        <h2 id="about-title" class="h-section">{t.aboutTitle}</h2>
+        <p class="lede mt-5">{t.aboutText}</p>
+        <div class="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1">
+          <a href={to("/about")} class="link-arrow min-h-11">{t.aboutCta} <span aria-hidden="true">→</span></a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">{t.cv} <span aria-hidden="true" class="ml-1">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="mt-8 space-y-3">
+  <!-- 8. FAQ -->
+  <section class="section border-t border-white/15" aria-labelledby="faq-title">
+    <div class="wrap grid gap-10 lg:grid-cols-12">
+      <h2 id="faq-title" class="h-section lg:col-span-4">{t.faqTitle}</h2>
+      <div class="lg:col-span-8">
         {t.faqs.map((f) => (
-          <details class="surface-card group">
-            <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-display text-sm sm:text-base font-semibold text-white hover:text-brand transition-colors [&::-webkit-details-marker]:hidden">
+          <details class="faq group border-t border-white/20 last:border-b">
+            <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-[1.3rem] font-semibold leading-tight hover:text-brand sm:text-[1.5rem] [&::-webkit-details-marker]:hidden" style="font-stretch:88%">
               <span>{f.q}</span>
-              <span class="text-brand font-bold transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              <span class="relative h-5 w-5 shrink-0 text-brand" aria-hidden="true">
+                <span class="absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-current"></span>
+                <span class="absolute left-1/2 top-0 h-5 w-0.5 -translate-x-1/2 bg-current transition-transform duration-200 group-open:scale-y-0"></span>
+              </span>
             </summary>
-            <div class="border-t border-white/5 px-5 pb-5 pt-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              {f.a}
-            </div>
+            <p class="muted max-w-2xl pb-6 pr-10 leading-relaxed">{f.a}</p>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════
-       9. LLAMADA A LA ACCIÓN FINAL Y CONTACTO
-  ═══════════════════════════════════════════════════════════ -->
-  <section class="border-t border-white/5 bg-[#0a0a0c] px-5 py-16 sm:py-24 text-center" aria-labelledby="final-title">
-    <div class="mx-auto max-w-3xl">
-      <span class="text-xs font-mono font-bold uppercase tracking-wider text-brand">
-        {t.finalTag}
-      </span>
-      <h2 id="final-title" class="display mt-3 text-2xl sm:text-4xl text-white">
-        {t.finalTitle}
-      </h2>
-      <p class="mx-auto mt-3 max-w-xl text-sm sm:text-base text-zinc-300 leading-relaxed">
-        {t.finalSub}
-      </p>
-
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-        <a href="https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto" target="_blank" rel="noopener noreferrer" class="btn btn-brand min-h-12 px-7 text-sm sm:text-base">
-          <Icon name="bx:bxl-whatsapp" class="h-4.5 w-4.5" />
-          <span>{t.finalCta}</span>
-        </a>
-        <a href={to("/contact")} class="btn btn-white min-h-12 px-6 text-sm sm:text-base">
-          {t.finalCta2}
-        </a>
-      </div>
-
-      <p class="mt-8 font-mono text-xs text-zinc-400">
-        jaumetur3w@gmail.com · Xàtiva (Valencia)
-      </p>
-    </div>
-  </section>
+  <!-- 9. Cierre -->
+  <CtaBand
+    title={t.finalTitle}
+    text={t.finalText}
+    primary={{ href: WA, label: t.finalWa, external: true }}
+    secondary={{ href: to("/contact"), label: t.finalForm }}
+  />
 </Layout>

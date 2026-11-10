@@ -120,4 +120,4 @@ Para garantizar que tanto clientes como profesionales puedan utilizar la herrami
 
 La arquitectura de **AVISA** demuestra que la combinación de **Angular 18 Standalone**, tipado estricto con **TypeScript** y capacidades **PWA** permite crear marketplaces de servicios ágiles, fiables y transparentes sin la sobrecarga ni los costes de las infraestructuras tradicionales.
 
-¿Tienes en mente un proyecto o aplicación web a medida? [Iniciemos la conversación](/contact).
+¿Tienes en mente un proyecto o aplicación web a medida? [Iniciemos la conversación](/contact/).

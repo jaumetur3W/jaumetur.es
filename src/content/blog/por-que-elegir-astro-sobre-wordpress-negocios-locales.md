@@ -63,4 +63,4 @@ Con Astro y Tailwind CSS, la carga es instantánea (menos de 0,5 segundos), lo q
 
 ## ¿Tienes un negocio en Xàtiva, Valencia o alrededores y tu web actual va lenta?
 
-Si tu web actual tarda en cargar, te da problemas continuos de actualizaciones de plugins o quieres una solución moderna que posicione en Google, revisa los [servicios y tarifas de diseño web](/pricing) o [escríbeme directamente desde el formulario](/contact) para valorar tu caso.
+Si tu web actual tarda en cargar, te da problemas continuos de actualizaciones de plugins o quieres una solución moderna que posicione en Google, revisa los [servicios y tarifas de diseño web](/pricing/) o [escríbeme directamente desde el formulario](/contact/) para valorar tu caso.

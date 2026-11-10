@@ -45,3 +45,16 @@ export function alternatePaths(pathname: string) {
     en: localizePath(pathname, "en"),
   };
 }
+
+/**
+ * URL interna lista para un `href`: localizada y con barra final en páginas
+ * (el sitio usa trailingSlash "always"; así no se encadena una redirección por enlace).
+ */
+export function localizeHref(pathname: string, locale: Locale): string {
+  const localized = localizePath(pathname, locale);
+  const match = localized.match(/^([^?#]*)(.*)$/);
+  const path = match?.[1] ?? localized;
+  const suffix = match?.[2] ?? "";
+  if (path.endsWith("/") || isNonPagePath(path)) return localized;
+  return `${path}/${suffix}`;
+}

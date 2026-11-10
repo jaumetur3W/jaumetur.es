@@ -62,6 +62,8 @@ export default defineConfig({
 
     // Tool redirects
     "/tools/html": "/tools/creador-html/",
+    "/tools/html-generator": "/tools/creador-html/",
+    "/en/tools/html-generator": "/en/tools/creador-html/",
 
     // Pricing packages redirects
     "/val/pricing/digitalitzacio-local": "/pricing/digitalitzacio-local/",
@@ -97,6 +99,8 @@ export default defineConfig({
         if (page.includes("/briefing")) return false;
         if (page.includes("/val/") || page.endsWith("/val/")) return false;
         if (page.includes("/en/projects")) return false;
+        // Artículos del blog sin traducción real: la versión /en/ es una copia noindex
+        if (/\/en\/blog\/[^/]+\/?$/.test(page)) return false;
         return true;
       },
     }),

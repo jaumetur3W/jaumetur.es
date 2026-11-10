@@ -120,7 +120,7 @@ jobs:
 ```
 
 <div class="callout callout-tip">
-  <strong>¿Quieres generar este archivo automáticamente?</strong> Hemos creado la herramienta interactiva <a href="/tools/workflow-generator">Generador de workflows CI/CD</a> para crear pipelines personalizados para Astro, Angular o React con un solo clic.
+  <strong>¿Quieres generar este archivo automáticamente?</strong> Hemos creado la herramienta interactiva <a href="/tools/workflow-generator/">Generador de workflows CI/CD</a> para crear pipelines personalizados para Astro, Angular o React con un solo clic.
 </div>
 
 ---
@@ -176,4 +176,4 @@ De este modo, ninguna línea de código con sintaxis incorrecta llega a la rama 
 
 La automatización mediante CI/CD transforma por completo la seguridad psicológica de un equipo de ingeniería. Saber que cada cambio pasa por una batería de validaciones automáticas permite entregar valor continuamente sin miedo a romper producción.
 
-Si quieres implementar un pipeline similar en tu organización u optimizar los tiempos de despliegue, [puedes solicitar nuestro servicio de consultoría DevOps](/contact).
+Si quieres implementar un pipeline similar en tu organización u optimizar los tiempos de despliegue, [puedes solicitar nuestro servicio de consultoría DevOps](/contact/).

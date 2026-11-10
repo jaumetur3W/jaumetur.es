@@ -11,14 +11,12 @@ const to = (p: string) => {
 ---
 
 <Layout fresh title={isEn ? "404 — Page not found" : "404 — Página no encontrada"}>
-  <section class="flex min-h-[75vh] items-center px-4 py-20 sm:px-6 relative overflow-hidden">
-    <div class="pointer-events-none absolute left-1/2 top-1/2 h-[22rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/15 blur-[120px]" aria-hidden="true"></div>
-    <div class="mx-auto max-w-2xl text-center relative">
-      <img src="/img/404.webp" alt="" width="160" height="160" class="mx-auto h-36 w-36 object-contain" decoding="async" />
-      <p class="eyebrow mt-6">Error 404</p>
-      <h1 class="display mt-3 text-[clamp(2.5rem,8vw,4.5rem)] text-white">{isEn ? "This page doesn't exist." : "Esta página no existe."}</h1>
-      <p class="mt-4 text-base text-ink/80">{isEn ? "It may have moved. Let's get you back on track." : "Puede que se haya movido o que la dirección sea incorrecta."}</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
+  <section class="flex min-h-[70vh] items-center py-16">
+    <div class="wrap">
+      <p class="num font-display text-[clamp(6rem,24vw,16rem)] font-extrabold leading-[0.85] text-brand" style="font-stretch:78%" aria-hidden="true">404</p>
+      <h1 class="h-section mt-4 max-w-2xl">{isEn ? "This page does not exist." : "Esta página no existe."}</h1>
+      <p class="lede mt-4">{isEn ? "It may have moved, or the address is wrong. Pick up from here:" : "Puede que se haya movido o que la dirección sea incorrecta. Sigue desde aquí:"}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
         <a href={to("/")} class="btn btn-brand">{isEn ? "Back to home" : "Volver al inicio"}</a>
         <a href={to("/pricing")} class="btn btn-white">{isEn ? "Services & pricing" : "Servicios y precios"}</a>
         <a href={to("/contact")} class="btn btn-white">{isEn ? "Contact" : "Contacto"}</a>

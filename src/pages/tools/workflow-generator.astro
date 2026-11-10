@@ -2,11 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import { Icon } from "astro-icon/components";
-import { localeFromPath, localizePath } from "@/i18n";
+import { localeFromPath, localizePath, localizeHref } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
-const blogPath = localizePath("/blog", isEn ? "en" : "es");
-const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
+const blogPath = localizeHref("/blog", isEn ? "en" : "es");
+const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
 ---
 
 <Layout
@@ -33,7 +33,7 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
       <div class="max-w-5xl mx-auto mt-12 grid lg:grid-cols-12 gap-8 items-start">
         
         <!-- Controls Column -->
-        <div class="lg:col-span-5 surface-card bg-[#121216] p-6 sm:p-7 rounded-3xl border border-white/10 space-y-6">
+        <div class="lg:col-span-5 surface-card bg-[#121216] p-6 sm:p-7 rounded-sm border border-white/10 space-y-6">
           <div class="flex items-center gap-2 pb-4 border-b border-white/10">
             <Icon name="bx:cog" class="w-5 h-5 text-brand" />
             <h2 class="font-display font-bold text-white text-base">{isEn ? "Pipeline configuration" : "Configuración del pipeline"}</h2>
@@ -48,28 +48,28 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
               <button
                 type="button"
                 data-framework="astro"
-                class="framework-btn active p-2.5 rounded-xl border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
+                class="framework-btn active p-2.5 rounded-sm border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
                 <Icon name="simple-icons:astro" class="w-4 h-4 text-black" />
                 <span>Astro (SSG)</span>
               </button>
               <button
                 type="button"
                 data-framework="angular"
-                class="framework-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
+                class="framework-btn p-2.5 rounded-sm border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:angular" class="w-4 h-4 text-red-400" />
                 <span>Angular SPA</span>
               </button>
               <button
                 type="button"
                 data-framework="react"
-                class="framework-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
+                class="framework-btn p-2.5 rounded-sm border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:react" class="w-4 h-4 text-cyan-400" />
                 <span>React / Vite</span>
               </button>
               <button
                 type="button"
                 data-framework="html"
-                class="framework-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
+                class="framework-btn p-2.5 rounded-sm border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:html5" class="w-4 h-4 text-amber-400" />
                 <span>HTML & Tailwind</span>
               </button>
@@ -85,14 +85,14 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
               <button
                 type="button"
                 data-target="pages"
-                class="target-btn active p-2.5 rounded-xl border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
+                class="target-btn active p-2.5 rounded-sm border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
                 <Icon name="bx:bxl-github" class="w-4 h-4 text-black" />
                 <span>GitHub Pages</span>
               </button>
               <button
                 type="button"
                 data-target="vercel"
-                class="target-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
+                class="target-btn p-2.5 rounded-sm border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer">
                 <Icon name="simple-icons:vercel" class="w-4 h-4 text-white" />
                 <span>Vercel Edge</span>
               </button>
@@ -122,7 +122,7 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
 
           <!-- HTML Creator link -->
           <div class="pt-4 border-t border-white/10">
-            <a href={htmlToolPath} class="flex items-center justify-between p-3 rounded-xl border border-white/10 bg-white/[0.02] hover:border-brand/40 text-xs text-zinc-300 hover:text-white transition">
+            <a href={htmlToolPath} class="flex items-center justify-between p-3 rounded-sm border border-white/10 bg-white/[0.02] hover:border-brand/40 text-xs text-zinc-300 hover:text-white transition">
               <span class="flex items-center gap-2">
                 <Icon name="bx:code-block" class="h-4 w-4 text-brand" />
                 <span>{isEn ? "Looking to create an HTML file?" : "¿Quieres crear un archivo HTML?"}</span>
@@ -133,7 +133,7 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
         </div>
 
         <!-- Output YAML Code Preview Column -->
-        <div class="lg:col-span-7 surface-card bg-[#050507] rounded-3xl border border-white/10 shadow-2xl overflow-hidden font-mono text-xs flex flex-col">
+        <div class="lg:col-span-7 surface-card bg-[#050507] rounded-sm border border-white/10 shadow-2xl overflow-hidden font-mono text-xs flex flex-col">
           <div class="bg-[#121216] px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 border-b border-white/10">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block"></span>
@@ -146,14 +146,14 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
               <button
                 id="copy-yaml-btn"
                 type="button"
-                class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs transition flex items-center gap-1.5 cursor-pointer border border-white/10">
+                class="px-3 py-1.5 rounded-sm bg-white/10 hover:bg-white/15 text-white font-mono text-xs transition flex items-center gap-1.5 cursor-pointer border border-white/10">
                 <Icon name="bx:copy" class="w-3.5 h-3.5 text-brand" />
                 <span id="copy-yaml-label">{isEn ? "Copy" : "Copiar"}</span>
               </button>
               <button
                 id="download-yaml-btn"
                 type="button"
-                class="px-3.5 py-1.5 rounded-xl bg-[#FFFF00] hover:bg-white text-black font-mono text-xs uppercase tracking-wider font-bold border border-brand transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+                class="px-3.5 py-1.5 rounded-sm bg-[#FFFF00] hover:bg-white text-black font-mono text-xs uppercase tracking-wider font-bold border border-brand transition flex items-center gap-1.5 cursor-pointer shadow-xs">
                 <Icon name="bx:download" class="w-3.5 h-3.5 text-black" />
                 <span id="download-yaml-label">{isEn ? "Download .yml" : "Descargar .yml"}</span>
               </button>
@@ -166,7 +166,7 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
       </div>
 
       <!-- Lead Magnet & Community CTA -->
-      <div class="mt-16 surface-card bg-[#121216] rounded-3xl border border-white/10 p-8 max-w-4xl mx-auto shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="mt-16 surface-card bg-[#121216] rounded-sm border border-white/10 p-8 max-w-4xl mx-auto shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <span class="text-xs font-mono font-bold text-black bg-[#FFFF00] px-3 py-1 rounded-full border border-brand mb-3 inline-block">
             {isEn ? "FREE DEVELOPER RESOURCE" : "RECURSO GRATUITO PARA DESARROLLADORES"}
@@ -241,11 +241,11 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
   document.querySelectorAll(".framework-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".framework-btn").forEach((b) => {
-        b.className = "framework-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer";
+        b.className = "framework-btn p-2.5 rounded-sm border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer";
         const icon = b.querySelector("svg");
         if (icon && b.getAttribute("data-framework") === "astro") icon.className = "w-4 h-4 text-brand";
       });
-      btn.className = "framework-btn active p-2.5 rounded-xl border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
+      btn.className = "framework-btn active p-2.5 rounded-sm border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
       const icon = btn.querySelector("svg");
       if (icon) icon.className = "w-4 h-4 text-black";
       currentFramework = btn.getAttribute("data-framework") || "astro";
@@ -257,11 +257,11 @@ const htmlToolPath = localizePath("/tools/creador-html", isEn ? "en" : "es");
   document.querySelectorAll(".target-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".target-btn").forEach((b) => {
-        b.className = "target-btn p-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer";
+        b.className = "target-btn p-2.5 rounded-sm border border-white/10 bg-white/5 text-zinc-300 hover:border-brand/40 font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer";
         const icon = b.querySelector("svg");
         if (icon) icon.className = "w-4 h-4 text-white";
       });
-      btn.className = "target-btn active p-2.5 rounded-xl border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
+      btn.className = "target-btn active p-2.5 rounded-sm border border-brand bg-[#FFFF00] text-black font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
       const icon = btn.querySelector("svg");
       if (icon) icon.className = "w-4 h-4 text-black";
       currentTarget = btn.getAttribute("data-target") || "pages";

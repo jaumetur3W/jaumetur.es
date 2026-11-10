@@ -28,8 +28,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
 
   <!-- Nombre Completo -->
   <div>
-    <label for="contact-name" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      {isEn ? "Full Name" : "Nombre"} <span class="text-rose-500" aria-label={isEn ? "required" : "obligatorio"}>*</span>
+    <label for="contact-name" class="field-label">
+      {isEn ? "Full Name" : "Nombre"} <span class="text-[#ff9b9b]" aria-label={isEn ? "required" : "obligatorio"}>*</span>
     </label>
     <div class="relative">
       <input
@@ -40,18 +40,18 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
         required
         aria-required="true"
         aria-describedby="name-error"
-        class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white placeholder:text-slate-600 transition"
+        class="field"
       />
     </div>
-    <p id="name-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+    <p id="name-error" class="hidden text-[#ff9b9b] text-sm mt-1.5 font-sans" role="alert">
       {isEn ? "Please indicate your name so I know how to address you." : "Indica tu nombre para poder dirigirme a ti."}
     </p>
   </div>
 
   <!-- Correo de respuesta -->
   <div>
-    <label for="contact-email" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
-      {isEn ? "Email" : "Correo electrónico"} <span class="text-rose-500" aria-label={isEn ? "required" : "obligatorio"}>*</span>
+    <label for="contact-email" class="field-label">
+      {isEn ? "Email" : "Correo electrónico"} <span class="text-[#ff9b9b]" aria-label={isEn ? "required" : "obligatorio"}>*</span>
     </label>
     <input
       id="contact-email"
@@ -62,15 +62,15 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       required
       aria-required="true"
       aria-describedby="email-error"
-      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white placeholder:text-slate-600 transition"
+      class="field"
     />
-    <p id="email-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+    <p id="email-error" class="hidden text-[#ff9b9b] text-sm mt-1.5 font-sans" role="alert">
       {isEn ? "Please enter a valid email so I can reply to you." : "Indica un correo válido para poder responderte."}
     </p>
   </div>
 
   <div>
-    <label for="contact-phone"class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+    <label for="contact-phone" class="field-label">
       {isEn ? "Phone (optional)" : "Teléfono (opcional)"}
     </label>
     <input
@@ -79,38 +79,39 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       name="phone"
       autocomplete="tel"
       placeholder={isEn ? "Only if you prefer a phone call" : "Solo si prefieres que te llame"}
-      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white placeholder:text-slate-600 transition"
+      class="field"
     />
   </div>
 
   <!-- Tipo de Servicio / Proyecto -->
   <div class="grid sm:grid-cols-2 gap-3">
     <div>
-      <label for="contact-service" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      <label for="contact-service" class="field-label">
         {isEn ? "Primary product or service" : "Producto o servicio principal"}
       </label>
       <select
         id="contact-service"
         name="service"
-        class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white transition">
+        class="field">
         <option value="digitalitzacio-local">{isEn ? "Local digitization and web menu" : "Digitalización local"}</option>
         <option value="landing-page" selected>{isEn ? "New website or redesign" : "Nueva web o renovación de la actual"}</option>
         <option value="angular-webapp">Web App SPA (Angular / TypeScript)</option>
         <option value="performance-audit">{isEn ? "Performance optimization (60 FPS & CWV)" : "Optimización 60 FPS y WCAG AA"}</option>
         <option value="cicd-devops">Pipelines CI/CD & DevOps</option>
+        <option value="lanzamiento">{isEn ? "Launch offer (first clients)" : "Oferta de lanzamiento (primeros clientes)"}</option>
         <option value="contractacio">{isEn ? "Career / Team opportunity" : "Oportunidad laboral / equipo"}</option>
         <option value="altre">{isEn ? "Other technical inquiry" : "Otra consulta técnica"}</option>
       </select>
     </div>
 
     <div>
-      <label for="contact-extra" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+      <label for="contact-extra" class="field-label">
         {isEn ? "Optional add-ons" : "Extras opcionales"}
       </label>
       <select
         id="contact-extra"
         name="extra"
-        class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white transition">
+        class="field">
         <option value="cap" selected>{isEn ? "Not sure yet / none" : "Aún no lo sé / ninguno"}</option>
         <option value="rrss">{isEn ? "Social media management" : "Gestión de redes sociales"}</option>
         <option value="rrss-publicitat">{isEn ? "Social media management with ads" : "Gestión de redes sociales con publicidad"}</option>
@@ -123,10 +124,10 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
   </div>
 
   <div>
-    <label for="contact-budget" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+    <label for="contact-budget" class="field-label">
       {isEn ? "Estimated budget (optional)" : "Presupuesto orientativo (opcional)"}
     </label>
-    <select id="contact-budget" name="budget" class="w-full px-3 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white transition">
+    <select id="contact-budget" name="budget" class="field">
       <option value="a-definir" selected>{isEn ? "To be defined" : "A definir"}</option>
       <option value="menys-1k">{isEn ? "Less than €1,000" : "Menos de 1.000 €"}</option>
       <option value="1k-3k">€1,000 - €3,000</option>
@@ -136,7 +137,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
 
   <!-- Mensaje -->
   <div>
-    <label for="contact-message" class="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 mb-1">
+    <label for="contact-message" class="field-label">
       {isEn ? "What do you need? (optional)" : "¿Qué necesitas? (opcional)"}
     </label>
     <textarea
@@ -145,9 +146,9 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       aria-describedby="message-error"
       placeholder={isEn ? "Project goals, desired timeline, technical requirements, or any questions..." : "Objetivo del proyecto, plazos deseados, detalles técnicos o cualquier duda..."}
       rows="4"
-      class="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-slate-950 focus:bg-white text-white placeholder:text-slate-600 transition"
+      class="field"
     ></textarea>
-    <p id="message-error" class="hidden text-rose-600 text-xs mt-1 font-sans" role="alert">
+    <p id="message-error" class="hidden text-[#ff9b9b] text-sm mt-1.5 font-sans" role="alert">
       {isEn ? "Please write a few lines to explain your project." : "Escribe unas líneas para explicar tu consulta."}
     </p>
   </div>
@@ -157,8 +158,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
     <button
       type="submit"
       id="contact-submit-btn"
-      class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-slate-950 hover:bg-[#FFFF00] text-white hover:text-black font-mono text-xs uppercase tracking-wider font-semibold border border-slate-950 shadow-xs transition-colors group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-      <Icon name="bx:paper-plane" class="w-4 h-4 text-slate-600 group-hover:text-black group-hover:scale-110 group-hover:translate-x-0.5 transition-transform" />
+      class="btn btn-brand w-full disabled:cursor-not-allowed disabled:opacity-50">
+      <Icon name="bx:paper-plane" class="h-5 w-5" />
       <span id="submit-btn-text">{isEn ? "Send inquiry" : "Enviar consulta"}</span>
     </button>
   </div>
@@ -166,12 +167,12 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
   <!-- Banner de Estado Accesible (Live Region) -->
   <div
     id="form-feedback"
-    class="hidden p-3 rounded-xl text-xs font-mono text-center transition-all"
+    class="hidden rounded-sm p-4 text-center text-sm font-semibold"
     role="status"
     aria-live="polite">
   </div>
 
-  <p class="text-[11px] text-slate-600 text-center font-sans">
+  <p class="text-[0.82rem] text-white/75 text-center font-sans">
     {isEn
       ? "Inquiring carries no obligation. Name and email are required; phone and other fields are optional."
       : "La consulta no implica ningún compromiso. El nombre y el correo son obligatorios; el teléfono y el resto de datos son opcionales."}
@@ -220,8 +221,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
     function showStatus(message, isSuccess = true) {
       if (!feedback) return;
       feedback.className = isSuccess
-        ? "p-3 rounded-xl text-xs font-mono text-center bg-emerald-50 text-emerald-800 border border-emerald-200"
-        : "p-3 rounded-xl text-xs font-mono text-center bg-rose-50 text-rose-800 border border-rose-200";
+        ? "rounded-sm p-4 text-center text-sm font-semibold bg-[#ffff00] text-[#0b0b09]"
+        : "rounded-sm p-4 text-center text-sm font-semibold border-2 border-[#ff9b9b] text-[#ff9b9b]";
       feedback.textContent = message;
       feedback.classList.remove("hidden");
     }
