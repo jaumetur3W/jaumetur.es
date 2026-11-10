@@ -190,10 +190,10 @@ const faqSchema = {
                 {s.tagline}
                 <span class="mt-2 block text-[0.9rem] font-semibold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
               </span>
-              <span class="lg:col-span-3 lg:text-right">
-                <span class="label block">{t.from}</span>
-                <span class="num block font-display text-[2rem] font-extrabold leading-none" style="font-stretch:85%">{euro(s.creationPriceNumber)}</span>
-                <span class="num mt-1 block text-[0.9rem]">+ {monthly(s.monthlyFeeNumber)} · {s.timeline}</span>
+              <span class="flex flex-wrap items-baseline gap-x-3 gap-y-1 lg:col-span-3 lg:block lg:text-right">
+                <span class="label lg:block">{t.from}</span>
+                <span class="num font-display text-[2rem] font-extrabold leading-none lg:block" style="font-stretch:85%">{euro(s.creationPriceNumber)}</span>
+                <span class="num text-[0.9rem] lg:mt-1 lg:block">+ {monthly(s.monthlyFeeNumber)} · {s.timeline}</span>
               </span>
             </a>
           </li>
