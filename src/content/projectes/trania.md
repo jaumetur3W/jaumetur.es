@@ -39,6 +39,11 @@ TranIA está concebida como una plataforma **SaaS personalizable, multi-gimnasio
 
 El módulo de administración proporciona a los propietarios, gerentes y coordinadores un control total sobre las áreas operativas del centro:
 
+<figure class="my-8">
+  <img src="/img/real/trania-preview.webp" alt="Panel operativo de TranIA Manager con KPIs de socios activos y clases" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Interfaz real de TranIA Manager: cuadro de mando, socios activos y gestión de instalaciones</figcaption>
+</figure>
+
 ### Socios y clientes
 - **Registro y altas/bajas:** Fichas personales completas con historial unificado de actividad, contratos y estado administrativo.
 - **Control de accesos sin fricción:** Validación de entradas mediante lectura de **código QR dinámico** desde el móvil del socio.
@@ -65,6 +70,11 @@ El módulo de administración proporciona a los propietarios, gerentes y coordin
 - **Inventario digital de máquinas:** Catálogo detallado de equipamiento con código de identificación y zona asignada.
 - **Estado operativo y averías:** Reporte inmediato de incidencias técnicas en máquinas y seguimiento de su estado de uso.
 - **Mantenimiento planificado:** Historial de reparaciones, revisiones preventivas programadas y registro de proveedores técnicos.
+
+<figure class="my-8">
+  <img src="/img/real/trania-exercises.webp" alt="Catálogo de ejercicios y biblioteca biomecánica en TranIA" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Catálogo biomecánico de ejercicios con clasificación técnica y grupos musculares</figcaption>
+</figure>
 
 ### Informes y Business Analytics
 - **Métricas clave en panel único:** Socios activos en tiempo real, tasa de abandono (*churn*), evolución de altas/bajas e ingresos recurrentes.
@@ -131,6 +141,11 @@ Las siguientes líneas de desarrollo representan la hoja de ruta estratégica pa
 ---
 
 ## 6. Modelo comercial y modalidades de despliegue
+
+<figure class="my-8">
+  <img src="/img/real/trania-gyms.webp" alt="Gestión de gimnasios y arquitectura multi-tenant en TranIA" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Panel de gestión multi-inquilino de centros deportivos y franquicias en TranIA</figcaption>
+</figure>
 
 TranIA está planteada para responder a las necesidades de gimnasios de cualquier escala:
 

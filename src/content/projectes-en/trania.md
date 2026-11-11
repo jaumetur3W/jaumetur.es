@@ -39,6 +39,11 @@ TranIA is built as a **customizable, multi-gym (multi-tenant) SaaS** designed to
 
 The administrative module equips gym owners, club managers, and coordinators with complete operational control:
 
+<figure class="my-8">
+  <img src="/img/real/trania-preview.webp" alt="Real dashboard of TranIA Manager showing active members and class KPIs" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Real TranIA Manager interface: command dashboard, active members, and facility operations</figcaption>
+</figure>
+
 ### Members & Clients
 - **Registration & lifecycle tracking:** Complete individual profiles with consolidated activity records, contracts, and administrative statuses.
 - **Frictionless access control:** Rapid entrance validation via **dynamic QR code** scanning on members' smartphones.
@@ -65,6 +70,11 @@ The administrative module equips gym owners, club managers, and coordinators wit
 - **Digital machine inventory:** Comprehensive asset registry with equipment identification codes and designated workout zones.
 - **Operational status & incident reporting:** Immediate reporting and tagging of malfunctioning gym equipment.
 - **Preventative maintenance:** Complete repair logs, scheduled inspections, and vendor/contractor records.
+
+<figure class="my-8">
+  <img src="/img/real/trania-exercises.webp" alt="Biomechanics and exercise library in TranIA" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Biomechanical exercise directory with movement pattern classifications</figcaption>
+</figure>
 
 ### Business Intelligence & Reporting
 - **Single-pane executive metrics:** Real-time active members count, monthly churn rates, membership net growth, and recurring revenue (MRR).
@@ -131,6 +141,11 @@ The following strategic capabilities define TranIA's roadmap for upcoming produc
 ---
 
 ## 6. Commercial Model & Deployment Options
+
+<figure class="my-8">
+  <img src="/img/real/trania-gyms.webp" alt="Multi-gym and multi-tenant management panel in TranIA" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Multi-tenant gym network and franchise administrative panel in TranIA</figcaption>
+</figure>
 
 TranIA is designed to serve athletic organizations across all scales:
 
