@@ -1,0 +1,200 @@
+---
+import { localeFromPath, localizeHref } from "@/i18n";
+
+const locale = localeFromPath(Astro.url.pathname);
+const isEn = locale === "en";
+const cookiesHref = localizeHref("/cookies", locale);
+
+const copy = isEn
+  ? {
+      regionLabel: "Cookie preferences",
+      title: "Cookies & measurement",
+      body: "This site uses essential storage and cookieless analytics (Plausible). With your consent, we enable Google Analytics 4 via Google Tag Manager to measure visits. No advertising cookies are used.",
+      policy: "Cookies policy",
+      reject: "Reject",
+      accept: "Accept",
+    }
+  : {
+      regionLabel: "Preferencias de cookies",
+      title: "Cookies y medición",
+      body: "Esta web utiliza almacenamiento técnico y analítica sin cookies (Plausible). Con tu permiso, activamos Google Analytics 4 mediante Google Tag Manager para medir visitas. No usamos cookies publicitarias.",
+      policy: "Política de cookies",
+      reject: "Rechazar",
+      accept: "Aceptar",
+    };
+---
+
+<aside
+  id="cookie-consent-banner"
+  role="region"
+  aria-label={copy.regionLabel}
+  class="hidden fixed bottom-3 left-3 right-3 sm:left-auto sm:right-5 sm:bottom-5 z-50 sm:max-w-[26rem] rounded-sm border border-white/25 bg-[#141412]/95 p-4 sm:p-5 text-white shadow-2xl backdrop-blur-xs"
+>
+  <p class="font-display text-base font-bold leading-tight text-white" style="font-stretch:85%">
+    {copy.title}
+  </p>
+  <p class="mt-1.5 text-xs leading-relaxed text-[#d2d2cb]">
+    {copy.body}
+  </p>
+  <div class="mt-4 flex flex-wrap items-center justify-between gap-2.5">
+    <a
+      href={cookiesHref}
+      class="inline-flex min-h-11 items-center text-xs font-medium text-[#d2d2cb] underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-brand"
+    >
+      {copy.policy}
+    </a>
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        id="cookie-consent-reject"
+        class="btn btn-white btn-sm min-h-11 px-4 text-xs sm:text-sm"
+      >
+        {copy.reject}
+      </button>
+      <button
+        type="button"
+        id="cookie-consent-accept"
+        class="btn btn-brand btn-sm min-h-11 px-4 text-xs sm:text-sm"
+      >
+        {copy.accept}
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    var KEY = "jaumetur_cookie_consent_v1";
+    var banner = document.getElementById("cookie-consent-banner");
+    var acceptBtn = document.getElementById("cookie-consent-accept");
+    var rejectBtn = document.getElementById("cookie-consent-reject");
+    var lastTrigger = null;
+    var memoryState = null;
+
+    function getStoredConsent() {
+      try {
+        var val = window.localStorage.getItem(KEY);
+        if (val === "granted" || val === "denied") return val;
+      } catch (_) {}
+      return memoryState;
+    }
+
+    function saveConsent(state) {
+      memoryState = state;
+      try {
+        window.localStorage.setItem(KEY, state);
+      } catch (_) {}
+    }
+
+    function ensureGtag() {
+      window.dataLayer = window.dataLayer || [];
+      if (typeof window.gtag !== "function") {
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+      }
+    }
+
+    function deleteAnalyticsCookies() {
+      try {
+        var cookies = document.cookie ? document.cookie.split(";") : [];
+        var host = window.location.hostname;
+        var domains = ["", host];
+        var parts = host.split(".");
+        if (parts.length >= 2) {
+          domains.push("." + parts.slice(-2).join("."));
+        }
+        cookies.forEach(function (cookie) {
+          var name = cookie.split("=")[0].trim();
+          if (/^(_ga|_gid|_gat)/.test(name)) {
+            domains.forEach(function (domain) {
+              var domainAttr = domain ? "; domain=" + domain : "";
+              document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + domainAttr;
+            });
+          }
+        });
+      } catch (_) {}
+    }
+
+    function applyConsent(state) {
+      var isGranted = state === "granted";
+      saveConsent(state);
+      ensureGtag();
+      window["ga-disable-G-LFSN2GYK8R"] = !isGranted;
+      window.gtag("consent", "update", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: isGranted ? "granted" : "denied",
+      });
+      window.dataLayer.push({
+        event: "cookie_consent_update",
+        cookie_consent_analytics: isGranted ? "granted" : "denied",
+      });
+      if (isGranted) {
+        if (typeof window.__loadGtm === "function") {
+          window.__loadGtm();
+        }
+      } else {
+        deleteAnalyticsCookies();
+      }
+      if (banner) {
+        banner.classList.add("hidden");
+      }
+      window.dispatchEvent(new CustomEvent("jaumetur:consent-change", { detail: { state: state } }));
+      if (lastTrigger && typeof lastTrigger.focus === "function" && document.contains(lastTrigger)) {
+        lastTrigger.focus();
+      }
+      lastTrigger = null;
+    }
+
+    function openBanner(trigger) {
+      if (!banner) return;
+      lastTrigger = trigger || null;
+      banner.classList.remove("hidden");
+      if (acceptBtn && trigger) {
+        acceptBtn.focus();
+      }
+    }
+
+    window.__jaumeturConsent = {
+      get: getStoredConsent,
+      set: applyConsent,
+      open: openBanner,
+    };
+
+    if (banner && getStoredConsent() === null) {
+      banner.classList.remove("hidden");
+    }
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener("click", function () {
+        applyConsent("granted");
+      });
+    }
+
+    if (rejectBtn) {
+      rejectBtn.addEventListener("click", function () {
+        applyConsent("denied");
+      });
+    }
+
+    document.addEventListener("click", function (event) {
+      var trigger = event.target && event.target.closest ? event.target.closest("[data-open-cookie-settings]") : null;
+      if (trigger) {
+        event.preventDefault();
+        openBanner(trigger);
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && banner && !banner.classList.contains("hidden") && getStoredConsent() !== null) {
+        banner.classList.add("hidden");
+        if (lastTrigger && typeof lastTrigger.focus === "function" && document.contains(lastTrigger)) {
+          lastTrigger.focus();
+        }
+        lastTrigger = null;
+      }
+    });
+  })();
+</script>
