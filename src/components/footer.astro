@@ -118,6 +118,15 @@ const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 u
           {legalLinks.map((item) => (
             <li><a href={to(item.path)} class="inline-flex min-h-9 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{item.title}</a></li>
           ))}
+          <li>
+            <button
+              type="button"
+              data-open-cookie-settings
+              class="inline-flex min-h-9 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand"
+            >
+              {isEn ? "Cookie settings" : "Configurar cookies"}
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
