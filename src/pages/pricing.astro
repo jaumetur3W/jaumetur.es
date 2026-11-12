@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/page-header.astro";
 import CtaBand from "@/components/cta-band.astro";
+import PricingTable from "@/components/pricing-table.astro";
 import { getServicesData } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
@@ -94,45 +95,7 @@ const breadcrumb = {
 
   <section class="section" aria-label={t.eyebrow}>
     <div class="wrap">
-      {services.map((s, i) => (
-        <article class:list={["grid gap-8 border-t py-10 lg:grid-cols-12 lg:gap-12 lg:py-14", s.isFeatured ? "border-t-2 border-brand" : "border-white/20", i === services.length - 1 ? "border-b border-b-white/20" : ""]}>
-          <div class="lg:col-span-5">
-            <div class="flex flex-wrap items-center gap-3">
-              <Icon name={s.icon} class="h-7 w-7 text-brand" />
-              {s.isFeatured && <span class="chip chip-brand">{t.recommended}</span>}
-            </div>
-            <h2 class="mt-4 font-display text-[2.1rem] font-bold leading-[1.02] sm:text-[2.6rem]" style="font-stretch:80%">{s.name}</h2>
-            <p class="lede mt-4">{s.tagline}</p>
-            <p class="faint mt-4 text-[0.92rem]"><span class="font-semibold text-white">{t.forWho}:</span> {s.targetAudience}</p>
-          </div>
-
-          <div class="lg:col-span-4">
-            <h3 class="label !text-white/75">{t.includes}</h3>
-            <ul class="mt-4 grid gap-2.5">
-              {s.features.map((f) => (
-                <li class="flex gap-3 text-[0.97rem] leading-snug">
-                  <svg class="mt-[0.2em] h-4 w-4 shrink-0 text-brand" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="lg:col-span-3">
-            <p class="label">{t.from}</p>
-            <p class="num font-display text-[3.4rem] font-extrabold leading-none" style="font-stretch:82%">{euro(s.creationPriceNumber)}</p>
-            <dl class="mt-4 grid gap-2 text-[0.92rem]">
-              <div class="leader-row"><dt class="muted">{isEn ? "Maintenance" : "Mantenimiento"}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold">{monthly(s.monthlyFeeNumber)}</dd></div>
-              <div class="leader-row"><dt class="muted">{t.deliver}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-semibold">{s.timeline}</dd></div>
-              <div class="leader-row"><dt class="muted">{t.firstYear}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</dd></div>
-            </dl>
-            <div class="mt-6 grid gap-2">
-              <a href={to(`/contact?servei=${s.id}`)} class="btn btn-brand">{t.request}</a>
-              <a href={to(`/pricing/${s.id}`)} class="btn btn-white">{t.detail}</a>
-            </div>
-          </div>
-        </article>
-      ))}
+      <PricingTable isEn={isEn} />
     </div>
   </section>
 

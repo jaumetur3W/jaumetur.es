@@ -1,0 +1,317 @@
+---
+import { pricingTiers as pricingTiersES } from "@/data/pricing-es";
+import { pricingTiers as pricingTiersEN } from "@/data/pricing-en";
+import { services as servicesES } from "@/data/services-es";
+import { services as servicesEN } from "@/data/services-en";
+
+interface Props {
+  isEn?: boolean;
+}
+
+const { isEn = false } = Astro.props;
+const pricingTiers = isEn ? pricingTiersEN : pricingTiersES;
+const services = isEn ? servicesEN : servicesES;
+
+const serviceNameMap: Record<string, string> = {};
+services.forEach(s => {
+  serviceNameMap[s.id] = isEn ? s.name_en : s.name_es;
+});
+
+const t = isEn ? {
+  title: "Transparent and Clear Pricing",
+  service: "Service",
+  creation: "Creation",
+  maintenance: "Maintenance",
+  includes: "Includes",
+  action: "Request",
+  maintenanceTermsTitle: "Maintenance Terms",
+  maintenanceTermsInclude: "Includes",
+  maintenanceTermsIncludeList: [
+    "Security updates",
+    "Automatic backups",
+    "24/7 monitoring",
+    "Email support"
+  ],
+  minDuration: "Minimum Duration",
+  minDurationValue: "12 months",
+  responseTime: "Response Time",
+  responseTimeValue: "Less than 24 business hours"
+} : {
+  title: "Precios Transparentes y Claros",
+  service: "Servicio",
+  creation: "Creación",
+  maintenance: "Mantenimiento",
+  includes: "Incluye",
+  action: "Solicitar",
+  maintenanceTermsTitle: "Términos de Mantenimiento",
+  maintenanceTermsInclude: "Incluye",
+  maintenanceTermsIncludeList: [
+    "Actualizaciones de seguridad",
+    "Backups automáticos",
+    "Monitoreo 24/7",
+    "Soporte por email"
+  ],
+  minDuration: "Duración mínima",
+  minDurationValue: "12 meses",
+  responseTime: "Tiempo de respuesta",
+  responseTimeValue: "Menos de 24 horas laborables"
+};
+---
+
+<section class="pricing-section">
+  <h2>{t.title}</h2>
+
+  <div class="pricing-table-wrapper">
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>{t.service}</th>
+          <th>{t.creation}</th>
+          <th>{t.maintenance}</th>
+          <th>{t.includes}</th>
+          <th>{t.action}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {pricingTiers.map((tier: any) => {
+          const initialLabel = isEn ? tier.initial_label_en : tier.initial_label_es;
+          const monthlyLabel = isEn ? tier.monthly_label_en : tier.monthly_label_es;
+          const includesList = isEn ? tier.includes_en : tier.includes_es;
+          return (
+            <tr>
+              <td class="service-name">
+                <strong>{serviceNameMap[tier.service_id] || tier.service_id}</strong>
+              </td>
+              <td class="pricing">
+                <span class="amount">€{tier.initial_cost}</span>
+                <span class="label">{initialLabel}</span>
+              </td>
+              <td class="pricing">
+                <span class="amount">€{tier.monthly_cost}</span>
+                <span class="label">{monthlyLabel} / {isEn ? 'month' : 'mes'}</span>
+              </td>
+              <td class="includes">
+                <ul>
+                  {includesList.map((inc: string) => (
+                    <li>{inc}</li>
+                  ))}
+                </ul>
+              </td>
+              <td class="action">
+                <a href={`/contact?servei=${tier.service_id}`} class="btn btn-brand">
+                  {t.action}
+                </a>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+
+  <section class="maintenance-terms">
+    <h3>{t.maintenanceTermsTitle}</h3>
+    <div class="terms-grid">
+      <div class="term">
+        <h4>{t.maintenanceTermsInclude}</h4>
+        <ul>
+          {t.maintenanceTermsIncludeList.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="term">
+        <h4>{t.minDuration}</h4>
+        <p>{t.minDurationValue}</p>
+      </div>
+      <div class="term">
+        <h4>{t.responseTime}</h4>
+        <p>{t.responseTimeValue}</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<style>
+  .pricing-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .pricing-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .pricing-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 3rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(255 255 255 / 0.2);
+  }
+
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .pricing-table thead {
+    background: rgb(255 255 255 / 0.05);
+    border-bottom: 2px solid rgb(255 255 255 / 0.2);
+  }
+
+  .pricing-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .pricing-table tbody tr {
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .pricing-table tbody tr:hover {
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .pricing-table td {
+    padding: 1.5rem 1rem;
+    vertical-align: middle;
+  }
+
+  .service-name {
+    font-weight: 600;
+    min-width: 180px;
+  }
+
+  .pricing {
+    text-align: right;
+    min-width: 120px;
+  }
+
+  .pricing .amount {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .pricing .label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.6);
+    margin-top: 0.25rem;
+  }
+
+  .includes {
+    min-width: 250px;
+  }
+
+  .includes ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .includes li::before {
+    content: "✓ ";
+    color: var(--brand, #ffff00);
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .action {
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--brand, #ffff00);
+    color: #0b0b09;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 0, 0.3);
+  }
+
+  .maintenance-terms {
+    background: rgb(255 255 255 / 0.05);
+    border-left: 4px solid var(--brand, #ffff00);
+    padding: 2rem;
+    border-radius: 0.25rem;
+  }
+
+  .maintenance-terms h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .term h4 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--brand, #ffff00);
+  }
+
+  .term ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .term ul li::before {
+    content: "• ";
+    margin-right: 0.5rem;
+  }
+
+  .term p {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .pricing-table {
+      font-size: 0.85rem;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 0.75rem 0.5rem;
+    }
+
+    .includes {
+      min-width: 150px;
+    }
+
+    .includes ul {
+      font-size: 0.8rem;
+    }
+  }
+</style>
