@@ -31,7 +31,6 @@ const projectImages: Record<string, { src: string; w: number; h: number }> = {
 };
 const shortTitle = (x: string) => x.split(" — ")[0];
 
-const WA = "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto";
 
 const t = isEn
   ? {
@@ -39,7 +38,7 @@ const t = isEn
       desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain, built by the developer you talk to. Quote and launch offer for the first clients.",
       h1: "Your business needs a web that works for you.",
       lede: "Web design, custom applications, and digital menus for businesses that want to attract clients, streamline operations, and grow. From Xàtiva, serving Valencia and all of Spain.",
-      cta1: "Get a quote", cta2: "See services & pricing", wa: "WhatsApp",
+      cta1: "Get a quote", cta2: "See services & pricing", mail: "Write by email",
       reply: "Reply within 24 business hours.",
       launchLink: "Launch offer for the first clients",
       svcTitle: "Five services for your business.",
@@ -80,14 +79,14 @@ const t = isEn
       ],
       finalTitle: "Have a project in mind?",
       finalText: "Tell me what you need and I'll reply with scope, price and timeline. No obligation.",
-      finalWa: "Message on WhatsApp", finalForm: "Send the form",
+      finalMail: "Write by email", finalForm: "Send the form",
     }
   : {
       title: "Diseño web a medida en Xàtiva y Valencia | Jaume Tur",
       desc: "Diseño web a medida, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España, hechas por quien las programa. Pide presupuesto; oferta de lanzamiento para los primeros clientes.",
       h1: "Tu negocio necesita una web que trabaje por ti.",
       lede: "Diseño web, aplicaciones a medida y cartas digitales para empresas y profesionales que quieren captar clientes, mejorar procesos y crecer. Desde Xàtiva, para Valencia y toda España.",
-      cta1: "Pedir presupuesto", cta2: "Ver servicios y precios", wa: "WhatsApp",
+      cta1: "Pedir presupuesto", cta2: "Ver servicios y precios", mail: "Escribir por correo",
       reply: "Respuesta en menos de 24 horas laborables.",
       launchLink: "Oferta de lanzamiento para los primeros clientes",
       svcTitle: "Cinco servicios para tu negocio.",
@@ -128,7 +127,7 @@ const t = isEn
       ],
       finalTitle: "¿Tienes un proyecto en mente?",
       finalText: "Cuéntame qué necesitas y te respondo con alcance, precio y plazo. Sin compromiso.",
-      finalWa: "Escribir por WhatsApp", finalForm: "Enviar el formulario",
+      finalMail: "Escribir por correo", finalForm: "Enviar el formulario",
     };
 
 const faqSchema = {
@@ -152,9 +151,9 @@ const faqSchema = {
         <div class="mt-8 flex flex-wrap items-center gap-3">
           <a href={to("/contact")} class="btn btn-brand">{t.cta1} <span aria-hidden="true">→</span></a>
           <a href="#servicios" class="btn btn-white">{t.cta2}</a>
-          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center gap-2 px-2 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
-            <Icon name="bx:bxl-whatsapp" class="h-5 w-5 text-brand" />
-            <span>{t.wa}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></span>
+          <a href="mailto:jaumetur3w@gmail.com" class="inline-flex min-h-12 items-center gap-2 px-2 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
+            <Icon name="bx:envelope" class="h-5 w-5 text-brand" />
+            <span>{t.mail}</span>
           </a>
         </div>
         <p class="mt-5 text-[0.95rem] text-white/80">
@@ -328,7 +327,7 @@ const faqSchema = {
   <CtaBand
     title={t.finalTitle}
     text={t.finalText}
-    primary={{ href: WA, label: t.finalWa, external: true }}
+    primary={{ href: "mailto:jaumetur3w@gmail.com", label: t.finalMail }}
     secondary={{ href: to("/contact"), label: t.finalForm }}
   />
 </Layout>

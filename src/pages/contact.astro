@@ -54,7 +54,11 @@ const base = isEn ? "/en" : "";
           </div>
         </div>
 
-        <a href="https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20una%20web" target="_blank" rel="noopener noreferrer" class="btn btn-brand mt-7 w-full justify-between">
+        <a href={mailto} class="btn btn-brand mt-7 w-full justify-between">
+          <span class="flex items-center gap-3"><Icon name="bx:envelope" class="h-6 w-6" />{isEn ? "Write by email" : "Escribir por correo"} · jaumetur3w@gmail.com</span><span aria-hidden="true">→</span>
+        </a>
+
+        <a href="https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20una%20web" target="_blank" rel="noopener noreferrer" class="btn btn-white mt-3 w-full justify-between">
           <span class="flex items-center gap-3"><Icon name="bx:bxl-whatsapp" class="h-6 w-6" />{isEn ? "Talk on WhatsApp" : "Hablar por WhatsApp"} · +34 644 525 838<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></span><span aria-hidden="true">→</span>
         </a>
 
