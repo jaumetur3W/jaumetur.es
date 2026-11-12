@@ -1,0 +1,66 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/page-header.astro";
+import CtaBand from "@/components/cta-band.astro";
+import ServicesGrid from "@/components/services-grid.astro";
+import { localeFromPath, localizePath } from "@/i18n";
+
+const locale = localeFromPath(Astro.url.pathname);
+const isEn = locale === "en";
+const to = (path: string) => {
+  const p = localizePath(path, locale);
+  return p === "/" || p.endsWith("/") ? p : `${p}/`;
+};
+
+const t = isEn
+  ? {
+      title: "Services for businesses in Valencia | Jaume Tur",
+      desc: "Websites, digital menus, web apps and performance optimisation with clear prices and maintenance terms. Based in Xàtiva, working across Valencia and remote.",
+      eyebrow: "Services",
+      h1: "What I can do for your business.",
+      lead: "Three kinds of service, each starting from a concrete problem. Prices and maintenance terms are explained before you ask.",
+      ctaTitle: "Not sure where to start?",
+      ctaText: "Tell me what is not working and I will tell you which service fits, or whether you need one at all.",
+      cta: "Ask for a quote",
+      prices: "See full pricing",
+    }
+  : {
+      title: "Servicios para negocios en Valencia | Jaume Tur",
+      desc: "Páginas web, cartas digitales, apps web y optimización de rendimiento con precios claros y términos de mantenimiento. Desde Xàtiva para Valencia y en remoto.",
+      eyebrow: "Servicios",
+      h1: "Qué puedo hacer por tu negocio.",
+      lead: "Tres tipos de servicio, cada uno partiendo de un problema concreto. Los precios y el mantenimiento se explican antes de que pidas nada.",
+      ctaTitle: "¿No sabes por dónde empezar?",
+      ctaText: "Cuéntame qué no te funciona y te digo qué servicio encaja, o si necesitas alguno.",
+      cta: "Pedir presupuesto",
+      prices: "Ver precios completos",
+    };
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": isEn ? "Home" : "Inicio", "item": `https://jaumetur.es${to("/")}` },
+    { "@type": "ListItem", "position": 2, "name": t.eyebrow, "item": `https://jaumetur.es${to("/servicios")}` },
+  ],
+};
+---
+
+<Layout fresh title={t.title} description={t.desc} jsonLd={[breadcrumb]}>
+  <PageHeader title={t.h1} lede={t.lead} />
+
+  <section class="section" aria-label={t.eyebrow}>
+    <div class="wrap">
+      <ServicesGrid isEn={isEn} />
+      <p class="mt-10">
+        <a href={to("/pricing")} class="btn btn-white">{t.prices}</a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title={t.ctaTitle}
+    text={t.ctaText}
+    primary={{ href: to("/contact"), label: t.cta }}
+  />
+</Layout>

@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import QuoteSheet from "@/components/quote-sheet.astro";
 import CtaBand from "@/components/cta-band.astro";
 import { getServicesData } from "@/data/services";
+import ServicesGrid from "@/components/services-grid.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
@@ -182,25 +183,7 @@ const faqSchema = {
           <a href={to("/pricing")} class="link-arrow mt-3 min-h-11">{t.allPrices} <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <ul class="mt-10 border-b border-white/15 sm:mt-14">
-        {services.map((s) => (
-          <li class="contents">
-            <a href={to(`/pricing/${s.id}`)} class="item lg:grid-cols-12 lg:items-center">
-              <span class="lg:col-span-5">
-                <span class="block font-display text-[1.75rem] font-bold leading-[1.05] sm:text-[2.1rem]" style="font-stretch:82%">{s.name}</span>
-              </span>
-              <span class="muted lg:col-span-4 lg:pr-4">
-                {s.tagline}
-                <span class="mt-2 block text-[0.9rem] font-semibold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
-              </span>
-              <span class="lg:col-span-3 lg:text-right">
-                <span class="label block">{t.delivery}</span>
-                <span class="block font-semibold">{s.timeline}</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <ServicesGrid isEn={isEn} />
     </div>
   </section>
 
