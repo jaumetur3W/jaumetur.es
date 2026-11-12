@@ -37,25 +37,23 @@ const base = isEn ? "/en" : "";
 ---
 
 <Layout fresh title={t.title} description={t.desc}>
-  <PageHeader title={t.h1} lede={t.lead}>
-    <p class="chip mt-6"><span class="h-2 w-2  bg-brand" aria-hidden="true"></span>{t.reply}</p>
-  </PageHeader>
+  <PageHeader tone="yellow" title={t.h1} lede={t.lead} sticker={t.eyebrow} stickers={[t.reply, isEn ? "No CAPTCHA" : "Sin CAPTCHA"]} />
 
   <section class="section">
     <div class="wrap grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-5">
         <div class="flex items-center gap-4">
-          <div class="h-20 w-20 shrink-0 overflow-hidden  border border-rule bg-paper-2">
-            <img src="/img/jaume-tur-contacto.webp" alt="Jaume Tur" width="96" height="96" class="h-full w-full object-contain" loading="eager" decoding="async" />
+          <div class="cutout h-24 w-20 shrink-0 rotate-[-4deg]">
+            <img src="/img/jaume-tur-contacto.webp" alt="Jaume Tur" width="96" height="120" class="h-full w-full" loading="eager" decoding="async" />
           </div>
           <div>
-            <p class="font-display text-[1.8rem] font-normal leading-none" style="font-stretch:82%">Jaume Tur</p>
+            <p class="font-display text-[1.8rem] font-extrabold leading-none tracking-[-0.04em]">Jaume Tur</p>
             <p class="muted mt-1 text-[0.95rem]">{isEn ? "Web developer" : "Desarrollador web"}</p>
             <p class="faint text-[0.9rem]">{t.loc}</p>
           </div>
         </div>
 
-        <a href={mailto} class="btn btn-brand mt-7 w-full justify-between">
+        <a href={mailto} class="btn btn-ink mt-7 w-full justify-between">
           <span class="flex items-center gap-3"><Icon name="bx:envelope" class="h-6 w-6" />{isEn ? "Write by email" : "Escribir por correo"} · jaumetur3w@gmail.com</span><UiIcon name="arrow" aria-hidden="true" />
         </a>
 
@@ -92,11 +90,16 @@ const base = isEn ? "/en" : "";
         </ul>
       </div>
 
-      <div class=" border border-rule bg-paper-2 p-6 sm:p-8 lg:col-span-7">
-        <h2 class="font-display text-[2.2rem] font-normal leading-none" style="font-stretch:80%">{t.formTitle}</h2>
-        <p class="muted mt-3">{t.formText}</p>
-        <div class="mt-7 border-t border-rule pt-7">
+      <div class="sheet relative lg:col-span-7 lg:rotate-[0.6deg]">
+        <div class="sheet-head flex items-center justify-between">
+          <span class="label !text-ink">{t.formTitle}</span>
+          <span class="label !text-ink">{t.reply}</span>
+        </div>
+        <div class="p-6 sm:p-8">
+        <h2 class="h-card">{t.formText}</h2>
+        <div class="mt-7 border-t-2 border-ink pt-7">
           <Contactform />
+        </div>
         </div>
       </div>
     </div>

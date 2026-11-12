@@ -41,10 +41,12 @@ const getCategoryIcon = (category: string) => {
   title={isEn ? "Web Development Blog & Engineering Resources | Jaume Tur" : "Blog de Desarrollo Web y Recursos Técnicos | Jaume Tur"}
   description={isEn ? "Technical articles, practical guides, and architecture insights on frontend apps, performance, and CI/CD." : "Artículos técnicos, guías prácticas y casos de estudio sobre diseño web, aplicaciones frontend, backend, rendimiento y automatización CI/CD."}
 >
-  <header class="border-b border-rule pb-10 pt-12 sm:pb-14 sm:pt-20">
-    <div class="wrap">
-      <h1 class="h-page max-w-4xl">
-        {isEn ? "Web development blog: guides, patterns and architecture." : "Blog de desarrollo web: guías, patrones y arquitectura."}
+  <header class="ink-block relative overflow-hidden border-b-[3px] border-ink pb-10 pt-12 sm:pb-14 sm:pt-20">
+    <div class="shape-quarter -bottom-[2px] right-0 hidden h-[14rem] w-[14rem] lg:block" aria-hidden="true"></div>
+    <div class="wrap relative">
+      <span class="tag-ticket tag-ticket-brand" data-stick>Blog · {publishedBlogEntries.length} {isEn ? "articles" : "artículos"}</span>
+      <h1 class="h-page mt-6 max-w-[16ch]">
+        {isEn ? "Guides, patterns and opinions." : "Guías, patrones y opinión."}
       </h1>
       <p class="lede mt-6">
         {isEn
@@ -70,10 +72,10 @@ const getCategoryIcon = (category: string) => {
           <button
             type="button"
             data-category={cat}
-            class={`filter-btn inline-flex min-h-11 cursor-pointer items-center  border px-3.5 text-[0.92rem] font-semibold transition-colors ${
+            class={`filter-btn chip min-h-11 cursor-pointer px-3.5 transition-colors ${
               idx === 0
-                ? "border-ink bg-brand text-ink active"
-                : "border-rule bg-transparent text-ink hover:border-ink hover:bg-paper-2"
+                ? "chip-brand active shadow-[3px_3px_0_var(--ink)]"
+                : "hover:bg-brand"
             }`}
           >
             {cat}
@@ -105,7 +107,7 @@ const getCategoryIcon = (category: string) => {
                   <span class="label mt-1 block">{post.data.category} · ~{readingMinutes} min</span>
                 </span>
                 <span class="lg:col-span-9">
-                  <span class="block font-display text-[1.6rem] font-normal leading-[1.08] sm:text-[2rem]" style="font-stretch:84%">{post.data.title}</span>
+                  <span class="h-card block">{post.data.title}</span>
                   <span class="muted mt-2 block max-w-3xl leading-relaxed">{post.data.snippet}</span>
                 </span>
               </a>
@@ -115,7 +117,7 @@ const getCategoryIcon = (category: string) => {
       </div>
 
       <div id="no-posts-found" class="hidden py-16">
-        <p class="font-display text-[1.8rem] font-normal" style="font-stretch:84%">{isEn ? "No matches" : "Sin coincidencias"}</p>
+        <p class="h-card">{isEn ? "No matches" : "Sin coincidencias"}</p>
         <p class="muted mt-2">
           {isEn ? "No articles found matching this search or category." : "No se ha encontrado ningún artículo con esta búsqueda o categoría."}
         </p>
@@ -197,8 +199,8 @@ const getCategoryIcon = (category: string) => {
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;
             b.className = isCurrent
-              ? "filter-btn inline-flex min-h-11 cursor-pointer items-center  border px-3.5 text-[0.92rem] font-semibold transition-colors border-ink bg-brand text-ink active"
-              : "filter-btn inline-flex min-h-11 cursor-pointer items-center  border px-3.5 text-[0.92rem] font-semibold transition-colors border-rule bg-transparent text-ink hover:border-ink hover:bg-paper-2";
+              ? "filter-btn chip min-h-11 cursor-pointer px-3.5 transition-colors chip-brand active shadow-[3px_3px_0_var(--ink)]"
+              : "filter-btn chip min-h-11 cursor-pointer px-3.5 transition-colors hover:bg-brand";
           });
 
           filterPosts();

@@ -199,12 +199,12 @@ const articleSchema = {
             </details>
           )}
 
-          <div class="prose max-w-none prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:font-normal prose-headings:text-ink prose-p:text-graphite prose-p:leading-relaxed prose-a:text-ink prose-a:underline hover:prose-a:text-ink prose-code:text-ink prose-code:font-mono prose-pre:bg-paper prose-pre:border prose-pre:border-rule prose-strong:text-ink prose-li:text-graphite">
+          <div class="prose max-w-none prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:font-extrabold tracking-[-0.035em] prose-headings:text-ink prose-p:text-graphite prose-p:leading-relaxed prose-a:text-ink prose-a:underline hover:prose-a:text-ink prose-code:text-ink prose-code:font-mono prose-pre:bg-paper prose-pre:border prose-pre:border-rule prose-strong:text-ink prose-li:text-graphite">
             <Content />
           </div>
 
           <!-- Tags -->
-          <div class="mt-10 pt-6 border-t border-rule flex flex-wrap gap-2 items-center">
+          <div class="mt-10 pt-6 border-t-2 border-ink flex flex-wrap gap-2 items-center">
             <span class="text-xs font-mono text-graphite">{isEn ? "Tags:" : "Etiquetas:"}</span>
             {entry.data.tags.map((tag) => (
               <span class="text-xs font-mono px-2.5 py-1  bg-paper-2 border border-rule text-graphite">
@@ -291,7 +291,7 @@ const articleSchema = {
 
           <!-- Contextual B2B Consulting CTA -->
           <div class="mt-8 p-6 sm:p-8  surface-card bg-paper-2 border border-rule text-center">
-            <h4 class="text-xl font-display font-normal text-ink mb-2">
+            <h4 class="text-xl font-display font-extrabold tracking-[-0.035em] text-ink mb-2">
               {isEn ? "Facing a similar challenge at your business?" : "¿Tienes un reto similar en tu empresa o negocio?"}
             </h4>
             <p class="text-xs sm:text-sm text-graphite font-normal mb-5 max-w-lg mx-auto leading-relaxed">
@@ -318,7 +318,7 @@ const articleSchema = {
           <!-- Related Posts -->
           {relatedPosts.length > 0 && (
             <div class="mt-14">
-              <h3 class="text-xl font-display font-normal text-ink mb-6 flex items-center gap-2">
+              <h3 class="text-xl font-display font-extrabold tracking-[-0.035em] text-ink mb-6 flex items-center gap-2">
                 <Icon name="bx:layer" class="w-4 h-4 text-ink" />
                 <span>{isEn ? "Related articles" : "Artículos relacionados"}</span>
               </h3>
@@ -331,7 +331,7 @@ const articleSchema = {
                     <span class="text-xs font-mono text-ink font-bold  tracking-wider">
                       {rel.data.category}
                     </span>
-                    <h4 class="text-base font-display font-normal text-ink group-hover:bg-brand transition-colors mt-1 leading-snug">
+                    <h4 class="text-base font-display font-extrabold tracking-[-0.035em] text-ink group-hover:bg-brand transition-colors mt-1 leading-snug">
                       {rel.data.title}
                     </h4>
                     <p class="text-xs text-graphite font-normal mt-2 line-clamp-2">
@@ -379,7 +379,7 @@ const articleSchema = {
           <!-- Quick Contact Pill in Sidebar -->
           <div class="p-5  surface-card bg-paper-2 border border-rule text-center">
             <p class="text-xs font-mono text-graphite  tracking-wider">{isEn ? "Need a custom development?" : "¿Necesitas un desarrollo a medida?"}</p>
-            <p class="text-sm font-display font-normal text-ink mt-1 mb-3">{isEn ? "Let's build it together" : "Creemos tu proyecto"}</p>
+            <p class="text-sm font-display font-extrabold tracking-[-0.035em] text-ink mt-1 mb-3">{isEn ? "Let's build it together" : "Creemos tu proyecto"}</p>
             <a href={href("/contact")} class="btn btn-brand btn-sm w-full font-bold">
               {isEn ? "Start project" : "Iniciar proyecto"}
             </a>

@@ -10,11 +10,11 @@ const { frontmatter } = Astro.props;
   <div class="px-5 py-12">
     <Container>
       <div class="mx-auto max-w-[760px] mt-8">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1  text-xs font-mono font-bold bg-brand text-ink border border-ink  tracking-wider">
+        <span class="sticker">
           {frontmatter.category}
         </span>
         <h1
-          class="display text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight mt-4 leading-tight">
+          class="h-page mt-6 !text-[clamp(2.4rem,6vw,4.6rem)]">
           {frontmatter.title}
         </h1>
         <div class="flex gap-2 mt-4 items-center flex-wrap text-xs font-mono text-graphite">

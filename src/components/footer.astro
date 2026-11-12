@@ -16,6 +16,7 @@ const withSlash = (path: string) => {
 const to = (path: string) => withSlash(localizePath(path, locale));
 
 const services = getServicesData(locale);
+const fromPrice = Math.min(...services.map((s) => s.creationPriceNumber));
 
 const socialLinks = [
   { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram" },
@@ -25,7 +26,8 @@ const socialLinks = [
 const newTab = isEn ? "opens in a new tab" : "se abre en pestaña nueva";
 
 const navLinks = [
-  { title: isEn ? "Services & pricing" : "Servicios y precios", path: "/pricing" },
+  { title: isEn ? "Services" : "Servicios", path: "/servicios" },
+  { title: isEn ? "Pricing" : "Precios", path: "/pricing" },
   { title: isEn ? "Projects" : "Proyectos", path: "/projectes" },
   { title: "Blog", path: "/blog" },
   { title: isEn ? "About me" : "Sobre mí", path: "/about" },
@@ -43,32 +45,37 @@ const legalLinks = [
   { title: isEn ? "Quality & accessibility" : "Calidad y accesibilidad", path: "/qualitat" },
   { title: "RSS", path: "/rss.xml" },
 ];
-const linkCls = "inline-flex min-h-9 items-center text-[1rem] text-paper underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-ink";
-const headCls = "font-mono text-[0.85rem] text-graphite";
+const linkCls = "inline-flex min-h-9 items-center text-[1rem] text-paper underline decoration-transparent decoration-[3px] underline-offset-4 hover:decoration-brand";
+const headCls = "label !text-brand";
+const t = isEn
+  ? { big: "Let's talk?", sub: "Tell me what you need. Scope, price and timeline in under 24 business hours.", mail: "Write to me", form: "Send the form", from: "from", by: "Websites by" }
+  : { big: "¿Hablamos?", sub: "Cuéntame qué necesitas. Alcance, precio y plazo en menos de 24 horas laborables.", mail: "Escríbeme", form: "Enviar el formulario", from: "desde", by: "Webs por" };
 ---
 
-<footer class="ink-block on-dark mt-auto">
+<footer class="ink-block on-dark relative mt-auto overflow-hidden">
   <div class="wrap pb-10 pt-16 sm:pt-24">
-    <div class="grid gap-14 lg:grid-cols-12">
-      <div class="lg:col-span-5">
-        <p class="font-display text-[clamp(2.5rem,5vw,4rem)] font-normal leading-[0.9]" style="font-stretch:75%">
-          {isEn ? "Let's build the site your business needs." : "Hagamos la web que tu negocio necesita."}
+    <div class="relative grid gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-6">
+        <span class="badge-burst" style="--size:7.5rem;--rot:-8deg"><small>{t.from}</small><strong>{isEn ? `€${fromPrice}` : `${fromPrice} €`}</strong></span>
+        <p class="mt-6 font-display text-[clamp(4rem,12vw,11rem)] font-extrabold leading-[0.82] tracking-[-0.06em]">
+          <span class="text-brand">{t.big}</span>
         </p>
-        <a href="mailto:jaumetur3w@gmail.com" class="btn btn-brand mt-8 w-full sm:w-auto">
-          <Icon name="bx:envelope" class="h-5 w-5" aria-hidden="true" />
-          <span>jaumetur3w@gmail.com</span>
-        </a>
-        <p class="mt-5">
-          <a href="https://wa.me/34644525838" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2.5 text-[1rem] text-paper underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-ink">
-            <Icon name="bx:bxl-whatsapp" class="h-5 w-5" aria-hidden="true" />
-            <span>WhatsApp +34 644 525 838</span><span class="sr-only"> ({newTab})</span>
+        <p class="lede mt-8 !text-[#d6d6cc]">{t.sub}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="mailto:jaumetur3w@gmail.com" class="btn btn-brand">
+            <Icon name="bx:envelope" class="h-5 w-5" aria-hidden="true" />
+            <span>{t.mail}</span>
           </a>
+          <a href={to("/contact")} class="btn btn-white">{t.form}</a>
+        </div>
+        <p class="mt-5 font-mono text-[0.9rem] text-[#d6d6cc]">
+          jaumetur3w@gmail.com · <a href="https://wa.me/34644525838" target="_blank" rel="noopener noreferrer" class="underline decoration-[2px] underline-offset-4 hover:decoration-brand">WhatsApp +34 644 525 838<span class="sr-only"> ({newTab})</span></a>
         </p>
-        <ul class="mt-4 flex items-center gap-2">
+        <ul class="mt-6 flex items-center gap-2">
           {socialLinks.map((item) => (
             <li>
               <a href={item.path} target="_blank" rel="noopener noreferrer"
-                 class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-paper text-paper hover:bg-brand hover:border-ink hover:text-ink"
+                 class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-paper text-paper transition-transform hover:-translate-y-1 hover:-rotate-6 hover:border-brand hover:bg-brand hover:text-ink"
                  aria-label={`${item.title} (${newTab})`}>
                 <Icon name={item.icon} class="h-5 w-5" aria-hidden="true" />
               </a>
@@ -77,7 +84,7 @@ const headCls = "font-mono text-[0.85rem] text-graphite";
         </ul>
       </div>
 
-      <nav class="lg:col-span-3" aria-label={isEn ? "Services" : "Servicios"}>
+      <nav class="lg:col-span-2 lg:col-start-8" aria-label={isEn ? "Services" : "Servicios"}>
         <h2 class={headCls}>{isEn ? "Services" : "Servicios"}</h2>
         <ul class="mt-4">
           {services.map((s) => (
@@ -105,18 +112,18 @@ const headCls = "font-mono text-[0.85rem] text-graphite";
       </nav>
     </div>
 
-    <div class="mt-16 flex flex-col gap-4 border-t border-paper/40 pt-6 text-sm md:flex-row md:items-center md:justify-between">
-      <p class="text-graphite">© {currentYear} Jaume Tur · Xàtiva, València</p>
+    <div class="mt-16 flex flex-col gap-4 border-t-2 border-paper/30 pt-6 text-sm md:flex-row md:items-center md:justify-between">
+      <p class="text-[#d6d6cc]">© {currentYear} Jaume Tur · Xàtiva, València · <span class="font-display font-bold text-brand">{t.by} Jaume Tur</span></p>
       <nav aria-label="Legal">
         <ul class="flex flex-wrap gap-x-6 gap-y-1">
           {legalLinks.map((item) => (
-            <li><a href={to(item.path)} class="inline-flex min-h-9 items-center text-paper underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-ink">{item.title}</a></li>
+            <li><a href={to(item.path)} class="inline-flex min-h-9 items-center text-paper underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-brand">{item.title}</a></li>
           ))}
           <li>
             <button
               type="button"
               data-open-cookie-settings
-              class="inline-flex min-h-9 items-center text-paper underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-ink"
+              class="inline-flex min-h-9 items-center text-paper underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-brand"
             >
               {isEn ? "Cookie settings" : "Configurar cookies"}
             </button>
@@ -125,4 +132,6 @@ const headCls = "font-mono text-[0.85rem] text-graphite";
       </nav>
     </div>
   </div>
+  <!-- Nombre gigante recortado por el borde inferior -->
+  <p class="pointer-events-none select-none whitespace-nowrap px-[var(--gutter)] font-display text-[clamp(5rem,18vw,18rem)] font-extrabold leading-[0.7] tracking-[-0.07em] text-brand" aria-hidden="true" style="margin-bottom:-0.18em">JAUME TUR</p>
 </footer>

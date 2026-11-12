@@ -11,14 +11,16 @@ const to = (p: string) => {
 ---
 
 <Layout fresh title={isEn ? "404 — Page not found" : "404 — Página no encontrada"}>
-  <section class="flex min-h-[70vh] items-center py-16">
-    <div class="wrap">
-      <p class="num font-display text-[clamp(6rem,24vw,16rem)] font-normal leading-[0.85] text-ink" style="font-stretch:78%" aria-hidden="true">404</p>
-      <h1 class="h-section mt-4 max-w-2xl">{isEn ? "This page does not exist." : "Esta página no existe."}</h1>
-      <p class="lede mt-4">{isEn ? "It may have moved, or the address is wrong. Pick up from here:" : "Puede que se haya movido o que la dirección sea incorrecta. Sigue desde aquí:"}</p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href={to("/")} class="btn btn-brand">{isEn ? "Back to home" : "Volver al inicio"}</a>
-        <a href={to("/pricing")} class="btn btn-white">{isEn ? "Services & pricing" : "Servicios y precios"}</a>
+  <section class="sign relative flex min-h-[78vh] items-center overflow-hidden py-16">
+    <div class="shape-disc -right-[8%] -top-[20%] hidden h-[30rem] w-[30rem] lg:block" aria-hidden="true"></div>
+    <div class="wrap relative">
+      <span class="plate" data-stick>{isEn ? "Wrong turn" : "Calle cortada"}</span>
+      <p class="num mt-4 font-display text-[clamp(7rem,28vw,20rem)] font-extrabold leading-[0.8] tracking-[-0.08em]" aria-hidden="true">404</p>
+      <h1 class="h-section mt-6 max-w-2xl">{isEn ? "This page does not exist." : "Esta página no existe."}</h1>
+      <p class="lede mt-4 !text-ink">{isEn ? "It may have moved, or the address is wrong. Pick up from here:" : "Puede que se haya movido o que la dirección sea incorrecta. Sigue desde aquí:"}</p>
+      <div class="glass mt-8 inline-flex flex-wrap gap-3 p-4 rotate-[-1deg]">
+        <a href={to("/")} class="btn btn-ink">{isEn ? "Back to home" : "Volver al inicio"}</a>
+        <a href={to("/pricing")} class="btn btn-white">{isEn ? "Pricing" : "Precios"}</a>
         <a href={to("/contact")} class="btn btn-white">{isEn ? "Contact" : "Contacto"}</a>
       </div>
     </div>

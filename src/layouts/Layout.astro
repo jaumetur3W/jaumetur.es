@@ -236,8 +236,7 @@ const websiteSchema = {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#fdfdfb" />
-    <link rel="preload" href="/fonts/bricolage-latin-wdth.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#ffff00" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>
       document.documentElement.classList.add("js");
@@ -359,18 +358,20 @@ const websiteSchema = {
       {isEn ? "Skip to main content" : "Saltar al contenido principal"}
     </a>
     {intro && (
-      <div id="intro" aria-hidden="true" class="items-center justify-center bg-brand text-ink">
-        <p class="font-display text-[clamp(3.5rem,12vw,11rem)] leading-none">Jaume<span class="italic"> </span>Tur</p>
+      <div id="intro" aria-hidden="true" class="relative items-center justify-center overflow-hidden bg-brand text-ink">
+        <p class="relative font-display text-[clamp(3.5rem,13vw,12rem)] font-extrabold leading-[0.85] tracking-[-0.05em]">
+          <span class="inline-block overflow-hidden pb-[0.1em] align-top"><span class="intro-word">Jaume</span></span>
+          <span class="inline-block overflow-hidden pb-[0.1em] align-top"><span class="intro-word">Tur</span></span>
+        </p>
+        <span data-intro-stamp class="badge-burst absolute left-1/2 top-1/2 ml-[clamp(5rem,20vw,19rem)] mt-[clamp(-7rem,-10vw,-9rem)] !bg-ink !text-brand" style="--rot:-10deg"><small>Web</small><strong>Studio</strong></span>
       </div>
     )}
     <Navbar />
     <main id="main-content" class="relative isolate flex-1 outline-none" tabindex="-1" data-fresh={fresh ? "" : undefined}>
-      <div class="ambient ambient--page" aria-hidden="true"><i></i><i></i><i></i></div>
       <slot />
     </main>
     <Footer />
     <CookieConsent />
-    <div data-cursor class="cursor" aria-hidden="true"><span data-cursor-bubble class="cursor-bubble"></span></div>
     <script>
       import "@/scripts/motion";
     </script>

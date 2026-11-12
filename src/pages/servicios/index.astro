@@ -47,13 +47,13 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[breadcrumb]}>
-  <PageHeader title={t.h1} lede={t.lead} />
+  <PageHeader tone="paper" title={t.h1} lede={t.lead} sticker={t.eyebrow} stickers={[isEn ? "3 kinds of service" : "3 tipos de servicio", isEn ? "Fixed price" : "Precio cerrado"]} />
 
   <section class="section" aria-label={t.eyebrow}>
     <div class="wrap">
       <ServicesGrid isEn={isEn} />
-      <p class="mt-10">
-        <a href={to("/pricing")} class="btn btn-white">{t.prices}</a>
+      <p class="mt-12">
+        <a href={to("/pricing")} class="btn btn-brand btn-lg">{t.prices}</a>
       </p>
     </div>
   </section>

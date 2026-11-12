@@ -6,6 +6,7 @@ import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
 import CaseStudyTemplate from "@/components/case-study-template.astro";
 import { localeFromPath, localizePath } from "@/i18n";
+import { projectThemes } from "@/data/project-themes";
 
 export async function getStaticPaths() {
   const allProjects = await getCollection("projectes");
@@ -41,6 +42,9 @@ const projectImages: Record<string, string> = {
   "pipeline-cicd": "/img/preview-pipeline.webp",
 };
 const cover = projectImages[entry.id];
+const appTheme = projectThemes[entry.id];
+const lang = isEn ? "en" : "es";
+const themeStyle = appTheme ? Object.entries(appTheme.vars).map(([k, v]) => `${k}:${v}`).join(";") : undefined;
 const shortTitle = (x: string) => x.split(" — ")[0];
 
 const serviceFor =
@@ -91,7 +95,21 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
-  <header class="border-b border-rule pb-12 pt-8 sm:pb-16">
+  <div class:list={[appTheme && "theme-app"]} style={themeStyle} data-app-theme={appTheme ? entry.id : undefined}>
+  {appTheme && (
+    <div class="app-bar" aria-hidden="true">
+      <div class="wrap flex items-center gap-3 py-2.5">
+        <span class="app-logo"><Icon name={entry.data.icon} class="h-4 w-4" /></span>
+        <span class="app-name">{appTheme.name}</span>
+        <span class="ml-3 hidden gap-1 md:flex">
+          {appTheme.tabs[lang].map((tab) => <span class="app-tab">{tab}</span>)}
+        </span>
+        <span class="app-note ml-auto hidden sm:inline">{isEn ? "case study view" : "vista de caso de estudio"}</span>
+        <span class="app-pill">{appTheme.action[lang]}</span>
+      </div>
+    </div>
+  )}
+  <header class="relative border-b-[3px] border-ink pb-12 pt-8 sm:pb-16">
     <div class="wrap">
       <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-graphite">
         <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.home}</a><span aria-hidden="true">/</span>
@@ -113,7 +131,7 @@ const breadcrumb = {
         </div>
         {cover && (
           <div class="lg:col-span-6">
-            <div class="overflow-hidden  border border-rule bg-paper-2">
+            <div class="frame">
               <img src={cover} alt={entry.data.image.alt} width="1200" height="750" class="aspect-[16/10] w-full object-cover" fetchpriority="high" decoding="async" />
             </div>
           </div>
@@ -137,7 +155,7 @@ const breadcrumb = {
       </p>
 
       {(d as any).problem && (d as any).solution && (d as any).result && (
-        <div class="mt-12 border-t border-rule pt-10">
+        <div class="mt-12 border-t-2 border-ink pt-10">
           <CaseStudyTemplate
             problem={isEn ? (d as any).problem_en || (d as any).problem : (d as any).problem}
             solution={isEn ? (d as any).solution_en || (d as any).solution : (d as any).solution}
@@ -153,6 +171,7 @@ const breadcrumb = {
       </div>
     </div>
   </section>
+  </div>
 
   <CtaBand
     title={t.ctaTitle}
@@ -161,8 +180,8 @@ const breadcrumb = {
     secondary={{ href: to("/contact"), label: t.ctaB }}
   />
 
-  <nav aria-label={t.projects} class="wrap grid gap-6 border-t border-rule py-10 sm:grid-cols-2">
-    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-normal leading-tight group-hover:bg-brand" style="font-stretch:84%">{shortTitle(prev.data.title)}</span></a>
-    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-normal leading-tight group-hover:bg-brand" style="font-stretch:84%">{shortTitle(next.data.title)}</span></a>
+  <nav aria-label={t.projects} class="wrap grid gap-6 border-t-2 border-ink py-10 sm:grid-cols-2">
+    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-extrabold tracking-[-0.035em] leading-tight group-hover:bg-brand">{shortTitle(prev.data.title)}</span></a>
+    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-extrabold tracking-[-0.035em] leading-tight group-hover:bg-brand">{shortTitle(next.data.title)}</span></a>
   </nav>
 </Layout>

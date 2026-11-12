@@ -59,7 +59,10 @@ const t = isEn ? {
 ---
 
 <section class="pricing-section">
-  <h2>{t.title}</h2>
+  <div class="pricing-head">
+    <span class="sticker sticker-ink stick-in" style="--rot:-3deg">{isEn ? "No hidden fees" : "Sin letra pequeña"}</span>
+    <h2>{t.title}</h2>
+  </div>
 
   <div class="pricing-table-wrapper">
     <table class="pricing-table">
@@ -83,12 +86,12 @@ const t = isEn ? {
                 <strong>{serviceNameMap[tier.service_id] || tier.service_id}</strong>
               </td>
               <td class="pricing">
-                <span class="amount">€{tier.initial_cost}</span>
-                <span class="label">{initialLabel}</span>
+                <span class="amount num">{isEn ? `€${tier.initial_cost}` : `${tier.initial_cost} €`}</span>
+                <span class="sub">{initialLabel}</span>
               </td>
               <td class="pricing">
-                <span class="amount">€{tier.monthly_cost}</span>
-                <span class="label">{monthlyLabel} / {isEn ? 'month' : 'mes'}</span>
+                <span class="amount num">{isEn ? `€${tier.monthly_cost}` : `${tier.monthly_cost} €`}</span>
+                <span class="sub">{monthlyLabel} / {isEn ? 'month' : 'mes'}</span>
               </td>
               <td class="includes">
                 <ul>
@@ -98,7 +101,7 @@ const t = isEn ? {
                 </ul>
               </td>
               <td class="action">
-                <a href={`/contact?servei=${tier.service_id}`} class="btn btn-brand">
+                <a href={`${isEn ? "/en" : ""}/contact/?servei=${tier.service_id}`} class="btn btn-ink btn-sm">
                   {t.action}
                 </a>
               </td>
@@ -133,185 +136,94 @@ const t = isEn ? {
 </section>
 
 <style>
-  .pricing-section {
-    padding: 3rem 1.5rem;
-  }
-
+  .pricing-section { padding: 0; }
+  .pricing-head { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-bottom: 2rem; }
   .pricing-section h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    text-align: center;
+    font-size: clamp(2rem, 4.5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin: 0;
   }
 
   .pricing-table-wrapper {
     overflow-x: auto;
     margin-bottom: 3rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgb(255 255 255 / 0.2);
+    border: 3px solid var(--ink);
+    border-radius: 1.25rem;
+    background: var(--paper);
+    box-shadow: var(--hard-lg);
   }
 
-  .pricing-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-  }
+  .pricing-table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
 
-  .pricing-table thead {
-    background: rgb(255 255 255 / 0.05);
-    border-bottom: 2px solid rgb(255 255 255 / 0.2);
-  }
-
+  .pricing-table thead { background: var(--brand); border-bottom: 3px solid var(--ink); }
   .pricing-table th {
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     text-align: left;
-    font-weight: 600;
-    text-transform: ;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-    color: rgb(255 255 255 / 0.7);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
 
-  .pricing-table tbody tr {
-    border-bottom: 1px solid rgb(255 255 255 / 0.1);
-  }
+  .pricing-table tbody tr { border-bottom: 2px solid var(--ink); transition: background-color 0.2s; }
+  .pricing-table tbody tr:last-child { border-bottom: 0; }
+  .pricing-table tbody tr:hover { background: var(--paper-2); }
+  .pricing-table td { padding: 1.5rem 1.25rem; vertical-align: middle; }
 
-  .pricing-table tbody tr:hover {
-    background: rgb(255 255 255 / 0.03);
-  }
+  .service-name { min-width: 180px; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; }
 
-  .pricing-table td {
-    padding: 1.5rem 1rem;
-    vertical-align: middle;
-  }
-
-  .service-name {
-    font-weight: 600;
-    min-width: 180px;
-  }
-
-  .pricing {
-    text-align: right;
-    min-width: 120px;
-  }
-
+  .pricing { text-align: right; min-width: 130px; white-space: nowrap; }
   .pricing .amount {
     display: block;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
+  .pricing .sub { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--graphite); margin-top: 0.4rem; }
 
-  .pricing .label {
-    display: block;
-    font-size: 0.75rem;
-    color: rgb(255 255 255 / 0.6);
-    margin-top: 0.25rem;
-  }
-
-  .includes {
-    min-width: 250px;
-  }
-
-  .includes ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: rgb(255 255 255 / 0.8);
-  }
-
+  .includes { min-width: 250px; }
+  .includes ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.92rem; color: var(--graphite); }
+  .includes li { display: flex; gap: 0.6rem; align-items: baseline; }
   .includes li::before {
-    content: "✓ ";
-    color: var(--brand, var(--brand));
-    font-weight: bold;
-    margin-right: 0.5rem;
+    content: "";
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    background: var(--brand);
+    border: 2px solid var(--ink);
+    border-radius: 2px;
+    translate: 0 0.05rem;
   }
 
-  .action {
-    text-align: center;
-    min-width: 120px;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: var(--brand, var(--brand));
-    color: var(--ink);
-    text-decoration: none;
-    border-radius: 0.25rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.2s;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 0, 0.3);
-  }
+  .action { text-align: center; min-width: 120px; }
 
   .maintenance-terms {
-    background: rgb(255 255 255 / 0.05);
-    border-left: 4px solid var(--brand, var(--brand));
+    background: var(--brand);
+    border: 3px solid var(--ink);
+    border-radius: 1.25rem;
     padding: 2rem;
-    border-radius: 0.25rem;
+    box-shadow: var(--hard);
+    rotate: -0.6deg;
   }
-
-  .maintenance-terms h3 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-  }
-
-  .terms-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-  }
-
-  .term h4 {
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--brand, var(--brand));
-  }
-
-  .term ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: rgb(255 255 255 / 0.8);
-  }
-
-  .term ul li::before {
-    content: "• ";
-    margin-right: 0.5rem;
-  }
-
-  .term p {
-    color: rgb(255 255 255 / 0.8);
-  }
+  .maintenance-terms h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+  .terms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+  .term h4 { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.75rem; color: var(--ink); }
+  .term ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.95rem; }
+  .term ul li::before { content: "— "; }
+  .term p { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
 
   @media (max-width: 768px) {
-    .pricing-table {
-      font-size: 0.85rem;
-    }
-
-    .pricing-table th,
-    .pricing-table td {
-      padding: 0.75rem 0.5rem;
-    }
-
-    .includes {
-      min-width: 150px;
-    }
-
-    .includes ul {
-      font-size: 0.8rem;
-    }
+    .pricing-table { font-size: 0.85rem; }
+    .pricing-table th, .pricing-table td { padding: 0.85rem 0.75rem; }
+    .includes { min-width: 180px; }
+    .includes ul { font-size: 0.82rem; }
+    .pricing .amount { font-size: 1.35rem; }
   }
 </style>

@@ -51,18 +51,22 @@ const tierGroups = tierOrder.map((tier) => ({ tier, list: items.filter((i: any) 
 
 <div class="services-index grid gap-12 lg:grid-cols-12 lg:gap-16">
   <div class="lg:col-span-7">
-    {tierGroups.map((g) => (
-      <div class="mb-14 last:mb-0">
-        <p class="meta mb-4">{g.list[0].tierLabel}</p>
-        <ul class="border-t-2 border-ink">
-          {g.list.map((it: any, i: number) => (
-            <li class="border-b border-rule">
-              <a href={detailHref(it.id)} data-svc-row={it.id} class="svc-row grid grid-cols-[2.5rem_1fr] gap-x-4 py-6 sm:grid-cols-[3.5rem_1fr] lg:py-8">
-                <span class="meta pt-2">{String(items.indexOf(it) + 1).padStart(2, "0")}</span>
+    {tierGroups.map((g, gi) => (
+      <div class="mb-14 last:mb-0" data-reveal>
+        <span class:list={["sticker mb-5", gi % 2 ? "sticker-paper" : "sticker-ink"]} style={`--rot:${gi % 2 ? "2deg" : "-2deg"}`}>{g.list[0].tierLabel}</span>
+        <ul class="border-t-[3px] border-ink">
+          {g.list.map((it: any) => (
+            <li class="border-b-2 border-ink">
+              <a href={detailHref(it.id)} data-svc-row={it.id} class="svc-row grid grid-cols-[2.5rem_1fr] gap-x-4 py-6 sm:grid-cols-[3.5rem_1fr_auto] lg:py-8">
+                <span class="font-display text-[0.9rem] font-extrabold pt-2">{String(items.indexOf(it) + 1).padStart(2, "0")}</span>
                 <span class="min-w-0">
                   <span class="h-card block">{it.name}</span>
-                  <span class="mt-2 block text-[1.02rem] leading-relaxed text-graphite">{it.problem}</span>
-                  <span class="price-figure mt-3 block text-[1.6rem]">{it.creation}</span>
+                  <span class="mt-2 block max-w-[52ch] text-[1.02rem] leading-relaxed text-graphite">{it.problem}</span>
+                  <span class="price-figure mt-3 block text-[1.6rem] sm:hidden">{it.creation}</span>
+                </span>
+                <span class="hidden self-start text-right sm:block">
+                  <span class="label block">{isEn ? "from" : "desde"}</span>
+                  <span class="price-figure block text-[1.7rem]">{it.creation}</span>
                 </span>
               </a>
             </li>
@@ -73,9 +77,10 @@ const tierGroups = tierOrder.map((tier) => ({ tier, list: items.filter((i: any) 
   </div>
 
   <aside class="hidden lg:col-span-5 lg:block">
-    <div class="sheet sticky top-28" data-svc-panel>
+    <div class="sheet sticky top-28 rotate-[1deg]" data-svc-panel>
       <div class="sheet-head flex items-center justify-between">
-        <span class="font-mono text-[0.85rem]">{t.preview}</span>
+        <span class="label !text-ink">{t.preview}</span>
+        <span class="h-3 w-3 rounded-full border-2 border-ink bg-paper" aria-hidden="true"></span>
       </div>
       <div class="px-7 pb-8 pt-7">
         <h3 class="h-card" data-f="name">{first.name}</h3>

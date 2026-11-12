@@ -1,18 +1,37 @@
 ---
-/** Cabecera de página interior: cuadrícula de fondo, filete amarillo, titular grande y entradilla. */
+/**
+ * Cabecera de página interior. Cada página elige un tono distinto (sin rejillas ni líneas finas):
+ *  yellow → bloque amarillo con disco; ink → bloque negro con cuarto de círculo; paper → papel con bloque amarillo en la esquina.
+ */
 export interface Props {
   title: string;
   lede?: string;
+  sticker?: string;
+  stickers?: string[];
+  tone?: "yellow" | "ink" | "paper";
 }
-const { title, lede } = Astro.props;
+const { title, lede, sticker, stickers = [], tone = "paper" } = Astro.props;
+const toneClass = tone === "yellow" ? "sign" : tone === "ink" ? "ink-block" : "";
+const extras = ["stamp-box", "tag-ticket tag-ticket-brand", "plate"];
+const rots = ["-2deg", "1.5deg", "0deg"];
 ---
 
-<header class="bg-grid relative border-b border-[var(--line)] pb-14 pt-14 sm:pb-20 sm:pt-24">
-  <div class="wrap">
-    <span class="mb-8 block h-1 w-16 bg-brand" aria-hidden="true"></span>
+<header class:list={["relative overflow-hidden border-b-[3px] border-ink pb-14 pt-12 sm:pb-20 sm:pt-20", toneClass]}>
+  {tone === "yellow" && <div class="shape-disc -right-[8%] top-[-30%] hidden h-[34rem] w-[34rem] lg:block" aria-hidden="true"></div>}
+  {tone === "ink" && <div class="shape-quarter -bottom-[2px] right-0 hidden h-[16rem] w-[16rem] lg:block" aria-hidden="true"></div>}
+  {tone === "paper" && <div class="shape-quarter -bottom-[2px] right-0 hidden h-[14rem] w-[14rem] lg:block" aria-hidden="true"></div>}
+  <div class="wrap relative">
     <slot name="crumbs" />
-    <h1 class="h-page max-w-[18ch] sm:max-w-4xl">{title}</h1>
+    {sticker && <span class:list={["mb-6", tone === "ink" ? "tag-ticket tag-ticket-brand" : "tag-ticket"]} data-stick>{sticker}</span>}
+    <h1 class="h-page max-w-[16ch]">{title}</h1>
     {lede && <p class="lede mt-7">{lede}</p>}
+    {stickers.length > 0 && (
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        {stickers.map((s, i) => (
+          <span class={extras[i % extras.length]} style={`--rot:${rots[i % 3]}`}>{s}</span>
+        ))}
+      </div>
+    )}
     <slot />
   </div>
 </header>

@@ -1,24 +1,30 @@
 ---
-/** Cierre de página: pregunta, una frase y dos acciones. */
+/** Cierre de página: bloque amarillo con titular XXL, cartel y tarjeta de vidrio con las acciones. */
 export interface Props {
   title: string;
   text?: string;
   primary: { href: string; label: string; external?: boolean };
   secondary?: { href: string; label: string; external?: boolean };
+  sticker?: string;
 }
-const { title, text, primary, secondary } = Astro.props;
+const { title, text, primary, secondary, sticker } = Astro.props;
 import UiIcon from "@/components/ui-icon.astro";
+import { localeFromPath } from "@/i18n";
+const isEn = localeFromPath(Astro.url.pathname) === "en";
 const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer" } : {});
+const stick = sticker ?? (isEn ? "Reply < 24 h" : "Respuesta < 24 h");
 ---
 
-<section class="section border-t border-rule" aria-labelledby="cta-band-title">
-  <div class="wrap grid items-end gap-8 lg:grid-cols-12">
-    <div class="lg:col-span-8">
-      <h2 id="cta-band-title" class="h-section">{title}</h2>
-      {text && <p class="lede mt-5">{text}</p>}
+<section class="sign relative overflow-hidden border-t-[3px] border-ink" aria-labelledby="cta-band-title">
+  <div class="shape-disc -bottom-[40%] -right-[6%] hidden h-[26rem] w-[26rem] lg:block" aria-hidden="true"></div>
+  <div class="wrap relative grid items-end gap-10 py-20 sm:py-28 lg:grid-cols-12">
+    <div class="lg:col-span-7">
+      <span class="plate" data-stick>{stick}</span>
+      <h2 id="cta-band-title" class="h-section mt-6" data-split>{title}</h2>
+      {text && <p class="lede mt-6 !text-ink">{text}</p>}
     </div>
-    <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
-      <a href={primary.href} class="btn btn-brand" {...ext(primary.external)}>{primary.label} <UiIcon name="arrow" /></a>
+    <div class="glass flex flex-wrap gap-3 p-5 lg:col-span-5 lg:justify-end">
+      <a href={primary.href} class="btn btn-ink" {...ext(primary.external)}>{primary.label} <UiIcon name="arrow" /></a>
       {secondary && <a href={secondary.href} class="btn btn-white" {...ext(secondary.external)}>{secondary.label}</a>}
     </div>
   </div>

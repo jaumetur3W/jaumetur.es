@@ -63,24 +63,27 @@ const list = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[list]}>
-  <PageHeader title={t.h1} lede={t.lead} />
+  <PageHeader tone="ink" title={t.h1} lede={t.lead} sticker={t.eyebrow} stickers={[`${projects.length} ${isEn ? "projects" : "proyectos"}`, isEn ? "Live demos" : "Demos en vivo"]} />
 
   <section class="section" aria-label={t.eyebrow}>
-    <ul class="wrap grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-12">
+    <ul class="wrap grid gap-x-10 gap-y-20 sm:grid-cols-2 lg:grid-cols-12">
       {featuredProjects.map((p, i) => {
         const isWide = i === 0 || i === 3;
+        const rot = ["rotate-[-1.5deg]", "rotate-[1.5deg]", "rotate-[-1deg]", "rotate-[1deg]"][i % 4];
         return (
-          <li class:list={[isWide ? "sm:col-span-2 lg:col-span-12" : "lg:col-span-6"]}>
-            <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-6", isWide ? "lg:grid-cols-12 lg:items-center lg:gap-12" : ""]}>
-              <div class:list={["overflow-hidden border border-[var(--line)] bg-[var(--bg-raised)]", isWide ? "lg:col-span-7" : ""]}>
-                <img src={projectImages[p.id]} alt="" width="1200" height="750" loading={i < 2 ? "eager" : "lazy"} decoding="async" class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          <li class:list={["reveal", isWide ? "sm:col-span-2 lg:col-span-12" : "lg:col-span-6"]}>
+            <a href={to(`/projectes/${p.id}`)} class:list={["group grid h-full gap-8", isWide ? "lg:grid-cols-12 lg:items-center lg:gap-14" : ""]}>
+              <div class:list={["relative", isWide ? "lg:col-span-7" : ""]}>
+                <div class:list={["frame lift", rot]}>
+                  <img src={projectImages[p.id]} alt="" width="1200" height="750" loading={i < 2 ? "eager" : "lazy"} decoding="async" class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                </div>
+                <span class:list={["sticker absolute -top-4 left-4", i === 0 ? "" : "sticker-paper"]} style={`--rot:${i % 2 ? "4deg" : "-5deg"}`}>{i === 0 ? t.flagship : p.data.badge}</span>
               </div>
               <div class:list={["flex flex-col", isWide ? "lg:col-span-5" : ""]}>
                 <p class="label flex flex-wrap items-center gap-3">
-                  {i === 0 && <span class="chip chip-brand !normal-case !tracking-normal">{t.flagship}</span>}
-                  <span>{p.data.badge}</span>
+                  <span>{p.data.badge}</span><span aria-hidden="true">·</span><span>{p.data.year}</span>
                 </p>
-                <h2 class:list={["mt-3 font-display font-normal leading-[1.02] group-hover:bg-brand", isWide ? "text-[2.4rem] sm:text-[3rem]" : "text-[2rem] sm:text-[2.4rem]"]} style="font-stretch:80%">{shortTitle(p.data.title)}</h2>
+                <h2 class:list={["mt-3 font-display font-extrabold leading-[0.95] tracking-[-0.04em]", isWide ? "text-[2.4rem] sm:text-[3.4rem]" : "text-[2rem] sm:text-[2.5rem]"]}><span class="link-hl !font-extrabold">{shortTitle(p.data.title)}</span></h2>
                 <p class="muted mt-3 max-w-xl leading-relaxed">{p.data.subtitle}</p>
                 <p class="faint mt-3 text-[0.9rem] font-mono">{p.data.stack.slice(0, 4).join(" · ")}</p>
                 <p class="link-arrow mt-4">{t.view} <UiIcon name="arrow" aria-hidden="true" /></p>
@@ -93,15 +96,15 @@ const list = {
   </section>
 
   {secondaryProjects.length > 0 && (
-    <section class="section border-t border-rule pt-12 sm:pt-16" aria-labelledby="other-projects-title">
+    <section class="section rule-t" aria-labelledby="other-projects-title">
       <div class="wrap">
-        <div class="max-w-2xl">
-          <p class="eyebrow">{t.secondaryEyebrow}</p>
-          <h2 id="other-projects-title" class="h-section mt-3">{t.secondaryHeading}</h2>
-          <p class="muted mt-3 leading-relaxed">{t.secondaryDesc}</p>
+        <div class="max-w-2xl reveal">
+          <span class="sticker sticker-ink" style="--rot:-2deg">{t.secondaryEyebrow}</span>
+          <h2 id="other-projects-title" class="h-section mt-5">{t.secondaryHeading}</h2>
+          <p class="lede mt-5">{t.secondaryDesc}</p>
         </div>
 
-        <div class="mt-10 border-b border-rule">
+        <div class="mt-12 border-b-2 border-ink">
           {secondaryProjects.map((p) => (
             <article class="flex">
               <a href={to(`/projectes/${p.id}`)} class="item w-full lg:grid-cols-12 lg:items-baseline">
@@ -110,7 +113,7 @@ const list = {
                   <span class="faint mt-1 block font-mono text-[0.8rem]">{p.data.year} · {p.data.client}</span>
                 </div>
                 <div class="lg:col-span-6">
-                  <h3 class="font-display text-[1.4rem] font-normal leading-tight sm:text-[1.6rem]" style="font-stretch:82%">{shortTitle(p.data.title)}</h3>
+                  <h3 class="h-card">{shortTitle(p.data.title)}</h3>
                   <p class="muted mt-1.5 leading-relaxed text-[0.95rem]">{p.data.subtitle}</p>
                   <p class="faint mt-2 font-mono text-[0.82rem]">{p.data.stack.slice(0, 4).join(" · ")}</p>
                 </div>

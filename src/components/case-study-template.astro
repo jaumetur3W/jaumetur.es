@@ -12,16 +12,19 @@ const { problem, solution, result, technologies, year } = Astro.props;
 
 <article class="case-study">
   <section class="problem">
+    <span class="label">01</span>
     <h2>El Problema</h2>
     <p>{problem}</p>
   </section>
 
   <section class="solution">
+    <span class="label">02</span>
     <h2>La Solución</h2>
     <p>{solution}</p>
   </section>
 
   <section class="result">
+    <span class="label">03</span>
     <h2>El Resultado</h2>
     <p class="highlight">{result}</p>
   </section>
@@ -39,88 +42,54 @@ const { problem, solution, result, technologies, year } = Astro.props;
 </article>
 
 <style>
-  .case-study {
-    max-width: 48rem;
-    margin: 2rem 0;
+  .case-study { max-width: 48rem; margin: 2rem 0; }
+  section { margin-bottom: 2.5rem; }
+  .problem, .solution, .result { border-top: 3px solid var(--ink); padding-top: 1rem; }
+  .problem h2, .solution h2, .result h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0.4rem 0 0.9rem;
   }
-
-  section {
-    margin-bottom: 2rem;
-  }
-
-  .problem h2,
-  .solution h2,
-  .result h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  .problem p,
-  .solution p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgb(255 255 255 / 0.8);
-  }
-
+  .problem p, .solution p { font-size: 1.05rem; line-height: 1.6; color: var(--graphite); }
   .result .highlight {
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 1rem;
-    background: rgb(255 255 0 / 0.1);
-    border-left: 4px solid var(--brand, var(--brand));
-    border-radius: 0.25rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.35;
+    padding: 1.25rem 1.5rem;
+    background: var(--brand);
+    color: var(--on-brand);
+    border: var(--bw, 3px) solid var(--ink);
+    border-radius: var(--radius, 1rem);
+    box-shadow: var(--hard);
+    rotate: -1deg;
   }
-
   .tech {
-    background: rgb(255 255 255 / 0.05);
+    background: var(--paper);
+    border: var(--bw, 2px) solid var(--ink);
     padding: 1.5rem;
-    border-radius: 0.25rem;
+    border-radius: var(--radius, 1rem);
+    box-shadow: var(--hard-sm);
     margin-bottom: 1rem;
   }
-
   .tech h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--brand, var(--brand));
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+    color: var(--graphite);
   }
-
-  .tech ul {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.5rem;
-    font-size: 0.9rem;
-  }
-
+  .tech ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.9rem; }
   .tech li {
-    background: rgb(255 255 255 / 0.08);
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    border: 1px solid rgb(255 255 255 / 0.1);
+    padding: 0.35rem 0.8rem;
+    border: var(--bw, 2px) solid var(--ink);
+    border-radius: var(--chip-r, 999px);
+    font-family: var(--font-display);
+    font-weight: 700;
+    background: var(--paper);
   }
-
-  .year {
-    font-size: 0.9rem;
-    color: rgb(255 255 255 / 0.6);
-    margin-top: 2rem;
-  }
-
-  @media (max-width: 640px) {
-    section {
-      margin-bottom: 1.5rem;
-    }
-
-    .problem h2,
-    .solution h2,
-    .result h2 {
-      font-size: 1.25rem;
-    }
-
-    .tech ul {
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-  }
+  .tech li:nth-child(3n + 1) { background: var(--brand); color: var(--on-brand); }
+  .year { font-family: var(--font-mono); font-size: 0.9rem; color: var(--graphite); margin-top: 2rem; }
 </style>

@@ -34,46 +34,50 @@ const t = isEn
   ? {
       title: "About Jaume Tur — web developer in Xàtiva and Valencia",
       desc: "Jaume Tur is a web and application developer based in Xàtiva (Valencia), with a DAW higher certificate and an SMX certificate. Websites, apps and backend.",
-      eyebrow: "About me", h1: "Jaume Tur, web developer in Xàtiva and Valencia.",
+      eyebrow: "About me", h1: "Jaume Tur. Web developer. Xàtiva.",
       bio: "I am a software developer based in Xàtiva (Valencia), specialising in web development, custom applications and systems. My intermediate certificate in Microcomputer Systems and Networks (SMX) gives me a solid command of servers, networks and reliability, which I complement with the Higher Technical Certificate in Web Application Development (DAW) to build fast websites, reactive interfaces and robust backend services for local businesses and remote teams.",
-      cv: "Download CV (PDF)", contact: "Get in touch", how: "Principles", howTitle: "How I approach every project", home: "Home", avail: "Available for projects",
+      cv: "Download CV (PDF)", contact: "Let's talk", how: "Principles", howTitle: "How I approach every project", home: "Home", avail: "Available for projects", me: "That's me",
     }
   : {
       title: "Sobre Jaume Tur — desarrollador web en Xàtiva y Valencia",
       desc: "Jaume Tur es desarrollador web y de aplicaciones en Xàtiva (Valencia), con CFGS DAW y Grado Medio SMX. Páginas web, aplicaciones y backend.",
-      eyebrow: "Sobre mí", h1: "Jaume Tur, desarrollador web en Xàtiva y Valencia.",
+      eyebrow: "Sobre mí", h1: "Jaume Tur. Desarrollador web. Xàtiva.",
       bio: "Soy desarrollador de software afincado en Xàtiva (Valencia), especializado en desarrollo web, aplicaciones a medida y sistemas. Mi titulación de Grado Medio en Sistemas Microinformáticos y Redes (SMX) me aporta un dominio sólido de servidores, redes y fiabilidad, que complemento con el CFGS en Desarrollo de Aplicaciones Web (DAW) para diseñar y programar páginas rápidas, interfaces reactivas y servicios backend robustos para negocios locales o empresas en remoto.",
-      cv: "Descargar CV (PDF)", contact: "Contactar", how: "Principios", howTitle: "Cómo enfoco cada proyecto", home: "Inicio", avail: "Disponible para proyectos",
+      cv: "Descargar CV (PDF)", contact: "Hablamos", how: "Principios", howTitle: "Cómo enfoco cada proyecto", home: "Inicio", avail: "Disponible para proyectos", me: "Este soy yo",
     };
 ---
 
 <Layout fresh title={t.title} description={t.desc}>
-  <header class="bg-grid relative border-b border-[var(--line)] pb-14 pt-14 sm:pb-20 sm:pt-24">
-    <span class="mb-8 block h-1 w-16 bg-brand" aria-hidden="true"></span>
-    <div class="wrap grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-      <div class="lg:col-span-8">
-        <h1 class="h-page">{t.h1}</h1>
-        <p class="lede mt-6 !max-w-2xl">{t.bio}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={to("/contact")} class="btn btn-brand">{t.contact} <UiIcon name="arrow" aria-hidden="true" /></a>
-          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.cv}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
+  <header class="relative overflow-hidden border-b-[3px] border-ink pb-16 pt-12 sm:pb-24 sm:pt-20">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-7">
+        <span class="tag-ticket" data-stick>{t.eyebrow}</span>
+        <h1 class="h-page mt-6">{t.h1}</h1>
+        <p class="lede mt-7 !max-w-2xl">{t.bio}</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href={to("/contact")} class="btn btn-ink btn-lg">{t.contact} <UiIcon name="arrow" aria-hidden="true" /></a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-white btn-lg">{t.cv}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
         </div>
       </div>
-      <div class="lg:col-span-4">
-        <div class="mx-auto aspect-square w-full max-w-72 overflow-hidden  border border-rule bg-paper-2">
-          <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" class="h-full w-full object-contain" fetchpriority="high" decoding="async" />
+      <div class="relative lg:col-span-5">
+        <div class="shape-disc left-[8%] top-[6%] h-[88%] w-[78%]" aria-hidden="true"></div>
+        <div class="relative mx-auto w-full max-w-[17rem] lg:ml-[12%] lg:max-w-[20rem]">
+          <div class="cutout aspect-[4/5] rotate-[3deg]">
+            <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="400" class="h-full w-full" fetchpriority="high" decoding="async" />
+          </div>
+          <span class="tape absolute -left-4 top-6" style="--rot:-8deg" data-stick>{t.me}</span>
+          <span class="stamp-box absolute -bottom-3 right-0 bg-paper" style="--rot:3deg" data-stick>{t.avail}</span>
         </div>
-        <p class="chip chip-brand mt-4"><span class="h-2 w-2  bg-paper" aria-hidden="true"></span>{t.avail}</p>
       </div>
     </div>
   </header>
 
-  <section class="border-b border-[var(--line)]" aria-label={isEn ? "Key facts" : "Datos clave"}>
+  <section class="sign border-b-[3px] border-ink" aria-label={isEn ? "Key facts" : "Datos clave"}>
     <dl class="wrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {facts.map((f) => (
-        <div class="border-b border-rule py-6 last:border-b-0 sm:pr-6 lg:border-b-0">
-          <dt class="label">{f.label}</dt>
-          <dd class="mt-1 font-display text-[1.35rem] font-normal leading-tight" style="font-stretch:88%">{f.val}</dd>
+      {facts.map((f, i) => (
+        <div class:list={["py-7 sm:pr-6", i > 0 && "border-t-2 border-ink sm:border-t-0 lg:border-l-2 lg:pl-6"]}>
+          <dt class="label !text-ink">{f.label}</dt>
+          <dd class="mt-2 font-display text-[1.3rem] font-bold leading-tight tracking-[-0.02em]">{f.val}</dd>
         </div>
       ))}
     </dl>
@@ -81,13 +85,14 @@ const t = isEn
 
   <section class="section" aria-labelledby="how-title">
     <div class="wrap">
-      <h2 id="how-title" class="h-section max-w-3xl">{t.howTitle}</h2>
-      <div class="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-3">
-        {pillars.map((p) => (
-          <article class="border-t-2 border-ink pt-5">
-            <h3 class="font-display text-[1.6rem] font-normal leading-tight" style="font-stretch:84%">{p.title}</h3>
-            <ul class="muted mt-4 grid gap-2.5 leading-snug">
-              {p.points.map((pt) => <li class="flex gap-3"><span class="text-ink" aria-hidden="true">–</span><span>{pt}</span></li>)}
+      <h2 id="how-title" class="h-section max-w-3xl reveal">{t.howTitle}</h2>
+      <div class="mt-14 grid gap-8 md:grid-cols-3">
+        {pillars.map((p, i) => (
+          <article class:list={["card card-hover reveal p-7", i === 0 && "rotate-[-1.2deg]", i === 1 && "md:mt-12 rotate-[1deg]", i === 2 && "md:mt-4 rotate-[-0.6deg]"]}>
+            <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl border-2 border-ink bg-brand shadow-[3px_3px_0_var(--ink)]"><Icon name={p.icon} class="h-6 w-6" aria-hidden="true" /></span>
+            <h3 class="h-card mt-6">{p.title}</h3>
+            <ul class="muted mt-5 grid gap-3 leading-snug">
+              {p.points.map((pt) => <li class="flex gap-3"><span class="mt-2 h-2.5 w-2.5 shrink-0 border-2 border-ink bg-brand" aria-hidden="true"></span><span>{pt}</span></li>)}
             </ul>
           </article>
         ))}
@@ -98,7 +103,7 @@ const t = isEn
   <CtaBand
     title={isEn ? "Have a project in mind?" : "¿Tienes un proyecto en mente?"}
     text={isEn ? "Tell me what you need and I will reply with scope, price and timeline." : "Cuéntame qué necesitas y te respondo con alcance, precio y plazo."}
-    primary={{ href: to("/contact"), label: t.contact }}
-    secondary={{ href: to("/pricing"), label: isEn ? "Services & pricing" : "Servicios y precios" }}
+    primary={{ href: to("/contact"), label: isEn ? "Get a quote" : "Pide presupuesto" }}
+    secondary={{ href: to("/pricing"), label: isEn ? "See pricing" : "Ver precios" }}
   />
 </Layout>

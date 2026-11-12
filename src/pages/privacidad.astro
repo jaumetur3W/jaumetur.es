@@ -19,9 +19,9 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </Fragment>
     </Sectionhead>
 
-    <div class="mt-10 space-y-8 text-sm text-graphite leading-relaxed font-normal">
+    <div class="mt-10 space-y-8 text-[1rem] text-graphite leading-relaxed">
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "1. Data Controller" : "1. Responsable del tratamiento"}</h2>
+        <h2 class="h-card !text-[1.4rem]">{isEn ? "1. Data Controller" : "1. Responsable del tratamiento"}</h2>
         <p>
           {isEn
             ? "The data controller is Jaume Tur, based in Valencia, Spain. For any inquiry, modification, or erasure of personal information, you can reach out directly via email at jaumetur3w@gmail.com."
@@ -30,7 +30,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "2. Data Collected & Purpose" : "2. Datos recabados y finalidad"}</h2>
+        <h2 class="h-card !text-[1.4rem]">{isEn ? "2. Data Collected & Purpose" : "2. Datos recabados y finalidad"}</h2>
         <p>
           {isEn
             ? "Personal data is only collected when you voluntarily provide it through the contact form, project briefing, or via direct email. This data (name, email address, and project requirements) is strictly used to answer your inquiries and provide technical proposals."
@@ -39,7 +39,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "3. Form Processing & Third Parties" : "3. Procesamiento de formularios y terceros"}</h2>
+        <h2 class="h-card !text-[1.4rem]">{isEn ? "3. Form Processing & Third Parties" : "3. Procesamiento de formularios y terceros"}</h2>
         <p>
           {isEn
             ? "Form submissions are handled securely via Web3Forms with end-to-end TLS encryption solely to route messages to our inbox. Your personal data is never sold, leased, or transferred to third parties for commercial or advertising purposes."
@@ -48,7 +48,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "4. Your Rights" : "4. Derechos de las personas usuarias"}</h2>
+        <h2 class="h-card !text-[1.4rem]">{isEn ? "4. Your Rights" : "4. Derechos de las personas usuarias"}</h2>
         <p>
           {isEn
             ? "You have the right to access, rectify, or request the erasure of your personal data at any time. Simply send an email to jaumetur3w@gmail.com specifying your request."

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import ServicesIndex from "@/components/services-index.astro";
 import { getServicesData } from "@/data/services";
 import { localeFromPath, localizePath } from "@/i18n";
 
@@ -16,8 +17,7 @@ const to = (path: string) => {
 
 const services = getServicesData(locale);
 const fromPrice = Math.min(...services.map((s) => s.creationPriceNumber));
-const words = (s: string) => s.split(" ");
-const shownServices = services;
+const euro = (n: number) => (isEn ? `€${n}` : `${n} €`);
 
 // Solo los dos proyectos insignia reales y demostrables
 const rawProjects = await getCollection(isEn ? "projectes-en" : "projectes");
@@ -30,32 +30,33 @@ const projectImages: Record<string, { src: string; w: number; h: number }> = {
 };
 const shortTitle = (x: string) => x.split(" — ")[0];
 
-
 const t = isEn
   ? {
       title: "Custom Web Design in Xàtiva and Valencia | Jaume Tur",
-      heroTag: "Digital engineering · Xàtiva, Spain",
-      trust: ["Custom development", "Own code", "Optimised performance", "Direct contact"],
+      heroTag: "Web studio · Xàtiva → all of Spain",
+      trust: ["Custom code", "Fixed price", "Reply in 24 h", "Everything is yours", "No templates"],
       desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain, built by the developer you talk to. Quote and launch offer for the first clients.",
-      h1: "Your business needs a web that works for you.",
-      lede: "Web design, custom applications, and digital menus for businesses that want to attract clients, streamline operations, and grow. From Xàtiva, serving Valencia and all of Spain.",
-      cta1: "Get a quote", cta2: "See services & pricing", mail: "Write by email",
-      reply: "Reply within 24 business hours.",
-      launchLink: "Launch offer for the first clients",
-      svcTitle: "Five services for your business.",
-      svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum); you can see them in the quote above and on each service page. Scope and timeline are confirmed with you before starting.",
-      allPrices: "See all prices",
-      from: "From", delivery: "Delivery", more: "See what's included",
+      h1: "Websites that sell. No smoke.",
+      markWord: "sell.",
+      lede: "I design and code websites, apps and digital menus for businesses that want clients, not likes. From Xàtiva, for all of Spain.",
+      cta1: "Get a quote", cta2: "See pricing", mail: "Write by email",
+      reply: "Reply in under 24 business hours.",
+      stickers: { from: `from ${euro(fromPrice)}`, reply: "Reply < 24 h", where: "Xàtiva → Spain", own: "Code is yours" },
+      svcSticker: "Five services",
+      svcTitle: "Pick one. Price in plain sight.",
+      svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum). Scope and timeline confirmed with you before starting.",
+      allPrices: "Full price table",
       whyTitle: "Whoever answers you is whoever builds it.",
       why: [
         { t: "Direct contact", d: "You talk to the person who designs and programs your site. No sales reps, no subcontracting." },
         { t: "Everything is yours", d: "Source code, Git repository, domain and accounts are handed over in your name. No captive platforms." },
         { t: "Price fixed up front", d: "You see what's included and what it costs before asking for anything, and we agree scope and timeline before starting." },
       ],
-      projTitle: "Work you can open and try.",
+      projSticker: "Live now",
+      projTitle: "Work you can open right now.",
       projLede: "Two projects in production. Demos with sample data are labelled as such.",
-      viewStudy: "Read the case study", live: "Open live project", allProjects: "All projects",
-      procTitle: "How a project runs.",
+      viewStudy: "Read the case study", live: "Open live", allProjects: "All projects →",
+      procTitle: "How it goes.",
       steps: [
         { n: "1", t: "Brief and scope", d: "We define what you need, what's included and the price, in writing, before any code is written." },
         { n: "2", t: "Custom build", d: "Modern development with previews along the way, so you see progress and can correct early." },
@@ -63,14 +64,15 @@ const t = isEn
         { n: "4", t: "Delivery and code", d: "Production launch and handover of the repository, with maintenance if you've contracted it." },
       ],
       launchTag: "Launch offer · limited places",
-      launchTitle: "Your website created without development fees, for the first clients.",
+      launchTitle: "Your website built with zero development fees. First clients only.",
       launchText: "I'm opening my studio to a first group of clients and I want to work on real projects I can later show. During this launch offer I build your site without charging for development; you only cover the domain and hosting, and agree that the project can feature in my portfolio.",
       launchNote: "It's a temporary, limited opportunity: the usual rates above remain my standard prices. Exact terms are confirmed in writing before starting. Open to businesses in Xàtiva, Valencia and, remotely, the rest of Spain.",
       launchCta: "Apply for a place",
-      aboutTitle: "Jaume Tur, web developer in Xàtiva.",
+      aboutSticker: "That's me",
+      aboutTitle: "Jaume Tur. Xàtiva. Own code.",
       aboutText: "Certified in Web Application Development (CFGS DAW) and in Microcomputer Systems and Networks (GM SMX). I build fast websites and web applications for local businesses and remote teams.",
       aboutCta: "More about me", cv: "Download CV (PDF)",
-      faqTitle: "Questions before starting.",
+      faqTitle: "Quick questions.",
       faqs: [
         { q: "How does the launch offer work?", a: "To grow my portfolio of real projects, I create selected websites without charging development fees. In return the project can be shown in my portfolio, and you only pay for the domain and hosting needed to keep it online. Places are limited and the terms are confirmed in writing first." },
         { q: "Are your services normally free?", a: "No. This is professional work with a price: creation starts at €290 and goes up to €1,950+ depending on scope, plus a monthly maintenance fee. The launch offer is temporary and only for the first clients." },
@@ -78,34 +80,37 @@ const t = isEn
         { q: "How long does it take?", a: "Local digitisation packs take 3 to 5 business days, landing pages 1 to 2 weeks and web applications 3 to 6 weeks. The exact timeline is agreed before starting." },
         { q: "Do you only work in Xàtiva?", a: "I'm based in Xàtiva and can meet in person around Valencia, but I also work fully remotely with businesses and teams across Spain." },
       ],
-      finalTitle: "Have a project in mind?",
+      finalTitle: "Shall we talk?",
       finalText: "Tell me what you need and I'll reply with scope, price and timeline. No obligation.",
       finalMail: "Write by email", finalForm: "Send the form",
+      newTab: "opens in a new tab",
     }
   : {
       title: "Diseño web a medida en Xàtiva y Valencia | Jaume Tur",
-      heroTag: "Ingeniería digital · Xàtiva, España",
-      trust: ["Desarrollo a medida", "Código propio", "Rendimiento optimizado", "Trato directo"],
+      heroTag: "Estudio web · Xàtiva → toda España",
+      trust: ["Código propio", "Precio cerrado", "Respuesta en 24 h", "Todo es tuyo", "Sin plantillas"],
       desc: "Diseño web a medida, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España, hechas por quien las programa. Pide presupuesto; oferta de lanzamiento para los primeros clientes.",
-      h1: "Tu negocio necesita una web que trabaje por ti.",
-      lede: "Diseño web, aplicaciones a medida y cartas digitales para empresas y profesionales que quieren captar clientes, mejorar procesos y crecer. Desde Xàtiva, para Valencia y toda España.",
-      cta1: "Pedir presupuesto", cta2: "Ver servicios y precios", mail: "Escribir por correo",
-      reply: "Respuesta en menos de 24 horas laborables.",
-      launchLink: "Oferta de lanzamiento para los primeros clientes",
-      svcTitle: "Cinco servicios para tu negocio.",
-      svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en el presupuesto de arriba y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar.",
-      allPrices: "Ver todos los precios",
-      from: "Desde", delivery: "Entrega", more: "Ver qué incluye",
-      whyTitle: "Quien te atiende es quien lo construye.",
+      h1: "Webs que venden. Sin humo.",
+      markWord: "venden.",
+      lede: "Diseño y programo webs, apps y cartas digitales para negocios que quieren clientes, no likes. Desde Xàtiva, para toda España.",
+      cta1: "Pide presupuesto", cta2: "Ver precios", mail: "Escribir por correo",
+      reply: "Te respondo en menos de 24 horas laborables.",
+      stickers: { from: `desde ${euro(fromPrice)}`, reply: "Respuesta < 24 h", where: "Xàtiva → España", own: "El código es tuyo" },
+      svcSticker: "Cinco servicios",
+      svcTitle: "Elige uno. Precio a la vista.",
+      svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados. Alcance y plazo se confirman contigo antes de empezar.",
+      allPrices: "Tabla de precios completa",
+      whyTitle: "Quien te atiende es quien lo programa.",
       why: [
         { t: "Trato directo", d: "Hablas con la persona que diseña y programa tu web. Sin comerciales ni subcontratas." },
         { t: "Todo es tuyo", d: "El código, el repositorio Git, el dominio y las cuentas se entregan a tu nombre. Sin plataformas cautivas." },
         { t: "Precio cerrado", d: "Ves qué incluye y cuánto cuesta antes de pedir nada, y acordamos alcance y plazo antes de empezar." },
       ],
-      projTitle: "Trabajo que puedes abrir y probar.",
+      projSticker: "En producción",
+      projTitle: "Trabajo que puedes abrir ahora mismo.",
       projLede: "Dos proyectos en producción. Las demos con datos de ejemplo están indicadas como tales.",
-      viewStudy: "Ver el caso de estudio", live: "Abrir proyecto en línea", allProjects: "Todos los proyectos",
-      procTitle: "Cómo se desarrolla un proyecto.",
+      viewStudy: "Ver el caso de estudio", live: "Abrir en vivo", allProjects: "Todos los proyectos →",
+      procTitle: "Así va la cosa.",
       steps: [
         { n: "1", t: "Briefing y alcance", d: "Definimos por escrito qué necesitas, qué incluye y cuánto cuesta, antes de escribir una línea de código." },
         { n: "2", t: "Desarrollo a medida", d: "Programación moderna con previsualizaciones por el camino, para que veas el avance y corrijas pronto." },
@@ -113,14 +118,15 @@ const t = isEn
         { n: "4", t: "Entrega y código", d: "Publicación en producción y entrega del repositorio, con mantenimiento si lo has contratado." },
       ],
       launchTag: "Oferta de lanzamiento · plazas limitadas",
-      launchTitle: "Tu web creada sin honorarios de desarrollo, para los primeros clientes.",
+      launchTitle: "Tu web sin honorarios de desarrollo. Solo primeros clientes.",
       launchText: "Estoy abriendo mi estudio a un primer grupo de clientes y quiero trabajar en proyectos reales que pueda enseñar después. Durante esta oferta de lanzamiento creo tu web sin cobrar el desarrollo; tú cubres solo el dominio y el alojamiento, y aceptas que el proyecto pueda aparecer en mi portfolio.",
       launchNote: "Es una oportunidad temporal y limitada: las tarifas de arriba siguen siendo mis precios habituales. Las condiciones exactas se confirman por escrito antes de empezar. Abierta a negocios de Xàtiva, València y, en remoto, del resto de España.",
       launchCta: "Solicitar plaza",
-      aboutTitle: "Jaume Tur, desarrollador web en Xàtiva.",
+      aboutSticker: "Este soy yo",
+      aboutTitle: "Jaume Tur. Xàtiva. Código propio.",
       aboutText: "Titulado en Desarrollo de Aplicaciones Web (CFGS DAW) y en Sistemas Microinformáticos y Redes (GM SMX). Hago páginas y aplicaciones web rápidas para negocios locales y equipos en remoto.",
       aboutCta: "Más sobre mí", cv: "Descargar CV (PDF)",
-      faqTitle: "Dudas antes de empezar.",
+      faqTitle: "Dudas rápidas.",
       faqs: [
         { q: "¿Cómo funciona la oferta de lanzamiento?", a: "Para ampliar mi portfolio de proyectos reales, creo webs seleccionadas sin cobrar honorarios de desarrollo. A cambio, el proyecto puede mostrarse en mi portfolio, y tú solo pagas el dominio y el alojamiento necesarios para mantenerlo en línea. Las plazas son limitadas y las condiciones se confirman antes por escrito." },
         { q: "¿Vuestros servicios son habitualmente gratuitos?", a: "No. Es trabajo profesional con precio: la creación parte de 290 € y llega a 1.950 € o más según el alcance, más una cuota mensual de mantenimiento. La oferta de lanzamiento es temporal y solo para los primeros clientes." },
@@ -128,9 +134,10 @@ const t = isEn
         { q: "¿Cuánto se tarda?", a: "El pack de digitalización local, de 3 a 5 días laborables; una landing, de 1 a 2 semanas; una aplicación web, de 3 a 6 semanas. El plazo exacto se acuerda antes de empezar." },
         { q: "¿Solo trabajas en Xàtiva?", a: "Tengo base en Xàtiva y puedo reunirme en persona por Valencia y comarcas, pero también trabajo 100 % en remoto con negocios y equipos de toda España." },
       ],
-      finalTitle: "¿Tienes un proyecto en mente?",
+      finalTitle: "¿Hablamos?",
       finalText: "Cuéntame qué necesitas y te respondo con alcance, precio y plazo. Sin compromiso.",
       finalMail: "Escribir por correo", finalForm: "Enviar el formulario",
+      newTab: "se abre en pestaña nueva",
     };
 
 const faqSchema = {
@@ -142,35 +149,58 @@ const faqSchema = {
     "acceptedAnswer": { "@type": "Answer", "text": f.a },
   })),
 };
-import ServicesIndex from "@/components/services-index.astro";
 const heroWords = t.h1.split(" ");
 const whyWords = t.whyTitle.split(" ");
 const cursorOpen = isEn ? "Open" : "Abrir";
 const cursorCase = isEn ? "Case" : "Caso";
+const fromLabel = isEn ? "from" : "desde";
 ---
 
 <Layout fresh intro title={t.title} description={t.desc} jsonLd={[faqSchema]}>
-  <!-- 1. Portada: titular que sube palabra a palabra sobre un halo amarillo que sigue el cursor -->
-  <section class="relative overflow-hidden" aria-labelledby="hero-title" data-hero>
+  <!-- 1. Portada: collage. Titular XXL con palabra marcada, pegatinas, foto recortada y tarjeta de vidrio sobre el halo amarillo. -->
+  <section class="bg-grid relative overflow-hidden" aria-labelledby="hero-title" data-hero>
     <div class="halo" data-halo aria-hidden="true"></div>
-    <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="wrap relative z-10 pb-16 pt-10 sm:pt-16 lg:pb-24">
-      <p class="meta" data-fade>{t.heroTag}</p>
-      <h1 id="hero-title" class="h-hero mt-8 max-w-[13ch]">
-        {heroWords.map((w, i) => (
-          <>
-            <span class="inline-block overflow-hidden pb-[0.12em] align-top"><span class="inline-block" data-word>{w}</span></span>
-            {i < heroWords.length - 1 ? " " : ""}
-          </>
-        ))}
-      </h1>
-      <div class="mt-14 h-px w-full origin-left bg-ink" data-rule aria-hidden="true"></div>
-      <div class="mt-10 grid gap-10 lg:grid-cols-12">
-        <p class="lede lg:col-span-6" data-fade>{t.lede}</p>
-        <div class="flex flex-col items-start gap-5 lg:col-span-4 lg:col-start-9" data-fade>
-          <a href={to("/contact")} class="btn btn-ink w-full sm:w-auto">{t.cta1}</a>
-          <a href="#servicios" class="link-arrow">{t.cta2}</a>
-          <p class="meta">
+    <div class="wrap relative z-10 pb-14 pt-10 sm:pt-14 lg:pb-24 lg:pt-16">
+      <div class="flex flex-wrap items-center gap-3" data-fade>
+        <span class="label">{t.heroTag}</span>
+      </div>
+
+      <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-6">
+        <h1 id="hero-title" class="h-hero relative !text-[clamp(3rem,8.6vw,8.4rem)] lg:col-span-8">
+          {heroWords.map((w, i) => (
+            <>
+              <span class="inline-block overflow-hidden pb-[0.14em] align-top">
+                <span class:list={["inline-block", w === t.markWord && "mark"]} data-word>{w}</span>
+              </span>
+              {i < heroWords.length - 1 ? " " : ""}
+            </>
+          ))}
+        </h1>
+
+        <!-- Foto recortada tipo pegatina, con sello girado -->
+        <div class="relative mx-auto w-[11rem] sm:w-[13rem] lg:col-span-4 lg:mx-0 lg:mt-2 lg:w-[min(100%,17rem)] lg:justify-self-end" data-fade>
+          <div class="cutout aspect-[4/5] w-full rotate-[3deg]" data-float="18">
+            <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="400" fetchpriority="high" decoding="async" />
+          </div>
+          <span class="sticker sticker-ink absolute -left-6 bottom-6" style="--rot:-9deg" data-stick>{t.stickers.own}</span>
+        </div>
+      </div>
+
+      <!-- Pegatinas: en móvil fluyen; en escritorio se pegan sobre el collage -->
+      <div class="mt-10 flex flex-wrap gap-3 lg:mt-0">
+        <span class="sticker sticker-xl lg:absolute lg:right-[24%] lg:top-[0%]" style="--rot:-7deg" data-stick>{t.stickers.from}</span>
+        <span class="sticker sticker-paper lg:absolute lg:left-[38%] lg:top-[64%]" style="--rot:4deg" data-stick>{t.stickers.reply}</span>
+        <span class="sticker lg:absolute lg:right-[6%] lg:top-[46%]" style="--rot:-3deg" data-stick>{t.stickers.where}</span>
+      </div>
+
+      <div class="mt-12 grid items-end gap-8 lg:mt-16 lg:grid-cols-12">
+        <p class="lede lg:col-span-5" data-fade>{t.lede}</p>
+        <div class="glass flex flex-col gap-4 p-5 sm:p-6 lg:col-span-6 lg:col-start-7 lg:rotate-[-1deg]" data-fade>
+          <div class="flex flex-wrap gap-3">
+            <a href={to("/contact")} class="btn btn-ink btn-lg" data-magnet>{t.cta1}</a>
+            <a href={to("/pricing")} class="btn btn-white btn-lg">{t.cta2}</a>
+          </div>
+          <p class="meta !text-ink">
             {t.reply}
             <a href="mailto:jaumetur3w@gmail.com" class="link-inline ml-1">{t.mail}</a>
           </p>
@@ -179,24 +209,15 @@ const cursorCase = isEn ? "Case" : "Caso";
     </div>
   </section>
 
-  <!-- 2. Franja de precio: el único bloque de color sólido de la primera pantalla -->
-  <section class="sign" aria-label={isEn ? "Starting price" : "Precio de partida"}>
-    <div class="wrap flex flex-wrap items-end justify-between gap-6 py-10 sm:py-12">
-      <p class="font-display text-[clamp(2.4rem,6vw,4.6rem)] leading-none">
-        {t.from} <span class="price-figure text-[clamp(2.6rem,6.4vw,5rem)]">{isEn ? `€${fromPrice}` : `${fromPrice} €`}</span>
-      </p>
-      <p class="meta !text-ink max-w-sm">{t.heroTag}</p>
-    </div>
-  </section>
-
-  <!-- 3. Cinta de confianza: se detiene al señalarla -->
-  <section class="ink-block marquee overflow-hidden py-7" aria-label={isEn ? "Principles" : "Principios"}>
-    <div class="marquee-track">
+  <!-- 2. Cinta: principios en Sora hueca alternada con amarillo; se inclina con la velocidad del scroll -->
+  <section class="marquee ink-block overflow-hidden py-6" aria-label={isEn ? "Principles" : "Principios"}>
+    <div class="marquee-track" data-skew>
       {[0, 1].map((dup) => (
         <ul class="flex shrink-0 items-center" aria-hidden={dup ? "true" : undefined}>
-          {t.trust.map((x) => (
-            <li class="flex shrink-0 items-center whitespace-nowrap px-8 font-display text-[clamp(2.2rem,5vw,4rem)] leading-none">
-              {x}<span class="ml-16 inline-block h-3 w-3 bg-brand" aria-hidden="true"></span>
+          {t.trust.map((x, i) => (
+            <li class="flex shrink-0 items-center whitespace-nowrap px-6 font-display text-[clamp(2.2rem,5vw,4.2rem)] font-extrabold leading-none tracking-[-0.04em]">
+              <span class:list={[i % 2 ? "outline-txt" : "text-brand"]}>{x}</span>
+              <span class="ml-12 inline-block h-4 w-4 rotate-45 border-2 border-brand bg-brand" aria-hidden="true"></span>
             </li>
           ))}
         </ul>
@@ -204,10 +225,13 @@ const cursorCase = isEn ? "Case" : "Caso";
     </div>
   </section>
 
-  <!-- 4. Servicios: índice con vista previa que cambia según se señala -->
+  <!-- 3. Servicios: índice con hoja de presupuesto que cambia según se señala -->
   <section id="servicios" class="section scroll-mt-24" aria-labelledby="svc-title">
     <div class="wrap grid gap-8 lg:grid-cols-12">
-      <h2 id="svc-title" class="h-section lg:col-span-8" data-reveal>{t.svcTitle}</h2>
+      <div class="lg:col-span-8">
+        <span class="sticker" style="--rot:-2deg" data-stick>{t.svcSticker}</span>
+        <h2 id="svc-title" class="h-section mt-5" data-reveal>{t.svcTitle}</h2>
+      </div>
       <div class="lg:col-span-4 lg:self-end" data-reveal>
         <p class="lede">{t.svcLede}</p>
         <a href={to("/pricing")} class="link-arrow mt-6">{t.allPrices}</a>
@@ -223,11 +247,14 @@ const cursorCase = isEn ? "Case" : "Caso";
     </div>
   </section>
 
-  <!-- 5. Proyectos: recorrido horizontal fijado en escritorio; apilado en móvil -->
-  <section id="proyectos" class="section scroll-mt-24 !pb-0" aria-labelledby="proj-title">
-    <div class="wrap flex flex-col justify-between gap-6 sm:flex-row sm:items-end" data-reveal>
-      <h2 id="proj-title" class="h-section">{t.projTitle}</h2>
-      <p class="lede max-w-sm">{t.projLede}</p>
+  <!-- 4. Proyectos: collage de marcos girados; recorrido horizontal fijado en escritorio -->
+  <section id="proyectos" class="section rule-t scroll-mt-24 !pb-0" aria-labelledby="proj-title">
+    <div class="wrap flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+      <div data-reveal>
+        <span class="sticker sticker-ink" style="--rot:2deg" data-stick>{t.projSticker}</span>
+        <h2 id="proj-title" class="h-section mt-5">{t.projTitle}</h2>
+      </div>
+      <p class="lede max-w-sm" data-reveal>{t.projLede}</p>
     </div>
 
     <div class="mt-16 lg:mt-20" data-hscroll>
@@ -235,10 +262,10 @@ const cursorCase = isEn ? "Case" : "Caso";
         {flagshipProjects.map((p, i) => {
           const img = projectImages[p.id];
           return (
-            <article class="lift flex w-[min(62vw,18rem)] flex-col gap-6 lg:w-[min(22vw,19rem)]">
+            <article class="lift relative flex w-[min(78vw,22rem)] flex-col gap-6 lg:w-[min(26vw,22rem)]">
               <a
                 href={to(`/projectes/${p.id}`)}
-                class="relative block aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-paper-2 lg:aspect-[16/11]"
+                class:list={["frame relative block aspect-[4/3] lg:aspect-[16/11]", i % 2 ? "rotate-[2deg]" : "rotate-[-2deg]"]}
                 data-mask
                 data-cursor-label={p.data.liveUrl ? cursorOpen : cursorCase}
                 tabindex="-1"
@@ -255,18 +282,18 @@ const cursorCase = isEn ? "Case" : "Caso";
                   class="absolute inset-0 h-[116%] w-full object-cover"
                 />
               </a>
+              <span class="sticker sticker-paper absolute -top-4 right-2" style={`--rot:${i % 2 ? "-6deg" : "5deg"}`}>0{i + 1} · {p.data.badge}</span>
               <div>
-                <p class="meta">0{i + 1} / {p.data.badge}</p>
-                <h3 class="h-card mt-4">
+                <h3 class="h-card mt-2">
                   <a href={to(`/projectes/${p.id}`)} class="link-hl">{shortTitle(p.data.title)}</a>
                 </h3>
-                <p class="mt-4 max-w-xl text-[1.1rem] text-graphite">{p.data.subtitle}</p>
+                <p class="mt-4 max-w-xl text-[1.05rem] text-graphite">{p.data.subtitle}</p>
                 <p class="meta mt-4">{p.data.stack?.slice(0, 4).join(" / ")}</p>
                 <div class="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3">
                   <a href={to(`/projectes/${p.id}`)} class="link-arrow min-h-11">{t.viewStudy}</a>
                   {p.data.liveUrl && (
                     <a href={p.data.liveUrl} target="_blank" rel="noopener noreferrer" class="link-inline inline-flex min-h-11 items-center font-bold">
-                      {t.live}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span>
+                      {t.live}<span class="sr-only"> ({t.newTab})</span>
                     </a>
                   )}
                 </div>
@@ -274,49 +301,50 @@ const cursorCase = isEn ? "Case" : "Caso";
             </article>
           );
         })}
-        <div class="flex items-center">
-          <a href={to("/projectes")} class="link-hl font-display text-[clamp(3rem,6vw,5.5rem)] leading-[0.95]">{t.allProjects}</a>
+        <div class="flex items-center pb-16 lg:pb-0">
+          <a href={to("/projectes")} class="font-display text-[clamp(2.6rem,6vw,5.5rem)] font-extrabold leading-[0.95] tracking-[-0.05em]"><span class="outline-txt transition-colors hover:text-brand">{t.allProjects}</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. Manifiesto: la frase se ilumina al leerla; luego, tres pilares desplazados -->
+  <!-- 5. Manifiesto: la frase se enciende al leerla; tres pilares como tarjetas giradas -->
   <section class="section rule-t" aria-labelledby="why-title" data-scrub-section>
     <div class="wrap">
-      <h2 id="why-title" class="font-display text-[clamp(2.7rem,6.4vw,6.6rem)] leading-[0.98] max-w-[18ch]">
+      <h2 id="why-title" class="h-section max-w-[18ch] !text-[clamp(2.6rem,6.6vw,6.8rem)]">
         {whyWords.map((w, i) => (
           <>
             <span data-scrub-word>{w}</span>{i < whyWords.length - 1 ? " " : ""}
           </>
         ))}
       </h2>
-      <div class="mt-20 grid gap-14 md:grid-cols-3 md:gap-10">
+      <div class="mt-20 grid gap-10 md:grid-cols-3 md:gap-8">
         {t.why.map((w, i) => (
-          <div class:list={["border-t-2 border-ink pt-6", i === 1 && "md:mt-28", i === 2 && "md:mt-14"]} data-reveal>
-            <p class="meta">0{i + 1}</p>
-            <h3 class="h-card mt-4">{w.t}</h3>
-            <p class="mt-4 text-[1.05rem] leading-relaxed text-graphite">{w.d}</p>
+          <div class:list={["card card-hover p-7", i === 0 && "rotate-[-1.5deg]", i === 1 && "md:mt-20 rotate-[1deg]", i === 2 && "md:mt-8 rotate-[-0.5deg]"]} data-reveal>
+            <span class="numeral !text-[3rem]">0{i + 1}</span>
+            <h3 class="h-card mt-5">{w.t}</h3>
+            <p class="mt-4 text-[1.02rem] leading-relaxed text-graphite">{w.d}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 7. Proceso: título fijo a la izquierda; los pasos avanzan con una línea que se dibuja -->
+  <!-- 6. Proceso: título fijo a la izquierda; los pasos avanzan con una línea que se dibuja -->
   <section class="section rule-t" aria-labelledby="proc-title">
     <div class="wrap grid gap-14 lg:grid-cols-12">
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-32">
           <h2 id="proc-title" class="h-section" data-reveal>{t.procTitle}</h2>
+          <span class="sticker mt-8 hidden lg:inline-flex" style="--rot:-4deg" data-stick>{t.stickers.reply}</span>
         </div>
       </div>
       <ol class="relative lg:col-span-6 lg:col-start-7" data-steps>
-        <span class="absolute bottom-0 left-0 top-0 hidden w-[3px] bg-rule lg:block" aria-hidden="true">
-          <span class="block h-full w-full origin-top bg-ink" data-progress></span>
+        <span class="absolute bottom-0 left-0 top-0 hidden w-[4px] bg-rule lg:block" aria-hidden="true">
+          <span class="block h-full w-full origin-top bg-brand outline outline-1 outline-ink" data-progress></span>
         </span>
         {t.steps.map((s) => (
-          <li class="relative border-t-2 border-ink py-10 lg:border-t-0 lg:py-14 lg:pl-12" data-step>
+          <li class="relative border-t-[3px] border-ink py-10 lg:border-t-0 lg:py-14 lg:pl-14" data-step>
             <p class="numeral"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
             <h3 class="h-card mt-5">{s.t}</h3>
             <p class="mt-4 text-[1.05rem] leading-relaxed text-graphite">{s.d}</p>
@@ -326,74 +354,88 @@ const cursorCase = isEn ? "Case" : "Caso";
     </div>
   </section>
 
-  <!-- 8. Oferta: entrada de evento amarilla sobre tinta, con inclinación según el puntero -->
-  <section id="lanzamiento" class="ink-block section scroll-mt-24" aria-labelledby="launch-title">
-    <div class="wrap">
+  <!-- 7. Oferta: entrada amarilla sobre tinta, con inclinación según el puntero -->
+  <section id="lanzamiento" class="ink-block section scroll-mt-24 relative overflow-hidden" aria-labelledby="launch-title">
+    <p class="pointer-events-none absolute -left-4 top-6 select-none whitespace-nowrap font-display text-[clamp(5rem,16vw,15rem)] font-extrabold leading-none tracking-[-0.07em] text-paper/[0.06]" aria-hidden="true">{isEn ? "LAUNCH" : "LANZAMIENTO"}</p>
+    <div class="wrap relative">
       <div class="ticket" data-tilt>
-        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <span class="sticker sticker-ink absolute -top-5 left-8" style="--rot:-4deg" data-stick>{t.launchTag}</span>
+        <div class="grid gap-10 pt-4 lg:grid-cols-12 lg:gap-12">
           <div class="lg:col-span-8">
-            <p class="meta !text-ink">{t.launchTag}</p>
-            <h2 id="launch-title" class="h-section mt-5">{t.launchTitle}</h2>
+            <h2 id="launch-title" class="h-section">{t.launchTitle}</h2>
             <p class="mt-8 max-w-2xl text-[1.15rem] leading-relaxed">{t.launchText}</p>
             <p class="mt-4 max-w-2xl leading-relaxed">{t.launchNote}</p>
           </div>
           <div class="flex lg:col-span-4 lg:items-end lg:justify-end">
-            <a href={to("/contact?servei=lanzamiento")} class="btn btn-ink w-full sm:w-auto">{t.launchCta}</a>
+            <a href={to("/contact?servei=lanzamiento")} class="btn btn-ink btn-lg w-full sm:w-auto" data-magnet>{t.launchCta}</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 9. Quién: imagen a sangre por la izquierda; el texto se alinea a la derecha -->
-  <section class="section" aria-labelledby="about-title">
+  <!-- 8. Quién: foto recortada con sello y bloque amarillo detrás -->
+  <section class="section relative overflow-hidden" aria-labelledby="about-title">
     <div class="wrap grid items-center gap-12 lg:grid-cols-12">
-      <div class="lg:col-span-6 lg:-ml-[6vw]">
-        <div class="mx-auto max-w-[15rem] overflow-hidden rounded-[1.5rem] bg-paper-2 lg:mx-0 lg:max-w-[18rem]" data-mask>
-          <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="aspect-[4/5] w-full object-contain" />
+      <div class="relative lg:col-span-5">
+        <div class="slab left-[8%] top-[10%] h-[85%] w-[70%] rotate-[-5deg]" aria-hidden="true"></div>
+        <div class="relative mx-auto max-w-[16rem] lg:mx-0 lg:ml-[10%] lg:max-w-[19rem]" data-float="30">
+          <div class="frame aspect-[4/5] rotate-[2deg]" data-mask>
+            <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="400" loading="lazy" decoding="async" />
+          </div>
+          <span class="sticker sticker-ink absolute -right-6 top-6" style="--rot:8deg" data-stick>{t.aboutSticker}</span>
+          <!-- Sello circular -->
+          <svg class="seal-spin absolute -bottom-10 -left-6 h-28 w-28 text-ink" viewBox="0 0 100 100" aria-hidden="true">
+            <defs><path id="seal-path" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" /></defs>
+            <circle cx="50" cy="50" r="46" fill="var(--brand)" stroke="currentColor" stroke-width="3" />
+            <circle cx="50" cy="50" r="24" fill="none" stroke="currentColor" stroke-width="3" />
+            <text font-family="Sora Variable, Sora, sans-serif" font-weight="800" font-size="11" letter-spacing="2" fill="currentColor"><textPath href="#seal-path">JAUME TUR · XÀTIVA · WEB ·</textPath></text>
+          </svg>
         </div>
       </div>
-      <div class="lg:col-span-5 lg:col-start-8" data-reveal>
+      <div class="lg:col-span-6 lg:col-start-7" data-reveal>
         <h2 id="about-title" class="h-section">{t.aboutTitle}</h2>
         <p class="lede mt-8">{t.aboutText}</p>
         <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a href={to("/about")} class="link-arrow min-h-11">{t.aboutCta}</a>
-          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="link-inline inline-flex min-h-11 items-center font-bold">{t.cv}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
+          <a href={to("/about")} class="btn btn-brand">{t.aboutCta}</a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="link-arrow min-h-11">{t.cv}<span class="sr-only"> ({t.newTab})</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 10. Dudas: preguntas grandes, respuesta al abrir -->
-  <section class="section rule-t" aria-labelledby="faq-title">
+  <!-- 9. Dudas: preguntas grandes, respuesta al abrir -->
+  <section class="section rule-t bg-dots" aria-labelledby="faq-title">
     <div class="wrap grid gap-12 lg:grid-cols-12">
-      <h2 id="faq-title" class="h-section lg:col-span-4">{t.faqTitle}</h2>
+      <div class="lg:col-span-4">
+        <h2 id="faq-title" class="h-section lg:sticky lg:top-32">{t.faqTitle}</h2>
+      </div>
       <div class="lg:col-span-7 lg:col-start-6">
         {t.faqs.map((f, i) => (
-          <details class="faq group border-t border-ink last:border-b">
-            <summary class="flex min-h-16 cursor-pointer list-none items-start justify-between gap-6 py-6 font-display text-[1.45rem] leading-tight sm:text-[1.7rem] [&::-webkit-details-marker]:hidden">
-              <span><span class="meta mr-4 align-middle">{String(i + 1).padStart(2, "0")}</span>{f.q}</span>
-              <span class="relative mt-2 h-5 w-5 shrink-0" aria-hidden="true">
-                <span class="absolute left-0 top-1/2 h-[3px] w-5 -translate-y-1/2 bg-ink"></span>
-                <span class="absolute left-1/2 top-0 h-5 w-[3px] -translate-x-1/2 bg-ink transition-transform duration-200 group-open:scale-y-0"></span>
+          <details class="faq group card mb-4 overflow-hidden !rounded-xl open:bg-brand" data-reveal>
+            <summary class="flex min-h-16 cursor-pointer list-none items-start justify-between gap-6 px-6 py-5 font-display text-[1.25rem] font-bold leading-tight tracking-[-0.02em] sm:text-[1.5rem] [&::-webkit-details-marker]:hidden">
+              <span><span class="label mr-4 align-middle">{String(i + 1).padStart(2, "0")}</span>{f.q}</span>
+              <span class="relative mt-1 h-6 w-6 shrink-0 rounded-full border-2 border-ink bg-paper" aria-hidden="true">
+                <span class="absolute left-1/2 top-1/2 h-[3px] w-3 -translate-x-1/2 -translate-y-1/2 bg-ink"></span>
+                <span class="absolute left-1/2 top-1/2 h-3 w-[3px] -translate-x-1/2 -translate-y-1/2 bg-ink transition-transform duration-200 group-open:scale-y-0"></span>
               </span>
             </summary>
-            <p class="max-w-2xl pb-8 pr-10 text-[1.05rem] leading-relaxed text-graphite">{f.a}</p>
+            <p class="max-w-2xl px-6 pb-7 text-[1.05rem] leading-relaxed">{f.a}</p>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 11. Cierre: el titular entra desde dentro del bloque amarillo -->
-  <section class="sign relative overflow-hidden py-24 sm:py-36" aria-labelledby="final-title">
-    <div class="ambient ambient--on-yellow" aria-hidden="true"><i></i><i></i><i></i></div>
+  <!-- 10. Cierre: titular gigante sobre amarillo, tarjeta de vidrio con las acciones -->
+  <section class="sign relative overflow-hidden border-t-[3px] border-ink py-24 sm:py-36" aria-labelledby="final-title">
+    <div class="bg-stripes absolute -right-[10%] -top-[40%] h-[180%] w-[40%] rotate-[10deg] opacity-[0.08]" aria-hidden="true"></div>
     <div class="wrap relative z-10">
-      <h2 id="final-title" class="font-display text-[clamp(3.8rem,14vw,14rem)] leading-[0.86] tracking-[-0.03em]" data-close-title>{t.finalTitle}</h2>
-      <div class="mt-14 grid gap-10 lg:grid-cols-12">
+      <h2 id="final-title" class="font-display text-[clamp(4.5rem,18vw,18rem)] font-extrabold leading-[0.82] tracking-[-0.07em]" data-close-title>{t.finalTitle}</h2>
+      <div class="mt-14 grid items-end gap-10 lg:grid-cols-12">
         <p class="text-[1.2rem] leading-relaxed lg:col-span-6">{t.finalText}</p>
-        <div class="glass flex flex-wrap gap-3 rounded-2xl p-5 lg:col-span-5 lg:col-start-8 lg:justify-end">
-          <a href="mailto:jaumetur3w@gmail.com" class="btn btn-ink">{t.finalMail}</a>
+        <div class="glass flex flex-wrap gap-3 p-5 lg:col-span-5 lg:col-start-8 lg:rotate-[1deg] lg:justify-end">
+          <a href="mailto:jaumetur3w@gmail.com" class="btn btn-ink" data-magnet>{t.finalMail}</a>
           <a href={to("/contact")} class="btn btn-white">{t.finalForm}</a>
         </div>
       </div>

@@ -91,7 +91,7 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[itemList, breadcrumb]}>
-  <PageHeader title={t.h1} lede={t.lead} />
+  <PageHeader tone="yellow" title={t.h1} lede={t.lead} sticker={t.eyebrow} stickers={[`${t.from} ${euro(Math.min(...services.map((s) => s.creationPriceNumber)))}`, isEn ? "Reply < 24 h" : "Respuesta < 24 h", isEn ? "Code is yours" : "El código es tuyo"]} />
 
   <section class="section" aria-label={t.eyebrow}>
     <div class="wrap">
@@ -99,12 +99,15 @@ const breadcrumb = {
     </div>
   </section>
 
-  <section class="section border-t border-rule" aria-labelledby="how-title">
+  <section class="section rule-t" aria-labelledby="how-title">
     <div class="wrap">
-      <h2 id="how-title" class="h-section max-w-3xl">{t.noteTitle}</h2>
-      <ul class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-3">
-        {t.notes.map((n) => (
-          <li class="border-t-2 border-ink pt-5"><p class="muted max-w-sm">{n}</p></li>
+      <h2 id="how-title" class="h-section max-w-3xl reveal">{t.noteTitle}</h2>
+      <ul class="mt-12 grid gap-8 md:grid-cols-3">
+        {t.notes.map((n, i) => (
+          <li class:list={["card reveal p-7", i === 0 && "rotate-[-1deg]", i === 1 && "md:mt-10 rotate-[1deg]", i === 2 && "md:mt-3 rotate-[-0.5deg]"]}>
+            <span class="numeral !text-[2.6rem]">0{i + 1}</span>
+            <p class="muted mt-4 max-w-sm">{n}</p>
+          </li>
         ))}
       </ul>
     </div>

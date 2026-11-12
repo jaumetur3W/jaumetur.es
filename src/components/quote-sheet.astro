@@ -26,7 +26,7 @@ const rules = services
 
 <div class="quote-sheet sheet">
   <div class="sheet-head">
-    <p class="font-display text-[1.6rem] font-normal leading-none" style="font-stretch:75%">{t.legend}</p>
+    <p class="font-display text-[1.6rem] font-extrabold tracking-[-0.035em] leading-none">{t.legend}</p>
   </div>
   <div class="px-5 pb-8 pt-6 sm:px-7">
     <fieldset>
@@ -50,9 +50,9 @@ const rules = services
       {services.map((s, i) => (
         <div data-panel={i} class="stamp">
           <dl class="grid text-[1rem]">
-            <div class="leader-row border-b border-rule py-2.5"><dt>{t.creation}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-medium">{euro(s.creationPriceNumber)}</dd></div>
-            <div class="leader-row border-b border-rule py-2.5"><dt>{t.maint}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-medium">{monthly(s.monthlyFeeNumber)}</dd></div>
-            <div class="leader-row border-b border-rule py-2.5"><dt>{t.deadline}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold">{s.timeline}</dd></div>
+            <div class="leader-row border-b-2 border-ink py-2.5"><dt>{t.creation}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-medium">{euro(s.creationPriceNumber)}</dd></div>
+            <div class="leader-row border-b-2 border-ink py-2.5"><dt>{t.maint}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-medium">{monthly(s.monthlyFeeNumber)}</dd></div>
+            <div class="leader-row border-b-2 border-ink py-2.5"><dt>{t.deadline}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold">{s.timeline}</dd></div>
             <div class="leader-row pt-4"><dt class="font-bold">{t.year1}</dt><span class="leader" aria-hidden="true"></span><dd class="price-figure">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</dd></div>
           </dl>
           <div class="mt-7 flex flex-col gap-4">
