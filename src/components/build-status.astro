@@ -16,22 +16,22 @@ const isEn = Astro.url.pathname.startsWith("/en");
       target="_blank"
       rel="noopener noreferrer"
       id="build-status-pill"
-      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-medium bg-[#1c1c1c] hover:bg-slate-200/80 text-white border border-slate-200/80 transition shadow-2xs group cursor-pointer"
+      class="inline-flex items-center gap-2 px-3 py-1.5  text-xs font-mono font-medium bg-paper-2 hover:bg-rule/80 text-ink border border-rule transition  group cursor-pointer"
       title={isEn ? "View CI/CD pipeline runs on GitHub Actions" : "Ver las ejecuciones del pipeline CI/CD en GitHub Actions"}
     >
       <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" id="build-ping"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" id="build-dot"></span>
+        <span class="animate-ping absolute inline-flex h-full w-full  bg-emerald-400 opacity-75" id="build-ping"></span>
+        <span class="relative inline-flex  h-2 w-2 bg-emerald-500" id="build-dot"></span>
       </span>
 
       <span class="flex items-center gap-1.5">
-        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-[#d4d4d4] group-hover:text-white transition-colors" />
+        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-graphite group-hover:text-ink transition-colors" />
         <span>CI/CD:</span>
-        <span id="build-status-label" class="font-bold text-white">{isEn ? "Passing" : "Correcto"}</span>
+        <span id="build-status-label" class="font-bold text-ink">{isEn ? "Passing" : "Correcto"}</span>
       </span>
 
-      <span class="text-[10px] text-[#d4d4d4] font-mono hidden sm:inline" id="build-commit-sha">#main</span>
-      <Icon name="bx:link-external" class="w-3 h-3 text-[#d4d4d4] group-hover:text-white transition-colors" />
+      <span class="text-[10px] text-graphite font-mono hidden sm:inline" id="build-commit-sha">#main</span>
+      <Icon name="bx:link-external" class="w-3 h-3 text-graphite group-hover:text-ink transition-colors" />
     </a>
   )
 }
@@ -40,47 +40,47 @@ const isEn = Astro.url.pathname.startsWith("/en");
   variant === "card" && (
     <div
       id="build-status-card"
-      class="p-6 rounded-sm bg-[#141414] border border-slate-200/90 shadow-sm font-mono text-xs"
+      class="p-6  bg-paper-2 border border-rule/90  font-mono text-xs"
     >
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div class="flex items-center gap-2">
-          <Icon name="bx:rocket" class="w-5 h-5 text-white" />
-          <h3 class="font-bold text-sm text-white">{isEn ? "Live CI/CD pipeline status" : "Estado real del pipeline CI/CD"}</h3>
+          <Icon name="bx:rocket" class="w-5 h-5 text-ink" />
+          <h3 class="font-bold text-sm text-ink">{isEn ? "Live CI/CD pipeline status" : "Estado real del pipeline CI/CD"}</h3>
         </div>
         <a
           href="https://github.com/jaumetur3W/jaumetur.es/actions"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-[11px] text-white hover:text-white hover:underline"
+          class="inline-flex items-center gap-1 text-[11px] text-ink hover:text-ink hover:underline"
         >
           <span>GitHub Actions</span>
           <Icon name="bx:link-external" class="w-3 h-3" />
         </a>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-sm bg-[#1c1c1c] border border-slate-200/80 text-[11px] mb-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3  bg-paper-2 border border-rule text-[11px] mb-4">
         <div>
-          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Status" : "Estado"}</span>
-          <span id="card-build-status" class="font-bold text-white flex items-center gap-1 mt-0.5">
+          <span class="text-graphite block text-[10px]  font-semibold">{isEn ? "Status" : "Estado"}</span>
+          <span id="card-build-status" class="font-bold text-ink flex items-center gap-1 mt-0.5">
             <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
             <span>{isEn ? "Passing" : "Correcto"}</span>
           </span>
         </div>
         <div>
-          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Branch" : "Rama"}</span>
-          <span id="card-build-branch" class="font-bold text-white mt-0.5 block">main</span>
+          <span class="text-graphite block text-[10px]  font-semibold">{isEn ? "Branch" : "Rama"}</span>
+          <span id="card-build-branch" class="font-bold text-ink mt-0.5 block">main</span>
         </div>
         <div>
-          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Latest commit" : "Último commit"}</span>
-          <span id="card-build-sha" class="font-bold text-[#ffff00] mt-0.5 block">HEAD</span>
+          <span class="text-graphite block text-[10px]  font-semibold">{isEn ? "Latest commit" : "Último commit"}</span>
+          <span id="card-build-sha" class="font-bold text-ink mt-0.5 block">HEAD</span>
         </div>
         <div>
-          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
-          <span id="card-build-time" class="font-bold text-white mt-0.5 block">&lt; 90s</span>
+          <span class="text-graphite block text-[10px]  font-semibold">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
+          <span id="card-build-time" class="font-bold text-ink mt-0.5 block">&lt; 90s</span>
         </div>
       </div>
 
-      <p class="text-[11px] text-[#a3a39b] font-sans leading-relaxed">
+      <p class="text-[11px] text-graphite font-sans leading-relaxed">
         {isEn ? "Atomic pipeline configured with GitHub Actions: cached dependencies, strict TypeScript checks, unit tests, and zero-downtime deployment." : "Pipeline atómico configurado con GitHub Actions: instalación en caché, verificación estática de TypeScript, pruebas unitarias y despliegue atómico sin interrupciones."}
       </p>
     </div>
@@ -118,13 +118,13 @@ const isEn = Astro.url.pathname.startsWith("/en");
 
       if (cardStatus) {
         if (isInProgress) {
-          cardStatus.className = "font-bold text-[#ffff00] flex items-center gap-1 mt-0.5";
+          cardStatus.className = "font-bold text-ink flex items-center gap-1 mt-0.5";
           cardStatus.textContent = statusText.running;
         } else if (isSuccess) {
-          cardStatus.className = "font-bold text-white flex items-center gap-1 mt-0.5";
+          cardStatus.className = "font-bold text-ink flex items-center gap-1 mt-0.5";
           cardStatus.textContent = statusText.success;
         } else {
-          cardStatus.className = "font-bold text-[#ff9b9b] flex items-center gap-1 mt-0.5";
+          cardStatus.className = "font-bold text-[#9b1c1c] flex items-center gap-1 mt-0.5";
           cardStatus.textContent = statusText.failed;
         }
       }
@@ -132,23 +132,23 @@ const isEn = Astro.url.pathname.startsWith("/en");
       if (isInProgress) {
         if (label) {
           label.textContent = statusText.running;
-          label.className = "font-bold text-[#ffff00]";
+          label.className = "font-bold text-ink";
         }
-        if (dot) dot.className = "relative inline-flex rounded-full h-2 w-2 bg-amber-500";
-        if (ping) ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
+        if (dot) dot.className = "relative inline-flex  h-2 w-2 bg-amber-500";
+        if (ping) ping.className = "animate-ping absolute inline-flex h-full w-full  bg-amber-400 opacity-75";
       } else if (isSuccess) {
         if (label) {
           label.textContent = statusText.success;
-          label.className = "font-bold text-white";
+          label.className = "font-bold text-ink";
         }
-        if (dot) dot.className = "relative inline-flex rounded-full h-2 w-2 bg-emerald-500";
-        if (ping) ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+        if (dot) dot.className = "relative inline-flex  h-2 w-2 bg-emerald-500";
+        if (ping) ping.className = "animate-ping absolute inline-flex h-full w-full  bg-emerald-400 opacity-75";
       } else {
         if (label) {
           label.textContent = statusText.failed;
-          label.className = "font-bold text-[#ff9b9b]";
+          label.className = "font-bold text-[#9b1c1c]";
         }
-        if (dot) dot.className = "relative inline-flex rounded-full h-2 w-2 bg-rose-500";
+        if (dot) dot.className = "relative inline-flex  h-2 w-2 bg-rose-500";
         if (ping) ping.className = "hidden";
       }
     }

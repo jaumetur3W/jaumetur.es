@@ -1,4 +1,5 @@
 ---
+import UiIcon from "@/components/ui-icon.astro";
 import { getCollection, render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
@@ -90,29 +91,29 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
-  <header class="border-b border-white/15 pb-12 pt-8 sm:pb-16">
+  <header class="border-b border-rule pb-12 pt-8 sm:pb-16">
     <div class="wrap">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-white/70">
-        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.home}</a><span aria-hidden="true">/</span>
-        <a href={to("/projectes")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.projects}</a><span aria-hidden="true">/</span>
-        <span aria-current="page" class="text-white">{shortTitle(d.title)}</span>
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-graphite">
+        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/projectes")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.projects}</a><span aria-hidden="true">/</span>
+        <span aria-current="page" class="text-ink">{shortTitle(d.title)}</span>
       </nav>
       <div class="mt-6 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
         <div class:list={[cover ? "lg:col-span-6" : "lg:col-span-12"]}>
           <p class="flex flex-wrap items-center gap-2">
             {entry.id === "avisa" && <span class="chip chip-brand">{t.flagship}</span>}
-            <span class="chip"><Icon name={entry.data.icon} class="h-4 w-4 text-brand" />{d.badge}</span>
+            <span class="chip"><Icon name={entry.data.icon} class="h-4 w-4 text-ink" />{d.badge}</span>
           </p>
           <h1 class="h-page mt-5 !text-[clamp(2.2rem,5.4vw,4.2rem)]">{d.title}</h1>
           <p class="lede mt-5">{d.subtitle}</p>
           <div class="mt-8 flex flex-wrap gap-3">
-            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand">{t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
-            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.code} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand">{t.live} <UiIcon name="external" aria-hidden="true" /><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.code} <UiIcon name="external" aria-hidden="true" /><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
           </div>
         </div>
         {cover && (
           <div class="lg:col-span-6">
-            <div class="overflow-hidden rounded-sm border border-white/15 bg-[#141414]">
+            <div class="overflow-hidden  border border-rule bg-paper-2">
               <img src={cover} alt={entry.data.image.alt} width="1200" height="750" class="aspect-[16/10] w-full object-cover" fetchpriority="high" decoding="async" />
             </div>
           </div>
@@ -123,7 +124,7 @@ const breadcrumb = {
 
   <section class="section">
     <div class="wrap-narrow">
-      <dl class="grid gap-x-8 gap-y-6 border-y border-white/20 py-7 sm:grid-cols-2">
+      <dl class="grid gap-x-8 gap-y-6 border-y border-rule py-7 sm:grid-cols-2">
         <div><dt class="label">{t.client}</dt><dd class="mt-1 font-semibold leading-snug">{d.client}</dd></div>
         <div><dt class="label">{t.year}</dt><dd class="mt-1 font-semibold">{entry.data.year}</dd></div>
         <div><dt class="label">{t.role}</dt><dd class="mt-1 font-semibold leading-snug">{d.role}</dd></div>
@@ -136,7 +137,7 @@ const breadcrumb = {
       </p>
 
       {(d as any).problem && (d as any).solution && (d as any).result && (
-        <div class="mt-12 border-t border-white/20 pt-10">
+        <div class="mt-12 border-t border-rule pt-10">
           <CaseStudyTemplate
             problem={isEn ? (d as any).problem_en || (d as any).problem : (d as any).problem}
             solution={isEn ? (d as any).solution_en || (d as any).solution : (d as any).solution}
@@ -147,7 +148,7 @@ const breadcrumb = {
         </div>
       )}
 
-      <div class="prose prose-lg prose-invert mt-12 max-w-none prose-headings:font-display prose-headings:text-white prose-p:text-[#d4d4d4] prose-a:text-brand prose-strong:text-white prose-li:text-[#d4d4d4] prose-li:marker:text-brand">
+      <div class="prose prose-lg mt-12 max-w-none prose-headings:font-display prose-headings:text-ink prose-p:text-graphite prose-a:text-ink prose-strong:text-ink prose-li:text-graphite prose-li:marker:text-ink">
         <Content />
       </div>
     </div>
@@ -160,8 +161,8 @@ const breadcrumb = {
     secondary={{ href: to("/contact"), label: t.ctaB }}
   />
 
-  <nav aria-label={t.projects} class="wrap grid gap-6 border-t border-white/15 py-10 sm:grid-cols-2">
-    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{shortTitle(prev.data.title)}</span></a>
-    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{shortTitle(next.data.title)}</span></a>
+  <nav aria-label={t.projects} class="wrap grid gap-6 border-t border-rule py-10 sm:grid-cols-2">
+    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-normal leading-tight group-hover:bg-brand" style="font-stretch:84%">{shortTitle(prev.data.title)}</span></a>
+    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-normal leading-tight group-hover:bg-brand" style="font-stretch:84%">{shortTitle(next.data.title)}</span></a>
   </nav>
 </Layout>

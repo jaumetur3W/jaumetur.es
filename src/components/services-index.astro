@@ -1,0 +1,117 @@
+---
+// Índice de servicios: lista por niveles + panel que muestra el servicio
+// señalado (puntero, foco o primer elemento). En móvil el precio va en la fila.
+import type { ServicePackage } from "@/data/services";
+import { services as serviceEsData } from "@/data/services-es";
+import { services as serviceEnData } from "@/data/services-en";
+
+export interface Props {
+  services: Array<Pick<ServicePackage, "id" | "name" | "timeline" | "creationPriceNumber" | "monthlyFeeNumber">>;
+  isEn: boolean;
+  contactHref: (id: string) => string;
+  detailHref: (id: string) => string;
+}
+const { services, isEn, contactHref, detailHref } = Astro.props;
+
+const copy = (isEn ? serviceEnData : serviceEsData) as any[];
+const euro = (n: number) => (isEn ? `€${n.toLocaleString("en-US")}` : `${n.toLocaleString("es-ES")} €`);
+const monthly = (n: number) => (isEn ? `€${n}/mo` : `${n} €/mes`);
+const t = isEn
+  ? { preview: "Preview", creation: "Creation, one-off", maint: "Monthly maintenance", deadline: "Delivery", year1: "First year total", cta: "Request this quote", detail: "See what's included", note: "Starting prices. Scope and timeline are confirmed with you before starting." }
+  : { preview: "Vista previa", creation: "Creación, pago único", maint: "Mantenimiento mensual", deadline: "Plazo de entrega", year1: "Total primer año", cta: "Pedir este presupuesto", detail: "Ver qué incluye", note: "Precios «desde». Alcance y plazo se confirman contigo antes de empezar." };
+
+const tierOrder = ["web", "app", "optimization"];
+const items = copy
+  .map((c) => {
+    const s = services.find((x) => x.id === c.id);
+    if (!s) return null;
+    return {
+      id: c.id as string,
+      tier: c.tier as string,
+      tierLabel: (isEn ? c.tier_label_en : c.tier_label_es) as string,
+      name: s.name,
+      problem: (isEn ? c.problem_en : c.problem_es) as string,
+      creation: euro(s.creationPriceNumber),
+      monthly: monthly(s.monthlyFeeNumber),
+      timeline: s.timeline,
+      year1: euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber),
+    };
+  })
+  .filter(Boolean) as any[];
+
+const panelData = Object.fromEntries(
+  items.map((it: any) => [
+    it.id,
+    { name: it.name, problem: it.problem, creation: it.creation, monthly: it.monthly, timeline: it.timeline, year1: it.year1, cta: contactHref(it.id), detail: detailHref(it.id) },
+  ]),
+);
+const first: any = items[0];
+const tierGroups = tierOrder.map((tier) => ({ tier, list: items.filter((i: any) => i.tier === tier) })).filter((g) => g.list.length);
+---
+
+<div class="services-index grid gap-12 lg:grid-cols-12 lg:gap-16">
+  <div class="lg:col-span-7">
+    {tierGroups.map((g) => (
+      <div class="mb-14 last:mb-0">
+        <p class="meta mb-4">{g.list[0].tierLabel}</p>
+        <ul class="border-t-2 border-ink">
+          {g.list.map((it: any, i: number) => (
+            <li class="border-b border-rule">
+              <a href={detailHref(it.id)} data-svc-row={it.id} class="svc-row grid grid-cols-[2.5rem_1fr] gap-x-4 py-6 sm:grid-cols-[3.5rem_1fr] lg:py-8">
+                <span class="meta pt-2">{String(items.indexOf(it) + 1).padStart(2, "0")}</span>
+                <span class="min-w-0">
+                  <span class="h-card block">{it.name}</span>
+                  <span class="mt-2 block text-[1.02rem] leading-relaxed text-graphite">{it.problem}</span>
+                  <span class="price-figure mt-3 block text-[1.6rem]">{it.creation}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <aside class="hidden lg:col-span-5 lg:block">
+    <div class="sheet sticky top-28" data-svc-panel>
+      <div class="sheet-head flex items-center justify-between">
+        <span class="font-mono text-[0.85rem]">{t.preview}</span>
+      </div>
+      <div class="px-7 pb-8 pt-7">
+        <h3 class="h-card" data-f="name">{first.name}</h3>
+        <p class="mt-4 text-[1.02rem] leading-relaxed text-graphite" data-f="problem">{first.problem}</p>
+        <dl class="mt-7 grid text-[1rem]">
+          <div class="leader-row border-b border-rule py-2.5"><dt>{t.creation}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-medium" data-f="creation">{first.creation}</dd></div>
+          <div class="leader-row border-b border-rule py-2.5"><dt>{t.maint}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-medium" data-f="monthly">{first.monthly}</dd></div>
+          <div class="leader-row border-b border-rule py-2.5"><dt>{t.deadline}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold" data-f="timeline">{first.timeline}</dd></div>
+          <div class="leader-row pt-4"><dt class="font-bold">{t.year1}</dt><span class="leader" aria-hidden="true"></span><dd class="price-figure" data-f="year1">{first.year1}</dd></div>
+        </dl>
+        <div class="mt-8 flex flex-col gap-4">
+          <a href={contactHref(first.id)} class="btn btn-brand w-full" data-f-href="cta">{t.cta}</a>
+          <a href={detailHref(first.id)} class="link-arrow self-start min-h-11" data-f-href="detail">{t.detail}</a>
+        </div>
+        <p class="meta mt-7">{t.note}</p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script type="application/json" id="svc-data" set:html={JSON.stringify(panelData).replace(/</g, "\\u003c")}></script>
+<script>
+  const dataEl = document.getElementById("svc-data");
+  const panel = document.querySelector<HTMLElement>("[data-svc-panel]");
+  if (dataEl && panel) {
+    const data: Record<string, Record<string, string>> = JSON.parse(dataEl.textContent || "{}");
+    const show = (id: string) => {
+      const d = data[id];
+      if (!d) return;
+      panel.querySelectorAll<HTMLElement>("[data-f]").forEach((el) => { el.textContent = d[el.dataset.f || ""] ?? ""; });
+      panel.querySelectorAll<HTMLElement>("[data-f-href]").forEach((el) => { el.setAttribute("href", d[el.dataset.fHref || ""] ?? "#"); });
+    };
+    document.querySelectorAll<HTMLElement>("[data-svc-row]").forEach((row) => {
+      const id = row.dataset.svcRow || "";
+      row.addEventListener("pointerenter", () => show(id));
+      row.addEventListener("focus", () => show(id));
+    });
+  }
+</script>

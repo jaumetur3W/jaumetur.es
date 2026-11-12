@@ -17,10 +17,10 @@ const data = getBriefingData(isEn ? "en" : "es");
 // Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_BRIEFING_KEY ?? "";
 const inputClass =
-  "w-full px-4 py-2.5 text-sm bg-[#1c1c1c] border border-white/15 rounded-sm outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-white/40 focus:bg-[#141414] text-white transition";
-const labelClass = "block text-sm font-medium text-white";
-const descriptionClass = "mt-1 text-xs text-[#d4d4d4] font-light leading-relaxed";
-const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
+  "w-full px-4 py-2.5 text-sm bg-paper-2 border border-rule  outline-none focus:ring-2 focus:ring-[var(--brand)] focus:border-rule focus:bg-paper-2 text-ink transition";
+const labelClass = "block text-sm font-medium text-ink";
+const descriptionClass = "mt-1 text-xs text-graphite font-normal leading-relaxed";
+const errorClass = "hidden text-[#9b1c1c] text-xs mt-1.5 font-sans";
 ---
 
 <Layout title={data.title} description={data.description} lang={data.lang} noindex>
@@ -31,7 +31,7 @@ const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
     </Sectionhead>
 
     <noscript>
-      <p class="max-w-3xl mx-auto mb-6 p-4 rounded-sm bg-transparent text-[#ff9b9b] border border-[#ff9b9b] text-sm">
+      <p class="max-w-3xl mx-auto mb-6 p-4  bg-transparent text-[#9b1c1c] border border-[#9b1c1c] text-sm">
         {data.noJsMessage}
       </p>
     </noscript>
@@ -56,15 +56,15 @@ const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
       {data.sections.map((section) => (
         <fieldset
           id={`section-${section.id}`}
-          class="bg-[#141414] rounded-sm border border-white/15 p-6 sm:p-8 space-y-6"
+          class="bg-paper-2  border border-rule p-6 sm:p-8 space-y-6"
           hidden={Boolean(section.showWhen)}
           disabled={Boolean(section.showWhen)}
           data-show-question={section.showWhen?.question}
           data-show-value={section.showWhen?.value}
         >
           <legend class="float-left w-full">
-            <h2 class="text-2xl font-light tracking-tight text-white">{section.title}</h2>
-            {section.description && <p class="mt-1 text-sm text-[#d4d4d4] font-light leading-relaxed">{section.description}</p>}
+            <h2 class="text-2xl font-normal tracking-tight text-ink">{section.title}</h2>
+            {section.description && <p class="mt-1 text-sm text-graphite font-normal leading-relaxed">{section.description}</p>}
           </legend>
 
           {section.questions.map((question) => {
@@ -81,7 +81,7 @@ const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
             const heading = (
               <>
                 {question.label}
-                {question.required && <span class="text-[#ff9b9b]" aria-label={data.ariaRequiredLabel}> *</span>}
+                {question.required && <span class="text-[#9b1c1c]" aria-label={data.ariaRequiredLabel}> *</span>}
               </>
             );
             const description = question.description && <p id={`${question.id}-desc`} class={descriptionClass}>{question.description}</p>;
@@ -99,7 +99,7 @@ const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
                   {description}
                   <div class="mt-3 grid sm:grid-cols-2 gap-2">
                     {question.options?.map((option, index) => (
-                      <label class="flex items-start gap-3 p-3 rounded-sm border border-white/15 text-sm text-white font-light cursor-pointer transition-colors hover:border-white/40 has-[:checked]:border-white/40 has-[:checked]:bg-[#FFFF00]/20">
+                      <label class="flex items-start gap-3 p-3  border border-rule text-sm text-ink font-normal cursor-pointer transition-colors hover:border-rule has-[:checked]:border-rule has-[:checked]:bg-brand/20">
                         <input type={choiceType} id={`${question.id}-${index}`} name={question.id} value={option} class="mt-0.5 shrink-0 accent-slate-950" />
                         <span>{option}</span>
                       </label>
@@ -138,11 +138,11 @@ const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
         <button
           type="submit"
           id="briefing-submit-btn"
-          class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-sm bg-[#0a0a0a] hover:bg-[#FFFF00] text-white hover:text-black font-mono text-xs uppercase tracking-wider font-semibold border border-white/40 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full inline-flex items-center justify-center py-3.5 px-6  bg-paper hover:bg-brand text-ink hover:text-ink font-mono text-xs  tracking-wider font-semibold border border-rule  transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span id="briefing-submit-text">{data.submitLabel}</span>
         </button>
-        <div id="briefing-feedback" class="hidden p-3 rounded-sm text-xs font-mono text-center" role="status" aria-live="polite"></div>
+        <div id="briefing-feedback" class="hidden p-3  text-xs font-mono text-center" role="status" aria-live="polite"></div>
       </div>
     </form>
   </Container>
@@ -211,8 +211,8 @@ const errorClass = "hidden text-[#ff9b9b] text-xs mt-1.5 font-sans";
 
     function showStatus(message, isSuccess) {
       feedback.className = isSuccess
-        ? "p-3 rounded-sm text-xs font-mono text-center bg-transparent text-white border border-white/30"
-        : "p-3 rounded-sm text-xs font-mono text-center bg-transparent text-[#ff9b9b] border border-[#ff9b9b]";
+        ? "p-3  text-xs font-mono text-center bg-transparent text-ink border border-rule"
+        : "p-3  text-xs font-mono text-center bg-transparent text-[#9b1c1c] border border-[#9b1c1c]";
       feedback.textContent = message;
       feedback.classList.remove("hidden");
     }

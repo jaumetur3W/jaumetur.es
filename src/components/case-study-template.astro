@@ -68,7 +68,7 @@ const { problem, solution, result, technologies, year } = Astro.props;
     font-weight: 600;
     padding: 1rem;
     background: rgb(255 255 0 / 0.1);
-    border-left: 4px solid var(--brand, #ffff00);
+    border-left: 4px solid var(--brand, var(--brand));
     border-radius: 0.25rem;
   }
 
@@ -83,7 +83,7 @@ const { problem, solution, result, technologies, year } = Astro.props;
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-    color: var(--brand, #ffff00);
+    color: var(--brand, var(--brand));
   }
 
   .tech ul {

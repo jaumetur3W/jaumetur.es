@@ -1,4 +1,5 @@
 ---
+import UiIcon from "@/components/ui-icon.astro";
 import Contactform from "@/components/contactform.astro";
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/page-header.astro";
@@ -37,50 +38,50 @@ const base = isEn ? "/en" : "";
 
 <Layout fresh title={t.title} description={t.desc}>
   <PageHeader title={t.h1} lede={t.lead}>
-    <p class="chip mt-6"><span class="h-2 w-2 rounded-full bg-brand" aria-hidden="true"></span>{t.reply}</p>
+    <p class="chip mt-6"><span class="h-2 w-2  bg-brand" aria-hidden="true"></span>{t.reply}</p>
   </PageHeader>
 
   <section class="section">
     <div class="wrap grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-5">
         <div class="flex items-center gap-4">
-          <div class="h-20 w-20 shrink-0 overflow-hidden rounded-sm border border-white/20 bg-[#1c1c1c]">
+          <div class="h-20 w-20 shrink-0 overflow-hidden  border border-rule bg-paper-2">
             <img src="/img/jaume-tur-contacto.webp" alt="Jaume Tur" width="96" height="96" class="h-full w-full object-contain" loading="eager" decoding="async" />
           </div>
           <div>
-            <p class="font-display text-[1.8rem] font-bold leading-none" style="font-stretch:82%">Jaume Tur</p>
+            <p class="font-display text-[1.8rem] font-normal leading-none" style="font-stretch:82%">Jaume Tur</p>
             <p class="muted mt-1 text-[0.95rem]">{isEn ? "Web developer" : "Desarrollador web"}</p>
             <p class="faint text-[0.9rem]">{t.loc}</p>
           </div>
         </div>
 
         <a href={mailto} class="btn btn-brand mt-7 w-full justify-between">
-          <span class="flex items-center gap-3"><Icon name="bx:envelope" class="h-6 w-6" />{isEn ? "Write by email" : "Escribir por correo"} · jaumetur3w@gmail.com</span><span aria-hidden="true">→</span>
+          <span class="flex items-center gap-3"><Icon name="bx:envelope" class="h-6 w-6" />{isEn ? "Write by email" : "Escribir por correo"} · jaumetur3w@gmail.com</span><UiIcon name="arrow" aria-hidden="true" />
         </a>
 
         <a href="https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20una%20web" target="_blank" rel="noopener noreferrer" class="btn btn-white mt-3 w-full justify-between">
-          <span class="flex items-center gap-3"><Icon name="bx:bxl-whatsapp" class="h-6 w-6" />{isEn ? "Talk on WhatsApp" : "Hablar por WhatsApp"} · +34 644 525 838<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></span><span aria-hidden="true">→</span>
+          <span class="flex items-center gap-3"><Icon name="bx:bxl-whatsapp" class="h-6 w-6" />{isEn ? "Talk on WhatsApp" : "Hablar por WhatsApp"} · +34 644 525 838<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></span><UiIcon name="arrow" aria-hidden="true" />
         </a>
 
-        <ul class="mt-7 border-b border-white/15">
-          <li class="flex items-center justify-between gap-3 border-t border-white/15 py-3">
+        <ul class="mt-7 border-b border-rule">
+          <li class="flex items-center justify-between gap-3 border-t border-rule py-3">
             <div class="min-w-0">
               <p class="label">{t.direct}</p>
-              <a id="contact-email-link" href={mailto} class="block truncate font-semibold underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">jaumetur3w@gmail.com</a>
+              <a id="contact-email-link" href={mailto} class="block truncate font-semibold underline decoration-ink decoration-2 underline-offset-4 hover:decoration-ink">jaumetur3w@gmail.com</a>
             </div>
             <button id="copy-email-btn" type="button" class="btn btn-white btn-sm shrink-0"><Icon name="bx:copy" class="h-4 w-4" /><span id="copy-btn-label">{t.copy}</span></button>
           </li>
-          <li class="border-t border-white/15">
-            <a href={`${base}/briefing/`} class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:text-brand"><span class="flex items-center gap-3"><Icon name="bx:clipboard" class="h-5 w-5 text-brand" />{t.brief}</span><span aria-hidden="true" class="text-brand">→</span></a>
+          <li class="border-t border-rule">
+            <a href={`${base}/briefing/`} class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:bg-brand"><span class="flex items-center gap-3"><Icon name="bx:clipboard" class="h-5 w-5 text-ink" />{t.brief}</span><UiIcon name="arrow" aria-hidden="true" class="text-ink" /></a>
           </li>
-          <li class="border-t border-white/15">
-            <a href={`${base}/pricing/`} class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:text-brand"><span class="flex items-center gap-3"><Icon name="bx:tag" class="h-5 w-5 text-brand" />{t.pricing}</span><span aria-hidden="true" class="text-brand">→</span></a>
+          <li class="border-t border-rule">
+            <a href={`${base}/pricing/`} class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:bg-brand"><span class="flex items-center gap-3"><Icon name="bx:tag" class="h-5 w-5 text-ink" />{t.pricing}</span><UiIcon name="arrow" aria-hidden="true" class="text-ink" /></a>
           </li>
-          <li class="border-t border-white/15">
-            <a href="https://share.google/3tihWcZBWMyYHmjBp" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:text-brand"><span class="flex items-center gap-3"><Icon name="bx:map-pin" class="h-5 w-5 text-brand" />{t.maps}</span><span aria-hidden="true" class="text-brand">↗</span><span class="sr-only">({isEn ? "opens in a new tab" : "se abre en una pestaña nueva"})</span></a>
+          <li class="border-t border-rule">
+            <a href="https://share.google/3tihWcZBWMyYHmjBp" target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:bg-brand"><span class="flex items-center gap-3"><Icon name="bx:map-pin" class="h-5 w-5 text-ink" />{t.maps}</span><UiIcon name="external" aria-hidden="true" class="text-ink" /><span class="sr-only">({isEn ? "opens in a new tab" : "se abre en una pestaña nueva"})</span></a>
           </li>
-          <li class="border-t border-white/15">
-            <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" id="contact-cv-btn" class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:text-brand"><span class="flex items-center gap-3"><Icon name="bx:file" class="h-5 w-5 text-brand" />{t.cv}</span><span aria-hidden="true" class="text-brand">↗</span></a>
+          <li class="border-t border-rule">
+            <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" id="contact-cv-btn" class="flex min-h-14 items-center justify-between gap-3 font-semibold hover:bg-brand"><span class="flex items-center gap-3"><Icon name="bx:file" class="h-5 w-5 text-ink" />{t.cv}</span><UiIcon name="external" aria-hidden="true" class="text-ink" /></a>
           </li>
         </ul>
 
@@ -91,10 +92,10 @@ const base = isEn ? "/en" : "";
         </ul>
       </div>
 
-      <div class="rounded-sm border border-white/20 bg-[#141414] p-6 sm:p-8 lg:col-span-7">
-        <h2 class="font-display text-[2.2rem] font-bold leading-none" style="font-stretch:80%">{t.formTitle}</h2>
+      <div class=" border border-rule bg-paper-2 p-6 sm:p-8 lg:col-span-7">
+        <h2 class="font-display text-[2.2rem] font-normal leading-none" style="font-stretch:80%">{t.formTitle}</h2>
         <p class="muted mt-3">{t.formText}</p>
-        <div class="mt-7 border-t border-white/15 pt-7">
+        <div class="mt-7 border-t border-rule pt-7">
           <Contactform />
         </div>
       </div>

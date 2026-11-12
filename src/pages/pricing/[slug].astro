@@ -1,4 +1,5 @@
 ---
+import UiIcon from "@/components/ui-icon.astro";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
@@ -110,28 +111,28 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[serviceSchema, breadcrumb]}>
-  <header class="border-b border-white/15 pb-12 pt-8 sm:pb-16">
+  <header class="border-b border-rule pb-12 pt-8 sm:pb-16">
     <div class="wrap">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-white/70">
-        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.home}</a><span aria-hidden="true">/</span>
-        <a href={to("/pricing")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.services}</a><span aria-hidden="true">/</span>
-        <span aria-current="page" class="text-white">{s.name}</span>
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-graphite">
+        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/pricing")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.services}</a><span aria-hidden="true">/</span>
+        <span aria-current="page" class="text-ink">{s.name}</span>
       </nav>
       <div class="mt-6 grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
         <div class="lg:col-span-7">
-          <p class="chip"><Icon name={s.icon} class="h-4 w-4 text-brand" />{s.badge}</p>
+          <p class="chip"><Icon name={s.icon} class="h-4 w-4 text-ink" />{s.badge}</p>
           <h1 class="h-page mt-5">{s.name}</h1>
           <p class="lede mt-6">{s.description}</p>
         </div>
         <div class="sheet px-6 pb-12 pt-7 lg:col-span-5">
           <p class="label">{t.from}</p>
-          <p class="num font-display text-[4rem] font-extrabold leading-none" style="font-stretch:80%">{euro(service.creationPriceNumber)}</p>
-          <dl class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[#0a0a0a]/50 pt-5 text-[0.95rem]">
+          <p class="num font-display text-[4rem] font-normal leading-none" style="font-stretch:80%">{euro(service.creationPriceNumber)}</p>
+          <dl class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[var(--ink)]/50 pt-5 text-[0.95rem]">
             <div class="leader-row"><dt>{isEn ? "Maintenance" : "Mantenimiento"}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{monthly(service.monthlyFeeNumber)}</dd></div>
             <div class="leader-row"><dt>{t.deliver}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-bold">{s.timeline}</dd></div>
             <div class="leader-row"><dt>{t.firstYear}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{euro(service.creationPriceNumber + 12 * service.monthlyFeeNumber)}</dd></div>
           </dl>
-          <a href={to(`/contact?servei=${service.id}`)} class="btn btn-brand mt-6 w-full">{s.ctaText} <span aria-hidden="true">→</span></a>
+          <a href={to(`/contact?servei=${service.id}`)} class="btn btn-brand mt-6 w-full">{s.ctaText} <UiIcon name="arrow" aria-hidden="true" /></a>
         </div>
       </div>
     </div>
@@ -141,56 +142,56 @@ const breadcrumb = {
     <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-7">
         <h2 id="inc-title" class="h-section">{t.includes}</h2>
-        <ul class="mt-8 border-b border-white/15">
+        <ul class="mt-8 border-b border-rule">
           {s.features.map((f) => (
-            <li class="flex gap-4 border-t border-white/15 py-4 leading-snug">
-              <svg class="mt-[0.2em] h-5 w-5 shrink-0 text-brand" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
+            <li class="flex gap-4 border-t border-rule py-4 leading-snug">
+              <svg class="mt-[0.2em] h-5 w-5 shrink-0 text-ink" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
               <span>{f}</span>
             </li>
           ))}
         </ul>
       </div>
       <aside class="lg:col-span-5">
-        <div class="border-t-2 border-brand pt-5">
-          <h2 class="font-display text-[1.8rem] font-bold leading-none" style="font-stretch:82%">{t.forWho}</h2>
+        <div class="border-t-2 border-ink pt-5">
+          <h2 class="font-display text-[1.8rem] font-normal leading-none" style="font-stretch:82%">{t.forWho}</h2>
           <p class="muted mt-4 leading-relaxed">{s.targetAudience}</p>
         </div>
       </aside>
     </div>
   </section>
 
-  <section class="section border-t border-white/15" aria-labelledby="why-title">
+  <section class="section border-t border-rule" aria-labelledby="why-title">
     <div class="wrap">
       <h2 id="why-title" class="h-section max-w-3xl">{t.why}</h2>
       <div class="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
-        <div class="border-t-2 border-brand pt-5">
-          <h3 class="font-display text-[1.5rem] font-bold leading-tight" style="font-stretch:84%">{t.creation}</h3>
+        <div class="border-t-2 border-ink pt-5">
+          <h3 class="font-display text-[1.5rem] font-normal leading-tight" style="font-stretch:84%">{t.creation}</h3>
           <ul class="muted mt-4 grid gap-2.5 leading-snug">
-            {s.whyThisPrice.creationBreakdown.map((x) => <li class="flex gap-3"><span class="text-brand" aria-hidden="true">–</span><span>{x}</span></li>)}
+            {s.whyThisPrice.creationBreakdown.map((x) => <li class="flex gap-3"><span class="text-ink" aria-hidden="true">–</span><span>{x}</span></li>)}
           </ul>
         </div>
-        <div class="border-t-2 border-brand pt-5">
-          <h3 class="font-display text-[1.5rem] font-bold leading-tight" style="font-stretch:84%">{t.maint}</h3>
+        <div class="border-t-2 border-ink pt-5">
+          <h3 class="font-display text-[1.5rem] font-normal leading-tight" style="font-stretch:84%">{t.maint}</h3>
           <ul class="muted mt-4 grid gap-2.5 leading-snug">
-            {s.whyThisPrice.monthlyBreakdown.map((x) => <li class="flex gap-3"><span class="text-brand" aria-hidden="true">–</span><span>{x}</span></li>)}
+            {s.whyThisPrice.monthlyBreakdown.map((x) => <li class="flex gap-3"><span class="text-ink" aria-hidden="true">–</span><span>{x}</span></li>)}
           </ul>
         </div>
       </div>
       <div class="mt-12 max-w-3xl">
-        <h3 class="font-display text-[1.5rem] font-bold leading-tight" style="font-stretch:84%">{t.commit}</h3>
+        <h3 class="font-display text-[1.5rem] font-normal leading-tight" style="font-stretch:84%">{t.commit}</h3>
         <p class="muted mt-3 leading-relaxed">{s.whyThisPrice.whyCommitmentOneYear}</p>
       </div>
     </div>
   </section>
 
-  <section class="section border-t border-white/15" aria-labelledby="worth-title">
+  <section class="section border-t border-rule" aria-labelledby="worth-title">
     <div class="wrap">
       <h2 id="worth-title" class="h-section max-w-3xl">{t.worth}</h2>
       <p class="lede mt-4">{t.worthNote}</p>
       <ul class="mt-10 grid gap-x-12 gap-y-9 sm:grid-cols-2">
         {s.amortizationPoints.map((a) => (
-          <li class="border-t border-white/25 pt-5">
-            <h3 class="font-display text-[1.45rem] font-bold leading-tight" style="font-stretch:84%">{a.title}</h3>
+          <li class="border-t border-rule pt-5">
+            <h3 class="font-display text-[1.45rem] font-normal leading-tight" style="font-stretch:84%">{a.title}</h3>
             <p class="muted mt-2 leading-relaxed">{a.description}</p>
           </li>
         ))}
@@ -198,13 +199,13 @@ const breadcrumb = {
     </div>
   </section>
 
-  <section class="section border-t border-white/15" aria-labelledby="cmp-title">
+  <section class="section border-t border-rule" aria-labelledby="cmp-title">
     <div class="wrap">
       <h2 id="cmp-title" class="h-section max-w-3xl">{t.compare}</h2>
       <div class="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-2">
         {s.marketComparison.map((m, i) => (
-          <article class:list={["border-t-2 pt-5", i === 0 ? "border-brand" : "border-white/25"]}>
-            <h3 class="font-display text-[1.45rem] font-bold leading-tight" style="font-stretch:84%">{m.name}</h3>
+          <article class:list={["border-t-2 pt-5", i === 0 ? "border-ink" : "border-rule"]}>
+            <h3 class="font-display text-[1.45rem] font-normal leading-tight" style="font-stretch:84%">{m.name}</h3>
             <p class="muted mt-2 leading-relaxed">{m.summary}</p>
             <dl class="mt-4 grid gap-1.5 text-[0.92rem]">
               <div><dt class="faint inline">{t.price}:</dt> <dd class="inline font-semibold">{m.priceRange}</dd></div>
@@ -219,14 +220,14 @@ const breadcrumb = {
   </section>
 
   {readings.length > 0 && (
-    <section class="section border-t border-white/15" aria-labelledby="read-title">
+    <section class="section border-t border-rule" aria-labelledby="read-title">
       <div class="wrap">
         <h2 id="read-title" class="h-section max-w-3xl">{isEn ? "Related reading (in Spanish)" : "Para leer antes de decidir"}</h2>
-        <ul class="mt-8 border-b border-white/15">
+        <ul class="mt-8 border-b border-rule">
           {readings.map((post) => (
             <li class="contents">
               <a href={`/blog/${post.id}/`} class="item">
-                <span class="font-display text-[1.4rem] font-bold leading-tight sm:text-[1.7rem]" style="font-stretch:84%">{post.data.title}</span>
+                <span class="font-display text-[1.4rem] font-normal leading-tight sm:text-[1.7rem]" style="font-stretch:84%">{post.data.title}</span>
                 <span class="muted max-w-3xl">{post.data.snippet}</span>
               </a>
             </li>
@@ -238,8 +239,8 @@ const breadcrumb = {
 
   <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: to(`/contact?servei=${service.id}`), label: s.ctaText }} secondary={{ href: to("/pricing"), label: t.services }} />
 
-  <nav aria-label={t.other} class="wrap grid gap-6 border-t border-white/15 py-10 sm:grid-cols-2">
-    <a href={to(`/pricing/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{p.name}</span></a>
-    <a href={to(`/pricing/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{n.name}</span></a>
+  <nav aria-label={t.other} class="wrap grid gap-6 border-t border-rule py-10 sm:grid-cols-2">
+    <a href={to(`/pricing/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-normal leading-tight group-hover:bg-brand" style="font-stretch:84%">{p.name}</span></a>
+    <a href={to(`/pricing/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-normal leading-tight group-hover:bg-brand" style="font-stretch:84%">{n.name}</span></a>
   </nav>
 </Layout>

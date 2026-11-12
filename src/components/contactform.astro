@@ -29,7 +29,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
   <!-- Nombre Completo -->
   <div>
     <label for="contact-name" class="field-label">
-      {isEn ? "Full Name" : "Nombre"} <span class="text-[#ff9b9b]" aria-label={isEn ? "required" : "obligatorio"}>*</span>
+      {isEn ? "Full Name" : "Nombre"} <span class="text-[#9b1c1c]" aria-label={isEn ? "required" : "obligatorio"}>*</span>
     </label>
     <div class="relative">
       <input
@@ -43,7 +43,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
         class="field"
       />
     </div>
-    <p id="name-error" class="hidden text-[#ff9b9b] text-sm mt-1.5 font-sans" role="alert">
+    <p id="name-error" class="hidden text-[#9b1c1c] text-sm mt-1.5 font-sans" role="alert">
       {isEn ? "Please indicate your name so I know how to address you." : "Indica tu nombre para poder dirigirme a ti."}
     </p>
   </div>
@@ -51,7 +51,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
   <!-- Correo de respuesta -->
   <div>
     <label for="contact-email" class="field-label">
-      {isEn ? "Email" : "Correo electrónico"} <span class="text-[#ff9b9b]" aria-label={isEn ? "required" : "obligatorio"}>*</span>
+      {isEn ? "Email" : "Correo electrónico"} <span class="text-[#9b1c1c]" aria-label={isEn ? "required" : "obligatorio"}>*</span>
     </label>
     <input
       id="contact-email"
@@ -64,7 +64,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       aria-describedby="email-error"
       class="field"
     />
-    <p id="email-error" class="hidden text-[#ff9b9b] text-sm mt-1.5 font-sans" role="alert">
+    <p id="email-error" class="hidden text-[#9b1c1c] text-sm mt-1.5 font-sans" role="alert">
       {isEn ? "Please enter a valid email so I can reply to you." : "Indica un correo válido para poder responderte."}
     </p>
   </div>
@@ -148,7 +148,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
       rows="4"
       class="field"
     ></textarea>
-    <p id="message-error" class="hidden text-[#ff9b9b] text-sm mt-1.5 font-sans" role="alert">
+    <p id="message-error" class="hidden text-[#9b1c1c] text-sm mt-1.5 font-sans" role="alert">
       {isEn ? "Please write a few lines to explain your project." : "Escribe unas líneas para explicar tu consulta."}
     </p>
   </div>
@@ -167,12 +167,12 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
   <!-- Banner de Estado Accesible (Live Region) -->
   <div
     id="form-feedback"
-    class="hidden rounded-sm p-4 text-center text-sm font-semibold"
+    class="hidden  p-4 text-center text-sm font-semibold"
     role="status"
     aria-live="polite">
   </div>
 
-  <p class="text-[0.82rem] text-white/75 text-center font-sans">
+  <p class="text-[0.82rem] text-graphite text-center font-sans">
     {isEn
       ? "Inquiring carries no obligation. Name and email are required; phone and other fields are optional."
       : "La consulta no implica ningún compromiso. El nombre y el correo son obligatorios; el teléfono y el resto de datos son opcionales."}
@@ -221,8 +221,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
     function showStatus(message, isSuccess = true) {
       if (!feedback) return;
       feedback.className = isSuccess
-        ? "rounded-sm p-4 text-center text-sm font-semibold bg-[#ffff00] text-[#0a0a0a]"
-        : "rounded-sm p-4 text-center text-sm font-semibold border-2 border-[#ff9b9b] text-[#ff9b9b]";
+        ? " p-4 text-center text-sm font-semibold bg-brand text-ink"
+        : " p-4 text-center text-sm font-semibold border-2 border-[#9b1c1c] text-[#9b1c1c]";
       feedback.textContent = message;
       feedback.classList.remove("hidden");
     }

@@ -1,5 +1,6 @@
 ---
 import { localizePath, localeFromPath, stripLocale } from "@/i18n";
+import UiIcon from "@/components/ui-icon.astro";
 
 const rawPathname = Astro.url.pathname;
 const locale = localeFromPath(rawPathname);
@@ -14,6 +15,7 @@ const withSlash = (path: string) => {
   return `${base === "/" || base.endsWith("/") ? base : `${base}/`}${hash}`;
 };
 const to = (path: string) => withSlash(localizePath(path, locale));
+
 const is404 = rawPathname.includes("404");
 const spanishPath = is404 ? "/" : withSlash(localizePath(rawPathname, "es"));
 const englishPath = is404 ? "/en/" : withSlash(localizePath(rawPathname, "en"));
@@ -25,77 +27,75 @@ const links = [
   { label: isEn ? "About" : "Sobre mí", path: "/about", active: pathname.startsWith("/about") },
 ];
 const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
+const homeLabel = isEn ? "Jaume Tur, home" : "Jaume Tur, inicio";
 ---
 
 <header id="site-header" class="site-header sticky top-0 z-50 w-full">
-  <div class="wrap flex items-center justify-between gap-4 py-3">
-    <a href={to("/")} class="flex min-h-11 items-center gap-3" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
-      <img src="/img/jt.LOGO-02-128.webp" alt="" width="36" height="36" class="h-9 w-9 rounded-sm" decoding="async" />
-      <span class="font-display text-[1.35rem] font-extrabold leading-none tracking-tight" style="font-stretch:85%">jaume<span class="text-brand">tur</span></span>
+  <div class="wrap flex items-center justify-between gap-4 py-2.5">
+    <a href={to("/")} class="inline-flex min-h-11 items-center" aria-label={homeLabel}>
+      <span class="font-display text-[1.7rem] leading-none">Jaume<span class="italic">&nbsp;</span>Tur<span class="ml-0.5 inline-block h-2 w-2 translate-y-[-0.6em] bg-brand"></span></span>
     </a>
 
     <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} class="hidden lg:block">
-      <ul class="flex items-center gap-1">
-        {links.map((l, i) => (
+      <ul class="flex items-center gap-7">
+        {links.map((l) => (
           <li>
             <a
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "inline-flex min-h-11 items-center px-3.5 text-[0.95rem] font-medium underline decoration-2 underline-offset-[0.5em] transition-colors",
-                l.active ? "text-white decoration-brand" : "text-white/80 decoration-transparent hover:text-white hover:decoration-white/60",
+                "inline-flex min-h-11 items-center text-[1rem] font-bold text-ink underline-offset-[0.35em] decoration-[3px]",
+                l.active ? "underline decoration-ink" : "no-underline hover:underline hover:decoration-ink",
               ]}
-            ><span class="label mr-1.5 text-brand">0{i + 1}</span>{l.label}</a>
+            >{l.label}</a>
           </li>
         ))}
       </ul>
     </nav>
 
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div class="hidden items-center text-sm font-semibold sm:flex" role="group" aria-label={isEn ? "Language" : "Idioma"}>
+    <div class="flex items-center gap-2 sm:gap-4">
+      <div class="hidden items-center text-sm font-bold sm:flex" role="group" aria-label={isEn ? "Language" : "Idioma"}>
         <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}
-           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", !isEn ? "text-brand" : "text-white/70 hover:text-white"]}>ES</a>
-        <span class="text-white/30" aria-hidden="true">/</span>
+           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", !isEn ? "bg-ink text-paper" : "text-ink hover:underline"]}>ES</a>
         <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}
-           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", isEn ? "text-brand" : "text-white/70 hover:text-white"]}>EN</a>
+           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", isEn ? "bg-ink text-paper" : "text-ink hover:underline"]}>EN</a>
       </div>
 
-      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">{ctaLabel}</a>
+      <a href={to("/contact")} class="btn btn-ink btn-sm hidden sm:inline-flex">{ctaLabel}</a>
 
       <button
         id="nav-toggle"
         type="button"
-        class="inline-flex min-h-11 items-center gap-2 rounded-sm border border-white/25 px-3.5 text-sm font-semibold text-white transition-colors hover:border-brand hover:text-brand lg:hidden"
+        class="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink px-3.5 text-sm font-bold text-ink hover:bg-ink hover:text-paper lg:hidden"
         aria-expanded="false"
         aria-controls="nav-panel"
         data-open-label={isEn ? "Menu" : "Menú"}
         data-close-label={isEn ? "Close" : "Cerrar"}
       >
         <span id="nav-toggle-label">{isEn ? "Menu" : "Menú"}</span>
-        <svg id="nav-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
-        <svg id="nav-icon-close" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
+        <UiIcon id="nav-icon-open" name="menu" class="h-[18px] w-[18px]" />
+        <UiIcon id="nav-icon-close" name="close" class="hidden h-[18px] w-[18px]" />
       </button>
     </div>
   </div>
 
-  <div id="nav-panel" class="hidden border-t border-white/15 bg-[#0a0a0a] lg:hidden" style="max-height:calc(100dvh - 4.25rem);overflow-y:auto">
-    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="wrap pb-6 pt-2">
+  <div id="nav-panel" class="hidden border-t-2 border-ink bg-paper lg:hidden" style="max-height:calc(100dvh - 4.25rem);overflow-y:auto">
+    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="wrap pb-8 pt-2">
       <ul>
-        {links.map((l, i) => (
-          <li class="border-b border-white/15">
+        {links.map((l) => (
+          <li class="border-b border-rule">
             <a href={to(l.path)} aria-current={l.active ? "page" : undefined}
-               class:list={["flex min-h-14 items-center justify-between font-display text-3xl font-bold", l.active ? "text-brand" : "text-white"]} style="font-stretch:82%">
-              <span>{l.label}</span>
-              <span aria-hidden="true" class="text-xl text-brand">→</span>
+               class:list={["flex min-h-16 items-center font-display text-[2.4rem] font-normal leading-none", l.active ? "underline decoration-ink decoration-[6px] underline-offset-[0.2em]" : ""]} style="font-stretch:75%">
+              {l.label}
             </a>
           </li>
         ))}
       </ul>
-      <a href={to("/contact")} class="btn btn-brand mt-6 w-full">{ctaLabel}</a>
-      <p class="mt-5 flex items-center gap-1 text-sm">
-        <span class="text-white/70">{isEn ? "Language" : "Idioma"}:</span>
-        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-3 font-semibold", !isEn ? "text-brand" : "text-white/80"]}>Español</a>
-        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-3 font-semibold", isEn ? "text-brand" : "text-white/80"]}>English</a>
+      <a href={to("/contact")} class="btn btn-brand mt-8 w-full">{ctaLabel}</a>
+      <p class="mt-6 flex items-center gap-3 text-sm font-bold">
+        <span class="text-graphite">{isEn ? "Language" : "Idioma"}</span>
+        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-2 underline decoration-2 underline-offset-4", !isEn ? "bg-brand" : ""]}>Español</a>
+        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-2 underline decoration-2 underline-offset-4", isEn ? "bg-brand" : ""]}>English</a>
       </p>
     </nav>
   </div>

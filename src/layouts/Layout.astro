@@ -23,6 +23,8 @@ export interface Props {
   nofollow?: boolean;
   /** false si la página no tiene traducción real: no emite hreflang. */
   alternates?: boolean;
+  /** Lámina de entrada amarilla (solo portada, una vez por sesión). */
+  intro?: boolean;
 }
 
 const {
@@ -36,6 +38,7 @@ const {
   noindex = false,
   nofollow = false,
   alternates = true,
+  intro = false,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, "") : "https://jaumetur.es";
@@ -233,9 +236,20 @@ const websiteSchema = {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#fdfdfb" />
+    <link rel="preload" href="/fonts/bricolage-latin-wdth.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      try {
+        if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+          document.documentElement.classList.add("hero-pending");
+          setTimeout(function () {
+            document.documentElement.classList.remove("hero-pending");
+          }, 4000);
+        }
+      } catch (_) {}
+    </script>
 
     <!-- Google Consent Mode v2 (Modo Básico: GTM y GA4 bloqueados hasta consentimiento) -->
     <script is:inline>
@@ -328,8 +342,8 @@ const websiteSchema = {
     />
 
     <!-- Fuentes críticas: evita la cascada que retrasa el LCP -->
-    <link rel="preload" href="/fonts/bricolage-latin-wdth.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/atkinson-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    
+    
 
     {!shouldNoIndex && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
@@ -337,19 +351,29 @@ const websiteSchema = {
     {isEntityPage && <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />}
     {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
-  <body class="bg-[#0a0a0a] text-white antialiased selection:bg-[#ffff00] selection:text-[#0a0a0a] min-h-screen flex flex-col overflow-x-clip">
+  <body class="bg-paper text-ink antialiased min-h-screen flex flex-col overflow-x-clip">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-3 focus:bg-[#ffff00] focus:text-[#0a0a0a] focus:font-bold focus:rounded-sm focus:outline-2 focus:outline-white"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-3 focus:bg-brand focus:text-ink focus:font-bold focus:outline-3 focus:outline-ink"
     >
       {isEn ? "Skip to main content" : "Saltar al contenido principal"}
     </a>
+    {intro && (
+      <div id="intro" aria-hidden="true" class="items-center justify-center bg-brand text-ink">
+        <p class="font-display text-[clamp(3.5rem,12vw,11rem)] leading-none">Jaume<span class="italic"> </span>Tur</p>
+      </div>
+    )}
     <Navbar />
-    <main id="main-content" class="flex-1 outline-none" tabindex="-1" data-fresh={fresh ? "" : undefined}>
+    <main id="main-content" class="relative isolate flex-1 outline-none" tabindex="-1" data-fresh={fresh ? "" : undefined}>
+      <div class="ambient ambient--page" aria-hidden="true"><i></i><i></i><i></i></div>
       <slot />
     </main>
     <Footer />
     <CookieConsent />
+    <div data-cursor class="cursor" aria-hidden="true"><span data-cursor-bubble class="cursor-bubble"></span></div>
+    <script>
+      import "@/scripts/motion";
+    </script>
 
     <!-- Revelado suave de secciones (un solo observer, sin dependencias) -->
     <script is:inline>

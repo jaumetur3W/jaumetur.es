@@ -166,7 +166,7 @@ const t = isEn ? {
     padding: 1rem;
     text-align: left;
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: ;
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     color: rgb(255 255 255 / 0.7);
@@ -225,7 +225,7 @@ const t = isEn ? {
 
   .includes li::before {
     content: "✓ ";
-    color: var(--brand, #ffff00);
+    color: var(--brand, var(--brand));
     font-weight: bold;
     margin-right: 0.5rem;
   }
@@ -238,8 +238,8 @@ const t = isEn ? {
   .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: var(--brand, #ffff00);
-    color: #0a0a0a;
+    background: var(--brand, var(--brand));
+    color: var(--ink);
     text-decoration: none;
     border-radius: 0.25rem;
     font-weight: 600;
@@ -254,7 +254,7 @@ const t = isEn ? {
 
   .maintenance-terms {
     background: rgb(255 255 255 / 0.05);
-    border-left: 4px solid var(--brand, #ffff00);
+    border-left: 4px solid var(--brand, var(--brand));
     padding: 2rem;
     border-radius: 0.25rem;
   }
@@ -274,7 +274,7 @@ const t = isEn ? {
   .term h4 {
     font-weight: 600;
     margin-bottom: 0.75rem;
-    color: var(--brand, #ffff00);
+    color: var(--brand, var(--brand));
   }
 
   .term ul {

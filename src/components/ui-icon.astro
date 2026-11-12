@@ -1,0 +1,27 @@
+---
+/** Icono único del sitio: Boxicons vía astro-icon. Trazo y tamaño uniformes (1em). */
+import { Icon } from "astro-icon/components";
+
+const MAP = {
+  arrow: "bx:right-arrow-alt",
+  external: "bx:link-external",
+  check: "bx:check",
+  menu: "bx:menu",
+  close: "bx:x",
+} as const;
+
+export interface Props {
+  name: keyof typeof MAP;
+  class?: string;
+  id?: string;
+}
+const { name, class: cls = "", id } = Astro.props;
+---
+
+<Icon name={MAP[name]} id={id} class:list={["ui-icon h-[1em] w-[1em] shrink-0", cls]} aria-hidden="true" focusable="false" />
+
+<style>
+  :global(.ui-icon) {
+    vertical-align: -0.125em;
+  }
+</style>

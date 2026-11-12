@@ -1,4 +1,5 @@
 ---
+import UiIcon from "@/components/ui-icon.astro";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import QuoteSheet from "@/components/quote-sheet.astro";
@@ -145,11 +146,11 @@ const breadcrumbSchema = {
           {
             t.reasons.map((reason) => (
               <div class="space-y-2">
-                <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ffff00]">
-                  <Icon name={reason.icon} class="h-6 w-6 text-brand" />
+                <div class="flex h-12 w-12 items-center justify-center  bg-brand">
+                  <Icon name={reason.icon} class="h-6 w-6 text-ink" />
                 </div>
                 <h3 class="font-semibold">{reason.title}</h3>
-                <p class="text-sm text-white/70">{reason.desc}</p>
+                <p class="text-sm text-graphite">{reason.desc}</p>
               </div>
             ))
           }
@@ -184,9 +185,9 @@ const breadcrumbSchema = {
           {
             t.steps.map((step) => (
               <div class="space-y-2">
-                <div class="text-2xl font-extrabold text-[#ffff00] tabular-nums">{step.n}</div>
+                <div class="text-2xl font-extrabold text-ink tabular-nums">{step.n}</div>
                 <h3 class="font-semibold leading-snug">{step.title}</h3>
-                <p class="text-sm text-white/70">{step.desc}</p>
+                <p class="text-sm text-graphite">{step.desc}</p>
               </div>
             ))
           }
@@ -201,7 +202,7 @@ const breadcrumbSchema = {
         {
           t.conditions.map((condition) => (
             <li class="flex gap-3">
-              <span class="shrink-0 text-[#ffff00]">✓</span>
+              <UiIcon name="check" class="shrink-0 text-ink" />
               <span>{condition}</span>
             </li>
           ))
@@ -215,12 +216,12 @@ const breadcrumbSchema = {
       <div class="mt-6 space-y-4">
         {
           t.faqs.map((faq) => (
-            <details class="group open:bg-[#0a0a0a]/5 open:p-4 open:rounded-sm cursor-pointer">
+            <details class="group open:bg-paper/5 open:p-4 open: cursor-pointer">
               <summary class="font-semibold leading-snug flex items-center gap-2">
                 {faq.q}
                 <span class="ml-auto group-open:rotate-180 transition-transform">▼</span>
               </summary>
-              <p class="mt-3 text-sm text-white/70">{faq.a}</p>
+              <p class="mt-3 text-sm text-graphite">{faq.a}</p>
             </details>
           ))
         }
