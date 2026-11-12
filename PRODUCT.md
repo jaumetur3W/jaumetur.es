@@ -26,7 +26,7 @@ Sitio estático Astro 7 + Tailwind 4, bilingüe ES (por defecto) / EN, publicado
 - Deploy a producción solo con autorización explícita del usuario.
 
 ## Brand Commitments
-Amarillo corporativo #FFFF00; negro como color predominante de la interfaz; texto blanco sobre oscuro; botones amarillos con texto negro; sin texto negro sobre fondo oscuro. Logos JT en /public/img (jt.LOGO-0x).
+Amarillo corporativo #FFFF00 como única firma de color (bloques sólidos, marcadores, etiquetas, hovers) y nunca como color de texto sobre blanco; tinta #111111 sobre base clara casi blanca con textura sutil. Modo claro únicamente (el brief «STREET-GLASS» de 2026-11-12 sustituye al antiguo «negro predominante»). Botones amarillos con texto negro o tinta con texto blanco. Logos JT en /public/img (jt.LOGO-0x).
 
 ## Evidence on Hand
 Proyectos reales en src/content/projectes*: Avisa (PWA Angular), Pizzería Xàtiva, Burger Xàtiva, Dashboard de telemetría, Pipeline CI/CD, Finca Rural, Forma Espacio (las demos con datos de ejemplo están rotuladas como tales). Capturas en /public/img. No hay testimonios, clientes de pago verificados, premios ni cifras de resultados: no se pueden inventar.

@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-12T22:26:16.459Z",
+        "reason": "brief del usuario 2026-11-12 pide Inter para el cuerpo (pinned en el brief, no confirmado aparte)"
+      }
+    ]
+  }
+}

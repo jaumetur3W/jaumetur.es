@@ -70,14 +70,14 @@ const t = {
     <Container>
       <!-- Header -->
       <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-brand/10 px-3.5 py-1 text-xs font-bold text-brand">
+        <span class="inline-flex items-center gap-2 rounded-full border border-ink/40 bg-brand/30 px-3.5 py-1 text-xs font-bold text-ink">
           <Icon name="bx:code-alt" class="h-4 w-4" />
           <span>{t.badge}</span>
         </span>
-        <h1 class="display mt-4 text-3xl sm:text-5xl text-white">
+        <h1 class="display mt-4 text-3xl sm:text-5xl text-ink">
           {t.title}
         </h1>
-        <p class="mt-4 text-base sm:text-lg text-zinc-300 leading-relaxed">
+        <p class="mt-4 text-base sm:text-lg text-ink/75 leading-relaxed">
           {t.sub}
         </p>
       </div>
@@ -90,44 +90,44 @@ const t = {
           <form id="html-creator-form" class="space-y-6">
             
             <!-- Metadata Card -->
-            <div class="surface-card p-6 sm:p-7 border border-white/10 bg-[#121216]">
-              <div class="flex items-center gap-2.5 pb-4 border-b border-white/10">
-                <Icon name="bx:slider-alt" class="h-5 w-5 text-brand" />
-                <h2 class="font-display text-base font-bold text-white">{t.secMeta}</h2>
+            <div class="surface-card p-6 sm:p-7 border border-ink/20 bg-white/70">
+              <div class="flex items-center gap-2.5 pb-4 border-b border-ink/20">
+                <Icon name="bx:slider-alt" class="h-5 w-5 text-ink" />
+                <h2 class="font-display text-base font-bold text-ink">{t.secMeta}</h2>
               </div>
 
               <div class="mt-5 space-y-4">
                 <div>
-                  <label for="cfg-title" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  <label for="cfg-title" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                     {t.lblDocTitle}
                   </label>
                   <input
                     id="cfg-title"
                     type="text"
                     value={isEn ? "My Modern Digital Product" : "Mi Producto Digital Moderno"}
-                    class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition focus:border-brand focus:ring-1 focus:ring-brand"
+                    class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2.5 text-sm text-ink placeholder-ink/50 outline-none transition focus:border-ink focus:ring-1 focus:ring-ink"
                   />
                 </div>
 
                 <div>
-                  <label for="cfg-desc" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  <label for="cfg-desc" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                     {t.lblDocDesc}
                   </label>
                   <textarea
                     id="cfg-desc"
                     rows="2"
-                    class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2 text-sm text-white placeholder-zinc-600 outline-none transition focus:border-brand focus:ring-1 focus:ring-brand"
+                    class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2 text-sm text-ink placeholder-ink/50 outline-none transition focus:border-ink focus:ring-1 focus:ring-ink"
                   >{isEn ? "High-performance digital experiences crafted for fast web conversion and accessibility." : "Experiencias digitales de alto rendimiento creadas para máxima conversión y accesibilidad web."}</textarea>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label for="cfg-lang" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                    <label for="cfg-lang" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                       {t.lblDocLang}
                     </label>
                     <select
                       id="cfg-lang"
-                      class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3 py-2.5 text-sm text-white outline-none transition focus:border-brand cursor-pointer"
+                      class="w-full rounded-sm border border-ink/20 bg-white px-3 py-2.5 text-sm text-ink outline-none transition focus:border-ink cursor-pointer"
                     >
                       <option value="es" selected={!isEn}>Español (es)</option>
                       <option value="en" selected={isEn}>English (en)</option>
@@ -135,14 +135,14 @@ const t = {
                     </select>
                   </div>
                   <div>
-                    <label for="cfg-author" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                    <label for="cfg-author" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                       {t.lblDocAuthor}
                     </label>
                     <input
                       id="cfg-author"
                       type="text"
                       value="Jaume Tur"
-                      class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2.5 text-sm text-white outline-none transition focus:border-brand"
+                      class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-ink"
                     />
                   </div>
                 </div>
@@ -150,20 +150,20 @@ const t = {
             </div>
 
             <!-- Design & Framework Options -->
-            <div class="surface-card p-6 sm:p-7 border border-white/10 bg-[#121216]">
-              <div class="flex items-center gap-2.5 pb-4 border-b border-white/10">
-                <Icon name="bx:palette" class="h-5 w-5 text-brand" />
-                <h2 class="font-display text-base font-bold text-white">{t.secDesign}</h2>
+            <div class="surface-card p-6 sm:p-7 border border-ink/20 bg-white/70">
+              <div class="flex items-center gap-2.5 pb-4 border-b border-ink/20">
+                <Icon name="bx:palette" class="h-5 w-5 text-ink" />
+                <h2 class="font-display text-base font-bold text-ink">{t.secDesign}</h2>
               </div>
 
               <div class="mt-5 space-y-4">
                 <div>
-                  <label for="cfg-theme" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  <label for="cfg-theme" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                     {t.lblTheme}
                   </label>
                   <select
                     id="cfg-theme"
-                    class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3 py-2.5 text-sm text-white outline-none transition focus:border-brand cursor-pointer"
+                    class="w-full rounded-sm border border-ink/20 bg-white px-3 py-2.5 text-sm text-ink outline-none transition focus:border-ink cursor-pointer"
                   >
                     <option value="dark">{t.themeDark}</option>
                     <option value="light">{t.themeLight}</option>
@@ -173,101 +173,101 @@ const t = {
 
                 <div class="space-y-2.5 pt-1">
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input id="cfg-tailwind" type="checkbox" checked class="h-4 w-4 rounded border-white/20 bg-black text-[#FFFF00] focus:ring-brand accent-[#FFFF00]" />
-                    <span class="text-xs sm:text-sm text-zinc-300">{t.lblTailwind}</span>
+                    <input id="cfg-tailwind" type="checkbox" checked class="h-4 w-4 rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#FFFF00]" />
+                    <span class="text-xs sm:text-sm text-ink/75">{t.lblTailwind}</span>
                   </label>
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input id="cfg-fonts" type="checkbox" checked class="h-4 w-4 rounded border-white/20 bg-black text-[#FFFF00] focus:ring-brand accent-[#FFFF00]" />
-                    <span class="text-xs sm:text-sm text-zinc-300">{t.lblFonts}</span>
+                    <input id="cfg-fonts" type="checkbox" checked class="h-4 w-4 rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#FFFF00]" />
+                    <span class="text-xs sm:text-sm text-ink/75">{t.lblFonts}</span>
                   </label>
                 </div>
               </div>
             </div>
 
             <!-- Content & Sections -->
-            <div class="surface-card p-6 sm:p-7 border border-white/10 bg-[#121216]">
-              <div class="flex items-center gap-2.5 pb-4 border-b border-white/10">
-                <Icon name="bx:layout" class="h-5 w-5 text-brand" />
-                <h2 class="font-display text-base font-bold text-white">{t.secContent}</h2>
+            <div class="surface-card p-6 sm:p-7 border border-ink/20 bg-white/70">
+              <div class="flex items-center gap-2.5 pb-4 border-b border-ink/20">
+                <Icon name="bx:layout" class="h-5 w-5 text-ink" />
+                <h2 class="font-display text-base font-bold text-ink">{t.secContent}</h2>
               </div>
 
               <div class="mt-5 space-y-4">
                 <div>
-                  <label for="cfg-brand" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  <label for="cfg-brand" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                     {t.lblBrand}
                   </label>
                   <input
                     id="cfg-brand"
                     type="text"
                     value={isEn ? "Studio Apex" : "Estudio Digital"}
-                    class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2.5 text-sm text-white outline-none transition focus:border-brand"
+                    class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-ink"
                   />
                 </div>
 
                 <div>
-                  <label for="cfg-h1" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  <label for="cfg-h1" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                     {t.lblHeroH1}
                   </label>
                   <input
                     id="cfg-h1"
                     type="text"
                     value={isEn ? "Engineering high-speed websites that convert." : "Diseñamos y desarrollamos páginas web que convierten."}
-                    class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2.5 text-sm text-white outline-none transition focus:border-brand"
+                    class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-ink"
                   />
                 </div>
 
                 <div>
-                  <label for="cfg-sub" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                  <label for="cfg-sub" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                     {t.lblHeroSub}
                   </label>
                   <textarea
                     id="cfg-sub"
                     rows="2"
-                    class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2 text-sm text-white outline-none transition focus:border-brand"
+                    class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2 text-sm text-ink outline-none transition focus:border-ink"
                   >{isEn ? "Modern architecture, 100/100 Lighthouse performance, and fluid user experiences." : "Arquitectura ultrarrápida, puntuación 100/100 en Lighthouse y experiencia de usuario fluida."}</textarea>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                   <div>
-                    <label for="cfg-cta-text" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                    <label for="cfg-cta-text" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                       {t.lblCtaText}
                     </label>
                     <input
                       id="cfg-cta-text"
                       type="text"
                       value={isEn ? "Get Started Now" : "Solicitar Presupuesto"}
-                      class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2 text-sm text-white outline-none transition focus:border-brand"
+                      class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2 text-sm text-ink outline-none transition focus:border-ink"
                     />
                   </div>
                   <div>
-                    <label for="cfg-cta-url" class="block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-1.5">
+                    <label for="cfg-cta-url" class="block text-xs font-mono font-semibold uppercase tracking-wider text-ink/75 mb-1.5">
                       {t.lblCtaUrl}
                     </label>
                     <input
                       id="cfg-cta-url"
                       type="text"
                       value="#contacto"
-                      class="w-full rounded-sm border border-white/10 bg-[#0a0a0c] px-3.5 py-2 text-sm text-white outline-none transition focus:border-brand font-mono"
+                      class="w-full rounded-sm border border-ink/20 bg-white px-3.5 py-2 text-sm text-ink outline-none transition focus:border-ink font-mono"
                     />
                   </div>
                 </div>
 
                 <!-- Feature Cards Customization Accordion/Section -->
-                <div class="pt-3 border-t border-white/10 space-y-3">
-                  <p class="text-xs font-mono font-bold text-brand uppercase tracking-wider">
+                <div class="pt-3 border-t border-ink/20 space-y-3">
+                  <p class="text-xs font-mono font-bold text-ink uppercase tracking-wider">
                     {isEn ? "Features Grid" : "Tarjetas de Características"}
                   </p>
                   <div>
-                    <input id="cfg-f1-t" type="text" aria-label={isEn ? "Feature 1 Title" : "Título característica 1"} value={isEn ? "Lighthouse 100" : "Rendimiento 100/100"} class="w-full mb-1 rounded-lg border border-white/10 bg-[#0a0a0c] px-2.5 py-1.5 text-xs text-white" />
-                    <input id="cfg-f1-d" type="text" aria-label={isEn ? "Feature 1 Description" : "Descripción característica 1"} value={isEn ? "Sub-second load times that rank top on Google." : "Carga instantánea en menos de un segundo para posicionar en Google."} class="w-full rounded-lg border border-white/10 bg-[#0a0a0c] px-2.5 py-1.5 text-xs text-zinc-300" />
+                    <input id="cfg-f1-t" type="text" aria-label={isEn ? "Feature 1 Title" : "Título característica 1"} value={isEn ? "Lighthouse 100" : "Rendimiento 100/100"} class="w-full mb-1 rounded-lg border border-ink/20 bg-white px-2.5 py-1.5 text-xs text-ink" />
+                    <input id="cfg-f1-d" type="text" aria-label={isEn ? "Feature 1 Description" : "Descripción característica 1"} value={isEn ? "Sub-second load times that rank top on Google." : "Carga instantánea en menos de un segundo para posicionar en Google."} class="w-full rounded-lg border border-ink/20 bg-white px-2.5 py-1.5 text-xs text-ink/75" />
                   </div>
                   <div>
-                    <input id="cfg-f2-t" type="text" aria-label={isEn ? "Feature 2 Title" : "Título característica 2"} value={isEn ? "WCAG AA Accessible" : "Accesibilidad Total"} class="w-full mb-1 rounded-lg border border-white/10 bg-[#0a0a0c] px-2.5 py-1.5 text-xs text-white" />
-                    <input id="cfg-f2-d" type="text" aria-label={isEn ? "Feature 2 Description" : "Descripción característica 2"} value={isEn ? "Readable, navigable by keyboard, compliant with standards." : "Legible para todos los usuarios y adaptada a cualquier dispositivo."} class="w-full rounded-lg border border-white/10 bg-[#0a0a0c] px-2.5 py-1.5 text-xs text-zinc-300" />
+                    <input id="cfg-f2-t" type="text" aria-label={isEn ? "Feature 2 Title" : "Título característica 2"} value={isEn ? "WCAG AA Accessible" : "Accesibilidad Total"} class="w-full mb-1 rounded-lg border border-ink/20 bg-white px-2.5 py-1.5 text-xs text-ink" />
+                    <input id="cfg-f2-d" type="text" aria-label={isEn ? "Feature 2 Description" : "Descripción característica 2"} value={isEn ? "Readable, navigable by keyboard, compliant with standards." : "Legible para todos los usuarios y adaptada a cualquier dispositivo."} class="w-full rounded-lg border border-ink/20 bg-white px-2.5 py-1.5 text-xs text-ink/75" />
                   </div>
                   <div>
-                    <input id="cfg-f3-t" type="text" aria-label={isEn ? "Feature 3 Title" : "Título característica 3"} value={isEn ? "Conversion Driven" : "Orientado a Ventas"} class="w-full mb-1 rounded-lg border border-white/10 bg-[#0a0a0c] px-2.5 py-1.5 text-xs text-white" />
-                    <input id="cfg-f3-d" type="text" aria-label={isEn ? "Feature 3 Description" : "Descripción característica 3"} value={isEn ? "Strategic CTAs designed to turn visitors into paying clients." : "Llamadas a la acción claras para conseguir clientes reales desde el primer día."} class="w-full rounded-lg border border-white/10 bg-[#0a0a0c] px-2.5 py-1.5 text-xs text-zinc-300" />
+                    <input id="cfg-f3-t" type="text" aria-label={isEn ? "Feature 3 Title" : "Título característica 3"} value={isEn ? "Conversion Driven" : "Orientado a Ventas"} class="w-full mb-1 rounded-lg border border-ink/20 bg-white px-2.5 py-1.5 text-xs text-ink" />
+                    <input id="cfg-f3-d" type="text" aria-label={isEn ? "Feature 3 Description" : "Descripción característica 3"} value={isEn ? "Strategic CTAs designed to turn visitors into paying clients." : "Llamadas a la acción claras para conseguir clientes reales desde el primer día."} class="w-full rounded-lg border border-ink/20 bg-white px-2.5 py-1.5 text-xs text-ink/75" />
                   </div>
                 </div>
               </div>
@@ -277,7 +277,7 @@ const t = {
             <button
               type="button"
               id="btn-reset-template"
-              class="w-full py-2.5 px-4 rounded-sm border border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:border-white/20 text-xs font-mono font-medium transition cursor-pointer"
+              class="w-full py-2.5 px-4 rounded-sm border border-ink/20 bg-white/60 text-ink/75 hover:text-ink hover:border-ink/35 text-xs font-mono font-medium transition cursor-pointer"
             >
               {t.btnReset}
             </button>
@@ -288,15 +288,15 @@ const t = {
         <div class="lg:col-span-7 space-y-4">
           
           <!-- Top Bar with Tabs and Download/Copy Actions -->
-          <div class="surface-card p-4 border border-white/10 bg-[#121216] flex flex-wrap items-center justify-between gap-4">
+          <div class="surface-card p-4 border border-ink/20 bg-white/70 flex flex-wrap items-center justify-between gap-4">
             <!-- Tabs -->
-            <div class="flex items-center gap-1.5 p-1 rounded-sm bg-[#0a0a0c] border border-white/10" role="tablist">
+            <div class="flex items-center gap-1.5 p-1 rounded-sm bg-white border border-ink/20" role="tablist">
               <button
                 type="button"
                 id="tab-btn-preview"
                 role="tab"
                 aria-selected="true"
-                class="px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-brand text-black shadow-xs"
+                class="px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-brand text-ink shadow-xs"
               >
                 <Icon name="bx:show" class="h-4 w-4 inline mr-1" />
                 <span>{t.tabPreview}</span>
@@ -306,7 +306,7 @@ const t = {
                 id="tab-btn-code"
                 role="tab"
                 aria-selected="false"
-                class="px-4 py-2 rounded-lg text-xs font-mono font-medium text-zinc-400 hover:text-white transition-all cursor-pointer"
+                class="px-4 py-2 rounded-lg text-xs font-mono font-medium text-ink/75 hover:text-ink transition-all cursor-pointer"
               >
                 <Icon name="bx:code" class="h-4 w-4 inline mr-1" />
                 <span>{t.tabCode}</span>
@@ -314,10 +314,10 @@ const t = {
             </div>
 
             <!-- Viewport toggle for preview -->
-            <div id="viewport-controls" class="hidden sm:flex items-center gap-1 text-xs font-mono text-zinc-400">
-              <button type="button" data-view="100%" class="view-btn active px-2.5 py-1 rounded-lg bg-white/10 text-white font-bold cursor-pointer" title={t.viewDesktop}>100%</button>
-              <button type="button" data-view="768px" class="view-btn px-2.5 py-1 rounded-lg hover:bg-white/5 cursor-pointer" title={t.viewTablet}>768px</button>
-              <button type="button" data-view="375px" class="view-btn px-2.5 py-1 rounded-lg hover:bg-white/5 cursor-pointer" title={t.viewMobile}>375px</button>
+            <div id="viewport-controls" class="hidden sm:flex items-center gap-1 text-xs font-mono text-ink/75">
+              <button type="button" data-view="100%" class="view-btn active px-2.5 py-1 rounded-lg bg-white/70 text-ink font-bold cursor-pointer" title={t.viewDesktop}>100%</button>
+              <button type="button" data-view="768px" class="view-btn px-2.5 py-1 rounded-lg hover:bg-white/60 cursor-pointer" title={t.viewTablet}>768px</button>
+              <button type="button" data-view="375px" class="view-btn px-2.5 py-1 rounded-lg hover:bg-white/60 cursor-pointer" title={t.viewMobile}>375px</button>
             </div>
 
             <!-- Main Export Actions -->
@@ -344,34 +344,34 @@ const t = {
           </div>
 
           <!-- Tab Content 1: Live Iframe Preview -->
-          <div id="panel-preview" class="surface-card overflow-hidden border border-white/10 bg-[#0a0a0c] rounded-sm shadow-2xl flex flex-col items-center">
-            <div class="w-full bg-[#181820] px-4 py-2 border-b border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
+          <div id="panel-preview" class="surface-card overflow-hidden border border-ink/20 bg-white rounded-sm shadow-2xl flex flex-col items-center">
+            <div class="w-full bg-sand px-4 py-2 border-b border-ink/20 flex items-center justify-between text-xs font-mono text-ink/75">
               <div class="flex items-center gap-2">
                 <span class="h-2.5 w-2.5 rounded-full bg-red-500/80"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-yellow-500/80"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-emerald-500/80"></span>
-                <span class="ml-2 text-[11px] text-zinc-400">index.html (Sandbox preview)</span>
+                <span class="ml-2 text-[11px] text-ink/75">index.html (Sandbox preview)</span>
               </div>
-              <span id="preview-viewport-label" class="text-[11px] text-zinc-400">100% width</span>
+              <span id="preview-viewport-label" class="text-[11px] text-ink/75">100% width</span>
             </div>
             
-            <div id="iframe-wrapper" class="w-full transition-all duration-300 flex justify-center bg-black/40 p-1">
+            <div id="iframe-wrapper" class="w-full transition-all duration-300 flex justify-center bg-ink/10 p-1">
               <iframe
                 id="preview-iframe"
                 title="Live HTML Preview"
                 sandbox="allow-same-origin allow-scripts"
-                class="w-full h-[620px] rounded-sm border border-white/5 bg-white transition-all shadow-inner"
+                class="w-full h-[620px] rounded-sm border border-ink/20 bg-white transition-all shadow-inner"
               ></iframe>
             </div>
           </div>
 
           <!-- Tab Content 2: Source Code Inspector (hidden by default) -->
-          <div id="panel-code" class="hidden surface-card overflow-hidden border border-white/10 bg-[#050507] rounded-sm shadow-2xl">
-            <div class="w-full bg-[#121216] px-4 py-2.5 border-b border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
-              <span class="text-brand font-bold">HTML5 Document Output</span>
-              <span id="char-counter" class="text-zinc-400">0 bytes</span>
+          <div id="panel-code" class="hidden surface-card overflow-hidden border border-ink/20 bg-[#050507] rounded-sm shadow-2xl">
+            <div class="w-full bg-white/70 px-4 py-2.5 border-b border-ink/20 flex items-center justify-between text-xs font-mono text-ink/75">
+              <span class="text-ink font-bold">HTML5 Document Output</span>
+              <span id="char-counter" class="text-ink/75">0 bytes</span>
             </div>
-            <pre tabindex="0" aria-label="Generated HTML5 source code" class="p-5 text-xs font-mono leading-relaxed overflow-x-auto text-emerald-400 max-h-[620px] select-all focus:outline-hidden focus:ring-1 focus:ring-brand"><code id="code-output"></code></pre>
+            <pre tabindex="0" aria-label="Generated HTML5 source code" class="p-5 text-xs font-mono leading-relaxed overflow-x-auto text-emerald-400 max-h-[620px] select-all focus:outline-hidden focus:ring-1 focus:ring-ink"><code id="code-output"></code></pre>
           </div>
 
         </div>

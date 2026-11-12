@@ -10,15 +10,15 @@ const { frontmatter } = Astro.props;
   <div class="px-5 py-12">
     <Container>
       <div class="mx-auto max-w-[760px] mt-8">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FFFF00] text-black border border-brand uppercase tracking-wider">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#FFFF00] text-ink border border-ink uppercase tracking-wider">
           {frontmatter.category}
         </span>
         <h1
-          class="display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mt-4 leading-tight">
+          class="display text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight mt-4 leading-tight">
           {frontmatter.title}
         </h1>
-        <div class="flex gap-2 mt-4 items-center flex-wrap text-xs font-mono text-zinc-400">
-          <span class="text-white font-medium">
+        <div class="flex gap-2 mt-4 items-center flex-wrap text-xs font-mono text-ink/75">
+          <span class="text-ink font-medium">
             {frontmatter.author}
           </span>
           <span>•</span>
@@ -30,7 +30,7 @@ const { frontmatter } = Astro.props;
               <span class="hidden md:inline">•</span>
               <div class="flex flex-wrap gap-2">
                 {frontmatter.tags.map((tag: string) => (
-                  <span class="text-zinc-500">#{tag}</span>
+                  <span class="text-ink/75">#{tag}</span>
                 ))}
               </div>
             </>
@@ -38,7 +38,7 @@ const { frontmatter } = Astro.props;
         </div>
       </div>
 
-      <div class="mx-auto prose prose-invert prose-headings:font-display prose-headings:text-white prose-p:text-zinc-300 prose-a:text-brand prose-pre:bg-[#050507] prose-pre:border prose-pre:border-white/10 prose-strong:text-white max-w-[760px] mt-8">
+      <div class="mx-auto prose prose-headings:font-display prose-headings:text-ink prose-p:text-ink/85 prose-a:text-ink prose-pre:bg-[#050507] prose-pre:border prose-pre:border-ink/20 prose-strong:text-ink max-w-[760px] mt-8">
         <slot />
       </div>
 

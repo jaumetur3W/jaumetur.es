@@ -3,6 +3,8 @@ import { getCollection, render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
+import ProjectMark from "@/components/project-mark.astro";
+import { getBrand } from "@/data/project-brand";
 import { localeFromPath, localizePath } from "@/i18n";
 
 export async function getStaticPaths() {
@@ -39,6 +41,7 @@ const projectImages: Record<string, string> = {
   "pipeline-cicd": "/img/preview-pipeline.webp",
 };
 const cover = projectImages[entry.id];
+const brand = getBrand(entry.id);
 const shortTitle = (x: string) => x.split(" — ")[0];
 
 const serviceFor =
@@ -89,40 +92,39 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
-  <header class="border-b border-white/15 pb-12 pt-8 sm:pb-16">
-    <div class="wrap">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-white/70">
-        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.home}</a><span aria-hidden="true">/</span>
-        <a href={to("/projectes")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{t.projects}</a><span aria-hidden="true">/</span>
-        <span aria-current="page" class="text-white">{shortTitle(d.title)}</span>
+ <div class="pj" data-pj={entry.id} data-font={brand.font} style={`--pj-bg:${brand.bg};--pj-fg:${brand.fg};--pj-r:${brand.radius};--brand:${brand.accent};--on-brand:${brand.onAccent};`}>
+  <header class="pj-hero" data-pattern={brand.pattern}>
+    <div class="wrap relative z-[1]">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm opacity-90">
+        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-current">{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/projectes")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-current">{t.projects}</a><span aria-hidden="true">/</span>
+        <span aria-current="page" class="font-semibold">{shortTitle(d.title)}</span>
       </nav>
-      <div class="mt-6 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-        <div class:list={[cover ? "lg:col-span-6" : "lg:col-span-12"]}>
+      <div class="mt-4 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-7">
           <p class="flex flex-wrap items-center gap-2">
-            {entry.id === "avisa" && <span class="chip chip-brand">{t.flagship}</span>}
-            <span class="chip"><Icon name={entry.data.icon} class="h-4 w-4 text-brand" />{d.badge}</span>
+            {entry.id === "avisa" && <span class="pj-chip pj-chip-accent">{t.flagship}</span>}
+            <span class="pj-chip"><Icon name={entry.data.icon} class="h-4 w-4" />{d.badge}</span>
           </p>
-          <h1 class="h-page mt-5 !text-[clamp(2.2rem,5.4vw,4.2rem)]">{d.title}</h1>
-          <p class="lede mt-5">{d.subtitle}</p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-brand">{t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
-            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.code} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+          <h1 class="pj-title mt-5">{d.title}</h1>
+          <p class="pj-lede mt-5">{d.subtitle}</p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="pj-btn pj-btn-accent">{t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="pj-btn">{t.code} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
           </div>
         </div>
-        {cover && (
-          <div class="lg:col-span-6">
-            <div class="overflow-hidden rounded-sm border border-white/15 bg-[#141412]">
-              <img src={cover} alt={entry.data.image.alt} width="1200" height="750" class="aspect-[16/10] w-full object-cover" fetchpriority="high" decoding="async" />
-            </div>
+        <div class="lg:col-span-5">
+          <div class="pj-logo-frame">
+            <ProjectMark id={entry.id} name={shortTitle(d.title)} eager class="!aspect-[4/3] sm:!aspect-[16/10]" />
           </div>
-        )}
+        </div>
       </div>
     </div>
   </header>
 
   <section class="section">
     <div class="wrap-narrow">
-      <dl class="grid gap-x-8 gap-y-6 border-y border-white/20 py-7 sm:grid-cols-2">
+      <dl class="pj-facts grid gap-x-8 gap-y-6 py-7 sm:grid-cols-2">
         <div><dt class="label">{t.client}</dt><dd class="mt-1 font-semibold leading-snug">{d.client}</dd></div>
         <div><dt class="label">{t.year}</dt><dd class="mt-1 font-semibold">{entry.data.year}</dd></div>
         <div><dt class="label">{t.role}</dt><dd class="mt-1 font-semibold leading-snug">{d.role}</dd></div>
@@ -131,10 +133,10 @@ const breadcrumb = {
 
       <p class="mt-7 flex flex-wrap items-center gap-2">
         <span class="label mr-1">{t.stack}</span>
-        {entry.data.stack.map((x) => <span class="chip font-normal">{x}</span>)}
+        {entry.data.stack.map((x) => <span class="pj-chip pj-chip-soft font-normal">{x}</span>)}
       </p>
 
-      <div class="prose prose-lg prose-invert mt-12 max-w-none prose-headings:font-display prose-headings:text-white prose-p:text-[#d2d2cb] prose-a:text-brand prose-strong:text-white prose-li:text-[#d2d2cb] prose-li:marker:text-brand">
+      <div class="prose prose-lg mt-12 max-w-none prose-headings:text-ink prose-p:text-[#3d3d39] prose-a:text-ink prose-strong:text-ink prose-li:text-[#3d3d39] prose-li:marker:text-ink">
         <Content />
       </div>
     </div>
@@ -147,8 +149,58 @@ const breadcrumb = {
     secondary={{ href: to("/contact"), label: t.ctaB }}
   />
 
-  <nav aria-label={t.projects} class="wrap grid gap-6 border-t border-white/15 py-10 sm:grid-cols-2">
-    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{shortTitle(prev.data.title)}</span></a>
-    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:text-brand" style="font-stretch:84%">{shortTitle(next.data.title)}</span></a>
+  <nav aria-label={t.projects} class="wrap grid gap-6 border-t-[1.5px] border-ink py-10 sm:grid-cols-2">
+    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="pj-title-sm mt-1 block group-hover:bg-brand group-hover:text-[var(--on-brand)]">{shortTitle(prev.data.title)}</span></a>
+    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="pj-title-sm mt-1 block group-hover:bg-brand group-hover:text-[var(--on-brand)]">{shortTitle(next.data.title)}</span></a>
   </nav>
+ </div>
 </Layout>
+
+<style is:global>
+  /* ---- Tema propio por proyecto (variables inyectadas en .pj) ---- */
+  .pj { --pj-ff: var(--font-display); }
+  .pj[data-font='serif'] { --pj-ff: Georgia, 'Times New Roman', 'Cormorant Garamond', serif; }
+  .pj[data-font='helvetica'] { --pj-ff: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  .pj[data-font='mono'] { --pj-ff: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
+  .pj[data-font='wide'] { --pj-ff: var(--font-display); }
+
+  .pj-hero { position: relative; overflow: hidden; background: var(--pj-bg); color: var(--pj-fg); padding: 1.5rem 0 3rem; border-bottom: 1.5px solid var(--ink); }
+  .pj-hero a:not(.pj-btn) { color: inherit; }
+  .pj-hero[data-pattern='grid'] { background-image: linear-gradient(color-mix(in srgb, var(--pj-fg) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--pj-fg) 7%, transparent) 1px, transparent 1px); background-size: 28px 28px; }
+  .pj-hero[data-pattern='dots'] { background-image: radial-gradient(color-mix(in srgb, var(--pj-fg) 22%, transparent) 1px, transparent 1.4px); background-size: 18px 18px; }
+  .pj-hero[data-pattern='rule'] { background-image: linear-gradient(color-mix(in srgb, var(--pj-fg) 12%, transparent) 1px, transparent 1px); background-size: 100% 36px; }
+  .pj-hero[data-pattern='gingham'] { background-image: repeating-linear-gradient(90deg, rgba(216,58,74,.1) 0 22px, transparent 22px 44px), repeating-linear-gradient(0deg, rgba(216,58,74,.1) 0 22px, transparent 22px 44px); }
+  .pj-hero[data-pattern='gingham']::after { content: ''; position: absolute; inset: auto 0 0 0; height: 14px; background: repeating-linear-gradient(90deg, #d83a4a 0 14px, #fbf3e2 14px 28px); }
+
+  .pj-title { font-family: var(--pj-ff); font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.02; text-wrap: balance; }
+  .pj-title-sm { font-family: var(--pj-ff); font-size: 1.3rem; line-height: 1.1; }
+  .pj-lede { max-width: 38rem; font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; opacity: 0.92; }
+  .pj[data-font='serif'] .pj-title, .pj[data-font='serif'] .pj-title-sm { font-weight: 700; letter-spacing: -0.01em; }
+  .pj[data-font='helvetica'] .pj-title, .pj[data-font='helvetica'] .pj-title-sm { font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; }
+  .pj[data-font='wide'] .pj-title, .pj[data-font='wide'] .pj-title-sm { text-transform: uppercase; letter-spacing: 0.06em; }
+  .pj[data-font='mono'] .pj-title, .pj[data-font='mono'] .pj-title-sm { font-weight: 700; letter-spacing: -0.02em; }
+
+  .pj-chip { display: inline-flex; align-items: center; gap: 0.4rem; border: 1.5px solid currentColor; border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.78rem; font-weight: 600; line-height: 1.2; }
+  .pj-chip-accent { background: var(--brand); color: var(--on-brand); border-color: var(--brand); }
+  .pj-chip-soft { border-color: color-mix(in srgb, var(--brand) 70%, var(--ink)); background: color-mix(in srgb, var(--brand) 14%, white); color: var(--ink); border-radius: calc(var(--pj-r) * 0.5); }
+
+  .pj-btn { display: inline-flex; min-height: 3rem; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: calc(var(--pj-r) * 0.8); border: 1.5px solid currentColor; font-family: var(--pj-ff); font-weight: 700; font-size: 0.9rem; text-decoration: none; color: inherit; background: color-mix(in srgb, var(--pj-fg) 8%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: background-color .2s ease, color .2s ease, transform .2s var(--ease-out); }
+  .pj-btn:hover { background: var(--pj-fg); color: var(--pj-bg); }
+  .pj-btn-accent { background: var(--brand); color: var(--on-brand); border-color: var(--brand); }
+  .pj-btn-accent:hover { background: var(--pj-fg); color: var(--pj-bg); border-color: var(--pj-fg); }
+
+  .pj-logo-frame { overflow: hidden; border-radius: var(--pj-r); border: 1.5px solid color-mix(in srgb, var(--pj-fg) 35%, transparent); box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .6); }
+  .pj-facts { border-block: 1.5px solid var(--brand); }
+
+  /* Cuerpo del caso: titulares y marcas en la tipografía y color del proyecto */
+  .pj .prose { --tw-prose-bullets: var(--brand); --tw-prose-counters: var(--brand); }
+  .pj .prose :where(h2, h3, h4) { font-family: var(--pj-ff); }
+  .pj .prose :where(h2) { border-bottom: 3px solid var(--brand); padding-bottom: .35rem; }
+  .pj[data-font='helvetica'] .prose :where(h2, h3), .pj[data-font='wide'] .prose :where(h2, h3) { text-transform: uppercase; }
+  .pj .prose :where(a) { background-image: linear-gradient(var(--brand), var(--brand)); }
+  .pj .prose :where(a):hover { color: var(--on-brand); }
+  .pj .prose :where(code):not(:where(pre *)) { background: color-mix(in srgb, var(--brand) 25%, white); }
+  .pj .prose :where(blockquote) { background: color-mix(in srgb, var(--brand) 12%, white); border-color: var(--brand); border-radius: var(--pj-r); }
+  .pj .prose :where(pre) { border-radius: var(--pj-r); }
+  .pj-mark-root { display: none; }
+</style>

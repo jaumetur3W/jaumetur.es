@@ -7,11 +7,11 @@ export interface Props {
 const { title, lede } = Astro.props;
 ---
 
-<header class="border-b border-white/15 pb-12 pt-12 sm:pb-16 sm:pt-20">
+<header class="border-b-[1.5px] border-ink pb-8 pt-8 sm:pb-10 sm:pt-12">
   <div class="wrap">
     <slot name="crumbs" />
-    <h1 class="h-page max-w-[18ch] sm:max-w-4xl">{title}</h1>
-    {lede && <p class="lede mt-6">{lede}</p>}
+    <h1 class="h-page max-w-4xl" data-split>{title}</h1>
+    {lede && <p class="lede mt-5">{lede}</p>}
     <slot />
   </div>
 </header>

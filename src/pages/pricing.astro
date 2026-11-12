@@ -92,56 +92,87 @@ const breadcrumb = {
 <Layout fresh title={t.title} description={t.desc} jsonLd={[itemList, breadcrumb]}>
   <PageHeader title={t.h1} lede={t.lead} />
 
-  <section class="section" aria-label={t.eyebrow}>
+  <!-- Tabla de tarifas: todo el precio de un vistazo -->
+  <section class="section pb-2" aria-labelledby="table-title">
     <div class="wrap">
-      {services.map((s, i) => (
-        <article class:list={["grid gap-8 border-t py-10 lg:grid-cols-12 lg:gap-12 lg:py-14", s.isFeatured ? "border-t-2 border-brand" : "border-white/20", i === services.length - 1 ? "border-b border-b-white/20" : ""]}>
-          <div class="lg:col-span-5">
-            <div class="flex flex-wrap items-center gap-3">
-              <Icon name={s.icon} class="h-7 w-7 text-brand" />
-              {s.isFeatured && <span class="chip chip-brand">{t.recommended}</span>}
-            </div>
-            <h2 class="mt-4 font-display text-[2.1rem] font-bold leading-[1.02] sm:text-[2.6rem]" style="font-stretch:80%">{s.name}</h2>
-            <p class="lede mt-4">{s.tagline}</p>
-            <p class="faint mt-4 text-[0.92rem]"><span class="font-semibold text-white">{t.forWho}:</span> {s.targetAudience}</p>
-          </div>
+      <h2 id="table-title" class="sr-only">{isEn ? "Price table" : "Tabla de precios"}</h2>
+      <div class="glass overflow-x-auto !rounded-[1.25rem] !p-0">
+        <table class="w-full min-w-[46rem] border-collapse text-left text-[0.95rem]">
+          <caption class="sr-only">{isEn ? "Services with creation price, monthly fee, delivery time and first-year total" : "Servicios con precio de creación, cuota mensual, plazo y total del primer año"}</caption>
+          <thead>
+            <tr class="border-b-[1.5px] border-ink bg-brand">
+              <th scope="col" class="px-4 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-wider">{isEn ? "Service" : "Servicio"}</th>
+              <th scope="col" class="px-4 py-3 text-right font-mono text-[0.72rem] font-bold uppercase tracking-wider">{t.from}</th>
+              <th scope="col" class="px-4 py-3 text-right font-mono text-[0.72rem] font-bold uppercase tracking-wider">{isEn ? "Maintenance" : "Mantenimiento"}</th>
+              <th scope="col" class="px-4 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-wider">{t.deliver}</th>
+              <th scope="col" class="px-4 py-3 text-right font-mono text-[0.72rem] font-bold uppercase tracking-wider">{t.firstYear}</th>
+              <th scope="col" class="px-4 py-3"><span class="sr-only">{t.request}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((s) => (
+              <tr class="border-b border-ink/25 last:border-b-0 hover:bg-brand/25">
+                <th scope="row" class="px-4 py-3.5 font-bold">
+                  <a href={to(`/pricing/${s.id}`)} class="link-arrow">{s.name}</a>
+                  {s.isFeatured && <span class="tag ml-2 align-middle">{t.recommended}</span>}
+                </th>
+                <td class="num whitespace-nowrap px-4 py-3.5 text-right font-display text-[1.25rem]">{euro(s.creationPriceNumber)}</td>
+                <td class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{monthly(s.monthlyFeeNumber)}</td>
+                <td class="px-4 py-3.5">{s.timeline}</td>
+                <td class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</td>
+                <td class="px-4 py-3 text-right"><a href={to(`/contact?servei=${s.id}`)} class="btn btn-brand btn-sm">{isEn ? "Quote" : "Presupuesto"}</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-          <div class="lg:col-span-4">
-            <h3 class="label !text-white/75">{t.includes}</h3>
-            <ul class="mt-4 grid gap-2.5">
-              {s.features.map((f) => (
-                <li class="flex gap-3 text-[0.97rem] leading-snug">
-                  <svg class="mt-[0.2em] h-4 w-4 shrink-0 text-brand" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
+  <!-- Fichas: qué incluye cada plan -->
+  <section class="section" aria-labelledby="fichas-title">
+    <div class="wrap">
+      <h2 id="fichas-title" class="h-section mb-6">{isEn ? "What each plan includes" : "Qué incluye cada plan"}</h2>
+      <div class="cat-grid sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+        {services.map((s, i) => (
+          <article class="flex flex-col p-5 sm:p-6">
+            <div class="flex items-start justify-between gap-3">
+              <p class="label">{isEn ? "Plan" : "Plan"} {String(i + 1).padStart(2, "0")}</p>
+              {s.isFeatured && <span class="tag">{t.recommended}</span>}
+            </div>
+            <h3 class="mt-3 font-display text-[1.35rem] uppercase leading-[1.02]">{s.name}</h3>
+            <p class="num mt-4 font-display text-[2.4rem] leading-none"><span class="label mr-1.5 align-middle">{t.from}</span><span class="hl">{euro(s.creationPriceNumber)}</span></p>
+            <p class="muted mt-2 text-[0.88rem]">{monthly(s.monthlyFeeNumber)} · {s.timeline}</p>
+            <ul class="mt-5 grid gap-2">
+              {s.features.slice(0, 5).map((f) => (
+                <li class="flex gap-2.5 text-[0.9rem] leading-snug">
+                  <svg class="mt-[0.2em] h-4 w-4 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
                   <span>{f}</span>
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div class="lg:col-span-3">
-            <p class="label">{t.from}</p>
-            <p class="num font-display text-[3.4rem] font-extrabold leading-none" style="font-stretch:82%">{euro(s.creationPriceNumber)}</p>
-            <dl class="mt-4 grid gap-2 text-[0.92rem]">
-              <div class="leader-row"><dt class="muted">{isEn ? "Maintenance" : "Mantenimiento"}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold">{monthly(s.monthlyFeeNumber)}</dd></div>
-              <div class="leader-row"><dt class="muted">{t.deliver}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-semibold">{s.timeline}</dd></div>
-              <div class="leader-row"><dt class="muted">{t.firstYear}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-semibold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</dd></div>
-            </dl>
-            <div class="mt-6 grid gap-2">
-              <a href={to(`/contact?servei=${s.id}`)} class="btn btn-brand">{t.request}</a>
-              <a href={to(`/pricing/${s.id}`)} class="btn btn-white">{t.detail}</a>
+            <p class="faint mt-4 text-[0.82rem]"><span class="font-semibold text-ink">{t.forWho}:</span> {s.targetAudience}</p>
+            <div class="mt-auto flex flex-wrap gap-2 pt-5">
+              <a href={to(`/contact?servei=${s.id}`)} class="btn btn-brand btn-sm">{t.request}</a>
+              <a href={to(`/pricing/${s.id}`)} class="btn btn-white btn-sm">{t.detail}</a>
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+        <div class="flex flex-col justify-between p-5 sm:p-6" style="background:var(--brand)">
+          <p class="font-display text-[1.35rem] uppercase leading-[1.02]">{t.ctaTitle}</p>
+          <p class="mt-2 text-[0.92rem] leading-snug">{t.ctaText}</p>
+          <a href={to("/contact")} class="btn btn-dark btn-sm mt-5 self-start">{t.cta} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section border-t border-white/15" aria-labelledby="how-title">
+  <section class="section" aria-labelledby="how-title">
     <div class="wrap">
       <h2 id="how-title" class="h-section max-w-3xl">{t.noteTitle}</h2>
       <ul class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-3">
         {t.notes.map((n) => (
-          <li class="border-t-2 border-brand pt-5"><p class="muted max-w-sm">{n}</p></li>
+          <li class="glass p-5"><p class="max-w-sm text-[0.95rem]">{n}</p></li>
         ))}
       </ul>
     </div>

@@ -47,7 +47,7 @@ const t = isEn
 ---
 
 <Layout fresh title={t.title} description={t.desc}>
-  <header class="border-b border-white/15 pb-12 pt-12 sm:pb-16 sm:pt-20">
+  <header class="border-b border-ink/20 pb-12 pt-12 sm:pb-16 sm:pt-20">
     <div class="wrap grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-8">
         <h1 class="h-page">{t.h1}</h1>
@@ -58,20 +58,20 @@ const t = isEn
         </div>
       </div>
       <div class="lg:col-span-4">
-        <div class="mx-auto aspect-square w-full max-w-72 overflow-hidden rounded-sm border border-white/20 bg-[#1c1c19]">
+        <div class="mx-auto aspect-square w-full max-w-72 overflow-hidden rounded-sm border border-ink/35 bg-sand">
           <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" class="h-full w-full object-contain" fetchpriority="high" decoding="async" />
         </div>
-        <p class="chip chip-brand mt-4"><span class="h-2 w-2 rounded-full bg-[#0b0b09]" aria-hidden="true"></span>{t.avail}</p>
+        <p class="chip chip-brand mt-4"><span class="h-2 w-2 rounded-full bg-[#111111]" aria-hidden="true"></span>{t.avail}</p>
       </div>
     </div>
   </header>
 
-  <section class="border-b border-white/15" aria-label={isEn ? "Key facts" : "Datos clave"}>
+  <section class="border-b border-ink/20" aria-label={isEn ? "Key facts" : "Datos clave"}>
     <dl class="wrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {facts.map((f) => (
-        <div class="border-b border-white/15 py-6 last:border-b-0 sm:pr-6 lg:border-b-0">
+        <div class="border-b border-ink/20 py-6 last:border-b-0 sm:pr-6 lg:border-b-0">
           <dt class="label">{f.label}</dt>
-          <dd class="mt-1 font-display text-[1.35rem] font-bold leading-tight" style="font-stretch:88%">{f.val}</dd>
+          <dd class="mt-1 font-display text-[1.35rem] font-bold leading-tight">{f.val}</dd>
         </div>
       ))}
     </dl>
@@ -82,10 +82,10 @@ const t = isEn
       <h2 id="how-title" class="h-section max-w-3xl">{t.howTitle}</h2>
       <div class="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {pillars.map((p) => (
-          <article class="border-t-2 border-brand pt-5">
-            <h3 class="font-display text-[1.6rem] font-bold leading-tight" style="font-stretch:84%">{p.title}</h3>
+          <article class="border-t-2 border-ink pt-5">
+            <h3 class="font-display text-[1.6rem] font-bold leading-tight">{p.title}</h3>
             <ul class="muted mt-4 grid gap-2.5 leading-snug">
-              {p.points.map((pt) => <li class="flex gap-3"><span class="text-brand" aria-hidden="true">–</span><span>{pt}</span></li>)}
+              {p.points.map((pt) => <li class="flex gap-3"><span class="text-ink" aria-hidden="true">–</span><span>{pt}</span></li>)}
             </ul>
           </article>
         ))}
