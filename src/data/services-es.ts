@@ -1,5 +1,16 @@
 import type { ServicePackage } from "./services";
 
+// New simplified schema for hierarchy and messaging
+interface Service {
+  id: string;
+  tier: 'web' | 'app' | 'optimization';
+  tier_label_es: string;
+  name_es: string;
+  problem_es: string;     // Business problem, not technical
+  benefit_es: string;     // Business outcome
+  pricing_es: { initial: number; monthly: number };
+}
+
 type ServiceCopy = Pick<
   ServicePackage,
   | "name"
@@ -227,6 +238,58 @@ const marketComparisonCicd = [
     hiddenCosts: "Cobro por minutos adicionales de compilación",
     codeOwnership: "Dependencia de la infraestructura propietaria del proveedor",
     summary: "Facturación recurrente elevada y limitaciones de configuración personalizada.",
+  },
+];
+
+// Hierarchical services with business problems and benefits
+export const services: Service[] = [
+  // WEB tier
+  {
+    id: 'digitalitzacio-local',
+    tier: 'web',
+    tier_label_es: 'Diseño Web',
+    name_es: 'Digitalización Local',
+    problem_es: 'Tu negocio no aparece en Google; pierdes clientes que no te encuentran online.',
+    benefit_es: 'Aparecer en buscadores, recibir más consultas, vender online sin comisiones.',
+    pricing_es: { initial: 290, monthly: 49 },
+  },
+  {
+    id: 'landing-page',
+    tier: 'web',
+    tier_label_es: 'Diseño Web',
+    name_es: 'Landing Page',
+    problem_es: 'Tu marca no convierte visitantes en clientes; pierdes oportunidades de negocio.',
+    benefit_es: 'Web rápida y diseñada para captar clientes desde el primer día.',
+    pricing_es: { initial: 390, monthly: 30 },
+  },
+  // APP tier
+  {
+    id: 'angular-webapp',
+    tier: 'app',
+    tier_label_es: 'Aplicaciones',
+    name_es: 'Aplicación Web',
+    problem_es: 'Tus procesos manuales consumen horas; necesitas automatizar y centralizar datos.',
+    benefit_es: 'Herramienta diseñada para que tu equipo trabaje más eficientemente.',
+    pricing_es: { initial: 1950, monthly: 95 },
+  },
+  // OPTIMIZATION tier
+  {
+    id: 'performance-audit',
+    tier: 'optimization',
+    tier_label_es: 'Ingeniería',
+    name_es: 'Optimización y Accesibilidad',
+    problem_es: 'Tu web es lenta; Google la sanciona y pierdes tráfico y clientes.',
+    benefit_es: 'Web rápida, accesible y con mejor posicionamiento en Google.',
+    pricing_es: { initial: 450, monthly: 39 },
+  },
+  {
+    id: 'cicd-devops',
+    tier: 'optimization',
+    tier_label_es: 'Ingeniería',
+    name_es: 'CI/CD y Automatización',
+    problem_es: 'Despliegues manuales, errores recurrentes, cambios lentos y sin control.',
+    benefit_es: 'Pipeline automatizado, despliegues seguros, código confiable.',
+    pricing_es: { initial: 350, monthly: 35 },
   },
 ];
 
