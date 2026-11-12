@@ -20,7 +20,7 @@ const t = isEn
   : { legend: "Elige un servicio", creation: "Creación (pago único)", maint: "Mantenimiento mensual", deadline: "Plazo de entrega", year1: "Primer año", cta: "Pedir este presupuesto", incl: "Ver qué incluye", note: "Precios «desde». Alcance y plazo se confirman contigo antes de empezar." };
 
 const rules = services
-  .map((_, i) => `.quote-sheet:has(#q-svc-${i}:checked) [data-panel="${i}"]{display:block}.quote-sheet:has(#q-svc-${i}:checked) label[for="q-svc-${i}"]{background:#0b0b09;color:#fff}`)
+  .map((_, i) => `.quote-sheet:has(#q-svc-${i}:checked) [data-panel="${i}"]{display:block}.quote-sheet:has(#q-svc-${i}:checked) label[for="q-svc-${i}"]{background:var(--brand);color:#000}`)
   .join("");
 ---
 
@@ -33,7 +33,7 @@ const rules = services
           <input class="peer sr-only" type="radio" name="quote-service" id={`q-svc-${i}`} value={s.id} checked={i === 0} />
           <label
             for={`q-svc-${i}`}
-            class="flex min-h-11 items-center cursor-pointer rounded-sm border-2 border-[#0b0b09] px-3 py-2 text-[0.95rem] font-semibold leading-tight transition-colors hover:bg-[#0b0b09]/10 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#0b0b09]"
+            class="flex min-h-11 items-center cursor-pointer rounded-sm border-2 border-[#0a0a0a] px-3 py-2 text-[0.95rem] font-semibold leading-tight transition-colors hover:bg-[#0a0a0a]/10 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#0a0a0a]"
           >
             <span>{s.name}</span>
           </label>
@@ -42,22 +42,22 @@ const rules = services
     </div>
   </fieldset>
 
-  <div class="mt-6 border-t-2 border-dotted border-[#0b0b09]/50 pt-5" aria-live="polite">
+  <div class="mt-6 border-t-2 border-dotted border-[#0a0a0a]/50 pt-5" aria-live="polite">
     {services.map((s, i) => (
       <div data-panel={i} class="stamp">
         <dl class="grid gap-2.5 text-[0.95rem]">
           <div class="leader-row"><dt>{t.creation}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-bold">{euro(s.creationPriceNumber)}</dd></div>
           <div class="leader-row"><dt>{t.maint}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono font-bold">{monthly(s.monthlyFeeNumber)}</dd></div>
           <div class="leader-row"><dt>{t.deadline}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-semibold">{s.timeline}</dd></div>
-          <div class="leader-row border-t border-[#0b0b09]/40 pt-2.5"><dt class="font-bold">{t.year1}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono text-lg font-extrabold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</dd></div>
+          <div class="leader-row border-t border-[#0a0a0a]/40 pt-2.5"><dt class="font-bold">{t.year1}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-mono text-lg font-extrabold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</dd></div>
         </dl>
         <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
-          <a href={contactHref(s.id)} class="btn btn-dark">{t.cta} <span aria-hidden="true">→</span></a>
+          <a href={contactHref(s.id)} class="btn btn-brand">{t.cta} <span aria-hidden="true">→</span></a>
           <a href={detailHref(s.id)} class="inline-flex min-h-11 items-center font-semibold underline decoration-2 underline-offset-4">{t.incl}</a>
         </div>
       </div>
     ))}
-    <p class="mt-4 text-[0.8rem] leading-snug text-[#0b0b09]/80">{t.note}</p>
+    <p class="mt-4 text-[0.8rem] leading-snug text-[var(--text-muted)]">{t.note}</p>
   </div>
 </div>
 

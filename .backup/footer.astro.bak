@@ -1,0 +1,125 @@
+---
+import { Icon } from "astro-icon/components";
+import { localeFromPath, localizePath } from "@/i18n";
+import { getServicesData } from "@/data/services";
+
+const currentYear = new Date().getFullYear();
+const locale = localeFromPath(Astro.url.pathname);
+const isEn = locale === "en";
+const withSlash = (path: string) => {
+  const hashIndex = path.indexOf("#");
+  const base = hashIndex < 0 ? path : path.slice(0, hashIndex);
+  const hash = hashIndex < 0 ? "" : path.slice(hashIndex);
+  if (/\.[a-z0-9]+$/i.test(base)) return `${base}${hash}`;
+  return `${base === "/" || base.endsWith("/") ? base : `${base}/`}${hash}`;
+};
+const to = (path: string) => withSlash(localizePath(path, locale));
+
+const services = getServicesData(locale);
+
+const socialLinks = [
+  { title: "Instagram", path: "https://www.instagram.com/jaume.www/", icon: "bx:bxl-instagram" },
+  { title: "LinkedIn", path: "https://www.linkedin.com/in/jautur/", icon: "bx:bxl-linkedin" },
+  { title: "GitHub", path: "https://github.com/jaumetur3W", icon: "bx:bxl-github" },
+];
+
+const navLinks = [
+  { title: isEn ? "Services & pricing" : "Servicios y precios", path: "/pricing" },
+  { title: isEn ? "Projects" : "Proyectos", path: "/projectes" },
+  { title: "Blog", path: "/blog" },
+  { title: isEn ? "About me" : "Sobre mí", path: "/about" },
+  { title: isEn ? "Contact" : "Contacto", path: "/contact" },
+];
+const toolLinks = [
+  { title: isEn ? "HTML file creator" : "Creador de archivos HTML", path: "/tools/creador-html" },
+  { title: isEn ? "CI/CD workflow generator" : "Generador de CI/CD para GitHub", path: "/tools/workflow-generator" },
+  { title: isEn ? "Digital card (vCard)" : "Tarjeta digital (vCard)", path: "/card" },
+];
+
+const legalLinks = [
+  { title: isEn ? "Privacy" : "Privacidad", path: "/privacidad" },
+  { title: "Cookies", path: "/cookies" },
+  { title: isEn ? "Legal notice" : "Aviso legal", path: "/aviso-legal" },
+  { title: isEn ? "Quality & accessibility" : "Calidad y accesibilidad", path: "/qualitat" },
+  { title: "RSS", path: "/rss.xml" },
+];
+const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:text-white hover:decoration-brand";
+---
+
+<footer class="on-dark mt-auto border-t border-white/15 bg-[#0b0b09]">
+  <div class="wrap pb-8 pt-14 sm:pt-20">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <a href={to("/")} class="inline-flex min-h-11 items-center gap-3" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
+          <img src="/img/jt.LOGO-02-128.webp" alt="" width="44" height="44" class="h-11 w-11 rounded-sm" loading="lazy" decoding="async" />
+          <span class="font-display text-3xl font-extrabold leading-none" style="font-stretch:85%">jaume<span class="text-brand">tur</span></span>
+        </a>
+        <p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-white/80">
+          {isEn
+            ? "Websites, digital menus and custom web applications, built and maintained by the developer you talk to. Based in Xàtiva, working in Valencia and remotely."
+            : "Páginas web, cartas digitales y aplicaciones web a medida, construidas y mantenidas por la misma persona con la que hablas. Desde Xàtiva, para Valencia y en remoto."}
+        </p>
+        <a href="mailto:jaumetur3w@gmail.com" class="mt-5 inline-flex min-h-11 items-center gap-2.5 font-semibold text-brand underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-brand">
+          <Icon name="bx:envelope" class="h-5 w-5" />
+          <span>jaumetur3w@gmail.com</span>
+        </a>
+        <p class="mt-1">
+          <a href="https://wa.me/34644525838" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2.5 text-[0.95rem] text-white/85 underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">
+            <Icon name="bx:bxl-whatsapp" class="h-5 w-5 text-brand" />
+            <span>WhatsApp +34 644 525 838</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span>
+          </a>
+        </p>
+        <ul class="mt-3 flex items-center gap-1">
+          {socialLinks.map((item) => (
+            <li>
+              <a href={item.path} target="_blank" rel="noopener noreferrer"
+                 class="flex h-11 w-11 items-center justify-center rounded-sm border border-white/20 text-white/85 transition-colors hover:border-brand hover:bg-brand hover:text-[#0b0b09]"
+                 aria-label={`${item.title} (${isEn ? "opens in a new tab" : "se abre en pestaña nueva"})`}>
+                <Icon name={item.icon} class="h-5 w-5" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <nav class="lg:col-span-3" aria-label={isEn ? "Services" : "Servicios"}>
+        <h2 class="label !text-white/70">{isEn ? "Services" : "Servicios"}</h2>
+        <ul class="mt-4">
+          {services.map((s) => (
+            <li><a href={to(`/pricing/${s.id}`)} class={linkCls}>{s.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav class="lg:col-span-2" aria-label={isEn ? "Site" : "Sitio"}>
+        <h2 class="label !text-white/70">{isEn ? "Site" : "Sitio"}</h2>
+        <ul class="mt-4">
+          {navLinks.map((item) => (
+            <li><a href={to(item.path)} class={linkCls}>{item.title}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav class="lg:col-span-2" aria-label={isEn ? "Free tools" : "Herramientas"}>
+        <h2 class="label !text-white/70">{isEn ? "Tools" : "Herramientas"}</h2>
+        <ul class="mt-4">
+          {toolLinks.map((item) => (
+            <li><a href={to(item.path)} class={linkCls}>{item.title}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <hr class="perf mt-14" />
+    <div class="flex flex-col gap-3 pt-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
+      <p>© {currentYear} Jaume Tur · Xàtiva, València</p>
+      <nav aria-label="Legal">
+        <ul class="flex flex-wrap gap-x-5">
+          {legalLinks.map((item) => (
+            <li><a href={to(item.path)} class="inline-flex min-h-9 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{item.title}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>

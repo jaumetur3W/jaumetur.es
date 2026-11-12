@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/pricing-table.astro"
+        ],
+        "createdAt": "2026-11-12T08:41:54.758Z",
+        "reason": "project design system: brand-colored left borders used consistently across all accent sections"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/case-study-template.astro"
+        ],
+        "createdAt": "2026-11-12T08:41:54.857Z",
+        "reason": "project design system: brand-colored left borders used consistently across all accent sections"
+      }
+    ]
+  }
+}

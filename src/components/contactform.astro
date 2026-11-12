@@ -221,7 +221,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
     function showStatus(message, isSuccess = true) {
       if (!feedback) return;
       feedback.className = isSuccess
-        ? "rounded-sm p-4 text-center text-sm font-semibold bg-[#ffff00] text-[#0b0b09]"
+        ? "rounded-sm p-4 text-center text-sm font-semibold bg-[#ffff00] text-[#0a0a0a]"
         : "rounded-sm p-4 text-center text-sm font-semibold border-2 border-[#ff9b9b] text-[#ff9b9b]";
       feedback.textContent = message;
       feedback.classList.remove("hidden");

@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import QuoteSheet from "@/components/quote-sheet.astro";
-import CtaBand from "@/components/cta-band.astro";
 import { getServicesData } from "@/data/services";
 import ServicesGrid from "@/components/services-grid.astro";
 import { localeFromPath, localizePath } from "@/i18n";
@@ -35,6 +33,8 @@ const shortTitle = (x: string) => x.split(" — ")[0];
 const t = isEn
   ? {
       title: "Custom Web Design in Xàtiva and Valencia | Jaume Tur",
+      heroTag: "Digital engineering · Xàtiva, Spain",
+      trust: ["Custom development", "Own code", "Optimised performance", "Direct contact"],
       desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain, built by the developer you talk to. Quote and launch offer for the first clients.",
       h1: "Your business needs a web that works for you.",
       lede: "Web design, custom applications, and digital menus for businesses that want to attract clients, streamline operations, and grow. From Xàtiva, serving Valencia and all of Spain.",
@@ -83,6 +83,8 @@ const t = isEn
     }
   : {
       title: "Diseño web a medida en Xàtiva y Valencia | Jaume Tur",
+      heroTag: "Ingeniería digital · Xàtiva, España",
+      trust: ["Desarrollo a medida", "Código propio", "Rendimiento optimizado", "Trato directo"],
       desc: "Diseño web a medida, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España, hechas por quien las programa. Pide presupuesto; oferta de lanzamiento para los primeros clientes.",
       h1: "Tu negocio necesita una web que trabaje por ti.",
       lede: "Diseño web, aplicaciones a medida y cartas digitales para empresas y profesionales que quieren captar clientes, mejorar procesos y crecer. Desde Xàtiva, para Valencia y toda España.",
@@ -142,82 +144,121 @@ const faqSchema = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
-  <!-- 1. Apertura: titular + hoja de presupuesto con selector real -->
-  <section class="border-b border-white/15 pb-14 pt-10 sm:pb-20 sm:pt-16" aria-labelledby="hero-title">
-    <div class="wrap grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+  <!-- 1. Apertura: titular dominante + composición modular abstracta -->
+  <section class="bg-grid relative overflow-hidden border-b border-[var(--line)] pb-16 pt-12 sm:pb-24 sm:pt-20" aria-labelledby="hero-title">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-7">
-        <h1 id="hero-title" class="h-hero">{t.h1}</h1>
-        <p class="lede mt-6">{t.lede}</p>
-        <div class="mt-8 flex flex-wrap items-center gap-3">
-          <a href={to("/contact")} class="btn btn-brand">{t.cta1} <span aria-hidden="true">→</span></a>
-          <a href="#servicios" class="btn btn-white">{t.cta2}</a>
-          <a href="mailto:jaumetur3w@gmail.com" class="inline-flex min-h-12 items-center gap-2 px-2 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
-            <Icon name="bx:envelope" class="h-5 w-5 text-brand" />
-            <span>{t.mail}</span>
-          </a>
+        <p class="label flex items-center gap-3"><span class="inline-block h-2.5 w-2.5 bg-brand" aria-hidden="true"></span>{t.heroTag}</p>
+        <h1 id="hero-title" class="h-hero mt-6">{t.h1}</h1>
+        <p class="lede mt-7">{t.lede}</p>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href={to("/contact")} class="btn btn-brand">{t.cta1} <span aria-hidden="true">↗</span></a>
+          <a href="#proyectos" class="btn btn-white">{t.cta2}</a>
         </div>
-        <p class="mt-5 text-[0.95rem] text-white/80">
+        <p class="mt-6 text-[0.95rem] text-[var(--text-faint)]">
           {t.reply}
-          <a href="#lanzamiento" class="ml-1 font-semibold text-brand underline decoration-2 underline-offset-4 hover:decoration-white">{t.launchLink} →</a>
+          <a href="mailto:jaumetur3w@gmail.com" class="ml-1 font-semibold text-white underline decoration-white/40 decoration-2 underline-offset-4 hover:decoration-brand">{t.mail} →</a>
         </p>
       </div>
-      <div class="lg:col-span-5">
-        <QuoteSheet
-          services={services}
-          isEn={isEn}
-          contactHref={(id) => to(`/contact?servei=${id}`)}
-          detailHref={(id) => to(`/pricing/${id}`)}
-        />
+      <div class="lg:col-span-5" aria-hidden="true">
+        <svg viewBox="0 0 480 480" class="hero-art mx-auto w-full max-w-[30rem]" focusable="false">
+          <g fill="none" stroke="#303030" stroke-width="1">
+            {Array.from({ length: 9 }, (_, i) => (
+              <line x1={i * 60} y1="0" x2={i * 60} y2="480" />
+            ))}
+            {Array.from({ length: 9 }, (_, i) => (
+              <line x1="0" y1={i * 60} x2="480" y2={i * 60} />
+            ))}
+          </g>
+          <rect x="60" y="60" width="180" height="120" fill="#141414" stroke="#404040" />
+          <rect x="240" y="60" width="180" height="60" fill="#ffff00" />
+          <rect x="240" y="120" width="60" height="60" fill="#1c1c1c" stroke="#404040" />
+          <rect x="60" y="180" width="60" height="180" fill="#1c1c1c" stroke="#404040" />
+          <rect x="120" y="240" width="120" height="120" fill="#0a0a0a" stroke="#ffff00" stroke-width="2" />
+          <circle cx="360" cy="300" r="60" fill="none" stroke="#ffff00" stroke-width="2" />
+          <circle cx="360" cy="300" r="6" fill="#ffff00" />
+          <rect x="300" y="360" width="120" height="60" fill="#141414" stroke="#404040" />
+          <line x1="0" y1="420" x2="480" y2="420" stroke="#ffff00" stroke-width="1" />
+          <text x="66" y="210" fill="#a3a3a3" font-family="IBM Plex Mono, monospace" font-size="13">01 / WEB</text>
+          <text x="126" y="306" fill="#ffff00" font-family="IBM Plex Mono, monospace" font-size="13">APP</text>
+        </svg>
       </div>
     </div>
   </section>
 
-  <!-- 2. Servicios: tarifa en filas, no tarjetas -->
+  <!-- 2. Indicadores: franja de cuatro columnas con numeración -->
+  <section class="border-b border-[var(--line)]" aria-label={isEn ? "Principles" : "Principios"}>
+    <ol class="wrap grid grid-cols-2 lg:grid-cols-4">
+      {t.trust.map((x, i) => (
+        <li class:list={["flex flex-col gap-2 py-7 pr-4", i > 0 && "border-l border-[var(--line)] pl-6"]}>
+          <span class="label text-brand">0{i + 1}</span>
+          <span class="font-display text-[1.15rem] font-semibold leading-snug">{x}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- 3. Servicios: lista editorial + selector de presupuesto -->
   <section id="servicios" class="section scroll-mt-20" aria-labelledby="svc-title">
     <div class="wrap">
       <div class="grid gap-6 lg:grid-cols-12">
+        <p class="label lg:col-span-12">{isEn ? "Services" : "Servicios"}</p>
         <h2 id="svc-title" class="h-section lg:col-span-7">{t.svcTitle}</h2>
         <div class="lg:col-span-5 lg:self-end">
           <p class="lede">{t.svcLede}</p>
           <a href={to("/pricing")} class="link-arrow mt-3 min-h-11">{t.allPrices} <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <ServicesGrid isEn={isEn} />
+      <div class="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-7">
+          <ServicesGrid isEn={isEn} />
+        </div>
+        <div class="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
+          <QuoteSheet
+            services={services}
+            isEn={isEn}
+            contactHref={(id) => to(`/contact?servei=${id}`)}
+            detailHref={(id) => to(`/pricing/${id}`)}
+          />
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 3. Por qué: tres compromisos, texto sobre fondo -->
-  <section class="section border-t border-white/15" aria-labelledby="why-title">
+  <!-- 4. Por qué: tipografía grande y filetes, sin tarjetas -->
+  <section class="section border-t border-[var(--line)]" aria-labelledby="why-title">
     <div class="wrap">
       <h2 id="why-title" class="h-section max-w-3xl">{t.whyTitle}</h2>
-      <div class="mt-10 grid gap-x-10 gap-y-10 sm:mt-14 md:grid-cols-3">
-        {t.why.map((w) => (
-          <div class="border-t-2 border-brand pt-5">
-            <h3 class="font-display text-[1.6rem] font-bold leading-none" style="font-stretch:82%">{w.t}</h3>
-            <p class="muted mt-3 max-w-sm">{w.d}</p>
+      <div class="mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
+        {t.why.map((w, i) => (
+          <div class="flex flex-col">
+            <span class="numeral" aria-hidden="true">0{i + 1}</span>
+            <h3 class="mt-6 font-display text-[1.7rem] font-bold leading-none">{w.t}</h3>
+            <p class="muted mt-4 max-w-sm">{w.d}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 4. Proyectos reales -->
-  <section id="proyectos" class="section scroll-mt-20 border-t border-white/15" aria-labelledby="proj-title">
+  <!-- 5. Proyectos: composición asimétrica con imagen protagonista -->
+  <section id="proyectos" class="section scroll-mt-20 border-t border-[var(--line)]" aria-labelledby="proj-title">
     <div class="wrap">
       <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
-          <h2 id="proj-title" class="h-section">{t.projTitle}</h2>
+          <p class="label">{isEn ? "Selected work" : "Trabajo seleccionado"}</p>
+          <h2 id="proj-title" class="h-section mt-4">{t.projTitle}</h2>
           <p class="lede mt-4">{t.projLede}</p>
         </div>
         <a href={to("/projectes")} class="link-arrow shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="mt-10 grid gap-x-8 gap-y-14 sm:mt-14 lg:grid-cols-12">
+      <div class="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-8">
         {flagshipProjects.map((p, i) => {
           const img = projectImages[p.id];
           return (
-            <article class:list={["flex flex-col", i === 0 ? "lg:col-span-7" : "lg:col-span-5 lg:mt-24"]}>
-              <a href={to(`/projectes/${p.id}`)} class="group block overflow-hidden rounded-sm border border-white/15 bg-[#141412]" tabindex="-1" aria-hidden="true">
+            <article class:list={["group flex flex-col", i === 0 ? "lg:col-span-8" : "lg:col-span-4 lg:mt-40"]}>
+              <a href={to(`/projectes/${p.id}`)} class="relative block overflow-hidden border border-[var(--line)] bg-[var(--bg-raised)]" tabindex="-1" aria-hidden="true">
                 <img
                   src={img.src}
                   alt=""
@@ -225,22 +266,24 @@ const faqSchema = {
                   height={img.h}
                   loading="lazy"
                   decoding="async"
-                  class="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  class:list={["w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]", i === 0 ? "aspect-[16/10]" : "aspect-[4/5]"]}
                 />
+                <span class="label absolute left-0 top-0 bg-brand px-3 py-1.5 text-black">0{i + 1} / {p.data.badge}</span>
               </a>
-              <p class="label mt-5">{p.data.badge}</p>
-              <h3 class="mt-2 font-display text-[2rem] font-bold leading-none sm:text-[2.4rem]" style="font-stretch:82%">
-                <a href={to(`/projectes/${p.id}`)} class="hover:text-brand">{shortTitle(p.data.title)}</a>
-              </h3>
-              <p class="muted mt-3 max-w-xl">{p.data.subtitle}</p>
-              <p class="faint mt-3 text-[0.9rem]">{p.data.stack?.slice(0, 4).join(" · ")}</p>
-              <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
-                <a href={to(`/projectes/${p.id}`)} class="link-arrow min-h-11">{t.viewStudy} <span aria-hidden="true">→</span></a>
-                {p.data.liveUrl && (
-                  <a href={p.data.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
-                    {t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span>
-                  </a>
-                )}
+              <div class="mt-6 border-t border-[var(--line)] pt-6">
+                <h3 class="font-display text-[clamp(2rem,4vw,3.25rem)] font-bold leading-[0.95]">
+                  <a href={to(`/projectes/${p.id}`)} class="transition-colors hover:text-brand">{shortTitle(p.data.title)}</a>
+                </h3>
+                <p class="muted mt-4 max-w-xl">{p.data.subtitle}</p>
+                <p class="faint mt-4 font-mono text-[0.8rem] uppercase tracking-wide">{p.data.stack?.slice(0, 4).join(" · ")}</p>
+                <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-1">
+                  <a href={to(`/projectes/${p.id}`)} class="link-arrow min-h-11">{t.viewStudy} <span aria-hidden="true">→</span></a>
+                  {p.data.liveUrl && (
+                    <a href={p.data.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">
+                      {t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </article>
           );
@@ -249,52 +292,54 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 5. Proceso: la secuencia sí importa -->
-  <section class="section border-t border-white/15" aria-labelledby="proc-title">
+  <!-- 6. Proceso: línea de tiempo horizontal -->
+  <section class="section border-t border-[var(--line)]" aria-labelledby="proc-title">
     <div class="wrap">
       <h2 id="proc-title" class="h-section max-w-3xl">{t.procTitle}</h2>
-      <ol class="mt-10 grid gap-x-8 gap-y-10 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
+      <ol class="relative mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <span class="absolute left-0 right-0 top-[11px] hidden h-px bg-[var(--line-strong)] lg:block" aria-hidden="true"></span>
         {t.steps.map((s) => (
-          <li class="relative border-t border-white/30 pt-5">
-            <span class="absolute -top-[5px] left-0 h-[9px] w-12 bg-brand" aria-hidden="true"></span>
-            <p class="num font-display text-[3rem] font-extrabold leading-none text-brand" style="font-stretch:80%"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
-            <h3 class="mt-3 font-display text-[1.45rem] font-bold leading-tight" style="font-stretch:85%">{s.t}</h3>
-            <p class="muted mt-2 text-[0.97rem]">{s.d}</p>
+          <li class="relative pt-12">
+            <span class="absolute left-0 top-0 h-[23px] w-[23px] border-2 border-brand bg-[var(--bg-main)]" aria-hidden="true"></span>
+            <p class="label"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n} / 04</p>
+            <h3 class="mt-4 font-display text-[1.5rem] font-bold leading-tight">{s.t}</h3>
+            <p class="muted mt-3 text-[0.97rem]">{s.d}</p>
           </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <!-- 6. Oferta de lanzamiento: la copia amarilla -->
-  <section id="lanzamiento" class="section scroll-mt-20 border-t border-white/15" aria-labelledby="launch-title">
+  <!-- 7. Oferta de lanzamiento: bloque oscuro con filete amarillo -->
+  <section id="lanzamiento" class="section scroll-mt-20 border-t border-[var(--line)]" aria-labelledby="launch-title">
     <div class="wrap">
-      <div class="sheet grid gap-8 px-6 pb-14 pt-8 sm:px-10 sm:pt-10 lg:grid-cols-12 lg:gap-12">
+      <div class="sheet grid gap-8 px-6 pb-14 pt-10 sm:px-10 lg:grid-cols-12 lg:gap-12">
         <div class="lg:col-span-8">
           <p class="label">{t.launchTag}</p>
           <h2 id="launch-title" class="h-section mt-3">{t.launchTitle}</h2>
           <p class="mt-5 max-w-2xl text-[1.05rem] leading-relaxed">{t.launchText}</p>
-          <p class="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-[#0b0b09]/85">{t.launchNote}</p>
+          <p class="mt-4 max-w-2xl text-[0.95rem] leading-relaxed text-[var(--text-muted)]">{t.launchNote}</p>
         </div>
         <div class="flex lg:col-span-4 lg:items-end lg:justify-end">
-          <a href={to("/contact?servei=lanzamiento")} class="btn btn-dark w-full sm:w-auto">{t.launchCta} <span aria-hidden="true">→</span></a>
+          <a href={to("/contact?servei=lanzamiento")} class="btn btn-brand w-full sm:w-auto">{t.launchCta} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 7. Quién -->
-  <section class="section border-t border-white/15" aria-labelledby="about-title">
-    <div class="wrap grid items-center gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-3">
-        <div class="mx-auto aspect-square w-40 overflow-hidden rounded-sm border border-white/20 bg-[#1c1c19] sm:w-48 lg:mx-0 lg:w-full lg:max-w-56">
+  <!-- 8. Quién: retrato grande y texto editorial -->
+  <section class="section border-t border-[var(--line)]" aria-labelledby="about-title">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <div class="aspect-[4/5] overflow-hidden border border-[var(--line)] bg-[var(--bg-raised)]">
           <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="h-full w-full object-contain" />
         </div>
       </div>
-      <div class="lg:col-span-8">
-        <h2 id="about-title" class="h-section">{t.aboutTitle}</h2>
-        <p class="lede mt-5">{t.aboutText}</p>
-        <div class="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1">
+      <div class="lg:col-span-7">
+        <p class="label">{isEn ? "About" : "Sobre mí"}</p>
+        <h2 id="about-title" class="h-section mt-4">{t.aboutTitle}</h2>
+        <p class="lede mt-6">{t.aboutText}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-7 gap-y-1">
           <a href={to("/about")} class="link-arrow min-h-11">{t.aboutCta} <span aria-hidden="true">→</span></a>
           <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center font-semibold text-white underline decoration-white/30 decoration-2 underline-offset-4 hover:decoration-brand">{t.cv} <span aria-hidden="true" class="ml-1">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
         </div>
@@ -302,14 +347,14 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 8. FAQ -->
-  <section class="section border-t border-white/15" aria-labelledby="faq-title">
+  <!-- 9. FAQ -->
+  <section class="section border-t border-[var(--line)]" aria-labelledby="faq-title">
     <div class="wrap grid gap-10 lg:grid-cols-12">
       <h2 id="faq-title" class="h-section lg:col-span-4">{t.faqTitle}</h2>
       <div class="lg:col-span-8">
         {t.faqs.map((f) => (
-          <details class="faq group border-t border-white/20 last:border-b">
-            <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-[1.3rem] font-semibold leading-tight hover:text-brand sm:text-[1.5rem] [&::-webkit-details-marker]:hidden" style="font-stretch:88%">
+          <details class="faq group border-t border-[var(--line)] last:border-b">
+            <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-[1.3rem] font-semibold leading-tight hover:text-brand sm:text-[1.5rem] [&::-webkit-details-marker]:hidden">
               <span>{f.q}</span>
               <span class="relative h-5 w-5 shrink-0 text-brand" aria-hidden="true">
                 <span class="absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-current"></span>
@@ -323,11 +368,17 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 9. Cierre -->
-  <CtaBand
-    title={t.finalTitle}
-    text={t.finalText}
-    primary={{ href: "mailto:jaumetur3w@gmail.com", label: t.finalMail }}
-    secondary={{ href: to("/contact"), label: t.finalForm }}
-  />
+  <!-- 10. Cierre: bloque amarillo completo, tinta negra -->
+  <section class="bg-brand text-black" aria-labelledby="final-title">
+    <div class="wrap grid items-end gap-10 py-20 sm:py-28 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <h2 id="final-title" class="h-hero text-black">{t.finalTitle}</h2>
+        <p class="mt-6 max-w-2xl text-[1.15rem] leading-relaxed text-black/85">{t.finalText}</p>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
+        <a href="mailto:jaumetur3w@gmail.com" class="btn btn-black">{t.finalMail} <span aria-hidden="true">↗</span></a>
+        <a href={to("/contact")} class="btn btn-outline-black">{t.finalForm}</a>
+      </div>
+    </div>
+  </section>
 </Layout>

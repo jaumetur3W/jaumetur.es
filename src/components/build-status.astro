@@ -16,7 +16,7 @@ const isEn = Astro.url.pathname.startsWith("/en");
       target="_blank"
       rel="noopener noreferrer"
       id="build-status-pill"
-      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-medium bg-[#1c1c19] hover:bg-slate-200/80 text-white border border-slate-200/80 transition shadow-2xs group cursor-pointer"
+      class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-medium bg-[#1c1c1c] hover:bg-slate-200/80 text-white border border-slate-200/80 transition shadow-2xs group cursor-pointer"
       title={isEn ? "View CI/CD pipeline runs on GitHub Actions" : "Ver las ejecuciones del pipeline CI/CD en GitHub Actions"}
     >
       <span class="relative flex h-2 w-2">
@@ -25,13 +25,13 @@ const isEn = Astro.url.pathname.startsWith("/en");
       </span>
 
       <span class="flex items-center gap-1.5">
-        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-[#d2d2cb] group-hover:text-white transition-colors" />
+        <Icon name="bx:git-branch" class="w-3.5 h-3.5 text-[#d4d4d4] group-hover:text-white transition-colors" />
         <span>CI/CD:</span>
         <span id="build-status-label" class="font-bold text-white">{isEn ? "Passing" : "Correcto"}</span>
       </span>
 
-      <span class="text-[10px] text-[#d2d2cb] font-mono hidden sm:inline" id="build-commit-sha">#main</span>
-      <Icon name="bx:link-external" class="w-3 h-3 text-[#d2d2cb] group-hover:text-white transition-colors" />
+      <span class="text-[10px] text-[#d4d4d4] font-mono hidden sm:inline" id="build-commit-sha">#main</span>
+      <Icon name="bx:link-external" class="w-3 h-3 text-[#d4d4d4] group-hover:text-white transition-colors" />
     </a>
   )
 }
@@ -40,7 +40,7 @@ const isEn = Astro.url.pathname.startsWith("/en");
   variant === "card" && (
     <div
       id="build-status-card"
-      class="p-6 rounded-sm bg-[#141412] border border-slate-200/90 shadow-sm font-mono text-xs"
+      class="p-6 rounded-sm bg-[#141414] border border-slate-200/90 shadow-sm font-mono text-xs"
     >
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div class="flex items-center gap-2">
@@ -58,24 +58,24 @@ const isEn = Astro.url.pathname.startsWith("/en");
         </a>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-sm bg-[#1c1c19] border border-slate-200/80 text-[11px] mb-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-sm bg-[#1c1c1c] border border-slate-200/80 text-[11px] mb-4">
         <div>
-          <span class="text-[#d2d2cb] block text-[10px] uppercase font-semibold">{isEn ? "Status" : "Estado"}</span>
+          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Status" : "Estado"}</span>
           <span id="card-build-status" class="font-bold text-white flex items-center gap-1 mt-0.5">
             <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
             <span>{isEn ? "Passing" : "Correcto"}</span>
           </span>
         </div>
         <div>
-          <span class="text-[#d2d2cb] block text-[10px] uppercase font-semibold">{isEn ? "Branch" : "Rama"}</span>
+          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Branch" : "Rama"}</span>
           <span id="card-build-branch" class="font-bold text-white mt-0.5 block">main</span>
         </div>
         <div>
-          <span class="text-[#d2d2cb] block text-[10px] uppercase font-semibold">{isEn ? "Latest commit" : "Último commit"}</span>
+          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Latest commit" : "Último commit"}</span>
           <span id="card-build-sha" class="font-bold text-[#ffff00] mt-0.5 block">HEAD</span>
         </div>
         <div>
-          <span class="text-[#d2d2cb] block text-[10px] uppercase font-semibold">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
+          <span class="text-[#d4d4d4] block text-[10px] uppercase font-semibold">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
           <span id="card-build-time" class="font-bold text-white mt-0.5 block">&lt; 90s</span>
         </div>
       </div>

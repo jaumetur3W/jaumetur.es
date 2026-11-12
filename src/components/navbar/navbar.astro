@@ -36,7 +36,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 
     <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} class="hidden lg:block">
       <ul class="flex items-center gap-1">
-        {links.map((l) => (
+        {links.map((l, i) => (
           <li>
             <a
               href={to(l.path)}
@@ -45,7 +45,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
                 "inline-flex min-h-11 items-center px-3.5 text-[0.95rem] font-medium underline decoration-2 underline-offset-[0.5em] transition-colors",
                 l.active ? "text-white decoration-brand" : "text-white/80 decoration-transparent hover:text-white hover:decoration-white/60",
               ]}
-            >{l.label}</a>
+            ><span class="label mr-1.5 text-brand">0{i + 1}</span>{l.label}</a>
           </li>
         ))}
       </ul>
@@ -78,10 +78,10 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     </div>
   </div>
 
-  <div id="nav-panel" class="hidden border-t border-white/15 bg-[#0b0b09] lg:hidden" style="max-height:calc(100dvh - 4.25rem);overflow-y:auto">
+  <div id="nav-panel" class="hidden border-t border-white/15 bg-[#0a0a0a] lg:hidden" style="max-height:calc(100dvh - 4.25rem);overflow-y:auto">
     <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="wrap pb-6 pt-2">
       <ul>
-        {links.map((l) => (
+        {links.map((l, i) => (
           <li class="border-b border-white/15">
             <a href={to(l.path)} aria-current={l.active ? "page" : undefined}
                class:list={["flex min-h-14 items-center justify-between font-display text-3xl font-bold", l.active ? "text-brand" : "text-white"]} style="font-stretch:82%">

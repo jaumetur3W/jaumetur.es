@@ -1,5 +1,5 @@
 ---
-/** Cabecera de página interior: título grande, entradilla y espacio para migas o acciones. */
+/** Cabecera de página interior: cuadrícula de fondo, filete amarillo, titular grande y entradilla. */
 export interface Props {
   title: string;
   lede?: string;
@@ -7,11 +7,12 @@ export interface Props {
 const { title, lede } = Astro.props;
 ---
 
-<header class="border-b border-white/15 pb-12 pt-12 sm:pb-16 sm:pt-20">
+<header class="bg-grid relative border-b border-[var(--line)] pb-14 pt-14 sm:pb-20 sm:pt-24">
   <div class="wrap">
+    <span class="mb-8 block h-1 w-16 bg-brand" aria-hidden="true"></span>
     <slot name="crumbs" />
     <h1 class="h-page max-w-[18ch] sm:max-w-4xl">{title}</h1>
-    {lede && <p class="lede mt-6">{lede}</p>}
+    {lede && <p class="lede mt-7">{lede}</p>}
     <slot />
   </div>
 </header>

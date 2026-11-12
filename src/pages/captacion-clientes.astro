@@ -146,7 +146,7 @@ const breadcrumbSchema = {
             t.reasons.map((reason) => (
               <div class="space-y-2">
                 <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-[#ffff00]">
-                  <Icon name={reason.icon} class="h-6 w-6 text-[#0b0b09]" />
+                  <Icon name={reason.icon} class="h-6 w-6 text-brand" />
                 </div>
                 <h3 class="font-semibold">{reason.title}</h3>
                 <p class="text-sm text-white/70">{reason.desc}</p>
@@ -215,7 +215,7 @@ const breadcrumbSchema = {
       <div class="mt-6 space-y-4">
         {
           t.faqs.map((faq) => (
-            <details class="group open:bg-[#0b0b09]/5 open:p-4 open:rounded-sm cursor-pointer">
+            <details class="group open:bg-[#0a0a0a]/5 open:p-4 open:rounded-sm cursor-pointer">
               <summary class="font-semibold leading-snug flex items-center gap-2">
                 {faq.q}
                 <span class="ml-auto group-open:rotate-180 transition-transform">▼</span>

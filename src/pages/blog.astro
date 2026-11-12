@@ -71,7 +71,7 @@ const getCategoryIcon = (category: string) => {
             data-category={cat}
             class={`filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors ${
               idx === 0
-                ? "border-[#ffff00] bg-[#ffff00] text-[#0b0b09] active"
+                ? "border-[#ffff00] bg-[#ffff00] text-[#0a0a0a] active"
                 : "border-white/30 bg-transparent text-white hover:border-white hover:bg-white/10"
             }`}
           >
@@ -196,7 +196,7 @@ const getCategoryIcon = (category: string) => {
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;
             b.className = isCurrent
-              ? "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-[#ffff00] bg-[#ffff00] text-[#0b0b09] active"
+              ? "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-[#ffff00] bg-[#ffff00] text-[#0a0a0a] active"
               : "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-white/30 bg-transparent text-white hover:border-white hover:bg-white/10";
           });
 
