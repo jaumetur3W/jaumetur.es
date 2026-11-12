@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Continuous integration and automation CI/CD pipeline"
 }
+problem_en: "Manual deployments prone to errors, no automated validation, causing downtime and regressions."
+solution_en: "Fully automated CI/CD pipeline with GitHub Actions: linting, strict TypeScript, optimized builds, and atomic deployment."
+result_en: "Zero Downtime. Builds in < 90 seconds. Automatic validation before production. Confidence in every deployment."
 ---
 
 ## 1. Problem & Context

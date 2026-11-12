@@ -18,6 +18,9 @@ image: {
   src: "/img/preview-worksy.webp",
   alt: "Worksy — Plataforma integral de gestión empresarial, recursos humanos y productividad"
 }
+problem: "Empresas fragmentadas entre múltiples herramientas: RR. HH., calendarios, correo, tareas. Sin unificación, sin seguridad centralizada."
+solution: "Plataforma SaaS multi-tenant integral: gestión RR. HH., control horario legal, correo corporativo, hub de apps y IA. Cumplimiento RGPD y SAML SSO."
+result: "Reducción del 70% en tiempo de gestión administrativa. Unificación operativa. Seguridad y cumplimiento normativo español garantizado."
 ---
 
 ## 1. Visión del producto: Fin a la fragmentación de herramientas empresariales

@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
   alt: "Serene Mediterranean stone and limestone estate architecture"
 }
+problem_en: "Rural estate without clear online presence. Difficulty communicating exclusive experiences and capturing remote reservations."
+solution_en: "Serene editorial web with React, TypeScript, responsive design, and reservation system. Fluid navigation through spaces and experiences."
+result_en: "Professional digital presence. Better communication of offerings. Functional system for managing stays and events."
 ---
 
 ## A Digital Experience for Exclusive Rural Tourism

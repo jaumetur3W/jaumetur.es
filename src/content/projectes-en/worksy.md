@@ -18,6 +18,9 @@ image: {
   src: "/img/preview-worksy.webp",
   alt: "Worksy — All-in-One Enterprise Management, HR & Productivity SaaS"
 }
+problem_en: "Fragmented enterprises split between multiple tools: HR, calendars, email, tasks. No unification, no centralized security."
+solution_en: "Unified multi-tenant SaaS platform: HR management, Spanish-compliant time tracking, corporate email, app hub, and AI. GDPR and SAML SSO."
+result_en: "70% reduction in admin time. Operational unification. Spanish labor law compliance and centralized security guaranteed."
 ---
 
 ## 1. Product Vision: Eliminating Workplace Tool Fragmentation

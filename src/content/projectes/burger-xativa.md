@@ -19,6 +19,9 @@ image: {
   src: "/img/foto_burger.webp",
   alt: "Hamburguesa de la demo Burger Xàtiva"
 }
+problem: "Hamburguesería necesitaba una web que mostrara carta interactiva, permitiera personalización de productos y capturara órdenes online."
+solution: "Desarrollo de demo web responsiva con Astro, carta digital, personalizador de hamburguesas y flujo de pedido simulado con Tailwind CSS."
+result: "Demo funcional que ejemplifica experiencia gastronómica completa. Template reutilizable para otros negocios de food service."
 ---
 
 ## Un recorrido de pedido para una marca ficticia

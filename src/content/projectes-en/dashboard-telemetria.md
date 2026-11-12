@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "High-performance telemetry and analytics visual graph"
 }
+problem_en: "Telemetry dashboard suffered jank on real-time updates from frequent re-renders and inefficient rendering."
+solution_en: "Optimization with requestAnimationFrame, CSS Containment, Virtual DOM, and layer isolation to maintain 60 FPS."
+result_en: "Guaranteed 60 FPS rendering. INP < 30ms. Fully functional dashboard with smooth real-time metrics visualization."
 ---
 
 ## 1. Problem & Context

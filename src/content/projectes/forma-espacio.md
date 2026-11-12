@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?fit=crop&w=1200&h=630",
   alt: "Interior arquitectónico con materiales naturales"
 }
+problem: "Estudio de diseño interior con presencia débil. Portfolio desorganizado, sin contacto directo, perdiendo oportunidades de clientes."
+solution: "Landing page profesional con portfolio visual, formulario de contacto optimizado, SEO local para búsquedas en Valencia, integración con redes sociales."
+result: "25% aumento en contactos cualificados. Mejor posicionamiento en búsquedas locales. Portfolio profesional que genera confianza."
 ---
 
 ## Una mirada al espacio y la materia

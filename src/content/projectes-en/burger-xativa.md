@@ -19,6 +19,9 @@ image: {
   src: "/img/foto_burger.webp",
   alt: "Gourmet burger featured in Burger Xàtiva demo"
 }
+problem_en: "Fast-casual burger restaurant needed interactive digital menu, product customization, and online order capture."
+solution_en: "Responsive demo web with Astro, interactive menu, burger builder, and order flow simulation using Tailwind CSS."
+result_en: "Fully functional demo showcasing complete food service UX. Reusable template for other quick-service restaurant businesses."
 ---
 
 ## A Complete Ordering Flow for a Concept Brand

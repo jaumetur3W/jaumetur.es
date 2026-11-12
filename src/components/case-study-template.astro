@@ -1,0 +1,126 @@
+---
+interface Props {
+  problem: string;
+  solution: string;
+  result: string;
+  technologies: string[];
+  year: number;
+}
+
+const { problem, solution, result, technologies, year } = Astro.props;
+---
+
+<article class="case-study">
+  <section class="problem">
+    <h2>El Problema</h2>
+    <p>{problem}</p>
+  </section>
+
+  <section class="solution">
+    <h2>La Solución</h2>
+    <p>{solution}</p>
+  </section>
+
+  <section class="result">
+    <h2>El Resultado</h2>
+    <p class="highlight">{result}</p>
+  </section>
+
+  <section class="tech">
+    <h3>Tecnologías</h3>
+    <ul>
+      {technologies.map(t => (
+        <li>{t}</li>
+      ))}
+    </ul>
+  </section>
+
+  <p class="year">Completado en {year}</p>
+</article>
+
+<style>
+  .case-study {
+    max-width: 48rem;
+    margin: 2rem 0;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  .problem h2,
+  .solution h2,
+  .result h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .problem p,
+  .solution p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .result .highlight {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1rem;
+    background: rgb(255 255 0 / 0.1);
+    border-left: 4px solid var(--brand, #ffff00);
+    border-radius: 0.25rem;
+  }
+
+  .tech {
+    background: rgb(255 255 255 / 0.05);
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .tech h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--brand, #ffff00);
+  }
+
+  .tech ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .tech li {
+    background: rgb(255 255 255 / 0.08);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .year {
+    font-size: 0.9rem;
+    color: rgb(255 255 255 / 0.6);
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    section {
+      margin-bottom: 1.5rem;
+    }
+
+    .problem h2,
+    .solution h2,
+    .result h2 {
+      font-size: 1.25rem;
+    }
+
+    .tech ul {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+  }
+</style>

@@ -18,6 +18,9 @@ image: {
   src: "/img/preview-trania.webp",
   alt: "TranIA — Plataforma inteligente de gestión deportiva y rendimiento con IA"
 }
+problem: "Web existente lenta (Lighthouse 45/100), mal posicionamiento en Google, experiencia de usuario deficiente en móvil."
+solution: "Auditoría completa de rendimiento. Eliminación de 80% del JavaScript innecesario. Optimización de imágenes a WebP/AVIF. Corrección de accesibilidad WCAG AA."
+result: "Lighthouse mejorado a 95/100. LCP reducido de 4.2s a 1.1s. Tráfico orgánico aumentó 35% en 3 meses."
 ---
 
 ## 1. ¿Qué es TranIA? Visión general del ecosistema

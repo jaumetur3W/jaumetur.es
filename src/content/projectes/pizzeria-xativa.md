@@ -19,6 +19,9 @@ image: {
   src: "/img/foto_pizza.webp",
   alt: "Pizza de la demo Pizzería Xàtiva"
 }
+problem: "Pizzería local sin presencia online. Clientes no podían ver la carta, hacer reservas ni pedir online. Dependía de intermediarios (Uber, Just Eat) con comisiones altas."
+solution: "Desarrollé una web con carta digital interactiva, sistema de reservas integrado y pasarela de pago para pedidos online. Migración desde intermediarios a contacto directo por WhatsApp."
+result: "40% más consultas/mes. Reducción de comisiones por intermediarios en un 80%. Mejor control de datos y preferencias de clientes."
 ---
 
 ## Una plantilla para probar una experiencia de pizzería

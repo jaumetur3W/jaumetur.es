@@ -20,6 +20,9 @@ image: {
   src: "/img/avisa-logo.png",
   alt: "AVISA professional services, home tasks, and renovation platform"
 }
+problem_en: "Internal task management app required modern architecture, strict typing, and maintainability. Previous development had fragile code."
+solution_en: "Complete refactor with Angular, Signals, strict TypeScript, RxJS for reactive state, Vitest testing, and automated CI/CD pipeline."
+result_en: "60% reduction in production bugs. Automatic zero-downtime deployments. Maintainable and scalable code for the team."
 ---
 
 ## 1. Real-World Context & Problem Statement

@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
+import CaseStudyTemplate from "@/components/case-study-template.astro";
 import { localeFromPath, localizePath } from "@/i18n";
 
 export async function getStaticPaths() {
@@ -133,6 +134,18 @@ const breadcrumb = {
         <span class="label mr-1">{t.stack}</span>
         {entry.data.stack.map((x) => <span class="chip font-normal">{x}</span>)}
       </p>
+
+      {(d as any).problem && (d as any).solution && (d as any).result && (
+        <div class="mt-12 border-t border-white/20 pt-10">
+          <CaseStudyTemplate
+            problem={isEn ? (d as any).problem_en || (d as any).problem : (d as any).problem}
+            solution={isEn ? (d as any).solution_en || (d as any).solution : (d as any).solution}
+            result={isEn ? (d as any).result_en || (d as any).result : (d as any).result}
+            technologies={entry.data.stack}
+            year={parseInt(String(entry.data.year).split(' ')[0])}
+          />
+        </div>
+      )}
 
       <div class="prose prose-lg prose-invert mt-12 max-w-none prose-headings:font-display prose-headings:text-white prose-p:text-[#d2d2cb] prose-a:text-brand prose-strong:text-white prose-li:text-[#d2d2cb] prose-li:marker:text-brand">
         <Content />

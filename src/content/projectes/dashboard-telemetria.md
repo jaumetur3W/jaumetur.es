@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Gráfico de telemetría y rendimiento de altas prestaciones"
 }
+problem: "Panel de telemetría sufría jank en tiempo real por actualizaciones frecuentes y renderizado ineficiente."
+solution: "Optimización con requestAnimationFrame, CSS Containment, Virtual DOM y aislamiento de capas para mantener 60 FPS."
+result: "Renderizado garantizado a 60 FPS. INP < 30ms. Panel funcional con visualización fluida de métricas en tiempo real."
 ---
 
 ## 1. El problema y el contexto

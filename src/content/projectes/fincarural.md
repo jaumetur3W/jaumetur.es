@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
   alt: "Finca mediterránea con arquitectura serena de piedra y cal"
 }
+problem: "Finca rural sin presencia online clara. Dificultad para comunicar experiencias exclusivas y captar reservas remotas."
+solution: "Web editorial serena con React, TypeScript, diseño responsivo y sistema de reservas. Navegación fluida por espacios y experiencias."
+result: "Presencia digital profesional. Mejor comunicación de ofertas. Sistema funcional para gestión de estancias y eventos."
 ---
 
 ## Una experiencia digital para el turismo rural exclusivo

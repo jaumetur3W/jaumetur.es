@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?fit=crop&w=1200&h=630",
   alt: "Architectural interior composed with raw natural materials"
 }
+problem_en: "Interior design studio with weak online presence. Disorganized portfolio, no direct contact, losing client opportunities."
+solution_en: "Professional landing page with visual portfolio, optimized contact form, local SEO for Valencia searches, social media integration."
+result_en: "25% increase in qualified leads. Better local search positioning. Professional portfolio building trust."
 ---
 
 ## An Exploration of Space & Matter

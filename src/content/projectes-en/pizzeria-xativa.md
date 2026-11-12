@@ -19,6 +19,9 @@ image: {
   src: "/img/foto_pizza.webp",
   alt: "Artisan pizza featured in Pizzeria Xàtiva demo"
 }
+problem_en: "Local pizzeria without online presence. Customers couldn't view the menu, make reservations, or order online. Dependent on intermediaries (Uber, Just Eat) with high commissions."
+solution_en: "Developed a web with interactive digital menu, integrated reservation system, and online payment gateway. Migration from intermediaries to direct WhatsApp contact."
+result_en: "40% more inquiries per month. 80% reduction in intermediary commissions. Better customer data control and preference tracking."
 ---
 
 ## A Template for Modern Pizzeria Experience

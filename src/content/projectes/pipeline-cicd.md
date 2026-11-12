@@ -20,6 +20,9 @@ image: {
   src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fit=crop&w=1200&h=630",
   alt: "Pipeline de automatización e integración continua CI/CD"
 }
+problem: "Despliegues manuales propensos a errores, sin validación automatizada, causando downtime y regresiones."
+solution: "Cadena CI/CD completamente automatizada con GitHub Actions: linter, TypeScript strict, compilación optimizada y despliegue atómico."
+result: "Zero Downtime. Builds en < 90 segundos. Validación automática antes de producción. Confianza en cada despliegue."
 ---
 
 ## 1. El problema y el contexto

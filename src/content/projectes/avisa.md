@@ -20,6 +20,9 @@ image: {
   src: "/img/avisa-logo.png",
   alt: "Plataforma AVISA de servicios profesionales, tareas y reformas del hogar"
 }
+problem: "Aplicación interna de gestión de avisos requería arquitectura moderna, tipado seguro y mantenibilidad. Desarrollo previo con código frágil."
+solution: "Refactorización completa con Angular, Signals, TypeScript estricto, RxJS para estado reactivo, pruebas con Vitest, pipeline CI/CD automatizado."
+result: "Reducción del 60% en bugs de producción. Despliegues automáticos sin downtime. Código mantenible y escalable para el equipo."
 ---
 
 ## 1. El problema y el contexto real
