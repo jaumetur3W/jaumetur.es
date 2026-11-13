@@ -18,21 +18,22 @@ const is404 = rawPathname.includes("404");
 const spanishPath = is404 ? "/" : withSlash(localizePath(rawPathname, "es"));
 const englishPath = is404 ? "/en/" : withSlash(localizePath(rawPathname, "en"));
 
+// Texto normal (no todo en mayúsculas): Proyectos, Servicios, Blog, Sobre mí
 const links = [
-  { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
   { label: isEn ? "Projects" : "Proyectos", path: "/projectes", active: pathname.startsWith("/projectes") },
+  { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
   { label: "Blog", path: "/blog", active: pathname.startsWith("/blog") },
   { label: isEn ? "About" : "Sobre mí", path: "/about", active: pathname.startsWith("/about") },
 ];
 const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 ---
 
-<!-- Header superior: los enlaces NO se ven al entrar a la web. En la derecha está el botón con icono de 3 líneas horizontales -->
+<!-- Header superior: fondo transparente, limpio y perfectamente alineado -->
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300">
-  <div class="wrap flex h-20 items-center justify-between relative z-50">
+  <div class="wrap flex h-20 items-center justify-between relative">
     
-    <!-- Logo oficial de Jaume Tur + Firma tipográfica -->
-    <a href={to("/")} class="group flex items-center gap-3 select-none" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
+    <!-- Izquierda: Logo oficial + Firma tipográfica -->
+    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
       <img
         src="/img/jt.LOGO-02-128.webp"
         alt="Jaume Tur Logo"
@@ -41,170 +42,175 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
         class="h-9 w-9 rounded-lg border-[1.5px] border-ink object-contain shadow-xs group-hover:scale-105 transition-transform"
         decoding="async"
       />
-      <span class="font-display text-[1.3rem] font-extrabold tracking-[-0.03em] leading-none text-ink">
-        jaume <span class="serif-italic text-[1.22em] font-normal tracking-normal text-ink/80">tur</span>
+      <span class="font-display text-[1.35rem] font-black tracking-[-0.03em] leading-none text-ink">
+        jaume <span class="serif-italic text-[1.25em] font-normal tracking-normal text-ink/85">tur</span>
       </span>
     </a>
 
-    <!-- Zona derecha: selector de idioma + botón con icono de 3 líneas horizontales -->
-    <div class="flex items-center gap-3 sm:gap-4">
-      <div class="flex items-center font-mono text-[0.78rem] font-bold" role="group" aria-label={isEn ? "Language" : "Idioma"}>
+    <!-- Centro: Enlaces horizontales en la misma fila, texto normal, perfectamente alineados -->
+    <nav
+      id="nav-center-menu"
+      aria-label={isEn ? "Main navigation" : "Navegación principal"}
+      class="hidden md:flex flex-1 items-center justify-center px-4 transition-all duration-250 opacity-0 pointer-events-none invisible"
+    >
+      <ul class="flex items-center gap-6 lg:gap-10 xl:gap-12">
+        {links.map((l) => (
+          <li class="shrink-0">
+            <a
+              href={to(l.path)}
+              aria-current={l.active ? "page" : undefined}
+              class:list={[
+                "nav-top-link relative inline-flex items-center py-2 px-1 font-display text-[1.05rem] lg:text-[1.12rem] font-bold tracking-tight text-ink transition-colors hover:text-black whitespace-nowrap",
+                l.active ? "font-extrabold text-black" : "text-ink/85 hover:text-black"
+              ]}
+            >
+              <span>{l.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Derecha: Botón de 3 líneas (icono limpio) + Selector de Idioma [ES / EN] -->
+    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+      
+      <!-- Icono de 3 líneas horizontales -->
+      <button
+        id="nav-toggle"
+        type="button"
+        class="flex items-center justify-center p-2 text-ink hover:text-black cursor-pointer transition-transform duration-200 active:scale-95 group"
+        aria-label={isEn ? "Toggle navigation menu" : "Mostrar u ocultar menú"}
+        aria-expanded="false"
+        aria-controls="nav-center-menu"
+      >
+        <span class="nav-burger-icon flex flex-col justify-center items-center w-6 h-4.5 gap-[4.5px] relative" aria-hidden="true">
+          <span class="burger-line line-1 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
+          <span class="burger-line line-2 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
+          <span class="burger-line line-3 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
+        </span>
+      </button>
+
+      <!-- Selector de idioma: [ES] / EN -->
+      <div class="flex items-center font-mono text-xs font-bold" role="group" aria-label={isEn ? "Language" : "Idioma"}>
         <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}
            class:list={["px-2.5 py-1 rounded transition-colors", !isEn ? "bg-ink text-white" : "text-ink/70 hover:text-ink"]}>ES</a>
-        <span class="text-ink/30 mx-0.5">/</span>
+        <span class="text-ink/30 mx-1">/</span>
         <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}
            class:list={["px-2.5 py-1 rounded transition-colors", isEn ? "bg-ink text-white" : "text-ink/70 hover:text-ink"]}>EN</a>
       </div>
 
-      <!-- Botón de menú con 3 líneas horizontales para mostrar/ocultar los enlaces superiores -->
-      <button
-        id="nav-toggle"
-        type="button"
-        class="group flex items-center gap-2.5 px-3.5 py-2 rounded-full border border-ink/20 bg-white/90 hover:bg-ink hover:text-white text-ink transition-all cursor-pointer shadow-xs"
-        aria-label={isEn ? "Toggle navigation menu" : "Mostrar u ocultar menú de navegación"}
-        aria-expanded="false"
-        aria-controls="nav-dropdown"
-      >
-        <span id="nav-toggle-label" class="text-xs font-display font-bold uppercase tracking-wider select-none hidden sm:inline">
-          {isEn ? "Menu" : "Menú"}
-        </span>
-        <!-- Icono de 3 líneas horizontales que se transforma suavemente en X al abrir -->
-        <span class="nav-burger-icon flex flex-col justify-center items-center w-5 h-4 gap-1 relative" aria-hidden="true">
-          <span class="burger-line line-1 w-5 h-[2px] bg-current rounded-full transition-transform duration-300"></span>
-          <span class="burger-line line-2 w-5 h-[2px] bg-current rounded-full transition-opacity duration-300"></span>
-          <span class="burger-line line-3 w-5 h-[2px] bg-current rounded-full transition-transform duration-300"></span>
-        </span>
-      </button>
     </div>
 
   </div>
 
-  <!-- Desplegable superior de enlaces de navegación (sin fondo opaco pesado, integrado sobre el lienzo) -->
+  <!-- Desplegable móvil (para pantallas pequeñas donde no cabe toda la fila horizontal) -->
   <div
-    id="nav-dropdown"
-    class="absolute top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-full opacity-0 pointer-events-none pt-24 pb-8"
+    id="nav-mobile-dropdown"
+    class="md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none p-6"
     aria-hidden="true"
   >
-    <div class="wrap flex flex-col md:flex-row md:items-center justify-between gap-6">
-      
-      <!-- Enlaces horizontales directos -->
-      <nav aria-label={isEn ? "Main navigation" : "Navegación principal"}>
-        <ul class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 lg:gap-12">
-          {links.map((l) => (
-            <li>
-              <a
-                href={to(l.path)}
-                aria-current={l.active ? "page" : undefined}
-                class:list={[
-                  "nav-top-link relative inline-flex items-center py-2 font-display text-xl md:text-base font-bold uppercase tracking-wider text-ink transition-all",
-                  l.active ? "text-ink font-extrabold" : "text-ink/75 hover:text-ink"
-                ]}
-                data-nav-link
-              >
-                <span>{l.label}</span>
-                {l.active && <span class="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#ffff00] border-b border-ink"></span>}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <!-- Botón de acción dentro del menú desplegado -->
-      <div class="flex items-center gap-4 pt-4 md:pt-0 border-t md:border-t-0 border-ink/10">
-        <a href={to("/contact")} class="btn btn-dark !min-h-[2.8rem] !px-6 text-xs font-bold uppercase tracking-wider" data-nav-link>
-          {ctaLabel} <span aria-hidden="true">→</span>
-        </a>
-      </div>
-
+    <ul class="grid gap-3">
+      {links.map((l) => (
+        <li>
+          <a
+            href={to(l.path)}
+            class="block py-2 font-display text-xl font-bold tracking-tight text-ink border-b border-ink/5"
+            data-nav-link
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="pt-5 mt-2">
+      <a href={to("/contact")} class="btn btn-dark w-full !min-h-[2.8rem] text-xs font-bold uppercase tracking-wider" data-nav-link>
+        {ctaLabel} <span>→</span>
+      </a>
     </div>
   </div>
-
-  <!-- Backdrop suave al abrirse el menú para cerrar al pulsar fuera -->
-  <div id="nav-backdrop" class="fixed inset-0 bg-ink/20 backdrop-blur-xs opacity-0 pointer-events-none transition-opacity duration-300 -z-10" aria-hidden="true"></div>
 </header>
 
 <style>
   .nav-top-link::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 4px;
+    right: 4px;
     bottom: -2px;
-    height: 3px;
+    height: 2.5px;
     background: #ffff00;
     transform: scaleX(0);
-    transform-origin: left;
+    transform-origin: center;
     transition: transform 220ms ease;
   }
   .nav-top-link:hover::after {
     transform: scaleX(1);
   }
 
-  /* Estado abierto del menú superior */
-  #site-header.is-menu-open #nav-dropdown {
-    transform: translateY(0);
+  /* Estado abierto en Desktop: aparecen los enlaces perfectamente alineados en el centro */
+  #site-header.is-menu-open #nav-center-menu {
     opacity: 1;
     pointer-events: auto;
-  }
-  #site-header.is-menu-open #nav-backdrop {
-    opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
   }
 
-  /* Transformación de las 3 líneas a X al abrirse */
-  #site-header.is-menu-open .line-1 {
-    transform: translateY(6px) rotate(45deg);
+  /* Estado abierto en Móvil: se despliega suavemente abajo de la barra */
+  #site-header.is-menu-open #nav-mobile-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
-  #site-header.is-menu-open .line-2 {
-    opacity: 0;
-  }
-  #site-header.is-menu-open .line-3 {
-    transform: translateY(-6px) rotate(-45deg);
+
+  /* Indicador en el botón de hamburguesa al estar abierto */
+  #site-header.is-menu-open .nav-burger-icon {
+    opacity: 0.9;
   }
 </style>
 
 <script is:inline>
   (function () {
-    var header = document.getElementById("site-header");
-    var toggleBtn = document.getElementById("nav-toggle");
-    var dropdown = document.getElementById("nav-dropdown");
-    var backdrop = document.getElementById("nav-backdrop");
-    var label = document.getElementById("nav-toggle-label");
-    if (!header || !toggleBtn || !dropdown) return;
+    function initNav() {
+      var header = document.getElementById("site-header");
+      var toggleBtn = document.getElementById("nav-toggle");
+      if (!header || !toggleBtn) return;
 
-    var setOpen = function (open) {
-      header.classList.toggle("is-menu-open", open);
-      toggleBtn.setAttribute("aria-expanded", String(open));
-      dropdown.setAttribute("aria-hidden", String(!open));
-      if (label) {
-        var isEn = document.documentElement.lang === "en";
-        label.textContent = open ? (isEn ? "Close" : "Cerrar") : (isEn ? "Menu" : "Menú");
-      }
-    };
+      if (toggleBtn.dataset.bound === "true") return;
+      toggleBtn.dataset.bound = "true";
 
-    toggleBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      var isOpen = header.classList.contains("is-menu-open");
-      setOpen(!isOpen);
-    });
+      var setOpen = function (open) {
+        header.classList.toggle("is-menu-open", open);
+        toggleBtn.setAttribute("aria-expanded", String(open));
+      };
 
-    if (backdrop) {
-      backdrop.addEventListener("click", function () {
-        setOpen(false);
+      toggleBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var isOpen = header.classList.contains("is-menu-open");
+        setOpen(!isOpen);
+      });
+
+      // Cerrar al pulsar fuera del encabezado
+      document.addEventListener("click", function (e) {
+        if (header.classList.contains("is-menu-open") && !header.contains(e.target)) {
+          setOpen(false);
+        }
+      });
+
+      // Al pulsar en cualquier enlace del menú, cerrar y permitir la navegación
+      header.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          setOpen(false);
+        });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && header.classList.contains("is-menu-open")) {
+          setOpen(false);
+        }
       });
     }
 
-    // Cerrar al hacer clic en cualquier enlace del menú
-    dropdown.querySelectorAll("[data-nav-link]").forEach(function (link) {
-      link.addEventListener("click", function () {
-        setOpen(false);
-      });
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && header.classList.contains("is-menu-open")) {
-        setOpen(false);
-      }
-    });
+    initNav();
+    document.addEventListener("astro:page-load", initNav);
+    document.addEventListener("astro:after-swap", initNav);
   })();
 </script>

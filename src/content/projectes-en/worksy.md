@@ -35,8 +35,8 @@ This tool sprawl breeds **data silos, manual friction, lack of auditability, and
 The platform is designed around a scalable **multi-tenant architecture**, tailored for high-growth businesses and multi-entity corporate structures with complex departmental hierarchies.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-dashboard.webp" alt="Worksy Cockpit and Command Center overview showing company KPIs" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Real Worksy interface: Command Center cockpit with workforce metrics and daily operations</figcaption>
+  <img src="/img/real/worksy-dashboard.webp" alt="Worksy Cockpit and Command Center overview showing company KPIs" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Worksy Command Center cockpit with workforce metrics and daily operations</figcaption>
 </figure>
 
 ---
@@ -52,8 +52,8 @@ The core HR module provides administrative governance over company personnel and
 - **Role-Based Access Control (RBAC):** Strict permission boundary ensuring each user accesses strictly authorized records.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-team.webp" alt="Workforce directory and org chart in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Centralized team directory with departmental structure and role-based permissions</figcaption>
+  <img src="/img/real/worksy-team.webp" alt="Workforce directory and org chart in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Centralized team directory with departmental structure and role-based permissions</figcaption>
 </figure>
 
 ---
@@ -69,8 +69,8 @@ Worksy's time tracking system is built specifically to satisfy strict European a
 - **Certified Inspection Exports:** Instant export of legally compliant timesheets (PDF/Excel) formatted for labor audits and regulatory inspections.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-time-tracking.webp" alt="Tamper-proof time clock and daily attendance tracking in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Audit-proof daily attendance tracking with automated overtime computation</figcaption>
+  <img src="/img/real/worksy-time-tracking.webp" alt="Tamper-proof time clock and daily attendance tracking in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Audit-proof daily attendance tracking with automated overtime computation</figcaption>
 </figure>
 
 ---
@@ -107,8 +107,8 @@ The productivity module streamlines daily execution through agile workflows embe
 - **Personal Productivity Space:** Focused personal view for each worker prioritizing immediate duties alongside daily meetings and shift hours.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-tasks.webp" alt="Agile Kanban board and task tracking in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Agile department-level Kanban boards with priority assignment and sprint deadlines</figcaption>
+  <img src="/img/real/worksy-tasks.webp" alt="Agile Kanban board and task tracking in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Agile department-level Kanban boards with priority assignment and sprint deadlines</figcaption>
 </figure>
 
 ---
@@ -123,8 +123,8 @@ A standout feature in Worksy is its centralized mail interface, bridging externa
 - **Security & Privacy:** Authorized via OAuth 2.0 delegated tokens; email credentials are never stored insecurely and only permitted metadata is ingested.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-mail.webp" alt="Unified WorkFlow Mail inbox with email-to-task conversion in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// WorkFlow Mail: unified corporate inbox with integrated email-to-task conversion</figcaption>
+  <img src="/img/real/worksy-mail.webp" alt="Unified WorkFlow Mail inbox with email-to-task conversion in Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">WorkFlow Mail: unified corporate inbox with integrated email-to-task conversion</figcaption>
 </figure>
 
 ---
@@ -175,7 +175,10 @@ Worksy customizes analytics and key metrics based on each user's operational sco
 
 Worksy is engineered as a domain-driven modular monolith, combining rapid development velocity, clean boundaries, and high reliability:
 
-<img src="/img/worksy-architecture-scheme-en.webp" alt="Worksy Technical Architecture Scheme" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+<figure class="my-8">
+  <img src="/img/worksy-architecture-scheme-en.webp" alt="Worksy Technical Architecture Scheme" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Worksy technical architecture diagram with React 18, Node.js, and PostgreSQL</figcaption>
+</figure>
 
 ### Technology Stack
 - **Frontend:** React 18, Strict TypeScript, Vite build tool, Tailwind CSS, and accessible shadcn/ui components. State managed with TanStack Query and Zustand.
