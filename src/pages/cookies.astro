@@ -9,44 +9,130 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
 
 <Layout
   title={isEn ? "Cookies Policy | Jaume Tur" : "Política de cookies | Jaume Tur"}
-  description={isEn ? "Information about cookies and privacy on jaumetur.es. 100% cookie-free and tracking-free." : "Información sobre cookies y privacidad en jaumetur.es. Sitio 100% libre de cookies y rastreo."}
+  description={isEn
+    ? "Information on cookies, privacy-friendly analytics (Plausible), and optional Google Analytics 4 measurement via Consent Mode v2 on jaumetur.es."
+    : "Información sobre el uso de cookies, analítica sin cookies (Plausible) y medición opcional con Google Analytics 4 bajo Consent Mode v2 en jaumetur.es."}
 >
   <Container class="py-12 max-w-3xl">
     <Sectionhead>
       <Fragment slot="title">{isEn ? "Cookies Policy" : "Política de cookies"}</Fragment>
       <Fragment slot="desc">
-        {isEn ? "Complete transparency: this website operates without tracking cookies." : "Transparencia absoluta: este sitio web funciona sin cookies de seguimiento."}
+        {isEn
+          ? "Transparency by design: analytics cookies are only activated with your prior consent."
+          : "Transparencia por diseño: las cookies de medición solo se activan con tu consentimiento previo."}
       </Fragment>
     </Sectionhead>
 
     <div class="mt-10 space-y-8 text-sm text-ink/75 leading-relaxed font-light">
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "1. No Tracking Cookies" : "1. Sin cookies de seguimiento ni publicidad"}</h2>
+        <h2 class="text-lg font-semibold text-ink font-sans">
+          {isEn ? "1. Essential Storage & Cookieless Analytics" : "1. Almacenamiento técnico y analítica sin cookies"}
+        </h2>
         <p>
           {isEn
-            ? "jaumetur.es does not use advertising cookies, remarketing pixels, or third-party profiling scripts. We believe in high performance and privacy by default, which is why we do not interrupt your navigation with cookie consent banners."
-            : "jaumetur.es no utiliza cookies publicitarias, ni píxeles de remarketing ni scripts de perfilado de terceros. Apostamos por el máximo rendimiento técnico y la privacidad por defecto, motivo por el cual no interrumpimos tu navegación con molestos banners de consentimiento."}
+            ? "jaumetur.es does not use advertising cookies, remarketing pixels, or third-party profiling scripts. We store only a strictly necessary preference in your browser (localStorage) to remember your cookie consent decision."
+            : "jaumetur.es no utiliza cookies publicitarias, ni píxeles de remarketing ni scripts de perfilado de terceros. Únicamente guardamos una preferencia técnica en tu navegador (localStorage) para recordar tu decisión sobre el consentimiento de cookies."}
+        </p>
+        <p>
+          {isEn
+            ? "Basic technical telemetry is also collected via Plausible Analytics in 100% cookie-free mode under European GDPR standards without storing persistent personal identifiers."
+            : "Además, utilizamos Plausible Analytics en modo 100% libre de cookies, conforme al RGPD europeo y sin almacenar identificadores personales persistentes."}
         </p>
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "2. Privacy-Friendly Analytics" : "2. Analítica ética sin cookies"}</h2>
+        <h2 class="text-lg font-semibold text-ink font-sans">
+          {isEn ? "2. Optional Measurement Cookies (Google Tag Manager & GA4)" : "2. Cookies de medición opcionales (Google Tag Manager y GA4)"}
+        </h2>
         <p>
           {isEn
-            ? "We measure website visits and key technical conversions using Plausible Analytics. Plausible is completely cookie-free, operates under strict European GDPR standards, and does not store any persistent personal identifiers."
-            : "La medición de visitas y conversiones técnicas clave se realiza a través de Plausible Analytics. Plausible funciona en modo 100% libre de cookies, opera bajo los estándares del RGPD europeo y no almacena identificadores personales persistentes."}
+            ? "This website integrates Google Tag Manager with Google Consent Mode v2 (Basic Mode) to manage Google Analytics 4 (GA4). Until you explicitly click Accept, Google Tag Manager and Google Analytics 4 are not loaded at all, no requests are sent to Google, and no measurement cookies (_ga, _ga_*) are stored on your device."
+            : "Esta web integra Google Tag Manager con Google Consent Mode v2 en modo básico para gestionar Google Analytics 4 (GA4). Mientras no pulses Aceptar, ni Google Tag Manager ni Google Analytics 4 se cargan, no se envía ninguna petición a Google ni se almacena ninguna cookie de medición (_ga, _ga_*) en tu dispositivo."}
+        </p>
+        <p>
+          {isEn
+            ? "If you grant consent, GA4 stores first-party measurement cookies (_ga and _ga_*) solely to analyze aggregated traffic, page views, and site interactions. Advertising storage parameters always remain denied."
+            : "Si aceptas las cookies de medición, GA4 puede almacenar cookies propias (_ga y _ga_*) exclusivamente para analizar visitas agregadas, páginas vistas e interacciones de navegación. Los parámetros publicitarios permanecen siempre denegados."}
         </p>
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "3. Browser Controls" : "3. Control en el navegador"}</h2>
+        <h2 class="text-lg font-semibold text-ink font-sans">
+          {isEn ? "3. Manage or Withdraw Your Consent" : "3. Gestionar o retirar tu consentimiento"}
+        </h2>
         <p>
           {isEn
-            ? "You can configure your browser to block or alert you about the storage of cookies on any website. Because this website does not store cookies, no data will be written to your local storage for tracking purposes."
-            : "Puedes configurar tu navegador en cualquier momento para bloquear o eliminar el almacenamiento de cookies en cualquier web. Dado que este sitio no instala cookies de seguimiento, no se registra ningún archivo en tu dispositivo con fines publicitarios."}
+            ? "You can change or withdraw your cookie consent at any time. Rejecting or withdrawing consent immediately stops Google Analytics measurement, blocks GTM/GA4 on future page loads, and clears existing _ga cookies."
+            : "Puedes cambiar o retirar tu consentimiento en cualquier momento. Al rechazar o revocar el consentimiento se detiene de inmediato la medición de Google Analytics, se impide la carga de GTM y GA4 en las siguientes vistas y se eliminan las cookies existentes."}
+        </p>
+        <div class="rounded-xl border border-ink/15 bg-white p-4 sm:p-5 space-y-3 shadow-xs">
+          <p class="text-xs font-mono text-ink/80">
+            {isEn ? "Current preference:" : "Preferencia actual:"}{" "}
+            <strong
+              id="cookies-page-status"
+              class="text-ink font-bold"
+              data-granted={isEn ? "Accepted (GA4 cookies enabled)" : "Aceptadas (medición GA4 activa)"}
+              data-denied={isEn ? "Rejected (no GA4 cookies)" : "Rechazadas (sin cookies de medición)"}
+              data-unset={isEn ? "Pending selection (denied by default)" : "Pendiente de elección (denegadas por defecto)"}
+            >
+              {isEn ? "Pending selection (denied by default)" : "Pendiente de elección (denegadas por defecto)"}
+            </strong>
+          </p>
+          <div class="flex flex-wrap gap-2.5">
+            <button type="button" id="cookies-page-accept" class="btn btn-dark btn-sm min-h-11 px-4 text-xs sm:text-sm">
+              {isEn ? "Accept measurement cookies" : "Aceptar cookies de medición"}
+            </button>
+            <button type="button" id="cookies-page-reject" class="btn btn-white btn-sm min-h-11 px-4 text-xs sm:text-sm">
+              {isEn ? "Reject measurement cookies" : "Rechazar cookies de medición"}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "4. Browser Controls" : "4. Control en el navegador"}</h2>
+        <p>
+          {isEn
+            ? "You can also configure your browser at any time to block, alert, or delete cookies stored on your device."
+            : "También puedes configurar tu navegador en cualquier momento para bloquear, recibir avisos o eliminar las cookies almacenadas en tu dispositivo."}
         </p>
       </section>
     </div>
   </Container>
 </Layout>
 
+<script is:inline>
+  (function () {
+    var statusEl = document.getElementById("cookies-page-status");
+    var acceptBtn = document.getElementById("cookies-page-accept");
+    var rejectBtn = document.getElementById("cookies-page-reject");
+    if (!statusEl) return;
+
+    function syncStatus() {
+      var state = window.__jaumeturConsent ? window.__jaumeturConsent.get() : null;
+      if (state === "granted") {
+        statusEl.textContent = statusEl.dataset.granted || "Accepted";
+      } else if (state === "denied") {
+        statusEl.textContent = statusEl.dataset.denied || "Rejected";
+      } else {
+        statusEl.textContent = statusEl.dataset.unset || "Pending";
+      }
+    }
+
+    syncStatus();
+    window.addEventListener("jaumetur:consent-change", syncStatus);
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener("click", function () {
+        if (window.__jaumeturConsent) window.__jaumeturConsent.set("granted");
+        syncStatus();
+      });
+    }
+    if (rejectBtn) {
+      rejectBtn.addEventListener("click", function () {
+        if (window.__jaumeturConsent) window.__jaumeturConsent.set("denied");
+        syncStatus();
+      });
+    }
+  })();
+</script>

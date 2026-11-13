@@ -1,5 +1,6 @@
 ---
 import { SEO } from "astro-seo";
+import CookieConsent from "@/components/cookie-consent.astro";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import { getServicesData } from "@/data/services";
@@ -236,6 +237,56 @@ const websiteSchema = {
     <meta name="generator" content={Astro.generator} />
     <script is:inline>document.documentElement.classList.add("js");</script>
 
+    <!-- Google Consent Mode v2 (Modo Básico: GTM y GA4 bloqueados hasta consentimiento) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      (function () {
+        var KEY = "jaumetur_cookie_consent_v1";
+        var stored = null;
+        try {
+          stored = window.localStorage.getItem(KEY);
+        } catch (_) {}
+        var granted = stored === "granted";
+
+        window["ga-disable-G-LFSN2GYK8R"] = !granted;
+
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: granted ? "granted" : "denied",
+          functionality_storage: "granted",
+          security_storage: "granted",
+        });
+
+        window.__loadGtm = function () {
+          var GTM_SRC = "https://www.googletagmanager.com/gtm.js?id=GTM-5PZR8DJ8";
+          if (window.__gtmLoaded) return;
+          if (document.querySelector('script[src="' + GTM_SRC + '"]')) {
+            window.__gtmLoaded = true;
+            return;
+          }
+          window.__gtmLoaded = true;
+          window.dataLayer.push({
+            "gtm.start": new Date().getTime(),
+            event: "gtm.js",
+          });
+          var f = document.getElementsByTagName("script")[0];
+          var j = document.createElement("script");
+          j.async = true;
+          j.src = GTM_SRC;
+          f.parentNode.insertBefore(j, f);
+        };
+
+        if (granted) {
+          window.__loadGtm();
+        }
+      })();
+    </script>
+
     <!-- Hreflang (el canonical lo gestiona el componente SEO) -->
     {!shouldNoIndex && alternates && (
       <>
@@ -298,6 +349,7 @@ const websiteSchema = {
       <slot />
     </main>
     <Footer />
+    <CookieConsent />
 
     <!-- Revelado suave de secciones (un solo observer, sin dependencias) -->
     <script is:inline>
