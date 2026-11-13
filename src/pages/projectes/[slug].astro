@@ -234,4 +234,88 @@ const breadcrumb = {
     font-weight: 500;
   }
   .pj-mark-root { display: none; }
+
+  /* ==============================================================
+     ESTILO WORKSY EXACTO A LA REFERENCIA DEL DASHBOARD
+     Lienzo etéreo azul/gris, tarjetas níveas con suave elevación,
+     botones de acción azul eléctrico (#2563eb) y estética SaaS moderna.
+     ============================================================== */
+  .pj[data-pj='worksy'] {
+    background-color: #f1f5f9;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(219, 234, 254, 0.7), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 85% 15%, rgba(224, 231, 255, 0.6), transparent 50%),
+      radial-gradient(ellipse 70% 50% at 50% 90%, rgba(241, 245, 249, 0.95), transparent 60%);
+    min-height: 100vh;
+  }
+  .pj[data-pj='worksy'] .pj-hero {
+    background: transparent;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  }
+  .pj[data-pj='worksy'] .pj-logo-frame {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 16px 36px -12px rgba(37, 99, 235, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03);
+    border-radius: 1.5rem;
+  }
+  .pj[data-pj='worksy'] .pj-btn-accent {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 4px 14px -3px rgba(37, 99, 235, 0.4);
+    border-radius: 0.85rem;
+  }
+  .pj[data-pj='worksy'] .pj-btn-accent:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+  }
+  .pj[data-pj='worksy'] .pj-btn:not(.pj-btn-accent) {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 0.85rem;
+  }
+  .pj[data-pj='worksy'] .pj-btn:not(.pj-btn-accent):hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+  .pj[data-pj='worksy'] .pj-facts {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.25rem;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04);
+  }
+  .pj[data-pj='worksy'] .pj-chip-soft {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+  .pj[data-pj='worksy'] .prose figure {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    padding: 0.75rem;
+    box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.06);
+  }
+  .pj[data-pj='worksy'] .prose figure img {
+    border-radius: 1rem;
+    border: 1px solid #f1f5f9;
+  }
+  .pj[data-pj='worksy'] .prose figcaption {
+    color: #64748b;
+    font-size: 0.85rem;
+    padding-top: 0.35rem;
+  }
+  .pj[data-pj='worksy'] .prose :where(h2) {
+    color: #0f172a;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .pj[data-pj='worksy'] .prose :where(h3, h4) {
+    color: #1e293b;
+  }
 </style>
