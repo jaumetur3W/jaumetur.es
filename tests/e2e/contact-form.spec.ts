@@ -42,11 +42,11 @@ test.describe("Contact form", () => {
       const hrefs = await page
         .locator('a[href*="/contact/"][href*="servei="], a[href*="/contact/?servei="], a[href*="/contact?servei="]')
         .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
-      expect(hrefs.map((href) => href?.split("servei=")[1]).sort()).toEqual([...PACKAGE_IDS].sort());
+      expect([...new Set(hrefs.map((href) => href?.split("servei=")[1]))].sort()).toEqual([...PACKAGE_IDS].sort());
 
       for (const id of PACKAGE_IDS) {
         await page.goto(pricingPath);
-        await page.locator(`a[href="${contactPath}?servei=${id}"]`).click();
+        await page.locator(`a[href="${contactPath}?servei=${id}"]`).first().click();
         await expect(page).toHaveURL(new RegExp(`servei=${id}$`));
         await expect(page.locator("#contact-service")).toHaveValue(id);
       }

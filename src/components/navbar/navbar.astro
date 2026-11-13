@@ -33,7 +33,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
   <div class="wrap flex h-20 items-center justify-between relative">
     
     <!-- Izquierda: Logo oficial + Firma tipográfica -->
-    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
+    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaume tur — home" : "jaume tur — inicio"}>
       <img
         src="/img/jt.LOGO-02-128.webp"
         alt="Jaume Tur Logo"
@@ -81,7 +81,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
         class="flex items-center justify-center p-2 text-ink hover:text-black cursor-pointer transition-transform duration-200 active:scale-95 group"
         aria-label={isEn ? "Toggle navigation menu" : "Mostrar u ocultar menú"}
         aria-expanded="false"
-        aria-controls="nav-center-menu"
+        aria-controls="nav-panel nav-center-menu"
       >
         <span class="nav-burger-icon flex flex-col justify-center items-center w-6 h-4.5 gap-[4.5px] relative" aria-hidden="true">
           <span class="burger-line line-1 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
@@ -105,8 +105,8 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 
   <!-- Desplegable móvil (para pantallas pequeñas donde no cabe toda la fila horizontal) -->
   <div
-    id="nav-mobile-dropdown"
-    class="md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none p-6"
+    id="nav-panel"
+    class="md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible p-6"
     aria-hidden="true"
   >
     <ul class="grid gap-3">
@@ -155,10 +155,11 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
   }
 
   /* Estado abierto en Móvil: se despliega suavemente abajo de la barra */
-  #site-header.is-menu-open #nav-mobile-dropdown {
+  #site-header.is-menu-open #nav-panel {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+    visibility: visible;
   }
 
   /* Indicador en el botón de hamburguesa al estar abierto */

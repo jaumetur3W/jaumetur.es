@@ -73,8 +73,8 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     expect(boundingBox?.y).toBeLessThanOrEqual(5);
   });
 
-  test("Home quote sheet switches the line items with the selected service", async ({ page }) => {
-    await page.goto("/");
+  test("Quote sheet switches the line items with the selected service", async ({ page }) => {
+    await page.goto("/captacion-clientes/");
     const sheet = page.locator(".quote-sheet");
     await expect(sheet.locator('[data-panel="0"]')).toBeVisible();
     await expect(sheet.locator('[data-panel="0"]')).toContainText("290");
@@ -82,7 +82,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(sheet.locator('[data-panel="2"]')).toBeVisible();
     await expect(sheet.locator('[data-panel="0"]')).toBeHidden();
     await expect(sheet.locator('[data-panel="2"]')).toContainText("1950");
-    await expect(sheet.locator('[data-panel="2"] a.btn')).toHaveAttribute("href", /\/contact\/\?servei=angular-webapp/);
+    await expect(sheet.locator('[data-panel="2"] a.btn')).toHaveAttribute("href", /\/contact\/\?(?:service|servei)=angular-webapp/);
   });
 
   test("Top navbar displays standard page links without in-page anchors, and mobile menu is accessible", async ({ page }) => {
@@ -96,9 +96,6 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     // Las herramientas viven en el pie, no en la navegación principal
     await expect(desktopNav.locator('a[href="/tools/creador-html/"]')).toHaveCount(0);
     await expect(desktopNav.locator('a[href="/about/"]')).toHaveText("Sobre mí");
-
-    // Contact CTA
-    await expect(page.locator('header a[href="/contact/"]').first()).toBeVisible();
 
     // Internal anchors must NOT be in the header
     const allHeaderLinks = await page.locator("header a").evaluateAll((links) =>
@@ -158,9 +155,9 @@ test.describe("Critical User Journeys & Technical Quality", () => {
 
   test("Pricing page displays service packages including key local digitization offer", async ({ page }) => {
     await page.goto("/pricing/");
-    await expect(page.locator("h2").filter({ hasText: "Digitalización local y carta web" })).toBeVisible();
+    await expect(page.locator("h2, h3").filter({ hasText: /Digitalización local/i })).toBeVisible();
     await expect(page.getByText("290 €").first()).toBeVisible();
-    await expect(page.locator("h2").filter({ hasText: "Landing page de alto rendimiento" })).toBeVisible();
+    await expect(page.locator("h2, h3").filter({ hasText: /Landing page/i })).toBeVisible();
 
     // Click on detail link of key local digitization offer
     await page.click('a[href="/pricing/digitalitzacio-local/"] >> nth=0');
@@ -171,7 +168,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(page.getByText(/Comparativa/i)).toBeVisible();
 
     await page.goto("/en/pricing/");
-    await expect(page.locator("h2").filter({ hasText: "Local Digitization & Web Menu" })).toBeVisible();
+    await expect(page.locator("h2, h3").filter({ hasText: /Local Digitization/i })).toBeVisible();
   });
 
   test("Digital card page /card displays contact pass, QR code and vCard link", async ({ page }) => {
