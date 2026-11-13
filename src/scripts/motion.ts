@@ -6,6 +6,9 @@
  * Todo es opcional: sin JS o con prefers-reduced-motion la página ya es legible.
  */
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -64,6 +67,17 @@ document.querySelectorAll<HTMLElement>("[data-split]").forEach((el) => {
     .add(() => el.querySelectorAll(".mark-draw").forEach((m) => m.classList.add("is-visible")), "-=0.35");
 });
 
+// ---- Titulares: máscara que sube al entrar en pantalla (una sola vez)
+if (!reduce && "IntersectionObserver" in window) {
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } }),
+    { rootMargin: "0px 0px -10% 0px" },
+  );
+  document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+} else {
+  document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-visible"));
+}
+
 // ---- Reveals con stagger corto ------------------------------------------
 if (!reduce && "IntersectionObserver" in window) {
   const groups = document.querySelectorAll<HTMLElement>("[data-stagger]");
@@ -84,37 +98,8 @@ if (!reduce && "IntersectionObserver" in window) {
   });
 }
 
-// ---- Cursor con carácter + tilt (solo puntero fino) ---------------------
+// ---- Tilt leve (solo puntero fino)
 if (!reduce && finePointer) {
-  const dot = document.createElement("div");
-  dot.className = "cursor-dot";
-  dot.setAttribute("aria-hidden", "true");
-  document.body.appendChild(dot);
-  const xTo = gsap.quickTo(dot, "x", { duration: 0.22, ease: "power3" });
-  const yTo = gsap.quickTo(dot, "y", { duration: 0.22, ease: "power3" });
-
-  window.addEventListener(
-    "pointermove",
-    (e) => {
-      dot.classList.add("is-on");
-      xTo(e.clientX);
-      yTo(e.clientY);
-    },
-    { passive: true },
-  );
-  document.addEventListener("pointerleave", () => dot.classList.remove("is-on"));
-
-  const linkSel = "a, button, summary, label[for], [role='button']";
-  const textSel = "input:not([type=checkbox]):not([type=radio]), textarea";
-  document.addEventListener("pointerover", (e) => {
-    const t = e.target as Element;
-    const isText = !!t.closest(textSel);
-    const link = !isText && t.closest(linkSel);
-    dot.classList.toggle("is-text", isText);
-    dot.classList.toggle("is-link", !!link);
-    dot.textContent = link && (link as HTMLElement).dataset.cursor ? (link as HTMLElement).dataset.cursor! : "";
-  });
-
   document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {
     const rx = gsap.quickTo(card, "rotationX", { duration: 0.4, ease: "power3" });
     const ry = gsap.quickTo(card, "rotationY", { duration: 0.4, ease: "power3" });
@@ -130,5 +115,34 @@ if (!reduce && finePointer) {
       rx(0);
       ry(0);
     });
+  });
+}
+
+// ---- Servicios en horizontal: pin vertical; las tarjetas avanzan hasta que la última de servicio queda centrada (la CTA no cuenta)
+const svcSection = document.querySelector<HTMLElement>("[data-svc]");
+const svcTrack = document.querySelector<HTMLElement>("[data-svc-track]");
+if (svcSection && svcTrack && !reduce && window.matchMedia("(min-width: 1024px)").matches) {
+  const cards = Array.from(svcTrack.querySelectorAll<HTMLElement>(".svc-card"));
+  const lastService = cards[cards.length - 2];
+  let dist = 0;
+  const measure = () => {
+    gsap.set(svcTrack, { x: 0 });
+    const r = lastService.getBoundingClientRect();
+    dist = Math.max(0, r.left + r.width / 2 - window.innerWidth / 2);
+  };
+  svcTrack.classList.add("is-pinned");
+  gsap.to(svcTrack, {
+    x: () => -dist,
+    ease: "none",
+    scrollTrigger: {
+      trigger: svcSection,
+      start: "top 6rem",
+      end: () => "+=" + dist,
+      pin: svcSection.querySelector<HTMLElement>(".svc-pin"),
+      pinSpacing: true,
+      scrub: 0.6,
+      invalidateOnRefresh: true,
+      onRefreshInit: measure,
+    },
   });
 }

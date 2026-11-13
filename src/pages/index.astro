@@ -147,11 +147,11 @@ const faqSchema = {
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
   <!-- 1. Apertura: titular firma + hoja de presupuesto con selector real -->
-  <section class="border-b-[1.5px] border-ink pb-10 pt-8 sm:pb-12 sm:pt-12" aria-labelledby="hero-title">
+  <section class="sec-art border-b-[1.5px] border-ink pb-10 pt-8 sm:pb-12 sm:pt-12" data-art="neon" aria-labelledby="hero-title">
     <div class="wrap grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-7">
         <p class="flex flex-wrap items-center gap-2"><span class="tag">Jaume Tur</span><span class="tag tag-line">Xàtiva · València</span><span class="tag tag-line">2026</span></p>
-        <h1 id="hero-title" class="h-hero mt-5" data-split>{isEn ? <>Websites that look like <span class="hl">“yours”</span>, built by whoever answers you.</> : <>Webs a medida que parecen <span class="hl">“tuyas”</span>, hechas por quien te atiende.</>}</h1>
+        <h1 id="hero-title" class="h-hero mt-5" data-split>{isEn ? <>Your website, <span class="hl">yours</span>: code and accounts in your name.</> : <>Tu web, <span class="hl">tuya</span>: código y cuentas a tu nombre.</>}</h1>
         <p class="lede mt-5">{t.lede}</p>
         <div class="mt-7 flex flex-wrap items-center gap-3">
           <a href={to("/contact")} class="btn btn-dark" data-cursor={isEn ? "Quote" : "Hola"}>{t.cta1} <span aria-hidden="true">→</span></a>
@@ -177,46 +177,50 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 2. Servicios: retícula de catálogo con precio visible -->
-  <section id="servicios" class="section scroll-mt-20" aria-labelledby="svc-title">
+  <!-- 2. Servicios: una tarjeta por servicio; el scroll las recorre en horizontal -->
+  <section id="servicios" class="svc-h sec-art scroll-mt-20 pt-6 sm:pt-10" data-art="precio" aria-labelledby="svc-title" data-svc>
     <div class="wrap">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <h2 id="svc-title" class="h-section">{t.svcTitle}</h2>
+          <h2 id="svc-title" class="h-section" data-reveal>{t.svcTitle}</h2>
           <p class="lede mt-3">{t.svcLede}</p>
         </div>
         <a href={to("/pricing")} class="btn btn-white shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
       </div>
-      <ul class="cat-grid mt-7 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+    </div>
+    <div class="svc-pin">
+      <ul class="svc-track wrap" data-svc-track>
         {services.map((s, i) => (
-          <li class="flex">
-            <a href={to(`/pricing/${s.id}`)} class="item !border-0 !px-5 !py-5 sm:!px-6 flex w-full flex-col" data-cursor={isEn ? "Open" : "Ver"}>
+          <li class="svc-card">
+            <a href={to(`/pricing/${s.id}`)} class="glass is-hoverable flex h-full flex-col p-6 sm:p-7" data-tilt data-cursor={isEn ? "Open" : "Ver"}>
               <span class="flex items-center justify-between gap-3">
                 <span class="label">N.º {String(i + 1).padStart(2, "0")}</span>
                 <span class="label">{s.timeline}</span>
               </span>
-              <span class="mt-3 block font-display text-[1.3rem] uppercase leading-[1.03]">{s.name}</span>
-              <span class="muted mt-2 line-clamp-3 text-[0.88rem] leading-snug">{s.tagline}</span>
-              <span class="mt-auto flex items-end justify-between gap-3 pt-5">
-                <span><span class="label block">{t.from}</span><span class="num font-display text-[1.9rem] leading-none">{euro(s.creationPriceNumber)}</span></span>
-                <span class="text-[0.85rem] font-bold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
+              <span class="mt-5 block font-display text-[1.6rem] uppercase leading-[1.02]">{s.name}</span>
+              <span class="muted mt-3 text-[0.95rem] leading-snug">{s.tagline}</span>
+              <span class="mt-auto flex items-end justify-between gap-3 pt-8">
+                <span><span class="label block">{t.from}</span><span class="num font-display text-[2.2rem] leading-none">{euro(s.creationPriceNumber)}</span></span>
+                <span class="text-[0.9rem] font-bold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
         ))}
-        <li class="flex flex-col justify-between p-5 sm:p-6" style="background:var(--brand)">
-          <p class="font-display text-[1.3rem] uppercase leading-[1.03]">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
-          <p class="mt-2 text-[0.9rem] leading-snug">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
-          <a href={to("/contact")} class="btn btn-dark btn-sm mt-5 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
+        <li class="svc-card">
+          <div class="sheet flex h-full flex-col justify-between p-6 sm:p-7" data-tilt>
+            <p class="font-display text-[1.6rem] uppercase leading-[1.02]">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
+            <p class="mt-3 text-[0.95rem] leading-snug">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
+            <a href={to("/contact")} class="btn btn-dark btn-sm mt-8 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
+          </div>
         </li>
       </ul>
     </div>
   </section>
 
   <!-- 3. Por qué: tres compromisos -->
-  <section class="section pt-0" aria-labelledby="why-title">
+  <section class="sec-art section pt-0" data-art="codigo" aria-labelledby="why-title">
     <div class="wrap">
-      <h2 id="why-title" class="h-section max-w-3xl">{t.whyTitle}</h2>
+      <h2 id="why-title" class="h-section max-w-3xl" data-reveal>{t.whyTitle}</h2>
       <div class="mt-6 grid gap-4 md:grid-cols-3" data-stagger>
         {t.why.map((w, i) => (
           <div class="glass p-5" data-tilt>
@@ -230,11 +234,11 @@ const faqSchema = {
   </section>
 
   <!-- 4. Proyectos: muchas piezas medianas en marcos pequeños -->
-  <section id="proyectos" class="section scroll-mt-20 border-t-[1.5px] border-ink" aria-labelledby="proj-title">
+  <section id="proyectos" class="sec-art section scroll-mt-20 border-t-[1.5px] border-ink" data-art="navegador" aria-labelledby="proj-title">
     <div class="wrap">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <h2 id="proj-title" class="h-section">{t.projTitle}</h2>
+          <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
           <p class="lede mt-3">{t.projLede}</p>
         </div>
         <a href={to("/projectes")} class="btn btn-white shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
@@ -264,9 +268,9 @@ const faqSchema = {
   </section>
 
   <!-- 5. Proceso -->
-  <section class="section border-t-[1.5px] border-ink" aria-labelledby="proc-title">
+  <section class="sec-art section border-t-[1.5px] border-ink" data-art="ruta" aria-labelledby="proc-title">
     <div class="wrap">
-      <h2 id="proc-title" class="h-section max-w-3xl">{t.procTitle}</h2>
+      <h2 id="proc-title" class="h-section max-w-3xl" data-reveal>{t.procTitle}</h2>
       <ol class="cat-grid mt-7 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {t.steps.map((s) => (
           <li class="p-5">
@@ -280,12 +284,12 @@ const faqSchema = {
   </section>
 
   <!-- 6. Oferta de lanzamiento: bloque amarillo -->
-  <section id="lanzamiento" class="section scroll-mt-20 pt-0" aria-labelledby="launch-title">
+  <section id="lanzamiento" class="sec-art section scroll-mt-20 pt-0" data-art="reloj" aria-labelledby="launch-title">
     <div class="wrap">
       <div class="sheet grid gap-6 px-6 py-7 sm:px-9 sm:py-9 lg:grid-cols-12 lg:gap-10" data-tilt>
         <div class="lg:col-span-8">
           <p class="tag" style="background:var(--ink);color:#fff">{t.launchTag}</p>
-          <h2 id="launch-title" class="h-section mt-3">{t.launchTitle}</h2>
+          <h2 id="launch-title" class="h-section mt-3" data-reveal>{t.launchTitle}</h2>
           <p class="mt-4 max-w-2xl text-[1rem] leading-relaxed">{t.launchText}</p>
           <p class="mt-3 max-w-2xl text-[0.9rem] leading-relaxed text-ink/85">{t.launchNote}</p>
         </div>
@@ -296,8 +300,9 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 7. Quién: nombre grande -->
-  <section class="section border-t-[1.5px] border-ink" aria-labelledby="about-title">
+  <!-- 7. Quién: nombre grande (fondo: foto de Jaume desenfocada) -->
+  <section class="sec-photo section border-t-[1.5px] border-ink" aria-labelledby="about-title">
+    <div class="sec-photo-bg" aria-hidden="true"><img src="/img/jaume-tur-desarrollador-web.webp" alt="" width="320" height="320" loading="lazy" decoding="async" /></div>
     <div class="wrap grid items-center gap-8 lg:grid-cols-12">
       <div class="lg:col-span-2">
         <div class="mx-auto aspect-square w-32 overflow-hidden rounded-[1.25rem] border-2 border-ink bg-sand sm:w-40 lg:mx-0 lg:w-full">
@@ -305,7 +310,7 @@ const faqSchema = {
         </div>
       </div>
       <div class="lg:col-span-10">
-        <h2 id="about-title" class="h-section">{isEn ? <>Jaume Tur, web developer in <span class="hl">Xàtiva</span>.</> : <>Jaume Tur, desarrollador web en <span class="hl">Xàtiva</span>.</>}</h2>
+        <h2 id="about-title" class="h-section" data-reveal>{isEn ? <>Jaume Tur, web developer in <span class="hl">Xàtiva</span>.</> : <>Jaume Tur, desarrollador web en <span class="hl">Xàtiva</span>.</>}</h2>
         <p class="lede mt-4">{t.aboutText}</p>
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
           <a href={to("/about")} class="link-arrow min-h-11">{t.aboutCta} <span aria-hidden="true">→</span></a>
@@ -316,9 +321,9 @@ const faqSchema = {
   </section>
 
   <!-- 8. FAQ -->
-  <section class="section border-t-[1.5px] border-ink" aria-labelledby="faq-title">
+  <section class="sec-art section border-t-[1.5px] border-ink" data-art="preguntas" aria-labelledby="faq-title">
     <div class="wrap grid gap-8 lg:grid-cols-12">
-      <h2 id="faq-title" class="h-section lg:col-span-4">{t.faqTitle}</h2>
+      <h2 id="faq-title" class="h-section lg:col-span-4" data-reveal>{t.faqTitle}</h2>
       <div class="lg:col-span-8">
         {t.faqs.map((f) => (
           <details class="faq group border-t-[1.5px] border-ink last:border-b-[1.5px]">
@@ -338,6 +343,7 @@ const faqSchema = {
 
   <!-- 9. Cierre -->
   <CtaBand
+    art="dialogo"
     title={t.finalTitle}
     text={t.finalText}
     primary={{ href: WA, label: t.finalWa, external: true }}

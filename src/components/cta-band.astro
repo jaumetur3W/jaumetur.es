@@ -1,16 +1,18 @@
 ---
 /** Cierre de página: pregunta, una frase y dos acciones. */
 export interface Props {
+  /** Fondo ilustrado de la sección (ver data-art en global.css) */
+  art?: string;
   title: string;
   text?: string;
   primary: { href: string; label: string; external?: boolean };
   secondary?: { href: string; label: string; external?: boolean };
 }
-const { title, text, primary, secondary } = Astro.props;
+const { title, text, primary, secondary, art } = Astro.props;
 const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer" } : {});
 ---
 
-<section class="section" aria-labelledby="cta-band-title">
+<section class:list={["section", art && "sec-art"]} data-art={art} aria-labelledby="cta-band-title">
   <div class="wrap">
     <div class="sheet grid items-end gap-6 px-6 py-8 sm:px-10 sm:py-10 lg:grid-cols-12" data-tilt>
       <div class="lg:col-span-8">

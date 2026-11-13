@@ -8,6 +8,24 @@
         "value": "inter",
         "createdAt": "2026-11-12T22:26:16.459Z",
         "reason": "brief del usuario 2026-11-12 pide Inter para el cuerpo (pinned en el brief, no confirmado aparte)"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "src/components/project-mark.astro"
+        ],
+        "createdAt": "2026-11-13T14:03:07.191Z",
+        "reason": "retícula técnica como textura de marca por proyecto, pedida en el brief STREET-GLASS; decisión mía, no confirmada aparte"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "src/pages/projectes/[slug].astro"
+        ],
+        "createdAt": "2026-11-13T14:03:07.303Z",
+        "reason": "retícula técnica como textura de marca por proyecto, pedida en el brief STREET-GLASS; decisión mía, no confirmada aparte"
       }
     ]
   }
