@@ -47,23 +47,24 @@ const t = isEn
 ---
 
 <Layout fresh title={t.title} description={t.desc}>
-  <header class="border-b border-ink/20 pb-12 pt-12 sm:pb-16 sm:pt-20">
+  <header class="relative pt-28 pb-14 sm:pt-32 sm:pb-18 lg:pt-36">
     <div class="wrap grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-8">
-        <h1 class="h-page">{t.h1}</h1>
-        <p class="lede mt-6 !max-w-2xl">{t.bio}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={to("/contact")} class="btn btn-brand">{t.contact} <span aria-hidden="true">→</span></a>
-          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-white">{t.cv}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
+        <h1 class="h-page font-extrabold tracking-tight text-ink" data-split>{t.h1}</h1>
+        <p class="lede mt-6 text-lg sm:text-xl text-ink/80 leading-relaxed !max-w-2xl">{t.bio}</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href={to("/contact")} class="btn btn-dark !min-h-[3.25rem] !px-7 font-extrabold">{t.contact} <span aria-hidden="true">→</span></a>
+          <a href="/docs/CV_Jaume_tur.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-white !min-h-[3.25rem] !px-7 font-bold">{t.cv}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>
         </div>
       </div>
       <div class="lg:col-span-4">
-        <div class="mx-auto aspect-square w-full max-w-72 overflow-hidden rounded-sm border border-ink/35 bg-sand">
+        <div class="mx-auto aspect-square w-full max-w-72 overflow-hidden rounded-2xl border border-ink/20 bg-sand shadow-lg">
           <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" class="h-full w-full object-contain" fetchpriority="high" decoding="async" />
         </div>
         <p class="chip chip-brand mt-4"><span class="h-2 w-2 rounded-full bg-[#111111]" aria-hidden="true"></span>{t.avail}</p>
       </div>
     </div>
+    <div class="section-divider mt-10 sm:mt-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
   </header>
 
   <section class="border-b border-ink/20" aria-label={isEn ? "Key facts" : "Datos clave"}>

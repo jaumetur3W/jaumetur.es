@@ -40,12 +40,12 @@ const getCategoryIcon = (category: string) => {
   title={isEn ? "Web Development Blog & Engineering Resources | Jaume Tur" : "Blog de Desarrollo Web y Recursos Técnicos | Jaume Tur"}
   description={isEn ? "Technical articles, practical guides, and architecture insights on frontend apps, performance, and CI/CD." : "Artículos técnicos, guías prácticas y casos de estudio sobre diseño web, aplicaciones frontend, backend, rendimiento y automatización CI/CD."}
 >
-  <header class="border-b border-ink/20 pb-10 pt-12 sm:pb-14 sm:pt-20">
+  <header class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-36">
     <div class="wrap">
-      <h1 class="h-page max-w-4xl">
+      <h1 class="h-page max-w-4xl font-extrabold tracking-tight text-ink" data-split>
         {isEn ? "Web development blog: guides, patterns and architecture." : "Blog de desarrollo web: guías, patrones y arquitectura."}
       </h1>
-      <p class="lede mt-6">
+      <p class="lede mt-6 text-lg sm:text-xl text-ink/80 leading-relaxed max-w-3xl">
         {isEn
           ? "Technical guides, frontend architecture patterns and performance deep dives based on real production projects."
           : "Guías técnicas, patrones de arquitectura frontend y análisis de rendimiento basados en proyectos reales de producción."}
@@ -80,6 +80,7 @@ const getCategoryIcon = (category: string) => {
         ))}
       </div>
     </div>
+    <div class="section-divider mt-10 sm:mt-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
   </header>
 
   <section class="section" aria-label={isEn ? "Articles" : "Artículos"}>

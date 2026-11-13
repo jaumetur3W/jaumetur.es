@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import Layout from "@/layouts/Layout.astro";
-import QuoteSheet from "@/components/quote-sheet.astro";
 import CtaBand from "@/components/cta-band.astro";
 import ProjectMark from "@/components/project-mark.astro";
 import { getServicesData } from "@/data/services";
@@ -46,7 +45,7 @@ const t = isEn
       reply: "Reply within 24 business hours.",
       launchLink: "Launch offer for the first clients",
       svcTitle: "Five services for your business.",
-      svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum); you can see them in the quote above and on each service page. Scope and timeline are confirmed with you before starting.",
+      svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum); you can see them on each card and on each service page. Scope and timeline are confirmed with you before starting.",
       allPrices: "See all prices",
       from: "From", delivery: "Delivery", more: "See what's included",
       whyTitle: "Whoever answers you is whoever builds it.",
@@ -94,7 +93,7 @@ const t = isEn
       reply: "Respuesta en menos de 24 horas laborables.",
       launchLink: "Oferta de lanzamiento para los primeros clientes",
       svcTitle: "Cinco servicios para tu negocio.",
-      svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en el presupuesto de arriba y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar.",
+      svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en cada tarjeta y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar.",
       allPrices: "Ver todos los precios",
       from: "Desde", delivery: "Entrega", more: "Ver qué incluye",
       whyTitle: "Quien te atiende es quien lo construye.",
@@ -146,49 +145,80 @@ const faqSchema = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
-  <!-- 1. Apertura: titular firma + hoja de presupuesto con selector real -->
-  <section class="sec-art border-b-[1.5px] border-ink pb-10 pt-8 sm:pb-12 sm:pt-12" data-art="neon" aria-labelledby="hero-title">
-    <div class="wrap grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
-      <div class="lg:col-span-7">
-        <p class="flex flex-wrap items-center gap-2"><span class="tag">Jaume Tur</span><span class="tag tag-line">Xàtiva · València</span><span class="tag tag-line">2026</span></p>
-        <h1 id="hero-title" class="h-hero mt-5" data-split>{isEn ? <>Your website, <span class="hl">yours</span>: code and accounts in your name.</> : <>Tu web, <span class="hl">tuya</span>: código y cuentas a tu nombre.</>}</h1>
-        <p class="lede mt-5">{t.lede}</p>
-        <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a href={to("/contact")} class="btn btn-dark" data-cursor={isEn ? "Quote" : "Hola"}>{t.cta1} <span aria-hidden="true">→</span></a>
-          <a href="#servicios" class="btn btn-white">{t.cta2}</a>
-          <a href={WA} target="_blank" rel="noopener noreferrer" class="link-arrow min-h-12 px-1">
-            <Icon name="bx:bxl-whatsapp" class="h-5 w-5" />
-            <span>{t.wa}<span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></span>
+  <!-- 1. Hero ampliado: dispositivos a escala imponente y texto abajo a la izquierda -->
+  <section class="relative isolate overflow-hidden pt-20 pb-14 sm:pt-28 sm:pb-20 lg:pt-24 lg:pb-16" aria-labelledby="hero-title">
+    <div class="wrap grid items-center gap-10 lg:grid-cols-12 lg:gap-14 min-h-[85vh] lg:min-h-[92vh]">
+      
+      <!-- Columna izquierda: texto colocado abajo a la izquierda, ampliado y con presencia -->
+      <div class="lg:col-span-5 flex flex-col justify-end order-2 lg:order-1 pt-6 lg:pt-0">
+        <h1 id="hero-title" class="font-display text-5xl sm:text-6xl lg:text-[3.9rem] xl:text-[4.5rem] font-extrabold leading-[1.01] tracking-tight text-ink" data-split>
+          {isEn ? (
+            <>
+              Your website. <span class="serif-italic text-[1.18em] font-normal tracking-normal text-ink/85">Your code.</span><br />
+              <span class="hl mt-2 inline-block">Your accounts.</span>
+            </>
+          ) : (
+            <>
+              Tu web. <span class="serif-italic text-[1.18em] font-normal tracking-normal text-ink/85">Tu código.</span><br />
+              <span class="hl mt-2 inline-block">Tus cuentas.</span>
+            </>
+          )}
+        </h1>
+
+        <p class="mt-6 text-lg sm:text-xl text-ink/80 max-w-xl leading-relaxed">
+          {isEn
+            ? "Custom websites and applications built by whoever answers you. No locked-in platforms or middlemen."
+            : "Páginas web y aplicaciones a medida hechas por quien te atiende. Sin plataformas cautivas ni intermediarios."}
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-4">
+          <a href={to("/contact")} class="btn btn-dark !min-h-[3.5rem] !px-8 text-sm tracking-wider uppercase font-extrabold" data-cursor={isEn ? "Quote" : "Hola"}>
+            {t.cta1} <span aria-hidden="true">→</span>
+          </a>
+          <a href="#servicios" class="btn btn-white !min-h-[3.5rem] !px-8 text-sm tracking-wider uppercase font-bold">
+            {t.cta2}
           </a>
         </div>
-        <p class="mt-4 text-[0.92rem] text-ink/80">
+
+        <p class="mt-6 text-xs text-ink/60 font-mono">
           {t.reply}
-          <a href="#lanzamiento" class="link-arrow !inline ml-1">{t.launchLink} →</a>
         </p>
       </div>
-      <div class="lg:col-span-5">
-        <QuoteSheet
-          services={services}
-          isEn={isEn}
-          contactHref={(id) => to(`/contact?servei=${id}`)}
-          detailHref={(id) => to(`/pricing/${id}`)}
-        />
+
+      <!-- Columna derecha: imagen de los dispositivos a escala ampliada e imponente -->
+      <div class="lg:col-span-7 flex items-center justify-center lg:justify-end order-1 lg:order-2" data-tilt>
+        <picture class="w-full scale-110 lg:scale-120 xl:scale-125 origin-center lg:origin-right transition-transform duration-500">
+          <source srcset="/img/hero-devices.webp" type="image/webp" />
+          <img
+            src="/img/hero-devices.png"
+            alt="Proyectos desarrollados por Jaume Tur: AVISA, Worksy y Trania en iMac, portátil y smartphone"
+            width="1024"
+            height="769"
+            class="h-auto w-full max-h-[640px] sm:max-h-[780px] xl:max-h-[920px] object-contain select-none mx-auto lg:ml-auto"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
       </div>
+
     </div>
   </section>
 
+  <!-- Divisor animado dinámico al scroll -->
+  <div class="section-divider my-8 sm:my-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
+
   <!-- 2. Servicios: una tarjeta por servicio; el scroll las recorre en horizontal -->
-  <section id="servicios" class="svc-h sec-art scroll-mt-20 pt-6 sm:pt-10" data-art="precio" aria-labelledby="svc-title" data-svc>
-    <div class="wrap">
-      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <h2 id="svc-title" class="h-section" data-reveal>{t.svcTitle}</h2>
-          <p class="lede mt-3">{t.svcLede}</p>
-        </div>
-        <a href={to("/pricing")} class="btn btn-white shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
+  <section id="servicios" class="svc-h scroll-mt-20 py-20 sm:py-28" aria-labelledby="svc-title" data-svc>
     <div class="svc-pin">
+      <div class="wrap">
+        <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <h2 id="svc-title" class="h-section" data-reveal>{t.svcTitle}</h2>
+            <p class="lede mt-3">{t.svcLede}</p>
+          </div>
+          <a href={to("/pricing")} class="btn btn-white shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
       <ul class="svc-track wrap" data-svc-track>
         {services.map((s, i) => (
           <li class="svc-card">
@@ -215,10 +245,9 @@ const faqSchema = {
         </li>
       </ul>
     </div>
-  </section>
-
+  
   <!-- 3. Por qué: tres compromisos -->
-  <section class="sec-art section pt-0" data-art="codigo" aria-labelledby="why-title">
+  <div class="mt-16 sm:mt-24">
     <div class="wrap">
       <h2 id="why-title" class="h-section max-w-3xl" data-reveal>{t.whyTitle}</h2>
       <div class="mt-6 grid gap-4 md:grid-cols-3" data-stagger>
@@ -231,10 +260,15 @@ const faqSchema = {
         ))}
       </div>
     </div>
+  </div>
+
   </section>
 
+  <!-- Divisor animado dinámico al scroll -->
+  <div class="section-divider my-8 sm:my-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
+
   <!-- 4. Proyectos: muchas piezas medianas en marcos pequeños -->
-  <section id="proyectos" class="sec-art section scroll-mt-20 border-t-[1.5px] border-ink" data-art="navegador" aria-labelledby="proj-title">
+  <section id="proyectos" class="section scroll-mt-20 py-20 sm:py-28" aria-labelledby="proj-title">
     <div class="wrap">
       <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
@@ -247,15 +281,15 @@ const faqSchema = {
       <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {flagshipProjects.map((p, i) => {
           return (
-            <article class="glass flex flex-col overflow-hidden" data-tilt>
-              <a href={to(`/projectes/${p.id}`)} class="group relative block overflow-hidden border-b-[1.5px] border-ink" tabindex="-1" aria-hidden="true">
-                <ProjectMark id={p.id} name={shortTitle(p.data.title)} class="transition-transform duration-500" />
+            <article class="project-card card-interactive group flex flex-col overflow-hidden rounded-2xl" data-tilt>
+              <a href={to(`/projectes/${p.id}`)} class="relative block overflow-hidden border-b border-ink/15" tabindex="-1" aria-hidden="true">
+                <ProjectMark id={p.id} name={shortTitle(p.data.title)} class="transition-transform duration-500 group-hover:scale-105" />
                 <span class="tag absolute left-2.5 top-2.5">Nº {String(i + 1).padStart(2, "0")}</span>
               </a>
-              <div class="flex flex-1 flex-col p-4">
+              <div class="flex flex-1 flex-col p-5">
                 <p class="label">{p.data.badge}</p>
-                <h3 class="mt-1.5 font-display text-[1.2rem] uppercase leading-[1.02]">
-                  <a href={to(`/projectes/${p.id}`)} class="link-arrow">{shortTitle(p.data.title)}</a>
+                <h3 class="mt-2 font-display text-[1.25rem] uppercase leading-[1.02]">
+                  <a href={to(`/projectes/${p.id}`)} class="hover:underline">{shortTitle(p.data.title)}</a>
                 </h3>
                 <p class="muted mt-2 line-clamp-3 text-[0.88rem] leading-snug">{p.data.subtitle}</p>
                 <p class="label mt-auto pt-3 !normal-case">{p.data.stack?.slice(0, 3).join(" · ")}</p>
@@ -267,29 +301,27 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 5. Proceso -->
-  <section class="sec-art section border-t-[1.5px] border-ink" data-art="ruta" aria-labelledby="proc-title">
+  <!-- Divisor animado dinámico al scroll -->
+  <div class="section-divider my-8 sm:my-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
+
+  <!-- 5. Proceso + oferta de lanzamiento -->
+  <section class="section py-20 sm:py-28" aria-labelledby="proc-title">
     <div class="wrap">
       <h2 id="proc-title" class="h-section max-w-3xl" data-reveal>{t.procTitle}</h2>
-      <ol class="cat-grid mt-7 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+      <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {t.steps.map((s) => (
-          <li class="p-5">
-            <p class="num font-display text-[2.6rem] leading-none"><span class="sr-only">{isEn ? "Step" : "Paso"} </span><span class="hl">{s.n}</span></p>
-            <h3 class="mt-3 font-display text-[1.1rem] uppercase leading-tight">{s.t}</h3>
+          <li class="p-6 rounded-xl border border-ink/10 bg-white/70 shadow-xs">
+            <p class="font-display text-[2.6rem] leading-none text-ink"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
+            <h3 class="mt-3 font-display text-[1.05rem] uppercase leading-tight">{s.t}</h3>
             <p class="muted mt-2 text-[0.92rem]">{s.d}</p>
           </li>
         ))}
       </ol>
-    </div>
-  </section>
 
-  <!-- 6. Oferta de lanzamiento: bloque amarillo -->
-  <section id="lanzamiento" class="sec-art section scroll-mt-20 pt-0" data-art="reloj" aria-labelledby="launch-title">
-    <div class="wrap">
-      <div class="sheet grid gap-6 px-6 py-7 sm:px-9 sm:py-9 lg:grid-cols-12 lg:gap-10" data-tilt>
+      <div id="lanzamiento" class="sheet mt-16 grid scroll-mt-24 gap-6 px-6 py-7 sm:px-9 sm:py-9 lg:grid-cols-12 lg:gap-10 rounded-2xl" data-tilt>
         <div class="lg:col-span-8">
           <p class="tag" style="background:var(--ink);color:#fff">{t.launchTag}</p>
-          <h2 id="launch-title" class="h-section mt-3" data-reveal>{t.launchTitle}</h2>
+          <h2 id="launch-title" class="h-section mt-3">{t.launchTitle}</h2>
           <p class="mt-4 max-w-2xl text-[1rem] leading-relaxed">{t.launchText}</p>
           <p class="mt-3 max-w-2xl text-[0.9rem] leading-relaxed text-ink/85">{t.launchNote}</p>
         </div>
@@ -300,16 +332,13 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- 7. Quién: nombre grande (fondo: foto de Jaume desenfocada) -->
-  <section class="sec-photo section border-t-[1.5px] border-ink" aria-labelledby="about-title">
-    <div class="sec-photo-bg" aria-hidden="true"><img src="/img/jaume-tur-desarrollador-web.webp" alt="" width="320" height="320" loading="lazy" decoding="async" /></div>
+  <!-- 7. Quién + preguntas (fondo negro) -->
+  <section class="band-ink section" aria-labelledby="about-title">
     <div class="wrap grid items-center gap-8 lg:grid-cols-12">
-      <div class="lg:col-span-2">
-        <div class="mx-auto aspect-square w-32 overflow-hidden rounded-[1.25rem] border-2 border-ink bg-sand sm:w-40 lg:mx-0 lg:w-full">
-          <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="h-full w-full object-contain" />
-        </div>
+      <div class="lg:col-span-3">
+        <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="mx-auto -mb-6 block w-40 sm:w-56 lg:mx-0 lg:w-72" />
       </div>
-      <div class="lg:col-span-10">
+      <div class="lg:col-span-9">
         <h2 id="about-title" class="h-section" data-reveal>{isEn ? <>Jaume Tur, web developer in <span class="hl">Xàtiva</span>.</> : <>Jaume Tur, desarrollador web en <span class="hl">Xàtiva</span>.</>}</h2>
         <p class="lede mt-4">{t.aboutText}</p>
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
@@ -318,23 +347,20 @@ const faqSchema = {
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- 8. FAQ -->
-  <section class="sec-art section border-t-[1.5px] border-ink" data-art="preguntas" aria-labelledby="faq-title">
-    <div class="wrap grid gap-8 lg:grid-cols-12">
+    <div class="wrap mt-16 grid gap-8 lg:grid-cols-12">
       <h2 id="faq-title" class="h-section lg:col-span-4" data-reveal>{t.faqTitle}</h2>
       <div class="lg:col-span-8">
         {t.faqs.map((f) => (
-          <details class="faq group border-t-[1.5px] border-ink last:border-b-[1.5px]">
-            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-3.5 font-display text-[1.05rem] uppercase leading-tight hover:bg-brand/40 sm:text-[1.15rem] [&::-webkit-details-marker]:hidden">
+          <details class="faq group border-t-[1.5px] border-white/30 last:border-b-[1.5px] last:border-white/30">
+            <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-3.5 font-display text-[1.05rem] uppercase leading-tight hover:text-brand sm:text-[1.15rem] [&::-webkit-details-marker]:hidden">
               <span>{f.q}</span>
               <span class="relative h-4 w-4 shrink-0" aria-hidden="true">
                 <span class="absolute left-0 top-1/2 h-[3px] w-4 -translate-y-1/2 bg-current"></span>
                 <span class="absolute left-1/2 top-0 h-4 w-[3px] -translate-x-1/2 bg-current transition-transform duration-200 group-open:scale-y-0"></span>
               </span>
             </summary>
-            <p class="muted max-w-2xl pb-5 pr-10 leading-relaxed">{f.a}</p>
+            <p class="max-w-2xl pb-5 pr-10 leading-relaxed text-white/80">{f.a}</p>
           </details>
         ))}
       </div>
@@ -343,7 +369,6 @@ const faqSchema = {
 
   <!-- 9. Cierre -->
   <CtaBand
-    art="dialogo"
     title={t.finalTitle}
     text={t.finalText}
     primary={{ href: WA, label: t.finalWa, external: true }}

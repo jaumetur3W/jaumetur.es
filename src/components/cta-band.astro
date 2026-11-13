@@ -1,27 +1,25 @@
 ---
 /** Cierre de página: pregunta, una frase y dos acciones. */
 export interface Props {
-  /** Fondo ilustrado de la sección (ver data-art en global.css) */
-  art?: string;
   title: string;
   text?: string;
   primary: { href: string; label: string; external?: boolean };
   secondary?: { href: string; label: string; external?: boolean };
 }
-const { title, text, primary, secondary, art } = Astro.props;
+const { title, text, primary, secondary } = Astro.props;
 const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer" } : {});
 ---
 
-<section class:list={["section", art && "sec-art"]} data-art={art} aria-labelledby="cta-band-title">
+<section class="section py-16 sm:py-24" aria-labelledby="cta-band-title">
   <div class="wrap">
-    <div class="sheet grid items-end gap-6 px-6 py-8 sm:px-10 sm:py-10 lg:grid-cols-12" data-tilt>
+    <div class="sheet grid items-end gap-8 px-7 py-9 sm:px-12 sm:py-14 rounded-3xl lg:grid-cols-12 shadow-xl" data-tilt>
       <div class="lg:col-span-8">
-        <h2 id="cta-band-title" class="h-section">{title}</h2>
-        {text && <p class="mt-4 max-w-xl text-[1.02rem] leading-relaxed">{text}</p>}
+        <h2 id="cta-band-title" class="h-section font-extrabold tracking-tight">{title}</h2>
+        {text && <p class="mt-4 max-w-xl text-lg text-ink/90 leading-relaxed font-medium">{text}</p>}
       </div>
-      <div class="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
-        <a href={primary.href} class="btn btn-dark" {...ext(primary.external)}>{primary.label} <span aria-hidden="true">→</span></a>
-        {secondary && <a href={secondary.href} class="btn btn-white" {...ext(secondary.external)}>{secondary.label}</a>}
+      <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
+        <a href={primary.href} class="btn btn-dark !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider" {...ext(primary.external)}>{primary.label} <span aria-hidden="true">→</span></a>
+        {secondary && <a href={secondary.href} class="btn btn-white !min-h-[3.25rem] !px-8 text-sm font-bold uppercase tracking-wider" {...ext(secondary.external)}>{secondary.label}</a>}
       </div>
     </div>
   </div>

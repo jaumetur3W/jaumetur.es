@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"><defs><filter id="b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="16"/></filter></defs><rect width="1600" height="1000" fill="#fffdf6"/><g filter="url(#b)" fill="none"><path d="M60 760 C 260 560 420 880 640 640 S 1000 300 1220 520 S 1500 220 1560 180" stroke="#ffff00" stroke-width="26" opacity=".8" stroke-linecap="round"/><path d="M60 760 C 260 560 420 880 640 640 S 1000 300 1220 520 S 1500 220 1560 180" stroke="#111" stroke-opacity=".12" stroke-width="3" stroke-dasharray="4 18"/><circle cx="60" cy="760" r="34" fill="#111" opacity=".18"/>
-<circle cx="640" cy="640" r="34" fill="#111" opacity=".18"/>
-<circle cx="1220" cy="520" r="34" fill="#111" opacity=".18"/>
-<circle cx="1560" cy="180" r="34" fill="#111" opacity=".18"/></g></svg>

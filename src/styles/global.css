@@ -1,13 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@700;800&display=swap');
 @import 'tailwindcss';
 
 @plugin '@tailwindcss/typography';
 
 /* ---------------------------------------------------------------
    SISTEMA «STREET-GLASS»
-   Estudio de diseño luminoso con actitud de cultura street.
-   Base casi blanca con retícula de puntos y grano, tinta #111,
-   amarillo #FFFF00 como única firma (bloques, marcadores, hovers).
-   Titulares: Archivo Black. Cuerpo: Inter. Metadatos: mono.
+   Estudio de ingeniería frontend y producto digital contemporáneo.
+   Lienzo limpio sin ruidos ni patrones repetitivos, tinta #111,
+   amarillo #FFFF00 como firma de decisión y contraste.
+   Titulares: Syne Extra Bold (800) + Instrument Serif Italic. Cuerpo: Inter Variable.
 ---------------------------------------------------------------- */
 @font-face {
   font-family: 'Archivo Black';
@@ -44,7 +45,8 @@
 
 @theme {
   --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
 
   --color-brand: #ffff00;
@@ -63,8 +65,8 @@
   --on-brand: #111111;
   --ink: #111111;
 
-  --bg-main: #fffdf6;
-  --bg-surface: rgba(255, 255, 255, 0.66);
+  --bg-main: #ffffff;
+  --bg-surface: rgba(255, 255, 255, 0.92);
   --bg-raised: #ffffff;
 
   /* Filetes: finos para separar, rotundos para la retícula de catálogo */
@@ -76,8 +78,8 @@
   --text-faint: #5d5d57;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --gutter: clamp(1.1rem, 3.6vw, 2.25rem);
-  --r-glass: 1.25rem;
+  --gutter: clamp(1.25rem, 4vw, 2.75rem);
+  --r-glass: 0.85rem;
 
   /* Grano fino (ruido SVG de 160 px) */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
@@ -100,10 +102,13 @@
     scrollbar-width: thin;
   }
   body {
-    /* Base casi blanca: retícula de puntos + grano + un velo amarillo apenas perceptible */
-    background-color: var(--bg-main);
-    background-color: var(--bg-main);
-    background-attachment: scroll;
+    /* Fondo con degradados sutiles casi imperceptibles: luz ambiental limpia y cálida */
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(ellipse 75% 50% at 85% 0%, rgba(255, 255, 0, 0.09), transparent 60%),
+      radial-gradient(ellipse 65% 45% at 5% 40%, rgba(255, 255, 0, 0.07), transparent 55%),
+      radial-gradient(ellipse 80% 50% at 90% 90%, rgba(255, 255, 0, 0.06), transparent 60%);
+    background-attachment: fixed;
     color: var(--text-main);
     overflow-x: clip;
     min-height: 100vh;
@@ -111,9 +116,9 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
     text-wrap: balance;
   }
   p { text-wrap: pretty; }
@@ -146,34 +151,35 @@
 ---------------------------------------------------------------- */
 @layer components {
   .wrap {
-    width: min(100% - 2 * var(--gutter), 78rem);
+    width: min(100% - 2 * var(--gutter), 82rem);
     margin-inline: auto;
   }
   .wrap-narrow {
-    width: min(100% - 2 * var(--gutter), 50rem);
+    width: min(100% - 2 * var(--gutter), 52rem);
     margin-inline: auto;
   }
   .section {
-    padding-block: clamp(2.5rem, 5.5vw, 4.5rem);
+    padding-block: clamp(3.5rem, 6.5vw, 6rem);
   }
 
-  /* Titulares: Archivo Black, caja alta en los momentos clave */
+  /* Titulares: Syne Extra Bold + Instrument Serif, potente, moderno, geométrico y nítido */
   .h-hero {
-    font-size: clamp(2.1rem, 4.7vw, 3.9rem);
-    line-height: 1.02;
-    letter-spacing: -0.015em;
-    text-transform: uppercase;
+    font-size: clamp(2.5rem, 5.5vw, 4.8rem);
+    line-height: 1.01;
+    letter-spacing: -0.035em;
+    font-weight: 800;
   }
   .h-section {
-    font-size: clamp(1.8rem, 3.8vw, 3rem);
-    line-height: 0.98;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    line-height: 1.03;
+    letter-spacing: -0.03em;
+    font-weight: 800;
   }
   .h-page {
-    font-size: clamp(2.2rem, 5.4vw, 4.2rem);
-    line-height: 0.95;
-    text-transform: uppercase;
+    font-size: clamp(2.4rem, 5.6vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.032em;
+    font-weight: 800;
   }
   .display {
     font-family: var(--font-display);
@@ -246,10 +252,17 @@
   .hl {
     background: var(--brand);
     color: var(--on-brand);
-    padding: 0 0.1em;
+    padding: 0 0.15em;
     line-height: 0.95;
     -webkit-box-decoration-break: clone;
             box-decoration-break: clone;
+  }
+  .serif-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
   }
 
   .rule { border-top: 1px solid var(--line); }
@@ -304,7 +317,7 @@
   /* ---- Hoja amarilla: bloque sólido de decisión ---- */
   .sheet {
     position: relative;
-    background: linear-gradient(160deg, color-mix(in srgb, var(--brand) 100%, #fff 0%) 0%, color-mix(in srgb, var(--brand) 88%, #fff) 100%);
+    background: #ffff00;
     color: var(--on-brand);
     border: 1.5px solid var(--ink);
     border-radius: var(--r-glass);
@@ -313,30 +326,107 @@
   .sheet :focus-visible { outline-color: var(--ink); box-shadow: 0 0 0 6px #fff; }
   .sheet .label { color: rgba(17, 17, 17, 0.78); }
 
-  /* ---- Fila de servicio: se rellena de amarillo al pasar el cursor ---- */
+  /* ---- Tarjetas interactivas de proyectos y servicios ----
+     Pasan de fondo blanco con texto negro a fondo negro (#111) con texto blanco (#fff) */
+  .card-interactive,
+  .is-hoverable,
+  .svc-card > a.glass,
+  .project-card,
+  a.item {
+    background-color: #ffffff;
+    color: var(--ink);
+    border: 1px solid rgba(17, 17, 17, 0.15);
+    transition: background-color 240ms var(--ease-out),
+                color 240ms var(--ease-out),
+                border-color 240ms var(--ease-out),
+                transform 240ms var(--ease-out),
+                box-shadow 240ms var(--ease-out);
+  }
+
+  .card-interactive:hover,
+  .card-interactive:focus-visible,
+  .is-hoverable:hover,
+  .is-hoverable:focus-visible,
+  .svc-card > a.glass:hover,
+  .svc-card > a.glass:focus-visible,
+  .project-card:hover,
+  .project-card:focus-visible,
+  a.item:hover,
+  a.item:focus-visible {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-color: #111111 !important;
+    box-shadow: 0 20px 42px -16px rgba(17, 17, 17, 0.55);
+    transform: translateY(-4px);
+    outline: none;
+  }
+
+  /* Herencia de textos a blanco en hover */
+  .card-interactive:hover *,
+  .card-interactive:focus-visible *,
+  .is-hoverable:hover *,
+  .is-hoverable:focus-visible *,
+  .svc-card > a.glass:hover *,
+  .svc-card > a.glass:focus-visible *,
+  .project-card:hover *,
+  .project-card:focus-visible *,
+  a.item:hover *,
+  a.item:focus-visible * {
+    color: #ffffff;
+  }
+
+  .card-interactive:hover .muted,
+  .is-hoverable:hover .muted,
+  .svc-card > a.glass:hover .muted,
+  .project-card:hover .muted,
+  a.item:hover .muted,
+  .card-interactive:hover .faint,
+  .is-hoverable:hover .faint,
+  .svc-card > a.glass:hover .faint,
+  .project-card:hover .faint,
+  a.item:hover .faint {
+    color: rgba(255, 255, 255, 0.78) !important;
+  }
+
+  .card-interactive:hover .label,
+  .is-hoverable:hover .label,
+  .svc-card > a.glass:hover .label,
+  .project-card:hover .label,
+  a.item:hover .label {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+
+  .card-interactive:hover .link-arrow,
+  .is-hoverable:hover .link-arrow,
+  .svc-card > a.glass:hover .link-arrow,
+  .project-card:hover .link-arrow,
+  a.item:hover .link-arrow {
+    background-image: none !important;
+    color: #ffffff !important;
+  }
+
+  .card-interactive:hover .tag,
+  .is-hoverable:hover .tag,
+  .svc-card > a.glass:hover .tag,
+  .project-card:hover .tag {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #ffffff !important;
+  }
+
   .item {
     display: grid;
     gap: 0.5rem 1.5rem;
     padding: 1.1rem 1.1rem;
-    border-top: 1.5px solid var(--ink);
-    background-image: linear-gradient(var(--brand), var(--brand));
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    background-size: 100% 0%;
-    transition: background-size 0.32s var(--ease-out);
+    border-radius: 0.75rem;
   }
-  a.item:hover, a.item:focus-visible { background-size: 100% 100%; outline: none; }
-  a.item:focus-visible { box-shadow: inset 0 0 0 3px var(--ink); }
-  a.item:hover .muted, a.item:focus-visible .muted,
-  a.item:hover .faint, a.item:focus-visible .faint,
-  a.item:hover .label, a.item:focus-visible .label { color: var(--ink); }
 
   .chip {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     border: 1.5px solid var(--ink);
-    border-radius: 999px;
+    border-radius: 0.5rem;
     padding: 0.2rem 0.7rem;
     font-size: 0.76rem;
     font-weight: 600;
@@ -358,7 +448,7 @@
     justify-content: center;
     gap: 0.6rem;
     padding: 0.7rem 1.5rem;
-    border-radius: 999px;
+    border-radius: 0.5rem;
     border: 1.5px solid var(--ink);
     font-family: var(--font-display);
     font-size: 0.88rem;
@@ -431,7 +521,7 @@
   width: 14px; height: 14px;
   margin: -7px 0 0 -7px;
   border: 2px solid var(--ink);
-  border-radius: 999px;
+  border-radius: 0.5rem;
   background: var(--brand);
   pointer-events: none;
   opacity: 0;
@@ -551,52 +641,24 @@ pre.astro-code span[style*="color:#6e7781"] {
 }
 .prose :where(a):hover { background-size: 100% 100%; }
 .prose :where(code):not(:where(pre *)) {
-  background: rgba(255, 255, 0, 0.55);
+  background: #ffff00;
   border-radius: 0.3rem;
   padding: 0.1em 0.35em;
   font-weight: 600;
 }
 .prose :where(code):not(:where(pre *))::before, .prose :where(code):not(:where(pre *))::after { content: none; }
-.prose :where(blockquote) { border: 1.5px solid var(--ink); font-style: normal; background: rgba(255, 255, 0, 0.22); padding: 0.4rem 1.1rem; border-radius: 0.9rem; }
+.prose :where(blockquote) { border: 1.5px solid var(--ink); font-style: normal; background: #ffffff; padding: 0.4rem 1.1rem; border-radius: 0.9rem; }
 
 .prose { --tw-prose-pre-code: #e6edf3; --tw-prose-pre-bg: #111111; }
 .prose pre { color: #e6edf3; }
 
-/* Fondo base: crema limpio; cada sección lleva su propia ilustración desenfocada */
-body { position: relative; isolation: isolate; background-color: var(--bg-main); }
-
-.sec-art, .sec-photo { position: relative; isolation: isolate; overflow: clip; }
-.sec-art::before, .sec-photo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: var(--bg-main) center / cover no-repeat;
-}
-[data-art='neon']::before { background-image: url('/img/bg/neon.svg'); }
-[data-art='precio']::before { background-image: url('/img/bg/precio.svg'); }
-[data-art='codigo']::before { background-image: url('/img/bg/codigo.svg'); }
-[data-art='navegador']::before { background-image: url('/img/bg/navegador.svg'); }
-[data-art='ruta']::before { background-image: url('/img/bg/ruta.svg'); }
-[data-art='reloj']::before { background-image: url('/img/bg/reloj.svg'); }
-[data-art='preguntas']::before { background-image: url('/img/bg/preguntas.svg'); }
-[data-art='dialogo']::before { background-image: url('/img/bg/dialogo.svg'); }
-
-/* Sección "Quién": foto de Jaume desenfocada detrás */
-.sec-photo-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-.sec-photo-bg img {
-  position: absolute; right: -8%; top: 50%; width: min(70vw, 620px); aspect-ratio: 1; transform: translateY(-50%);
-  object-fit: cover; filter: blur(46px) saturate(1.2); opacity: 0.55;
-}
-
-/* Superficies glass algo más cristalinas */
+/* Superficies limpias con cristal translúcido suave */
 .glass, .card, .surface-card, .glass-card {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.5));
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-          backdrop-filter: blur(16px) saturate(1.4);
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+          backdrop-filter: blur(14px);
 }
-.cat-grid > * { background: #fffdf6; }
+.cat-grid > * { background: #ffffff; }
 
 /* ---- Servicios en horizontal: tarjetas que se recorren con el scroll ---- */
 .svc-h { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
@@ -618,7 +680,7 @@ body { position: relative; isolation: isolate; background-color: var(--bg-main);
 .svc-card > * { width: 100%; }
 .svc-card > a, .svc-card > .sheet { min-height: 21rem; }
 .svc-track.is-pinned { overflow: visible; scroll-snap-type: none; }
-.svc-pin { position: relative; }
+.svc-pin { position: relative; padding-top: 2rem; background: transparent; }
 @media (min-width: 1024px) {
   .svc-card { flex-basis: 24rem; }
 }
@@ -627,3 +689,34 @@ body { position: relative; isolation: isolate; background-color: var(--bg-main);
 .js [data-reveal] { clip-path: inset(0 0 100% 0); transition: clip-path 700ms var(--ease-out); }
 .js [data-reveal].is-visible { clip-path: inset(-0.1em -0.1em -0.2em -0.1em); }
 @media (prefers-reduced-motion: reduce) { .js [data-reveal] { clip-path: none; transition: none; } }
+
+/* Sección negra con personalidad: Jaume + preguntas */
+.band-ink { background: #111111; color: #ffffff; }
+.band-ink .muted, .band-ink .lede { color: rgba(255, 255, 255, 0.8); }
+.band-ink .link-arrow { color: #ffffff; }
+.band-ink .border-ink { border-color: #ffffff; }
+.band-ink .hl { color: #111111; }
+.band-ink .link-arrow:hover { color: #111111; }
+
+/* ---- Delimitadores animados entre secciones ---- */
+.section-divider {
+  width: min(100% - 2 * var(--gutter), 82rem);
+  margin-inline: auto;
+  height: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.divider-line {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(17, 17, 17, 0.75) 0%, rgba(255, 255, 0, 0.9) 40%, rgba(17, 17, 17, 0.2) 80%, transparent 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.divider-line.is-drawn {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .divider-line { transform: scaleX(1); transition: none; }
+}

@@ -136,7 +136,7 @@ if (svcSection && svcTrack && !reduce && window.matchMedia("(min-width: 1024px)"
     ease: "none",
     scrollTrigger: {
       trigger: svcSection,
-      start: "top 6rem",
+      start: () => "top " + Math.round(document.getElementById("site-header")?.getBoundingClientRect().bottom ?? 72) + "px",
       end: () => "+=" + dist,
       pin: svcSection.querySelector<HTMLElement>(".svc-pin"),
       pinSpacing: true,
@@ -145,4 +145,23 @@ if (svcSection && svcTrack && !reduce && window.matchMedia("(min-width: 1024px)"
       onRefreshInit: measure,
     },
   });
+}
+
+// ---- Delimitadores animados entre secciones ([data-divider]) ----
+if (!reduce && "IntersectionObserver" in window) {
+  const divObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const line = e.target.querySelector<HTMLElement>(".divider-line");
+          if (line) line.classList.add("is-drawn");
+          divObserver.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.1 }
+  );
+  document.querySelectorAll("[data-divider]").forEach((el) => divObserver.observe(el));
+} else {
+  document.querySelectorAll<HTMLElement>(".divider-line").forEach((l) => l.classList.add("is-drawn"));
 }
