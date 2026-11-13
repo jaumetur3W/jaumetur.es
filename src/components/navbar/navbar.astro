@@ -18,107 +18,199 @@ const is404 = rawPathname.includes("404");
 const spanishPath = is404 ? "/" : withSlash(localizePath(rawPathname, "es"));
 const englishPath = is404 ? "/en/" : withSlash(localizePath(rawPathname, "en"));
 
+// Texto normal (no todo en mayúsculas): Proyectos, Servicios, Blog, Sobre mí
 const links = [
-  { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
   { label: isEn ? "Projects" : "Proyectos", path: "/projectes", active: pathname.startsWith("/projectes") },
+  { label: isEn ? "Services" : "Servicios", path: "/pricing", active: pathname.startsWith("/pricing") },
   { label: "Blog", path: "/blog", active: pathname.startsWith("/blog") },
   { label: isEn ? "About" : "Sobre mí", path: "/about", active: pathname.startsWith("/about") },
 ];
 const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 ---
 
-<header id="site-header" class="site-header sticky top-0 z-50 w-full">
-  <div class="wrap flex items-center justify-between gap-4 py-3">
-    <a href={to("/")} class="flex min-h-11 items-center gap-3" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
-      <img src="/img/jt.LOGO-02-128.webp" alt="" width="36" height="36" class="h-9 w-9 rounded-sm" decoding="async" />
-      <span class="font-display text-[1.35rem] font-extrabold leading-none tracking-tight" style="font-stretch:85%">jaume<span class="text-brand">tur</span></span>
+<!-- Header superior: fondo transparente, limpio y perfectamente alineado -->
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300">
+  <div class="wrap flex h-20 items-center justify-between relative">
+    
+    <!-- Izquierda: Logo oficial + Firma tipográfica -->
+    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
+      <img
+        src="/img/jt.LOGO-02-128.webp"
+        alt="Jaume Tur Logo"
+        width="38"
+        height="38"
+        class="h-9 w-9 rounded-lg border-[1.5px] border-ink object-contain shadow-xs group-hover:scale-105 transition-transform"
+        decoding="async"
+      />
+      <span class="font-display text-[1.35rem] font-black tracking-[-0.03em] leading-none text-ink">
+        jaume <span class="serif-italic text-[1.25em] font-normal tracking-normal text-ink/85">tur</span>
+      </span>
     </a>
 
-    <nav aria-label={isEn ? "Main navigation" : "Navegación principal"} class="hidden lg:block">
-      <ul class="flex items-center gap-1">
+    <!-- Centro: Enlaces horizontales en la misma fila, texto normal, perfectamente alineados -->
+    <nav
+      id="nav-center-menu"
+      aria-label={isEn ? "Main navigation" : "Navegación principal"}
+      class="hidden md:flex flex-1 items-center justify-center px-4 transition-all duration-250 opacity-0 pointer-events-none invisible"
+    >
+      <ul class="flex items-center gap-6 lg:gap-10 xl:gap-12">
         {links.map((l) => (
-          <li>
+          <li class="shrink-0">
             <a
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "inline-flex min-h-11 items-center px-3.5 text-[0.95rem] font-medium underline decoration-2 underline-offset-[0.5em] transition-colors",
-                l.active ? "text-white decoration-brand" : "text-white/80 decoration-transparent hover:text-white hover:decoration-white/60",
+                "nav-top-link relative inline-flex items-center py-2 px-1 font-display text-[1.05rem] lg:text-[1.12rem] font-bold tracking-tight text-ink transition-colors hover:text-black whitespace-nowrap",
+                l.active ? "font-extrabold text-black" : "text-ink/85 hover:text-black"
               ]}
-            >{l.label}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
-    <div class="flex items-center gap-2 sm:gap-3">
-      <div class="hidden items-center text-sm font-semibold sm:flex" role="group" aria-label={isEn ? "Language" : "Idioma"}>
-        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}
-           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", !isEn ? "text-brand" : "text-white/70 hover:text-white"]}>ES</a>
-        <span class="text-white/30" aria-hidden="true">/</span>
-        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}
-           class:list={["inline-flex min-h-11 min-w-9 items-center justify-center", isEn ? "text-brand" : "text-white/70 hover:text-white"]}>EN</a>
-      </div>
-
-      <a href={to("/contact")} class="btn btn-brand btn-sm hidden sm:inline-flex">{ctaLabel}</a>
-
-      <button
-        id="nav-toggle"
-        type="button"
-        class="inline-flex min-h-11 items-center gap-2 rounded-sm border border-white/25 px-3.5 text-sm font-semibold text-white transition-colors hover:border-brand hover:text-brand lg:hidden"
-        aria-expanded="false"
-        aria-controls="nav-panel"
-        data-open-label={isEn ? "Menu" : "Menú"}
-        data-close-label={isEn ? "Close" : "Cerrar"}
-      >
-        <span id="nav-toggle-label">{isEn ? "Menu" : "Menú"}</span>
-        <svg id="nav-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
-        <svg id="nav-icon-close" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
-      </button>
-    </div>
-  </div>
-
-  <div id="nav-panel" class="hidden border-t border-white/15 bg-[#0b0b09] lg:hidden" style="max-height:calc(100dvh - 4.25rem);overflow-y:auto">
-    <nav aria-label={isEn ? "Mobile navigation" : "Navegación móvil"} class="wrap pb-6 pt-2">
-      <ul>
-        {links.map((l) => (
-          <li class="border-b border-white/15">
-            <a href={to(l.path)} aria-current={l.active ? "page" : undefined}
-               class:list={["flex min-h-14 items-center justify-between font-display text-3xl font-bold", l.active ? "text-brand" : "text-white"]} style="font-stretch:82%">
+            >
               <span>{l.label}</span>
-              <span aria-hidden="true" class="text-xl text-brand">→</span>
             </a>
           </li>
         ))}
       </ul>
-      <a href={to("/contact")} class="btn btn-brand mt-6 w-full">{ctaLabel}</a>
-      <p class="mt-5 flex items-center gap-1 text-sm">
-        <span class="text-white/70">{isEn ? "Language" : "Idioma"}:</span>
-        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-3 font-semibold", !isEn ? "text-brand" : "text-white/80"]}>Español</a>
-        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined} class:list={["inline-flex min-h-11 items-center px-3 font-semibold", isEn ? "text-brand" : "text-white/80"]}>English</a>
-      </p>
     </nav>
+
+    <!-- Derecha: Botón de 3 líneas (icono limpio) + Selector de Idioma [ES / EN] -->
+    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+      
+      <!-- Icono de 3 líneas horizontales -->
+      <button
+        id="nav-toggle"
+        type="button"
+        class="flex items-center justify-center p-2 text-ink hover:text-black cursor-pointer transition-transform duration-200 active:scale-95 group"
+        aria-label={isEn ? "Toggle navigation menu" : "Mostrar u ocultar menú"}
+        aria-expanded="false"
+        aria-controls="nav-center-menu"
+      >
+        <span class="nav-burger-icon flex flex-col justify-center items-center w-6 h-4.5 gap-[4.5px] relative" aria-hidden="true">
+          <span class="burger-line line-1 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
+          <span class="burger-line line-2 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
+          <span class="burger-line line-3 w-6 h-[2.5px] bg-ink rounded-full transition-all duration-250"></span>
+        </span>
+      </button>
+
+      <!-- Selector de idioma: [ES] / EN -->
+      <div class="flex items-center font-mono text-xs font-bold" role="group" aria-label={isEn ? "Language" : "Idioma"}>
+        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}
+           class:list={["px-2.5 py-1 rounded transition-colors", !isEn ? "bg-ink text-white" : "text-ink/70 hover:text-ink"]}>ES</a>
+        <span class="text-ink/30 mx-1">/</span>
+        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}
+           class:list={["px-2.5 py-1 rounded transition-colors", isEn ? "bg-ink text-white" : "text-ink/70 hover:text-ink"]}>EN</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Desplegable móvil (para pantallas pequeñas donde no cabe toda la fila horizontal) -->
+  <div
+    id="nav-mobile-dropdown"
+    class="md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none p-6"
+    aria-hidden="true"
+  >
+    <ul class="grid gap-3">
+      {links.map((l) => (
+        <li>
+          <a
+            href={to(l.path)}
+            class="block py-2 font-display text-xl font-bold tracking-tight text-ink border-b border-ink/5"
+            data-nav-link
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="pt-5 mt-2">
+      <a href={to("/contact")} class="btn btn-dark w-full !min-h-[2.8rem] text-xs font-bold uppercase tracking-wider" data-nav-link>
+        {ctaLabel} <span>→</span>
+      </a>
+    </div>
   </div>
 </header>
 
+<style>
+  .nav-top-link::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: -2px;
+    height: 2.5px;
+    background: #ffff00;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 220ms ease;
+  }
+  .nav-top-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Estado abierto en Desktop: aparecen los enlaces perfectamente alineados en el centro */
+  #site-header.is-menu-open #nav-center-menu {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  /* Estado abierto en Móvil: se despliega suavemente abajo de la barra */
+  #site-header.is-menu-open #nav-mobile-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Indicador en el botón de hamburguesa al estar abierto */
+  #site-header.is-menu-open .nav-burger-icon {
+    opacity: 0.9;
+  }
+</style>
+
 <script is:inline>
   (function () {
-    var btn = document.getElementById("nav-toggle");
-    var panel = document.getElementById("nav-panel");
-    if (!btn || !panel) return;
-    var openIcon = document.getElementById("nav-icon-open");
-    var closeIcon = document.getElementById("nav-icon-close");
-    var label = document.getElementById("nav-toggle-label");
-    function setOpen(open) {
-      panel.classList.toggle("hidden", !open);
-      openIcon.classList.toggle("hidden", open);
-      closeIcon.classList.toggle("hidden", !open);
-      label.textContent = open ? btn.dataset.closeLabel : btn.dataset.openLabel;
-      btn.setAttribute("aria-expanded", String(open));
+    function initNav() {
+      var header = document.getElementById("site-header");
+      var toggleBtn = document.getElementById("nav-toggle");
+      if (!header || !toggleBtn) return;
+
+      if (toggleBtn.dataset.bound === "true") return;
+      toggleBtn.dataset.bound = "true";
+
+      var setOpen = function (open) {
+        header.classList.toggle("is-menu-open", open);
+        toggleBtn.setAttribute("aria-expanded", String(open));
+      };
+
+      toggleBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var isOpen = header.classList.contains("is-menu-open");
+        setOpen(!isOpen);
+      });
+
+      // Cerrar al pulsar fuera del encabezado
+      document.addEventListener("click", function (e) {
+        if (header.classList.contains("is-menu-open") && !header.contains(e.target)) {
+          setOpen(false);
+        }
+      });
+
+      // Al pulsar en cualquier enlace del menú, cerrar y permitir la navegación
+      header.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          setOpen(false);
+        });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && header.classList.contains("is-menu-open")) {
+          setOpen(false);
+        }
+      });
     }
-    btn.addEventListener("click", function () { setOpen(btn.getAttribute("aria-expanded") !== "true"); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { setOpen(false); btn.focus(); } });
-    panel.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
-    window.matchMedia("(min-width: 1024px)").addEventListener("change", function (e) { if (e.matches) setOpen(false); });
+
+    initNav();
+    document.addEventListener("astro:page-load", initNav);
+    document.addEventListener("astro:after-swap", initNav);
   })();
 </script>

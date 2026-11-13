@@ -35,8 +35,8 @@ Esta dispersión tecnológica provoca **duplicidad de datos, cuellos de botella 
 La plataforma está diseñada con una arquitectura multi-empresa (*multi-tenant*) escalable, apta tanto para pymes en crecimiento como para corporaciones con múltiples sedes, filiales y departamentos jerarquizados.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-dashboard.webp" alt="Cockpit y Command Center de Worksy con métricas de personal y accesos rápidos" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Interfaz real de Worksy: Command Center con KPIs de plantilla, accesos rápidos y panel operativo</figcaption>
+  <img src="/img/real/worksy-dashboard.webp" alt="Cockpit y Command Center de Worksy con métricas de personal y accesos rápidos" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Command Center de Worksy con KPIs de plantilla, accesos rápidos y panel operativo</figcaption>
 </figure>
 
 ---
@@ -52,8 +52,8 @@ El módulo central de personas proporciona el marco de gobernanza para administr
 - **Permisos granulares (RBAC):** Sistema estricto de control de acceso basado en roles que garantiza que cada usuario acceda exclusivamente a los datos que le corresponden.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-team.webp" alt="Directorio de empleados, organigrama departamental y perfiles en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Directorio centralizado de plantilla con organigrama departamental y roles de acceso</figcaption>
+  <img src="/img/real/worksy-team.webp" alt="Directorio de empleados, organigrama departamental y perfiles en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Directorio centralizado de plantilla con organigrama departamental y perfiles</figcaption>
 </figure>
 
 ---
@@ -69,8 +69,8 @@ El sistema de control horario de Worksy está diseñado específicamente para sa
 - **Exportación oficial certificada:** Generación inmediata de informes de jornada en formatos estándar (PDF/Excel) listos para inspecciones de trabajo o auditorías laborales.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-time-tracking.webp" alt="Control horario legal, registro diario de jornada y pausas en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Control horario con cómputo de horas ordinarias/extraordinarias conforme a la ley española</figcaption>
+  <img src="/img/real/worksy-time-tracking.webp" alt="Control horario legal, registro diario de jornada y pausas en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Control horario con cómputo de horas ordinarias y extraordinarias conforme a la ley española</figcaption>
 </figure>
 
 ---
@@ -107,8 +107,8 @@ El módulo de productividad transforma la coordinación operativa diaria mediant
 - **Espacio personal de productividad:** Vista enfocada para cada trabajador donde priorizar sus tareas diarias asignadas en consonancia con sus horarios y reuniones.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-tasks.webp" alt="Tablero Kanban de tareas y proyectos en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Tablero Kanban ágil por departamentos con gestión de prioridades y fechas límite</figcaption>
+  <img src="/img/real/worksy-tasks.webp" alt="Tablero Kanban de tareas y proyectos en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Tablero Kanban ágil por departamentos con gestión de prioridades y fechas límite</figcaption>
 </figure>
 
 ---
@@ -123,8 +123,8 @@ Uno de los componentes diferenciales de mayor valor en Worksy es su cliente de c
 - **Seguridad y privacidad:** Conexión delegada mediante protocolos seguros OAuth 2.0 que garantiza que las credenciales de correo no se almacenan y que sólo se sincroniza la información estrictamente autorizada.
 
 <figure class="my-8">
-  <img src="/img/real/worksy-mail.webp" alt="WorkFlow Mail: bandeja de correo unificada con conversión a tareas en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
-  <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// WorkFlow Mail: bandeja corporativa unificada y conversión de correos en tareas operativas</figcaption>
+  <img src="/img/real/worksy-mail.webp" alt="WorkFlow Mail: bandeja de correo unificada con conversión a tareas en Worksy" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">WorkFlow Mail: bandeja corporativa unificada y conversión de correos en tareas operativas</figcaption>
 </figure>
 
 ---
@@ -175,13 +175,16 @@ Worksy adapta la presentación de métricas según las responsabilidades y nivel
 
 La plataforma está diseñada mediante una arquitectura modular monolítica orientada a dominios (*modular monolith*), garantizando rapidez de desarrollo, facilidad de despliegue y máxima estabilidad operativa:
 
-<img src="/img/worksy-architecture-esquema.webp" alt="Esquema de arquitectura técnica de Worksy" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+<figure class="my-8">
+  <img src="/img/worksy-architecture-esquema.webp" alt="Esquema de arquitectura técnica de Worksy" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-xl" />
+  <figcaption class="mt-2.5 text-center text-xs text-ink/70">Esquema de arquitectura técnica de Worksy con React 18, Node.js y PostgreSQL</figcaption>
+</figure>
 
 ### Pila tecnológica (Tech Stack)
 - **Frontend:** React 18, TypeScript en modo estricto, Vite como empaquetador ultrarrápido, Tailwind CSS y catálogo de componentes accesibles shadcn/ui. Gestión de estado con TanStack Query y Zustand.
 - **Backend:** Node.js, Express, arquitectura modular dividida por dominios de negocio y validación estricta de esquemas mediante Zod.
 - **Base de datos:** PostgreSQL gestionado a través de Prisma ORM, con modelado relacional completo, transacciones ACID para operaciones de jornada y nóminas, e indexación optimizada por `tenantId`.
-- **Infraestructura y servicios:** Contenedores Docker para despliegues consistentes, almacenamiento de archivos compatible con Amazon S3 / MinIO, WebSockets (Socket.IO) para alertas en tiempo real y pasarela de Webhooks para integraciones externas.
+- **Infestatructura y servicios:** Contenedores Docker para despliegues consistentes, almacenamiento de archivos compatible con Amazon S3 / MinIO, WebSockets (Socket.IO) para alertas en tiempo real y pasarela de Webhooks para integraciones externas.
 - **Calidad de software:** Batería de pruebas automatizadas con Vitest y Playwright, especificación de API con OpenAPI / Swagger y registros de auditoría estructurados.
 
 ---

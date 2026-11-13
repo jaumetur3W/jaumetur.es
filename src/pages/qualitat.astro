@@ -47,52 +47,52 @@ const bundleBreakdown = [
 >
   <Container>
     <!-- Header -->
-    <header class="max-w-4xl mx-auto pt-12 pb-10 sm:pt-16 sm:pb-12 text-center sm:text-left">
-      <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-[#d2d2cb] font-semibold">
+    <header class="max-w-4xl mx-auto pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-36 text-center sm:text-left">
+      <p class="mb-3 text-xs font-mono uppercase tracking-[0.16em] text-[#3d3d39] font-semibold">
         {isEn ? "Technical Audit & Transparency" : "Auditoría técnica y transparencia"}
       </p>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-tight">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-ink tracking-tight leading-tight">
         {isEn ? "Commitment to " : "Compromiso de "}<span class="decoration-[#FFFF00] decoration-2 underline underline-offset-4">{isEn ? "quality and performance." : "calidad y rendimiento."}</span>
       </h1>
 
-      <p class="text-sm sm:text-base text-[#d2d2cb] mt-4 max-w-2xl leading-relaxed font-light">
+      <p class="text-sm sm:text-base text-[#3d3d39] mt-4 max-w-2xl leading-relaxed font-light">
         {isEn
           ? "In software engineering, quality isn't asserted: it's measured and proven. This dashboard reports real performance data, WCAG 2.2 AA accessibility, and code efficiency from this website."
           : "En ingeniería de software, la calidad no se afirma: se mide y se demuestra. Este panel recoge datos reales de rendimiento, accesibilidad WCAG 2.2 AA y eficiencia del código del propio sitio web."}
       </p>
 
-      <div class="flex items-center gap-2 mt-5 text-xs font-mono text-[#d2d2cb]">
-        <Icon name="bx:calendar" class="w-4 h-4 text-[#d2d2cb]" />
-        <span>{isEn ? "Last audited measurement:" : "Última medición auditada:"} <strong class="text-white font-normal">{lastAuditDate}</strong></span>
+      <div class="flex items-center gap-2 mt-5 text-xs font-mono text-[#3d3d39]">
+        <Icon name="bx:calendar" class="w-4 h-4 text-[#3d3d39]" />
+        <span>{isEn ? "Last audited measurement:" : "Última medición auditada:"} <strong class="text-ink font-normal">{lastAuditDate}</strong></span>
       </div>
     </header>
 
     <!-- 4 Lighthouse Score Cards -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="lighthouse-heading">
-      <h2 id="lighthouse-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:tachometer" class="w-5 h-5 text-white" />
+      <h2 id="lighthouse-heading" class="text-2xl font-light text-ink tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:tachometer" class="w-5 h-5 text-ink" />
         <span>{isEn ? "Google Lighthouse scores (mobile & desktop)" : "Puntuaciones de Google Lighthouse (móvil y escritorio)"}</span>
       </h2>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         {lighthouseScores.map((item) => (
-          <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col items-center text-center justify-between">
-            <div class="w-12 h-12 rounded-sm flex items-center justify-center bg-[#1c1c19] border border-slate-200/80 mb-3 text-white">
+          <div class="p-6 rounded-sm bg-white/70 border border-ink/20 hover:border-ink/60 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col items-center text-center justify-between">
+            <div class="w-12 h-12 rounded-sm flex items-center justify-center bg-sand border border-ink/15 mb-3 text-ink">
               <Icon name={item.icon} class="w-6 h-6" />
             </div>
             
             <div class="my-3">
-              <span class="text-4xl sm:text-5xl font-light font-mono tracking-tight text-white">
+              <span class="text-4xl sm:text-5xl font-light font-mono tracking-tight text-ink">
                 {item.score}
               </span>
-              <span class="text-xs font-mono text-[#d2d2cb] block mt-0.5">/ 100</span>
+              <span class="text-xs font-mono text-[#3d3d39] block mt-0.5">/ 100</span>
             </div>
 
             <div>
-              <span class="text-sm font-normal text-white block">{item.label}</span>
-              <span class="text-[11px] font-mono text-[#a3a39b] mt-1 inline-flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-white/20" aria-hidden="true"></span>
+              <span class="text-sm font-normal text-ink block">{item.label}</span>
+              <span class="text-[11px] font-mono text-[#5d5d57] mt-1 inline-flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-ink/20" aria-hidden="true"></span>
                 <span>{isEn ? "Target" : "Objetivo"} {item.target}</span>
               </span>
             </div>
@@ -103,15 +103,15 @@ const bundleBreakdown = [
 
     <!-- Core Web Vitals Table -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="cwv-heading">
-      <h2 id="cwv-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:pulse" class="w-5 h-5 text-white" />
+      <h2 id="cwv-heading" class="text-2xl font-light text-ink tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:pulse" class="w-5 h-5 text-ink" />
         <span>{isEn ? "Audited Core Web Vitals metrics" : "Métricas Core Web Vitals auditadas"}</span>
       </h2>
 
-      <div class="bg-[#141412] rounded-sm border border-white/15 overflow-hidden shadow-2xs">
+      <div class="bg-white/70 rounded-sm border border-ink/20 overflow-hidden shadow-2xs">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm font-sans">
-            <thead class="bg-[#1c1c19] border-b border-white/15 text-[11px] font-mono uppercase text-[#d2d2cb]">
+            <thead class="bg-sand border-b border-ink/20 text-[11px] font-mono uppercase text-[#3d3d39]">
               <tr>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Key metric" : "Métrica clave"}</th>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Measured value" : "Valor medido"}</th>
@@ -120,27 +120,27 @@ const bundleBreakdown = [
                 <th class="py-3.5 px-5 hidden md:table-cell font-semibold">{isEn ? "Technical description" : "Descripción técnica"}</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 font-mono">
+            <tbody class="divide-y divide-ink/15 font-mono">
               {coreWebVitals.map((cwv) => (
-                <tr class="hover:bg-slate-50/50 transition-colors">
-                  <td class="py-3.5 px-5 font-medium text-white">
-                    <span class="text-white font-bold">{cwv.metric}</span>
-                    <span class="text-[11px] text-[#d2d2cb] block font-normal font-sans">{cwv.name}</span>
+                <tr class="hover:bg-brand/20 transition-colors">
+                  <td class="py-3.5 px-5 font-medium text-ink">
+                    <span class="text-ink font-bold">{cwv.metric}</span>
+                    <span class="text-[11px] text-[#3d3d39] block font-normal font-sans">{cwv.name}</span>
                   </td>
-                  <td class="py-3.5 px-5 font-medium text-white text-base">{cwv.value}</td>
-                  <td class="py-3.5 px-5 text-[#d2d2cb]">{cwv.threshold}</td>
+                  <td class="py-3.5 px-5 font-medium text-ink text-base">{cwv.value}</td>
+                  <td class="py-3.5 px-5 text-[#3d3d39]">{cwv.threshold}</td>
                   <td class="py-3.5 px-5">
                     {cwv.metric === "Speed Index" ? (
-                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-transparent text-white border border-white/50">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-transparent text-ink border border-ink/60">
                         <span>{cwv.status}</span>
                       </span>
                     ) : (
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-[#0b0b09] border border-white/20">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-[#111111] border border-ink/35">
                         <span>✓ {cwv.status}</span>
                       </span>
                     )}
                   </td>
-                  <td class="py-3.5 px-5 text-[#d2d2cb] font-sans text-xs hidden md:table-cell font-light">{cwv.desc}</td>
+                  <td class="py-3.5 px-5 text-[#3d3d39] font-sans text-xs hidden md:table-cell font-light">{cwv.desc}</td>
                 </tr>
               ))}
             </tbody>
@@ -151,15 +151,15 @@ const bundleBreakdown = [
 
     <!-- Multi-page Production Audit (5-run Medians) -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="pages-heading">
-      <h2 id="pages-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:devices" class="w-5 h-5 text-white" />
+      <h2 id="pages-heading" class="text-2xl font-light text-ink tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:devices" class="w-5 h-5 text-ink" />
         <span>{isEn ? "Production page audit medians (5 runs per target)" : "Medianas de auditoría en producción (5 ejecuciones por página)"}</span>
       </h2>
 
-      <div class="bg-[#141412] rounded-sm border border-white/15 overflow-hidden shadow-2xs">
+      <div class="bg-white/70 rounded-sm border border-ink/20 overflow-hidden shadow-2xs">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm font-sans">
-            <thead class="bg-[#1c1c19] border-b border-white/15 text-[11px] font-mono uppercase text-[#d2d2cb]">
+            <thead class="bg-sand border-b border-ink/20 text-[11px] font-mono uppercase text-[#3d3d39]">
               <tr>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Target page" : "Página auditada"}</th>
                 <th class="py-3.5 px-4 font-semibold text-center">{isEn ? "Perf" : "Rend."}</th>
@@ -172,18 +172,18 @@ const bundleBreakdown = [
                 <th class="py-3.5 px-4 font-semibold">Speed Index</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 font-mono text-xs">
+            <tbody class="divide-y divide-ink/15 font-mono text-xs">
               {auditedPages.map((row) => (
-                <tr class="hover:bg-slate-50/50 transition-colors">
-                  <td class="py-3.5 px-5 font-medium text-white font-sans">{row.page}</td>
-                  <td class="py-3.5 px-4 text-center font-bold text-white">{row.perf}</td>
-                  <td class="py-3.5 px-4 text-center font-semibold text-white">{row.a11y}</td>
-                  <td class="py-3.5 px-4 text-center text-white">{row.bp}</td>
-                  <td class="py-3.5 px-4 text-center text-white">{row.seo}</td>
-                  <td class="py-3.5 px-4 text-white">{row.lcp}</td>
-                  <td class="py-3.5 px-4 text-white">{row.tbt}</td>
-                  <td class="py-3.5 px-4 text-white">{row.cls}</td>
-                  <td class="py-3.5 px-4 text-white">{row.si}</td>
+                <tr class="hover:bg-brand/20 transition-colors">
+                  <td class="py-3.5 px-5 font-medium text-ink font-sans">{row.page}</td>
+                  <td class="py-3.5 px-4 text-center font-bold text-ink">{row.perf}</td>
+                  <td class="py-3.5 px-4 text-center font-semibold text-ink">{row.a11y}</td>
+                  <td class="py-3.5 px-4 text-center text-ink">{row.bp}</td>
+                  <td class="py-3.5 px-4 text-center text-ink">{row.seo}</td>
+                  <td class="py-3.5 px-4 text-ink">{row.lcp}</td>
+                  <td class="py-3.5 px-4 text-ink">{row.tbt}</td>
+                  <td class="py-3.5 px-4 text-ink">{row.cls}</td>
+                  <td class="py-3.5 px-4 text-ink">{row.si}</td>
                 </tr>
               ))}
             </tbody>
@@ -194,48 +194,48 @@ const bundleBreakdown = [
 
     <!-- Axe-core Accessibility Report Details -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="a11y-heading">
-      <h2 id="a11y-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:accessibility" class="w-5 h-5 text-white" />
+      <h2 id="a11y-heading" class="text-2xl font-light text-ink tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:accessibility" class="w-5 h-5 text-ink" />
         <span>{isEn ? "Accessibility Audit (axe-core & WCAG 2.2 AA)" : "Auditoría de accesibilidad (axe-core y WCAG 2.2 AA)"}</span>
       </h2>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200">
+        <div class="p-6 rounded-sm bg-white/70 border border-ink/20 hover:border-ink/60 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-sm bg-[#1c1c19] text-white flex items-center justify-center border border-slate-200/80">
+            <div class="w-9 h-9 rounded-sm bg-sand text-ink flex items-center justify-center border border-ink/15">
               <Icon name="bx:check-shield" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-white text-sm">{isEn ? "Automated Accessibility Auditing" : "Auditoría de accesibilidad continua"}</span>
+            <span class="font-normal text-ink text-sm">{isEn ? "Automated Accessibility Auditing" : "Auditoría de accesibilidad continua"}</span>
           </div>
-          <p class="text-xs text-[#d2d2cb] leading-relaxed font-light">
+          <p class="text-xs text-[#3d3d39] leading-relaxed font-light">
             {isEn
               ? "Automated E2E axe-core scans with Playwright integrated into CI evaluate home, pricing, projects, and articles under WCAG 2.0, 2.1, and 2.2 AA standards."
               : "La auditoría automatizada E2E con @axe-core/playwright integrada en el pipeline CI evalúa la home, pricing, proyectos y artículos bajo los estándares WCAG 2.0, 2.1 y 2.2 AA."}
           </p>
         </div>
 
-        <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200">
+        <div class="p-6 rounded-sm bg-white/70 border border-ink/20 hover:border-ink/60 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-sm bg-[#1c1c19] text-white flex items-center justify-center">
+            <div class="w-9 h-9 rounded-sm bg-sand text-ink flex items-center justify-center">
               <Icon name="bx:pointer" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-white text-sm">{isEn ? "Keyboard Navigation" : "Navegación con teclado"}</span>
+            <span class="font-normal text-ink text-sm">{isEn ? "Keyboard Navigation" : "Navegación con teclado"}</span>
           </div>
-          <p class="text-xs text-[#d2d2cb] leading-relaxed font-light">
+          <p class="text-xs text-[#3d3d39] leading-relaxed font-light">
             {isEn
               ? "Skip-to-content link, logical tab sequence, and active focus outlines across all interactive elements."
               : "Enlace para saltar al contenido, orden de tabulación secuencial y anillos de foco visibles en todos los enlaces y botones."}
           </p>
         </div>
 
-        <div class="p-6 rounded-sm bg-[#141412] border border-white/15 hover:border-white/40 shadow-2xs hover:shadow-md transition-all duration-200">
+        <div class="p-6 rounded-sm bg-white/70 border border-ink/20 hover:border-ink/60 shadow-2xs hover:shadow-md transition-all duration-200">
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-sm bg-[#1c1c19] text-white flex items-center justify-center border border-slate-200/80">
+            <div class="w-9 h-9 rounded-sm bg-sand text-ink flex items-center justify-center border border-ink/15">
               <Icon name="bx:sun" class="w-5 h-5" />
             </div>
-            <span class="font-normal text-white text-sm">{isEn ? "Color Contrast (≥ 4.5:1)" : "Contraste de color (≥ 4,5:1)"}</span>
+            <span class="font-normal text-ink text-sm">{isEn ? "Color Contrast (≥ 4.5:1)" : "Contraste de color (≥ 4,5:1)"}</span>
           </div>
-          <p class="text-xs text-[#d2d2cb] leading-relaxed font-light">
+          <p class="text-xs text-[#3d3d39] leading-relaxed font-light">
             {isEn
               ? "Text elements across interface views are designed following the minimum 4.5:1 contrast ratio recommended by WCAG AA guidelines."
               : "Los elementos de texto en las vistas de interfaz se diseñan siguiendo la relación de contraste mínima de 4,5:1 recomendada por la guía WCAG AA."}
@@ -246,25 +246,25 @@ const bundleBreakdown = [
 
     <!-- Bundle & Payload Breakdown -->
     <section class="max-w-5xl mx-auto mb-20" aria-labelledby="bundle-heading">
-      <h2 id="bundle-heading" class="text-2xl font-light text-white tracking-tight mb-6 flex items-center gap-2.5">
-        <Icon name="bx:package" class="w-5 h-5 text-white" />
+      <h2 id="bundle-heading" class="text-2xl font-light text-ink tracking-tight mb-6 flex items-center gap-2.5">
+        <Icon name="bx:package" class="w-5 h-5 text-ink" />
         <span>{isEn ? "Resource payload and performance budget" : "Peso de los recursos y presupuesto de rendimiento"}</span>
       </h2>
 
-      <div class="bg-[#141412] rounded-sm border border-white/15 overflow-hidden shadow-2xs">
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between flex-wrap gap-4">
+      <div class="bg-white/70 rounded-sm border border-ink/20 overflow-hidden shadow-2xs">
+        <div class="p-6 border-b border-ink/15 flex items-center justify-between flex-wrap gap-4">
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-[#d2d2cb] block">{isEn ? "Total first-load transfer" : "Peso total en la primera carga"}</span>
-            <span class="text-2xl sm:text-3xl font-light font-mono text-white mt-1 block">~ 113.4 KB ({isEn ? "Transferred across wire" : "Transferido en red"})</span>
+            <span class="text-xs font-mono uppercase tracking-wider text-[#3d3d39] block">{isEn ? "Total first-load transfer" : "Peso total en la primera carga"}</span>
+            <span class="text-2xl sm:text-3xl font-light font-mono text-ink mt-1 block">~ 113.4 KB ({isEn ? "Transferred across wire" : "Transferido en red"})</span>
           </div>
-          <span class="text-xs font-mono text-white bg-[#1c1c19] px-3.5 py-1.5 rounded-sm border border-slate-200/80">
+          <span class="text-xs font-mono text-ink bg-sand px-3.5 py-1.5 rounded-sm border border-ink/15">
             {isEn ? "Max budget:" : "Presupuesto máximo:"} &lt; 150 KB ({isEn ? "achieved" : "alcanzado"})
           </span>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm">
-            <thead class="bg-[#1c1c19] border-b border-white/15 text-[11px] font-mono uppercase text-[#d2d2cb] font-semibold">
+            <thead class="bg-sand border-b border-ink/20 text-[11px] font-mono uppercase text-[#3d3d39] font-semibold">
               <tr>
                 <th class="py-3.5 px-5">{isEn ? "Resource" : "Recurso"}</th>
                 <th class="py-3.5 px-5">{isEn ? "Uncompressed size" : "Tamaño sin comprimir"}</th>
@@ -272,13 +272,13 @@ const bundleBreakdown = [
                 <th class="py-3.5 px-5">{isEn ? "Optimization strategy" : "Estrategia de optimización"}</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 font-mono text-xs">
+            <tbody class="divide-y divide-ink/15 font-mono text-xs">
               {bundleBreakdown.map((item) => (
-                <tr class="hover:bg-slate-50/50">
-                  <td class="py-3.5 px-5 font-normal text-white">{item.asset}</td>
-                  <td class="py-3.5 px-5 text-[#d2d2cb]">{item.size}</td>
-                  <td class="py-3.5 px-5 font-semibold text-white">{item.gzipped}</td>
-                  <td class="py-3.5 px-5 text-[#d2d2cb] font-sans font-light">{item.tech}</td>
+                <tr class="hover:bg-brand/20">
+                  <td class="py-3.5 px-5 font-normal text-ink">{item.asset}</td>
+                  <td class="py-3.5 px-5 text-[#3d3d39]">{item.size}</td>
+                  <td class="py-3.5 px-5 font-semibold text-ink">{item.gzipped}</td>
+                  <td class="py-3.5 px-5 text-[#3d3d39] font-sans font-light">{item.tech}</td>
                 </tr>
               ))}
             </tbody>
@@ -294,7 +294,7 @@ const bundleBreakdown = [
     </section>
 
     <!-- Reproduce Audit Instructions -->
-    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-sm bg-[#0b0b09] text-white border-2 border-white/40 font-mono text-xs selection:bg-[#FFFF00] selection:text-[#0b0b09]" aria-labelledby="reproduce-heading">
+    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-sm bg-[#111111] text-white border-2 border-ink font-mono text-xs selection:bg-[#FFFF00] selection:text-[#111111]" aria-labelledby="reproduce-heading">
       <div class="flex items-center gap-2 text-white font-normal mb-3 text-sm">
         <Icon name="bx:terminal" class="w-4 h-4 text-[#FFFF00]" />
         <h3 id="reproduce-heading">{isEn ? "Audit reproduction protocol" : "Protocolo para reproducir la auditoría"}</h3>
@@ -303,7 +303,7 @@ const bundleBreakdown = [
         {isEn ? "You can run the same audits in your local environment to independently verify all metrics:" : "Puedes ejecutar las mismas auditorías desde tu entorno local para comprobar los datos de forma independiente:"}
       </p>
 
-      <div class="p-4 rounded-sm bg-[#0b0b09] border border-slate-800 text-slate-300 space-y-2">
+      <div class="p-4 rounded-sm bg-[#111111] border border-slate-800 text-slate-300 space-y-2">
         <div><span class="text-[#a3a39b]"># 1. {isEn ? "Build production bundle" : "Compilar la versión de producción"}</span></div>
         <div class="text-[#FFFF00]">npm run build && npm run preview</div>
         <div class="pt-2"><span class="text-[#a3a39b]"># 2. {isEn ? "Run Lighthouse CLI audit" : "Ejecutar la auditoría Lighthouse CLI"}</span></div>
@@ -317,14 +317,14 @@ const bundleBreakdown = [
           href="https://github.com/jaumetur3W/jaumetur.es"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#FFFF00] hover:bg-[#f2d900] text-black rounded-sm font-mono text-xs font-semibold transition shadow-xs">
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#ffff00] hover:bg-[#111111] hover:text-white text-ink rounded-sm font-mono text-xs font-semibold transition shadow-xs">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
           <span>{isEn ? "Examine source code on GitHub" : "Examinar el código en GitHub"}</span>
           <span class="text-[10px]">↗</span>
         </a>
         <a
           href={homePath}
-          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#0b0b09] hover:bg-slate-800 text-white rounded-sm font-mono text-xs font-semibold transition border border-slate-700">
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#111111] hover:bg-slate-800 text-white rounded-sm font-mono text-xs font-semibold transition border border-slate-700">
           <Icon name="bx:home-alt" class="w-4 h-4" />
           <span>{isEn ? "Back to home" : "Volver al inicio"}</span>
         </a>

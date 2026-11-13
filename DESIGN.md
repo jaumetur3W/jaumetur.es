@@ -1,41 +1,33 @@
-# Design system — «Presupuesto de taller»
+# Design system — «STREET-GLASS»
 
-Derivado del código publicado en `src/styles/global.css` y los componentes de `src/components/`.
-
-## Concepto
-La web es el presupuesto de un taller sobre una mesa negra: partidas con puntos de relleno hasta el importe, filetes finos, perforación punteada entre bloques y una hoja amarilla (la copia del cliente) que aparece solo donde hay una decisión (selector de servicio, oferta de lanzamiento, tarjeta de precio).
+Derivado de `src/styles/global.css` y los componentes de `src/components/`. Estudio de diseño luminoso con actitud de cultura street; la firma es el amarillo #FFFF00. Modo claro únicamente.
 
 ## Color
 | Token | Valor | Uso |
 |---|---|---|
-| `--bg-main` | `#0b0b09` | Fondo de toda la web (negro con una gota cálida) |
-| `--bg-surface` / `--bg-raised` | `#141412` / `#1c1c19` | Paneles, formularios, imágenes |
-| `--brand` | `#ffff00` | Hojas, botones primarios, subrayados, énfasis |
-| `--on-brand` | `#0b0b09` | Texto y botones oscuros sobre amarillo |
-| texto | `#fff` / `#d2d2cb` / `#a3a39b` | Principal / secundario / terciario (todos ≥ 4,5:1 sobre el fondo) |
-| `--line` / `--line-strong` | blanco cálido 16 % / 34 % | Filetes y bordes |
-| error | `#ff9b9b` | Mensajes de error en formularios |
-Reglas: texto blanco sobre fondos oscuros, tinta negra solo sobre amarillo; el amarillo es la única señal de color.
+| `--bg-main` | `#fafaf6` | Base casi blanca; sobre ella: retícula de puntos (22 px), grano SVG al 7 % y un velo amarillo apenas perceptible |
+| `--ink` / `--text-main` | `#111111` | Tinta: texto, bordes de retícula, botón principal |
+| `--text-muted` / `--text-faint` | `#3d3d39` / `#5d5d57` | Texto secundario y metadatos (AA sobre la base) |
+| `--brand` | `#ffff00` | Único acento: bloques (`.sheet`), marcadores (`.mark`, `.hl`), etiquetas (`.tag`), rellenos de hover |
+| `--line` / `--line-strong` | tinta 16 % / 90 % | Filetes finos / bordes visibles de catálogo |
+Regla: el amarillo es fondo con tinta encima, nunca texto sobre blanco. Sin más colores salvo neutros (rojo oscuro `#9b1c1c` solo en errores de formulario).
 
 ## Tipografía
-- Titulares: **Bricolage Grotesque** variable (eje de ancho 75–100 %; titulares a 78–82 %, peso 700–800), auto-alojada.
-- Texto: **Atkinson Hyperlegible Next** variable, auto-alojada.
-- Datos (precios, plazos, etiquetas): monoespaciada del sistema, con cifras tabulares.
-- Escala: `.h-hero` hasta 6 rem, `.h-page` hasta 5 rem, `.h-section` hasta 3,6 rem, `.lede` 1,05–1,25 rem. Medida de lectura ≤ 38 rem en entradillas.
+- Titulares: **Archivo Black**, mayúsculas en momentos clave, palabra clave entre comillas con resalte amarillo (`.hl`). Auto-alojada.
+- Cuerpo: **Inter** variable, auto-alojada. Metadatos (año, nº de proyecto, stack): mono del sistema pequeña (`.label`, `.tag`).
+- Escala: `.h-hero` hasta 3,9 rem, `.h-page` hasta 4,2 rem, `.h-section` hasta 3 rem; `.lede` 1–1,15 rem.
+
+## Superficies y retícula
+- **Glass (`.glass`, `.card`)**: translúcida, blur 10 px, borde fino de tinta 20 %, radio 1,25 rem.
+- **Retícula de catálogo (`.cat-grid`)**: celdas separadas por filete de tinta de 1,5 px, borde exterior visible; densidad media-alta.
+- **Hoja (`.sheet`)**: bloque amarillo sólido con borde de tinta para decisiones (selector de presupuesto, oferta, CTA de cierre).
+- Imágenes siempre contenidas: marcos 16:10 pequeños con borde de tinta.
 
 ## Componentes
-- **Hoja (`.sheet`)**: panel amarillo con borde inferior troquelado (máscara). Dentro, filas `.leader-row` con puntos de relleno.
-- **Fila de servicio (`a.item`)**: fila con filete que se invierte a amarillo/negro al pasar el cursor o enfocar.
-- **Botones**: `.btn-brand` (amarillo, texto negro), `.btn-white` (contorno), `.btn-dark` (negro sobre hoja amarilla). Radio 4 px, mínimo 44 px de alto.
-- **Selector de presupuesto (`QuoteSheet`)**: radios + `:has()`, sin JavaScript; importes calculados desde los datos de servicios.
-- **`PageHeader`, `CtaBand`**: cabecera y cierre de páginas interiores.
-- **Campos (`.field`)**, `.chip`, `.link-arrow`, `.perf` (perforación), `.rule`.
+Botones pill (`.btn`): borde de tinta; el relleno amarillo (o tinta) sube desde abajo al hover. `.btn-dark` (principal), `.btn-brand`, `.btn-white`. `.link-arrow` con marcador que se dibuja. `.item` fila que se rellena de amarillo. `PageHeader`, `CtaBand`, `QuoteSheet`, campos `.field` con halo amarillo al enfocar. Foco visible: anillo de tinta + halo amarillo.
 
-## Movimiento
-Un momento propio: la partida «se sella» (`.stamp`) al cambiar de servicio. Aparición de secciones suave con IntersectionObserver y transición de página CSS (`@view-transition`), todo desactivado con `prefers-reduced-motion`.
+## Movimiento (GSAP, `src/scripts/motion.ts`)
+Momento firma: el titular de la home se monta letra a letra (`data-split`). Resto: cursor con carácter (punto amarillo que crece sobre enlaces), tilt leve en `[data-tilt]`, reveals con stagger corto en `[data-stagger]`, subrayados marcador. Todo visible sin JS; `prefers-reduced-motion` lo desactiva.
 
-## Superficies del navegador
-Selección amarilla con texto negro, cursor (`caret-color`) amarillo, barra de scroll oscura con pulgar amarillo al pasar, foco con anillo amarillo de 2 px (negro sobre hojas amarillas).
-
-## Prohibido en este sistema
-Tarjetas iguales como estructura de página, degradados, brillos o cristal, texto con degradado, bordes laterales de color, sombras duras, etiquetas encima de titulares, texto negro sobre fondo oscuro.
+## Prohibido
+Fondos planos o grises, imágenes a pantalla completa, modo oscuro, más de un acento, amarillo como texto sobre blanco, cream+serif+terracota, gradientes morados, emojis como iconos.

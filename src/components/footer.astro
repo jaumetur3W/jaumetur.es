@@ -43,29 +43,31 @@ const legalLinks = [
   { title: isEn ? "Quality & accessibility" : "Calidad y accesibilidad", path: "/qualitat" },
   { title: "RSS", path: "/rss.xml" },
 ];
-const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:text-white hover:decoration-brand";
+const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-ink/80 underline decoration-transparent decoration-[3px] underline-offset-4 transition-colors hover:text-ink hover:decoration-brand";
 ---
 
-<footer class="on-dark mt-auto border-t border-white/15 bg-[#0b0b09]">
-  <div class="wrap pb-8 pt-14 sm:pt-20">
+<footer class="mt-auto border-t border-ink/15 bg-white/65 backdrop-blur-md">
+  <div class="wrap pb-8 pt-16 sm:pt-24">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-5">
-        <a href={to("/")} class="inline-flex min-h-11 items-center gap-3" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
-          <img src="/img/jt.LOGO-02-128.webp" alt="" width="44" height="44" class="h-11 w-11 rounded-sm" loading="lazy" decoding="async" />
-          <span class="font-display text-3xl font-extrabold leading-none" style="font-stretch:85%">jaume<span class="text-brand">tur</span></span>
+        <a href={to("/")} class="inline-flex min-h-11 items-center gap-3 group" aria-label={isEn ? "jaumetur — home" : "jaumetur — inicio"}>
+          <img src="/img/jt.LOGO-02-128.webp" alt="" width="44" height="44" class="h-11 w-11 rounded-xl border-2 border-ink object-contain shadow-xs group-hover:scale-105 transition-transform" loading="lazy" decoding="async" />
+          <span class="font-display text-3xl font-extrabold tracking-[-0.03em] leading-none text-ink">
+            jaume <span class="serif-italic text-[1.25em] font-normal tracking-normal text-ink/80">tur</span>
+          </span>
         </a>
-        <p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-white/80">
+        <p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-ink/80">
           {isEn
             ? "Websites, digital menus and custom web applications, built and maintained by the developer you talk to. Based in Xàtiva, working in Valencia and remotely."
             : "Páginas web, cartas digitales y aplicaciones web a medida, construidas y mantenidas por la misma persona con la que hablas. Desde Xàtiva, para Valencia y en remoto."}
         </p>
-        <a href="mailto:jaumetur3w@gmail.com" class="mt-5 inline-flex min-h-11 items-center gap-2.5 font-semibold text-brand underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-brand">
+        <a href="mailto:jaumetur3w@gmail.com" class="link-arrow mt-5 min-h-11 gap-2.5">
           <Icon name="bx:envelope" class="h-5 w-5" />
           <span>jaumetur3w@gmail.com</span>
         </a>
         <p class="mt-1">
-          <a href="https://wa.me/34644525838" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2.5 text-[0.95rem] text-white/85 underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">
-            <Icon name="bx:bxl-whatsapp" class="h-5 w-5 text-brand" />
+          <a href="https://wa.me/34644525838" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center gap-2.5 text-[0.95rem] text-ink/85 underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">
+            <Icon name="bx:bxl-whatsapp" class="h-5 w-5" />
             <span>WhatsApp +34 644 525 838</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span>
           </a>
         </p>
@@ -73,7 +75,7 @@ const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 u
           {socialLinks.map((item) => (
             <li>
               <a href={item.path} target="_blank" rel="noopener noreferrer"
-                 class="flex h-11 w-11 items-center justify-center rounded-sm border border-white/20 text-white/85 transition-colors hover:border-brand hover:bg-brand hover:text-[#0b0b09]"
+                 class="flex h-11 w-11 items-center justify-center rounded-md border-2 border-ink bg-white/70 text-ink transition-colors hover:bg-brand"
                  aria-label={`${item.title} (${isEn ? "opens in a new tab" : "se abre en pestaña nueva"})`}>
                 <Icon name={item.icon} class="h-5 w-5" />
               </a>
@@ -83,7 +85,7 @@ const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 u
       </div>
 
       <nav class="lg:col-span-3" aria-label={isEn ? "Services" : "Servicios"}>
-        <h2 class="label !text-white/70">{isEn ? "Services" : "Servicios"}</h2>
+        <h2 class="tag">{isEn ? "Services" : "Servicios"}</h2>
         <ul class="mt-4">
           {services.map((s) => (
             <li><a href={to(`/pricing/${s.id}`)} class={linkCls}>{s.name}</a></li>
@@ -92,7 +94,7 @@ const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 u
       </nav>
 
       <nav class="lg:col-span-2" aria-label={isEn ? "Site" : "Sitio"}>
-        <h2 class="label !text-white/70">{isEn ? "Site" : "Sitio"}</h2>
+        <h2 class="tag">{isEn ? "Site" : "Sitio"}</h2>
         <ul class="mt-4">
           {navLinks.map((item) => (
             <li><a href={to(item.path)} class={linkCls}>{item.title}</a></li>
@@ -101,7 +103,7 @@ const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 u
       </nav>
 
       <nav class="lg:col-span-2" aria-label={isEn ? "Free tools" : "Herramientas"}>
-        <h2 class="label !text-white/70">{isEn ? "Tools" : "Herramientas"}</h2>
+        <h2 class="tag">{isEn ? "Tools" : "Herramientas"}</h2>
         <ul class="mt-4">
           {toolLinks.map((item) => (
             <li><a href={to(item.path)} class={linkCls}>{item.title}</a></li>
@@ -111,12 +113,12 @@ const linkCls = "inline-flex min-h-9 items-center text-[0.95rem] text-white/80 u
     </div>
 
     <hr class="perf mt-14" />
-    <div class="flex flex-col gap-3 pt-6 text-sm text-white/70 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-3 pt-6 text-sm text-ink/70 md:flex-row md:items-center md:justify-between">
       <p>© {currentYear} Jaume Tur · Xàtiva, València</p>
       <nav aria-label="Legal">
         <ul class="flex flex-wrap gap-x-5">
           {legalLinks.map((item) => (
-            <li><a href={to(item.path)} class="inline-flex min-h-9 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand">{item.title}</a></li>
+            <li><a href={to(item.path)} class="inline-flex min-h-9 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{item.title}</a></li>
           ))}
           <li>
             <button

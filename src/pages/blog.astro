@@ -40,12 +40,12 @@ const getCategoryIcon = (category: string) => {
   title={isEn ? "Web Development Blog & Engineering Resources | Jaume Tur" : "Blog de Desarrollo Web y Recursos Técnicos | Jaume Tur"}
   description={isEn ? "Technical articles, practical guides, and architecture insights on frontend apps, performance, and CI/CD." : "Artículos técnicos, guías prácticas y casos de estudio sobre diseño web, aplicaciones frontend, backend, rendimiento y automatización CI/CD."}
 >
-  <header class="border-b border-white/15 pb-10 pt-12 sm:pb-14 sm:pt-20">
+  <header class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-36">
     <div class="wrap">
-      <h1 class="h-page max-w-4xl">
+      <h1 class="h-page max-w-4xl font-extrabold tracking-tight text-ink" data-split>
         {isEn ? "Web development blog: guides, patterns and architecture." : "Blog de desarrollo web: guías, patrones y arquitectura."}
       </h1>
-      <p class="lede mt-6">
+      <p class="lede mt-6 text-lg sm:text-xl text-ink/80 leading-relaxed max-w-3xl">
         {isEn
           ? "Technical guides, frontend architecture patterns and performance deep dives based on real production projects."
           : "Guías técnicas, patrones de arquitectura frontend y análisis de rendimiento basados en proyectos reales de producción."}
@@ -71,8 +71,8 @@ const getCategoryIcon = (category: string) => {
             data-category={cat}
             class={`filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors ${
               idx === 0
-                ? "border-[#ffff00] bg-[#ffff00] text-[#0b0b09] active"
-                : "border-white/30 bg-transparent text-white hover:border-white hover:bg-white/10"
+                ? "border-[#ffff00] bg-[#ffff00] text-[#111111] active"
+                : "border-ink/35 bg-transparent text-ink hover:border-ink hover:bg-white/70"
             }`}
           >
             {cat}
@@ -80,11 +80,12 @@ const getCategoryIcon = (category: string) => {
         ))}
       </div>
     </div>
+    <div class="section-divider mt-10 sm:mt-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
   </header>
 
   <section class="section" aria-label={isEn ? "Articles" : "Artículos"}>
     <div class="wrap">
-      <div id="posts-container" class="border-b border-white/15">
+      <div id="posts-container" class="border-b border-ink/20">
         {publishedBlogEntries.map((post) => {
           const wordsCount = post.body ? post.body.trim().split(/\s+/).length : 600;
           const readingMinutes = Math.max(1, Math.round(wordsCount / 200));
@@ -104,7 +105,7 @@ const getCategoryIcon = (category: string) => {
                   <span class="label mt-1 block">{post.data.category} · ~{readingMinutes} min</span>
                 </span>
                 <span class="lg:col-span-9">
-                  <span class="block font-display text-[1.6rem] font-bold leading-[1.08] sm:text-[2rem]" style="font-stretch:84%">{post.data.title}</span>
+                  <span class="block font-display text-[1.6rem] font-bold leading-[1.08] sm:text-[2rem]">{post.data.title}</span>
                   <span class="muted mt-2 block max-w-3xl leading-relaxed">{post.data.snippet}</span>
                 </span>
               </a>
@@ -114,7 +115,7 @@ const getCategoryIcon = (category: string) => {
       </div>
 
       <div id="no-posts-found" class="hidden py-16">
-        <p class="font-display text-[1.8rem] font-bold" style="font-stretch:84%">{isEn ? "No matches" : "Sin coincidencias"}</p>
+        <p class="font-display text-[1.8rem] font-bold">{isEn ? "No matches" : "Sin coincidencias"}</p>
         <p class="muted mt-2">
           {isEn ? "No articles found matching this search or category." : "No se ha encontrado ningún artículo con esta búsqueda o categoría."}
         </p>
@@ -122,7 +123,7 @@ const getCategoryIcon = (category: string) => {
     </div>
   </section>
 
-  <section class="section border-t border-white/15" aria-labelledby="blog-cta-title">
+  <section class="section border-t border-ink/20" aria-labelledby="blog-cta-title">
     <div class="wrap grid items-end gap-8 lg:grid-cols-12">
       <div class="lg:col-span-7">
         <h2 id="blog-cta-title" class="h-section">
@@ -196,8 +197,8 @@ const getCategoryIcon = (category: string) => {
           filterButtons.forEach(function(b) {
             const isCurrent = b === btn;
             b.className = isCurrent
-              ? "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-[#ffff00] bg-[#ffff00] text-[#0b0b09] active"
-              : "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-white/30 bg-transparent text-white hover:border-white hover:bg-white/10";
+              ? "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-[#ffff00] bg-[#ffff00] text-[#111111] active"
+              : "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-ink/35 bg-transparent text-ink hover:border-ink hover:bg-white/70";
           });
 
           filterPosts();

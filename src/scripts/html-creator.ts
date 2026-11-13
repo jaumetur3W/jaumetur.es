@@ -242,18 +242,18 @@ ${fontFamCss}    body {
   // Tab switching
   if (tabPreview && tabCode && panelPreview && panelCode) {
     tabPreview.addEventListener("click", () => {
-      tabPreview.className = "px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-brand text-black shadow-xs";
+      tabPreview.className = "px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-brand text-ink shadow-xs";
       tabPreview.setAttribute("aria-selected", "true");
-      tabCode.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium text-zinc-400 hover:text-white transition-all cursor-pointer";
+      tabCode.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium text-ink/75 hover:text-ink transition-all cursor-pointer";
       tabCode.setAttribute("aria-selected", "false");
       panelPreview.classList.remove("hidden");
       panelCode.classList.add("hidden");
     });
 
     tabCode.addEventListener("click", () => {
-      tabCode.className = "px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-brand text-black shadow-xs";
+      tabCode.className = "px-4 py-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-brand text-ink shadow-xs";
       tabCode.setAttribute("aria-selected", "true");
-      tabPreview.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium text-zinc-400 hover:text-white transition-all cursor-pointer";
+      tabPreview.className = "px-4 py-2 rounded-lg text-xs font-mono font-medium text-ink/75 hover:text-ink transition-all cursor-pointer";
       tabPreview.setAttribute("aria-selected", "false");
       panelCode.classList.remove("hidden");
       panelPreview.classList.add("hidden");
@@ -264,9 +264,9 @@ ${fontFamCss}    body {
   document.querySelectorAll(".view-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".view-btn").forEach((b) => {
-        b.className = "view-btn px-2.5 py-1 rounded-lg hover:bg-white/5 cursor-pointer text-zinc-400";
+        b.className = "view-btn px-2.5 py-1 rounded-lg hover:bg-white/60 cursor-pointer text-ink/75";
       });
-      btn.className = "view-btn active px-2.5 py-1 rounded-lg bg-white/10 text-white font-bold cursor-pointer";
+      btn.className = "view-btn active px-2.5 py-1 rounded-lg bg-white/70 text-ink font-bold cursor-pointer";
       const width = btn.getAttribute("data-view") || "100%";
       if (iframeWrapper) {
         iframeWrapper.style.maxWidth = width;
@@ -284,10 +284,10 @@ ${fontFamCss}    body {
       navigator.clipboard.writeText(html).then(() => {
         const original = copyLabel ? copyLabel.textContent : "Copiar";
         if (copyLabel) copyLabel.textContent = "✓ ¡Copiado!";
-        btnCopy.classList.add("text-brand");
+        btnCopy.classList.add("text-ink");
         setTimeout(() => {
           if (copyLabel) copyLabel.textContent = original;
-          btnCopy.classList.remove("text-brand");
+          btnCopy.classList.remove("text-ink");
         }, 2200);
       });
     });

@@ -23,9 +23,9 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </Fragment>
     </Sectionhead>
 
-    <div class="mt-10 space-y-8 text-sm text-zinc-300 leading-relaxed font-light">
+    <div class="mt-10 space-y-8 text-sm text-ink/75 leading-relaxed font-light">
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-white font-sans">
+        <h2 class="text-lg font-semibold text-ink font-sans">
           {isEn ? "1. Essential Storage & Cookieless Analytics" : "1. Almacenamiento técnico y analítica sin cookies"}
         </h2>
         <p>
@@ -41,7 +41,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-white font-sans">
+        <h2 class="text-lg font-semibold text-ink font-sans">
           {isEn ? "2. Optional Measurement Cookies (Google Tag Manager & GA4)" : "2. Cookies de medición opcionales (Google Tag Manager y GA4)"}
         </h2>
         <p>
@@ -57,7 +57,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-white font-sans">
+        <h2 class="text-lg font-semibold text-ink font-sans">
           {isEn ? "3. Manage or Withdraw Your Consent" : "3. Gestionar o retirar tu consentimiento"}
         </h2>
         <p>
@@ -65,12 +65,12 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
             ? "You can change or withdraw your cookie consent at any time. Rejecting or withdrawing consent immediately stops Google Analytics measurement, blocks GTM/GA4 on future page loads, and clears existing _ga cookies."
             : "Puedes cambiar o retirar tu consentimiento en cualquier momento. Al rechazar o revocar el consentimiento se detiene de inmediato la medición de Google Analytics, se impide la carga de GTM y GA4 en las siguientes vistas y se eliminan las cookies existentes."}
         </p>
-        <div class="rounded-sm border border-white/15 bg-[#141412] p-4 sm:p-5 space-y-3">
-          <p class="text-xs font-mono text-[#d2d2cb]">
+        <div class="rounded-xl border border-ink/15 bg-white p-4 sm:p-5 space-y-3 shadow-xs">
+          <p class="text-xs font-mono text-ink/80">
             {isEn ? "Current preference:" : "Preferencia actual:"}{" "}
             <strong
               id="cookies-page-status"
-              class="text-white"
+              class="text-ink font-bold"
               data-granted={isEn ? "Accepted (GA4 cookies enabled)" : "Aceptadas (medición GA4 activa)"}
               data-denied={isEn ? "Rejected (no GA4 cookies)" : "Rechazadas (sin cookies de medición)"}
               data-unset={isEn ? "Pending selection (denied by default)" : "Pendiente de elección (denegadas por defecto)"}
@@ -79,7 +79,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
             </strong>
           </p>
           <div class="flex flex-wrap gap-2.5">
-            <button type="button" id="cookies-page-accept" class="btn btn-brand btn-sm min-h-11 px-4 text-xs sm:text-sm">
+            <button type="button" id="cookies-page-accept" class="btn btn-dark btn-sm min-h-11 px-4 text-xs sm:text-sm">
               {isEn ? "Accept measurement cookies" : "Aceptar cookies de medición"}
             </button>
             <button type="button" id="cookies-page-reject" class="btn btn-white btn-sm min-h-11 px-4 text-xs sm:text-sm">
@@ -90,7 +90,7 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-lg font-semibold text-white font-sans">{isEn ? "4. Browser Controls" : "4. Control en el navegador"}</h2>
+        <h2 class="text-lg font-semibold text-ink font-sans">{isEn ? "4. Browser Controls" : "4. Control en el navegador"}</h2>
         <p>
           {isEn
             ? "You can also configure your browser at any time to block, alert, or delete cookies stored on your device."
@@ -136,4 +136,3 @@ const isEn = localeFromPath(Astro.url.pathname) === "en";
     }
   })();
 </script>
-

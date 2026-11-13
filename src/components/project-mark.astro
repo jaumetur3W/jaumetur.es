@@ -1,0 +1,27 @@
+---
+/** Miniatura de proyecto: su logo sobre su color de marca (no capturas ni esquemas). */
+import { getBrand } from "@/data/project-brand";
+export interface Props { id: string; name?: string; class?: string; eager?: boolean }
+const { id, name = "", class: cls = "", eager = false } = Astro.props;
+const b = getBrand(id);
+const square = b.w === b.h;
+---
+
+<span class:list={["pj-mark relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden", cls]} style={`background:${b.bg}`} data-pattern={b.pattern}>
+  <img
+    src={b.logo}
+    alt={name}
+    width={b.w}
+    height={b.h}
+    loading={eager ? "eager" : "lazy"}
+    decoding="async"
+    class:list={["relative z-[1] object-contain transition-transform duration-500 group-hover:scale-[1.05]", square ? "h-[64%] w-auto" : "w-[68%] h-auto max-h-[70%]"]}
+  />
+</span>
+
+<style is:global>
+  .pj-mark[data-pattern='grid'] { background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 24px 24px; }
+  .pj-mark[data-pattern='dots'] { background-image: radial-gradient(rgba(255,255,255,.14) 1px, transparent 1.4px); background-size: 16px 16px; }
+  .pj-mark[data-pattern='gingham'] { background-image: repeating-linear-gradient(90deg, rgba(216,58,74,.16) 0 14px, transparent 14px 28px), repeating-linear-gradient(0deg, rgba(216,58,74,.16) 0 14px, transparent 14px 28px); }
+  .pj-mark[data-pattern='rule'] { background-image: linear-gradient(rgba(127,127,127,.25) 1px, transparent 1px); background-size: 100% 28px; }
+</style>
