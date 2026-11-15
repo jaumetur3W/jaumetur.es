@@ -147,6 +147,15 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     transform: scaleX(1);
   }
 
+  /* Estado abierto en Móvil: fondo de cabecera sólido translúcido y despliegue del menú */
+  @media (max-width: 767px) {
+    #site-header.is-menu-open {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  }
+
   /* Estado abierto en Desktop: aparecen los enlaces perfectamente alineados en el centro */
   #site-header.is-menu-open #nav-center-menu {
     opacity: 1;
@@ -162,9 +171,16 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     visibility: visible;
   }
 
-  /* Indicador en el botón de hamburguesa al estar abierto */
-  #site-header.is-menu-open .nav-burger-icon {
-    opacity: 0.9;
+  /* Animación del botón de hamburguesa a cruz al estar abierto */
+  #site-header.is-menu-open .nav-burger-icon .line-1 {
+    transform: translateY(7px) rotate(45deg);
+  }
+  #site-header.is-menu-open .nav-burger-icon .line-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  #site-header.is-menu-open .nav-burger-icon .line-3 {
+    transform: translateY(-7px) rotate(-45deg);
   }
 </style>
 

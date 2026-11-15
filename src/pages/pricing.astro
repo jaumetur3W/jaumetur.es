@@ -97,7 +97,7 @@ const breadcrumb = {
     <div class="wrap">
       <h2 id="table-title" class="sr-only">{isEn ? "Price table" : "Tabla de precios"}</h2>
       <div class="glass overflow-x-auto !rounded-[1.25rem] !p-0">
-        <table class="w-full min-w-[46rem] border-collapse text-left text-[0.95rem]">
+        <table class="price-table w-full min-w-[46rem] border-collapse text-left text-[0.95rem]">
           <caption class="sr-only">{isEn ? "Services with creation price, monthly fee, delivery time and first-year total" : "Servicios con precio de creación, cuota mensual, plazo y total del primer año"}</caption>
           <thead>
             <tr class="border-b-[1.5px] border-ink bg-brand">
@@ -116,10 +116,10 @@ const breadcrumb = {
                   <a href={to(`/pricing/${s.id}`)} class="hover:underline">{s.name}</a>
                   {s.isFeatured && <span class="tag ml-2 align-middle">{t.recommended}</span>}
                 </th>
-                <td class="num whitespace-nowrap px-4 py-3.5 text-right font-display text-[1.25rem]">{euro(s.creationPriceNumber)}</td>
-                <td class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{monthly(s.monthlyFeeNumber)}</td>
-                <td class="px-4 py-3.5">{s.timeline}</td>
-                <td class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</td>
+                <td data-label={t.from} class="num whitespace-nowrap px-4 py-3.5 text-right font-display text-[1.25rem]">{euro(s.creationPriceNumber)}</td>
+                <td data-label={isEn ? "Maintenance" : "Mantenimiento"} class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{monthly(s.monthlyFeeNumber)}</td>
+                <td data-label={t.deliver} class="px-4 py-3.5">{s.timeline}</td>
+                <td data-label={t.firstYear} class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{euro(s.creationPriceNumber + 12 * s.monthlyFeeNumber)}</td>
                 <td class="px-4 py-3 text-right"><a href={to(`/contact?servei=${s.id}`)} class="btn btn-brand btn-sm">{isEn ? "Quote" : "Presupuesto"}</a></td>
               </tr>
             ))}
@@ -133,15 +133,15 @@ const breadcrumb = {
   <section class="section" aria-labelledby="fichas-title">
     <div class="wrap">
       <h2 id="fichas-title" class="h-section mb-8">{isEn ? "What each plan includes" : "Qué incluye cada plan"}</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
         {services.map((s, i) => (
-          <article class="card-interactive flex flex-col p-6 sm:p-7 bg-white rounded-2xl border border-ink/15 shadow-xs">
+          <article class="card-interactive min-w-0 w-full flex flex-col p-5 sm:p-7 bg-white rounded-2xl border border-ink/15 shadow-xs">
             <div class="flex items-start justify-between gap-3">
               <p class="label">{isEn ? "Plan" : "Plan"} {String(i + 1).padStart(2, "0")}</p>
               {s.isFeatured && <span class="tag">{t.recommended}</span>}
             </div>
-            <h3 class="mt-4 font-display text-[1.4rem] uppercase leading-[1.02]">{s.name}</h3>
-            <p class="num mt-4 font-display text-[2.4rem] leading-none"><span class="label mr-2 align-middle">{t.from}</span><span class="hl">{euro(s.creationPriceNumber)}</span></p>
+            <h3 class="mt-4 font-display text-[1.25rem] sm:text-[1.4rem] uppercase leading-[1.05]">{s.name}</h3>
+            <p class="num mt-4 font-display text-[2rem] sm:text-[2.4rem] leading-none"><span class="label mr-2 align-middle">{t.from}</span><span class="hl">{euro(s.creationPriceNumber)}</span></p>
             <p class="muted mt-2 text-[0.92rem]">{monthly(s.monthlyFeeNumber)} · {s.timeline}</p>
             <ul class="mt-6 grid gap-2.5">
               {s.features.slice(0, 5).map((f) => (
@@ -185,3 +185,17 @@ const breadcrumb = {
     secondary={{ href: "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20los%20planes%20de%20dise%C3%B1o%20web", label: isEn ? "Ask on WhatsApp" : "Preguntar por WhatsApp", external: true }}
   />
 </Layout>
+
+<style>
+  @media (max-width: 639px) {
+    .price-table, .price-table tbody, .price-table tr, .price-table th, .price-table td { display: block; }
+    .price-table { min-width: 0 !important; }
+    .price-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .price-table tr { display: grid; grid-template-columns: 1fr; gap: 0.5rem; padding: 1.1rem 1rem; }
+    .price-table th[scope="row"] { padding: 0 !important; font-size: 1.05rem; }
+    .price-table td { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0 !important; text-align: right; }
+    .price-table td[data-label]::before { content: attr(data-label); font-family: var(--font-mono, monospace); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.7; }
+    .price-table td:nth-of-type(3) { flex-direction: column; align-items: flex-start; gap: 0.15rem; text-align: left; }
+    .price-table td:last-child { justify-content: flex-start; text-align: left; padding-top: 0.25rem !important; }
+  }
+</style>

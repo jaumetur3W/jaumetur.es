@@ -29,6 +29,7 @@ function splitHeadline(el: HTMLElement) {
           const word = document.createElement("span");
           word.style.display = "inline-block";
           word.style.whiteSpace = "nowrap";
+          word.style.maxWidth = "100%";
           Array.from(part).forEach((ch) => {
             const s = document.createElement("span");
             s.className = "split-char";

@@ -110,22 +110,22 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[serviceSchema, breadcrumb]}>
-  <header class="border-b border-ink/20 pb-12 pt-8 sm:pb-16">
+  <header class="border-b border-ink/20 pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-36">
     <div class="wrap">
       <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm text-ink/70">
         <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.home}</a><span aria-hidden="true">/</span>
         <a href={to("/pricing")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink">{t.services}</a><span aria-hidden="true">/</span>
         <span aria-current="page" class="text-ink">{s.name}</span>
       </nav>
-      <div class="mt-6 grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
-        <div class="lg:col-span-7">
+      <div class="mt-6 grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-14">
+        <div class="lg:col-span-7 min-w-0">
           <p class="chip"><Icon name={s.icon} class="h-4 w-4 text-ink" />{s.badge}</p>
           <h1 class="h-page mt-5">{s.name}</h1>
           <p class="lede mt-6">{s.description}</p>
         </div>
-        <div class="sheet px-6 pb-12 pt-7 lg:col-span-5">
+        <div class="sheet px-5 sm:px-6 pb-10 sm:pb-12 pt-7 lg:col-span-5 min-w-0">
           <p class="label">{t.from}</p>
-          <p class="num font-display text-[4rem] font-extrabold leading-none">{euro(service.creationPriceNumber)}</p>
+          <p class="num font-display text-[2.8rem] sm:text-[4rem] font-extrabold leading-none">{euro(service.creationPriceNumber)}</p>
           <dl class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[#111111]/50 pt-5 text-[0.95rem]">
             <div class="leader-row"><dt>{isEn ? "Maintenance" : "Mantenimiento"}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{monthly(service.monthlyFeeNumber)}</dd></div>
             <div class="leader-row"><dt>{t.deliver}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-bold">{s.timeline}</dd></div>

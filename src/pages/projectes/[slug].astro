@@ -172,12 +172,12 @@ const breadcrumb = {
   .pj-hero[data-pattern='gingham'] { background-image: repeating-linear-gradient(90deg, rgba(216,58,74,.1) 0 22px, transparent 22px 44px), repeating-linear-gradient(0deg, rgba(216,58,74,.1) 0 22px, transparent 22px 44px); }
   .pj-hero[data-pattern='gingham']::after { content: ''; position: absolute; inset: auto 0 0 0; height: 14px; background: repeating-linear-gradient(90deg, #d83a4a 0 14px, #fbf3e2 14px 28px); }
 
-  .pj-title { font-family: var(--pj-ff); font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.02; text-wrap: balance; }
+  .pj-title { font-family: var(--pj-ff); font-size: clamp(1.6rem, 5.2vw, 3.6rem); line-height: 1.05; text-wrap: balance; overflow-wrap: break-word; word-break: break-word; hyphens: auto; }
   .pj-title-sm { font-family: var(--pj-ff); font-size: 1.3rem; line-height: 1.1; }
-  .pj-lede { max-width: 38rem; font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; opacity: 0.92; }
+  .pj-lede { max-width: 38rem; font-size: clamp(0.98rem, 1.4vw, 1.15rem); line-height: 1.6; opacity: 0.92; }
   .pj[data-font='serif'] .pj-title, .pj[data-font='serif'] .pj-title-sm { font-weight: 700; letter-spacing: -0.01em; }
   .pj[data-font='helvetica'] .pj-title, .pj[data-font='helvetica'] .pj-title-sm { font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; }
-  .pj[data-font='wide'] .pj-title, .pj[data-font='wide'] .pj-title-sm { text-transform: uppercase; letter-spacing: 0.06em; }
+  .pj[data-font='wide'] .pj-title, .pj[data-font='wide'] .pj-title-sm { text-transform: uppercase; letter-spacing: 0.04em; }
   .pj[data-font='mono'] .pj-title, .pj[data-font='mono'] .pj-title-sm { font-weight: 700; letter-spacing: -0.02em; }
 
   .pj-chip { display: inline-flex; align-items: center; gap: 0.4rem; border: 1.5px solid currentColor; border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.78rem; font-weight: 600; line-height: 1.2; }
@@ -194,8 +194,12 @@ const breadcrumb = {
 
   /* Cuerpo del caso: titulares y marcas en la tipografía y color del proyecto */
   .pj .prose { --tw-prose-bullets: var(--brand); --tw-prose-counters: var(--brand); }
+  .pj .prose :where(h1, h2, h3, h4, p, li) { overflow-wrap: break-word; word-break: break-word; hyphens: auto; }
   .pj .prose :where(h2, h3, h4) { font-family: var(--pj-ff); }
   .pj .prose :where(h2) { border-bottom: 1px solid rgba(17, 17, 17, 0.12); padding-bottom: .5rem; margin-top: 3.5rem; font-weight: 800; letter-spacing: -0.02em; }
+  @media (max-width: 639px) {
+    .pj .prose :where(h2) { font-size: 1.4rem; line-height: 1.25; }
+  }
   .pj[data-font='helvetica'] .prose :where(h2, h3), .pj[data-font='wide'] .prose :where(h2, h3) { text-transform: uppercase; }
   .pj .prose :where(a) { background-image: linear-gradient(var(--brand), var(--brand)); }
   .pj .prose :where(a):hover { color: var(--on-brand); }
