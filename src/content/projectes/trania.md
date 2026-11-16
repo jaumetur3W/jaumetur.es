@@ -1,43 +1,43 @@
 ---
 draft: false
-title: "TranIA — Plataforma Inteligente de Gestión Deportiva y Rendimiento con IA"
-subtitle: "Ecosistema SaaS integral para gimnasios, centros deportivos y entrenadores: gestión del negocio (TranIA Manager), 6 motores de inteligencia deportiva (TranIA Intelligence) y asistente Coach con IA propia."
-tagline: "Centralización total para el sector deportivo: administración de instalaciones, socios, clases, facturación y planificación deportiva adaptativa con IA soberana."
+title: "TranIA — Plataforma de Gestión Deportiva y Rendimiento"
+subtitle: "Ecosistema SaaS para gimnasios, centros deportivos y entrenadores: gestión del negocio (TranIA Manager) y motores deterministas de inteligencia deportiva con explicaciones razonadas (TranIA Intelligence)."
+tagline: "Centralización total para el sector deportivo: administración de instalaciones, socios, clases, facturación y planificación deportiva adaptativa, sin caja negra."
 icon: "bx:dumbbell"
 color: "emerald"
-role: "Arquitectura SaaS, ingeniería full-stack e integración de IA"
+role: "Arquitectura SaaS, ingeniería full-stack y motores deterministas"
 year: "2026"
 client: "Plataforma SaaS deportiva · Fitness & Athletic Intelligence"
-badge: "SaaS Deportivo · Inteligencia Artificial"
+badge: "SaaS Deportivo · Motores deterministas"
 statLabel: "Ecosistema integral"
-statValue: "Manager + 6 Motores IA + White Label"
+statValue: "Manager + 6 motores deterministas + White Label"
 verificationMethod: "Modelado de datos multi-inquilino, aislamiento modular y especificación determinista de motores de entrenamiento"
-stack: ["SaaS Multi-tenant", "Inteligencia Artificial", "TypeScript", "Node.js", "Arquitectura Modular", "PWA Móvil & Web", "Motores Deportivos Deterministas", "White Label"]
+stack: ["SaaS Multi-tenant", "Python · FastAPI", "PostgreSQL", "React + Vite", "Expo / React Native", "Motores Deportivos Deterministas", "White Label"]
 order: 2
 image: {
   src: "/img/preview-trania.webp",
-  alt: "TranIA — Plataforma inteligente de gestión deportiva y rendimiento con IA"
+  alt: "TranIA — Plataforma de gestión deportiva y rendimiento"
 }
 ---
 
 ## 1. ¿Qué es TranIA? Visión general del ecosistema
 
-**TranIA** es una plataforma inteligente de gestión deportiva de última generación diseñada específicamente para gimnasios, centros deportivos, estudios de entrenamiento funcional y entrenadores personales.
+**TranIA** es una plataforma de gestión deportiva diseñada para gimnasios, centros deportivos, estudios de entrenamiento funcional y entrenadores personales.
 
-Su propósito fundamental es erradicar la fragmentación operativa tradicional unificando en un **único ecosistema tecnológico** la gestión integral del negocio, los socios, el control de instalaciones, los entrenamientos y la monitorización continua del rendimiento deportivo.
+Su propósito es eliminar la fragmentación operativa tradicional unificando en un **único ecosistema tecnológico** la gestión del negocio, los socios, el control de instalaciones, los entrenamientos y el seguimiento del rendimiento deportivo.
 
-La plataforma articula dos grandes dimensiones complementarias:
+La plataforma articula dos dimensiones complementarias:
 
-- **TranIA Manager:** Centro neurálgico de gestión, administración operativa, facturación y gobernanza del gimnasio.
-- **TranIA Intelligence:** Núcleo de inteligencia deportiva, planificación biomecánica y análisis avanzado del rendimiento físico.
+- **TranIA Manager:** Centro de gestión, administración operativa, facturación y gobernanza del gimnasio.
+- **TranIA Intelligence:** Núcleo de inteligencia deportiva: planificación, progresión de cargas y análisis del rendimiento físico.
 
-TranIA está concebida como una plataforma **SaaS personalizable, multi-gimnasio (multi-tenant)** y optimizada para operar con una experiencia fluida tanto en entorno web de escritorio como en aplicaciones móviles y PWA.
+TranIA es una plataforma **SaaS multi-gimnasio (multi-tenant)**, usable desde el navegador y desde una aplicación móvil para socios.
 
 ---
 
 ## 2. TranIA Manager — Gestión y administración del centro deportivo
 
-El módulo de administración proporciona a los propietarios, gerentes y coordinadores un control total sobre las áreas operativas del centro:
+El módulo de administración proporciona a propietarios, gerentes y coordinadores un control completo de las áreas operativas del centro:
 
 <figure class="my-8">
   <img src="/img/real/trania-preview.webp" alt="Panel operativo de TranIA Manager con KPIs de socios activos y clases" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
@@ -45,98 +45,102 @@ El módulo de administración proporciona a los propietarios, gerentes y coordin
 </figure>
 
 ### Socios y clientes
-- **Registro y altas/bajas:** Fichas personales completas con historial unificado de actividad, contratos y estado administrativo.
-- **Control de accesos sin fricción:** Validación de entradas mediante lectura de **código QR dinámico** desde el móvil del socio.
-- **Membresías y renovaciones:** Gestión del ciclo de vida de cuotas, caducidades y asignación personalizada de entrenadores.
-- **Monitorización de asistencia:** Registro en tiempo real de entradas al centro y frecuencia de uso de las instalaciones.
+- **Registro y altas/bajas:** Fichas personales con historial de actividad, contratos y estado administrativo.
+- **Control de accesos:** Validación de entradas mediante lectura de **código QR dinámico** desde el móvil del socio, con rotación del código bajo demanda.
+- **Membresías y renovaciones:** Gestión del ciclo de vida de cuotas, caducidades y asignación de entrenadores.
+- **Monitorización de asistencia:** Registro de entradas al centro y frecuencia de uso.
 
 ### Membresías, facturación y pagos
-- **Tarifas y planes flexibles:** Creación de cuotas recurrentes, pases temporales, bonos de sesiones y promociones.
-- **Cobros automatizados y remesas:** Emisión de facturas y recibos con conciliación bancaria e integración con pasarelas de pago.
-- **Gestión de vencimientos:** Detección proactiva de pagos pendientes, cuotas vencidas y avisos de renovación automática.
-- **Trazabilidad económica:** Historial financiero completo y auditable de cada socio.
+- **Tarifas y planes flexibles:** Cuotas recurrentes, pases, bonos de sesiones y promociones.
+- **Facturación:** Facturas numeradas y recibos en PDF imprimible según RD 1619/2012.
+- **Pagos online:** Cobro mediante Stripe Checkout, con simulador de pagos para pruebas y suscripciones por categoría.
+- **Trazabilidad económica:** Historial financiero de cada socio.
 
 ### Empleados, entrenadores y turnos
-- **Gestión de plantilla:** Administración de perfiles profesionales con sistema granular de roles y permisos.
-- **Asignación y carteras:** Vinculación de socios a entrenadores según especialidad, objetivo y disponibilidad.
-- **Control de turnos y tareas:** Cuadrantes horarios, registro de actividad laboral y seguimiento de tareas diarias del personal.
+- **Gestión de plantilla:** Perfiles profesionales con roles y permisos granulares por gimnasio.
+- **Asignación:** Vinculación de socios a entrenadores.
+- **Horarios y tareas:** Horarios laborales del personal y seguimiento de tareas.
 
 ### Clases y actividades dirigidas
-- **Programación de calendario:** Planificación semanal/mensual de clases colectivas (spinning, pilates, cross-training, etc.).
-- **Reservas de plazas en tiempo real:** Control automático de aforos por sala para evitar masificación.
-- **Listas de espera dinámicas:** Asignación automática de plazas libres tras cancelaciones y registro de asistencia efectiva.
+- **Calendario:** Planificación de clases colectivas con recurrencia semanal.
+- **Reservas con control de aforo:** Reserva de plazas y control de capacidad por sesión.
+- **Listas de espera:** Asignación de plazas libres tras cancelaciones.
 
 ### Instalaciones, equipamiento y mantenimiento
-- **Inventario digital de máquinas:** Catálogo detallado de equipamiento con código de identificación y zona asignada.
-- **Estado operativo y averías:** Reporte inmediato de incidencias técnicas en máquinas y seguimiento de su estado de uso.
-- **Mantenimiento planificado:** Historial de reparaciones, revisiones preventivas programadas y registro de proveedores técnicos.
+- **Inventario de equipamiento:** Catálogo de máquinas e instalaciones por zona.
+- **Averías:** Reporte de incidencias técnicas y seguimiento de su estado.
+- **Mantenimiento:** Historial de mantenimiento y revisiones programadas.
 
 <figure class="my-8">
   <img src="/img/real/trania-exercises.webp" alt="Catálogo de ejercicios y biblioteca biomecánica en TranIA" width="1200" height="750" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
   <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Catálogo biomecánico de ejercicios con clasificación técnica y grupos musculares</figcaption>
 </figure>
 
-### Informes y Business Analytics
-- **Métricas clave en panel único:** Socios activos en tiempo real, tasa de abandono (*churn*), evolución de altas/bajas e ingresos recurrentes.
-- **Ocupación y demanda:** Estadísticas de afluencia por franjas horarias y actividades de mayor rendimiento.
+### Informes y analítica
+- **Panel de métricas:** Socios activos, altas/bajas de los últimos 30 días, ingresos del mes, pagos pendientes y membresías por vencer.
+- **Ocupación:** Aforo actual del centro en tiempo real.
+- **Volumen semanal:** Volumen efectivo por grupo muscular para socio y entrenador, con mapa de calor.
 
 ---
 
-## 3. TranIA Intelligence — Seis motores de cálculo deportivo y Coach IA
+## 3. TranIA Intelligence — Seis motores de cálculo deportivo y explicabilidad
 
-A diferencia de las aplicaciones de fitness convencionales basadas en rutinas genéricas, TranIA sustenta su inteligencia en **seis motores matemáticos y biomecánicos especializados**:
+A diferencia de las aplicaciones de fitness con rutinas genéricas, TranIA basa sus decisiones en **seis motores matemáticos y biomecánicos deterministas**:
 
-<img src="/img/trania-intelligence-esquema.webp" alt="Esquema de arquitectura de TranIA Intelligence: 6 motores deportivos deterministas y asistente Coach IA" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
+<img src="/img/trania-intelligence-esquema.webp" alt="Esquema de arquitectura de TranIA Intelligence: 6 motores deportivos deterministas" width="1200" height="860" loading="lazy" decoding="async" class="w-full h-auto rounded-sm border border-white/15" />
 
-1. **Training Intelligence:** Creación y planificación algorítmica de rutinas personalizadas según el nivel físico, objetivo (fuerza, hipertrofia, resistencia, salud), frecuencia disponible y restricciones anatómicas.
-2. **Performance Tracking:** Registro analítico de sobrecarga progresiva: tonelaje, repeticiones efectivas, cálculo dinámico de 1RM, escala de esfuerzo percibido (RPE) y curvas de rendimiento temporal.
-3. **Recovery Intelligence:** Evaluación de la fatiga del sistema nervioso y muscular, análisis de descanso y cálculo de preparación física (*readiness*) para modular el volumen del siguiente entrenamiento y prevenir el sobreentrenamiento.
-4. **Body Analytics:** Seguimiento biométrico detallado: composición corporal, perímetros musculares, porcentaje graso y evolución dimensional del socio.
-5. **Exercise Intelligence:** Biblioteca técnica con análisis biomecánico de cada movimiento, evaluación de compatibilidad articular y prescripción algorítmica de alternativas ante molestias o limitaciones lesionales.
-6. **Progressive Learning:** Adaptación continua del estímulo basada en la respuesta real registrada de cada individuo, refinando los ritmos de descarga (*deloads*) y los incrementos de carga.
+1. **Training Intelligence:** Generación algorítmica de rutinas según nivel, objetivo (fuerza, hipertrofia, resistencia, salud), frecuencia disponible y limitaciones.
+2. **Performance Tracking:** Registro de sobrecarga progresiva: tonelaje, repeticiones, 1RM estimado (Epley), RPE y curvas de rendimiento.
+3. **Recovery Intelligence:** Estado de adaptación y readiness diario para modular el volumen de la sesión y prevenir el sobreentrenamiento.
+4. **Body Analytics:** Seguimiento de medidas, composición corporal y evolución del socio.
+5. **Exercise Intelligence:** Biblioteca de ejercicios con sustituciones por material disponible (Smart Swap) y compatibilidad con limitaciones.
+6. **Progressive Learning:** Progresión de cargas y periodización mesocíclica con semanas de descarga (*deloads*) basadas en el registro real del socio.
 
-### Asistente inteligente Coach
-TranIA incorpora un asistente conversacional avanzado sustentado en **modelos de IA propios**:
-- Resuelve dudas técnicas sobre ejercicios, descansos y nutrición básica de apoyo.
-- Interpreta y explica al socio la lógica detrás de cada bloque de su rutina.
-- Diagnostica estancamientos y sugiere ajustes metodológicos fundamentados.
-- **Garantía de rigor técnico:** Las decisiones deportivas son calculadas y validadas por los motores matemáticos deterministas de TranIA. La IA actúa como capa de comunicación inteligente, pero **no puede alterar datos arbitrariamente ni saltarse las restricciones de seguridad biomecánica**.
+### Explicabilidad determinista
+Cada recomendación se acompaña de sus motivos, calculados por los motores y sin chat ni modelos de lenguaje:
+- Por qué una rutina asigna ese volumen a cada grupo muscular.
+- Por qué se sube o baja una carga y cuándo se aplica un deload.
+- Por qué la sesión de hoy se adapta según el readiness.
+- Alertas de estancamiento con el histórico del ejercicio y su 1RM estimado.
+- Motivos de cada sustitución de ejercicio según el material disponible (Smart Swap).
 
 ---
 
-## 4. Experiencia del cliente y arquitectura White Label
+## 4. Experiencia del socio y arquitectura White Label
 
-### Aplicación del socio (Web & Móvil)
-Cada cliente disfruta de una aplicación intuitiva e instalable donde puede:
-- Visualizar sus entrenamientos del día con instrucciones técnicas y descansos pautados.
-- Registrar series, pesos levantados y sensaciones serie a serie.
-- Consultar su evolución física mediante gráficas interactivas de fuerza y medidas.
-- Reservar plazas en actividades colectivas con un solo toque.
-- Acceder a su carné digital con **código QR** para acceso al torno del gimnasio.
-- Consultar su estado de cuota, recibos y avisos del centro.
-- Interactuar con el asistente Coach para consultar dudas de su sesión.
+### Aplicación del socio (Web y móvil)
+Cada socio dispone de una aplicación donde puede:
+- Consultar el entrenamiento del día y sustituir ejercicios por otros del material disponible (Smart Swap).
+- Registrar series, pesos y repeticiones, con autocompletado, temporizador de descanso con notificación y modo entrenamiento en vivo.
+- Crear entrenamientos libres y añadir o quitar ejercicios sobre la marcha.
+- Calcular los discos necesarios para cada carga en barra.
+- Consultar su evolución con gráficas de fuerza, medidas y volumen semanal.
+- Importar y exportar su historial desde Hevy o Strong, y exportar sus datos conforme al RGPD (art. 20).
+- Compartir un resumen del entrenamiento con la identidad de su gimnasio.
+- Reservar plazas en clases colectivas.
+- Acceder a su carné digital con **código QR** para el torno del gimnasio.
+- Entrenar sin gimnasio: cuenta personal con espacio privado, sin membresía.
 
 ### Personalización White Label por gimnasio
-Cada centro deportivo proyecta su propia identidad de marca sin costes desorbitados de desarrollo individual:
-- Logotipo, isotipo y nombre comercial propio.
-- Paleta de colores corporativos aplicada en toda la interfaz.
-- Imágenes de bienvenida y banners promocionales propios.
-- Los socios identifican visualmente a su gimnasio al iniciar sesión, preservando la fidelidad de marca bajo una infraestructura tecnológica común de alta disponibilidad.
+Cada centro aplica su identidad de marca sin desarrollo a medida:
+- Logotipo, nombre comercial y paleta de colores aplicados en la interfaz.
+- Los socios ven la identidad de su gimnasio al iniciar sesión.
+- Infraestructura común con datos aislados por gimnasio.
 
 ---
 
 ## 5. Hoja de ruta y funcionalidades de evolución futura
 
-Las siguientes líneas de desarrollo representan la hoja de ruta estratégica para las próximas fases de expansión de TranIA:
+Líneas de desarrollo previstas, todavía no disponibles:
 
-- **A. Plano interactivo del gimnasio:** Mapeo visual e interactivo de las instalaciones con diseño por zonas (peso libre, cardio, maquinaria guiada, salas dirigidas). Permite reorganización *drag-and-drop* de máquinas, cálculo de pasillos de seguridad y consulta del estado de cada puesto sobre el plano.
-- **B. Control económico y financiero avanzado:** Cuadro de mando de rentabilidad en tiempo real con contabilidad de facturación emitida y pendiente, desglose de costes fijos (personal, suministros, licencias) y costes variables de mantenimiento, con proyección de flujo de caja y beneficio neto.
-- **C. Gestión inteligente del mantenimiento:** Trazabilidad integral del ciclo de vida de cada máquina (fecha de compra, garantía, horas de uso estimadas, coste acumulado de recambios y mano de obra) con cálculo comparativo para decidir entre reparación o sustitución.
-- **D. Control de ocupación en tiempo real:** Medición continua de personas dentro del centro y densidad por salas mediante sincronización con tornos QR y compatibilidad con sensores IoT, generando alertas de horas punta y recomendaciones para redistribución de aforo.
-- **E. Compras e inventario:** Gestión de existencias de material de desgaste, equipamiento auxiliar y productos de recepción (bebidas, suplementación), con registro de proveedores y pedidos de reposición automatizados.
-- **F. Gestión documental segura:** Bóveda digital con cifrado y control de permisos para custodiar contratos de socios, contratos de entrenadores, revisiones técnicas reglamentarias de instalaciones y seguros de responsabilidad civil.
-- **G. TranIA Business Intelligence:** Modelos predictivos para la toma de decisiones gerenciales: detección temprana del riesgo de baja de socios (*churn prediction*), análisis de rentabilidad por tipo de membresía y optimización de horarios de clases.
-- **H. Automatizaciones inteligentes:** Flujos automáticos de fidelización para reactivar socios que acumulan días sin acudir, recordatorios automáticos de cuotas por vencer, felicitaciones y alertas técnicas de revisión de maquinaria.
+- **A. Plano interactivo del gimnasio:** Mapa de instalaciones por zonas, con reorganización de máquinas y estado de cada puesto.
+- **B. Control económico avanzado:** Cuadro de mando de rentabilidad con facturación pendiente, costes fijos y variables y proyección de caja.
+- **C. Gestión inteligente del mantenimiento:** Ciclo de vida de cada máquina (garantía, horas de uso, coste acumulado) para decidir entre reparar o sustituir.
+- **D. Ocupación en tiempo real:** Medición de aforo por sala mediante tornos QR y sensores IoT.
+- **E. Compras e inventario:** Existencias de material de desgaste y producto de recepción, con pedidos de reposición.
+- **F. Bóveda documental:** Custodia cifrada de contratos, revisiones reglamentarias y seguros.
+- **G. TranIA Business Intelligence:** Modelos predictivos de riesgo de baja y rentabilidad por tipo de membresía.
+- **H. Automatizaciones de fidelización:** Avisos a socios inactivos, recordatorios de cuotas y alertas de revisión de maquinaria.
 
 ---
 
@@ -147,33 +151,30 @@ Las siguientes líneas de desarrollo representan la hoja de ruta estratégica pa
   <figcaption class="mt-2 text-center text-xs font-mono text-[#a3a39b]">// Panel de gestión multi-inquilino de centros deportivos y franquicias en TranIA</figcaption>
 </figure>
 
-TranIA está planteada para responder a las necesidades de gimnasios de cualquier escala:
-
-- **TranIA Estándar:** Acceso a la plataforma bajo la identidad visual de TranIA, ideal para estudios de entrenamiento personal y centros boutique.
-- **TranIA Personalizada (White Label):** Personalización estética integral con la marca del gimnasio en web y aplicación móvil.
-- **Planes de suscripción escalonados:**
-  - **Free:** Funcionalidades esenciales para entrenadores independientes o centros pequeños.
-  - **Pro:** Gestión completa del centro, facturación automatizada y motores de inteligencia deportiva.
-  - **Elite:** Capacidades avanzadas de Business Intelligence, White Label total, automatizaciones avanzadas y soporte preferente.
-- **Despliegue en VPS independiente:** Capacidad de desplegar instalaciones aisladas en servidores dedicados o VPS para grandes franquicias que exijan estricto aislamiento de base de datos.
+- **TranIA Estándar:** Acceso con la identidad visual de TranIA.
+- **TranIA Personalizada (White Label):** Identidad del gimnasio en web y aplicación móvil.
+- **Planes:**
+  - **Free:** hasta 50 socios y 2 entrenadores, gestión esencial.
+  - **Pro:** hasta 250 socios y 10 entrenadores, inteligencia deportiva, seguimiento y bienestar.
+  - **Elite:** socios y entrenadores ilimitados, analítica avanzada.
+- **Límites por plan:** al alcanzar la cuota de socios o entrenadores, el sistema bloquea nuevas altas hasta ampliar el plan.
+- **Despliegue en VPS independiente:** Instalaciones aisladas para franquicias con requisitos de aislamiento de base de datos.
 
 ---
 
 ## 7. Filosofía de ingeniería y arquitectura tecnológica
 
-TranIA se rige por principios de ingeniería de software enfocados en la solidez y la longevidad del producto:
-
-- **Base de código unificada (Single Codebase):** Mantenimiento simplificado y evolución continua sin divergencias ni bifurcaciones frágiles.
-- **Arquitectura desacoplada y modular:** Clara separación funcional entre la capa de administración de negocio (TranIA Manager) y los motores de cálculo (TranIA Intelligence).
-- **Aislamiento estricto de datos:** Modelo multi-inquilino seguro con partición lógica de datos que garantiza la privacidad absoluta entre gimnasios competidores.
-- **IA soberana y controlada:** Modelos de inteligencia artificial alojados en infraestructura propia controlada, garantizando la privacidad de los datos de salud de los socios.
-- **Determinismo deportivo:** La IA asiste y explica, pero las matemáticas del entrenamiento y la biomecánica están gobernadas por algoritmos deterministas contrastados.
-- **Sobriedad tecnológica:** Cero dependencias innecesarias; priorización de rendimiento nativo, tiempos de respuesta instantáneos y contención de costes de servidor.
+- **Base de código unificada:** Un único código para web, backend y motores, sin ramas divergentes.
+- **Arquitectura modular:** Separación entre la gestión del negocio (TranIA Manager) y los motores de cálculo (TranIA Intelligence), que son Python puro sin dependencias de base de datos ni de interfaz.
+- **Aislamiento estricto de datos:** Modelo multi-inquilino con partición lógica por gimnasio.
+- **Determinismo deportivo:** Cada decisión de entrenamiento se calcula con algoritmos verificables y se explica al socio. No se usa IA generativa ni APIs externas de IA.
+- **Privacidad y RGPD:** Exportación de datos (art. 20) y derecho de supresión (art. 17) para los datos de salud de los socios.
+- **Sobriedad tecnológica:** Pocas dependencias, rendimiento nativo y coste de servidor contenido: PostgreSQL y Uvicorn ajustados para funcionar con 4 GB de RAM.
 
 ---
 
 ## 8. Visión final
 
-TranIA nace para superar la dicotomía tradicional entre los programas administrativos y las aplicaciones de entrenamiento. Representa un ecosistema holístico donde la eficiencia en la gestión del negocio potencia directamente los resultados físicos del socio.
+TranIA nace para superar la separación entre los programas administrativos y las aplicaciones de entrenamiento. Es un ecosistema donde la eficiencia en la gestión del negocio se traduce directamente en la evolución física del socio.
 
 **TranIA: gestión inteligente del gimnasio y evolución inteligente del entrenamiento.**
