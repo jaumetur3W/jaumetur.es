@@ -46,6 +46,7 @@ El módulo de administración proporciona a propietarios, gerentes y coordinador
 
 ### Socios y clientes
 - **Registro y altas/bajas:** Fichas personales con historial de actividad, contratos y estado administrativo.
+- **Importación desde otras plataformas:** Carga de socios y pagos históricos desde CSV exportados de Glofox, Mindbody o Excel, sin duplicar socios con el mismo email.
 - **Control de accesos:** Validación de entradas mediante lectura de **código QR dinámico** desde el móvil del socio, con rotación del código bajo demanda.
 - **Membresías y renovaciones:** Gestión del ciclo de vida de cuotas, caducidades y asignación de entrenadores.
 - **Monitorización de asistencia:** Registro de entradas al centro y frecuencia de uso.
@@ -154,6 +155,7 @@ Líneas de desarrollo previstas, todavía no disponibles:
 - **TranIA Estándar:** Acceso con la identidad visual de TranIA.
 - **TranIA Personalizada (White Label):** Identidad del gimnasio en web y aplicación móvil.
 - **Planes:**
+  - **Solo (35 €/mes):** para entrenadores personales. Hasta 30 clientes y 1 entrenador, con motores de entrenamiento y sin módulos de gestión de gimnasio.
   - **Free:** hasta 50 socios y 2 entrenadores, gestión esencial.
   - **Pro:** hasta 250 socios y 10 entrenadores, inteligencia deportiva, seguimiento y bienestar.
   - **Elite:** socios y entrenadores ilimitados, analítica avanzada.

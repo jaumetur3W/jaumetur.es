@@ -46,6 +46,7 @@ The administrative module gives owners, managers and coordinators full control o
 
 ### Members & Clients
 - **Registration & lifecycle:** Individual profiles with activity history, contracts and administrative status.
+- **Import from other platforms:** Load members and historical payments from CSV exports of Glofox, Mindbody or Excel, without duplicating members with the same email.
 - **Access control:** Entrance validation by scanning a **dynamic QR code** on the member's phone, with on-demand code rotation.
 - **Memberships & renewals:** Management of dues, expiry dates and trainer assignment.
 - **Attendance tracking:** Check-in logging and visit frequency.
@@ -154,6 +155,7 @@ Planned development lines, not yet available:
 - **TranIA Standard:** Uses TranIA's visual identity.
 - **TranIA Custom (White Label):** Gym's own identity across web and mobile.
 - **Plans:**
+  - **Solo (35 €/month):** for personal trainers. Up to 30 clients and 1 trainer, with training engines and without gym-management modules.
   - **Free:** up to 50 members and 2 trainers, essential management.
   - **Pro:** up to 250 members and 10 trainers, sports intelligence, tracking and wellness.
   - **Elite:** unlimited members and trainers, advanced analytics.

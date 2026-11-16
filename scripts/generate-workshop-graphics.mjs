@@ -21,7 +21,7 @@ function generateSchemaSvg(lang) {
   const rawT = isEn ? {
     techLabel: "// TECHNICAL ARCHITECTURE · ATHLETIC INTELLIGENCE SYSTEM",
     mainTitle: "TRANIA INTELLIGENCE",
-    mainSub: "— BIOMECHANICAL ENGINES & AI COACH",
+    mainSub: "— BIOMECHANICAL ENGINES & EXPLAINABILITY",
     badgeStamp: "[ 6 DETERMINISTIC ENGINES ]",
     coreHeader: "ATHLETIC INTELLIGENCE CORE · TRANIA CORE",
     coreSub: "Algorithmic biomechanical supervision, continuous load calculation & multi-tenant isolation.",
@@ -45,23 +45,23 @@ function generateSchemaSvg(lang) {
     e6Tag: "[ ENGINE 06 ]", e6Title: "Progressive Learning",
     e6p1: "• Verified individual adaptation calibration", e6p2: "• Algorithmic deload scheduling", e6p3: "• Microcycle stimulus auto-regulation",
     e6Badge: "Continuous Adaptation",
-    gateLabel: "▼ MANDATORY DETERMINISTIC VALIDATION GATE · BIOMECHANICAL SAFETY ▼",
-    gateRule: "Strict Rule: No AI output can bypass or override the mathematical calculations of the 6 engines.",
-    coachTitle: "AI ATHLETIC COACH ASSISTANT",
-    coachSub: "Natural language conversational layer & contextual workout explanations",
-    coachBadge: "[ SOVEREIGN AI · PRIVATE HOSTING ]",
-    coachCol1Title: "CONVERSATIONAL CAPABILITIES",
-    coachCol1p1: "1. Resolves technical queries on execution, form & rest intervals.",
-    coachCol1p2: "2. Explains the biomechanical rationale behind each set and exercise.",
-    coachCol1p3: "3. Identifies training plateaus and drafts adjustment proposals.",
-    coachCol2Title: "DETERMINISTIC SAFETY ASSURANCE",
-    coachCol2p1: "• The AI operates solely as an intuitive natural language interface.",
-    coachCol2p2: "• Absolute determinism: physical prescriptions are computed by engines.",
-    coachCol2p3: "• Health data privacy: biometric records never leave the private host.",
+    gateLabel: "▼ DETERMINISTIC VALIDATION · BIOMECHANICAL SAFETY ▼",
+    gateRule: "Rule: every recommendation is computed by the 6 engines and explained with its reasons.",
+    coachTitle: "DETERMINISTIC EXPLAINABILITY LAYER",
+    coachSub: "Reasons for every routine, load and session adjustment, computed without chat or AI models",
+    coachBadge: "[ NO GENERATIVE AI ]",
+    coachCol1Title: "EXPLAINED RECOMMENDATIONS",
+    coachCol1p1: "1. Why each routine assigns that volume to each muscle group.",
+    coachCol1p2: "2. Why a load goes up or down, and when a deload applies.",
+    coachCol1p3: "3. Why today's session adapts to readiness, and plateau alerts with 1RM.",
+    coachCol2Title: "TECHNICAL SAFETY GUARANTEE",
+    coachCol2p1: "• No chat and no language models: reasons are computed by the engines.",
+    coachCol2p2: "• Determinism: same data, same prescription and same reasons.",
+    coachCol2p3: "• GDPR (Art. 17 and 20): health data export and erasure.",
   } : {
     techLabel: "// ESQUEMA TÉCNICO · SISTEMA DE INTELIGENCIA DEPORTIVA",
     mainTitle: "TRANIA INTELLIGENCE",
-    mainSub: "— NÚCLEO BIOMECÁNICO Y COACH IA",
+    mainSub: "— NÚCLEO BIOMECÁNICO Y EXPLICABILIDAD",
     badgeStamp: "[ 6 MOTORES DETERMINISTAS ]",
     coreHeader: "NÚCLEO DE INTELIGENCIA DEPORTIVA · TRANIA CORE",
     coreSub: "Supervisión algorítmica biomecánica, cálculo continuo de cargas y aislamiento multi-inquilino.",
@@ -85,19 +85,19 @@ function generateSchemaSvg(lang) {
     e6Tag: "[ MOTOR 06 ]", e6Title: "Progressive Learning",
     e6p1: "• Ajuste continuo según respuesta individual", e6p2: "• Calibración de ritmos de descarga (Deload)", e6p3: "• Auto-regulación del estímulo por microciclos",
     e6Badge: "Adaptación Continua",
-    gateLabel: "▼ FILTRO DE VALIDACIÓN OBLIGATORIA · SEGURIDAD BIOMECÁNICA ▼",
-    gateRule: "Regla inquebrantable: Ninguna salida de la IA puede omitir o contradecir el cálculo matemático de los 6 motores.",
-    coachTitle: "ASISTENTE DEPORTIVO COACH IA",
-    coachSub: "Capa de interacción en lenguaje natural y explicación contextual de rutinas",
-    coachBadge: "[ IA SOBERANA · HOSPEDAJE PROPIO ]",
-    coachCol1Title: "FUNCIONES CONVERSACIONALES",
-    coachCol1p1: "1. Resuelve dudas biomecánicas sobre técnica, ejecución y descansos.",
-    coachCol1p2: "2. Explica al socio la justificación metodológica de cada serie y bloque.",
-    coachCol1p3: "3. Diagnostica estancamientos y propone ajustes a los motores deportivos.",
+    gateLabel: "▼ VALIDACIÓN DETERMINISTA · SEGURIDAD BIOMECÁNICA ▼",
+    gateRule: "Regla: cada recomendación la calculan los 6 motores y se explica con sus motivos.",
+    coachTitle: "CAPA DE EXPLICABILIDAD DETERMINISTA",
+    coachSub: "Motivos de cada rutina, carga y ajuste de sesión, calculados sin chat ni modelos de IA",
+    coachBadge: "[ SIN IA GENERATIVA ]",
+    coachCol1Title: "RECOMENDACIONES EXPLICADAS",
+    coachCol1p1: "1. Por qué cada rutina asigna ese volumen a cada grupo muscular.",
+    coachCol1p2: "2. Por qué sube o baja una carga y cuándo aplica un deload.",
+    coachCol1p3: "3. Por qué la sesión se adapta al readiness y alertas de estancamiento (1RM).",
     coachCol2Title: "GARANTÍA DE SEGURIDAD TÉCNICA",
-    coachCol2p1: "• La IA actúa únicamente como interfaz en lenguaje natural.",
-    coachCol2p2: "• Determinismo absoluto: la prescripción física la calculan los motores.",
-    coachCol2p3: "• Privacidad de datos de salud: los registros biométricos no salen del VPS.",
+    coachCol2p1: "• Sin chat y sin modelos de lenguaje: los motivos los calculan los motores.",
+    coachCol2p2: "• Determinismo: mismos datos, misma prescripción y mismos motivos.",
+    coachCol2p3: "• RGPD (arts. 17 y 20): exportación y supresión de datos de salud.",
   };
 
   const t = sanitizeObj(rawT);
@@ -251,7 +251,7 @@ function generateSchemaSvg(lang) {
 
   <line x1="600" y1="600" x2="600" y2="620" stroke="#ffff00" stroke-width="1.5"/>
 
-  <!-- LEVEL 5: ASISTENTE COACH IA -->
+  <!-- LEVEL 5: CAPA DE EXPLICABILIDAD -->
   <g transform="translate(60, 620)">
     <rect width="1080" height="195" rx="3" fill="#141412" stroke="rgba(255, 255, 240, 0.28)" stroke-width="1"/>
     
@@ -320,14 +320,14 @@ function generatePreviewSvg() {
   <!-- Top Bar -->
   <g transform="translate(60, 42)">
     <text x="0" y="16" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="11" font-weight="700" fill="#ffff00" letter-spacing="1.5">// PLATAFORMA SAAS DEPORTIVA · FIT &amp; ATHLETIC INTELLIGENCE</text>
-    <text x="0" y="46" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff" letter-spacing="-0.5">TRAN<tspan fill="#ffff00">IA</tspan> <tspan font-size="17" fill="#a3a39b" font-weight="600">— GESTIÓN INTELIGENTE DEL GIMNASIO &amp; RENDIMIENTO CON IA</tspan></text>
+    <text x="0" y="46" font-family="'Bricolage Grotesque', system-ui, sans-serif" font-size="28" font-weight="900" fill="#ffffff" letter-spacing="-0.5">TRAN<tspan fill="#ffff00">IA</tspan> <tspan font-size="17" fill="#a3a39b" font-weight="600">— GESTIÓN DEL GIMNASIO &amp; RENDIMIENTO DETERMINISTA</tspan></text>
 
     <!-- Top Workshop Badges -->
     <rect x="850" y="20" width="130" height="26" rx="2" fill="#ffff00"/>
     <text x="915" y="37" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" fill="#0b0b09">MULTI-TENANT</text>
 
     <rect x="990" y="20" width="110" height="26" rx="2" fill="#141412" stroke="#ffff00" stroke-width="1"/>
-    <text x="1045" y="37" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#ffff00">COACH IA</text>
+    <text x="1045" y="37" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#ffff00">EXPLICABLE</text>
   </g>
 
   <!-- Divider -->
@@ -423,7 +423,7 @@ function generatePreviewSvg() {
 
     <!-- Header -->
     <text x="24" y="34" font-family="'Bricolage Grotesque', sans-serif" font-size="18" font-weight="800" fill="#ffffff">TRANIA INTELLIGENCE</text>
-    <text x="24" y="52" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="12" fill="#a3a39b">6 Motores Deterministas + Asistente Deportivo Coach IA</text>
+    <text x="24" y="52" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="12" fill="#a3a39b">6 Motores Deterministas + Explicabilidad sin chat</text>
     <line x1="24" y1="64" x2="501" y2="64" stroke="rgba(255, 255, 240, 0.12)" stroke-width="1"/>
 
     <!-- 6 Motors Compact Grid (2 cols x 3 rows) -->
@@ -475,32 +475,32 @@ function generatePreviewSvg() {
       <text x="12" y="54" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="10.5" fill="#a3a39b">Adaptación continua por socio</text>
     </g>
 
-    <!-- Coach IA Panel at bottom (Presupuesto de taller workshop box) -->
+    <!-- Explainability panel at bottom (Presupuesto de taller workshop box) -->
     <g transform="translate(24, 308)">
       <rect width="477" height="248" rx="2" fill="#1c1c19" stroke="#ffff00" stroke-width="1.2"/>
-      
-      <!-- Top stamp tag inside coach -->
-      <rect x="0" y="0" width="477" height="30" fill="#ffff00"/>
-      <text x="16" y="20" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="800" fill="#0b0b09">ASISTENTE DEPORTIVO COACH IA // CONVERSACIONAL</text>
 
-      <!-- Simulated terminal dialog -->
+      <!-- Top stamp tag inside panel -->
+      <rect x="0" y="0" width="477" height="30" fill="#ffff00"/>
+      <text x="16" y="20" font-family="'JetBrains Mono', monospace" font-size="10.5" font-weight="800" fill="#0b0b09">EXPLICABILIDAD DETERMINISTA // GET /me/explain/routine</text>
+
+      <!-- Simulated explain output -->
       <g transform="translate(16, 46)">
         <text x="0" y="16" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#ffff00">&gt; CONSULTA SOCIO:</text>
-        <text x="0" y="34" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#ffffff">"Estancamiento detectado en banca tras 4 semanas de progresión."</text>
+        <text x="0" y="34" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#ffffff">"Estancamiento detectado en press banca tras 4 semanas de progresión."</text>
 
         <line x1="0" y1="46" x2="445" y2="46" stroke="rgba(255, 255, 240, 0.12)" stroke-width="1" stroke-dasharray="2,2"/>
 
-        <text x="0" y="64" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#ffffff">&gt; RESPUESTA VALIDADA POR MOTOR RECOVERY:</text>
-        <text x="0" y="82" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#d2d2cb">• Fatiga acumulada en deltoides anterior (Score: 78/100).</text>
-        <text x="0" y="98" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#d2d2cb">• Prescripción matemática: Descarga del 12% durante 5 días.</text>
-        <text x="0" y="114" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#d2d2cb">• Ajuste de ejercicio: Variante inclinada 30° recomendada.</text>
+        <text x="0" y="64" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#ffffff">&gt; MOTIVOS CALCULADOS POR LOS MOTORES:</text>
+        <text x="0" y="82" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#d2d2cb">• 1RM estimado (Epley) sin mejora durante 4 semanas.</text>
+        <text x="0" y="98" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#d2d2cb">• Readiness 78/100: descarga del 12% durante 5 días.</text>
+        <text x="0" y="114" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="11.5" fill="#d2d2cb">• Smart Swap: variante inclinada por material disponible.</text>
       </g>
 
-      <!-- Security guarantee banner -->
+      <!-- Determinism banner -->
       <g transform="translate(16, 188)">
         <rect width="445" height="42" rx="2" fill="#0b0b09" stroke="rgba(255, 255, 240, 0.2)" stroke-width="1"/>
-        <text x="222" y="18" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="800" fill="#ffff00">🔒 VALIDACIÓN DETERMINISTA OBLIGATORIA</text>
-        <text x="222" y="32" text-anchor="middle" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="10.5" fill="#a3a39b">La IA no altera datos directamente; toda orden pasa por los 6 motores.</text>
+        <text x="222" y="18" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="800" fill="#ffff00">MISMOS DATOS, MISMO RESULTADO</text>
+        <text x="222" y="32" text-anchor="middle" font-family="'Atkinson Hyperlegible Next', sans-serif" font-size="10.5" fill="#a3a39b">Sin IA generativa: cada motivo se calcula con algoritmos verificables.</text>
       </g>
     </g>
   </g>

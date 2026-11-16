@@ -1,0 +1,101 @@
+---
+// Calculadora de ahorro: el visitante introduce cuánto paga hoy por su software y TranIA le indica el plan y el ahorro.
+// Precios en EUR/mes, alineados con backend/app/core/plans_config.py del repo trania.
+interface Props { isEn?: boolean }
+const { isEn = false } = Astro.props;
+const t = isEn
+  ? {
+      title: "How much would TranIA save you?",
+      intro: "Enter what you pay today for your management software and your member count. We suggest a plan and show the monthly saving.",
+      members: "Active members or clients",
+      trainer: "I am a personal trainer (no gym)",
+      current: "Current monthly cost (€)",
+      suggested: "Suggested TranIA plan",
+      traniaCost: "TranIA cost per month",
+      saving: "Saving per month",
+      yearly: "Saving per year",
+      noSaving: "At this price TranIA does not save money yet. The plan is still the one that fits your size.",
+      disclaimer: "Estimate only. Prices excl. VAT, billed monthly. Free plan up to 50 members.",
+      names: { free: "Free", solo: "Solo", pro: "Pro", elite: "Elite" },
+    }
+  : {
+      title: "¿Cuánto te ahorraría TranIA?",
+      intro: "Indica cuánto pagas hoy por tu software de gestión y cuántos socios tienes. Te sugerimos un plan y te mostramos el ahorro mensual.",
+      members: "Socios o clientes activos",
+      trainer: "Soy entrenador personal (sin gimnasio)",
+      current: "Coste mensual actual (€)",
+      suggested: "Plan TranIA sugerido",
+      traniaCost: "Coste de TranIA al mes",
+      saving: "Ahorro al mes",
+      yearly: "Ahorro al año",
+      noSaving: "A este precio TranIA todavía no ahorra. El plan indicado es el que encaja con tu tamaño.",
+      disclaimer: "Solo una estimación. Precios sin IVA, facturación mensual. El plan Free incluye hasta 50 socios.",
+      names: { free: "Free", solo: "Solo", pro: "Pro", elite: "Elite" },
+    };
+---
+
+<section class="tcalc my-12 rounded-sm border border-white/15 p-6 md:p-8" data-tcalc>
+  <h3 class="text-xl font-semibold text-ink">{t.title}</h3>
+  <p class="mt-2 text-sm text-[#3d3d39]">{t.intro}</p>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
+    <label class="flex flex-col gap-1 text-sm text-[#3d3d39]">
+      {t.members}
+      <input data-members type="number" min="0" step="1" value="40" class="rounded-sm border border-white/20 bg-transparent px-3 py-2 text-ink" />
+    </label>
+    <label class="flex flex-col gap-1 text-sm text-[#3d3d39]">
+      {t.current}
+      <input data-current type="number" min="0" step="0.01" value="89" class="rounded-sm border border-white/20 bg-transparent px-3 py-2 text-ink" />
+    </label>
+    <label class="flex items-center gap-2 text-sm text-[#3d3d39] md:col-span-2">
+      <input data-trainer type="checkbox" class="h-4 w-4" />
+      {t.trainer}
+    </label>
+  </div>
+
+  <dl class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div><dt class="label">{t.suggested}</dt><dd class="mt-1 text-lg font-semibold text-ink" data-plan>—</dd></div>
+    <div><dt class="label">{t.traniaCost}</dt><dd class="mt-1 text-lg font-semibold text-ink" data-cost>—</dd></div>
+    <div><dt class="label">{t.saving}</dt><dd class="mt-1 text-lg font-semibold text-ink" data-saving>—</dd></div>
+    <div><dt class="label">{t.yearly}</dt><dd class="mt-1 text-lg font-semibold text-ink" data-yearly>—</dd></div>
+  </dl>
+  <p class="mt-4 text-sm text-[#3d3d39]" data-note></p>
+  <p class="mt-4 text-xs text-[#6b6b66]">{t.disclaimer}</p>
+</section>
+
+<script define:vars={{ names: t.names, noSaving: t.noSaving, isEn }}>
+  const PLANS = {
+    free: { price: 0, max: 50 },
+    solo: { price: 35, max: 30 },
+    pro: { price: 49, max: 250 },
+    elite: { price: 99, max: Infinity },
+  };
+  const fmt = (n) => new Intl.NumberFormat(isEn ? "en-GB" : "es-ES", { style: "currency", currency: "EUR" }).format(n);
+
+  // Plan sugerido: entrenador personal con hasta 30 clientes -> Solo; si no, el plan más barato que admite los socios.
+  function suggest(members, trainer) {
+    if (trainer && members <= PLANS.solo.max) return "solo";
+    if (members <= PLANS.free.max) return "free";
+    if (members <= PLANS.pro.max) return "pro";
+    return "elite";
+  }
+
+  document.querySelectorAll("[data-tcalc]").forEach((root) => {
+    const $ = (sel) => root.querySelector(sel);
+    const update = () => {
+      const members = Math.max(0, Math.floor(Number($("[data-members]").value) || 0));
+      const current = Math.max(0, Number($("[data-current]").value) || 0);
+      const trainer = $("[data-trainer]").checked;
+      const key = suggest(members, trainer);
+      const cost = PLANS[key].price;
+      const saving = current - cost;
+      $("[data-plan]").textContent = names[key];
+      $("[data-cost]").textContent = fmt(cost);
+      $("[data-saving]").textContent = fmt(saving);
+      $("[data-yearly]").textContent = fmt(saving * 12);
+      $("[data-note]").textContent = saving > 0 ? "" : noSaving;
+    };
+    root.querySelectorAll("input").forEach((el) => el.addEventListener("input", update));
+    update();
+  });
+</script>
