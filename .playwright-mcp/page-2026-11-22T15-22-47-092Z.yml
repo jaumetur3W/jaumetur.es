@@ -1,0 +1,415 @@
+- generic [active] [ref=e1]:
+  - link "Saltar al contenido principal" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "jaume tur — inicio" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: jaumetur.es
+      - generic [ref=e7]:
+        - button "Mostrar u ocultar menú" [ref=e8] [cursor=pointer]
+        - group "Idioma" [ref=e13]:
+          - link "ES" [ref=e14] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e15]: /
+          - link "EN" [ref=e16] [cursor=pointer]:
+            - /url: /en/
+  - main [ref=e17]:
+    - region "Tu web. Tu código.Tus cuentas." [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - paragraph [aria-hidden] [ref=e21]: hola, soy Jaume ↓
+          - heading "Tu web. Tu código.Tus cuentas." [level=1] [ref=e22]:
+            - generic [ref=e23]:
+              - generic [aria-hidden] [ref=e24]: T
+              - generic [aria-hidden] [ref=e25]: u
+            - generic [ref=e26]:
+              - generic [aria-hidden] [ref=e27]: w
+              - generic [aria-hidden] [ref=e28]: e
+              - generic [aria-hidden] [ref=e29]: b
+              - generic [aria-hidden] [ref=e30]: .
+            - generic [ref=e31]:
+              - generic [ref=e32]:
+                - generic [aria-hidden] [ref=e33]: T
+                - generic [aria-hidden] [ref=e34]: u
+              - generic [ref=e35]:
+                - generic [aria-hidden] [ref=e36]: c
+                - generic [aria-hidden] [ref=e37]: ó
+                - generic [aria-hidden] [ref=e38]: d
+                - generic [aria-hidden] [ref=e39]: i
+                - generic [aria-hidden] [ref=e40]: g
+                - generic [aria-hidden] [ref=e41]: o
+                - generic [aria-hidden] [ref=e42]: .
+            - generic [ref=e45]:
+              - generic [ref=e46]:
+                - generic [aria-hidden] [ref=e47]: T
+                - generic [aria-hidden] [ref=e48]: u
+                - generic [aria-hidden] [ref=e49]: s
+              - generic [ref=e50]:
+                - generic [aria-hidden] [ref=e51]: c
+                - generic [aria-hidden] [ref=e52]: u
+                - generic [aria-hidden] [ref=e53]: e
+                - generic [aria-hidden] [ref=e54]: "n"
+                - generic [aria-hidden] [ref=e55]: t
+                - generic [aria-hidden] [ref=e56]: a
+                - generic [aria-hidden] [ref=e57]: s
+                - generic [aria-hidden] [ref=e58]: .
+          - paragraph [ref=e59]: Páginas web y aplicaciones a medida hechas por quien te atiende. Sin plataformas cautivas ni intermediarios.
+          - generic [ref=e60]:
+            - link "Pedir presupuesto" [ref=e61] [cursor=pointer]:
+              - /url: /contact/
+              - text: Pedir presupuesto
+              - generic [aria-hidden] [ref=e62]: →
+            - link "Ver servicios y precios" [ref=e63] [cursor=pointer]:
+              - /url: "#servicios"
+          - paragraph [ref=e64]:
+            - text: Respuesta en menos de 24 horas laborables.
+            - generic [aria-hidden] [ref=e65]: ← en serio
+        - 'img "Proyectos desarrollados por Jaume Tur: AVISA, Worksy y Trania en iMac, portátil y smartphone" [ref=e68]'
+    - region "Trabajo que puedes abrir y probar." [ref=e69]:
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - heading "Trabajo que puedes abrir y probar." [level=2] [ref=e73]
+            - paragraph [ref=e74]: Proyectos reales. Las demos con datos de ejemplo están indicadas como tales.
+            - generic [aria-hidden] [ref=e75]: (desordenado a propósito)
+          - link "Todos los proyectos" [ref=e76] [cursor=pointer]:
+            - /url: /projectes/
+            - text: Todos los proyectos
+            - generic [aria-hidden] [ref=e77]: →
+        - list [ref=e78]:
+          - listitem [ref=e79]:
+            - article [ref=e80]:
+              - link [aria-hidden] [ref=e81] [cursor=pointer]:
+                - /url: /projectes/avisa/
+                - generic [ref=e84]: Aplicación web · PWA Móvil
+              - generic [ref=e85]:
+                - paragraph [ref=e86]: Nº 01
+                - heading [level=3] [ref=e87]:
+                  - link "AVISA" [ref=e88] [cursor=pointer]:
+                    - /url: /projectes/avisa/
+                - paragraph [ref=e89]: Aplicación web y PWA con Angular 18 para conectar clientes y comunidades con profesionales verificados de reformas, instalaciones y mantenimiento.
+                - paragraph [ref=e90]: Angular 18 · TypeScript 5.4 · PWA Service Worker
+            - generic [aria-hidden] [ref=e91]: carga en < 1 s
+          - listitem [ref=e92]:
+            - article [ref=e93]:
+              - link [aria-hidden] [ref=e94] [cursor=pointer]:
+                - /url: /projectes/pizzeria-xativa/
+                - generic [ref=e97]: Demo interactiva · datos ficticios
+              - generic [ref=e98]:
+                - paragraph [ref=e99]: Nº 02
+                - heading [level=3] [ref=e100]:
+                  - link "Pizzería Xàtiva" [ref=e101] [cursor=pointer]:
+                    - /url: /projectes/pizzeria-xativa/
+                - paragraph [ref=e102]: Plantilla demostrativa de una pizzería con carta digital, cesta y un prototipo de fidelización Pizza Pass con sellos visuales y vistas para Apple Wallet y Google Wallet.
+                - paragraph [ref=e103]: HTML5 · Tailwind CSS CDN · JavaScript vanilla
+            - generic [aria-hidden] [ref=e104]: cartas sin PDFs
+          - listitem [ref=e105]:
+            - article [ref=e106]:
+              - link [aria-hidden] [ref=e107] [cursor=pointer]:
+                - /url: /projectes/trania/
+                - generic [ref=e110]: SaaS Deportivo · Motores deterministas
+              - generic [ref=e111]:
+                - paragraph [ref=e112]: Nº 03
+                - heading [level=3] [ref=e113]:
+                  - link "TranIA" [ref=e114] [cursor=pointer]:
+                    - /url: /projectes/trania/
+                - paragraph [ref=e115]: "Ecosistema SaaS para gimnasios, centros deportivos y entrenadores: gestión del negocio (TranIA Manager) y motores deterministas de inteligencia deportiva con explicaciones razonadas (TranIA Intelligence)."
+                - paragraph [ref=e116]: SaaS Multi-tenant · Python · FastAPI · PostgreSQL
+            - generic [aria-hidden] [ref=e117]: ahorro a la vista
+          - listitem [ref=e118]:
+            - article [ref=e119]:
+              - link [aria-hidden] [ref=e120] [cursor=pointer]:
+                - /url: /projectes/worksy/
+                - generic [ref=e123]: SaaS Empresarial · RR. HH. & Productividad
+              - generic [ref=e124]:
+                - paragraph [ref=e125]: Nº 04
+                - heading [level=3] [ref=e126]:
+                  - link "Worksy" [ref=e127] [cursor=pointer]:
+                    - /url: /projectes/worksy/
+                - paragraph [ref=e128]: "Ecosistema SaaS multi-tenant para empresas: gestión de personas (WorkFlow HR), control horario legal, WorkFlow Mail unificado, centro de aplicaciones (WorkFlow Hub) y asistente inteligente con IA."
+                - paragraph [ref=e129]: SaaS Multi-tenant · React 18 · TypeScript
+            - generic [aria-hidden] [ref=e130]: equipos sin caos
+    - region "Cinco servicios para tu negocio." [ref=e131]:
+      - generic [ref=e133]:
+        - generic [ref=e135]:
+          - generic [ref=e136]:
+            - heading "Cinco servicios para tu negocio." [level=2] [ref=e137]
+            - paragraph [ref=e138]: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en cada tarjeta y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar."
+          - link "Ver todos los precios" [ref=e139] [cursor=pointer]:
+            - /url: /pricing/
+            - text: Ver todos los precios
+            - generic [aria-hidden] [ref=e140]: →
+        - list [ref=e141]:
+          - listitem [ref=e142]:
+            - link "N.º 01 De 3 a 5 días laborables Digitalización local y carta web (bares y comercios) La solución para pequeños bares, pizzerías, cafeterías y comercios locales que quieren atraer clientes desde Google Maps y las redes sociales. Desde 290 € Ver qué incluye" [ref=e143] [cursor=pointer]:
+              - /url: /pricing/digitalitzacio-local/
+              - generic [ref=e144]:
+                - generic [ref=e145]: N.º 01
+                - generic [ref=e146]: De 3 a 5 días laborables
+              - generic [ref=e147]: Digitalización local y carta web (bares y comercios)
+              - generic [ref=e148]: La solución para pequeños bares, pizzerías, cafeterías y comercios locales que quieren atraer clientes desde Google Maps y las redes sociales.
+              - generic [ref=e149]:
+                - generic [ref=e150]:
+                  - generic [ref=e151]: Desde
+                  - text: 290 €
+                - generic [ref=e152]: Ver qué incluye →
+          - listitem [ref=e153]:
+            - link "N.º 02 De 1 a 2 semanas Landing page de alto rendimiento Web corporativa muy rápida, diseñada para captar clientes desde el primer día y posicionarse en Google. Desde 390 € Ver qué incluye" [ref=e154] [cursor=pointer]:
+              - /url: /pricing/landing-page/
+              - generic [ref=e155]:
+                - generic [ref=e156]: N.º 02
+                - generic [ref=e157]: De 1 a 2 semanas
+              - generic [ref=e158]: Landing page de alto rendimiento
+              - generic [ref=e159]: Web corporativa muy rápida, diseñada para captar clientes desde el primer día y posicionarse en Google.
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - generic [ref=e162]: Desde
+                  - text: 390 €
+                - generic [ref=e163]: Ver qué incluye →
+          - listitem [ref=e164]:
+            - link "N.º 03 De 3 a 6 semanas Aplicación web SPA con Angular Plataforma web avanzada, interactiva y escalable para productos SaaS, portales y gestión operativa. Desde 1950 € Ver qué incluye" [ref=e165] [cursor=pointer]:
+              - /url: /pricing/angular-webapp/
+              - generic [ref=e166]:
+                - generic [ref=e167]: N.º 03
+                - generic [ref=e168]: De 3 a 6 semanas
+              - generic [ref=e169]: Aplicación web SPA con Angular
+              - generic [ref=e170]: Plataforma web avanzada, interactiva y escalable para productos SaaS, portales y gestión operativa.
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - generic [ref=e173]: Desde
+                  - text: 1950 €
+                - generic [ref=e174]: Ver qué incluye →
+          - listitem [ref=e175]:
+            - link "N.º 04 De 3 a 7 días laborables Optimización y accesibilidad (auditoría y corrección) Solución de problemas de lentitud, Core Web Vitals y accesibilidad WCAG. Desde 450 € Ver qué incluye" [ref=e176] [cursor=pointer]:
+              - /url: /pricing/performance-audit/
+              - generic [ref=e177]:
+                - generic [ref=e178]: N.º 04
+                - generic [ref=e179]: De 3 a 7 días laborables
+              - generic [ref=e180]: Optimización y accesibilidad (auditoría y corrección)
+              - generic [ref=e181]: Solución de problemas de lentitud, Core Web Vitals y accesibilidad WCAG.
+              - generic [ref=e182]:
+                - generic [ref=e183]:
+                  - generic [ref=e184]: Desde
+                  - text: 450 €
+                - generic [ref=e185]: Ver qué incluye →
+          - listitem [ref=e186]:
+            - link "N.º 05 De 2 a 5 días laborables Pipelines CI/CD y automatización Automatización del ciclo de entrega de código con controles de calidad y despliegues fiables. Desde 350 € Ver qué incluye" [ref=e187] [cursor=pointer]:
+              - /url: /pricing/cicd-devops/
+              - generic [ref=e188]:
+                - generic [ref=e189]: N.º 05
+                - generic [ref=e190]: De 2 a 5 días laborables
+              - generic [ref=e191]: Pipelines CI/CD y automatización
+              - generic [ref=e192]: Automatización del ciclo de entrega de código con controles de calidad y despliegues fiables.
+              - generic [ref=e193]:
+                - generic [ref=e194]:
+                  - generic [ref=e195]: Desde
+                  - text: 350 €
+                - generic [ref=e196]: Ver qué incluye →
+          - listitem [ref=e197]:
+            - generic [ref=e198]:
+              - paragraph [ref=e199]: ¿No sabes cuál?
+              - paragraph [ref=e200]: Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione.
+              - link "Pedir presupuesto" [ref=e201] [cursor=pointer]:
+                - /url: /contact/
+                - text: Pedir presupuesto
+                - generic [aria-hidden] [ref=e202]: →
+      - generic [ref=e204]:
+        - heading "Quien te atiende es quien lo construye." [level=2] [ref=e205]
+        - generic [ref=e206]:
+          - generic [ref=e207]:
+            - paragraph [ref=e208]: "01"
+            - heading "Trato directo" [level=3] [ref=e209]
+            - paragraph [ref=e210]: Hablas con la persona que diseña y programa tu web. Sin comerciales ni subcontratas.
+          - generic [ref=e211]:
+            - paragraph [ref=e212]: "02"
+            - heading "Todo es tuyo" [level=3] [ref=e213]
+            - paragraph [ref=e214]: El código, el repositorio Git, el dominio y las cuentas se entregan a tu nombre. Sin plataformas cautivas.
+          - generic [ref=e215]:
+            - paragraph [ref=e216]: "03"
+            - heading "Precio cerrado" [level=3] [ref=e217]
+            - paragraph [ref=e218]: Ves qué incluye y cuánto cuesta antes de pedir nada, y acordamos alcance y plazo antes de empezar.
+    - region "Cómo se desarrolla un proyecto." [ref=e219]:
+      - generic [ref=e220]:
+        - heading "Cómo se desarrolla un proyecto." [level=2] [ref=e221]
+        - list [ref=e222]:
+          - listitem [ref=e223]:
+            - paragraph [ref=e224]:
+              - generic [ref=e225]: Paso
+              - text: "1"
+            - heading "Briefing y alcance" [level=3] [ref=e226]
+            - paragraph [ref=e227]: Definimos por escrito qué necesitas, qué incluye y cuánto cuesta, antes de escribir una línea de código.
+          - listitem [ref=e228]:
+            - paragraph [ref=e229]:
+              - generic [ref=e230]: Paso
+              - text: "2"
+            - heading "Desarrollo a medida" [level=3] [ref=e231]
+            - paragraph [ref=e232]: Programación moderna con previsualizaciones por el camino, para que veas el avance y corrijas pronto.
+          - listitem [ref=e233]:
+            - paragraph [ref=e234]:
+              - generic [ref=e235]: Paso
+              - text: "3"
+            - heading "Revisión y SEO" [level=3] [ref=e236]
+            - paragraph [ref=e237]: Ficha de Google Business, datos estructurados, y comprobaciones de accesibilidad y rendimiento.
+          - listitem [ref=e238]:
+            - paragraph [ref=e239]:
+              - generic [ref=e240]: Paso
+              - text: "4"
+            - heading "Entrega y código" [level=3] [ref=e241]
+            - paragraph [ref=e242]: Publicación en producción y entrega del repositorio, con mantenimiento si lo has contratado.
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - paragraph [ref=e245]: Oferta de lanzamiento · plazas limitadas
+            - heading "Tu web creada sin honorarios de desarrollo, para los primeros clientes." [level=2] [ref=e246]
+            - paragraph [ref=e247]: Estoy abriendo mi estudio a un primer grupo de clientes y quiero trabajar en proyectos reales que pueda enseñar después. Durante esta oferta de lanzamiento creo tu web sin cobrar el desarrollo; tú cubres solo el dominio y el alojamiento, y aceptas que el proyecto pueda aparecer en mi portfolio.
+            - paragraph [ref=e248]: "Es una oportunidad temporal y limitada: las tarifas de arriba siguen siendo mis precios habituales. Las condiciones exactas se confirman por escrito antes de empezar. Abierta a negocios de Xàtiva, València y, en remoto, del resto de España."
+          - link "Solicitar plaza" [ref=e250] [cursor=pointer]:
+            - /url: /contact/?servei=lanzamiento
+            - text: Solicitar plaza
+            - generic [aria-hidden] [ref=e251]: →
+    - region "Jaume Tur, desarrollador web en Xàtiva." [ref=e252]:
+      - generic [ref=e253]:
+        - img "Jaume Tur" [ref=e255]
+        - generic [ref=e256]:
+          - heading "Jaume Tur, desarrollador web en Xàtiva." [level=2] [ref=e257]
+          - paragraph [ref=e258]: Titulado en Desarrollo de Aplicaciones Web (CFGS DAW) y en Sistemas Microinformáticos y Redes (GM SMX). Hago páginas y aplicaciones web rápidas para negocios locales y equipos en remoto.
+          - generic [ref=e259]:
+            - link "Más sobre mí" [ref=e260] [cursor=pointer]:
+              - /url: /about/
+              - text: Más sobre mí
+              - generic [aria-hidden] [ref=e261]: →
+            - link "Descargar CV (PDF) (se abre en pestaña nueva)" [ref=e262] [cursor=pointer]:
+              - /url: /docs/CV_Jaume_tur.pdf
+              - text: Descargar CV (PDF)
+              - generic [aria-hidden] [ref=e263]: ↗
+              - generic [ref=e264]: (se abre en pestaña nueva)
+      - generic [ref=e265]:
+        - heading "Dudas antes de empezar." [level=2] [ref=e266]
+        - generic [ref=e267]:
+          - group [ref=e268]:
+            - generic "¿Cómo funciona la oferta de lanzamiento?" [ref=e269] [cursor=pointer]
+          - group [ref=e274]:
+            - generic "¿Vuestros servicios son habitualmente gratuitos?" [ref=e275] [cursor=pointer]
+          - group [ref=e280]:
+            - generic "¿El código y las cuentas serán míos?" [ref=e281] [cursor=pointer]
+          - group [ref=e286]:
+            - generic "¿Cuánto se tarda?" [ref=e287] [cursor=pointer]
+          - group [ref=e292]:
+            - generic "¿Solo trabajas en Xàtiva?" [ref=e293] [cursor=pointer]
+    - region "¿Tienes un proyecto en mente?" [ref=e298]:
+      - generic [ref=e299]:
+        - generic [ref=e300]:
+          - generic [aria-hidden] [ref=e301]: ↓
+          - heading "¿Tienes un proyecto en mente?" [level=2] [ref=e302]
+          - paragraph [ref=e303]: Cuéntame qué necesitas y te respondo con alcance, precio y plazo. Sin compromiso.
+        - generic [ref=e304]:
+          - link "Escribir por WhatsApp" [ref=e305] [cursor=pointer]:
+            - /url: https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto
+            - text: Escribir por WhatsApp
+            - generic [aria-hidden] [ref=e306]: →
+          - link "Enviar el formulario" [ref=e307] [cursor=pointer]:
+            - /url: /contact/
+  - contentinfo [ref=e308]:
+    - generic [ref=e309]:
+      - generic [ref=e310]:
+        - generic [ref=e311]:
+          - link "jaume tur — inicio" [ref=e312] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e313]: jaumetur.es
+          - paragraph [ref=e314]: Páginas web, cartas digitales y aplicaciones web a medida, construidas y mantenidas por la misma persona con la que hablas. Desde Xàtiva, para Valencia y en remoto.
+          - link "jaumetur3w@gmail.com" [ref=e315] [cursor=pointer]:
+            - /url: mailto:jaumetur3w@gmail.com
+          - paragraph [ref=e319]:
+            - link "WhatsApp +34 644 525 838 (se abre en pestaña nueva)" [ref=e320] [cursor=pointer]:
+              - /url: https://wa.me/34644525838
+              - generic [ref=e323]: WhatsApp +34 644 525 838
+              - generic [ref=e324]: (se abre en pestaña nueva)
+          - list [ref=e325]:
+            - listitem [ref=e326]:
+              - link "Instagram (se abre en pestaña nueva)" [ref=e327] [cursor=pointer]:
+                - /url: https://www.instagram.com/jaume.www/
+            - listitem [ref=e330]:
+              - link "LinkedIn (se abre en pestaña nueva)" [ref=e331] [cursor=pointer]:
+                - /url: https://www.linkedin.com/in/jautur/
+            - listitem [ref=e334]:
+              - link "GitHub (se abre en pestaña nueva)" [ref=e335] [cursor=pointer]:
+                - /url: https://github.com/jaumetur3W
+        - navigation "Servicios" [ref=e338]:
+          - heading "Servicios" [level=2] [ref=e339]
+          - list [ref=e340]:
+            - listitem [ref=e341]:
+              - link "Digitalización local y carta web (bares y comercios)" [ref=e342] [cursor=pointer]:
+                - /url: /pricing/digitalitzacio-local/
+            - listitem [ref=e343]:
+              - link "Landing page de alto rendimiento" [ref=e344] [cursor=pointer]:
+                - /url: /pricing/landing-page/
+            - listitem [ref=e345]:
+              - link "Aplicación web SPA con Angular" [ref=e346] [cursor=pointer]:
+                - /url: /pricing/angular-webapp/
+            - listitem [ref=e347]:
+              - link "Optimización y accesibilidad (auditoría y corrección)" [ref=e348] [cursor=pointer]:
+                - /url: /pricing/performance-audit/
+            - listitem [ref=e349]:
+              - link "Pipelines CI/CD y automatización" [ref=e350] [cursor=pointer]:
+                - /url: /pricing/cicd-devops/
+        - navigation "Sitio" [ref=e351]:
+          - heading "Sitio" [level=2] [ref=e352]
+          - list [ref=e353]:
+            - listitem [ref=e354]:
+              - link "Servicios y precios" [ref=e355] [cursor=pointer]:
+                - /url: /pricing/
+            - listitem [ref=e356]:
+              - link "Proyectos" [ref=e357] [cursor=pointer]:
+                - /url: /projectes/
+            - listitem [ref=e358]:
+              - link "Blog" [ref=e359] [cursor=pointer]:
+                - /url: /blog/
+            - listitem [ref=e360]:
+              - link "Sobre mí" [ref=e361] [cursor=pointer]:
+                - /url: /about/
+            - listitem [ref=e362]:
+              - link "Contacto" [ref=e363] [cursor=pointer]:
+                - /url: /contact/
+        - navigation "Herramientas" [ref=e364]:
+          - heading "Herramientas" [level=2] [ref=e365]
+          - list [ref=e366]:
+            - listitem [ref=e367]:
+              - link "Creador de archivos HTML" [ref=e368] [cursor=pointer]:
+                - /url: /tools/creador-html/
+            - listitem [ref=e369]:
+              - link "Generador de CI/CD para GitHub" [ref=e370] [cursor=pointer]:
+                - /url: /tools/workflow-generator/
+            - listitem [ref=e371]:
+              - link "Tarjeta digital (vCard)" [ref=e372] [cursor=pointer]:
+                - /url: /card/
+      - separator [ref=e373]
+      - generic [ref=e374]:
+        - paragraph [ref=e375]: © 2026 Jaume Tur · Xàtiva, València
+        - navigation "Legal" [ref=e376]:
+          - list [ref=e377]:
+            - listitem [ref=e378]:
+              - link "Privacidad" [ref=e379] [cursor=pointer]:
+                - /url: /privacidad/
+            - listitem [ref=e380]:
+              - link "Cookies" [ref=e381] [cursor=pointer]:
+                - /url: /cookies/
+            - listitem [ref=e382]:
+              - link "Aviso legal" [ref=e383] [cursor=pointer]:
+                - /url: /aviso-legal/
+            - listitem [ref=e384]:
+              - link "Calidad y accesibilidad" [ref=e385] [cursor=pointer]:
+                - /url: /qualitat/
+            - listitem [ref=e386]:
+              - link "RSS" [ref=e387] [cursor=pointer]:
+                - /url: /rss.xml
+            - listitem [ref=e388]:
+              - button "Configurar cookies" [ref=e389] [cursor=pointer]
+  - region "Preferencias de cookies" [ref=e390]:
+    - paragraph [ref=e391]: Cookies y medición
+    - paragraph [ref=e392]: Esta web utiliza almacenamiento técnico y analítica sin cookies (Plausible). Con tu permiso, activamos Google Analytics 4 mediante Google Tag Manager para medir visitas. No usamos cookies publicitarias.
+    - generic [ref=e393]:
+      - link "Política de cookies" [ref=e394] [cursor=pointer]:
+        - /url: /cookies/
+      - generic [ref=e395]:
+        - button "Rechazar" [ref=e396] [cursor=pointer]
+        - button "Aceptar" [ref=e397] [cursor=pointer]

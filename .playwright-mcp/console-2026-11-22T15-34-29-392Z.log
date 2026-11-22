@@ -1,0 +1,2 @@
+[  127495ms] Transition was aborted because of invalid state. ViewTransition opt-in disabled
+[  127536ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4401/favicon.ico:1

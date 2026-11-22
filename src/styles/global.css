@@ -771,27 +771,68 @@ pre.astro-code span[style*="color:#6e7781"] {
 .band-lime .tag { background: var(--ink); color: var(--brand); }
 .band-clay .tag { background: var(--paper); }
 
-/* Tarjetas de proyecto desordenadas (sobre tinta) */
-.bento { display: grid; gap: 1rem; grid-template-columns: repeat(1, minmax(0, 1fr)); }
-@media (min-width: 640px) { .bento { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1.25rem; } }
-.bento > li { position: relative; list-style: none; }
-.bento-card {
-  display: flex; flex-direction: column; height: 100%;
-  background: var(--paper); color: var(--ink);
-  border: 1px solid var(--ink); border-radius: 0.5rem; overflow: hidden;
-  box-shadow: 5px 5px 0 var(--brand);
-  transform: rotate(var(--rot, 0deg)) translateY(var(--dy, 0));
-  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out);
+/* Proyectos como carpetas: pestaña con índice, hoja que asoma y se eleva al interactuar */
+.folders { display: grid; gap: 4.5rem 2rem; grid-template-columns: minmax(0, 1fr); list-style: none; padding: 0; }
+@media (min-width: 768px) { .folders { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5rem 3rem; } }
+.folder-slot { position: relative; list-style: none; }
+@media (min-width: 768px) { .folder-slot:nth-child(even) { margin-top: 3.5rem; } }
+.folder {
+  --c: var(--brand);
+  position: relative; display: block; padding-top: 3.6rem; color: var(--ink); text-decoration: none;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 300ms var(--ease-out);
 }
-.bento-card:hover, .bento-card:focus-within { transform: rotate(0deg) translateY(-6px); box-shadow: 8px 8px 0 var(--clay); }
-.bento-card .muted { color: var(--text-muted); }
-@media (min-width: 640px) {
-  .bento > li:nth-child(1) { grid-column: span 4; --rot: -1deg; }
-  .bento > li:nth-child(2) { grid-column: span 2; --rot: 1.2deg; --dy: 1.5rem; }
-  .bento > li:nth-child(3) { grid-column: span 2; --rot: 0.8deg; }
-  .bento > li:nth-child(4) { grid-column: span 4; --rot: -0.8deg; --dy: -1rem; }
+.folder-slot:nth-child(1) .folder { --c: var(--brand); --rot: -1deg; }
+.folder-slot:nth-child(2) .folder { --c: var(--paper); --rot: 1.2deg; }
+.folder-slot:nth-child(3) .folder { --c: var(--clay); --rot: 0.9deg; }
+.folder-slot:nth-child(4) .folder { --c: var(--paper); --rot: -1.1deg; }
+.folder:hover, .folder:focus-visible { transform: rotate(0deg) translateY(-4px); outline: none; }
+.folder:focus-visible .folder-body { outline: 3px solid var(--brand); outline-offset: 4px; }
+
+.folder-tab {
+  position: absolute; z-index: 2; left: 1.25rem; top: 1.5rem;
+  display: inline-flex; align-items: center; gap: 0.35rem; height: 2.1rem; padding: 0 1.1rem;
+  background: var(--c); color: var(--ink);
+  border: 1px solid var(--ink); border-bottom: 0; border-radius: 0.6rem 0.6rem 0 0;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.02em; text-transform: uppercase;
 }
-.bento-note { position: absolute; z-index: 2; right: 0.5rem; bottom: -1.1rem; background: var(--clay); color: #fff; padding: 0.1rem 0.6rem; transform: rotate(-3deg); font-size: 1.15rem; border: 1px solid var(--ink); }
+.folder-tab b { font-family: var(--font-mono); font-weight: 700; }
+
+/* Hoja con la vista previa: asoma por detrás y sube al interactuar */
+.folder-sheet {
+  position: absolute; z-index: 0; right: 1.5rem; left: 42%; top: 0.5rem; height: 11rem; overflow: hidden;
+  background: #fff; border: 1px solid var(--ink); border-radius: 0.35rem 0.35rem 0 0;
+  transform: rotate(2.2deg); transform-origin: bottom left;
+  transition: transform 380ms var(--ease-out);
+}
+.folder-sheet img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: translateY(-1.6rem) rotate(-1.5deg); }
+
+.folder-body {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
+  min-height: 15rem; padding: 1.5rem 1.5rem 1.4rem;
+  background: var(--c); border: 1px solid var(--ink); border-radius: 0 0.6rem 0.6rem 0.6rem;
+  box-shadow: 6px 6px 0 rgba(247, 247, 245, 0.18);
+  transition: box-shadow 300ms var(--ease-out);
+}
+.folder:hover .folder-body { box-shadow: 8px 8px 0 var(--clay); }
+.folder-slot:nth-child(3) .folder:hover .folder-body { box-shadow: 8px 8px 0 var(--brand); }
+.folder-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+.folder-text { font-size: 0.95rem; line-height: 1.45; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.folder-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.02em; color: var(--ink); margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
+.folder-open { font-weight: 700; font-size: 0.9rem; border-bottom: 2px solid var(--ink); }
+.folder-slot:nth-child(2) .tag, .folder-slot:nth-child(4) .tag { background: var(--brand); }
+.folder-slot:nth-child(1) .tag, .folder-slot:nth-child(3) .tag { background: var(--ink); color: var(--paper); }
+.folder-note {
+  position: absolute; right: 0.75rem; bottom: -2.1rem; z-index: 3; transform: rotate(-3deg);
+  font-size: 1.4rem; line-height: 1; color: var(--brand); pointer-events: none;
+}
+@media (max-width: 767px) { .folder-sheet { left: 38%; height: 9rem; } .folder-note { right: 0.25rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .folder, .folder-sheet, .folder-body { transition: none; }
+  .folder:hover, .folder:focus-visible { transform: rotate(var(--rot, 0deg)); }
+  .folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: rotate(2.2deg); }
+}
 
 /* Servicios sobre bandas: tarjetas en papel con sombra dura */
 .band-clay .glass, .band-ink .glass { background: var(--paper); color: var(--ink); backdrop-filter: none; border: 1px solid var(--ink); border-radius: 0.5rem; box-shadow: 5px 5px 0 var(--ink); }
@@ -810,15 +851,12 @@ pre.astro-code span[style*="color:#6e7781"] {
 
 @media (prefers-reduced-motion: reduce) {
   .scribble path { animation: none; stroke-dashoffset: 0; }
-  .bento-card, .step-card { transition: none; }
+  .step-card { transition: none; }
 }
 
-/* Cabecera sobre bandas de color: siempre papel con filete de tinta */
-#site-header { background: var(--paper); border-bottom: 1px solid var(--ink); }
+/* Cabecera transparente: el color del texto lo decide navbar.astro según el fondo que haya debajo */
+#site-header { background: transparent; border-bottom: 0; }
 
-/* Tarjetas del bento: texto legible sobre papel y miniaturas acotadas */
-.band-ink .bento-card .label, .band-ink .bento-card .faint { color: var(--text-faint); }
-.bento-card > a { height: 11rem; }
-.bento-card > a > :not(.tag) { width: 100%; height: 100%; object-fit: cover; }
-.bento-card > a .tag { position: absolute; width: auto; height: auto; }
-@media (min-width: 640px) { .bento > li:nth-child(1) .bento-card > a, .bento > li:nth-child(4) .bento-card > a { height: 15rem; } }
+
+/* Servicios fijados con scroll: el relleno de GSAP también lleva el color de la banda */
+.band-clay .svc-pin, .band-clay .pin-spacer { background: var(--clay); }
