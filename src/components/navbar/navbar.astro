@@ -34,17 +34,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     
     <!-- Izquierda: Logo oficial + Firma tipográfica -->
     <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaume tur — home" : "jaume tur — inicio"}>
-      <img
-        src="/img/jt.LOGO-02-128.webp"
-        alt="Jaume Tur Logo"
-        width="38"
-        height="38"
-        class="h-9 w-9 rounded-lg border-[1.5px] border-ink object-contain shadow-xs group-hover:scale-105 transition-transform"
-        decoding="async"
-      />
-      <span class="font-display text-[1.35rem] font-black tracking-[-0.03em] leading-none text-ink">
-        jaume <span class="serif-italic text-[1.25em] font-normal tracking-normal text-ink/85">tur</span>
-      </span>
+      <span class="wordmark text-[1.45rem]">jaumetur<i>.</i>es</span>
     </a>
 
     <!-- Centro: Enlaces horizontales en la misma fila, texto normal, perfectamente alineados -->
@@ -60,7 +50,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "nav-top-link relative inline-flex items-center py-2 px-1 font-display text-[1.05rem] lg:text-[1.12rem] font-bold tracking-tight text-ink transition-colors hover:text-black whitespace-nowrap",
+                "nav-top-link relative inline-flex items-center py-2 px-1 font-hand text-[1.45rem] lg:text-[1.6rem] font-bold text-ink transition-colors hover:text-black whitespace-nowrap",
                 l.active ? "font-extrabold text-black" : "text-ink/85 hover:text-black"
               ]}
             >
@@ -106,7 +96,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
   <!-- Desplegable móvil (para pantallas pequeñas donde no cabe toda la fila horizontal) -->
   <div
     id="nav-panel"
-    class="md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible p-6"
+    class="md:hidden absolute top-20 left-0 right-0 bg-paper border-b border-ink shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible p-6"
     aria-hidden="true"
   >
     <ul class="grid gap-3">
@@ -114,7 +104,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
         <li>
           <a
             href={to(l.path)}
-            class="block py-2 font-display text-xl font-bold tracking-tight text-ink border-b border-ink/5"
+            class="block py-2 font-hand text-3xl font-bold text-ink border-b border-ink/10"
             data-nav-link
           >
             {l.label}
@@ -138,7 +128,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     right: 4px;
     bottom: -2px;
     height: 2.5px;
-    background: #ffff00;
+    background: #E05A36;
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 220ms ease;

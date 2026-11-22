@@ -17,7 +17,7 @@ const data = getBriefingData(isEn ? "en" : "es");
 // Astro inlines PUBLIC_ variables at build time; the inline script reads the key from this attribute.
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_BRIEFING_KEY ?? "";
 const inputClass =
-  "w-full px-4 py-2.5 text-sm bg-sand border border-ink/20 rounded-sm outline-none focus:ring-2 focus:ring-[#FFFF00] focus:border-ink/60 focus:bg-white/70 text-ink transition";
+  "w-full px-4 py-2.5 text-sm bg-sand border border-ink/20 rounded-sm outline-none focus:ring-2 focus:ring-[#C8F169] focus:border-ink/60 focus:bg-white/70 text-ink transition";
 const labelClass = "block text-sm font-medium text-ink";
 const descriptionClass = "mt-1 text-xs text-[#3d3d39] font-light leading-relaxed";
 const errorClass = "hidden text-[#9b1c1c] text-xs mt-1.5 font-sans";
@@ -99,7 +99,7 @@ const errorClass = "hidden text-[#9b1c1c] text-xs mt-1.5 font-sans";
                   {description}
                   <div class="mt-3 grid sm:grid-cols-2 gap-2">
                     {question.options?.map((option, index) => (
-                      <label class="flex items-start gap-3 p-3 rounded-sm border border-ink/20 text-sm text-ink font-light cursor-pointer transition-colors hover:border-ink/60 has-[:checked]:border-ink/60 has-[:checked]:bg-[#FFFF00]/20">
+                      <label class="flex items-start gap-3 p-3 rounded-sm border border-ink/20 text-sm text-ink font-light cursor-pointer transition-colors hover:border-ink/60 has-[:checked]:border-ink/60 has-[:checked]:bg-[#C8F169]/20">
                         <input type={choiceType} id={`${question.id}-${index}`} name={question.id} value={option} class="mt-0.5 shrink-0 accent-slate-950" />
                         <span>{option}</span>
                       </label>
@@ -138,7 +138,7 @@ const errorClass = "hidden text-[#9b1c1c] text-xs mt-1.5 font-sans";
         <button
           type="submit"
           id="briefing-submit-btn"
-          class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-sm bg-[#FFFF00] hover:bg-[#111111] text-[#111111] hover:text-white font-mono text-xs uppercase tracking-wider font-semibold border border-ink/60 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full inline-flex items-center justify-center py-3.5 px-6 rounded-sm bg-[#C8F169] hover:bg-[#111111] text-[#111111] hover:text-white font-mono text-xs uppercase tracking-wider font-semibold border border-ink/60 shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span id="briefing-submit-text">{data.submitLabel}</span>
         </button>

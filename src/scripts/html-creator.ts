@@ -68,7 +68,7 @@ export function initHtmlCreator() {
     let bodyText = "#f4f4f6";
     let cardBg = "#121216";
     let cardBorder = "rgba(255, 255, 255, 0.1)";
-    let brandColor = "#FFFF00";
+    let brandColor = "#C8F169";
     let brandTextColor = "#000000";
     let subTextColor = "#a1a1aa";
 

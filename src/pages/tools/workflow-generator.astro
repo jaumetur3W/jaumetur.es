@@ -48,7 +48,7 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
               <button
                 type="button"
                 data-framework="astro"
-                class="framework-btn active p-2.5 rounded-sm border border-ink bg-[#FFFF00] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
+                class="framework-btn active p-2.5 rounded-sm border border-ink bg-[#C8F169] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
                 <Icon name="simple-icons:astro" class="w-4 h-4 text-ink" />
                 <span>Astro (SSG)</span>
               </button>
@@ -85,7 +85,7 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
               <button
                 type="button"
                 data-target="pages"
-                class="target-btn active p-2.5 rounded-sm border border-ink bg-[#FFFF00] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
+                class="target-btn active p-2.5 rounded-sm border border-ink bg-[#C8F169] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs">
                 <Icon name="bx:bxl-github" class="w-4 h-4 text-ink" />
                 <span>GitHub Pages</span>
               </button>
@@ -106,15 +106,15 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
             </label>
             <div class="space-y-2.5 text-xs text-ink/75">
               <label class="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" id="check-lint" checked class="rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#FFFF00]" />
+                <input type="checkbox" id="check-lint" checked class="rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#C8F169]" />
                 <span>{isEn ? "Execute linter before build (npm run lint)" : "Ejecutar linter antes de compilar (npm run lint)"}</span>
               </label>
               <label class="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" id="check-ts" checked class="rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#FFFF00]" />
+                <input type="checkbox" id="check-ts" checked class="rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#C8F169]" />
                 <span>{isEn ? "Strict TypeScript verification (tsc --noEmit)" : "Verificación estricta de TypeScript (tsc --noEmit)"}</span>
               </label>
               <label class="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" id="check-cache" checked class="rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#FFFF00]" />
+                <input type="checkbox" id="check-cache" checked class="rounded border-ink/35 bg-ink text-ink focus:ring-ink accent-[#C8F169]" />
                 <span>{isEn ? "Cache npm dependencies (faster runner)" : "Caché de dependencias npm (ejecución rápida)"}</span>
               </label>
             </div>
@@ -153,7 +153,7 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
               <button
                 id="download-yaml-btn"
                 type="button"
-                class="px-3.5 py-1.5 rounded-sm bg-[#FFFF00] hover:bg-white text-ink font-mono text-xs uppercase tracking-wider font-bold border border-ink transition flex items-center gap-1.5 cursor-pointer shadow-xs">
+                class="px-3.5 py-1.5 rounded-sm bg-[#C8F169] hover:bg-white text-ink font-mono text-xs uppercase tracking-wider font-bold border border-ink transition flex items-center gap-1.5 cursor-pointer shadow-xs">
                 <Icon name="bx:download" class="w-3.5 h-3.5 text-ink" />
                 <span id="download-yaml-label">{isEn ? "Download .yml" : "Descargar .yml"}</span>
               </button>
@@ -168,7 +168,7 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
       <!-- Lead Magnet & Community CTA -->
       <div class="mt-16 surface-card bg-white/70 rounded-sm border border-ink/20 p-8 max-w-4xl mx-auto shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <span class="text-xs font-mono font-bold text-ink bg-[#FFFF00] px-3 py-1 rounded-full border border-ink mb-3 inline-block">
+          <span class="text-xs font-mono font-bold text-ink bg-[#C8F169] px-3 py-1 rounded-full border border-ink mb-3 inline-block">
             {isEn ? "FREE DEVELOPER RESOURCE" : "RECURSO GRATUITO PARA DESARROLLADORES"}
           </span>
           <h3 class="text-xl font-display font-bold text-ink tracking-tight">
@@ -245,7 +245,7 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
         const icon = b.querySelector("svg");
         if (icon && b.getAttribute("data-framework") === "astro") icon.className = "w-4 h-4 text-ink";
       });
-      btn.className = "framework-btn active p-2.5 rounded-sm border border-ink bg-[#FFFF00] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
+      btn.className = "framework-btn active p-2.5 rounded-sm border border-ink bg-[#C8F169] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
       const icon = btn.querySelector("svg");
       if (icon) icon.className = "w-4 h-4 text-ink";
       currentFramework = btn.getAttribute("data-framework") || "astro";
@@ -261,7 +261,7 @@ const htmlToolPath = localizeHref("/tools/creador-html", isEn ? "en" : "es");
         const icon = b.querySelector("svg");
         if (icon) icon.className = "w-4 h-4 text-ink";
       });
-      btn.className = "target-btn active p-2.5 rounded-sm border border-ink bg-[#FFFF00] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
+      btn.className = "target-btn active p-2.5 rounded-sm border border-ink bg-[#C8F169] text-ink font-mono text-xs text-left flex items-center gap-2 transition cursor-pointer font-bold shadow-xs";
       const icon = btn.querySelector("svg");
       if (icon) icon.className = "w-4 h-4 text-ink";
       currentTarget = btn.getAttribute("data-target") || "pages";

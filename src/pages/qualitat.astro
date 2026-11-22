@@ -53,7 +53,7 @@ const bundleBreakdown = [
       </p>
 
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-light text-ink tracking-tight leading-tight">
-        {isEn ? "Commitment to " : "Compromiso de "}<span class="decoration-[#FFFF00] decoration-2 underline underline-offset-4">{isEn ? "quality and performance." : "calidad y rendimiento."}</span>
+        {isEn ? "Commitment to " : "Compromiso de "}<span class="decoration-[#C8F169] decoration-2 underline underline-offset-4">{isEn ? "quality and performance." : "calidad y rendimiento."}</span>
       </h1>
 
       <p class="text-sm sm:text-base text-[#3d3d39] mt-4 max-w-2xl leading-relaxed font-light">
@@ -92,7 +92,7 @@ const bundleBreakdown = [
             <div>
               <span class="text-sm font-normal text-ink block">{item.label}</span>
               <span class="text-[11px] font-mono text-[#5d5d57] mt-1 inline-flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#FFFF00] ring-1 ring-ink/20" aria-hidden="true"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#C8F169] ring-1 ring-ink/20" aria-hidden="true"></span>
                 <span>{isEn ? "Target" : "Objetivo"} {item.target}</span>
               </span>
             </div>
@@ -135,7 +135,7 @@ const bundleBreakdown = [
                         <span>{cwv.status}</span>
                       </span>
                     ) : (
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#FFFF00] text-[#111111] border border-ink/35">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#C8F169] text-[#111111] border border-ink/35">
                         <span>✓ {cwv.status}</span>
                       </span>
                     )}
@@ -294,9 +294,9 @@ const bundleBreakdown = [
     </section>
 
     <!-- Reproduce Audit Instructions -->
-    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-sm bg-[#111111] text-white border-2 border-ink font-mono text-xs selection:bg-[#FFFF00] selection:text-[#111111]" aria-labelledby="reproduce-heading">
+    <section class="max-w-5xl mx-auto mb-24 p-8 rounded-sm bg-[#111111] text-white border-2 border-ink font-mono text-xs selection:bg-[#C8F169] selection:text-[#111111]" aria-labelledby="reproduce-heading">
       <div class="flex items-center gap-2 text-white font-normal mb-3 text-sm">
-        <Icon name="bx:terminal" class="w-4 h-4 text-[#FFFF00]" />
+        <Icon name="bx:terminal" class="w-4 h-4 text-[#C8F169]" />
         <h3 id="reproduce-heading">{isEn ? "Audit reproduction protocol" : "Protocolo para reproducir la auditoría"}</h3>
       </div>
       <p class="text-[#a3a39b] text-xs mb-4 font-sans leading-relaxed font-light">
@@ -305,11 +305,11 @@ const bundleBreakdown = [
 
       <div class="p-4 rounded-sm bg-[#111111] border border-slate-800 text-slate-300 space-y-2">
         <div><span class="text-[#a3a39b]"># 1. {isEn ? "Build production bundle" : "Compilar la versión de producción"}</span></div>
-        <div class="text-[#FFFF00]">npm run build && npm run preview</div>
+        <div class="text-[#C8F169]">npm run build && npm run preview</div>
         <div class="pt-2"><span class="text-[#a3a39b]"># 2. {isEn ? "Run Lighthouse CLI audit" : "Ejecutar la auditoría Lighthouse CLI"}</span></div>
-        <div class="text-[#FFFF00]">npx lighthouse http://localhost:4321/ --preset=desktop --view</div>
+        <div class="text-[#C8F169]">npx lighthouse http://localhost:4321/ --preset=desktop --view</div>
         <div class="pt-2"><span class="text-[#a3a39b]"># 3. {isEn ? "Run axe-core accessibility audit" : "Ejecutar la auditoría de accesibilidad axe-core"}</span></div>
-        <div class="text-[#FFFF00]">npx @axe-core/cli http://localhost:4321/</div>
+        <div class="text-[#C8F169]">npx @axe-core/cli http://localhost:4321/</div>
       </div>
 
       <div class="mt-6 flex flex-wrap gap-3">
@@ -317,7 +317,7 @@ const bundleBreakdown = [
           href="https://github.com/jaumetur3W/jaumetur.es"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#ffff00] hover:bg-[#111111] hover:text-white text-ink rounded-sm font-mono text-xs font-semibold transition shadow-xs">
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#C8F169] hover:bg-[#111111] hover:text-white text-ink rounded-sm font-mono text-xs font-semibold transition shadow-xs">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
           <span>{isEn ? "Examine source code on GitHub" : "Examinar el código en GitHub"}</span>
           <span class="text-[10px]">↗</span>
