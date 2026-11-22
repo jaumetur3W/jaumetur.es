@@ -170,19 +170,19 @@
     font-size: clamp(2.5rem, 5.5vw, 4.8rem);
     line-height: 1.01;
     letter-spacing: -0.035em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .h-section {
-    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    font-size: clamp(1.8rem, 3.8vw, 3rem);
     line-height: 1.03;
     letter-spacing: -0.03em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .h-page {
-    font-size: clamp(2.4rem, 5.6vw, 4.5rem);
+    font-size: clamp(2rem, 4.6vw, 3.7rem);
     line-height: 1.02;
     letter-spacing: -0.032em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .display {
     font-family: var(--font-display);
@@ -705,14 +705,14 @@ pre.astro-code span[style*="color:#6e7781"] {
 .section-divider {
   width: min(100% - 2 * var(--gutter), 82rem);
   margin-inline: auto;
-  height: 2px;
+  height: 1px;
   overflow: hidden;
   position: relative;
 }
 .divider-line {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(17, 17, 17, 0.75) 0%, rgba(200, 241, 105, 0.9) 40%, rgba(17, 17, 17, 0.2) 80%, transparent 100%);
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -860,3 +860,6 @@ pre.astro-code span[style*="color:#6e7781"] {
 
 /* Servicios fijados con scroll: el relleno de GSAP también lleva el color de la banda */
 .band-clay .svc-pin, .band-clay .pin-spacer { background: var(--clay); }
+
+/* Titulares anchos (Syne): nunca desbordan en pantallas pequeñas */
+h1, h2, h3, h4 { overflow-wrap: anywhere; hyphens: auto; }

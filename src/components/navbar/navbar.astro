@@ -29,10 +29,10 @@ const links = [
 
 <!-- Header superior: fondo transparente, limpio y perfectamente alineado -->
 <header id="site-header" data-tone="light" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
-  <div class="wrap flex h-20 items-center justify-between relative">
+  <div class="wrap flex md:grid md:grid-cols-[1fr_auto_1fr] h-20 items-center justify-between relative">
     
     <!-- Izquierda: marca tipográfica -->
-    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaume tur — home" : "jaume tur — inicio"}>
+    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0 justify-self-start" aria-label={isEn ? "jaume tur — home" : "jaume tur — inicio"}>
       <span class="wordmark text-[1.45rem]">jaumetur<i>.</i>es</span>
     </a>
 
@@ -40,7 +40,7 @@ const links = [
     <nav
       id="nav-center-menu"
       aria-label={isEn ? "Main navigation" : "Navegación principal"}
-      class="hidden md:flex flex-1 items-center justify-center px-4"
+      class="hidden md:flex items-center justify-center px-4"
     >
       <ul class="flex items-center gap-6 lg:gap-10 xl:gap-12">
         {links.map((l) => (
@@ -61,7 +61,7 @@ const links = [
     </nav>
 
     <!-- Derecha: Botón de 3 líneas (icono limpio) + Selector de Idioma [ES / EN] -->
-    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+    <div class="flex items-center justify-end gap-1 sm:gap-2 shrink-0">
       
       <!-- Icono de 3 líneas horizontales -->
       <button
@@ -79,21 +79,28 @@ const links = [
         </span>
       </button>
 
-      <!-- Idioma: un icono que cambia entre español e inglés -->
-      <a
-        href={isEn ? spanishPath : englishPath}
-        hreflang={isEn ? "es" : "en"}
-        lang={isEn ? "es" : "en"}
-        class="lang-btn flex items-center justify-center p-2"
-        aria-label={isEn ? "Cambiar a español" : "Switch to English"}
-        title={isEn ? "Español" : "English"}
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9.5" />
-          <path d="M2.5 12h19" />
-          <path d="M12 2.5c2.7 2.6 4 5.8 4 9.5s-1.3 6.9-4 9.5c-2.7-2.6-4-5.8-4-9.5s1.3-6.9 4-9.5z" />
-        </svg>
-      </a>
+      <!-- Idioma: el usuario elige entre español e inglés (nunca cambia solo) -->
+      <div class="lang-menu relative">
+        <button
+          id="lang-toggle"
+          type="button"
+          class="lang-btn flex items-center justify-center p-2"
+          aria-label={isEn ? "Language" : "Idioma"}
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="lang-list"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="M2.5 12h19" />
+            <path d="M12 2.5c2.7 2.6 4 5.8 4 9.5s-1.3 6.9-4 9.5c-2.7-2.6-4-5.8-4-9.5s1.3-6.9 4-9.5z" />
+          </svg>
+        </button>
+        <ul id="lang-list" class="lang-list" hidden>
+          <li><a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}><span class="font-mono">ES</span> Español</a></li>
+          <li><a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}><span class="font-mono">EN</span> English</a></li>
+        </ul>
+      </div>
 
       <!-- CTA directo (escritorio) -->
       <a href={to("/contact")} class="nav-cta btn btn-brand btn-sm hidden md:inline-flex" data-cursor={isEn ? "Talk" : "Hola"}>
@@ -139,6 +146,11 @@ const links = [
   #site-header[data-tone="lime"] { --nav-accent: #111111; }
   #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn { color: var(--nav-fg); transition: color 200ms ease; }
   #site-header .lang-btn svg { transition: transform 300ms ease; }
+  .lang-list { position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 60; min-width: 10.5rem; margin: 0; padding: 0.35rem; list-style: none; background: #F7F7F5; border: 1px solid #111111; border-radius: 0.5rem; box-shadow: 4px 4px 0 #111111; }
+  .lang-list[hidden] { display: none; }
+  .lang-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 0.35rem; color: #111111; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .lang-list a:hover, .lang-list a:focus-visible { background: #C8F169; }
+  .lang-list a[aria-current="true"] { background: #111111; color: #F7F7F5; }
   #site-header .lang-btn:hover svg { transform: rotate(20deg); }
   #site-header .wordmark i { color: var(--nav-accent); }
   #site-header .burger-line { background: var(--nav-fg); }
@@ -250,25 +262,58 @@ const links = [
       var isOpen = function () {
         return desktop.matches ? !header.classList.contains("nav-collapsed") : header.classList.contains("is-menu-open");
       };
-      var setOpen = function (open) {
-        if (desktop.matches) header.classList.toggle("nav-collapsed", !open);
+      var KEY = "jt-nav-collapsed";
+      var readCollapsed = function () {
+        try { return window.localStorage.getItem(KEY) === "1"; } catch (e) { return false; }
+      };
+      var saveCollapsed = function (collapsed) {
+        try { window.localStorage.setItem(KEY, collapsed ? "1" : "0"); } catch (e) {}
+      };
+      var setOpen = function (open, persist) {
+        if (desktop.matches) {
+          header.classList.toggle("nav-collapsed", !open);
+          if (persist) saveCollapsed(!open);
+        }
         else header.classList.toggle("is-menu-open", open);
         toggleBtn.setAttribute("aria-expanded", String(open));
         var panel = document.getElementById("nav-panel");
         if (panel) panel.setAttribute("aria-hidden", String(desktop.matches || !open));
       };
-      // Estado inicial: abierto en escritorio, cerrado en móvil
-      setOpen(desktop.matches);
+      // Estado inicial: en escritorio se recuerda entre páginas; en móvil siempre cerrado
+      setOpen(desktop.matches ? !readCollapsed() : false);
 
       if (toggleBtn.dataset.bound === "true") return;
       toggleBtn.dataset.bound = "true";
 
       toggleBtn.addEventListener("click", function (e) {
         e.stopPropagation();
-        setOpen(!isOpen());
+        setOpen(!isOpen(), true);
       });
 
-      desktop.addEventListener("change", function () { header.classList.remove("is-menu-open", "nav-collapsed"); setOpen(desktop.matches); });
+      desktop.addEventListener("change", function () {
+        header.classList.remove("is-menu-open", "nav-collapsed");
+        setOpen(desktop.matches ? !readCollapsed() : false);
+      });
+
+      // Selector de idioma: se abre y cierra a mano; el idioma nunca cambia solo
+      var langBtn = document.getElementById("lang-toggle");
+      var langList = document.getElementById("lang-list");
+      if (langBtn && langList) {
+        var setLang = function (open) {
+          langList.hidden = !open;
+          langBtn.setAttribute("aria-expanded", String(open));
+        };
+        langBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          setLang(langList.hidden);
+        });
+        document.addEventListener("click", function (e) {
+          if (!langList.hidden && !langList.contains(e.target)) setLang(false);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !langList.hidden) { setLang(false); langBtn.focus(); }
+        });
+      }
 
       // Móvil: cerrar al pulsar fuera, en un enlace o con Escape
       document.addEventListener("click", function (e) {
