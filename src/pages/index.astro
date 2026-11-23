@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
 import ProjectMark from "@/components/project-mark.astro";
 import { getServicesData } from "@/data/services";
+import { statusLabel, statusNote } from "@/data/project-status";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
@@ -54,8 +55,8 @@ const t = isEn
         { t: "Everything is yours", d: "Source code, Git repository, domain and accounts are handed over in your name. No captive platforms." },
         { t: "Price fixed up front", d: "You see what's included and what it costs before asking for anything, and we agree scope and timeline before starting." },
       ],
-      projTitle: "Real projects. Open them, try them.",
-      projLede: "Every folder is a project. Open it to see how it works; demos with sample data say so.",
+      projTitle: "Projects and demos. Open them, try them.",
+      projLede: "Every folder is a project, and each one says what stage it is at: advanced development, demo or finished.",
       viewStudy: "Read the case study", live: "Open live project", allProjects: "All projects",
       procTitle: "How we work, step by step.",
       steps: [
@@ -102,8 +103,8 @@ const t = isEn
         { t: "Todo es tuyo", d: "El código, el repositorio Git, el dominio y las cuentas se entregan a tu nombre. Sin plataformas cautivas." },
         { t: "Precio cerrado", d: "Ves qué incluye y cuánto cuesta antes de pedir nada, y acordamos alcance y plazo antes de empezar." },
       ],
-      projTitle: "Proyectos reales. Ábrelos y pruébalos.",
-      projLede: "Cada carpeta es un proyecto. Ábrela y mira cómo funciona; las demos con datos de ejemplo lo dicen claramente.",
+      projTitle: "Proyectos y demos. Ábrelos y pruébalos.",
+      projLede: "Cada carpeta es un proyecto y cada una dice en qué punto está: desarrollo avanzado, demo o terminado.",
       viewStudy: "Ver el caso de estudio", live: "Abrir proyecto en línea", allProjects: "Todos los proyectos",
       procTitle: "Así trabajamos, paso a paso.",
       steps: [
@@ -221,7 +222,6 @@ const faqSchema = {
 
       <ul class="folders mt-16" data-stagger>
         {flagshipProjects.map((p, i) => {
-          const notes = isEn ? ["loads in < 1 s", "menus without PDFs", "savings in sight", "teams, no chaos"] : ["carga en < 1 s", "cartas sin PDFs", "ahorro a la vista", "equipos sin caos"];
           const img = projectImages[p.id];
           return (
             <li class="folder-slot">
@@ -231,6 +231,7 @@ const faqSchema = {
                   <img src={img.src} width={img.w} height={img.h} alt="" loading="lazy" decoding="async" />
                 </span>
                 <span class="folder-body">
+                  <span class="folder-status">{statusLabel(p.id, isEn)}</span>
                   <span class="tag">{p.data.badge}</span>
                   <span class="folder-title">{shortTitle(p.data.title)}</span>
                   <span class="folder-text">{p.data.subtitle}</span>
@@ -238,7 +239,7 @@ const faqSchema = {
                   <span class="folder-open">{t.viewStudy} <span aria-hidden="true">→</span></span>
                 </span>
               </a>
-              <span class="folder-note font-hand" aria-hidden="true">{notes[i]}</span>
+              <span class="folder-note font-hand" aria-hidden="true">{statusNote(p.id, isEn)}</span>
             </li>
           );
         })}

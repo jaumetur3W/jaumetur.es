@@ -244,6 +244,10 @@ const links = [
       var tone = best;
       if (header.dataset.tone !== tone) header.dataset.tone = tone;
     };
+    // Ráfaga inicial: el fondo de la página nueva puede pintarse después del primer cálculo
+    var burstTone = function () {
+      [0, 60, 150, 300, 600, 1000, 1600].forEach(function (ms) { setTimeout(function () { requestTone(); }, ms); });
+    };
     var requestTone = function () {
       if (!ticking) { ticking = true; requestAnimationFrame(updateTone); }
     };
@@ -251,8 +255,14 @@ const links = [
       window.__navToneBound = true;
       window.addEventListener("scroll", requestTone, { passive: true });
       window.addEventListener("resize", requestTone);
+      window.addEventListener("load", requestTone);
+      window.addEventListener("pageshow", burstTone);
+      window.addEventListener("pagereveal", burstTone);
+      document.addEventListener("DOMContentLoaded", requestTone);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(requestTone);
     }
     updateTone();
+    burstTone();
     function initNav() {
       var header = document.getElementById("site-header");
       var toggleBtn = document.getElementById("nav-toggle");

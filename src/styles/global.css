@@ -754,7 +754,7 @@ pre.astro-code span[style*="color:#6e7781"] {
   font-size: 1.3rem;
   line-height: 1.05;
   color: var(--clay);
-  transform: rotate(-3deg);
+  transform: rotate(-4deg);
 }
 .band-clay .note { color: var(--ink); }
 .band-ink .note { color: var(--brand); }
@@ -782,11 +782,11 @@ pre.astro-code span[style*="color:#6e7781"] {
   transform: rotate(var(--rot, 0deg));
   transition: transform 300ms var(--ease-out);
 }
-.folder-slot:nth-child(1) .folder { --c: var(--brand); --rot: -1deg; }
-.folder-slot:nth-child(2) .folder { --c: var(--paper); --rot: 1.2deg; }
-.folder-slot:nth-child(3) .folder { --c: var(--clay); --rot: 0.9deg; }
-.folder-slot:nth-child(4) .folder { --c: var(--paper); --rot: -1.1deg; }
-.folder:hover, .folder:focus-visible { transform: rotate(0deg) translateY(-4px); outline: none; }
+.folder-slot:nth-child(1) .folder { --c: var(--brand); --rot: 0deg; }
+.folder-slot:nth-child(2) .folder { --c: var(--paper); --rot: 0deg; }
+.folder-slot:nth-child(3) .folder { --c: var(--clay); --rot: 0deg; }
+.folder-slot:nth-child(4) .folder { --c: var(--paper); --rot: 0deg; }
+.folder:hover, .folder:focus-visible { transform: translateY(-4px); outline: none; }
 .folder:focus-visible .folder-body { outline: 3px solid var(--brand); outline-offset: 4px; }
 
 .folder-tab {
@@ -802,11 +802,11 @@ pre.astro-code span[style*="color:#6e7781"] {
 .folder-sheet {
   position: absolute; z-index: 0; right: 1.5rem; left: 42%; top: 0.5rem; height: 11rem; overflow: hidden;
   background: #fff; border: 1px solid var(--ink); border-radius: 0.35rem 0.35rem 0 0;
-  transform: rotate(2.2deg); transform-origin: bottom left;
+  transform: rotate(4deg); transform-origin: bottom left;
   transition: transform 380ms var(--ease-out);
 }
 .folder-sheet img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
-.folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: translateY(-1.6rem) rotate(-1.5deg); }
+.folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: translateY(-1.6rem) rotate(0deg); }
 
 .folder-body {
   position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
@@ -817,6 +817,7 @@ pre.astro-code span[style*="color:#6e7781"] {
 }
 .folder:hover .folder-body { box-shadow: 8px 8px 0 var(--clay); }
 .folder-slot:nth-child(3) .folder:hover .folder-body { box-shadow: 8px 8px 0 var(--brand); }
+.folder-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--ink); }
 .folder-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
 .folder-text { font-size: 0.95rem; line-height: 1.45; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .folder-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.02em; color: var(--ink); margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
@@ -824,14 +825,14 @@ pre.astro-code span[style*="color:#6e7781"] {
 .folder-slot:nth-child(2) .tag, .folder-slot:nth-child(4) .tag { background: var(--brand); }
 .folder-slot:nth-child(1) .tag, .folder-slot:nth-child(3) .tag { background: var(--ink); color: var(--paper); }
 .folder-note {
-  position: absolute; right: 0.75rem; bottom: -2.1rem; z-index: 3; transform: rotate(-3deg);
+  position: absolute; right: 0.75rem; bottom: -2.1rem; z-index: 3; transform: rotate(-4deg);
   font-size: 1.4rem; line-height: 1; color: var(--brand); pointer-events: none;
 }
 @media (max-width: 767px) { .folder-sheet { left: 38%; height: 9rem; } .folder-note { right: 0.25rem; } }
 @media (prefers-reduced-motion: reduce) {
   .folder, .folder-sheet, .folder-body { transition: none; }
   .folder:hover, .folder:focus-visible { transform: rotate(var(--rot, 0deg)); }
-  .folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: rotate(2.2deg); }
+  .folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: rotate(4deg); }
 }
 
 /* Servicios sobre bandas: tarjetas en papel con sombra dura */
@@ -841,9 +842,9 @@ pre.astro-code span[style*="color:#6e7781"] {
 .band-clay .glass .label, .band-ink .glass .label { color: var(--text-faint); }
 
 .step-card { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); border-radius: 0.5rem; padding: 1.5rem; transition: transform 240ms var(--ease-out); }
-.step-card:nth-child(odd) { transform: rotate(-0.8deg); }
-.step-card:nth-child(even) { transform: rotate(0.8deg) translateY(0.5rem); }
-.step-card:hover { transform: rotate(0) translateY(-4px); }
+.step-card:nth-child(odd) { transform: none; }
+.step-card:nth-child(even) { transform: translateY(0.5rem); }
+.step-card:hover { transform: translateY(-4px); }
 
 /* Cierre lima: botones */
 .band-lime .btn-dark:hover { background: var(--clay); color: #fff; border-color: var(--clay); }
