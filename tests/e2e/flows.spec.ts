@@ -181,6 +181,9 @@ test.describe("Critical User Journeys & Technical Quality", () => {
   test("Language switcher preserves routes and switches correctly", async ({ page }) => {
     await page.goto("/about/");
     
+    // El selector de idioma es un desplegable: se abre con el icono del globo
+    await page.locator("#lang-toggle").click();
+
     // In Spanish page, ES is active and EN links to /en/about/
     const enLink = page.locator('header a[hreflang="en"]').first();
     const esLink = page.locator('header a[hreflang="es"]').first();
@@ -200,6 +203,7 @@ test.describe("Critical User Journeys & Technical Quality", () => {
     await expect(englishDesktopNav.locator('a[href="/en/about/"]')).toHaveText("About");
 
     // On English page, verify ES links back to /about/
+    await page.locator("#lang-toggle").click();
     const backToEsLink = page.locator('header a[hreflang="es"]').first();
     await expect(backToEsLink).toBeVisible();
     await expect(backToEsLink).toHaveAttribute("href", "/about/");
