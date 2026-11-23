@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import PageHeader from "@/components/page-header.astro";
 import CtaBand from "@/components/cta-band.astro";
+import { statusLabel } from "@/data/project-status";
 import ProjectMark from "@/components/project-mark.astro";
 import { getBrand } from "@/data/project-brand";
 import { localeFromPath, localizePath } from "@/i18n";
@@ -80,6 +81,7 @@ const list = {
                 {i === 0 && <span class="chip chip-brand !normal-case !tracking-normal">{t.flagship}</span>}
                 <span>{p.data.badge}</span>
               </span>
+              <span class="chip chip-brand mt-2 self-start !normal-case !tracking-normal">{statusLabel(p.id, isEn)}</span>
               <h2 class="mt-2 font-display text-[1.35rem] uppercase leading-[1.02]">{shortTitle(p.data.title)}</h2>
               <span class="muted mt-2 line-clamp-4 text-[0.9rem] leading-snug">{p.data.subtitle}</span>
               <span class="label mt-auto block pt-3 !normal-case">{p.data.stack.slice(0, 3).join(" · ")}</span>
@@ -108,6 +110,7 @@ const list = {
                   <div>
                     <span class="mb-4 block overflow-hidden rounded-xl border border-ink/15"><ProjectMark id={p.id} name={shortTitle(p.data.title)} class="!aspect-[16/7] transition-transform duration-500 group-hover:scale-105" /></span>
                     <span class="label block">{p.data.badge}</span>
+                    <span class="chip chip-brand mt-2 !normal-case !tracking-normal">{statusLabel(p.id, isEn)}</span>
                     <span class="faint mt-1 block font-mono text-[0.8rem]">{p.data.year} · {p.data.client}</span>
                   </div>
                   <div class="mt-3">

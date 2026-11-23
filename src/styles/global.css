@@ -1,71 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@700;800&display=swap');
 @import 'tailwindcss';
 
 @plugin '@tailwindcss/typography';
 
 /* ---------------------------------------------------------------
-   SISTEMA «STREET-GLASS»
-   Estudio de ingeniería frontend y producto digital contemporáneo.
-   Lienzo limpio sin ruidos ni patrones repetitivos, tinta #111,
-   amarillo #FFFF00 como firma de decisión y contraste.
-   Titulares: Syne Extra Bold (800) + Instrument Serif Italic. Cuerpo: Inter Variable.
+   SISTEMA «BRUTALISMO EDITORIAL SUAVE»
+   Papel #F7F7F5 · Tinta #111111 · Lima #C8F169 · Terracota #E05A36.
+   Secciones separadas por cambio de fondo, filetes de 1px y notas a mano.
+   Titulares: Syne (alternativa a Clash Display). Cuerpo: Plus Jakarta Sans.
+   Notas: Caveat (uso mínimo). Todo auto-alojado.
 ---------------------------------------------------------------- */
 @font-face {
-  font-family: 'Archivo Black';
+  font-family: 'Syne';
   font-style: normal;
   font-display: swap;
-  font-weight: 400;
-  src: url('/fonts/archivo-black-latin.woff2') format('woff2');
+  font-weight: 400 800;
+  src: url('/fonts/syne-latin-wght.woff2') format('woff2-variations');
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: 'Archivo Black';
+  font-family: 'Syne';
   font-style: normal;
   font-display: swap;
-  font-weight: 400;
-  src: url('/fonts/archivo-black-latin-ext.woff2') format('woff2');
+  font-weight: 400 800;
+  src: url('/fonts/syne-latin-ext-wght.woff2') format('woff2-variations');
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-display: swap;
-  font-weight: 100 900;
-  src: url('/fonts/inter-latin-wght.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  src: url('/fonts/jakarta-latin-wght.woff2') format('woff2-variations');
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-display: swap;
-  font-weight: 100 900;
-  src: url('/fonts/inter-latin-ext-wght.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  src: url('/fonts/jakarta-latin-ext-wght.woff2') format('woff2-variations');
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url('/fonts/caveat-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
 @theme {
-  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Syne', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --font-serif: 'Plus Jakarta Sans', Georgia, serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
 
-  --color-brand: #ffff00;
-  --color-brand-yellow: #ffff00;
+  --color-brand: #C8F169;
+  --color-brand-yellow: #C8F169;
   --color-brand-dark: #111111;
+  --color-lime: #C8F169;
+  --color-clay: #E05A36;
   --color-ink: #111111;
   --color-ink-soft: #3b3b38;
-  --color-paper: #fafaf6;
-  --color-sand: #f1f1ea;
+  --color-paper: #F7F7F5;
+  --color-sand: #efefeb;
   --color-surface: #ffffff;
 }
 
 :root {
   color-scheme: light;
-  --brand: #ffff00;
+  --brand: #C8F169;
   --on-brand: #111111;
+  --clay: #E05A36;
   --ink: #111111;
+  --paper: #F7F7F5;
 
-  --bg-main: #ffffff;
+  --bg-main: #F7F7F5;
   --bg-surface: rgba(255, 255, 255, 0.92);
   --bg-raised: #ffffff;
 
@@ -80,9 +92,6 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --gutter: clamp(1.25rem, 4vw, 2.75rem);
   --r-glass: 0.85rem;
-
-  /* Grano fino (ruido SVG de 160 px) */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
 }
 
 /* ---------------------------------------------------------------
@@ -102,13 +111,7 @@
     scrollbar-width: thin;
   }
   body {
-    /* Fondo con degradados sutiles casi imperceptibles: luz ambiental limpia y cálida */
-    background-color: #ffffff;
-    background-image:
-      radial-gradient(ellipse 75% 50% at 85% 0%, rgba(255, 255, 0, 0.09), transparent 60%),
-      radial-gradient(ellipse 65% 45% at 5% 40%, rgba(255, 255, 0, 0.07), transparent 55%),
-      radial-gradient(ellipse 80% 50% at 90% 90%, rgba(255, 255, 0, 0.06), transparent 60%);
-    background-attachment: fixed;
+    background-color: var(--paper);
     color: var(--text-main);
     overflow-x: clip;
     min-height: 100vh;
@@ -116,7 +119,7 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.05;
     text-wrap: balance;
@@ -167,19 +170,19 @@
     font-size: clamp(2.5rem, 5.5vw, 4.8rem);
     line-height: 1.01;
     letter-spacing: -0.035em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .h-section {
-    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    font-size: clamp(1.8rem, 3.8vw, 3rem);
     line-height: 1.03;
     letter-spacing: -0.03em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .h-page {
-    font-size: clamp(2.4rem, 5.6vw, 4.5rem);
+    font-size: clamp(2rem, 4.6vw, 3.7rem);
     line-height: 1.02;
     letter-spacing: -0.032em;
-    font-weight: 800;
+    font-weight: 700;
   }
   .display {
     font-family: var(--font-display);
@@ -258,8 +261,8 @@
             box-decoration-break: clone;
   }
   .serif-italic {
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-family: var(--font-hand);
+    font-style: normal;
     font-weight: 400;
     letter-spacing: normal;
     text-transform: none;
@@ -310,14 +313,14 @@
     overflow: hidden;
   }
   .cat-grid > * {
-    background: rgba(250, 250, 246, 0.93);
+    background: rgba(247, 247, 245, 0.93);
     min-width: 0;
   }
 
   /* ---- Hoja amarilla: bloque sólido de decisión ---- */
   .sheet {
     position: relative;
-    background: #ffff00;
+    background: #C8F169;
     color: var(--on-brand);
     border: 1.5px solid var(--ink);
     border-radius: var(--r-glass);
@@ -586,12 +589,12 @@
 
 /* Cabecera */
 header.site-header {
-  background: rgba(250, 250, 246, 0.92);
+  background: rgba(247, 247, 245, 0.92);
   border-bottom: 1.5px solid var(--ink);
 }
 @supports (backdrop-filter: blur(1px)) {
   header.site-header {
-    background: rgba(250, 250, 246, 0.74);
+    background: rgba(247, 247, 245, 0.74);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
             backdrop-filter: blur(14px) saturate(1.2);
   }
@@ -641,7 +644,7 @@ pre.astro-code span[style*="color:#6e7781"] {
 }
 .prose :where(a):hover { background-size: 100% 100%; }
 .prose :where(code):not(:where(pre *)) {
-  background: #ffff00;
+  background: #C8F169;
   border-radius: 0.3rem;
   padding: 0.1em 0.35em;
   font-weight: 600;
@@ -702,14 +705,14 @@ pre.astro-code span[style*="color:#6e7781"] {
 .section-divider {
   width: min(100% - 2 * var(--gutter), 82rem);
   margin-inline: auto;
-  height: 2px;
+  height: 1px;
   overflow: hidden;
   position: relative;
 }
 .divider-line {
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(17, 17, 17, 0.75) 0%, rgba(255, 255, 0, 0.9) 40%, rgba(17, 17, 17, 0.2) 80%, transparent 100%);
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -720,3 +723,144 @@ pre.astro-code span[style*="color:#6e7781"] {
 @media (prefers-reduced-motion: reduce) {
   .divider-line { transform: scaleX(1); transition: none; }
 }
+
+/* ===============================================================
+   BRUTALISMO EDITORIAL SUAVE: bandas, notas a mano, bento
+=============================================================== */
+.font-hand { font-family: var(--font-hand); font-weight: 700; letter-spacing: 0; }
+
+/* Marca tipográfica */
+.wordmark { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.wordmark i { font-style: normal; color: var(--clay); }
+.band-ink .wordmark, .band-clay .wordmark { color: #fff; }
+
+/* Bandas: el cambio de fondo separa las secciones */
+.band-paper { background: var(--paper); color: var(--ink); }
+.band-lime { background: var(--brand); color: var(--ink); --text-muted: #1f2a0a; --text-faint: #2c3a10; }
+.band-clay { background: var(--clay); color: var(--ink); --text-muted: #111; --text-faint: #111; }
+.band-lime .lede, .band-clay .lede, .band-clay .muted { color: var(--ink); }
+.band-ink .label, .band-ink .faint { color: rgba(255, 255, 255, 0.7); }
+.band-ink .hl { background: var(--brand); color: var(--ink); }
+.band-clay .hl, .band-lime .hl { background: var(--ink); color: var(--brand); }
+.band-clay :focus-visible, .band-lime :focus-visible { outline-color: var(--ink); box-shadow: 0 0 0 6px #fff; }
+.band-ink :focus-visible { outline-color: var(--brand); box-shadow: none; }
+.band-ink .link-arrow { background-image: linear-gradient(var(--clay), var(--clay)); }
+
+/* Nota a mano con flecha */
+.note {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.05;
+  color: var(--clay);
+  transform: rotate(-4deg);
+}
+.band-clay .note { color: var(--ink); }
+.band-ink .note { color: var(--brand); }
+
+/* Trazo SVG a mano: se dibuja al cargar */
+.scribble { display: block; width: 100%; height: 0.5em; color: var(--clay); overflow: visible; }
+.scribble path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: scribble-draw 0.9s 0.9s var(--ease-out) forwards; }
+.scribble.is-lime { color: var(--brand); }
+@keyframes scribble-draw { to { stroke-dashoffset: 0; } }
+
+/* Etiqueta: lima sobre papel/tinta */
+.tag { border-width: 1px; }
+.tag-clay { background: var(--clay); color: #fff; }
+.band-lime .tag { background: var(--ink); color: var(--brand); }
+.band-clay .tag { background: var(--paper); }
+
+/* Proyectos como carpetas: pestaña con índice, hoja que asoma y se eleva al interactuar */
+.folders { display: grid; gap: 4.5rem 2rem; grid-template-columns: minmax(0, 1fr); list-style: none; padding: 0; }
+@media (min-width: 768px) { .folders { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5rem 3rem; } }
+.folder-slot { position: relative; list-style: none; }
+@media (min-width: 768px) { .folder-slot:nth-child(even) { margin-top: 3.5rem; } }
+.folder {
+  --c: var(--brand);
+  position: relative; display: block; padding-top: 3.6rem; color: var(--ink); text-decoration: none;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 300ms var(--ease-out);
+}
+.folder-slot:nth-child(1) .folder { --c: var(--brand); --rot: 0deg; }
+.folder-slot:nth-child(2) .folder { --c: var(--paper); --rot: 0deg; }
+.folder-slot:nth-child(3) .folder { --c: var(--clay); --rot: 0deg; }
+.folder-slot:nth-child(4) .folder { --c: var(--paper); --rot: 0deg; }
+.folder:hover, .folder:focus-visible { transform: translateY(-4px); outline: none; }
+.folder:focus-visible .folder-body { outline: 3px solid var(--brand); outline-offset: 4px; }
+
+.folder-tab {
+  position: absolute; z-index: 2; left: 1.25rem; top: 1.5rem;
+  display: inline-flex; align-items: center; gap: 0.35rem; height: 2.1rem; padding: 0 1.1rem;
+  background: var(--c); color: var(--ink);
+  border: 1px solid var(--ink); border-bottom: 0; border-radius: 0.6rem 0.6rem 0 0;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.02em; text-transform: uppercase;
+}
+.folder-tab b { font-family: var(--font-mono); font-weight: 700; }
+
+/* Hoja con la vista previa: asoma por detrás y sube al interactuar */
+.folder-sheet {
+  position: absolute; z-index: 0; right: 1.5rem; left: 42%; top: 0.5rem; height: 11rem; overflow: hidden;
+  background: #fff; border: 1px solid var(--ink); border-radius: 0.35rem 0.35rem 0 0;
+  transform: rotate(4deg); transform-origin: bottom left;
+  transition: transform 380ms var(--ease-out);
+}
+.folder-sheet img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: translateY(-1.6rem) rotate(0deg); }
+
+.folder-body {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
+  min-height: 15rem; padding: 1.5rem 1.5rem 1.4rem;
+  background: var(--c); border: 1px solid var(--ink); border-radius: 0 0.6rem 0.6rem 0.6rem;
+  box-shadow: 6px 6px 0 rgba(247, 247, 245, 0.18);
+  transition: box-shadow 300ms var(--ease-out);
+}
+.folder:hover .folder-body { box-shadow: 8px 8px 0 var(--clay); }
+.folder-slot:nth-child(3) .folder:hover .folder-body { box-shadow: 8px 8px 0 var(--brand); }
+.folder-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--ink); }
+.folder-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+.folder-text { font-size: 0.95rem; line-height: 1.45; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.folder-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.02em; color: var(--ink); margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
+.folder-open { font-weight: 700; font-size: 0.9rem; border-bottom: 2px solid var(--ink); }
+.folder-slot:nth-child(2) .tag, .folder-slot:nth-child(4) .tag { background: var(--brand); }
+.folder-slot:nth-child(1) .tag, .folder-slot:nth-child(3) .tag { background: var(--ink); color: var(--paper); }
+.folder-note {
+  position: absolute; right: 0.75rem; bottom: -2.1rem; z-index: 3; transform: rotate(-4deg);
+  font-size: 1.4rem; line-height: 1; color: var(--brand); pointer-events: none;
+}
+@media (max-width: 767px) { .folder-sheet { left: 38%; height: 9rem; } .folder-note { right: 0.25rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .folder, .folder-sheet, .folder-body { transition: none; }
+  .folder:hover, .folder:focus-visible { transform: rotate(var(--rot, 0deg)); }
+  .folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: rotate(4deg); }
+}
+
+/* Servicios sobre bandas: tarjetas en papel con sombra dura */
+.band-clay .glass, .band-ink .glass { background: var(--paper); color: var(--ink); backdrop-filter: none; border: 1px solid var(--ink); border-radius: 0.5rem; box-shadow: 5px 5px 0 var(--ink); }
+.band-ink .glass { box-shadow: 5px 5px 0 var(--brand); }
+.band-clay .glass .muted, .band-ink .glass .muted { color: var(--text-muted); }
+.band-clay .glass .label, .band-ink .glass .label { color: var(--text-faint); }
+
+.step-card { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); border-radius: 0.5rem; padding: 1.5rem; transition: transform 240ms var(--ease-out); }
+.step-card:nth-child(odd) { transform: none; }
+.step-card:nth-child(even) { transform: translateY(0.5rem); }
+.step-card:hover { transform: translateY(-4px); }
+
+/* Cierre lima: botones */
+.band-lime .btn-dark:hover { background: var(--clay); color: #fff; border-color: var(--clay); }
+.band-lime .btn-white:hover { background: var(--ink); color: var(--brand); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scribble path { animation: none; stroke-dashoffset: 0; }
+  .step-card { transition: none; }
+}
+
+/* Cabecera transparente: el color del texto lo decide navbar.astro según el fondo que haya debajo */
+#site-header { background: transparent; border-bottom: 0; }
+
+
+/* Servicios fijados con scroll: el relleno de GSAP también lleva el color de la banda */
+.band-clay .svc-pin, .band-clay .pin-spacer { background: var(--clay); }
+
+/* Titulares anchos (Syne): nunca desbordan en pantallas pequeñas */
+h1, h2, h3, h4 { overflow-wrap: anywhere; hyphens: auto; }

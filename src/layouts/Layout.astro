@@ -233,7 +233,7 @@ const websiteSchema = {
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#fafaf6" />
+    <meta name="theme-color" content="#F7F7F5" />
     <meta name="generator" content={Astro.generator} />
     <script is:inline>document.documentElement.classList.add("js");</script>
 
@@ -328,8 +328,8 @@ const websiteSchema = {
     />
 
     <!-- Fuentes críticas: evita la cascada que retrasa el LCP -->
-    <link rel="preload" href="/fonts/archivo-black-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/syne-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jakarta-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
 
     {!shouldNoIndex && <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />}
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
@@ -340,7 +340,7 @@ const websiteSchema = {
   <body class="text-ink antialiased min-h-screen flex flex-col overflow-x-clip">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-3 focus:bg-[#ffff00] focus:text-[#111111] focus:font-bold focus:rounded-sm focus:outline-2 focus:outline-ink"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-3 focus:bg-[#C8F169] focus:text-[#111111] focus:font-bold focus:rounded-sm focus:outline-2 focus:outline-ink"
     >
       {isEn ? "Skip to main content" : "Saltar al contenido principal"}
     </a>

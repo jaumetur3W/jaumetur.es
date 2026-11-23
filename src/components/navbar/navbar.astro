@@ -25,33 +25,22 @@ const links = [
   { label: "Blog", path: "/blog", active: pathname.startsWith("/blog") },
   { label: isEn ? "About" : "Sobre mí", path: "/about", active: pathname.startsWith("/about") },
 ];
-const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 ---
 
 <!-- Header superior: fondo transparente, limpio y perfectamente alineado -->
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300">
-  <div class="wrap flex h-20 items-center justify-between relative">
+<header id="site-header" data-tone="light" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <div class="wrap flex md:grid md:grid-cols-[1fr_auto_1fr] h-20 items-center justify-between relative">
     
-    <!-- Izquierda: Logo oficial + Firma tipográfica -->
-    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0" aria-label={isEn ? "jaume tur — home" : "jaume tur — inicio"}>
-      <img
-        src="/img/jt.LOGO-02-128.webp"
-        alt="Jaume Tur Logo"
-        width="38"
-        height="38"
-        class="h-9 w-9 rounded-lg border-[1.5px] border-ink object-contain shadow-xs group-hover:scale-105 transition-transform"
-        decoding="async"
-      />
-      <span class="font-display text-[1.35rem] font-black tracking-[-0.03em] leading-none text-ink">
-        jaume <span class="serif-italic text-[1.25em] font-normal tracking-normal text-ink/85">tur</span>
-      </span>
+    <!-- Izquierda: marca tipográfica -->
+    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0 justify-self-start" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
+      <span class="wordmark text-[1.45rem]">jaumetur<i>.</i>es</span>
     </a>
 
     <!-- Centro: Enlaces horizontales en la misma fila, texto normal, perfectamente alineados -->
     <nav
       id="nav-center-menu"
       aria-label={isEn ? "Main navigation" : "Navegación principal"}
-      class="hidden md:flex flex-1 items-center justify-center px-4 transition-all duration-250 opacity-0 pointer-events-none invisible"
+      class="hidden md:flex items-center justify-center px-4"
     >
       <ul class="flex items-center gap-6 lg:gap-10 xl:gap-12">
         {links.map((l) => (
@@ -60,7 +49,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "nav-top-link relative inline-flex items-center py-2 px-1 font-display text-[1.05rem] lg:text-[1.12rem] font-bold tracking-tight text-ink transition-colors hover:text-black whitespace-nowrap",
+                "nav-top-link relative inline-flex items-center py-2 px-1 font-hand text-[1.45rem] lg:text-[1.6rem] font-bold text-ink transition-colors hover:text-black whitespace-nowrap",
                 l.active ? "font-extrabold text-black" : "text-ink/85 hover:text-black"
               ]}
             >
@@ -72,15 +61,15 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     </nav>
 
     <!-- Derecha: Botón de 3 líneas (icono limpio) + Selector de Idioma [ES / EN] -->
-    <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+    <div class="flex items-center justify-end gap-1 sm:gap-2 shrink-0">
       
       <!-- Icono de 3 líneas horizontales -->
       <button
         id="nav-toggle"
         type="button"
         class="flex items-center justify-center p-2 text-ink hover:text-black cursor-pointer transition-transform duration-200 active:scale-95 group"
-        aria-label={isEn ? "Toggle navigation menu" : "Mostrar u ocultar menú"}
-        aria-expanded="false"
+        aria-label={isEn ? "Show or hide menu" : "Mostrar u ocultar menú"}
+        aria-expanded="true"
         aria-controls="nav-panel nav-center-menu"
       >
         <span class="nav-burger-icon flex flex-col justify-center items-center w-6 h-4.5 gap-[4.5px] relative" aria-hidden="true">
@@ -90,14 +79,33 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
         </span>
       </button>
 
-      <!-- Selector de idioma: [ES] / EN -->
-      <div class="flex items-center font-mono text-xs font-bold" role="group" aria-label={isEn ? "Language" : "Idioma"}>
-        <a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}
-           class:list={["px-2.5 py-1 rounded transition-colors", !isEn ? "bg-ink text-white" : "text-ink/70 hover:text-ink"]}>ES</a>
-        <span class="text-ink/30 mx-1">/</span>
-        <a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}
-           class:list={["px-2.5 py-1 rounded transition-colors", isEn ? "bg-ink text-white" : "text-ink/70 hover:text-ink"]}>EN</a>
+      <!-- Idioma: el usuario elige entre español e inglés (nunca cambia solo) -->
+      <div class="lang-menu relative">
+        <button
+          id="lang-toggle"
+          type="button"
+          class="lang-btn flex items-center justify-center p-2"
+          aria-label={isEn ? "Language" : "Idioma"}
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="lang-list"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="M2.5 12h19" />
+            <path d="M12 2.5c2.7 2.6 4 5.8 4 9.5s-1.3 6.9-4 9.5c-2.7-2.6-4-5.8-4-9.5s1.3-6.9 4-9.5z" />
+          </svg>
+        </button>
+        <ul id="lang-list" class="lang-list" hidden>
+          <li><a href={spanishPath} hreflang="es" lang="es" aria-current={!isEn ? "true" : undefined}><span class="font-mono">ES</span> Español</a></li>
+          <li><a href={englishPath} hreflang="en" lang="en" aria-current={isEn ? "true" : undefined}><span class="font-mono">EN</span> English</a></li>
+        </ul>
       </div>
+
+      <!-- CTA directo (escritorio) -->
+      <a href={to("/contact")} class="nav-cta btn btn-brand btn-sm hidden md:inline-flex" data-cursor={isEn ? "Talk" : "Hola"}>
+        {isEn ? "Let's talk" : "Hablamos"} <span aria-hidden="true">→</span>
+      </a>
 
     </div>
 
@@ -106,7 +114,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
   <!-- Desplegable móvil (para pantallas pequeñas donde no cabe toda la fila horizontal) -->
   <div
     id="nav-panel"
-    class="md:hidden absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-ink/15 shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible p-6"
+    class="md:hidden absolute top-20 left-0 right-0 bg-paper border-b border-ink shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible p-6"
     aria-hidden="true"
   >
     <ul class="grid gap-3">
@@ -114,7 +122,7 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
         <li>
           <a
             href={to(l.path)}
-            class="block py-2 font-display text-xl font-bold tracking-tight text-ink border-b border-ink/5"
+            class="block py-2 font-hand text-3xl font-bold text-ink border-b border-ink/10"
             data-nav-link
           >
             {l.label}
@@ -124,13 +132,34 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     </ul>
     <div class="pt-5 mt-2">
       <a href={to("/contact")} class="btn btn-dark w-full !min-h-[2.8rem] text-xs font-bold uppercase tracking-wider" data-nav-link>
-        {ctaLabel} <span>→</span>
+        {isEn ? "Tell me about your project" : "Cuéntame tu proyecto"} <span aria-hidden="true">→</span>
       </a>
     </div>
   </div>
 </header>
 
 <style>
+  /* Tono automático: data-tone lo fija el script según el fondo bajo la barra (light | dark | clay | lime) */
+  #site-header { --nav-fg: #111111; --nav-inv: #F7F7F5; --nav-accent: #E05A36; color: var(--nav-fg); }
+  #site-header[data-tone="dark"] { --nav-fg: #F7F7F5; --nav-inv: #111111; --nav-accent: #C8F169; }
+  #site-header[data-tone="clay"] { --nav-accent: #111111; }
+  #site-header[data-tone="lime"] { --nav-accent: #111111; }
+  #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn { color: var(--nav-fg); transition: color 200ms ease; }
+  #site-header .lang-btn svg { transition: transform 300ms ease; }
+  .lang-list { position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 60; min-width: 10.5rem; margin: 0; padding: 0.35rem; list-style: none; background: #F7F7F5; border: 1px solid #111111; border-radius: 0.5rem; box-shadow: 4px 4px 0 #111111; }
+  .lang-list[hidden] { display: none; }
+  .lang-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 0.35rem; color: #111111; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .lang-list a:hover, .lang-list a:focus-visible { background: #C8F169; }
+  .lang-list a[aria-current="true"] { background: #111111; color: #F7F7F5; }
+  #site-header .lang-btn:hover svg { transform: rotate(20deg); }
+  #site-header .wordmark i { color: var(--nav-accent); }
+  #site-header .burger-line { background: var(--nav-fg); }
+  #site-header[data-tone="lime"] .nav-cta { background: #111111; color: #C8F169; }
+  #site-header[data-tone="lime"] .nav-cta:hover { background: #F7F7F5; color: #111111; }
+  /* Panel móvil: opaco y con colores propios, independiente del tono */
+  #nav-panel, #nav-panel a { color: #111111; }
+  #nav-panel .btn-dark { color: #ffffff; }
+  @media (prefers-reduced-motion: reduce) { #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn svg { transition: none; } }
   .nav-top-link::after {
     content: '';
     position: absolute;
@@ -138,20 +167,21 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
     right: 4px;
     bottom: -2px;
     height: 2.5px;
-    background: #ffff00;
+    background: var(--nav-accent);
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 220ms ease;
   }
-  .nav-top-link:hover::after {
+  .nav-top-link:hover::after,
+  .nav-top-link[aria-current="page"]::after {
     transform: scaleX(1);
   }
 
   /* Estado abierto en Desktop: aparecen los enlaces perfectamente alineados en el centro */
-  #site-header.is-menu-open #nav-center-menu {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
+  /* Escritorio: los enlaces se ven por defecto; el icono de menú los oculta */
+  @media (min-width: 768px) {
+    #site-header.nav-collapsed #nav-center-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+    #nav-center-menu { transition: opacity 200ms ease, visibility 200ms; }
   }
 
   /* Estado abierto en Móvil: se despliega suavemente abajo de la barra */
@@ -170,48 +200,145 @@ const ctaLabel = isEn ? "Get a quote" : "Pedir presupuesto";
 
 <script is:inline>
   (function () {
+
+    // Tono de la cabecera según el fondo real que hay debajo (se actualiza al hacer scroll)
+    var parseRgb = function (c) {
+      var m = c.match(/rgba?\(([^)]+)\)/);
+      if (!m) return null;
+      var p = m[1].split(",").map(function (x) { return parseFloat(x); });
+      return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    };
+    var bgUnder = function (el) {
+      while (el && el !== document.documentElement) {
+        var c = parseRgb(getComputedStyle(el).backgroundColor);
+        if (c && c.a > 0.5) return c;
+        el = el.parentElement;
+      }
+      return { r: 247, g: 247, b: 245, a: 1 };
+    };
+    var toneFor = function (c) {
+      var lum = (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) / 255;
+      if (c.r > 190 && c.g < 120 && c.b < 90) return "clay";
+      if (c.g > 200 && c.r > 150 && c.b < 160 && c.g - c.b > 60) return "lime";
+      return lum < 0.45 ? "dark" : "light";
+    };
+    var ticking = false;
+    var updateTone = function () {
+      ticking = false;
+      var header = document.getElementById("site-header");
+      if (!header) return;
+      var y = Math.round(header.getBoundingClientRect().height / 2);
+      var votes = {};
+      var best = "light";
+      var xs = [0.06, 0.2, 0.35, 0.5, 0.65, 0.8, 0.94];
+      xs.forEach(function (f) {
+        var els = document.elementsFromPoint(Math.round(window.innerWidth * f), y);
+        var target = null;
+        for (var i = 0; i < els.length; i++) {
+          if (!header.contains(els[i])) { target = els[i]; break; }
+        }
+        var t = target ? toneFor(bgUnder(target)) : "light";
+        votes[t] = (votes[t] || 0) + 1;
+        if (votes[t] > (votes[best] || 0)) best = t;
+      });
+      var tone = best;
+      if (header.dataset.tone !== tone) header.dataset.tone = tone;
+    };
+    // Ráfaga inicial: el fondo de la página nueva puede pintarse después del primer cálculo
+    var burstTone = function () {
+      [0, 60, 150, 300, 600, 1000, 1600].forEach(function (ms) { setTimeout(function () { requestTone(); }, ms); });
+    };
+    var requestTone = function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateTone); }
+    };
+    if (!window.__navToneBound) {
+      window.__navToneBound = true;
+      window.addEventListener("scroll", requestTone, { passive: true });
+      window.addEventListener("resize", requestTone);
+      window.addEventListener("load", requestTone);
+      window.addEventListener("pageshow", burstTone);
+      window.addEventListener("pagereveal", burstTone);
+      document.addEventListener("DOMContentLoaded", requestTone);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(requestTone);
+    }
+    updateTone();
+    burstTone();
     function initNav() {
       var header = document.getElementById("site-header");
       var toggleBtn = document.getElementById("nav-toggle");
       if (!header || !toggleBtn) return;
 
+      var desktop = window.matchMedia("(min-width: 768px)");
+      var isOpen = function () {
+        return desktop.matches ? !header.classList.contains("nav-collapsed") : header.classList.contains("is-menu-open");
+      };
+      var KEY = "jt-nav-collapsed";
+      var readCollapsed = function () {
+        try { return window.localStorage.getItem(KEY) === "1"; } catch (e) { return false; }
+      };
+      var saveCollapsed = function (collapsed) {
+        try { window.localStorage.setItem(KEY, collapsed ? "1" : "0"); } catch (e) {}
+      };
+      var setOpen = function (open, persist) {
+        if (desktop.matches) {
+          header.classList.toggle("nav-collapsed", !open);
+          if (persist) saveCollapsed(!open);
+        }
+        else header.classList.toggle("is-menu-open", open);
+        toggleBtn.setAttribute("aria-expanded", String(open));
+        var panel = document.getElementById("nav-panel");
+        if (panel) panel.setAttribute("aria-hidden", String(desktop.matches || !open));
+      };
+      // Estado inicial: en escritorio se recuerda entre páginas; en móvil siempre cerrado
+      setOpen(desktop.matches ? !readCollapsed() : false);
+
       if (toggleBtn.dataset.bound === "true") return;
       toggleBtn.dataset.bound = "true";
 
-      var setOpen = function (open) {
-        header.classList.toggle("is-menu-open", open);
-        toggleBtn.setAttribute("aria-expanded", String(open));
-      };
-
       toggleBtn.addEventListener("click", function (e) {
         e.stopPropagation();
-        var isOpen = header.classList.contains("is-menu-open");
-        setOpen(!isOpen);
+        setOpen(!isOpen(), true);
       });
 
-      // Cerrar al pulsar fuera del encabezado
-      document.addEventListener("click", function (e) {
-        if (header.classList.contains("is-menu-open") && !header.contains(e.target)) {
-          setOpen(false);
-        }
+      desktop.addEventListener("change", function () {
+        header.classList.remove("is-menu-open", "nav-collapsed");
+        setOpen(desktop.matches ? !readCollapsed() : false);
       });
 
-      // Al pulsar en cualquier enlace del menú, cerrar y permitir la navegación
-      header.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          setOpen(false);
+      // Selector de idioma: se abre y cierra a mano; el idioma nunca cambia solo
+      var langBtn = document.getElementById("lang-toggle");
+      var langList = document.getElementById("lang-list");
+      if (langBtn && langList) {
+        var setLang = function (open) {
+          langList.hidden = !open;
+          langBtn.setAttribute("aria-expanded", String(open));
+        };
+        langBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          setLang(langList.hidden);
         });
-      });
+        document.addEventListener("click", function (e) {
+          if (!langList.hidden && !langList.contains(e.target)) setLang(false);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && !langList.hidden) { setLang(false); langBtn.focus(); }
+        });
+      }
 
+      // Móvil: cerrar al pulsar fuera, en un enlace o con Escape
+      document.addEventListener("click", function (e) {
+        if (!desktop.matches && isOpen() && !header.contains(e.target)) setOpen(false);
+      });
+      header.querySelectorAll("#nav-panel a").forEach(function (link) {
+        link.addEventListener("click", function () { if (!desktop.matches) setOpen(false); });
+      });
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && header.classList.contains("is-menu-open")) {
-          setOpen(false);
-        }
+        if (e.key === "Escape" && !desktop.matches && isOpen()) setOpen(false);
       });
     }
 
     initNav();
-    document.addEventListener("astro:page-load", initNav);
+    document.addEventListener("astro:page-load", function () { initNav(); requestTone(); });
     document.addEventListener("astro:after-swap", initNav);
   })();
 </script>

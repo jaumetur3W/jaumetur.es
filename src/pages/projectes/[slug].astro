@@ -6,6 +6,8 @@ import CtaBand from "@/components/cta-band.astro";
 import TraniaSavingsCalculator from "@/components/trania-savings-calculator.astro";
 import ProjectMark from "@/components/project-mark.astro";
 import { getBrand } from "@/data/project-brand";
+import { getDeco } from "@/data/project-deco";
+import { getStatus, statusLabel, statusNote } from "@/data/project-status";
 import { localeFromPath, localizePath } from "@/i18n";
 
 export async function getStaticPaths() {
@@ -43,6 +45,9 @@ const projectImages: Record<string, string> = {
 };
 const cover = projectImages[entry.id];
 const brand = getBrand(entry.id);
+const deco = getDeco(entry.id);
+const num = (idx < 0 ? 0 : idx) + 1;
+const status = getStatus(entry.id);
 const shortTitle = (x: string) => x.split(" — ")[0];
 
 const serviceFor =
@@ -93,54 +98,72 @@ const breadcrumb = {
 ---
 
 <Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
- <div class="pj" data-pj={entry.id} data-font={brand.font} style={`--pj-bg:${brand.bg};--pj-fg:${brand.fg};--pj-r:${brand.radius};--brand:${brand.accent};--on-brand:${brand.onAccent};`}>
-  <header class="pj-hero" data-pattern={brand.pattern}>
+ <div class="pj" data-pj={entry.id} style={`--pj-bg:${brand.bg};--pj-fg:${brand.fg};--pj-accent:${brand.accent};--pj-on:${brand.onAccent};--pj-r:${brand.radius};`}>
+  <header class="pj-hero">
+    <div class="pj-deco-wrap" aria-hidden="true" set:html={deco} />
     <div class="wrap relative z-[1]">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2 text-sm opacity-90">
-        <a href={to("/")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-current">{t.home}</a><span aria-hidden="true">/</span>
-        <a href={to("/projectes")} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-current">{t.projects}</a><span aria-hidden="true">/</span>
-        <span aria-current="page" class="font-semibold">{shortTitle(d.title)}</span>
+      <nav aria-label="Breadcrumb" class="pj-crumbs">
+        <a href={to("/")}>{t.home}</a><span aria-hidden="true">/</span>
+        <a href={to("/projectes")}>{t.projects}</a><span aria-hidden="true">/</span>
+        <span aria-current="page">{shortTitle(d.title)}</span>
       </nav>
-      <div class="mt-4 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-        <div class="lg:col-span-7">
-          <p class="flex flex-wrap items-center gap-2">
-            {entry.id === "avisa" && <span class="pj-chip pj-chip-accent">{t.flagship}</span>}
-            <span class="pj-chip"><Icon name={entry.data.icon} class="h-4 w-4" />{d.badge}</span>
+      <div class="pj-hero-grid mt-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+        <div class="pj-copy lg:col-span-7">
+          <p class="pj-tags flex flex-wrap items-center gap-2">
+            {entry.id === "avisa" && <span class="tag pj-tag-accent">{t.flagship}</span>}
+            <span class={`pj-status pj-status-${status}`}>{statusLabel(entry.id, isEn)}</span>
+            <span class="tag"><Icon name={entry.data.icon} class="h-4 w-4" />{d.badge}</span>
           </p>
           <h1 class="pj-title mt-5">{d.title}</h1>
           <p class="pj-lede mt-5">{d.subtitle}</p>
-          <div class="mt-7 flex flex-wrap gap-3">
-            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="pj-btn pj-btn-accent">{t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
-            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="pj-btn">{t.code} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+          <div class="mt-8 flex flex-wrap gap-3">
+            {entry.data.liveUrl && <a href={entry.data.liveUrl} target="_blank" rel="noopener noreferrer" class="btn pj-cta-main">{t.live} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
+            {entry.data.githubUrl && <a href={entry.data.githubUrl} target="_blank" rel="noopener noreferrer" class="btn pj-cta-alt">{t.code} <span aria-hidden="true">↗</span><span class="sr-only"> ({isEn ? "opens in a new tab" : "se abre en pestaña nueva"})</span></a>}
           </div>
         </div>
-        <div class="lg:col-span-5">
-          <div class="pj-logo-frame">
-            <ProjectMark id={entry.id} name={shortTitle(d.title)} eager class="!aspect-[4/3] sm:!aspect-[16/10]" />
+        <div class="pj-art lg:col-span-5">
+          <div class="pj-folder">
+            <span class="pj-folder-tab"><b>{String(num).padStart(2, "0")}</b> · {shortTitle(d.title)}</span>
+            <div class="pj-folder-body">
+              <ProjectMark id={entry.id} name={shortTitle(d.title)} eager />
+            </div>
+            <span class="note pj-folder-note" aria-hidden="true">{statusNote(entry.id, isEn)}</span>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <section class="section">
-    <div class="wrap-narrow">
-      <dl class="pj-facts grid gap-x-8 gap-y-6 py-7 sm:grid-cols-2">
-        <div><dt class="label">{t.client}</dt><dd class="mt-1 font-semibold leading-snug">{d.client}</dd></div>
-        <div><dt class="label">{t.year}</dt><dd class="mt-1 font-semibold">{entry.data.year}</dd></div>
-        <div><dt class="label">{t.role}</dt><dd class="mt-1 font-semibold leading-snug">{d.role}</dd></div>
-        <div><dt class="label">{t.verify}</dt><dd class="muted mt-1 text-[0.95rem] leading-snug">{d.verificationMethod}</dd></div>
-      </dl>
+  <section class="pj-stat" data-stat={entry.id} aria-label={d.statLabel}>
+    <div class="wrap pj-stat-row">
+      <p class="label">{d.statLabel}</p>
+      <p class="pj-stat-value">{d.statValue}</p>
+    </div>
+  </section>
 
-      <p class="mt-7 flex flex-wrap items-center gap-2">
-        <span class="label mr-1">{t.stack}</span>
-        {entry.data.stack.map((x) => <span class="pj-chip pj-chip-soft font-normal">{x}</span>)}
-      </p>
+  <section class="band-paper section">
+    <div class="wrap grid gap-12 lg:grid-cols-12">
+      <aside class="lg:col-span-4">
+        <div class="pj-sticky">
+          <dl class="pj-facts">
+            <div><dt class="label">{t.client}</dt><dd>{d.client}</dd></div>
+            <div><dt class="label">{t.year}</dt><dd>{entry.data.year}</dd></div>
+            <div><dt class="label">{t.role}</dt><dd>{d.role}</dd></div>
+            <div><dt class="label">{t.verify}</dt><dd class="muted">{d.verificationMethod}</dd></div>
+          </dl>
+          <p class="mt-6 label">{t.stack}</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {entry.data.stack.map((x) => <li class="chip">{x}</li>)}
+          </ul>
+        </div>
+      </aside>
 
-      <div class="prose prose-lg mt-12 max-w-none prose-headings:text-ink prose-p:text-[#3d3d39] prose-a:text-ink prose-strong:text-ink prose-li:text-[#3d3d39] prose-li:marker:text-ink">
-        <Content />
+      <div class="lg:col-span-8 min-w-0">
+        <div class="prose prose-lg max-w-none prose-headings:text-ink prose-p:text-[#2b2b28] prose-a:text-ink prose-strong:text-ink prose-li:text-[#2b2b28] prose-li:marker:text-ink">
+          <Content />
+        </div>
+        {entry.id === "trania" && <TraniaSavingsCalculator isEn={isEn} />}
       </div>
-      {entry.id === "trania" && <TraniaSavingsCalculator isEn={isEn} />}
     </div>
   </section>
 
@@ -151,173 +174,191 @@ const breadcrumb = {
     secondary={{ href: to("/contact"), label: t.ctaB }}
   />
 
-  <nav aria-label={t.projects} class="wrap grid gap-6 border-t-[1.5px] border-ink py-10 sm:grid-cols-2">
-    <a href={to(`/projectes/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="pj-title-sm mt-1 block group-hover:bg-brand group-hover:text-[var(--on-brand)]">{shortTitle(prev.data.title)}</span></a>
-    <a href={to(`/projectes/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="pj-title-sm mt-1 block group-hover:bg-brand group-hover:text-[var(--on-brand)]">{shortTitle(next.data.title)}</span></a>
+  <nav aria-label={t.projects} class="pj-pager">
+    <div class="wrap grid sm:grid-cols-2">
+      <a href={to(`/projectes/${prev.id}`)} class="pj-pager-link"><span class="label">← {t.prev}</span><span class="pj-pager-title">{shortTitle(prev.data.title)}</span></a>
+      <a href={to(`/projectes/${next.id}`)} class="pj-pager-link sm:text-right"><span class="label">{t.next} →</span><span class="pj-pager-title">{shortTitle(next.data.title)}</span></a>
+    </div>
   </nav>
  </div>
 </Layout>
 
 <style is:global>
-  /* ---- Tema propio por proyecto (variables inyectadas en .pj) ---- */
-  .pj { --pj-ff: var(--font-display); }
-  .pj[data-font='serif'] { --pj-ff: Georgia, 'Times New Roman', 'Cormorant Garamond', serif; }
-  .pj[data-font='helvetica'] { --pj-ff: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-  .pj[data-font='mono'] { --pj-ff: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
-  .pj[data-font='wide'] { --pj-ff: var(--font-display); }
+  .pj-hero { position: relative; overflow: hidden; padding: 7.5rem 0 4.5rem; }
+  .pj-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 0.15rem 0.6rem; font-size: 0.9rem; }
+  .pj-crumbs a { display: inline-flex; min-height: 2.75rem; align-items: center; color: inherit; text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .pj-crumbs a:hover { text-decoration-color: currentColor; }
+  .pj-crumbs [aria-current] { font-family: var(--font-hand); font-weight: 700; font-size: 1.35rem; }
 
-  .pj-hero { position: relative; overflow: hidden; background: var(--pj-bg); color: var(--pj-fg); padding: 6.5rem 0 3.5rem; border-bottom: 1.5px solid var(--ink); }
-  .pj-hero a:not(.pj-btn) { color: inherit; }
-  .pj-hero[data-pattern='grid'] { background-image: linear-gradient(color-mix(in srgb, var(--pj-fg) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--pj-fg) 7%, transparent) 1px, transparent 1px); background-size: 28px 28px; }
-  .pj-hero[data-pattern='dots'] { background-image: radial-gradient(color-mix(in srgb, var(--pj-fg) 22%, transparent) 1px, transparent 1.4px); background-size: 18px 18px; }
-  .pj-hero[data-pattern='rule'] { background-image: linear-gradient(color-mix(in srgb, var(--pj-fg) 12%, transparent) 1px, transparent 1px); background-size: 100% 36px; }
-  .pj-hero[data-pattern='gingham'] { background-image: repeating-linear-gradient(90deg, rgba(216,58,74,.1) 0 22px, transparent 22px 44px), repeating-linear-gradient(0deg, rgba(216,58,74,.1) 0 22px, transparent 22px 44px); }
-  .pj-hero[data-pattern='gingham']::after { content: ''; position: absolute; inset: auto 0 0 0; height: 14px; background: repeating-linear-gradient(90deg, #d83a4a 0 14px, #fbf3e2 14px 28px); }
+  .pj-status { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.18rem 0.7rem 0.18rem 0.55rem; border-radius: 999px; border: 1px solid var(--pj-fg); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.3; color: var(--pj-fg); }
+  .pj-status::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--pj-accent); }
+  .pj-status-done::before { background: #2da44e; }
+  .pj-status-demo { border-style: dashed; }
+  .pj-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 4.2vw, 3.3rem); line-height: 1.04; letter-spacing: -0.04em; text-wrap: balance; }
+  .pj-lede { max-width: 38rem; font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; }
+  .pj { --pj-ff: var(--font-display); --brand: var(--pj-accent); --on-brand: var(--pj-on); }
+  .pj-hero { background: var(--pj-bg); color: var(--pj-fg); }
+  .pj-deco-wrap { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .pj-deco { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pj-lede { color: color-mix(in srgb, var(--pj-fg) 90%, transparent); }
+  .pj-hero a:not(.btn) { color: inherit; }
+  .pj-stat .label { color: var(--pj-on); opacity: 0.8; }
+  .pj-title, .pj-pager-title, .pj-stat-value { font-family: var(--pj-ff); }
+  .pj-cta-main { --btn-bg: var(--pj-accent); --btn-fg: var(--pj-on); --btn-hover-bg: var(--pj-fg); --btn-hover-fg: var(--pj-bg); border-color: var(--pj-accent); border-radius: var(--pj-r); }
+  .pj-cta-main:hover { border-color: var(--pj-fg); }
+  .pj-cta-alt { --btn-bg: transparent; --btn-fg: var(--pj-fg); --btn-hover-bg: var(--pj-fg); --btn-hover-fg: var(--pj-bg); border-color: var(--pj-fg); border-radius: var(--pj-r); }
+  .pj-hero .tag { background: var(--pj-accent); color: var(--pj-on); border-color: var(--pj-accent); }
+  .pj-hero .tag.pj-tag-accent { background: transparent; color: var(--pj-fg); border-color: var(--pj-fg); }
 
-  .pj-title { font-family: var(--pj-ff); font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.02; text-wrap: balance; }
-  .pj-title-sm { font-family: var(--pj-ff); font-size: 1.3rem; line-height: 1.1; }
-  .pj-lede { max-width: 38rem; font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.6; opacity: 0.92; }
-  .pj[data-font='serif'] .pj-title, .pj[data-font='serif'] .pj-title-sm { font-weight: 700; letter-spacing: -0.01em; }
-  .pj[data-font='helvetica'] .pj-title, .pj[data-font='helvetica'] .pj-title-sm { font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; }
-  .pj[data-font='wide'] .pj-title, .pj[data-font='wide'] .pj-title-sm { text-transform: uppercase; letter-spacing: 0.06em; }
-  .pj[data-font='mono'] .pj-title, .pj[data-font='mono'] .pj-title-sm { font-weight: 700; letter-spacing: -0.02em; }
-
-  .pj-chip { display: inline-flex; align-items: center; gap: 0.4rem; border: 1.5px solid currentColor; border-radius: 999px; padding: 0.2rem 0.75rem; font-size: 0.78rem; font-weight: 600; line-height: 1.2; }
-  .pj-chip-accent { background: var(--brand); color: var(--on-brand); border-color: var(--brand); }
-  .pj-chip-soft { border: 1px solid rgba(17, 17, 17, 0.15); background: #ffffff; color: var(--ink); border-radius: 9999px; }
-
-  .pj-btn { display: inline-flex; min-height: 3rem; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: calc(var(--pj-r) * 0.8); border: 1.5px solid currentColor; font-family: var(--pj-ff); font-weight: 700; font-size: 0.9rem; text-decoration: none; color: inherit; background: color-mix(in srgb, var(--pj-fg) 8%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: background-color .2s ease, color .2s ease, transform .2s var(--ease-out); }
-  .pj-btn:hover { background: var(--pj-fg); color: var(--pj-bg); }
-  .pj-btn-accent { background: var(--brand); color: var(--on-brand); border-color: var(--brand); }
-  .pj-btn-accent:hover { background: var(--pj-fg); color: var(--pj-bg); border-color: var(--pj-fg); }
-
-  .pj-logo-frame { overflow: hidden; border-radius: var(--pj-r); border: 1.5px solid color-mix(in srgb, var(--pj-fg) 18%, transparent); box-shadow: 0 20px 45px -20px rgba(0, 0, 0, .14); }
-  .pj-facts { border-block: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); }
-
-  /* Cuerpo del caso: titulares y marcas en la tipografía y color del proyecto */
-  .pj .prose { --tw-prose-bullets: var(--brand); --tw-prose-counters: var(--brand); }
-  .pj .prose :where(h2, h3, h4) { font-family: var(--pj-ff); }
-  .pj .prose :where(h2) { border-bottom: 1px solid rgba(17, 17, 17, 0.12); padding-bottom: .5rem; margin-top: 3.5rem; font-weight: 800; letter-spacing: -0.02em; }
-  .pj[data-font='helvetica'] .prose :where(h2, h3), .pj[data-font='wide'] .prose :where(h2, h3) { text-transform: uppercase; }
-  .pj .prose :where(a) { background-image: linear-gradient(var(--brand), var(--brand)); }
-  .pj .prose :where(a):hover { color: var(--on-brand); }
-  .pj .prose :where(code):not(:where(pre *)) { background: #ffff00; }
-  .pj .prose :where(blockquote) { background: #ffffff; border-color: var(--brand); border-radius: var(--pj-r); }
-  .pj .prose :where(pre) { border-radius: var(--pj-r); }
+  .pj-folder { position: relative; padding-top: 2.1rem; transform: none; transition: transform 300ms var(--ease-out); }
+  .pj-folder:hover { transform: translateY(-3px); }
+  .pj-folder-tab { position: absolute; left: 1rem; top: 0; display: inline-flex; align-items: center; gap: 0.35rem; height: 2.1rem; padding: 0 1rem; background: var(--pj-fg); color: var(--pj-bg); border: 1px solid var(--pj-fg); border-bottom: 0; border-radius: 0.6rem 0.6rem 0 0; font-family: var(--font-display); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.02em; text-transform: uppercase; }
+  .pj-folder-tab b { font-family: var(--font-mono); }
+  .pj-folder-body { overflow: hidden; background: var(--paper); border: 1px solid var(--ink); border-radius: 0 var(--pj-r) var(--pj-r) var(--pj-r); border-color: var(--pj-fg); box-shadow: 6px 6px 0 var(--pj-accent); }
   
-  /* Figuras y capturas de pantalla: estilo claro, tranquilo, limpio y con sombra flotante suave */
-  .pj .prose figure {
-    margin: 3.5rem 0;
-    padding: 0.6rem;
-    background: #ffffff;
-    border: 1px solid rgba(17, 17, 17, 0.08);
-    border-radius: 1.25rem;
-    box-shadow: 0 20px 40px -18px rgba(17, 17, 17, 0.08);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .pj .prose figure:hover {
-    box-shadow: 0 24px 50px -20px rgba(17, 17, 17, 0.12);
-  }
-  .pj .prose figure img {
-    border-radius: 0.85rem;
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0;
-  }
-  .pj .prose figcaption {
-    margin-top: 0.9rem;
-    margin-bottom: 0.4rem;
-    text-align: center;
-    font-size: 0.82rem;
-    color: rgba(17, 17, 17, 0.65);
-    font-family: var(--font-sans);
-    font-weight: 500;
-  }
-  .pj-mark-root { display: none; }
+  .pj-folder-note { position: absolute; right: 0.5rem; bottom: -2rem; font-size: 1.4rem; color: var(--pj-accent); }
+  .pj-crumbs [aria-current] { color: var(--pj-accent); }
 
-  /* ==============================================================
-     ESTILO WORKSY EXACTO A LA REFERENCIA DEL DASHBOARD
-     Lienzo etéreo azul/gris, tarjetas níveas con suave elevación,
-     botones de acción azul eléctrico (#2563eb) y estética SaaS moderna.
-     ============================================================== */
-  .pj[data-pj='worksy'] {
-    background-color: #f1f5f9;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(219, 234, 254, 0.7), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 85% 15%, rgba(224, 231, 255, 0.6), transparent 50%),
-      radial-gradient(ellipse 70% 50% at 50% 90%, rgba(241, 245, 249, 0.95), transparent 60%);
-    min-height: 100vh;
+  .pj-stat { padding: 1.75rem 0; background: var(--pj-accent); color: var(--pj-on); }
+  .pj-stat-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; }
+  .pj-stat-value { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.25rem, 2.6vw, 2rem); letter-spacing: -0.03em; color: var(--pj-on); text-wrap: balance; }
+
+  .pj-sticky { position: sticky; top: 6rem; }
+  .pj-facts { display: grid; border: 1px solid var(--ink); border-radius: var(--pj-r); background: #fff; box-shadow: 5px 5px 0 var(--pj-accent); overflow: hidden; }
+  .pj-facts > div { padding: 1rem 1.15rem; border-top: 1px solid rgba(17, 17, 17, 0.15); }
+  .pj-facts > div:first-child { border-top: 0; }
+  .pj-facts dd { margin-top: 0.25rem; font-weight: 600; line-height: 1.35; }
+  .pj-facts dd.muted { font-weight: 500; font-size: 0.92rem; }
+  .pj .chip { background: #fff; }
+
+  .pj .prose { --tw-prose-bullets: var(--pj-accent); --tw-prose-counters: var(--pj-accent); }
+  .pj .prose :where(h2, h3, h4) { font-family: var(--pj-ff); }
+  .pj .prose :where(h2) { margin-top: 3.5rem; padding-top: 1rem; border-top: 1px solid var(--ink); font-weight: 700; letter-spacing: -0.03em; }
+  .pj .prose :where(h2):first-child { margin-top: 0; }
+  .pj .prose :where(hr) { display: none; }
+  .pj .prose :where(blockquote) { background: var(--pj-accent); border: 1px solid var(--ink); border-radius: var(--pj-r); box-shadow: 4px 4px 0 var(--ink); }
+  .pj .prose :where(blockquote) * { color: var(--pj-on); }
+  .pj .prose :where(code):not(:where(pre *)) { background: color-mix(in srgb, var(--pj-accent) 22%, #fff); color: var(--ink); }
+  .pj .prose :where(pre) { border-radius: 0.5rem; border: 1px solid var(--ink); }
+  .pj .prose :where(table) { display: block; overflow-x: auto; }
+  .pj .prose figure { margin: 3rem 0; padding: 0.5rem; background: #fff; border: 1px solid var(--ink); border-radius: 0.5rem; box-shadow: 5px 5px 0 var(--ink); overflow: hidden; }
+  .pj .prose figure img { display: block; width: 100%; height: auto; margin: 0; border-radius: 0.25rem; }
+  .pj .prose figcaption { margin: 0.7rem 0 0.3rem; text-align: center; font-family: var(--font-hand); font-weight: 700; font-size: 1.2rem; color: var(--ink); opacity: 0.75; }
+
+  .pj-pager { background: var(--pj-bg); color: var(--pj-fg); border-top: 1px solid color-mix(in srgb, var(--pj-fg) 35%, transparent); }
+  .pj-pager .label { color: color-mix(in srgb, var(--pj-fg) 70%, transparent); }
+  .pj-pager-link { display: block; padding: 2.25rem 0; min-height: 2.75rem; color: var(--pj-fg); text-decoration: none; }
+  .pj-pager-title { display: block; margin-top: 0.4rem; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.1rem); letter-spacing: -0.03em; transition: color 200ms ease; }
+  .pj-pager-link:hover .pj-pager-title, .pj-pager-link:focus-visible .pj-pager-title { color: var(--pj-accent); }
+
+  .pj[data-pj='pizzeria-xativa'], .pj[data-pj='fincarural'] { --pj-ff: Georgia, 'Times New Roman', serif; }
+  .pj[data-pj='dashboard-telemetria'], .pj[data-pj='pipeline-cicd'] { --pj-ff: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
+  .pj[data-pj='forma-espacio'] { --pj-ff: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  .pj[data-pj='forma-espacio'] .pj-title, .pj[data-pj='burger-xativa'] .pj-title { text-transform: uppercase; letter-spacing: -0.02em; }
+  .pj[data-pj='pizzeria-xativa'] .pj-title, .pj[data-pj='fincarural'] .pj-title { letter-spacing: -0.01em; }
+
+
+  /* ===== Personalidad por proyecto: composición, marco y forma propios ===== */
+  .pj-folder-body .pj-mark { aspect-ratio: 4 / 3; }
+  @media (min-width: 640px) { .pj-folder-body .pj-mark { aspect-ratio: 16 / 10; } }
+
+  /* AVISA: marco en arco, como su logotipo; texto a la izquierda */
+  .pj[data-pj='avisa'] .pj-folder { transform: none; }
+  .pj[data-pj='avisa'] .pj-folder-tab { display: none; }
+  .pj[data-pj='avisa'] .pj-folder { padding-top: 0; max-width: 24rem; margin-inline: auto; }
+  .pj[data-pj='avisa'] .pj-folder-body { border-radius: 14rem 14rem var(--pj-r) var(--pj-r); box-shadow: none; border-color: color-mix(in srgb, var(--pj-fg) 30%, transparent); }
+  .pj[data-pj='avisa'] .pj-folder-body .pj-mark { aspect-ratio: 3 / 4; }
+
+  /* Pizzería: composición centrada con el sello redondo y titular serif */
+  .pj[data-pj='pizzeria-xativa'] .pj-hero { padding-bottom: 7.5rem; }
+  .pj[data-pj='pizzeria-xativa'] .pj-hero-grid { text-align: center; }
+  .pj[data-pj='pizzeria-xativa'] .pj-copy, .pj[data-pj='pizzeria-xativa'] .pj-art { grid-column: 1 / -1; }
+  .pj[data-pj='pizzeria-xativa'] .pj-art { order: -1; }
+  .pj[data-pj='pizzeria-xativa'] .pj-copy > p, .pj[data-pj='pizzeria-xativa'] .pj-copy > div { justify-content: center; margin-inline: auto; }
+  .pj[data-pj='pizzeria-xativa'] .pj-folder { transform: none; width: 15rem; margin-inline: auto; padding-top: 0; }
+  .pj[data-pj='pizzeria-xativa'] .pj-folder-tab, .pj[data-pj='pizzeria-xativa'] .pj-folder-note { display: none; }
+  .pj[data-pj='pizzeria-xativa'] .pj-folder-body { border-radius: 50%; border-width: 4px; box-shadow: 0 0 0 10px color-mix(in srgb, var(--pj-accent) 35%, transparent); }
+  .pj[data-pj='pizzeria-xativa'] .pj-folder-body .pj-mark { aspect-ratio: 1 / 1; }
+  .pj[data-pj='pizzeria-xativa'] .pj-lede { margin-inline: auto; }
+  .pj[data-pj='pizzeria-xativa'] .pj-crumbs { justify-content: center; }
+
+  /* Burger: titular enorme en mayúsculas y la tira diagonal cruzando */
+  .pj[data-pj='burger-xativa'] .pj-hero { padding-bottom: 12rem; }
+  .pj[data-pj='burger-xativa'] .pj-copy { grid-column: 1 / -1; }
+  .pj[data-pj='burger-xativa'] .pj-title { font-size: clamp(2.4rem, 7.2vw, 6rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.045em; max-width: 16ch; }
+  .pj[data-pj='burger-xativa'] .pj-art { position: absolute; right: var(--gutter); top: 7rem; width: 13rem; transform: rotate(7deg); z-index: 2; grid-column: auto; }
+  .pj[data-pj='burger-xativa'] .pj-folder { transform: none; padding-top: 0; }
+  .pj[data-pj='burger-xativa'] .pj-folder-tab, .pj[data-pj='burger-xativa'] .pj-folder-note { display: none; }
+  .pj[data-pj='burger-xativa'] .pj-folder-body { border-radius: 0.35rem; border-width: 3px; box-shadow: 5px 5px 0 var(--pj-accent); }
+  @media (max-width: 1023px) { .pj[data-pj='burger-xativa'] .pj-art { position: static; width: 11rem; transform: rotate(-4deg); margin-top: 1rem; } }
+
+  /* TranIA: marco a la izquierda y corte diagonal hacia la franja */
+  .pj[data-pj='trania'] .pj-hero { clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%); padding-bottom: 6rem; margin-bottom: -1.5rem; }
+  .pj[data-pj='trania'] .pj-stat { padding-top: 3rem; }
+  @media (min-width: 1024px) { .pj[data-pj='trania'] .pj-art { order: -1; } .pj[data-pj='trania'] .pj-copy { grid-column: span 7 / span 7; } }
+  .pj[data-pj='trania'] .pj-folder { transform: rotate(-4deg); }
+  .pj[data-pj='trania'] .pj-title { font-weight: 800; letter-spacing: -0.05em; }
+
+  /* Worksy: todo centrado, tarjeta flotante suave sobre luces difusas */
+  .pj[data-pj='worksy'] .pj-hero-grid { text-align: center; }
+  .pj[data-pj='worksy'] .pj-copy, .pj[data-pj='worksy'] .pj-art { grid-column: 1 / -1; }
+  .pj[data-pj='worksy'] .pj-art { order: 2; max-width: 34rem; margin-inline: auto; width: 100%; }
+  .pj[data-pj='worksy'] .pj-copy > p, .pj[data-pj='worksy'] .pj-copy > div { justify-content: center; margin-inline: auto; }
+  .pj[data-pj='worksy'] .pj-lede { margin-inline: auto; }
+  .pj[data-pj='worksy'] .pj-crumbs { justify-content: center; }
+  .pj[data-pj='worksy'] .pj-folder { transform: translateY(0); padding-top: 0; animation: pj-float 6s ease-in-out infinite; }
+  .pj[data-pj='worksy'] .pj-folder-tab, .pj[data-pj='worksy'] .pj-folder-note { display: none; }
+  .pj[data-pj='worksy'] .pj-folder-body { border: 1px solid #e2e8f0; border-radius: 1.5rem; box-shadow: 0 30px 60px -20px rgba(37, 99, 235, 0.35); }
+  @keyframes pj-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  /* Panel de telemetría: marco de terminal */
+  .pj[data-pj='dashboard-telemetria'] .pj-folder { transform: none; padding-top: 0; }
+  .pj[data-pj='dashboard-telemetria'] .pj-folder-tab, .pj[data-pj='dashboard-telemetria'] .pj-folder-note { display: none; }
+  .pj[data-pj='dashboard-telemetria'] .pj-folder-body { border-radius: 0.6rem; border-color: var(--pj-accent); box-shadow: 0 0 40px -6px color-mix(in srgb, var(--pj-accent) 55%, transparent); }
+  .pj[data-pj='dashboard-telemetria'] .pj-folder-body::before { content: '● ● ●'; display: block; padding: 0.45rem 0.8rem; font: 0.7rem ui-monospace, Menlo, monospace; letter-spacing: 0.2em; color: var(--pj-accent); background: color-mix(in srgb, var(--pj-fg) 8%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--pj-accent) 50%, transparent); }
+  .pj[data-pj='dashboard-telemetria'] .pj-title::after { content: '_'; color: var(--pj-accent); animation: pj-blink 1.1s steps(1) infinite; }
+  @keyframes pj-blink { 50% { opacity: 0; } }
+
+  /* Pipeline: marco píldora y la línea de despliegue debajo */
+  .pj[data-pj='pipeline-cicd'] .pj-hero { padding-bottom: 10rem; }
+  .pj[data-pj='pipeline-cicd'] .pj-folder { transform: none; padding-top: 0; }
+  .pj[data-pj='pipeline-cicd'] .pj-folder-tab, .pj[data-pj='pipeline-cicd'] .pj-folder-note { display: none; }
+  .pj[data-pj='pipeline-cicd'] .pj-folder-body { border-radius: 999px; border-width: 3px; box-shadow: 0 0 0 8px color-mix(in srgb, var(--pj-accent) 25%, transparent); }
+  .pj[data-pj='pipeline-cicd'] .pj-folder-body .pj-mark { aspect-ratio: 2 / 1; }
+
+  /* Forma / Espacio: editorial, titular gigante y el marco en círculo desplazado */
+  .pj[data-pj='forma-espacio'] .pj-hero { padding-bottom: 6rem; }
+  .pj[data-pj='forma-espacio'] .pj-copy { grid-column: span 8 / span 8; }
+  .pj[data-pj='forma-espacio'] .pj-art { grid-column: span 4 / span 4; align-self: end; transform: translateY(4rem); }
+  .pj[data-pj='forma-espacio'] .pj-title { font-size: clamp(2.4rem, 5.6vw, 4.8rem); font-weight: 900; line-height: 0.96; }
+  .pj[data-pj='forma-espacio'] .pj-folder { transform: none; padding-top: 0; }
+  .pj[data-pj='forma-espacio'] .pj-folder-tab, .pj[data-pj='forma-espacio'] .pj-folder-note { display: none; }
+  .pj[data-pj='forma-espacio'] .pj-folder-body { border-radius: 50%; border-width: 1px; box-shadow: none; }
+  .pj[data-pj='forma-espacio'] .pj-folder-body .pj-mark { aspect-ratio: 1 / 1; }
+  @media (max-width: 1023px) { .pj[data-pj='forma-espacio'] .pj-art { transform: none; max-width: 14rem; } .pj[data-pj='forma-espacio'] .pj-copy, .pj[data-pj='forma-espacio'] .pj-art { grid-column: 1 / -1; } }
+
+  /* Mas de l'Alzina: ventana en arco sobre las colinas */
+  .pj[data-pj='fincarural'] .pj-hero { padding-bottom: 7rem; }
+  .pj[data-pj='fincarural'] .pj-folder { transform: none; padding-top: 0; max-width: 24rem; margin-inline: auto; }
+  .pj[data-pj='fincarural'] .pj-folder-tab, .pj[data-pj='fincarural'] .pj-folder-note { display: none; }
+  .pj[data-pj='fincarural'] .pj-folder-body { border-radius: 50% 50% var(--pj-r) var(--pj-r) / 38% 38% var(--pj-r) var(--pj-r); border-width: 3px; box-shadow: 8px 8px 0 var(--pj-accent); }
+  .pj[data-pj='fincarural'] .pj-folder-body .pj-mark { aspect-ratio: 4 / 5; }
+
+  /* Franjas de dato: formas distintas según el proyecto */
+  .pj-stat[data-stat='pizzeria-xativa'], .pj-stat[data-stat='fincarural'], .pj-stat[data-stat='pipeline-cicd'] { margin-top: -1px; }
+  .pj-stat[data-stat='burger-xativa'] { margin-block: -0.75rem; position: relative; z-index: 2; }
+  .pj-stat[data-stat='worksy'] { margin: 2.5rem var(--gutter) 0; border-radius: 1.5rem; }
+  .pj-stat[data-stat='dashboard-telemetria'] { border-block: 1px solid var(--pj-accent); background: transparent; color: var(--pj-accent); }
+  .pj-stat[data-stat='dashboard-telemetria'] .label, .pj-stat[data-stat='dashboard-telemetria'] .pj-stat-value { color: var(--pj-accent); }
+  .pj-stat[data-stat='dashboard-telemetria'] { background: var(--pj-bg); }
+  .pj-stat[data-stat='forma-espacio'] { margin-top: 3rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pj[data-pj='worksy'] .pj-folder, .pj[data-pj='dashboard-telemetria'] .pj-title::after { animation: none; }
   }
-  .pj[data-pj='worksy'] .pj-hero {
-    background: transparent;
-    border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-  }
-  .pj[data-pj='worksy'] .pj-logo-frame {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 16px 36px -12px rgba(37, 99, 235, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03);
-    border-radius: 1.5rem;
-  }
-  .pj[data-pj='worksy'] .pj-btn-accent {
-    background: #2563eb;
-    color: #ffffff;
-    border-color: #2563eb;
-    box-shadow: 0 4px 14px -3px rgba(37, 99, 235, 0.4);
-    border-radius: 0.85rem;
-  }
-  .pj[data-pj='worksy'] .pj-btn-accent:hover {
-    background: #1d4ed8;
-    border-color: #1d4ed8;
-    color: #ffffff;
-  }
-  .pj[data-pj='worksy'] .pj-btn:not(.pj-btn-accent) {
-    background: #ffffff;
-    color: #0f172a;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-    border-radius: 0.85rem;
-  }
-  .pj[data-pj='worksy'] .pj-btn:not(.pj-btn-accent):hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-    color: #0f172a;
-  }
-  .pj[data-pj='worksy'] .pj-facts {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 1.25rem;
-    padding: 1.75rem 2rem;
-    box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04);
-  }
-  .pj[data-pj='worksy'] .pj-chip-soft {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    color: #334155;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  }
-  .pj[data-pj='worksy'] .prose figure {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 1.5rem;
-    padding: 0.75rem;
-    box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.06);
-  }
-  .pj[data-pj='worksy'] .prose figure img {
-    border-radius: 1rem;
-    border: 1px solid #f1f5f9;
-  }
-  .pj[data-pj='worksy'] .prose figcaption {
-    color: #64748b;
-    font-size: 0.85rem;
-    padding-top: 0.35rem;
-  }
-  .pj[data-pj='worksy'] .prose :where(h2) {
-    color: #0f172a;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  .pj[data-pj='worksy'] .prose :where(h3, h4) {
-    color: #1e293b;
+
+  @media (max-width: 1023px) { .pj-sticky { position: static; } .pj-hero { padding-top: 6.5rem; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pj-folder, .pj .prose figure { transform: none !important; transition: none; }
   }
 </style>

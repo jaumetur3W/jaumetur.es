@@ -1,21 +1,21 @@
-# Design system — «STREET-GLASS»
+# Design system — «BRUTALISMO EDITORIAL SUAVE»
 
-Derivado de `src/styles/global.css` y los componentes de `src/components/`. Estudio de diseño luminoso con actitud de cultura street; la firma es el amarillo #FFFF00. Modo claro únicamente.
+Derivado de `src/styles/global.css`. Papel, tinta y dos primarios; secciones separadas por cambio de fondo, filetes de 1px y notas a mano.
 
 ## Color
 | Token | Valor | Uso |
 |---|---|---|
-| `--bg-main` | `#fafaf6` | Base casi blanca; sobre ella: retícula de puntos (22 px), grano SVG al 7 % y un velo amarillo apenas perceptible |
-| `--ink` / `--text-main` | `#111111` | Tinta: texto, bordes de retícula, botón principal |
-| `--text-muted` / `--text-faint` | `#3d3d39` / `#5d5d57` | Texto secundario y metadatos (AA sobre la base) |
-| `--brand` | `#ffff00` | Único acento: bloques (`.sheet`), marcadores (`.mark`, `.hl`), etiquetas (`.tag`), rellenos de hover |
-| `--line` / `--line-strong` | tinta 16 % / 90 % | Filetes finos / bordes visibles de catálogo |
-Regla: el amarillo es fondo con tinta encima, nunca texto sobre blanco. Sin más colores salvo neutros (rojo oscuro `#9b1c1c` solo en errores de formulario).
+| `--paper` | `#F7F7F5` | Fondo claro principal |
+| `--ink` | `#111111` | Texto, bordes 1px, bandas oscuras |
+| `--brand` (lima) | `#C8F169` | Etiquetas, botones destacados, resaltes, banda de cierre |
+| `--clay` (terracota) | `#E05A36` | Trazos a mano, notas, banda de servicios, subrayado de nav |
+Bandas: `.band-paper`, `.band-ink`, `.band-lime`, `.band-clay`. Texto siempre tinta sobre lima/terracota; blanco solo sobre tinta.
 
 ## Tipografía
-- Titulares: **Archivo Black**, mayúsculas en momentos clave, palabra clave entre comillas con resalte amarillo (`.hl`). Auto-alojada.
-- Cuerpo: **Inter** variable, auto-alojada. Metadatos (año, nº de proyecto, stack): mono del sistema pequeña (`.label`, `.tag`).
-- Escala: `.h-hero` hasta 3,9 rem, `.h-page` hasta 4,2 rem, `.h-section` hasta 3 rem; `.lede` 1–1,15 rem.
+- Titulares `font-display`: **Syne** 700/800 (alternativa a Clash Display, que no está en npm), tracking ajustado.
+- Cuerpo `font-sans`: **Plus Jakarta Sans** variable.
+- Notas `font-hand`: **Caveat** 700, solo nav, notas al margen y anotaciones de proyecto (`.note`, `.bento-note`).
+- Fuentes auto-alojadas en `public/fonts/`. Marca: solo texto `jaumetur.es` (`.wordmark`); el monograma JT queda fuera de alcance.
 
 ## Superficies y retícula
 - **Glass (`.glass`, `.card`)**: translúcida, blur 10 px, borde fino de tinta 20 %, radio 1,25 rem.

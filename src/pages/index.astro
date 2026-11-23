@@ -5,6 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
 import ProjectMark from "@/components/project-mark.astro";
 import { getServicesData } from "@/data/services";
+import { statusLabel, statusNote } from "@/data/project-status";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
@@ -41,23 +42,23 @@ const t = isEn
       desc: "Custom websites, digital menus and web apps for businesses in Xàtiva, Valencia and across Spain, built by the developer you talk to. Quote and launch offer for the first clients.",
       h1: "Custom websites and web apps in Xàtiva and Valencia.",
       lede: "Built and maintained by the same person who answers you. Websites, digital menus and web applications for businesses in Xàtiva, Valencia and the rest of Spain; price and scope are fixed before we start, and the code and accounts are yours.",
-      cta1: "Get a quote", cta2: "See services & pricing", wa: "WhatsApp",
+      cta1: "Tell me about your project", cta2: "See services & pricing", wa: "WhatsApp",
       reply: "Reply within 24 business hours.",
       launchLink: "Launch offer for the first clients",
-      svcTitle: "Five services for your business.",
+      svcTitle: "What I can build for you.",
       svcLede: "Every service has a published creation price and a monthly maintenance fee (one-year minimum); you can see them on each card and on each service page. Scope and timeline are confirmed with you before starting.",
       allPrices: "See all prices",
       from: "From", delivery: "Delivery", more: "See what's included",
-      whyTitle: "Whoever answers you is whoever builds it.",
+      whyTitle: "Una persona. Sin intermediarios.",
       why: [
         { t: "Direct contact", d: "You talk to the person who designs and programs your site. No sales reps, no subcontracting." },
         { t: "Everything is yours", d: "Source code, Git repository, domain and accounts are handed over in your name. No captive platforms." },
         { t: "Price fixed up front", d: "You see what's included and what it costs before asking for anything, and we agree scope and timeline before starting." },
       ],
-      projTitle: "Work you can open and try.",
-      projLede: "Real projects. Demos with sample data are labelled as such.",
+      projTitle: "Projects and demos. Open them, try them.",
+      projLede: "Every folder is a project, and each one says what stage it is at: advanced development, demo or finished.",
       viewStudy: "Read the case study", live: "Open live project", allProjects: "All projects",
-      procTitle: "How a project runs.",
+      procTitle: "How we work, step by step.",
       steps: [
         { n: "1", t: "Brief and scope", d: "We define what you need, what's included and the price, in writing, before any code is written." },
         { n: "2", t: "Custom build", d: "Modern development with previews along the way, so you see progress and can correct early." },
@@ -80,8 +81,8 @@ const t = isEn
         { q: "How long does it take?", a: "Local digitisation packs take 3 to 5 business days, landing pages 1 to 2 weeks and web applications 3 to 6 weeks. The exact timeline is agreed before starting." },
         { q: "Do you only work in Xàtiva?", a: "I'm based in Xàtiva and can meet in person around Valencia, but I also work fully remotely with businesses and teams across Spain." },
       ],
-      finalTitle: "Have a project in mind?",
-      finalText: "Tell me what you need and I'll reply with scope, price and timeline. No obligation.",
+      finalTitle: "Got a project in mind? Let's talk.",
+      finalText: "Tell me what you need and I'll reply with scope, price and timeline. No strings attached.",
       finalWa: "Message on WhatsApp", finalForm: "Send the form",
     }
   : {
@@ -89,23 +90,23 @@ const t = isEn
       desc: "Diseño web a medida, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España, hechas por quien las programa. Pide presupuesto; oferta de lanzamiento para los primeros clientes.",
       h1: "Páginas web y aplicaciones a medida en Xàtiva y València.",
       lede: "Hechas y mantenidas por la misma persona que te atiende. Páginas web, cartas digitales y aplicaciones para negocios de Xàtiva, València y toda España; precio y alcance cerrados antes de empezar, y el código y las cuentas son tuyos.",
-      cta1: "Pedir presupuesto", cta2: "Ver servicios y precios", wa: "WhatsApp",
+      cta1: "Cuéntame tu proyecto", cta2: "Ver servicios y precios", wa: "WhatsApp",
       reply: "Respuesta en menos de 24 horas laborables.",
       launchLink: "Oferta de lanzamiento para los primeros clientes",
-      svcTitle: "Cinco servicios para tu negocio.",
+      svcTitle: "Lo que puedo montarte.",
       svcLede: "Cada servicio tiene un precio de creación y una cuota mensual de mantenimiento (permanencia mínima de un año) publicados: los ves en cada tarjeta y en la página de cada servicio. Alcance y plazo se confirman contigo antes de empezar.",
       allPrices: "Ver todos los precios",
       from: "Desde", delivery: "Entrega", more: "Ver qué incluye",
-      whyTitle: "Quien te atiende es quien lo construye.",
+      whyTitle: "Una sola persona. Cero intermediarios.",
       why: [
         { t: "Trato directo", d: "Hablas con la persona que diseña y programa tu web. Sin comerciales ni subcontratas." },
         { t: "Todo es tuyo", d: "El código, el repositorio Git, el dominio y las cuentas se entregan a tu nombre. Sin plataformas cautivas." },
         { t: "Precio cerrado", d: "Ves qué incluye y cuánto cuesta antes de pedir nada, y acordamos alcance y plazo antes de empezar." },
       ],
-      projTitle: "Trabajo que puedes abrir y probar.",
-      projLede: "Proyectos reales. Las demos con datos de ejemplo están indicadas como tales.",
+      projTitle: "Proyectos y demos. Ábrelos y pruébalos.",
+      projLede: "Cada carpeta es un proyecto y cada una dice en qué punto está: desarrollo avanzado, demo o terminado.",
       viewStudy: "Ver el caso de estudio", live: "Abrir proyecto en línea", allProjects: "Todos los proyectos",
-      procTitle: "Cómo se desarrolla un proyecto.",
+      procTitle: "Así trabajamos, paso a paso.",
       steps: [
         { n: "1", t: "Briefing y alcance", d: "Definimos por escrito qué necesitas, qué incluye y cuánto cuesta, antes de escribir una línea de código." },
         { n: "2", t: "Desarrollo a medida", d: "Programación moderna con previsualizaciones por el camino, para que veas el avance y corrijas pronto." },
@@ -128,8 +129,8 @@ const t = isEn
         { q: "¿Cuánto se tarda?", a: "El pack de digitalización local, de 3 a 5 días laborables; una landing, de 1 a 2 semanas; una aplicación web, de 3 a 6 semanas. El plazo exacto se acuerda antes de empezar." },
         { q: "¿Solo trabajas en Xàtiva?", a: "Tengo base en Xàtiva y puedo reunirme en persona por Valencia y comarcas, pero también trabajo 100 % en remoto con negocios y equipos de toda España." },
       ],
-      finalTitle: "¿Tienes un proyecto en mente?",
-      finalText: "Cuéntame qué necesitas y te respondo con alcance, precio y plazo. Sin compromiso.",
+      finalTitle: "¿Tienes un proyecto en mente? Hablemos.",
+      finalText: "Cuéntame qué necesitas y te respondo con alcance, precio y plazo. Sin compromiso y sin letra pequeña.",
       finalWa: "Escribir por WhatsApp", finalForm: "Enviar el formulario",
     };
 
@@ -146,32 +147,32 @@ const faqSchema = {
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
   <!-- 1. Hero ampliado: dispositivos a escala imponente y texto abajo a la izquierda desplazados hacia los extremos -->
-  <section class="relative isolate overflow-hidden pt-20 pb-14 sm:pt-28 sm:pb-20 lg:pt-24 lg:pb-16" aria-labelledby="hero-title">
+  <section class="band-paper relative isolate overflow-hidden pt-20 pb-14 sm:pt-28 sm:pb-20 lg:pt-24 lg:pb-16" aria-labelledby="hero-title">
     <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[85vh] lg:min-h-[92vh]">
       
       <!-- Columna izquierda: texto colocado en el extremo izquierdo, con todo su ancho libre -->
       <div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-end items-start order-2 lg:order-1 pt-6 lg:pt-0 pb-2 z-10">
         <!-- Línea sutil superior que delimita el bloque de texto (según la referencia) -->
-        <div class="w-full max-w-[280px] sm:max-w-[340px] h-[1px] bg-ink/20 mb-6 sm:mb-8" aria-hidden="true"></div>
+        <p class="note mb-5 text-[1.5rem]" aria-hidden="true">{isEn ? "hi, I'm Jaume ↓" : "hola, soy Jaume ↓"}</p>
 
-        <h1 id="hero-title" class="font-display text-5xl sm:text-6xl lg:text-[3.9rem] xl:text-[4.5rem] font-extrabold leading-[1.01] tracking-tight text-ink" data-split>
+        <h1 id="hero-title" class="font-display text-5xl sm:text-6xl lg:text-[3.6rem] xl:text-[4.2rem] font-bold leading-[1.02] tracking-[-0.045em] text-ink" data-split>
           {isEn ? (
             <>
-              Your website. <span class="serif-italic text-[1.18em] font-normal tracking-normal text-ink/85">Your code.</span><br />
-              <span class="hl mt-2 inline-block px-2.5 sm:px-3.5 py-0.5">Your accounts.</span>
+              Websites and apps <span class="relative inline-block">made to measure<svg class="scribble absolute left-0 -bottom-[0.18em]" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 C 40 2, 70 12, 110 6 S 170 3, 198 7" pathLength="1" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><br />
+              <span class="hl mt-2 inline-block px-2.5 sm:px-3.5 py-0.5">for real businesses.</span>
             </>
           ) : (
             <>
-              Tu web. <span class="serif-italic text-[1.18em] font-normal tracking-normal text-ink/85">Tu código.</span><br />
-              <span class="hl mt-2 inline-block px-2.5 sm:px-3.5 py-0.5">Tus cuentas.</span>
+              Webs y apps <span class="relative inline-block">a medida<svg class="scribble absolute left-0 -bottom-[0.18em]" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 C 40 2, 70 12, 110 6 S 170 3, 198 7" pathLength="1" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><br />
+              <span class="hl mt-2 inline-block px-2.5 sm:px-3.5 py-0.5">para negocios reales.</span>
             </>
           )}
         </h1>
 
         <p class="mt-6 text-lg sm:text-xl text-ink/80 max-w-xl leading-relaxed">
           {isEn
-            ? "Custom websites and applications built by whoever answers you. No locked-in platforms or middlemen."
-            : "Páginas web y aplicaciones a medida hechas por quien te atiende. Sin plataformas cautivas ni intermediarios."}
+            ? "I'm Jaume, a developer in Xàtiva. I design and code your website or app, tell you the price before we start, and the code ends up yours."
+            : "Soy Jaume, desarrollador en Xàtiva. Diseño y programo tu web o tu app, te digo el precio antes de empezar y el código acaba siendo tuyo."}
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-4">
@@ -183,8 +184,8 @@ const faqSchema = {
           </a>
         </div>
 
-        <p class="mt-6 text-xs text-ink/60 font-mono">
-          {t.reply}
+        <p class="mt-6 text-sm text-ink/70">
+          {t.reply} <span class="note ml-2 text-[1.2rem]" aria-hidden="true">{isEn ? "← really" : "← en serio"}</span>
         </p>
       </div>
 
@@ -207,11 +208,47 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- Divisor animado dinámico al scroll -->
-  <div class="section-divider my-8 sm:my-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
+  <!-- 4. Proyectos: muchas piezas medianas en marcos pequeños -->
+  <section id="proyectos" class="band-ink section scroll-mt-20 py-20 sm:py-28" aria-labelledby="proj-title">
+    <div class="wrap">
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
+          <p class="lede mt-3">{t.projLede}</p>
+          <span class="note mt-3" aria-hidden="true">{isEn ? "(a bit messy on purpose)" : "(desordenado a propósito)"}</span>
+        </div>
+        <a href={to("/projectes")} class="btn btn-brand shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
+      </div>
+
+      <ul class="folders mt-16" data-stagger>
+        {flagshipProjects.map((p, i) => {
+          const img = projectImages[p.id];
+          return (
+            <li class="folder-slot">
+              <a href={to(`/projectes/${p.id}`)} class="folder" data-cursor={isEn ? "Open" : "Abrir"} aria-label={`${shortTitle(p.data.title)}: ${isEn ? "open case study" : "abrir caso de estudio"}`}>
+                <span class="folder-tab"><b>{String(i + 1).padStart(2, "0")}</b> · {shortTitle(p.data.title)}</span>
+                <span class="folder-sheet" aria-hidden="true">
+                  <img src={img.src} width={img.w} height={img.h} alt="" loading="lazy" decoding="async" />
+                </span>
+                <span class="folder-body">
+                  <span class="folder-status">{statusLabel(p.id, isEn)}</span>
+                  <span class="tag">{p.data.badge}</span>
+                  <span class="folder-title">{shortTitle(p.data.title)}</span>
+                  <span class="folder-text">{p.data.subtitle}</span>
+                  <span class="folder-meta">{p.data.stack?.slice(0, 3).join(" · ")}</span>
+                  <span class="folder-open">{t.viewStudy} <span aria-hidden="true">→</span></span>
+                </span>
+              </a>
+              <span class="folder-note font-hand" aria-hidden="true">{statusNote(p.id, isEn)}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
 
   <!-- 2. Servicios: una tarjeta por servicio; el scroll las recorre en horizontal -->
-  <section id="servicios" class="svc-h scroll-mt-20 py-20 sm:py-28" aria-labelledby="svc-title" data-svc>
+  <section id="servicios" class="band-clay svc-h scroll-mt-20 py-20 sm:py-28" aria-labelledby="svc-title" data-svc>
     <div class="svc-pin">
       <div class="wrap">
         <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -219,7 +256,7 @@ const faqSchema = {
             <h2 id="svc-title" class="h-section" data-reveal>{t.svcTitle}</h2>
             <p class="lede mt-3">{t.svcLede}</p>
           </div>
-          <a href={to("/pricing")} class="btn btn-white shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
+          <a href={to("/pricing")} class="btn btn-dark shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <ul class="svc-track wrap" data-svc-track>
@@ -267,61 +304,21 @@ const faqSchema = {
 
   </section>
 
-  <!-- Divisor animado dinámico al scroll -->
-  <div class="section-divider my-8 sm:my-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
-
-  <!-- 4. Proyectos: muchas piezas medianas en marcos pequeños -->
-  <section id="proyectos" class="section scroll-mt-20 py-20 sm:py-28" aria-labelledby="proj-title">
-    <div class="wrap">
-      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
-          <p class="lede mt-3">{t.projLede}</p>
-        </div>
-        <a href={to("/projectes")} class="btn btn-white shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
-        {flagshipProjects.map((p, i) => {
-          return (
-            <article class="project-card card-interactive group flex flex-col overflow-hidden rounded-2xl" data-tilt>
-              <a href={to(`/projectes/${p.id}`)} class="relative block overflow-hidden border-b border-ink/15" tabindex="-1" aria-hidden="true">
-                <ProjectMark id={p.id} name={shortTitle(p.data.title)} class="transition-transform duration-500 group-hover:scale-105" />
-                <span class="tag absolute left-2.5 top-2.5">Nº {String(i + 1).padStart(2, "0")}</span>
-              </a>
-              <div class="flex flex-1 flex-col p-5">
-                <p class="label">{p.data.badge}</p>
-                <h3 class="mt-2 font-display text-[1.25rem] uppercase leading-[1.02]">
-                  <a href={to(`/projectes/${p.id}`)} class="hover:underline">{shortTitle(p.data.title)}</a>
-                </h3>
-                <p class="muted mt-2 line-clamp-3 text-[0.88rem] leading-snug">{p.data.subtitle}</p>
-                <p class="label mt-auto pt-3 !normal-case">{p.data.stack?.slice(0, 3).join(" · ")}</p>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- Divisor animado dinámico al scroll -->
-  <div class="section-divider my-8 sm:my-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
-
   <!-- 5. Proceso + oferta de lanzamiento -->
-  <section class="section py-20 sm:py-28" aria-labelledby="proc-title">
+  <section class="band-paper section py-20 sm:py-28" aria-labelledby="proc-title">
     <div class="wrap">
       <h2 id="proc-title" class="h-section max-w-3xl" data-reveal>{t.procTitle}</h2>
-      <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+      <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {t.steps.map((s) => (
-          <li class="p-6 rounded-xl border border-ink/10 bg-white/70 shadow-xs">
-            <p class="font-display text-[2.6rem] leading-none text-ink"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
+          <li class="step-card">
+            <p class="font-display text-[2.6rem] font-bold leading-none text-clay"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
             <h3 class="mt-3 font-display text-[1.05rem] uppercase leading-tight">{s.t}</h3>
             <p class="muted mt-2 text-[0.92rem]">{s.d}</p>
           </li>
         ))}
       </ol>
 
-      <div id="lanzamiento" class="sheet mt-16 grid scroll-mt-24 gap-6 px-6 py-7 sm:px-9 sm:py-9 lg:grid-cols-12 lg:gap-10 rounded-2xl" data-tilt>
+      <div id="lanzamiento" class="sheet mt-20 grid scroll-mt-24 gap-6 px-6 py-7 sm:px-9 sm:py-9 lg:grid-cols-12 lg:gap-10 rounded-2xl" data-tilt>
         <div class="lg:col-span-8">
           <p class="tag" style="background:var(--ink);color:#fff">{t.launchTag}</p>
           <h2 id="launch-title" class="h-section mt-3">{t.launchTitle}</h2>

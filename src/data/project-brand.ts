@@ -25,7 +25,7 @@ export interface ProjectBrand {
 export const projectBrand: Record<string, ProjectBrand> = {
   avisa: { logo: "/img/projects/avisa-logo.png", w: 1024, h: 1024, bg: "#1f2435", fg: "#ffffff", accent: "#d4002e", onAccent: "#ffffff", font: "sans", radius: "1.4rem", pattern: "dots" },
   "pizzeria-xativa": { logo: "/img/projects/pizzeria-logo.svg", w: 500, h: 500, bg: "#2b2a28", fg: "#fbf3e2", accent: "#d83a4a", onAccent: "#ffffff", font: "serif", radius: "1.6rem", pattern: "gingham" },
-  "burger-xativa": { logo: "/img/projects/burger-logo.png", w: 240, h: 205, bg: "#0b0b0b", fg: "#ffffff", accent: "#ffff00", onAccent: "#0b0b0b", font: "wide", radius: "0.35rem", pattern: "rule" },
+  "burger-xativa": { logo: "/img/projects/burger-logo.png", w: 240, h: 205, bg: "#0b0b0b", fg: "#ffffff", accent: "#C8F169", onAccent: "#0b0b0b", font: "wide", radius: "0.35rem", pattern: "rule" },
   trania: { logo: "/img/projects/trania-logo.svg", w: 320, h: 90, bg: "#0f1417", fg: "#ffffff", accent: "#c6f535", onAccent: "#0f1417", font: "sans", radius: "1rem", pattern: "grid" },
   worksy: { logo: "/img/projects/worksy-logo.svg", w: 400, h: 90, bg: "#f1f5f9", fg: "#0f172a", accent: "#2563eb", onAccent: "#ffffff", font: "sans", radius: "1.25rem", pattern: "none" },
   "dashboard-telemetria": { logo: "/img/projects/dashboard-logo.svg", w: 320, h: 100, bg: "#0a1118", fg: "#ffffff", accent: "#22d3ee", onAccent: "#06222b", font: "mono", radius: "0.6rem", pattern: "grid" },
@@ -35,6 +35,6 @@ export const projectBrand: Record<string, ProjectBrand> = {
 };
 
 export const fallbackBrand: ProjectBrand = {
-  logo: "/img/jt.LOGO-02-128.webp", w: 128, h: 128, bg: "#fafaf6", fg: "#111111", accent: "#ffff00", onAccent: "#111111", font: "sans", radius: "1.25rem", pattern: "none",
+  logo: "/img/jt.LOGO-02-128.webp", w: 128, h: 128, bg: "#fafaf6", fg: "#111111", accent: "#C8F169", onAccent: "#111111", font: "sans", radius: "1.25rem", pattern: "none",
 };
 export const getBrand = (id: string): ProjectBrand => projectBrand[id] ?? fallbackBrand;
