@@ -30,11 +30,21 @@ jobs:
           PUBLIC_WEB3FORMS_BRIEFING_KEY: ${{ vars.PUBLIC_WEB3FORMS_BRIEFING_KEY }}
 
       - name: Configurar SSH
+        env:
+          VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+          VM_HOST: ${{ secrets.VM_HOST }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
+          # Reconstruye el PEM por si el secret perdió saltos de línea o trae espacios/CR
+          hdr=$(printf '%s' "$VM_SSH_KEY" | grep -o -- '-----BEGIN [A-Z ]*-----' | head -1)
+          if [ -z "$hdr" ]; then echo "::error::VM_SSH_KEY no contiene una cabecera BEGIN ... PRIVATE KEY"; exit 1; fi
+          ftr=${hdr/BEGIN/END}
+          body=$(printf '%s' "$VM_SSH_KEY" | sed 's/-----[A-Z ]*-----//g' | tr -d ' \r\n')
+          { echo "$hdr"; echo "$body" | fold -w 64; echo "$ftr"; } > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.VM_HOST }} >> ~/.ssh/known_hosts
+          echo "Clave: $(wc -l < ~/.ssh/id_rsa) líneas, tipo: $hdr"
+          ssh-keygen -y -f ~/.ssh/id_rsa > /dev/null || { echo "::error::VM_SSH_KEY no es una clave privada válida"; exit 1; }
+          ssh-keyscan -H "$VM_HOST" >> ~/.ssh/known_hosts
 
       - name: Subir dist/ a la VM
         run: rsync -az --delete dist/ ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/var/www/main/
