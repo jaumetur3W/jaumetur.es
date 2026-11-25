@@ -1,41 +1,103 @@
 ---
-// Calculadora de ahorro: el visitante introduce cuánto paga hoy por su software y TranIA le indica el plan y el ahorro.
+// Comparador de TranIA con otras aplicaciones del mercado: el visitante elige con cuál se compara y ve
+// el coste de cada una para su tamaño, el ahorro y los pros y contras de ambas.
 // Precios en EUR/mes, alineados con backend/app/core/plans_config.py del repo trania.
+// Datos de la competencia (con su fuente oficial y fecha de consulta) en src/data/trania-competitors.ts.
+import { COMPETITORS, PRICES_CHECKED, USD_TO_EUR } from "@/data/trania-competitors";
+
 interface Props { isEn?: boolean }
 const { isEn = false } = Astro.props;
+const lang = isEn ? "en" : "es";
+const [yy, mm, dd] = PRICES_CHECKED.split("-");
+const checkedLabel = isEn ? new Date(PRICES_CHECKED + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : `${dd}/${mm}/${yy}`;
+
 const t = isEn
   ? {
-      title: "How much would TranIA save you?",
-      intro: "Enter what you pay today for your management software and your member count. We suggest a plan and show the monthly saving.",
+      eyebrow: "TranIA · Comparison",
+      title: "How does TranIA compare with other apps?",
+      intro: "Pick the app you would compare with and enter your size. We show what each one costs for you, the saving, and the pros and cons of both.",
       members: "Active members or clients",
       trainer: "I am a personal trainer (no gym)",
+      compare: "Compare with",
+      groupGym: "Gym and studio management",
+      groupTrainer: "Apps for personal trainers",
+      other: "Another app (I enter my cost)",
       current: "Current monthly cost (€)",
       suggested: "Suggested TranIA plan",
-      traniaCost: "TranIA cost per month",
+      traniaCost: "TranIA per month",
+      theirCost: "per month",
       saving: "Saving per month",
       yearly: "Saving per year",
-      noSaving: "At this price TranIA does not save money yet. The plan is still the one that fits your size.",
-      disclaimer: "Estimate only. Prices excl. VAT, billed monthly. Free plan up to 50 members.",
+      custom: "Custom quote",
+      noSaving: "At this size and price TranIA does not save money. Look at the pros and cons below to decide.",
+      prosLabel: "Pros",
+      consLabel: "Cons",
+      official: "Official pricing page",
+      traniaName: "TranIA",
+      disclaimer: `Public list prices, excluding VAT, checked on ${checkedLabel}. Dollar prices converted at ${USD_TO_EUR.toString()} € per $ (ECB reference rate, 24/11/2026). Competitors change prices and plans: confirm them on their official page. Estimate only.`,
       names: { free: "Free", solo: "Solo", pro: "Pro", elite: "Elite" },
+      tpros: [
+        "Free plan up to 50 members and 2 trainers",
+        "Gym management and training intelligence in one platform",
+        "Deterministic engines (1RM progression, periodisation, auto-regulation, readiness), each decision explained",
+        "Wellness & recovery module (Pro and up)",
+        "Multi-gym and White Label (Elite), unlimited members",
+      ],
+      tcons: [
+        "Young product: no long track record or large user base yet",
+        "No wearable or Zapier integrations today",
+        "Pro is €49/month: above pure-admin tools such as GymGest or Gestión Gym at small sizes",
+        "Smaller ecosystem than the big international platforms",
+      ],
     }
   : {
-      title: "¿Cuánto te ahorraría TranIA?",
-      intro: "Indica cuánto pagas hoy por tu software de gestión y cuántos socios tienes. Te sugerimos un plan y te mostramos el ahorro mensual.",
+      eyebrow: "TranIA · Comparativa",
+      title: "¿Cómo se compara TranIA con otras apps?",
+      intro: "Elige con qué app quieres compararte e indica tu tamaño. Te mostramos lo que cuesta cada una para ti, el ahorro y los pros y contras de ambas.",
       members: "Socios o clientes activos",
       trainer: "Soy entrenador personal (sin gimnasio)",
+      compare: "Comparar con",
+      groupGym: "Gestión de gimnasios y estudios",
+      groupTrainer: "Apps para entrenadores personales",
+      other: "Otra app (indico mi coste)",
       current: "Coste mensual actual (€)",
       suggested: "Plan TranIA sugerido",
-      traniaCost: "Coste de TranIA al mes",
+      traniaCost: "TranIA al mes",
+      theirCost: "al mes",
       saving: "Ahorro al mes",
       yearly: "Ahorro al año",
-      noSaving: "A este precio TranIA todavía no ahorra. El plan indicado es el que encaja con tu tamaño.",
-      disclaimer: "Solo una estimación. Precios sin IVA, facturación mensual. El plan Free incluye hasta 50 socios.",
+      custom: "Precio a medida",
+      noSaving: "Con este tamaño y precio TranIA no ahorra. Mira los pros y contras de abajo para decidir.",
+      prosLabel: "Pros",
+      consLabel: "Contras",
+      official: "Página oficial de precios",
+      traniaName: "TranIA",
+      disclaimer: `Precios públicos de lista, sin IVA, consultados el ${checkedLabel}. Los precios en dólares se convierten a ${USD_TO_EUR.toString().replace(".", ",")} € por $ (tipo de referencia del BCE, 24/11/2026). Los competidores cambian precios y planes: confírmalos en su web oficial. Solo una estimación.`,
       names: { free: "Free", solo: "Solo", pro: "Pro", elite: "Elite" },
+      tpros: [
+        "Plan Free hasta 50 socios y 2 entrenadores",
+        "Gestión del gimnasio e inteligencia de entrenamiento en una sola plataforma",
+        "Motores deterministas (progresión 1RM, periodización, autorregulación, readiness), con cada decisión explicada",
+        "Módulo Wellness y recuperación (desde Pro)",
+        "Multi-gimnasio y White Label (Elite), socios ilimitados",
+      ],
+      tcons: [
+        "Producto joven: aún sin larga trayectoria ni gran base de usuarios",
+        "Hoy sin integraciones con wearables ni Zapier",
+        "Pro cuesta 49 €/mes: más que herramientas de pura gestión como GymGest o Gestión Gym en tamaños pequeños",
+        "Ecosistema más pequeño que las grandes plataformas internacionales",
+      ],
     };
+
+const gymComps = COMPETITORS.filter((c) => c.segment === "gym");
+const trainerComps = COMPETITORS.filter((c) => c.segment === "trainer");
+const dataForScript = COMPETITORS.map((c) => ({ id: c.id, name: c.name, segment: c.segment, currency: c.currency, tiers: c.tiers }));
+const money = (n: number, cur: "EUR" | "USD") =>
+  new Intl.NumberFormat(isEn ? "en-GB" : "es-ES", { style: "currency", currency: cur, maximumFractionDigits: 0 }).format(n);
 ---
 
 <section class="tcalc sheet my-12 p-6 md:p-10" data-tcalc>
-  <p class="label">{isEn ? "TranIA · Saving calculator" : "TranIA · Calculadora de ahorro"}</p>
+  <p class="label">{t.eyebrow}</p>
   <h3 class="mt-2 font-display text-2xl font-extrabold leading-tight tracking-tight text-ink md:text-4xl">{t.title}</h3>
   <p class="mt-3 max-w-2xl text-sm text-ink/80 md:text-base">{t.intro}</p>
 
@@ -45,6 +107,18 @@ const t = isEn
       <input data-members type="number" min="0" step="1" value="40" class="field" />
     </label>
     <label class="block">
+      <span class="field-label">{t.compare}</span>
+      <select data-comp class="field">
+        <optgroup label={t.groupGym}>
+          {gymComps.map((c) => <option value={c.id}>{c.name}</option>)}
+        </optgroup>
+        <optgroup label={t.groupTrainer}>
+          {trainerComps.map((c) => <option value={c.id}>{c.name}</option>)}
+        </optgroup>
+        <option value="other">{t.other}</option>
+      </select>
+    </label>
+    <label class="block md:col-span-2" data-current-wrap hidden>
       <span class="field-label">{t.current}</span>
       <input data-current type="number" min="0" step="0.01" value="89" class="field" />
     </label>
@@ -64,19 +138,61 @@ const t = isEn
       <dd class="mt-2 font-display text-2xl font-extrabold text-ink" data-cost>—</dd>
     </div>
     <div class="min-w-0 rounded-xl border-[1.5px] border-ink bg-white p-4">
+      <dt class="label" data-their-label>—</dt>
+      <dd class="mt-2 font-display text-2xl font-extrabold text-ink" data-their>—</dd>
+      <dd class="mt-1 text-xs text-ink/70" data-their-plan></dd>
+    </div>
+    <div class="min-w-0 rounded-xl border-[1.5px] border-ink bg-white p-4">
       <dt class="label">{t.saving}</dt>
       <dd class="mt-2 font-display text-2xl font-extrabold text-ink" data-saving>—</dd>
     </div>
-    <div class="flex min-w-0 flex-wrap items-end justify-between gap-x-6 gap-y-2 rounded-xl border-[1.5px] border-ink bg-ink p-5 shadow-[6px_6px_0_0_#E05A36] sm:col-span-3">
+    <div class="flex min-w-0 flex-wrap items-end justify-between gap-x-6 gap-y-2 rounded-xl border-[1.5px] border-ink bg-ink p-5 shadow-[6px_6px_0_0_#E05A36] sm:col-span-2">
       <dt class="label !text-white/70">{t.yearly}</dt>
-      <dd class="font-display text-4xl font-extrabold leading-none text-brand md:text-5xl" data-yearly>—</dd>
+      <dd class="font-display text-2xl font-extrabold leading-none text-brand min-[420px]:text-4xl md:text-5xl [overflow-wrap:anywhere]" data-yearly>—</dd>
     </div>
   </dl>
   <p class="mt-5 text-sm font-medium text-ink" data-note></p>
-  <p class="mt-4 text-xs text-ink/70">{t.disclaimer}</p>
+
+  <div class="mt-8 grid gap-5 lg:grid-cols-2">
+    <article class="rounded-xl border-[1.5px] border-ink bg-white p-5">
+      <h4 class="font-display text-xl font-extrabold text-ink">{t.traniaName}</h4>
+      <p class="label mt-4">{t.prosLabel}</p>
+      <ul class="mt-2 space-y-2 text-sm text-ink">
+        {t.tpros.map((p) => <li class="flex gap-2"><span class="font-mono font-bold" aria-hidden="true">+</span><span>{p}</span></li>)}
+      </ul>
+      <p class="label mt-5">{t.consLabel}</p>
+      <ul class="mt-2 space-y-2 text-sm text-ink">
+        {t.tcons.map((p) => <li class="flex gap-2"><span class="font-mono font-bold text-[#E05A36]" aria-hidden="true">−</span><span>{p}</span></li>)}
+      </ul>
+    </article>
+
+    {COMPETITORS.map((c) => (
+      <article class="rounded-xl border-[1.5px] border-ink bg-white p-5" data-comp-card={c.id} hidden>
+        <h4 class="font-display text-xl font-extrabold text-ink">{c.name}</h4>
+        <p class="mt-1 text-sm text-ink/80">{c.summary[lang]}</p>
+        <p class="mt-1 text-xs text-ink/70">{c.basis[lang]}</p>
+        <p class="label mt-4">{t.prosLabel}</p>
+        <ul class="mt-2 space-y-2 text-sm text-ink">
+          {c.pros[lang].map((p) => <li class="flex gap-2"><span class="font-mono font-bold" aria-hidden="true">+</span><span>{p}</span></li>)}
+        </ul>
+        <p class="label mt-5">{t.consLabel}</p>
+        <ul class="mt-2 space-y-2 text-sm text-ink">
+          {c.cons[lang].map((p) => <li class="flex gap-2"><span class="font-mono font-bold text-[#E05A36]" aria-hidden="true">−</span><span>{p}</span></li>)}
+        </ul>
+        <p class="mt-5 text-xs text-ink/70">
+          {c.tiers.length > 1 && (
+            <span>{c.tiers.map((x) => `${x.plan}: ${money(x.price, c.currency)}`).join(" · ")}. </span>
+          )}
+          <a class="underline underline-offset-2" href={c.url} target="_blank" rel="noopener noreferrer">{t.official}</a>
+        </p>
+      </article>
+    ))}
+  </div>
+
+  <p class="mt-6 text-xs text-ink/70">{t.disclaimer}</p>
 </section>
 
-<script define:vars={{ names: t.names, noSaving: t.noSaving, isEn }}>
+<script define:vars={{ names: t.names, noSaving: t.noSaving, custom: t.custom, theirCostLabel: t.theirCost, beyondTpl: isEn ? "{n} does not publish a price at this size (custom quote), so there is nothing to compare." : "{n} no publica precio para este tamaño (presupuesto a medida), así que no hay nada que comparar.", comps: dataForScript, usdToEur: USD_TO_EUR, isEn }}>
   const PLANS = {
     free: { price: 0, max: 50 },
     solo: { price: 35, max: 30 },
@@ -84,6 +200,7 @@ const t = isEn
     elite: { price: 99, max: Infinity },
   };
   const fmt = (n) => new Intl.NumberFormat(isEn ? "en-GB" : "es-ES", { style: "currency", currency: "EUR" }).format(n);
+  const fmtIn = (n, cur) => new Intl.NumberFormat(isEn ? "en-GB" : "es-ES", { style: "currency", currency: cur, maximumFractionDigits: 2 }).format(n);
 
   // Plan sugerido: entrenador personal con hasta 30 clientes -> Solo; si no, el plan más barato que admite los socios.
   function suggest(members, trainer) {
@@ -93,22 +210,74 @@ const t = isEn
     return "elite";
   }
 
+  // Tramo del competidor para este tamaño; null si lo supera (precio a medida).
+  function tierFor(comp, members) {
+    return comp.tiers.find((t) => members <= t.upTo) || null;
+  }
+
   document.querySelectorAll("[data-tcalc]").forEach((root) => {
     const $ = (sel) => root.querySelector(sel);
+    const trainerBox = $("[data-trainer]");
+    const select = $("[data-comp]");
+
     const update = () => {
       const members = Math.max(0, Math.floor(Number($("[data-members]").value) || 0));
-      const current = Math.max(0, Number($("[data-current]").value) || 0);
-      const trainer = $("[data-trainer]").checked;
+      const compId = select.value;
+      const comp = comps.find((c) => c.id === compId) || null;
+      const trainer = trainerBox.checked;
       const key = suggest(members, trainer);
       const cost = PLANS[key].price;
-      const saving = current - cost;
+
       $("[data-plan]").textContent = names[key];
       $("[data-cost]").textContent = fmt(cost);
+      $("[data-current-wrap]").hidden = comp !== null;
+      root.querySelectorAll("[data-comp-card]").forEach((el) => { el.hidden = !comp || el.dataset.compCard !== compId; });
+
+      let theirEur = null;
+      let theirPlan = "";
+      let theirLabel = comp ? comp.name + " " + theirCostLabel : (isEn ? "Your current cost" : "Tu coste actual");
+      let theirText = "—";
+      let note = "";
+
+      if (!comp) {
+        theirEur = Math.max(0, Number($("[data-current]").value) || 0);
+        theirText = fmt(theirEur);
+      } else {
+        const tier = tierFor(comp, members);
+        if (!tier) {
+          theirText = custom;
+          note = beyondTpl.replace("{n}", comp.name);
+        } else {
+          theirEur = comp.currency === "USD" ? tier.price * usdToEur : tier.price;
+          theirText = fmt(theirEur);
+          theirPlan = tier.plan + (comp.currency === "USD" ? " · " + fmtIn(tier.price, "USD") : "");
+        }
+      }
+
+      $("[data-their-label]").textContent = theirLabel;
+      $("[data-their]").textContent = theirText;
+      $("[data-their-plan]").textContent = theirPlan;
+
+      if (theirEur === null) {
+        $("[data-saving]").textContent = "—";
+        $("[data-yearly]").textContent = "—";
+        $("[data-note]").textContent = note;
+        return;
+      }
+      const saving = theirEur - cost;
       $("[data-saving]").textContent = fmt(saving);
       $("[data-yearly]").textContent = fmt(saving * 12);
       $("[data-note]").textContent = saving > 0 ? "" : noSaving;
     };
+
+    // Al elegir una app para entrenadores se marca la casilla de entrenador (se puede desmarcar).
+    select.addEventListener("change", () => {
+      const comp = comps.find((c) => c.id === select.value);
+      if (comp) trainerBox.checked = comp.segment === "trainer";
+      update();
+    });
     root.querySelectorAll("input").forEach((el) => el.addEventListener("input", update));
+    trainerBox.addEventListener("change", update);
     update();
   });
 </script>
