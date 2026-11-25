@@ -1,70 +1,40 @@
-name: Deploy to GitHub Pages
+name: Deploy jaumetur.es
 
 on:
-  workflow_run:
-    workflows: ["CI Quality & Verification Pipeline"]
-    branches: [ main ]
-    types:
-      - completed
+  push:
+    branches: [main]
   workflow_dispatch:
 
-# Set permissions for GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: deploy-main
+  cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build Astro Site
+  deploy:
+    name: Build y deploy a VM
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Verify types and templates
-        run: npm run check
-
-      - name: Run unit tests
-        run: npm test
-
-      - name: Build site with Astro
+      - name: Build Astro
         run: npm run build
         env:
           PUBLIC_WEB3FORMS_KEY: ${{ vars.PUBLIC_WEB3FORMS_KEY }}
           PUBLIC_WEB3FORMS_BRIEFING_KEY: ${{ vars.PUBLIC_WEB3FORMS_BRIEFING_KEY }}
 
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+      - name: Configurar SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VM_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VM_HOST }} >> ~/.ssh/known_hosts
 
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Subir dist/ a la VM
+        run: rsync -az --delete dist/ ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:/var/www/main/
