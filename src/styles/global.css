@@ -4,7 +4,8 @@
 
 /* ---------------------------------------------------------------
    SISTEMA DE DISEÑO — ESTUDIO DIGITAL DE ALTA PRECISIÓN
-   Base #FBFBFC · Tinta #090D16 · Cobalto #2563EB · Esmeralda #10B981.
+   Base Caliza #F4F3EE · Superficie #FFFFFF · Tinta Grafito #141519
+   Acento Coral Tangerine #FF5722 · Menta Técnico #0D9488
    Tipografía: Plus Jakarta Sans (Display) + Inter (Cuerpo) + JetBrains Mono.
    Elevación suave, micro-bordes de precisión y contraste WCAG AAA.
 ---------------------------------------------------------------- */
@@ -310,21 +311,23 @@
     overflow: hidden;
   }
   .cat-grid > * {
-    background: rgba(247, 247, 245, 0.93);
+    background: #FFFFFF;
     min-width: 0;
   }
 
-  /* ---- Hoja amarilla: bloque sólido de decisión ---- */
+  /* ---- Hoja destacada: bloque sólido de decisión / Programa Partner ---- */
   .sheet {
     position: relative;
-    background: #C8F169;
-    color: var(--on-brand);
-    border: 1.5px solid var(--ink);
+    background: #141519;
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: var(--r-glass);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 0 rgba(17, 17, 17, 0.08), 0 22px 44px -26px rgba(17, 17, 17, 0.45);
+    box-shadow: 0 20px 42px -16px rgba(0, 0, 0, 0.45);
   }
-  .sheet :focus-visible { outline-color: var(--ink); box-shadow: 0 0 0 6px #fff; }
-  .sheet .label { color: rgba(17, 17, 17, 0.78); }
+  .sheet :focus-visible { outline-color: var(--brand); box-shadow: 0 0 0 6px rgba(255, 87, 34, 0.35); }
+  .sheet .label { color: rgba(255, 255, 255, 0.65); }
+  .sheet h2, .sheet h3 { color: #FFFFFF; }
+  .sheet p { color: rgba(255, 255, 255, 0.82); }
 
   /* ---- Tarjetas interactivas de proyectos y servicios ----
      Pasan de fondo blanco con texto negro a fondo negro (#111) con texto blanco (#fff) */
@@ -643,9 +646,11 @@ pre.astro-code span[style*="color:#6e7781"] {
 }
 .prose :where(a):hover { background-size: 100% 100%; }
 .prose :where(code):not(:where(pre *)) {
-  background: #C8F169;
-  border-radius: 0.3rem;
-  padding: 0.1em 0.35em;
+  background: rgba(20, 21, 25, 0.07);
+  color: #141519;
+  border: 1px solid rgba(20, 21, 25, 0.12);
+  border-radius: 0.35rem;
+  padding: 0.12em 0.4em;
   font-weight: 600;
 }
 .prose :where(code):not(:where(pre *))::before, .prose :where(code):not(:where(pre *))::after { content: none; }
@@ -794,31 +799,34 @@ pre.astro-code span[style*="color:#6e7781"] {
 .folder-slot { position: relative; list-style: none; }
 @media (min-width: 768px) { .folder-slot:nth-child(even) { margin-top: 3.5rem; } }
 .folder {
-  --c: var(--brand);
   position: relative; display: block; padding-top: 3.6rem; color: var(--ink); text-decoration: none;
   transform: rotate(var(--rot, 0deg));
   transition: transform 300ms var(--ease-out);
 }
-.folder-slot:nth-child(1) .folder { --c: var(--brand); --rot: 0deg; }
-.folder-slot:nth-child(2) .folder { --c: var(--paper); --rot: 0deg; }
-.folder-slot:nth-child(3) .folder { --c: var(--clay); --rot: 0deg; }
-.folder-slot:nth-child(4) .folder { --c: var(--paper); --rot: 0deg; }
+.folder-slot:nth-child(1) .folder { --rot: 0deg; }
+.folder-slot:nth-child(2) .folder { --rot: 0deg; }
+.folder-slot:nth-child(3) .folder { --rot: 0deg; }
+.folder-slot:nth-child(4) .folder { --rot: 0deg; }
 .folder:hover, .folder:focus-visible { transform: translateY(-4px); outline: none; }
 .folder:focus-visible .folder-body { outline: 3px solid var(--brand); outline-offset: 4px; }
 
 .folder-tab {
   position: absolute; z-index: 2; left: 1.25rem; top: 1.5rem;
   display: inline-flex; align-items: center; gap: 0.35rem; height: 2.1rem; padding: 0 1.1rem;
-  background: var(--c); color: var(--ink);
-  border: 1px solid var(--ink); border-bottom: 0; border-radius: 0.6rem 0.6rem 0 0;
+  background: #141519; color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 0; border-radius: 0.6rem 0.6rem 0 0;
   font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.02em; text-transform: uppercase;
 }
 .folder-tab b { font-family: var(--font-mono); font-weight: 700; }
+.folder-slot:nth-child(1) .folder-tab { background: var(--brand); color: #FFFFFF; border-color: var(--brand); }
+.folder-slot:nth-child(2) .folder-tab { background: #141519; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.25); }
+.folder-slot:nth-child(3) .folder-tab { background: #0D9488; color: #FFFFFF; border-color: #0D9488; }
+.folder-slot:nth-child(4) .folder-tab { background: #141519; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.25); }
 
 /* Hoja con la vista previa: asoma por detrás y sube al interactuar */
 .folder-sheet {
   position: absolute; z-index: 0; right: 1.5rem; left: 42%; top: 0.5rem; height: 11rem; overflow: hidden;
-  background: #fff; border: 1px solid var(--ink); border-radius: 0.35rem 0.35rem 0 0;
+  background: #fff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.35rem 0.35rem 0 0;
   transform: rotate(4deg); transform-origin: bottom left;
   transition: transform 380ms var(--ease-out);
 }
@@ -828,22 +836,25 @@ pre.astro-code span[style*="color:#6e7781"] {
 .folder-body {
   position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
   min-height: 15rem; padding: 1.5rem 1.5rem 1.4rem;
-  background: var(--c); border: 1px solid var(--ink); border-radius: 0 0.6rem 0.6rem 0.6rem;
-  box-shadow: 6px 6px 0 rgba(247, 247, 245, 0.18);
-  transition: box-shadow 300ms var(--ease-out);
+  background: #FFFFFF;
+  color: #141519;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0 0.6rem 0.6rem 0.6rem;
+  box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.55), 6px 6px 0 rgba(0, 0, 0, 0.35);
+  transition: box-shadow 300ms var(--ease-out), transform 300ms var(--ease-out);
 }
-.folder:hover .folder-body { box-shadow: 8px 8px 0 var(--clay); }
-.folder-slot:nth-child(3) .folder:hover .folder-body { box-shadow: 8px 8px 0 var(--brand); }
-.folder-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--ink); }
-.folder-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
-.folder-text { font-size: 0.95rem; line-height: 1.45; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.folder-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.02em; color: var(--ink); margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
-.folder-open { font-weight: 700; font-size: 0.9rem; border-bottom: 2px solid var(--ink); }
-.folder-slot:nth-child(2) .tag, .folder-slot:nth-child(4) .tag { background: var(--brand); }
-.folder-slot:nth-child(1) .tag, .folder-slot:nth-child(3) .tag { background: var(--ink); color: var(--paper); }
+.folder:hover .folder-body { box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 8px 8px 0 var(--brand); transform: translateY(-2px); }
+.folder-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--brand); color: #141519; }
+.folder-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; color: #141519; }
+.folder-text { font-size: 0.95rem; line-height: 1.45; color: #444852; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.folder-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.02em; color: #6E7482; margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
+.folder-open { font-weight: 700; font-size: 0.9rem; color: var(--brand); border-bottom: 2px solid var(--brand); }
+.folder-slot .tag { background: #F4F3EE; color: #141519; border: 1px solid rgba(20, 21, 25, 0.12); }
+.folder-slot:nth-child(1) .tag { background: rgba(255, 87, 34, 0.12); color: var(--brand); border-color: rgba(255, 87, 34, 0.3); }
+.folder-slot:nth-child(3) .tag { background: rgba(13, 148, 136, 0.12); color: #0D9488; border-color: rgba(13, 148, 136, 0.3); }
 .folder-note {
   position: absolute; right: 0.75rem; bottom: -2.1rem; z-index: 3; transform: rotate(-4deg);
-  font-size: 1.4rem; line-height: 1; color: var(--brand); pointer-events: none;
+  font-size: 1.4rem; line-height: 1; color: #FF7A50; pointer-events: none;
 }
 @media (max-width: 767px) { .folder-sheet { left: 38%; height: 9rem; } .folder-note { right: 0.25rem; } }
 @media (prefers-reduced-motion: reduce) {
@@ -893,6 +904,7 @@ pre.astro-code span[style*="color:#6e7781"] {
 
 /* Servicios fijados con scroll */
 .band-clay .svc-pin, .band-clay .pin-spacer { background: #151821; }
+.band-paper .svc-pin, .band-paper .pin-spacer { background: var(--paper); }
 
 /* Titulares anchos (Syne): nunca desbordan en pantallas pequeñas */
 h1, h2, h3, h4 { overflow-wrap: anywhere; hyphens: auto; }

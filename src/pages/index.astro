@@ -359,30 +359,30 @@ const faqSchema = {
   </section>
 
   <!-- 2. Servicios: una tarjeta por servicio; el scroll las recorre en horizontal -->
-  <section id="servicios" class="band-clay svc-h scroll-mt-20 py-20 sm:py-28" aria-labelledby="svc-title" data-svc>
+  <section id="servicios" class="band-paper svc-h scroll-mt-20 py-20 sm:py-28" aria-labelledby="svc-title" data-svc>
     <div class="svc-pin">
       <div class="wrap">
         <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <h2 id="svc-title" class="h-section" data-reveal>{t.svcTitle}</h2>
-            <p class="lede mt-3">{t.svcLede}</p>
+            <h2 id="svc-title" class="h-section text-ink" data-reveal>{t.svcTitle}</h2>
+            <p class="lede mt-3 text-ink/75">{t.svcLede}</p>
           </div>
-          <a href={to("/pricing")} class="btn btn-dark shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
+          <a href={to("/pricing")} class="btn btn-white shrink-0">{t.allPrices} <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <ul class="svc-track wrap" data-svc-track>
         {services.map((s, i) => (
           <li class="svc-card">
-            <a href={to(`/pricing/${s.id}`)} class="glass is-hoverable flex h-full flex-col p-6 sm:p-7 group" data-tilt data-cursor={isEn ? "Open" : "Ver"}>
+            <a href={to(`/pricing/${s.id}`)} class="surface-card bg-white rounded-3xl border border-ink/10 shadow-sm hover:shadow-xl hover:border-brand/40 flex h-full flex-col p-6 sm:p-7 group transition-all" data-tilt data-cursor={isEn ? "Open" : "Ver"}>
               <div class="flex items-center justify-between gap-3">
-                <span class="label">N.º {String(i + 1).padStart(2, "0")}</span>
-                <span class="label bg-paper/80 px-2 py-0.5 rounded-sm border border-ink/10">{s.timeline}</span>
+                <span class="label font-mono text-xs font-bold text-brand uppercase tracking-wider">N.º {String(i + 1).padStart(2, "0")}</span>
+                <span class="font-mono text-xs px-2.5 py-0.5 rounded-full bg-paper border border-ink/10 text-ink/80">{s.timeline}</span>
               </div>
-              <span class="mt-4 block font-display text-[1.5rem] uppercase leading-[1.05] group-hover:text-ink">{s.name}</span>
-              <span class="muted mt-2.5 text-[0.92rem] leading-snug">{s.tagline}</span>
+              <span class="mt-4 block font-display text-[1.5rem] font-bold uppercase leading-[1.05] text-ink group-hover:text-brand transition-colors">{s.name}</span>
+              <span class="mt-2.5 text-[0.92rem] leading-snug text-ink/75">{s.tagline}</span>
 
               {s.features && s.features.length > 0 && (
-                <ul class="mt-4 space-y-1.5 border-t border-white/10 pt-3 text-xs text-slate-300">
+                <ul class="mt-4 space-y-1.5 border-t border-ink/10 pt-3 text-xs text-ink/80">
                   {s.features.slice(0, 3).map((feat) => (
                     <li class="flex items-start gap-1.5 leading-snug">
                       <span class="text-brand font-bold shrink-0" aria-hidden="true">✓</span>
@@ -392,21 +392,21 @@ const faqSchema = {
                 </ul>
               )}
 
-              <span class="mt-auto flex items-end justify-between gap-3 pt-6 border-t border-white/10">
+              <span class="mt-auto flex items-end justify-between gap-3 pt-6 border-t border-ink/10">
                 <span>
-                  <span class="label block !text-slate-400">{t.from}</span>
-                  <span class="num font-display text-[2.1rem] leading-none text-white font-bold">{euro(s.creationPriceNumber)}</span>
+                  <span class="label block text-[0.7rem] uppercase text-ink/60">{t.from}</span>
+                  <span class="num font-display text-[2.2rem] leading-none text-ink font-bold">{euro(s.creationPriceNumber)}</span>
                 </span>
-                <span class="text-[0.875rem] font-bold text-brand underline decoration-2 underline-offset-4 hover:text-white transition-all">{t.more} <span aria-hidden="true">→</span></span>
+                <span class="text-[0.875rem] font-bold text-brand group-hover:underline underline-offset-4 transition-all">{t.more} <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
         ))}
         <li class="svc-card">
-          <div class="glass flex h-full flex-col justify-between p-6 sm:p-7 shadow-xs border border-white/15 bg-white/5" data-tilt>
+          <div class="flex h-full flex-col justify-between p-6 sm:p-7 rounded-3xl shadow-xl border border-white/10 bg-gradient-to-br from-[#12141A] to-[#1E222D] text-white" data-tilt>
             <div>
               <p class="tag mb-4 !bg-brand !text-white !border-transparent">100% a medida</p>
-              <p class="font-display text-[1.6rem] uppercase leading-[1.02] text-white">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
+              <p class="font-display text-[1.6rem] uppercase leading-[1.02] text-white font-extrabold">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
               <p class="mt-3 text-[0.95rem] leading-snug text-slate-300">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
             </div>
             <a href={to("/contact")} class="btn btn-brand btn-sm mt-8 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
@@ -421,19 +421,19 @@ const faqSchema = {
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
           <span class="note mb-2 block text-lg" aria-hidden="true">{isEn ? "direct value ↓" : "compromiso directo ↓"}</span>
-          <h2 id="why-title" class="h-section max-w-3xl" data-reveal>{t.whyTitle}</h2>
+          <h2 id="why-title" class="h-section max-w-3xl text-ink" data-reveal>{t.whyTitle}</h2>
         </div>
       </div>
       <div class="grid gap-5 md:grid-cols-3" data-stagger>
         {t.why.map((w, i) => (
-          <div class="glass p-6 sm:p-7 flex flex-col justify-between hover:border-ink/40 transition-colors" data-tilt>
+          <div class="bg-white p-6 sm:p-7 rounded-2xl border border-ink/10 shadow-sm hover:shadow-md hover:border-brand/40 flex flex-col justify-between transition-all" data-tilt>
             <div>
               <div class="flex items-center justify-between mb-4">
-                <span class="tag !bg-ink !text-paper font-mono font-bold">{String(i + 1).padStart(2, "0")}</span>
+                <span class="tag !bg-brand !text-white !border-transparent font-mono font-bold">{String(i + 1).padStart(2, "0")}</span>
                 <span class="label font-mono text-[0.7rem] text-ink/60">Garantía #{i + 1}</span>
               </div>
-              <h3 class="font-display text-[1.35rem] uppercase leading-tight font-bold">{w.t}</h3>
-              <p class="muted mt-3 text-[0.95rem] leading-relaxed">{w.d}</p>
+              <h3 class="font-display text-[1.35rem] uppercase leading-tight font-bold text-ink">{w.t}</h3>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink/75">{w.d}</p>
             </div>
             <div class="mt-6 pt-4 border-t border-ink/10 flex items-center justify-between text-xs font-mono text-ink/70">
               <span>{i === 0 ? "100% Personal" : i === 1 ? "100% Propietario" : "Sin Sorpresas"}</span>
