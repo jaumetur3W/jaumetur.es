@@ -39,10 +39,10 @@ const WA = "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3
 const t = isEn
   ? {
       title: "High-Performance Web Design & Apps in Valencia | Jaume Tur",
-      desc: "Custom websites, digital menus and web apps loading in <1s for businesses in Valencia, Xàtiva and Spain. 100% proprietary code and transparent pricing.",
-      h1: "Websites that load instantly. Businesses that sell more.",
-      lede: "Custom web design and bespoke software for businesses in Valencia and across Spain. Engineered for top Google rankings, 100% code ownership, and zero agency middlemen.",
-      cta1: "Get a fixed quote", cta2: "Explore services from €290", wa: "WhatsApp",
+      desc: "Custom websites, digital menus and web apps for businesses in Valencia, Xàtiva and Spain. 100% proprietary code and transparent pricing.",
+      h1: "Custom websites and web applications built to stand out.",
+      lede: "Bespoke web design, interactive digital menus, and tailored web applications. Direct collaboration with the developer, guaranteed fixed quotes, and 100% code ownership with zero lock-in.",
+      cta1: "Get a fixed quote", cta2: "Services & pricing from €290", wa: "WhatsApp",
       reply: "Direct reply within 24 business hours.",
       launchLink: "2026 Partner Program · Limited Places",
       svcTitle: "Tailored solutions built for real business growth.",
@@ -87,10 +87,10 @@ const t = isEn
     }
   : {
       title: "Diseño Web & Apps de Alto Rendimiento en Valencia | Jaume Tur",
-      desc: "Webs a medida que cargan en <1s, cartas interactivas y aplicaciones para negocios de Valencia, Xàtiva y toda España. Código 100% propio y precios cerrados.",
-      h1: "Webs que cargan al instante. Negocios que venden más.",
-      lede: "Diseño y programación web a medida para negocios de Valencia y de toda España. Plataformas ultrarrápidas pensadas para conseguir llamadas, pedidos y clientes, con precio cerrado antes de empezar y el código 100% en tu propiedad.",
-      cta1: "Pedir presupuesto inmediato", cta2: "Ver servicios desde 290 €", wa: "WhatsApp",
+      desc: "Webs a medida, cartas interactivas y aplicaciones para negocios de Valencia, Xàtiva y toda España. Código 100% propio y precios cerrados.",
+      h1: "Webs y aplicaciones a medida para negocios que van en serio.",
+      lede: "Diseño y programación web con código propio, alta velocidad y posicionamiento en Google. Hablas directamente con quien programa tu proyecto, con precio cerrado antes de empezar y el código 100% en tu propiedad.",
+      cta1: "Pedir presupuesto cerrado", cta2: "Ver servicios desde 290 €", wa: "WhatsApp",
       reply: "Respuesta directa en menos de 24 horas laborables.",
       launchLink: "Programa Partner 2026 · Plazas Preferentes",
       svcTitle: "Soluciones a medida para hacer crecer tu negocio.",
@@ -146,12 +146,12 @@ const faqSchema = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
-  <!-- 1. Hero visual & llamativo: dispositivos con tarjetas flotantes en vivo y CTAs de alta conversión -->
+  <!-- 1. Hero editorial & arquitectónico: mensaje claro, garantías y panel de especialización de estudio -->
   <section class="band-paper relative isolate overflow-hidden pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-24 lg:pb-20" aria-labelledby="hero-title">
-    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[85vh] lg:min-h-[92vh]">
+    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[80vh] lg:min-h-[88vh]">
       
       <!-- Columna izquierda: mensaje contundente, beneficios y llamada a la acción -->
-      <div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-center items-start order-2 lg:order-1 pt-6 lg:pt-0 z-10">
+      <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start order-2 lg:order-1 pt-4 lg:pt-0 z-10">
         
         <!-- Badge de disponibilidad en vivo -->
         <div class="flex items-center gap-3 mb-6 flex-wrap">
@@ -160,21 +160,21 @@ const faqSchema = {
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-600"></span>
             </span>
-            {isEn ? "Open for Q1 projects" : "Disponible 2026 · Trato directo"}
+            {isEn ? "Open for 2026 projects" : "Disponible 2026 · Trato directo"}
           </span>
           <span class="note text-xs tracking-wider !text-brand" aria-hidden="true">{isEn ? "Valencia & Remote" : "Xàtiva · Valencia · Remoto"}</span>
         </div>
 
-        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.8rem] xl:text-[4.4rem] font-extrabold leading-[1.03] tracking-[-0.04em] text-ink" data-split>
+        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.6rem] xl:text-[4.2rem] font-extrabold leading-[1.04] tracking-[-0.04em] text-ink" data-split>
           {isEn ? (
             <>
-              Websites that load instantly.<br />
-              <span class="text-brand inline-block">Businesses that sell more.</span>
+              Custom websites and apps<br />
+              <span class="text-brand inline-block">built to stand out.</span>
             </>
           ) : (
             <>
-              Webs que cargan al instante.<br />
-              <span class="text-brand inline-block">Negocios que venden más.</span>
+              Webs y aplicaciones a medida<br />
+              <span class="text-brand inline-block">para negocios que van en serio.</span>
             </>
           )}
         </h1>
@@ -211,52 +211,109 @@ const faqSchema = {
               <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed guaranteed quote" : "Precio cerrado antes de empezar"}
             </li>
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Fast turnaround (3-15 days)" : "Entrega rápida (3 a 15 días)"}
+              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "No captive platforms" : "Sin ataduras a plataformas"}
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Columna derecha: imagen con tarjetas interactivas flotantes -->
-      <div class="lg:col-span-6 xl:col-span-7 flex items-center justify-end order-1 lg:order-2 lg:translate-x-4 xl:translate-x-8 2xl:translate-x-12 relative" data-tilt>
-        
-        <!-- Resplandor ambiental de profundidad -->
-        <div class="absolute -inset-4 bg-gradient-to-tr from-brand/15 via-amber-500/10 to-teal-500/15 rounded-3xl blur-3xl opacity-60 pointer-events-none -z-10"></div>
+      <!-- Columna derecha: Ficha técnica y catálogo de soluciones de estudio (reemplaza imagen y clichés) -->
+      <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-1 lg:order-2 w-full max-w-2xl mx-auto lg:ml-auto">
+        <div class="bg-white rounded-3xl border border-ink/10 shadow-xl p-6 sm:p-8 lg:p-9 relative overflow-hidden">
+          
+          <!-- Cabecera de la ficha: Identificador de estudio -->
+          <div class="flex items-center justify-between pb-5 border-b border-ink/10 flex-wrap gap-2">
+            <div class="flex items-center gap-2.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand"></span>
+              <span class="font-mono text-xs uppercase tracking-widest font-bold text-ink">
+                {isEn ? "Studio Spec & Services · 2026" : "Especialización & Servicios · 2026"}
+              </span>
+            </div>
+            <span class="font-mono text-[0.75rem] text-ink/60 uppercase tracking-wider">
+              {isEn ? "Direct engineering · No middlemen" : "Ingeniería directa · Sin comerciales"}
+            </span>
+          </div>
 
-        <!-- Floating UI Badge 1: 100/100 Core Web Vitals -->
-        <div class="absolute top-2 sm:top-8 -left-3 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-ink/10 rounded-2xl p-3 sm:p-4 shadow-xl flex items-center gap-3 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-          <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-mono font-extrabold text-sm border border-teal-200">
-            100
+          <!-- Lista de 3 soluciones con precio y plazo transparente -->
+          <div class="mt-5 space-y-3.5">
+            
+            <!-- Item 1: Cartas y hostelería -->
+            <a href="#servicios" class="group block p-4 rounded-2xl bg-paper/70 hover:bg-white border border-ink/5 hover:border-brand/40 hover:shadow-md transition-all duration-200">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold text-brand uppercase tracking-wider">01</span>
+                    <h2 class="font-display text-base font-bold text-ink group-hover:text-brand transition-colors">
+                      {isEn ? "Digital QR Menus & Local Commerce" : "Cartas Digitales QR & Hostelería"}
+                    </h2>
+                  </div>
+                  <p class="mt-1 text-xs text-ink/75 leading-relaxed">
+                    {isEn ? "Mobile-first tactile menu, allergen management, and instant updates." : "Navegación táctil para móvil, gestión de alérgenos y cambios al momento sin cuotas forzadas."}
+                  </p>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="block font-mono text-xs sm:text-sm font-bold text-ink">{isEn ? "From €290" : "Desde 290 €"}</span>
+                  <span class="block font-mono text-[0.7rem] text-ink/60 uppercase">{isEn ? "3–5 days" : "3–5 días"}</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Item 2: Webs corporativas y captación -->
+            <a href="#servicios" class="group block p-4 rounded-2xl bg-paper/70 hover:bg-white border border-ink/5 hover:border-brand/40 hover:shadow-md transition-all duration-200">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold text-brand uppercase tracking-wider">02</span>
+                    <h2 class="font-display text-base font-bold text-ink group-hover:text-brand transition-colors">
+                      {isEn ? "Corporate Websites & Landing Pages" : "Webs Corporativas & Landing Pages"}
+                    </h2>
+                  </div>
+                  <p class="mt-1 text-xs text-ink/75 leading-relaxed">
+                    {isEn ? "Custom architecture, local Google positioning and high conversion design for SMEs." : "Diseño exclusivo, posicionamiento local en Google y enfoque directo a captación de clientes."}
+                  </p>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="block font-mono text-xs sm:text-sm font-bold text-ink">{isEn ? "From €490" : "Desde 490 €"}</span>
+                  <span class="block font-mono text-[0.7rem] text-ink/60 uppercase">{isEn ? "1–2 weeks" : "1–2 semanas"}</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Item 3: Software a medida -->
+            <a href="#servicios" class="group block p-4 rounded-2xl bg-paper/70 hover:bg-white border border-ink/5 hover:border-brand/40 hover:shadow-md transition-all duration-200">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs font-bold text-brand uppercase tracking-wider">03</span>
+                    <h2 class="font-display text-base font-bold text-ink group-hover:text-brand transition-colors">
+                      {isEn ? "Custom Web Apps & Internal Tools" : "Aplicaciones Web & Software a Medida"}
+                    </h2>
+                  </div>
+                  <p class="mt-1 text-xs text-ink/75 leading-relaxed">
+                    {isEn ? "Work orders, employee timesheets and business management portals (e.g. AVISA, Worksy, Trania)." : "Partes de trabajo, control de fichajes, reservas y paneles privados (ej. AVISA, Worksy, Trania)."}
+                  </p>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="block font-mono text-xs sm:text-sm font-bold text-ink">{isEn ? "From €950" : "Desde 950 €"}</span>
+                  <span class="block font-mono text-[0.7rem] text-ink/60 uppercase">{isEn ? "3–6 weeks" : "3–6 semanas"}</span>
+                </div>
+              </div>
+            </a>
+
           </div>
-          <div>
-            <div class="text-[0.68rem] font-mono uppercase tracking-wider text-ink/60 font-semibold">Google Lighthouse</div>
-            <div class="text-xs sm:text-sm font-bold text-ink">0.4s · Carga instantánea</div>
+
+          <!-- Pie de la ficha: Compromiso y salto a demos reales -->
+          <div class="mt-5 pt-4 border-t border-ink/10 flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
+            <span class="text-ink/80 flex items-center gap-1.5">
+              <span class="text-teal-600 font-bold">✓</span>
+              {isEn ? "100% proprietary code" : "Código y accesos 100% a tu nombre"}
+            </span>
+            <a href="#proyectos" class="text-brand font-bold hover:underline inline-flex items-center gap-1">
+              {isEn ? "Inspect real projects ↓" : "Ver proyectos reales ↓"}
+            </a>
           </div>
+
         </div>
-
-        <!-- Floating UI Badge 2: Resultado de Negocio -->
-        <div class="absolute -bottom-3 sm:bottom-6 right-2 sm:right-6 z-20 bg-white/95 backdrop-blur-md border border-ink/10 rounded-2xl p-3 sm:p-4 shadow-xl flex items-center gap-3 transform rotate-2 hover:rotate-0 transition-transform duration-300">
-          <div class="w-10 h-10 rounded-xl bg-orange-50 text-brand flex items-center justify-center font-bold text-base border border-orange-200">
-            ⚡
-          </div>
-          <div>
-            <div class="text-[0.68rem] font-mono uppercase tracking-wider text-ink/60 font-semibold">Pizzería Xàtiva</div>
-            <div class="text-xs sm:text-sm font-bold text-ink">+340% pedidos sin comisiones</div>
-          </div>
-        </div>
-
-        <picture class="w-full scale-105 sm:scale-110 lg:scale-115 xl:scale-120 origin-center lg:origin-right transition-transform duration-500">
-          <source srcset="/img/hero-devices.webp" type="image/webp" />
-          <img
-            src="/img/hero-devices.png"
-            alt="Proyectos desarrollados por Jaume Tur: AVISA, Worksy y Trania en iMac, portátil y smartphone"
-            width="1024"
-            height="769"
-            class="h-auto w-full max-h-[640px] sm:max-h-[780px] xl:max-h-[920px] object-contain select-none ml-auto drop-shadow-2xl"
-            loading="eager"
-            decoding="async"
-          />
-        </picture>
       </div>
 
     </div>
