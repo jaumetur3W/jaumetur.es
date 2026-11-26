@@ -13,12 +13,12 @@ const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer"
 <section class="band-lime section py-20 sm:py-28 relative overflow-hidden" aria-labelledby="cta-band-title">
   <div class="wrap grid items-end gap-8 lg:grid-cols-12 relative z-10">
     <div class="lg:col-span-8">
-      <span class="note mb-3 !text-blue-400 font-mono text-xs uppercase tracking-wider" aria-hidden="true">Contacto directo ↓</span>
+      <span class="note mb-3 !text-[#FF7A50] font-mono text-xs uppercase tracking-wider" aria-hidden="true">Contacto directo ↓</span>
       <h2 id="cta-band-title" class="h-section font-bold text-white">{title}</h2>
       {text && <p class="mt-4 max-w-xl text-lg font-medium leading-relaxed text-slate-300">{text}</p>}
     </div>
     <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
-      <a href={primary.href} class="btn btn-brand !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-blue-500/25 transition-all" {...ext(primary.external)}>{primary.label} <span aria-hidden="true">→</span></a>
+      <a href={primary.href} class="btn btn-brand !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-brand/35 transition-all" {...ext(primary.external)}>{primary.label} <span aria-hidden="true">→</span></a>
       {secondary && <a href={secondary.href} class="btn btn-white !min-h-[3.25rem] !px-8 text-sm font-bold uppercase tracking-wider !bg-white/10 !text-white !border-white/20 hover:!bg-white/20 transition-all" {...ext(secondary.external)}>{secondary.label}</a>}
     </div>
   </div>

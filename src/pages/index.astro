@@ -40,9 +40,9 @@ const t = isEn
   ? {
       title: "High-Performance Web Design & Apps in Valencia | Jaume Tur",
       desc: "Custom websites, digital menus and web apps loading in <1s for businesses in Valencia, Xàtiva and Spain. 100% proprietary code and transparent pricing.",
-      h1: "Less bloated templates. More real customers.",
-      lede: "80% of local business websites take over 4 seconds to load and lose half their visitors. I build ultra-fast, custom websites, interactive digital menus and bespoke web applications that dominate local search and turn visits into actual customers. No sales reps, fixed quotes upfront, and 100% code ownership.",
-      cta1: "Get a fixed quote", cta2: "Explore solutions & pricing", wa: "WhatsApp",
+      h1: "Websites that load instantly. Businesses that sell more.",
+      lede: "Custom web design and bespoke software for businesses in Valencia and across Spain. Engineered for top Google rankings, 100% code ownership, and zero agency middlemen.",
+      cta1: "Get a fixed quote", cta2: "Explore services from €290", wa: "WhatsApp",
       reply: "Direct reply within 24 business hours.",
       launchLink: "2026 Partner Program · Limited Places",
       svcTitle: "Tailored solutions built for real business growth.",
@@ -88,9 +88,9 @@ const t = isEn
   : {
       title: "Diseño Web & Apps de Alto Rendimiento en Valencia | Jaume Tur",
       desc: "Webs a medida que cargan en <1s, cartas interactivas y aplicaciones para negocios de Valencia, Xàtiva y toda España. Código 100% propio y precios cerrados.",
-      h1: "Menos plantillas lentas. Más clientes reales.",
-      lede: "El 80% de las webs de pymes tardan más de 4s en cargar y pierden clientes antes del primer clic. Construyo plataformas a medida ultrarrápidas que posicionan en Google Maps y convierten visitas en llamadas y reservas. Sin comerciales, con precio cerrado y con el código 100% en tu propiedad.",
-      cta1: "Pedir presupuesto cerrado", cta2: "Ver soluciones y precios", wa: "WhatsApp",
+      h1: "Webs que cargan al instante. Negocios que venden más.",
+      lede: "Diseño y programación web a medida para negocios de Valencia y de toda España. Plataformas ultrarrápidas pensadas para conseguir llamadas, pedidos y clientes, con precio cerrado antes de empezar y el código 100% en tu propiedad.",
+      cta1: "Pedir presupuesto inmediato", cta2: "Ver servicios desde 290 €", wa: "WhatsApp",
       reply: "Respuesta directa en menos de 24 horas laborables.",
       launchLink: "Programa Partner 2026 · Plazas Preferentes",
       svcTitle: "Soluciones a medida para hacer crecer tu negocio.",
@@ -146,73 +146,105 @@ const faqSchema = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
-  <!-- 1. Hero ampliado: dispositivos a escala imponente y texto abajo a la izquierda desplazados hacia los extremos -->
-  <section class="band-paper relative isolate overflow-hidden pt-20 pb-14 sm:pt-28 sm:pb-20 lg:pt-24 lg:pb-16" aria-labelledby="hero-title">
-    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[85vh] lg:min-h-[92vh]">
+  <!-- 1. Hero visual & llamativo: dispositivos con tarjetas flotantes en vivo y CTAs de alta conversión -->
+  <section class="band-paper relative isolate overflow-hidden pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-24 lg:pb-20" aria-labelledby="hero-title">
+    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[85vh] lg:min-h-[92vh]">
       
-      <!-- Columna izquierda: texto colocado en el extremo izquierdo, con todo su ancho libre -->
-      <div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-end items-start order-2 lg:order-1 pt-6 lg:pt-0 pb-2 z-10">
-        <!-- Badge de disponibilidad y cercanía -->
+      <!-- Columna izquierda: mensaje contundente, beneficios y llamada a la acción -->
+      <div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-center items-start order-2 lg:order-1 pt-6 lg:pt-0 z-10">
+        
+        <!-- Badge de disponibilidad en vivo -->
         <div class="flex items-center gap-3 mb-6 flex-wrap">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-ink/10 text-xs font-mono font-semibold uppercase tracking-wider text-ink shadow-xs">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-ink/10 text-xs font-mono font-semibold uppercase tracking-wider text-ink shadow-sm">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-600"></span>
             </span>
-            {isEn ? "Available 2026 · Direct Engineering" : "Disponible 2026 · Trato Directo de Autor"}
+            {isEn ? "Open for Q1 projects" : "Disponible 2026 · Trato directo"}
           </span>
-          <span class="note text-xs tracking-wider" aria-hidden="true">{isEn ? "Valencia & Remote" : "Xàtiva · Valencia · Remoto"}</span>
+          <span class="note text-xs tracking-wider !text-brand" aria-hidden="true">{isEn ? "Valencia & Remote" : "Xàtiva · Valencia · Remoto"}</span>
         </div>
 
-        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.6rem] xl:text-[4.2rem] font-extrabold leading-[1.03] tracking-[-0.04em] text-ink" data-split>
+        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.8rem] xl:text-[4.4rem] font-extrabold leading-[1.03] tracking-[-0.04em] text-ink" data-split>
           {isEn ? (
             <>
-              Less bloated templates.<br />
-              <span class="text-brand inline-block">More real customers.</span>
+              Websites that load instantly.<br />
+              <span class="text-brand inline-block">Businesses that sell more.</span>
             </>
           ) : (
             <>
-              Menos plantillas lentas.<br />
-              <span class="text-brand inline-block">Más clientes reales.</span>
+              Webs que cargan al instante.<br />
+              <span class="text-brand inline-block">Negocios que venden más.</span>
             </>
           )}
         </h1>
 
-        <p class="mt-6 text-lg sm:text-xl text-ink/80 max-w-xl leading-relaxed">
+        <p class="mt-6 text-lg sm:text-xl text-ink/85 max-w-xl leading-relaxed">
           {t.lede}
         </p>
 
+        <!-- Botones de acción principales -->
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href={to("/contact")} class="btn btn-dark !min-h-[3.5rem] !px-8 text-sm tracking-wider uppercase font-extrabold shadow-md hover:shadow-lg transition-all" data-cursor={isEn ? "Quote" : "Hola"}>
+          <a href={to("/contact")} class="btn btn-brand !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-extrabold shadow-lg hover:shadow-xl transition-all" data-cursor={isEn ? "Quote" : "Presupuesto"}>
             {t.cta1} <span aria-hidden="true">→</span>
           </a>
-          <a href="#servicios" class="btn btn-white !min-h-[3.5rem] !px-8 text-sm tracking-wider uppercase font-bold border border-ink/15 hover:border-ink/30 transition-all">
+          <a href="#servicios" class="btn btn-white !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-bold border border-ink/15 hover:border-ink/30 transition-all">
             {t.cta2}
           </a>
         </div>
 
-        <!-- Barra de garantías tangibles -->
+        <!-- Enlace rápido a WhatsApp -->
+        <div class="mt-4 flex items-center gap-2">
+          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-teal-800 hover:text-brand transition-colors py-1">
+            <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+            <span>{isEn ? "Prefer WhatsApp? Direct chat in 1 click →" : "¿Prefieres WhatsApp? Escríbeme en 1 clic →"}</span>
+          </a>
+        </div>
+
+        <!-- Barra de 3 garantías tangibles -->
         <div class="mt-8 pt-5 border-t border-ink/10 w-full max-w-xl">
           <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono uppercase tracking-wider text-ink/80">
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-emerald-600 font-bold" aria-hidden="true">✓</span> {isEn ? "100% Code ownership (Git)" : "Código 100% tuyo (Git)"}
+              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "100% Code ownership (Git)" : "Código 100% tuyo (Git)"}
             </li>
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-emerald-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed guaranteed price" : "Precio cerrado garantizado"}
+              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed guaranteed quote" : "Precio cerrado antes de empezar"}
             </li>
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-emerald-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Ultra-fast (<1s load)" : "Carga en <1s (Core Web Vitals)"}
+              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Fast turnaround (3-15 days)" : "Entrega rápida (3 a 15 días)"}
             </li>
           </ul>
         </div>
-
-        <p class="mt-4 text-xs font-mono text-ink/60">
-          {t.reply}
-        </p>
       </div>
 
-      <!-- Columna derecha: imagen desplazada hacia el extremo derecho sin reducir su tamaño -->
-      <div class="lg:col-span-6 xl:col-span-7 flex items-center justify-end order-1 lg:order-2 lg:translate-x-4 xl:translate-x-8 2xl:translate-x-12" data-tilt>
+      <!-- Columna derecha: imagen con tarjetas interactivas flotantes -->
+      <div class="lg:col-span-6 xl:col-span-7 flex items-center justify-end order-1 lg:order-2 lg:translate-x-4 xl:translate-x-8 2xl:translate-x-12 relative" data-tilt>
+        
+        <!-- Resplandor ambiental de profundidad -->
+        <div class="absolute -inset-4 bg-gradient-to-tr from-brand/15 via-amber-500/10 to-teal-500/15 rounded-3xl blur-3xl opacity-60 pointer-events-none -z-10"></div>
+
+        <!-- Floating UI Badge 1: 100/100 Core Web Vitals -->
+        <div class="absolute top-2 sm:top-8 -left-3 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-ink/10 rounded-2xl p-3 sm:p-4 shadow-xl flex items-center gap-3 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-mono font-extrabold text-sm border border-teal-200">
+            100
+          </div>
+          <div>
+            <div class="text-[0.68rem] font-mono uppercase tracking-wider text-ink/60 font-semibold">Google Lighthouse</div>
+            <div class="text-xs sm:text-sm font-bold text-ink">0.4s · Carga instantánea</div>
+          </div>
+        </div>
+
+        <!-- Floating UI Badge 2: Resultado de Negocio -->
+        <div class="absolute -bottom-3 sm:bottom-6 right-2 sm:right-6 z-20 bg-white/95 backdrop-blur-md border border-ink/10 rounded-2xl p-3 sm:p-4 shadow-xl flex items-center gap-3 transform rotate-2 hover:rotate-0 transition-transform duration-300">
+          <div class="w-10 h-10 rounded-xl bg-orange-50 text-brand flex items-center justify-center font-bold text-base border border-orange-200">
+            ⚡
+          </div>
+          <div>
+            <div class="text-[0.68rem] font-mono uppercase tracking-wider text-ink/60 font-semibold">Pizzería Xàtiva</div>
+            <div class="text-xs sm:text-sm font-bold text-ink">+340% pedidos sin comisiones</div>
+          </div>
+        </div>
+
         <picture class="w-full scale-105 sm:scale-110 lg:scale-115 xl:scale-120 origin-center lg:origin-right transition-transform duration-500">
           <source srcset="/img/hero-devices.webp" type="image/webp" />
           <img
@@ -220,7 +252,7 @@ const faqSchema = {
             alt="Proyectos desarrollados por Jaume Tur: AVISA, Worksy y Trania en iMac, portátil y smartphone"
             width="1024"
             height="769"
-            class="h-auto w-full max-h-[640px] sm:max-h-[780px] xl:max-h-[920px] object-contain select-none ml-auto"
+            class="h-auto w-full max-h-[640px] sm:max-h-[780px] xl:max-h-[920px] object-contain select-none ml-auto drop-shadow-2xl"
             loading="eager"
             decoding="async"
           />
@@ -237,7 +269,7 @@ const faqSchema = {
         <div>
           <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
           <p class="lede mt-3">{t.projLede}</p>
-          <span class="note mt-3 !text-blue-400 font-mono text-xs uppercase tracking-wider" aria-hidden="true">{isEn ? "100% auditable in production" : "100% auditables en producción"}</span>
+          <span class="note mt-3 !text-[#FF7A50] font-mono text-xs uppercase tracking-wider" aria-hidden="true">{isEn ? "100% auditable in production" : "100% auditables en producción"}</span>
         </div>
         <a href={to("/projectes")} class="btn btn-brand shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
       </div>
@@ -293,34 +325,34 @@ const faqSchema = {
               <span class="muted mt-2.5 text-[0.92rem] leading-snug">{s.tagline}</span>
 
               {s.features && s.features.length > 0 && (
-                <ul class="mt-4 space-y-1.5 border-t border-ink/10 pt-3 text-xs text-ink/80">
+                <ul class="mt-4 space-y-1.5 border-t border-white/10 pt-3 text-xs text-slate-300">
                   {s.features.slice(0, 3).map((feat) => (
                     <li class="flex items-start gap-1.5 leading-snug">
-                      <span class="text-clay font-bold shrink-0" aria-hidden="true">✓</span>
+                      <span class="text-brand font-bold shrink-0" aria-hidden="true">✓</span>
                       <span class="line-clamp-1">{feat}</span>
                     </li>
                   ))}
                 </ul>
               )}
 
-              <span class="mt-auto flex items-end justify-between gap-3 pt-6 border-t border-ink/10">
+              <span class="mt-auto flex items-end justify-between gap-3 pt-6 border-t border-white/10">
                 <span>
-                  <span class="label block">{t.from}</span>
-                  <span class="num font-display text-[2.1rem] leading-none text-ink font-bold">{euro(s.creationPriceNumber)}</span>
+                  <span class="label block !text-slate-400">{t.from}</span>
+                  <span class="num font-display text-[2.1rem] leading-none text-white font-bold">{euro(s.creationPriceNumber)}</span>
                 </span>
-                <span class="text-[0.875rem] font-bold underline decoration-2 underline-offset-4 group-hover:decoration-clay transition-all">{t.more} <span aria-hidden="true">→</span></span>
+                <span class="text-[0.875rem] font-bold text-brand underline decoration-2 underline-offset-4 hover:text-white transition-all">{t.more} <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
         ))}
         <li class="svc-card">
-          <div class="sheet flex h-full flex-col justify-between p-6 sm:p-7 shadow-xs" data-tilt>
+          <div class="glass flex h-full flex-col justify-between p-6 sm:p-7 shadow-xs border border-white/15 bg-white/5" data-tilt>
             <div>
-              <p class="tag mb-4 !bg-ink !text-paper">100% a medida</p>
-              <p class="font-display text-[1.6rem] uppercase leading-[1.02]">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
-              <p class="mt-3 text-[0.95rem] leading-snug">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
+              <p class="tag mb-4 !bg-brand !text-white !border-transparent">100% a medida</p>
+              <p class="font-display text-[1.6rem] uppercase leading-[1.02] text-white">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
+              <p class="mt-3 text-[0.95rem] leading-snug text-slate-300">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
             </div>
-            <a href={to("/contact")} class="btn btn-dark btn-sm mt-8 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
+            <a href={to("/contact")} class="btn btn-brand btn-sm mt-8 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
           </div>
         </li>
       </ul>
@@ -348,7 +380,7 @@ const faqSchema = {
             </div>
             <div class="mt-6 pt-4 border-t border-ink/10 flex items-center justify-between text-xs font-mono text-ink/70">
               <span>{i === 0 ? "100% Personal" : i === 1 ? "100% Propietario" : "Sin Sorpresas"}</span>
-              <span class="text-clay font-bold">✓</span>
+              <span class="text-brand font-bold">✓</span>
             </div>
           </div>
         ))}
@@ -365,22 +397,22 @@ const faqSchema = {
       <ol class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {t.steps.map((s) => (
           <li class="step-card">
-            <p class="font-display text-[2.6rem] font-bold leading-none text-clay"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
+            <p class="font-display text-[2.6rem] font-bold leading-none text-brand"><span class="sr-only">{isEn ? "Step" : "Paso"} </span>{s.n}</p>
             <h3 class="mt-3 font-display text-[1.05rem] uppercase leading-tight">{s.t}</h3>
             <p class="muted mt-2 text-[0.92rem]">{s.d}</p>
           </li>
         ))}
       </ol>
 
-      <div id="lanzamiento" class="mt-20 scroll-mt-24 rounded-2xl bg-gradient-to-br from-[#090D16] to-[#1E293B] text-white p-8 sm:p-12 border border-white/10 shadow-2xl grid gap-8 lg:grid-cols-12 items-center" data-tilt>
+      <div id="lanzamiento" class="mt-20 scroll-mt-24 rounded-2xl bg-gradient-to-br from-[#12141A] to-[#1E222D] text-white p-8 sm:p-12 border border-white/10 shadow-2xl grid gap-8 lg:grid-cols-12 items-center" data-tilt>
         <div class="lg:col-span-8">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs font-mono font-bold uppercase tracking-wider">{t.launchTag}</span>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/20 text-[#FF7A50] border border-brand/35 text-xs font-mono font-bold uppercase tracking-wider">{t.launchTag}</span>
           <h2 id="launch-title" class="h-section mt-4 text-white font-extrabold">{t.launchTitle}</h2>
           <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-slate-300">{t.launchText}</p>
           <p class="mt-3 max-w-2xl text-[0.875rem] leading-relaxed text-slate-400">{t.launchNote}</p>
         </div>
         <div class="flex lg:col-span-4 lg:items-end lg:justify-end">
-          <a href={to("/contact?servei=lanzamiento")} class="btn btn-brand w-full sm:w-auto !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-blue-500/25 transition-all">{t.launchCta} <span aria-hidden="true">→</span></a>
+          <a href={to("/contact?servei=lanzamiento")} class="btn btn-brand w-full sm:w-auto !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-brand/35 transition-all">{t.launchCta} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>

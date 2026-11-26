@@ -143,29 +143,29 @@ const links = [
 
 <style>
   /* Tono automático: data-tone lo fija el script según el fondo bajo la barra (light | dark | clay | lime) */
-  #site-header { --nav-fg: #090D16; --nav-inv: #FBFBFC; --nav-accent: #2563EB; color: var(--nav-fg); }
-  #site-header[data-tone="dark"] { --nav-fg: #FBFBFC; --nav-inv: #090D16; --nav-accent: #3B82F6; }
-  #site-header[data-tone="dark"] #nav-center-menu ul { background: rgba(9, 13, 22, 0.85); border-color: rgba(255, 255, 255, 0.15); }
-  #site-header[data-tone="dark"] .nav-top-link { color: rgba(251, 251, 252, 0.85); }
+  #site-header { --nav-fg: #141519; --nav-inv: #F4F3EE; --nav-accent: #FF5722; color: var(--nav-fg); }
+  #site-header[data-tone="dark"] { --nav-fg: #F4F3EE; --nav-inv: #141519; --nav-accent: #FF7A50; }
+  #site-header[data-tone="dark"] #nav-center-menu ul { background: rgba(18, 20, 26, 0.88); border-color: rgba(255, 255, 255, 0.12); }
+  #site-header[data-tone="dark"] .nav-top-link { color: rgba(244, 243, 238, 0.85); }
   #site-header[data-tone="dark"] .nav-top-link:hover { color: #ffffff; background: rgba(255, 255, 255, 0.12); }
-  #site-header[data-tone="dark"] .nav-top-link[aria-current="page"] { background: #2563EB; color: #ffffff; }
-  #site-header[data-tone="clay"] { --nav-fg: #FBFBFC; --nav-accent: #60A5FA; }
-  #site-header[data-tone="clay"] #nav-center-menu ul { background: rgba(9, 13, 22, 0.85); border-color: rgba(255, 255, 255, 0.15); }
-  #site-header[data-tone="lime"] { --nav-fg: #FBFBFC; --nav-accent: #3B82F6; }
+  #site-header[data-tone="dark"] .nav-top-link[aria-current="page"] { background: #FF5722; color: #ffffff; }
+  #site-header[data-tone="clay"] { --nav-fg: #F4F3EE; --nav-accent: #FF7A50; }
+  #site-header[data-tone="clay"] #nav-center-menu ul { background: rgba(18, 20, 26, 0.88); border-color: rgba(255, 255, 255, 0.12); }
+  #site-header[data-tone="lime"] { --nav-fg: #F4F3EE; --nav-accent: #FF7A50; }
   #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn { color: var(--nav-fg); transition: color 200ms ease; }
   #site-header .lang-btn svg { transition: transform 300ms ease; }
-  .lang-list { position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 60; min-width: 10.5rem; margin: 0; padding: 0.35rem; list-style: none; background: #FBFBFC; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: 0.5rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+  .lang-list { position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 60; min-width: 10.5rem; margin: 0; padding: 0.35rem; list-style: none; background: #FFFFFF; border: 1px solid rgba(20, 21, 25, 0.15); border-radius: 0.5rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08); }
   .lang-list[hidden] { display: none; }
-  .lang-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 0.35rem; color: #090D16; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
-  .lang-list a:hover, .lang-list a:focus-visible { background: rgba(37, 99, 235, 0.1); color: #2563EB; }
-  .lang-list a[aria-current="true"] { background: #2563EB; color: #ffffff; }
+  .lang-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 0.35rem; color: #141519; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .lang-list a:hover, .lang-list a:focus-visible { background: rgba(255, 87, 34, 0.1); color: #FF5722; }
+  .lang-list a[aria-current="true"] { background: #FF5722; color: #ffffff; }
   #site-header .lang-btn:hover svg { transform: rotate(20deg); }
   #site-header .wordmark i { color: var(--nav-accent); }
   #site-header .burger-line { background: var(--nav-fg); }
-  #site-header[data-tone="lime"] .nav-cta { background: #2563EB; color: #ffffff; }
-  #site-header[data-tone="lime"] .nav-cta:hover { background: #1D4ED8; color: #ffffff; }
+  #site-header[data-tone="lime"] .nav-cta { background: #FF5722; color: #ffffff; }
+  #site-header[data-tone="lime"] .nav-cta:hover { background: #E64A19; color: #ffffff; }
   /* Panel móvil: opaco y con colores propios, independiente del tono */
-  #nav-panel, #nav-panel a { color: #090D16; }
+  #nav-panel, #nav-panel a { color: #141519; }
   #nav-panel .btn-dark { color: #ffffff; }
   @media (prefers-reduced-motion: reduce) { #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn svg { transition: none; } }
   .nav-top-link::after {
