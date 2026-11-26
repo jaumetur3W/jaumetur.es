@@ -152,8 +152,17 @@ const faqSchema = {
       
       <!-- Columna izquierda: texto colocado en el extremo izquierdo, con todo su ancho libre -->
       <div class="lg:col-span-6 xl:col-span-5 flex flex-col justify-end items-start order-2 lg:order-1 pt-6 lg:pt-0 pb-2 z-10">
-        <!-- Línea sutil superior que delimita el bloque de texto (según la referencia) -->
-        <p class="note mb-5 text-[1.5rem]" aria-hidden="true">{isEn ? "hi, I'm Jaume ↓" : "hola, soy Jaume ↓"}</p>
+        <!-- Badge de disponibilidad y cercanía -->
+        <div class="flex items-center gap-3 mb-5 flex-wrap">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-ink/15 text-xs font-mono font-semibold uppercase tracking-wider text-ink shadow-xs">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+            </span>
+            {isEn ? "Available 2026 · Xàtiva, Valencia & Remote" : "Disponible 2026 · Xàtiva, Valencia y Remoto"}
+          </span>
+          <span class="note text-[1.3rem] text-ink/75" aria-hidden="true">{isEn ? "hi, I'm Jaume ↓" : "hola, soy Jaume ↓"}</span>
+        </div>
 
         <h1 id="hero-title" class="font-display text-5xl sm:text-6xl lg:text-[3.6rem] xl:text-[4.2rem] font-bold leading-[1.02] tracking-[-0.045em] text-ink" data-split>
           {isEn ? (
@@ -175,7 +184,7 @@ const faqSchema = {
             : "Soy Jaume, desarrollador en Xàtiva. Diseño y programo tu web o tu app, te digo el precio antes de empezar y el código acaba siendo tuyo."}
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-4">
+        <div class="mt-8 flex flex-wrap items-center gap-4">
           <a href={to("/contact")} class="btn btn-dark !min-h-[3.5rem] !px-8 text-sm tracking-wider uppercase font-extrabold" data-cursor={isEn ? "Quote" : "Hola"}>
             {t.cta1} <span aria-hidden="true">→</span>
           </a>
@@ -184,8 +193,23 @@ const faqSchema = {
           </a>
         </div>
 
-        <p class="mt-6 text-sm text-ink/70">
-          {t.reply} <span class="note ml-2 text-[1.2rem]" aria-hidden="true">{isEn ? "← really" : "← en serio"}</span>
+        <!-- Barra de garantías tangibles -->
+        <div class="mt-8 pt-5 border-t border-ink/10 w-full max-w-xl">
+          <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono uppercase tracking-wider text-ink/75">
+            <li class="inline-flex items-center gap-1.5 font-medium">
+              <span class="text-clay font-bold" aria-hidden="true">✓</span> {isEn ? "Code 100% yours (Git)" : "Código 100% tuyo (Git)"}
+            </li>
+            <li class="inline-flex items-center gap-1.5 font-medium">
+              <span class="text-clay font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed price upfront" : "Precio cerrado antes de empezar"}
+            </li>
+            <li class="inline-flex items-center gap-1.5 font-medium">
+              <span class="text-clay font-bold" aria-hidden="true">✓</span> {isEn ? "Direct contact, no agencies" : "Cero intermediarios"}
+            </li>
+          </ul>
+        </div>
+
+        <p class="mt-4 text-xs font-mono text-ink/60">
+          {t.reply} <span class="note ml-1 text-[1.1rem] text-ink/75" aria-hidden="true">{isEn ? "← really" : "← en serio"}</span>
         </p>
       </div>
 
@@ -262,40 +286,72 @@ const faqSchema = {
       <ul class="svc-track wrap" data-svc-track>
         {services.map((s, i) => (
           <li class="svc-card">
-            <a href={to(`/pricing/${s.id}`)} class="glass is-hoverable flex h-full flex-col p-6 sm:p-7" data-tilt data-cursor={isEn ? "Open" : "Ver"}>
-              <span class="flex items-center justify-between gap-3">
+            <a href={to(`/pricing/${s.id}`)} class="glass is-hoverable flex h-full flex-col p-6 sm:p-7 group" data-tilt data-cursor={isEn ? "Open" : "Ver"}>
+              <div class="flex items-center justify-between gap-3">
                 <span class="label">N.º {String(i + 1).padStart(2, "0")}</span>
-                <span class="label">{s.timeline}</span>
-              </span>
-              <span class="mt-5 block font-display text-[1.6rem] uppercase leading-[1.02]">{s.name}</span>
-              <span class="muted mt-3 text-[0.95rem] leading-snug">{s.tagline}</span>
-              <span class="mt-auto flex items-end justify-between gap-3 pt-8">
-                <span><span class="label block">{t.from}</span><span class="num font-display text-[2.2rem] leading-none">{euro(s.creationPriceNumber)}</span></span>
-                <span class="text-[0.9rem] font-bold underline decoration-2 underline-offset-4">{t.more} <span aria-hidden="true">→</span></span>
+                <span class="label bg-paper/80 px-2 py-0.5 rounded-sm border border-ink/10">{s.timeline}</span>
+              </div>
+              <span class="mt-4 block font-display text-[1.5rem] uppercase leading-[1.05] group-hover:text-ink">{s.name}</span>
+              <span class="muted mt-2.5 text-[0.92rem] leading-snug">{s.tagline}</span>
+
+              {s.features && s.features.length > 0 && (
+                <ul class="mt-4 space-y-1.5 border-t border-ink/10 pt-3 text-xs text-ink/80">
+                  {s.features.slice(0, 3).map((feat) => (
+                    <li class="flex items-start gap-1.5 leading-snug">
+                      <span class="text-clay font-bold shrink-0" aria-hidden="true">✓</span>
+                      <span class="line-clamp-1">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <span class="mt-auto flex items-end justify-between gap-3 pt-6 border-t border-ink/10">
+                <span>
+                  <span class="label block">{t.from}</span>
+                  <span class="num font-display text-[2.1rem] leading-none text-ink font-bold">{euro(s.creationPriceNumber)}</span>
+                </span>
+                <span class="text-[0.875rem] font-bold underline decoration-2 underline-offset-4 group-hover:decoration-clay transition-all">{t.more} <span aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
         ))}
         <li class="svc-card">
-          <div class="sheet flex h-full flex-col justify-between p-6 sm:p-7" data-tilt>
-            <p class="font-display text-[1.6rem] uppercase leading-[1.02]">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
-            <p class="mt-3 text-[0.95rem] leading-snug">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
+          <div class="sheet flex h-full flex-col justify-between p-6 sm:p-7 shadow-xs" data-tilt>
+            <div>
+              <p class="tag mb-4 !bg-ink !text-paper">100% a medida</p>
+              <p class="font-display text-[1.6rem] uppercase leading-[1.02]">{isEn ? "Not sure which one?" : "¿No sabes cuál?"}</p>
+              <p class="mt-3 text-[0.95rem] leading-snug">{isEn ? "Tell me about your business and I'll recommend the smallest plan that works." : "Cuéntame tu negocio y te recomiendo el plan más pequeño que funcione."}</p>
+            </div>
             <a href={to("/contact")} class="btn btn-dark btn-sm mt-8 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
           </div>
         </li>
       </ul>
     </div>
   
-  <!-- 3. Por qué: tres compromisos -->
+  <!-- 3. Por qué: tres compromisos de valor -->
   <div class="mt-16 sm:mt-24">
     <div class="wrap">
-      <h2 id="why-title" class="h-section max-w-3xl" data-reveal>{t.whyTitle}</h2>
-      <div class="mt-6 grid gap-4 md:grid-cols-3" data-stagger>
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="note mb-2 block text-lg" aria-hidden="true">{isEn ? "direct value ↓" : "compromiso directo ↓"}</span>
+          <h2 id="why-title" class="h-section max-w-3xl" data-reveal>{t.whyTitle}</h2>
+        </div>
+      </div>
+      <div class="grid gap-5 md:grid-cols-3" data-stagger>
         {t.why.map((w, i) => (
-          <div class="glass p-5" data-tilt>
-            <p class="tag">{String(i + 1).padStart(2, "0")}</p>
-            <h3 class="mt-3 font-display text-[1.25rem] uppercase leading-none">{w.t}</h3>
-            <p class="muted mt-2 text-[0.95rem]">{w.d}</p>
+          <div class="glass p-6 sm:p-7 flex flex-col justify-between hover:border-ink/40 transition-colors" data-tilt>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="tag !bg-ink !text-paper font-mono font-bold">{String(i + 1).padStart(2, "0")}</span>
+                <span class="label font-mono text-[0.7rem] text-ink/60">Garantía #{i + 1}</span>
+              </div>
+              <h3 class="font-display text-[1.35rem] uppercase leading-tight font-bold">{w.t}</h3>
+              <p class="muted mt-3 text-[0.95rem] leading-relaxed">{w.d}</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-ink/10 flex items-center justify-between text-xs font-mono text-ink/70">
+              <span>{i === 0 ? "100% Personal" : i === 1 ? "100% Propietario" : "Sin Sorpresas"}</span>
+              <span class="text-clay font-bold">✓</span>
+            </div>
           </div>
         ))}
       </div>

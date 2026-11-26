@@ -1,5 +1,6 @@
 ---
 import { localizePath, localeFromPath, stripLocale } from "@/i18n";
+import BrandMark from "@/components/brand-mark.astro";
 
 const rawPathname = Astro.url.pathname;
 const locale = localeFromPath(rawPathname);
@@ -31,9 +32,10 @@ const links = [
 <header id="site-header" data-tone="light" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
   <div class="wrap flex md:grid md:grid-cols-[1fr_auto_1fr] h-20 items-center justify-between relative">
     
-    <!-- Izquierda: marca tipográfica -->
-    <a href={to("/")} class="group flex items-center gap-3 select-none shrink-0 justify-self-start" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
-      <span class="wordmark text-[1.45rem]">jaumetur<i>.</i>es</span>
+    <!-- Izquierda: marca tipográfica con isotipo JT integrado -->
+    <a href={to("/")} class="group flex items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
+      <BrandMark size={32} class="shadow-xs transition-transform duration-200 group-hover:-rotate-3" />
+      <span class="wordmark text-[1.4rem]">jaumetur<i>.</i>es</span>
     </a>
 
     <!-- Centro: Enlaces horizontales en la misma fila, texto normal, perfectamente alineados -->
@@ -42,15 +44,15 @@ const links = [
       aria-label={isEn ? "Main navigation" : "Navegación principal"}
       class="hidden md:flex items-center justify-center px-4"
     >
-      <ul class="flex items-center gap-6 lg:gap-10 xl:gap-12">
+      <ul class="flex items-center gap-1 lg:gap-2 bg-paper/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-ink/10 shadow-xs">
         {links.map((l) => (
           <li class="shrink-0">
             <a
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "nav-top-link relative inline-flex items-center py-2 px-1 font-hand text-[1.45rem] lg:text-[1.6rem] font-bold text-ink transition-colors hover:text-black whitespace-nowrap",
-                l.active ? "font-extrabold text-black" : "text-ink/85 hover:text-black"
+                "nav-top-link relative inline-flex items-center py-1.5 px-3.5 text-[0.875rem] font-semibold tracking-wide transition-all duration-200 whitespace-nowrap rounded-full",
+                l.active ? "bg-ink text-paper font-bold shadow-xs" : "text-ink/80 hover:text-ink hover:bg-ink/5"
               ]}
             >
               <span>{l.label}</span>
@@ -117,15 +119,16 @@ const links = [
     class="md:hidden absolute top-20 left-0 right-0 bg-paper border-b border-ink shadow-xl transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible p-6"
     aria-hidden="true"
   >
-    <ul class="grid gap-3">
+    <ul class="grid gap-2">
       {links.map((l) => (
         <li>
           <a
             href={to(l.path)}
-            class="block py-2 font-hand text-3xl font-bold text-ink border-b border-ink/10"
+            class="flex items-center justify-between py-3 px-2 text-lg font-bold text-ink border-b border-ink/10 rounded-lg hover:bg-ink/5 transition-colors"
             data-nav-link
           >
-            {l.label}
+            <span>{l.label}</span>
+            <span class="text-xs text-ink/40 font-mono" aria-hidden="true">→</span>
           </a>
         </li>
       ))}
@@ -142,6 +145,10 @@ const links = [
   /* Tono automático: data-tone lo fija el script según el fondo bajo la barra (light | dark | clay | lime) */
   #site-header { --nav-fg: #111111; --nav-inv: #F7F7F5; --nav-accent: #E05A36; color: var(--nav-fg); }
   #site-header[data-tone="dark"] { --nav-fg: #F7F7F5; --nav-inv: #111111; --nav-accent: #C8F169; }
+  #site-header[data-tone="dark"] #nav-center-menu ul { background: rgba(17, 17, 17, 0.75); border-color: rgba(247, 247, 245, 0.2); }
+  #site-header[data-tone="dark"] .nav-top-link { color: rgba(247, 247, 245, 0.85); }
+  #site-header[data-tone="dark"] .nav-top-link:hover { color: #ffffff; background: rgba(255, 255, 255, 0.12); }
+  #site-header[data-tone="dark"] .nav-top-link[aria-current="page"] { background: #F7F7F5; color: #111111; }
   #site-header[data-tone="clay"] { --nav-accent: #111111; }
   #site-header[data-tone="lime"] { --nav-accent: #111111; }
   #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn { color: var(--nav-fg); transition: color 200ms ease; }
