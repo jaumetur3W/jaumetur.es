@@ -12,6 +12,7 @@ badge: "SaaS Deportivo · Motores deterministas"
 statLabel: "Ecosistema integral"
 statValue: "Manager + 6 motores deterministas + White Label"
 verificationMethod: "Modelado de datos multi-inquilino, aislamiento modular y especificación determinista de motores de entrenamiento"
+liveUrl: "https://jaumetur.es/trania/"
 stack: ["SaaS Multi-tenant", "Python · FastAPI", "PostgreSQL", "React + Vite", "Expo / React Native", "Motores Deportivos Deterministas", "White Label"]
 order: 2
 image: {
@@ -170,6 +171,7 @@ Líneas de desarrollo previstas, todavía no disponibles:
 - **Determinismo deportivo:** Cada decisión de entrenamiento se calcula con algoritmos verificables y se explica al socio. No se usa IA generativa ni APIs externas de IA.
 - **Privacidad y RGPD:** Exportación de datos (art. 20) y derecho de supresión (art. 17) para los datos de salud de los socios.
 - **Sobriedad tecnológica:** Pocas dependencias, rendimiento nativo y coste de servidor contenido: PostgreSQL y Uvicorn ajustados para funcionar con 4 GB de RAM.
+- **Demostración en línea:** La plataforma está completamente desplegada y operativa en producción: [jaumetur.es/trania](https://jaumetur.es/trania/).
 
 ---
 

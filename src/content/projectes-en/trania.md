@@ -12,6 +12,7 @@ badge: "Sports SaaS · Deterministic Engines"
 statLabel: "Comprehensive Ecosystem"
 statValue: "Manager + 6 deterministic engines + White Label"
 verificationMethod: "Multi-tenant data modeling, modular isolation, and deterministic athletic computation engines"
+liveUrl: "https://jaumetur.es/trania/"
 stack: ["Multi-tenant SaaS", "Python · FastAPI", "PostgreSQL", "React + Vite", "Expo / React Native", "Deterministic Sports Engines", "White Label"]
 order: 2
 image: {
@@ -172,6 +173,7 @@ Planned development lines, not yet available:
 - **Sports determinism:** Every training decision is computed with verifiable algorithms and explained to the member. No generative AI and no external AI APIs are used.
 - **Privacy & GDPR:** Data export (Art. 20) and erasure (Art. 17) for members' health data.
 - **Technological sobriety:** Few dependencies, native performance and contained server costs: PostgreSQL and Uvicorn tuned to run on 4 GB of RAM.
+- **Live Application:** The platform is fully deployed and operational in production: [jaumetur.es/trania](https://jaumetur.es/trania/).
 
 ---
 
