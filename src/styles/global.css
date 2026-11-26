@@ -3,11 +3,10 @@
 @plugin '@tailwindcss/typography';
 
 /* ---------------------------------------------------------------
-   SISTEMA «BRUTALISMO EDITORIAL SUAVE»
-   Papel #F7F7F5 · Tinta #111111 · Lima #C8F169 · Terracota #E05A36.
-   Secciones separadas por cambio de fondo, filetes de 1px y notas a mano.
-   Titulares: Syne (alternativa a Clash Display). Cuerpo: Plus Jakarta Sans.
-   Notas: Caveat (uso mínimo). Todo auto-alojado.
+   SISTEMA DE DISEÑO — ESTUDIO DIGITAL DE ALTA PRECISIÓN
+   Base #FBFBFC · Tinta #090D16 · Cobalto #2563EB · Esmeralda #10B981.
+   Tipografía: Plus Jakarta Sans (Display) + Inter (Cuerpo) + JetBrains Mono.
+   Elevación suave, micro-bordes de precisión y contraste WCAG AAA.
 ---------------------------------------------------------------- */
 @font-face {
   font-family: 'Syne';
@@ -51,43 +50,43 @@
 }
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-display: 'Syne', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-hand: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+  --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-hand: 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-serif: 'Plus Jakarta Sans', Georgia, serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
 
-  --color-brand: #C8F169;
-  --color-brand-yellow: #C8F169;
-  --color-brand-dark: #111111;
-  --color-lime: #C8F169;
-  --color-clay: #E05A36;
-  --color-ink: #111111;
-  --color-ink-soft: #3b3b38;
-  --color-paper: #F7F7F5;
-  --color-sand: #efefeb;
+  --color-brand: #2563EB;
+  --color-brand-yellow: #2563EB;
+  --color-brand-dark: #090D16;
+  --color-lime: #10B981;
+  --color-clay: #0F172A;
+  --color-ink: #090D16;
+  --color-ink-soft: #334155;
+  --color-paper: #FBFBFC;
+  --color-sand: #F1F5F9;
   --color-surface: #ffffff;
 }
 
 :root {
   color-scheme: light;
-  --brand: #C8F169;
-  --on-brand: #111111;
-  --clay: #E05A36;
-  --ink: #111111;
-  --paper: #F7F7F5;
+  --brand: #2563EB;
+  --on-brand: #ffffff;
+  --clay: #0F172A;
+  --ink: #090D16;
+  --paper: #FBFBFC;
 
-  --bg-main: #F7F7F5;
-  --bg-surface: rgba(255, 255, 255, 0.92);
+  --bg-main: #FBFBFC;
+  --bg-surface: rgba(255, 255, 255, 0.95);
   --bg-raised: #ffffff;
 
   /* Filetes: finos para separar, rotundos para la retícula de catálogo */
-  --line: rgba(17, 17, 17, 0.16);
-  --line-strong: rgba(17, 17, 17, 0.9);
+  --line: rgba(15, 23, 42, 0.09);
+  --line-strong: rgba(15, 23, 42, 0.85);
 
-  --text-main: #111111;
-  --text-muted: #3d3d39;
-  --text-faint: #5d5d57;
+  --text-main: #090D16;
+  --text-muted: #475569;
+  --text-faint: #64748B;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --gutter: clamp(1.25rem, 4vw, 2.75rem);
@@ -725,51 +724,69 @@ pre.astro-code span[style*="color:#6e7781"] {
 }
 
 /* ===============================================================
-   BRUTALISMO EDITORIAL SUAVE: bandas, notas a mano, bento
+   SISTEMA DE ESTUDIO DE PRECISIÓN: bandas, tarjetas y tipografía
 =============================================================== */
-.font-hand { font-family: var(--font-hand); font-weight: 700; letter-spacing: 0; }
+.font-hand { font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.02em; }
 
 /* Marca tipográfica */
 .wordmark { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
-.wordmark i { font-style: normal; color: var(--clay); }
+.wordmark i { font-style: normal; color: var(--brand); }
 .band-ink .wordmark, .band-clay .wordmark { color: #fff; }
 
-/* Bandas: el cambio de fondo separa las secciones */
+/* Bandas: transiciones de atmósfera limpias */
 .band-paper { background: var(--paper); color: var(--ink); }
-.band-lime { background: var(--brand); color: var(--ink); --text-muted: #1f2a0a; --text-faint: #2c3a10; }
-.band-clay { background: var(--clay); color: var(--ink); --text-muted: #111; --text-faint: #111; }
-.band-lime .lede, .band-clay .lede, .band-clay .muted { color: var(--ink); }
+.band-lime { background: #0B0F19; color: #FFFFFF; --text-muted: #94A3B8; --text-faint: #64748B; }
+.band-clay { background: #090D16; color: #FFFFFF; --text-muted: #94A3B8; --text-faint: #64748B; }
+.band-clay h2, .band-clay h3, .band-clay .h-section { color: #FFFFFF; }
+.band-lime .lede, .band-clay .lede, .band-clay .muted { color: #94A3B8; }
 .band-ink .label, .band-ink .faint { color: rgba(255, 255, 255, 0.7); }
-.band-ink .hl { background: var(--brand); color: var(--ink); }
-.band-clay .hl, .band-lime .hl { background: var(--ink); color: var(--brand); }
-.band-clay :focus-visible, .band-lime :focus-visible { outline-color: var(--ink); box-shadow: 0 0 0 6px #fff; }
+.band-ink .hl { background: rgba(37, 99, 235, 0.2); color: #60A5FA; }
+.band-clay .hl, .band-lime .hl { background: rgba(37, 99, 235, 0.2); color: #60A5FA; }
+.band-clay :focus-visible, .band-lime :focus-visible { outline-color: var(--brand); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.3); }
 .band-ink :focus-visible { outline-color: var(--brand); box-shadow: none; }
-.band-ink .link-arrow { background-image: linear-gradient(var(--clay), var(--clay)); }
+.band-ink .link-arrow { background-image: linear-gradient(var(--brand), var(--brand)); }
 
-/* Nota a mano con flecha */
+/* Micro-etiqueta técnica */
 .note {
-  display: inline-block;
-  font-family: var(--font-hand);
-  font-weight: 700;
-  font-size: 1.3rem;
-  line-height: 1.05;
-  color: var(--clay);
-  transform: rotate(-4deg);
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand);
 }
-.band-clay .note { color: var(--ink); }
-.band-ink .note { color: var(--brand); }
+.band-clay .note { color: #60A5FA; }
+.band-ink .note { color: #60A5FA; }
 
-/* Trazo SVG a mano: se dibuja al cargar */
-.scribble { display: block; width: 100%; height: 0.5em; color: var(--clay); overflow: visible; }
+/* Trazo SVG */
+.scribble { display: block; width: 100%; height: 0.45em; color: var(--brand); overflow: visible; }
 .scribble path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: scribble-draw 0.9s 0.9s var(--ease-out) forwards; }
 .scribble.is-lime { color: var(--brand); }
 @keyframes scribble-draw { to { stroke-dashoffset: 0; } }
 
-/* Etiqueta: lima sobre papel/tinta */
-.tag { border-width: 1px; }
-.tag-clay { background: var(--clay); color: #fff; }
-.band-lime .tag { background: var(--ink); color: var(--brand); }
-.band-clay .tag { background: var(--paper); }
+/* Etiquetas: micro-badges contemporáneos */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 9999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tag-clay { background: var(--brand); color: #fff; }
+.band-lime .tag { background: rgba(255, 255, 255, 0.1); color: #FFFFFF; border-color: rgba(255, 255, 255, 0.15); }
+.band-clay .tag { background: rgba(255, 255, 255, 0.1); color: #FFFFFF; border-color: rgba(255, 255, 255, 0.15); }
 
 /* Proyectos como carpetas: pestaña con índice, hoja que asoma y se eleva al interactuar */
 .folders { display: grid; gap: 4.5rem 2rem; grid-template-columns: minmax(0, 1fr); list-style: none; padding: 0; }
@@ -835,32 +852,47 @@ pre.astro-code span[style*="color:#6e7781"] {
   .folder:hover .folder-sheet, .folder:focus-visible .folder-sheet { transform: rotate(4deg); }
 }
 
-/* Servicios sobre bandas: tarjetas en papel con sombra dura */
-.band-clay .glass, .band-ink .glass { background: var(--paper); color: var(--ink); backdrop-filter: none; border: 1px solid var(--ink); border-radius: 0.5rem; box-shadow: 5px 5px 0 var(--ink); }
-.band-ink .glass { box-shadow: 5px 5px 0 var(--brand); }
-.band-clay .glass .muted, .band-ink .glass .muted { color: var(--text-muted); }
-.band-clay .glass .label, .band-ink .glass .label { color: var(--text-faint); }
+/* Servicios sobre bandas: tarjetas de cristal refinado */
+.band-clay .glass {
+  background: rgba(15, 23, 42, 0.75);
+  color: #FFFFFF;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.band-clay .glass:hover {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: var(--brand);
+  box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.3);
+}
+.band-ink .glass {
+  background: rgba(255, 255, 255, 0.04);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+.band-clay .glass .muted, .band-ink .glass .muted { color: #94A3B8; }
+.band-clay .glass .label, .band-ink .glass .label { color: #64748B; }
 
-.step-card { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); border-radius: 0.5rem; padding: 1.5rem; transition: transform 240ms var(--ease-out); }
-.step-card:nth-child(odd) { transform: none; }
-.step-card:nth-child(even) { transform: translateY(0.5rem); }
-.step-card:hover { transform: translateY(-4px); }
+.step-card { background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 0.75rem; padding: 1.75rem; box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05); transition: transform 240ms var(--ease-out), border-color 240ms; }
+.step-card:hover { transform: translateY(-4px); border-color: var(--brand); }
 
 /* Cierre lima: botones */
-.band-lime .btn-dark:hover { background: var(--clay); color: #fff; border-color: var(--clay); }
-.band-lime .btn-white:hover { background: var(--ink); color: var(--brand); }
+.band-lime .btn-dark:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+.band-lime .btn-white:hover { background: #fff; color: var(--ink); }
 
 @media (prefers-reduced-motion: reduce) {
   .scribble path { animation: none; stroke-dashoffset: 0; }
   .step-card { transition: none; }
 }
 
-/* Cabecera transparente: el color del texto lo decide navbar.astro según el fondo que haya debajo */
+/* Cabecera transparente */
 #site-header { background: transparent; border-bottom: 0; }
 
-
-/* Servicios fijados con scroll: el relleno de GSAP también lleva el color de la banda */
-.band-clay .svc-pin, .band-clay .pin-spacer { background: var(--clay); }
+/* Servicios fijados con scroll */
+.band-clay .svc-pin, .band-clay .pin-spacer { background: #090D16; }
 
 /* Titulares anchos (Syne): nunca desbordan en pantallas pequeñas */
 h1, h2, h3, h4 { overflow-wrap: anywhere; hyphens: auto; }

@@ -143,28 +143,29 @@ const links = [
 
 <style>
   /* Tono automático: data-tone lo fija el script según el fondo bajo la barra (light | dark | clay | lime) */
-  #site-header { --nav-fg: #111111; --nav-inv: #F7F7F5; --nav-accent: #E05A36; color: var(--nav-fg); }
-  #site-header[data-tone="dark"] { --nav-fg: #F7F7F5; --nav-inv: #111111; --nav-accent: #C8F169; }
-  #site-header[data-tone="dark"] #nav-center-menu ul { background: rgba(17, 17, 17, 0.75); border-color: rgba(247, 247, 245, 0.2); }
-  #site-header[data-tone="dark"] .nav-top-link { color: rgba(247, 247, 245, 0.85); }
+  #site-header { --nav-fg: #090D16; --nav-inv: #FBFBFC; --nav-accent: #2563EB; color: var(--nav-fg); }
+  #site-header[data-tone="dark"] { --nav-fg: #FBFBFC; --nav-inv: #090D16; --nav-accent: #3B82F6; }
+  #site-header[data-tone="dark"] #nav-center-menu ul { background: rgba(9, 13, 22, 0.85); border-color: rgba(255, 255, 255, 0.15); }
+  #site-header[data-tone="dark"] .nav-top-link { color: rgba(251, 251, 252, 0.85); }
   #site-header[data-tone="dark"] .nav-top-link:hover { color: #ffffff; background: rgba(255, 255, 255, 0.12); }
-  #site-header[data-tone="dark"] .nav-top-link[aria-current="page"] { background: #F7F7F5; color: #111111; }
-  #site-header[data-tone="clay"] { --nav-accent: #111111; }
-  #site-header[data-tone="lime"] { --nav-accent: #111111; }
+  #site-header[data-tone="dark"] .nav-top-link[aria-current="page"] { background: #2563EB; color: #ffffff; }
+  #site-header[data-tone="clay"] { --nav-fg: #FBFBFC; --nav-accent: #60A5FA; }
+  #site-header[data-tone="clay"] #nav-center-menu ul { background: rgba(9, 13, 22, 0.85); border-color: rgba(255, 255, 255, 0.15); }
+  #site-header[data-tone="lime"] { --nav-fg: #FBFBFC; --nav-accent: #3B82F6; }
   #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn { color: var(--nav-fg); transition: color 200ms ease; }
   #site-header .lang-btn svg { transition: transform 300ms ease; }
-  .lang-list { position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 60; min-width: 10.5rem; margin: 0; padding: 0.35rem; list-style: none; background: #F7F7F5; border: 1px solid #111111; border-radius: 0.5rem; box-shadow: 4px 4px 0 #111111; }
+  .lang-list { position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 60; min-width: 10.5rem; margin: 0; padding: 0.35rem; list-style: none; background: #FBFBFC; border: 1px solid rgba(15, 23, 42, 0.15); border-radius: 0.5rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
   .lang-list[hidden] { display: none; }
-  .lang-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 0.35rem; color: #111111; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
-  .lang-list a:hover, .lang-list a:focus-visible { background: #C8F169; }
-  .lang-list a[aria-current="true"] { background: #111111; color: #F7F7F5; }
+  .lang-list a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border-radius: 0.35rem; color: #090D16; font-weight: 600; font-size: 0.95rem; text-decoration: none; }
+  .lang-list a:hover, .lang-list a:focus-visible { background: rgba(37, 99, 235, 0.1); color: #2563EB; }
+  .lang-list a[aria-current="true"] { background: #2563EB; color: #ffffff; }
   #site-header .lang-btn:hover svg { transform: rotate(20deg); }
   #site-header .wordmark i { color: var(--nav-accent); }
   #site-header .burger-line { background: var(--nav-fg); }
-  #site-header[data-tone="lime"] .nav-cta { background: #111111; color: #C8F169; }
-  #site-header[data-tone="lime"] .nav-cta:hover { background: #F7F7F5; color: #111111; }
+  #site-header[data-tone="lime"] .nav-cta { background: #2563EB; color: #ffffff; }
+  #site-header[data-tone="lime"] .nav-cta:hover { background: #1D4ED8; color: #ffffff; }
   /* Panel móvil: opaco y con colores propios, independiente del tono */
-  #nav-panel, #nav-panel a { color: #111111; }
+  #nav-panel, #nav-panel a { color: #090D16; }
   #nav-panel .btn-dark { color: #ffffff; }
   @media (prefers-reduced-motion: reduce) { #site-header .wordmark, #site-header .nav-top-link, #site-header #nav-toggle, #site-header .lang-btn svg { transition: none; } }
   .nav-top-link::after {
