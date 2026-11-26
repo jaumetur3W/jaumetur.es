@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
 import ProjectMark from "@/components/project-mark.astro";
 import { getServicesData } from "@/data/services";
-import { statusLabel, statusNote } from "@/data/project-status";
+import { getStatus, statusLabel, statusNote } from "@/data/project-status";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const locale = localeFromPath(Astro.url.pathname);
@@ -342,7 +342,7 @@ const faqSchema = {
                   <img src={img.src} width={img.w} height={img.h} alt="" loading="lazy" decoding="async" />
                 </span>
                 <span class="folder-body">
-                  <span class="folder-status">{statusLabel(p.id, isEn)}</span>
+                  <span class="folder-status">{getStatus(p.id) === "live" && <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1" aria-hidden="true"></span>}{statusLabel(p.id, isEn)}</span>
                   <span class="tag">{p.data.badge}</span>
                   <span class="folder-title">{shortTitle(p.data.title)}</span>
                   <span class="folder-text">{p.data.subtitle}</span>

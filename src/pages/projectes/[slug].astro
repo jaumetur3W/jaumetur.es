@@ -111,7 +111,7 @@ const breadcrumb = {
         <div class="pj-copy lg:col-span-7">
           <p class="pj-tags flex flex-wrap items-center gap-2">
             {entry.id === "avisa" && <span class="tag pj-tag-accent">{t.flagship}</span>}
-            <span class={`pj-status pj-status-${status}`}>{statusLabel(entry.id, isEn)}</span>
+            <span class={`pj-status pj-status-${status}`}>{status === "live" && <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-1.5" aria-hidden="true"></span>}{statusLabel(entry.id, isEn)}</span>
             <span class="tag"><Icon name={entry.data.icon} class="h-4 w-4" />{d.badge}</span>
           </p>
           <h1 class="pj-title mt-5">{d.title}</h1>
