@@ -35,7 +35,7 @@ const links = [
     <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico y gesto de firma -->
     <a href={to("/")} class="group flex items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
       <BrandMark size={32} class="shadow-xs transition-transform duration-200 group-hover:-rotate-3" />
-      <span class="wordmark text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-brand inline-block animate-pulse font-mono font-normal">_</span></span>
+      <span class="wordmark text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-[#E4FF00] inline-block animate-pulse font-mono font-normal">_</span></span>
     </a>
 
     <!-- Centro: Navegación transparente y limpia en escritorio (sin fondos ni cápsulas) -->
@@ -174,8 +174,8 @@ const links = [
 
 <style>
   #site-header {
-    --nav-fg: #110200;
-    --nav-accent: #D4612A;
+    --nav-fg: #050505;
+    --nav-accent: #0213F7;
     color: var(--nav-fg);
     background: transparent;
   }
@@ -185,18 +185,18 @@ const links = [
     background: transparent;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(17, 2, 0, 0.06);
+    border-bottom: 1px solid rgba(5, 5, 5, 0.08);
     box-shadow: none;
   }
 
   /* Modo oscuro dinámico cuando la barra cruza secciones negras */
   #site-header[data-tone="dark"] {
-    --nav-fg: #FFF7F0;
-    --nav-accent: #EF8E35;
+    --nav-fg: #FFFCF0;
+    --nav-accent: #E4FF00;
   }
   #site-header[data-tone="dark"].is-scrolled {
     background: transparent;
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-bottom-color: rgba(255, 252, 240, 0.1);
     box-shadow: none;
   }
   #site-header[data-tone="dark"] .wordmark {
@@ -241,15 +241,15 @@ const links = [
     font-weight: 800;
   }
   #site-header[data-tone="dark"] .nav-top-link {
-    color: rgba(255, 247, 240, 0.85);
+    color: rgba(255, 252, 240, 0.85);
   }
   #site-header[data-tone="dark"] .nav-top-link:hover {
-    color: #EF8E35;
+    color: #E4FF00;
     background: transparent;
   }
   #site-header[data-tone="dark"] .nav-top-link.active-pill {
     background: transparent !important;
-    color: #EF8E35 !important;
+    color: #E4FF00 !important;
   }
 
   /* Selector de idioma transparente */
@@ -269,14 +269,14 @@ const links = [
     opacity: 1;
   }
   #site-header[data-tone="dark"] .lang-switch-pill a {
-    color: rgba(255, 247, 240, 0.7);
+    color: rgba(255, 252, 240, 0.7);
   }
   #site-header[data-tone="dark"] .lang-switch-pill a:hover {
-    color: #EF8E35;
+    color: #E4FF00;
   }
   #site-header[data-tone="dark"] .lang-switch-pill a.active-lang {
     background: transparent !important;
-    color: #EF8E35 !important;
+    color: #E4FF00 !important;
   }
 
   #site-header .burger-line {

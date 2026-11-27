@@ -1,7 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import CtaBand from "@/components/cta-band.astro";
-import { Icon } from "astro-icon/components";
 import { localeFromPath, localizePath } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
@@ -12,37 +11,99 @@ const to = (path: string) => {
 
 const pillars = isEn
   ? [
-      { title: "Backend & architecture", icon: "bx:server", points: ["Scalable REST APIs and robust services with Node.js and TypeScript", "Design and management of SQL and NoSQL databases", "Clean architecture, security and systems integration"] },
-      { title: "Systems & servers (SMX)", icon: "bx:chip", points: ["Linux server administration and network environments", "Preventive maintenance, diagnostics and workstation assembly", "Local network setup, security and backups"] },
-      { title: "Frontend & web apps (DAW)", icon: "bx:layout", points: ["Modular SPA applications with Angular and TypeScript", "Smooth 60 FPS performance and WCAG AA accessibility", "Automated deployments with GitHub Actions and CI/CD"] },
+      { title: "Backend & architecture", points: ["Scalable REST APIs and robust services with Node.js and TypeScript", "Design and management of SQL and NoSQL databases", "Clean architecture, security and systems integration"] },
+      { title: "Systems & servers (SMX)", points: ["Linux server administration and network environments", "Preventive maintenance, diagnostics and workstation assembly", "Local network setup, security and backups"] },
+      { title: "Frontend & web apps (DAW)", points: ["Modular SPA applications with Angular and TypeScript", "Smooth 60 FPS performance and WCAG AA accessibility", "Automated deployments with GitHub Actions and CI/CD"] },
     ]
   : [
-      { title: "Backend y arquitectura", icon: "bx:server", points: ["API REST escalables y servicios robustos con Node.js y TypeScript", "Diseño y gestión de bases de datos SQL y NoSQL", "Arquitectura limpia, seguridad e integración de sistemas"] },
-      { title: "Sistemas y servidores (SMX)", icon: "bx:chip", points: ["Administración de servidores Linux y entornos de red", "Mantenimiento preventivo, diagnóstico y montaje de equipos", "Configuración de redes locales, seguridad y copias de seguridad"] },
-      { title: "Frontend y aplicaciones web (DAW)", icon: "bx:layout", points: ["Aplicaciones SPA modulares con Angular y TypeScript", "Rendimiento fluido a 60 FPS y accesibilidad WCAG AA", "Despliegues automatizados con GitHub Actions y CI/CD"] },
+      { title: "Backend y arquitectura", points: ["API REST escalables y servicios robustos con Node.js y TypeScript", "Diseño y gestión de bases de datos SQL y NoSQL", "Arquitectura limpia, seguridad e integración de sistemas"] },
+      { title: "Sistemas y servidores (SMX)", points: ["Administración de servidores Linux y entornos de red", "Mantenimiento preventivo, diagnóstico y montaje de equipos", "Configuración de redes locales, seguridad y copias de seguridad"] },
+      { title: "Frontend y aplicaciones web (DAW)", points: ["Aplicaciones SPA modulares con Angular y TypeScript", "Rendimiento fluido a 60 FPS y accesibilidad WCAG AA", "Despliegues automatizados con GitHub Actions y CI/CD"] },
     ];
 
 const facts = [
   { label: isEn ? "Education" : "Formación", val: "CFGS DAW + GM SMX" },
   { label: isEn ? "Location" : "Ubicación", val: isEn ? "Xàtiva / Valencia (and remote)" : "Xàtiva / Valencia (y remoto)" },
-  { label: isEn ? "Specialty" : "Especialidad", val: isEn ? "Web development, apps & backend" : "Desarrollo web, aplicaciones y backend" },
+  { label: isEn ? "Languages" : "Idiomas", val: isEn ? "Valencian, Spanish, English (basic)" : "Valenciano, castellano, inglés (básico)" },
   { label: isEn ? "Availability" : "Disponibilidad", val: isEn ? "Projects & collaborations" : "Proyectos y colaboraciones" },
 ];
+
+const built = isEn
+  ? [
+      { id: "avisa", name: "Avisa", text: "My final project for the DAW degree: a PWA in Angular with a Spring Boot backend where people post a job and receive quotes for services and home repairs." },
+      { id: "trania", name: "TranIA", text: "A management platform for gyms and trainers: members, classes, billing and adaptive training plans. React and Vite on the front, Python and FastAPI behind." },
+      { id: "worksy", name: "Worksy", text: "A business platform that puts HR, calendars, Kanban tasks and corporate mail in one place, built as a multi-tenant SaaS with React, Node.js and PostgreSQL." },
+      { id: "", name: "Websites for local businesses", text: "Digital menus, restaurant sites and a country estate site, with local SEO, accessibility and fast loading from day one." },
+    ]
+  : [
+      { id: "avisa", name: "Avisa", text: "Mi proyecto final del CFGS DAW: una PWA en Angular con backend en Spring Boot donde se publica un trabajo y se reciben presupuestos de servicios y reformas." },
+      { id: "trania", name: "TranIA", text: "Una plataforma de gestión para gimnasios y entrenadores: socios, clases, facturación y planes de entrenamiento adaptativos. React y Vite delante, Python y FastAPI detrás." },
+      { id: "worksy", name: "Worksy", text: "Una plataforma empresarial que reúne RR. HH., calendarios, tareas Kanban y correo corporativo en un solo sitio, planteada como SaaS multi-tenant con React, Node.js y PostgreSQL." },
+      { id: "", name: "Webs para negocios locales", text: "Cartas digitales, webs de hostelería y de una finca rural, con SEO local, accesibilidad y carga rápida desde el primer día." },
+    ];
+
+const stack = isEn
+  ? [
+      { group: "Frontend", items: ["Angular", "React", "Astro", "TypeScript", "Tailwind CSS"] },
+      { group: "Backend", items: ["Java and Spring Boot", "Node.js", "Python and FastAPI", "PHP"] },
+      { group: "Data", items: ["MySQL", "PostgreSQL", "Neon"] },
+      { group: "Systems and deployment", items: ["Linux", "nginx", "Git and GitHub Actions", "Google Cloud", "Docker"] },
+    ]
+  : [
+      { group: "Frontend", items: ["Angular", "React", "Astro", "TypeScript", "Tailwind CSS"] },
+      { group: "Backend", items: ["Java y Spring Boot", "Node.js", "Python y FastAPI", "PHP"] },
+      { group: "Datos", items: ["MySQL", "PostgreSQL", "Neon"] },
+      { group: "Sistemas y despliegue", items: ["Linux", "nginx", "Git y GitHub Actions", "Google Cloud", "Docker"] },
+    ];
 
 const t = isEn
   ? {
       title: "About Jaume Tur — web developer in Xàtiva and Valencia",
-      desc: "Jaume Tur is a web and application developer based in Xàtiva (Valencia), with a DAW higher certificate and an SMX certificate. Websites, apps and backend.",
-      eyebrow: "About me", h1: "Jaume Tur, web developer in Xàtiva and Valencia.",
-      bio: "I am a software developer based in Xàtiva (Valencia), specialising in web development, custom applications and systems. My intermediate certificate in Microcomputer Systems and Networks (SMX) gives me a solid command of servers, networks and reliability, which I complement with the Higher Technical Certificate in Web Application Development (DAW) to build fast websites, reactive interfaces and robust backend services for local businesses and remote teams.",
-      cv: "Download CV (PDF)", contact: "Get in touch", how: "Principles", howTitle: "How I approach every project", home: "Home", avail: "Available for projects",
+      desc: "Jaume Tur is a web and application developer from Xàtiva (Valencia) with a DAW higher certificate and an SMX certificate. His story, projects, stack and how he works.",
+      h1: "Jaume Tur, web developer in Xàtiva and Valencia.",
+      bio: "I build websites, custom applications and the server side that keeps them running, for local businesses and remote teams. I started with computers and networks, moved into web development, and today I design, program and deploy my own projects from start to finish.",
+      cv: "Download CV (PDF)", contact: "Get in touch", avail: "Available for projects",
+      storyTitle: "My story",
+      story: [
+        "I started with the hardware and the network. I studied the intermediate certificate in Microcomputer Systems and Networks (SMX) at IES Dr. Lluís Simarro, in Xàtiva: assembling computers, setting up local networks, administering operating systems and solving incidents. That base is why I care so much that a website loads fast, stays secure and does not go down.",
+        "In 2023 I moved to the Higher Technical Certificate in Web Application Development (DAW), at the same school. There I worked with Java and Spring Boot, JavaScript and TypeScript, Angular, MySQL databases, version control and team projects. My final project, Avisa, comes from that stage.",
+        "In 2025 I worked as an IT technician at Conecta Servicios Informáticos: diagnosing and repairing computers and phones, basic server administration and direct customer support, while adjusting the support procedures to cut response times.",
+        "Today I put both halves together. I design and program the application, and I deploy and maintain it myself. This website, Avisa and TranIA run on my own Google Cloud server, with automatic deployment from GitHub Actions every time I merge a change.",
+      ],
+      builtTitle: "What I have built", builtAll: "See all projects", builtOpen: "View project",
+      pillarsTitle: "How I approach every project",
+      stackTitle: "Tools I work with",
+      moreTitle: "A few more things",
+      more: [
+        { label: "Languages", val: "Valencian and Spanish (native). English at a basic level (A2), which I am improving." },
+        { label: "Certifications", val: "Office suite certification (LibreOffice and Microsoft 365)." },
+        { label: "Mobility", val: "Driving licence B and own vehicle, so I can meet clients in person around Xàtiva." },
+        { label: "How I work", val: "Proactive, practical and careful with detail. I prefer a small, working version early over a big promise later." },
+      ],
     }
   : {
       title: "Sobre Jaume Tur — desarrollador web en Xàtiva y Valencia",
-      desc: "Jaume Tur es desarrollador web y de aplicaciones en Xàtiva (Valencia), con CFGS DAW y Grado Medio SMX. Páginas web, aplicaciones y backend.",
-      eyebrow: "Sobre mí", h1: "Jaume Tur, desarrollador web en Xàtiva y Valencia.",
-      bio: "Soy desarrollador de software afincado en Xàtiva (Valencia), especializado en desarrollo web, aplicaciones a medida y sistemas. Mi titulación de Grado Medio en Sistemas Microinformáticos y Redes (SMX) me aporta un dominio sólido de servidores, redes y fiabilidad, que complemento con el CFGS en Desarrollo de Aplicaciones Web (DAW) para diseñar y programar páginas rápidas, interfaces reactivas y servicios backend robustos para negocios locales o empresas en remoto.",
-      cv: "Descargar CV (PDF)", contact: "Contactar", how: "Principios", howTitle: "Cómo enfoco cada proyecto", home: "Inicio", avail: "Disponible para proyectos",
+      desc: "Jaume Tur es desarrollador web y de aplicaciones en Xàtiva (Valencia), con CFGS DAW y Grado Medio SMX. Su trayectoria, proyectos, tecnologías y forma de trabajar.",
+      h1: "Jaume Tur, desarrollador web en Xàtiva y Valencia.",
+      bio: "Hago páginas web, aplicaciones a medida y la parte de servidores que las mantiene en marcha, para negocios locales y equipos en remoto. Empecé por los equipos y las redes, pasé al desarrollo web y hoy diseño, programo y despliego mis propios proyectos de principio a fin.",
+      cv: "Descargar CV (PDF)", contact: "Contactar", avail: "Disponible para proyectos",
+      storyTitle: "Mi historia",
+      story: [
+        "Empecé por el hardware y la red. Estudié el Grado Medio en Sistemas Microinformáticos y Redes (SMX) en el IES Dr. Lluís Simarro, en Xàtiva: montar ordenadores, configurar redes locales, administrar sistemas operativos y resolver incidencias. Esa base explica por qué me importa tanto que una web cargue rápido, sea segura y no se caiga.",
+        "En 2023 pasé al CFGS en Desarrollo de Aplicaciones Web (DAW), en el mismo centro. Allí trabajé con Java y Spring Boot, JavaScript y TypeScript, Angular, bases de datos MySQL, control de versiones y proyectos en equipo. De esa etapa sale mi proyecto final, Avisa.",
+        "En 2025 trabajé como técnico informático en Conecta Servicios Informáticos: diagnóstico y reparación de ordenadores y móviles, administración básica de servidores y atención directa a clientes, ajustando los procedimientos de soporte para reducir los tiempos de respuesta.",
+        "Hoy junto las dos mitades. Diseño y programo la aplicación, y yo mismo la despliego y la mantengo. Esta web, Avisa y TranIA funcionan en un servidor propio de Google Cloud, con despliegue automático desde GitHub Actions cada vez que acepto un cambio.",
+      ],
+      builtTitle: "Lo que he construido", builtAll: "Ver todos los proyectos", builtOpen: "Ver proyecto",
+      pillarsTitle: "Cómo enfoco cada proyecto",
+      stackTitle: "Con qué trabajo",
+      moreTitle: "Algunas cosas más",
+      more: [
+        { label: "Idiomas", val: "Valenciano y castellano (nativos). Inglés de nivel básico (A2), que sigo mejorando." },
+        { label: "Certificaciones", val: "Certificación en ofimática (LibreOffice y Microsoft 365)." },
+        { label: "Movilidad", val: "Carnet B y vehículo propio, así que puedo reunirme con clientes en persona por la zona de Xàtiva." },
+        { label: "Cómo trabajo", val: "Proactivo, práctico y cuidadoso con el detalle. Prefiero una versión pequeña que funcione pronto a una gran promesa tarde." },
+      ],
     };
 ---
 
@@ -78,9 +139,40 @@ const t = isEn
     </dl>
   </section>
 
-  <section class="section" aria-labelledby="how-title">
+  <section class="section" aria-labelledby="story-title">
+    <div class="wrap grid gap-8 lg:grid-cols-12 lg:gap-14">
+      <h2 id="story-title" class="h-section lg:col-span-4">{t.storyTitle}</h2>
+      <div class="grid gap-5 text-lg leading-relaxed text-ink/80 lg:col-span-8">
+        {t.story.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-t border-ink/20" aria-labelledby="built-title">
     <div class="wrap">
-      <h2 id="how-title" class="h-section max-w-3xl">{t.howTitle}</h2>
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 id="built-title" class="h-section max-w-3xl">{t.builtTitle}</h2>
+        <a href={to("/projectes")} class="link-arrow min-h-11">{t.builtAll} <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-2">
+        {built.map((b) => (
+          <article class="border-t-2 border-ink pt-5">
+            <h3 class="font-display text-[1.6rem] font-bold leading-tight">{b.name}</h3>
+            <p class="muted mt-3 leading-snug">{b.text}</p>
+            {b.id && (
+              <a href={to(`/projectes/${b.id}`)} class="link-arrow mt-4 min-h-11">
+                {t.builtOpen}<span class="sr-only">: {b.name}</span> <span aria-hidden="true">→</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-t border-ink/20" aria-labelledby="how-title">
+    <div class="wrap">
+      <h2 id="how-title" class="h-section max-w-3xl">{t.pillarsTitle}</h2>
       <div class="mt-10 grid gap-x-10 gap-y-12 md:grid-cols-3">
         {pillars.map((p) => (
           <article class="border-t-2 border-ink pt-5">
@@ -90,6 +182,37 @@ const t = isEn
             </ul>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-t border-ink/20" aria-labelledby="stack-title">
+    <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-7">
+        <h2 id="stack-title" class="h-section">{t.stackTitle}</h2>
+        <dl class="mt-8 grid gap-6">
+          {stack.map((s) => (
+            <div>
+              <dt class="label">{s.group}</dt>
+              <dd class="mt-2">
+                <ul class="flex flex-wrap gap-2">
+                  {s.items.map((i) => <li class="rounded-full border border-ink/30 px-3.5 py-1.5 text-[0.95rem] font-semibold leading-none">{i}</li>)}
+                </ul>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div class="lg:col-span-5">
+        <h2 class="h-section">{t.moreTitle}</h2>
+        <dl class="mt-8 grid gap-6">
+          {t.more.map((m) => (
+            <div class="border-t-2 border-ink pt-4">
+              <dt class="label">{m.label}</dt>
+              <dd class="mt-1 leading-snug text-ink/80">{m.val}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   </section>
