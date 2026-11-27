@@ -326,7 +326,7 @@ const faqSchema = {
         <div>
           <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
           <p class="lede mt-3">{t.projLede}</p>
-          <span class="note mt-3 !text-[#FF7A50] font-mono text-xs uppercase tracking-wider" aria-hidden="true">{isEn ? "100% auditable in production" : "100% auditables en producción"}</span>
+          <span class="note mt-3 !text-[#EF8E35] font-mono text-xs uppercase tracking-wider" aria-hidden="true">{isEn ? "100% auditable in production" : "100% auditables en producción"}</span>
         </div>
         <a href={to("/projectes")} class="btn btn-brand shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
       </div>
@@ -461,12 +461,12 @@ const faqSchema = {
         ))}
       </ol>
 
-      <div id="lanzamiento" class="mt-20 scroll-mt-24 rounded-2xl bg-gradient-to-br from-[#12141A] to-[#1E222D] text-white p-8 sm:p-12 border border-white/10 shadow-2xl grid gap-8 lg:grid-cols-12 items-center" data-tilt>
+      <div id="lanzamiento" class="mt-20 scroll-mt-24 rounded-2xl bg-gradient-to-br from-[#110200] via-[#240407] to-[#110200] text-[#FFF7F0] p-8 sm:p-12 border border-[#EF8E35]/25 shadow-2xl grid gap-8 lg:grid-cols-12 items-center" data-tilt>
         <div class="lg:col-span-8">
-          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand/20 text-[#FF7A50] border border-brand/35 text-xs font-mono font-bold uppercase tracking-wider">{t.launchTag}</span>
-          <h2 id="launch-title" class="h-section mt-4 text-white font-extrabold">{t.launchTitle}</h2>
-          <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-slate-300">{t.launchText}</p>
-          <p class="mt-3 max-w-2xl text-[0.875rem] leading-relaxed text-slate-400">{t.launchNote}</p>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EF8E35]/15 text-[#EF8E35] border border-[#EF8E35]/35 text-xs font-mono font-bold uppercase tracking-wider">{t.launchTag}</span>
+          <h2 id="launch-title" class="h-section mt-4 text-[#FFF7F0] font-extrabold">{t.launchTitle}</h2>
+          <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-[#FFF7F0]/85">{t.launchText}</p>
+          <p class="mt-3 max-w-2xl text-[0.875rem] leading-relaxed text-[#FFF7F0]/60">{t.launchNote}</p>
         </div>
         <div class="flex lg:col-span-4 lg:items-end lg:justify-end">
           <a href={to("/contact?servei=lanzamiento")} class="btn btn-brand w-full sm:w-auto !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-brand/35 transition-all">{t.launchCta} <span aria-hidden="true">→</span></a>
