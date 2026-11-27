@@ -121,51 +121,54 @@ const links = [
   <!-- Panel desplegable móvil con estética de estudio de diseño -->
   <div
     id="nav-panel"
-    class="md:hidden absolute top-[4.75rem] left-4 right-4 bg-paper/98 backdrop-blur-2xl border border-ink/15 rounded-3xl shadow-2xl p-6 transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible z-40"
+    class="md:hidden absolute top-[4.75rem] left-4 right-4 bg-[#050505]/98 text-[#FFFCF0] backdrop-blur-3xl border border-white/15 rounded-3xl shadow-2xl p-6 transition-all duration-300 -translate-y-4 opacity-0 pointer-events-none invisible z-40"
     aria-hidden="true"
   >
-    <div class="flex items-center justify-between pb-4 border-b border-ink/10 mb-4">
-      <span class="font-mono text-xs uppercase tracking-widest text-ink/60 font-semibold">
-        {isEn ? "Studio Navigation" : "Menú de Navegación"}
-      </span>
-      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 border border-teal-200 text-[0.7rem] font-mono font-bold">
-        <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
-        {isEn ? "Open for projects" : "Disponible 2026"}
+    <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+      <div class="flex items-center gap-2.5">
+        <img src="/img/mascot/wave-transparent.webp" alt="Asistente" width="32" height="32" class="w-8 h-8 object-contain" />
+        <span class="font-mono text-xs uppercase tracking-widest text-[#FFFCF0]/70 font-semibold">
+          {isEn ? "Studio Menu" : "Menú de Autor"}
+        </span>
+      </div>
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E4FF00]/15 text-[#E4FF00] border border-[#E4FF00]/30 text-[0.7rem] font-mono font-bold">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#E4FF00] animate-pulse"></span>
+        {isEn ? "Open 2026" : "Disponible 2026"}
       </span>
     </div>
 
-    <ul class="space-y-1">
+    <ul class="space-y-1.5">
       {links.map((l) => (
         <li>
           <a
             href={to(l.path)}
             class:list={[
-              "flex items-center justify-between py-3.5 px-3 rounded-2xl transition-all",
-              l.active ? "bg-white border border-ink/10 text-brand font-bold shadow-xs" : "text-ink hover:bg-white/60 font-medium"
+              "flex items-center justify-between py-3 px-3.5 rounded-2xl transition-all",
+              l.active ? "bg-white/10 border border-white/20 text-[#E4FF00] font-bold shadow-xs" : "text-[#FFFCF0]/85 hover:bg-white/5 hover:text-white font-medium"
             ]}
             data-nav-link
           >
             <div class="flex items-center gap-3">
-              <span class="font-mono text-xs text-brand font-bold">{l.n}</span>
+              <span class="font-mono text-xs text-[#E4FF00] font-bold">{l.n}</span>
               <span class="font-display text-lg tracking-tight">{l.label}</span>
             </div>
-            <span class="text-xs text-ink/40 font-mono" aria-hidden="true">→</span>
+            <span class="text-xs text-[#FFFCF0]/40 font-mono" aria-hidden="true">→</span>
           </a>
         </li>
       ))}
     </ul>
 
     <!-- Accesos rápidos en móvil -->
-    <div class="mt-5 pt-4 border-t border-ink/10 space-y-3">
-      <a href={WA} target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-xl bg-teal-50/70 border border-teal-200/60 text-teal-800 text-xs font-mono font-bold uppercase tracking-wider hover:bg-teal-50 transition-colors">
+    <div class="mt-5 pt-4 border-t border-white/10 space-y-3">
+      <a href={WA} target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.04] border border-white/15 text-[#E4FF00] text-xs font-mono font-bold uppercase tracking-wider hover:bg-white/[0.08] transition-colors">
         <span class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+          <span class="w-2 h-2 rounded-full bg-[#E4FF00] animate-pulse"></span>
           <span>{isEn ? "Direct WhatsApp chat" : "WhatsApp directo en 1 clic"}</span>
         </span>
         <span aria-hidden="true">↗</span>
       </a>
 
-      <a href={to("/contact")} class="btn btn-brand w-full !min-h-[3rem] text-xs font-extrabold uppercase tracking-wider shadow-md" data-nav-link>
+      <a href={to("/contact")} class="btn !rounded-full !bg-[#E4FF00] !text-[#050505] hover:!bg-[#0213F7] hover:!text-[#FFFCF0] w-full !min-h-[3.25rem] text-xs font-extrabold uppercase tracking-wider shadow-lg" data-nav-link>
         {isEn ? "Get a fixed quote in 24h" : "Presupuesto cerrado en 24h"} <span aria-hidden="true">→</span>
       </a>
     </div>

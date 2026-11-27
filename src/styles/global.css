@@ -686,6 +686,11 @@ pre.astro-code span[style*="color:#6e7781"] {
   scroll-padding-inline: var(--gutter);
   -webkit-overflow-scrolling: touch;
   list-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.svc-track::-webkit-scrollbar {
+  display: none;
 }
 .svc-card {
   flex: 0 0 min(80vw, 22rem);

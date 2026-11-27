@@ -147,25 +147,25 @@ const faqSchema = {
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
   <!-- 1. Hero editorial & arquitectónico: fondo oscuro mineral, azul cobalto y acento amarillo ácido -->
-  <section class="band-ink relative isolate overflow-hidden pt-24 pb-20 sm:pt-32 sm:pb-28 lg:pt-28 lg:pb-24 border-b border-white/10" aria-labelledby="hero-title">
-    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[82vh] lg:min-h-[88vh]">
+  <section class="band-ink relative isolate overflow-hidden pt-20 pb-16 sm:pt-32 sm:pb-28 lg:pt-28 lg:pb-24 border-b border-white/10" aria-labelledby="hero-title">
+    <div class="w-full max-w-[94rem] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
       
-      <!-- Columna izquierda: titular rotundo, énfasis tipográfico y llamada a la acción en píldora -->
-      <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start order-2 lg:order-1 pt-4 lg:pt-0 z-10">
+      <!-- Columna izquierda: titular rotundo, garantías y llamada a la acción en píldora (SIEMPRE PRIMERO EN MÓVIL) -->
+      <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start order-1 lg:order-1 pt-2 lg:pt-0 z-10 w-full">
         
         <!-- Badge de disponibilidad y sello de autor -->
-        <div class="flex items-center gap-3 mb-6 flex-wrap">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-semibold uppercase tracking-wider text-[#FFFCF0] shadow-sm backdrop-blur-md">
-            <span class="relative flex h-2.5 w-2.5">
+        <div class="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6 flex-wrap">
+          <span class="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 border border-white/15 text-[0.72rem] sm:text-xs font-mono font-semibold uppercase tracking-wider text-[#FFFCF0] shadow-sm backdrop-blur-md">
+            <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E4FF00] opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E4FF00]"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-[#E4FF00]"></span>
             </span>
             {isEn ? "Available 2026 · Direct engineering" : "Disponible 2026 · Trato directo de autor"}
           </span>
-          <span class="font-mono text-xs uppercase tracking-wider !text-[#E4FF00] font-bold" aria-hidden="true">{isEn ? "[valencia · remote_]" : "[xàtiva · valencia · remoto_]"}</span>
+          <span class="font-mono text-[0.72rem] sm:text-xs uppercase tracking-wider !text-[#E4FF00] font-bold" aria-hidden="true">{isEn ? "[valencia · remote_]" : "[xàtiva · valencia · remoto_]"}</span>
         </div>
 
-        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.8rem] xl:text-[4.4rem] font-black leading-[1.03] tracking-[-0.04em] text-[#FFFCF0]" data-split>
+        <h1 id="hero-title" class="font-display text-[2.25rem] sm:text-5xl lg:text-[3.8rem] xl:text-[4.4rem] font-black leading-[1.06] sm:leading-[1.03] tracking-[-0.035em] text-[#FFFCF0]" data-split>
           {isEn ? (
             <>
               Custom websites and apps<br />
@@ -179,31 +179,31 @@ const faqSchema = {
           )}
         </h1>
 
-        <p class="mt-6 text-lg sm:text-xl text-[#FFFCF0]/85 max-w-xl leading-relaxed">
+        <p class="mt-4 sm:mt-6 text-base sm:text-xl text-[#FFFCF0]/85 max-w-xl leading-relaxed">
           {t.lede}
         </p>
 
-        <!-- Botones de acción principales: píldora sólida de máximo contraste -->
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href={to("/contact")} class="btn !rounded-full !bg-[#E4FF00] !text-[#050505] hover:!bg-[#0213F7] hover:!text-[#FFFCF0] !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-extrabold shadow-xl hover:shadow-2xl transition-all" data-cursor={isEn ? "Quote" : "Presupuesto"}>
+        <!-- Botones de acción principales: adaptables a móvil (ancho completo en móvil para fácil pulsación) -->
+        <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <a href={to("/contact")} class="btn !rounded-full !bg-[#E4FF00] !text-[#050505] hover:!bg-[#0213F7] hover:!text-[#FFFCF0] !min-h-[3.4rem] sm:!min-h-[3.6rem] !px-8 text-xs sm:text-sm tracking-wider uppercase font-extrabold shadow-xl hover:shadow-2xl transition-all text-center justify-center" data-cursor={isEn ? "Quote" : "Presupuesto"}>
             {t.cta1} <span aria-hidden="true">→</span>
           </a>
-          <a href="#servicios" class="btn !rounded-full !bg-white/10 !text-[#FFFCF0] border border-white/20 hover:!bg-white/20 !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-bold transition-all">
+          <a href="#servicios" class="btn !rounded-full !bg-white/10 !text-[#FFFCF0] border border-white/20 hover:!bg-white/20 !min-h-[3.4rem] sm:!min-h-[3.6rem] !px-8 text-xs sm:text-sm tracking-wider uppercase font-bold transition-all text-center justify-center">
             {t.cta2}
           </a>
         </div>
 
         <!-- Enlace rápido a WhatsApp -->
-        <div class="mt-5 flex items-center gap-2">
-          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#E4FF00] hover:text-[#FFFCF0] transition-colors py-1">
+        <div class="mt-4 sm:mt-5 flex items-center gap-2">
+          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[0.75rem] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#E4FF00] hover:text-[#FFFCF0] transition-colors py-1">
             <span class="w-2 h-2 rounded-full bg-[#E4FF00] animate-pulse"></span>
             <span>{isEn ? "Prefer WhatsApp? Direct chat in 1 click →" : "¿Prefieres WhatsApp? Escríbeme en 1 clic →"}</span>
           </a>
         </div>
 
         <!-- Barra de 3 garantías tangibles -->
-        <div class="mt-8 pt-5 border-t border-white/10 w-full max-w-xl">
-          <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono uppercase tracking-wider text-[#FFFCF0]/75">
+        <div class="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-white/10 w-full max-w-xl">
+          <ul class="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-[0.72rem] sm:text-xs font-mono uppercase tracking-wider text-[#FFFCF0]/75">
             <li class="inline-flex items-center gap-1.5 font-medium">
               <span class="text-[#E4FF00] font-bold" aria-hidden="true">✓</span> {isEn ? "100% Code ownership (Git)" : "Código 100% tuyo (Git)"}
             </li>
@@ -211,15 +211,15 @@ const faqSchema = {
               <span class="text-[#E4FF00] font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed guaranteed quote" : "Precio cerrado antes de empezar"}
             </li>
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-[#E4FF00] font-bold" aria-hidden="true">✓</span> {isEn ? "Direct engineering" : "Sin intermediarios ni comerciales"}
+              <span class="text-[#E4FF00] font-bold" aria-hidden="true">✓</span> {isEn ? "Direct engineering" : "Sin intermediarios"}
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Columna derecha: Ficha técnica y catálogo de soluciones de estudio -->
-      <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-1 lg:order-2 w-full max-w-2xl mx-auto lg:ml-auto">
-        <div class="bg-[#0a0a0a] rounded-3xl border border-white/15 shadow-2xl p-6 sm:p-8 lg:p-9 relative overflow-hidden backdrop-blur-md">
+      <!-- Columna derecha: Ficha técnica y catálogo de soluciones de estudio (SEGUNDO EN MÓVIL) -->
+      <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-2 lg:order-2 w-full max-w-2xl mx-auto lg:ml-auto">
+        <div class="bg-[#0a0a0a] rounded-3xl border border-white/15 shadow-2xl p-5 sm:p-8 lg:p-9 relative overflow-hidden backdrop-blur-md">
           
           <!-- Cabecera de la ficha: Identificador de estudio, telemetría y asistente -->
           <div class="flex items-center justify-between pb-5 border-b border-white/10 flex-wrap gap-3">
@@ -473,7 +473,7 @@ const faqSchema = {
         ))}
       </ol>
 
-      <div id="lanzamiento" class="mt-20 scroll-mt-24 rounded-2xl bg-gradient-to-br from-[#050505] via-[#080d38] to-[#050505] text-[#FFFCF0] p-8 sm:p-12 border border-[#E4FF00]/25 shadow-2xl grid gap-8 lg:grid-cols-12 items-center" data-tilt>
+      <div id="lanzamiento" class="mt-14 sm:mt-20 scroll-mt-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#050505] via-[#080d38] to-[#050505] text-[#FFFCF0] p-6 sm:p-10 lg:p-12 border border-[#E4FF00]/25 shadow-2xl grid gap-6 sm:gap-8 lg:grid-cols-12 items-center" data-tilt>
         <div class="lg:col-span-8">
           <div class="flex items-center gap-3">
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E4FF00]/15 text-[#E4FF00] border border-[#E4FF00]/35 text-xs font-mono font-bold uppercase tracking-wider">{t.launchTag}</span>
