@@ -112,9 +112,11 @@ const breadcrumb = {
           <tbody>
             {services.map((s) => (
               <tr class="border-b border-ink/15 last:border-b-0 hover:bg-ink hover:text-white transition-colors duration-200">
-                <th scope="row" class="px-4 py-3.5 font-bold">
-                  <a href={to(`/pricing/${s.id}`)} class="hover:underline">{s.name}</a>
-                  {s.isFeatured && <span class="tag ml-2 align-middle">{t.recommended}</span>}
+                <th scope="row" class="px-4 py-3 font-bold">
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <a href={to(`/pricing/${s.id}`)} class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 transition-colors hover:decoration-current focus-visible:decoration-current">{s.name}</a>
+                    {s.isFeatured && <span class="tag">{t.recommended}</span>}
+                  </div>
                 </th>
                 <td class="num whitespace-nowrap px-4 py-3.5 text-right font-display text-[1.25rem]">{euro(s.creationPriceNumber)}</td>
                 <td class="num whitespace-nowrap px-4 py-3.5 text-right font-semibold">{monthly(s.monthlyFeeNumber)}</td>
@@ -146,13 +148,13 @@ const breadcrumb = {
             <ul class="mt-6 grid gap-2.5">
               {s.features.slice(0, 5).map((f) => (
                 <li class="flex gap-2.5 text-[0.9rem] leading-snug">
-                  <svg class="mt-[0.2em] h-4 w-4 shrink-0 text-[#C8F169]" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
+                  <svg class="mt-[0.2em] h-4 w-4 shrink-0 text-brand" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"></path></svg>
                   <span>{f}</span>
                 </li>
               ))}
             </ul>
             <p class="faint mt-5 text-[0.84rem]"><span class="font-semibold text-inherit">{t.forWho}:</span> {s.targetAudience}</p>
-            <div class="mt-auto flex flex-wrap gap-2.5 pt-6">
+            <div class="mt-auto flex flex-wrap gap-3 pt-6">
               <a href={to(`/contact?servei=${s.id}`)} class="btn btn-dark btn-sm">{t.request}</a>
               <a href={to(`/pricing/${s.id}`)} class="btn btn-white btn-sm">{t.detail}</a>
             </div>

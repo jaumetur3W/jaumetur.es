@@ -400,6 +400,23 @@
     color: #ffffff;
   }
 
+  /* Botones dentro de una tarjeta que pasa a negro: mantienen su propio contraste (antes heredaban el texto blanco) */
+  .card-interactive:hover .btn,
+  .is-hoverable:hover .btn,
+  .project-card:hover .btn { transform: none; }
+  .card-interactive:hover .btn-dark,
+  .is-hoverable:hover .btn-dark,
+  .project-card:hover .btn-dark { background-color: #E4FF00; color: #050505; border-color: #E4FF00; }
+  .card-interactive:hover .btn-dark:hover,
+  .is-hoverable:hover .btn-dark:hover,
+  .project-card:hover .btn-dark:hover { background-color: #FFFCF0; color: #050505; border-color: #FFFCF0; }
+  .card-interactive:hover .btn-white,
+  .is-hoverable:hover .btn-white,
+  .project-card:hover .btn-white { background-color: transparent; color: #FFFCF0; border-color: rgba(255, 252, 240, 0.55); box-shadow: none; }
+  .card-interactive:hover .btn-white:hover,
+  .is-hoverable:hover .btn-white:hover,
+  .project-card:hover .btn-white:hover { background-color: #FFFCF0; color: #050505; border-color: #FFFCF0; }
+
   .card-interactive:hover .muted,
   .is-hoverable:hover .muted,
   .svc-card > a.glass:hover .muted,
