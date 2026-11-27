@@ -26,6 +26,12 @@
         ],
         "createdAt": "2026-11-13T14:03:07.303Z",
         "reason": "retícula técnica como textura de marca por proyecto, pedida en el brief STREET-GLASS; decisión mía, no confirmada aparte"
+      },
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-11-27T07:26:29.492Z",
+        "reason": "matches jaumetur.es's existing established typeface (src/styles/global.css), not a generic AI default"
       }
     ]
   }

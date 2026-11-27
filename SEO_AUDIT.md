@@ -18,7 +18,7 @@ Sustituye a la auditoría anterior (octubre 2026), que describía una versión y
 | 3 | `/tools/html-generator` duplicaba `/tools/creador-html` (mismo título, descripción y contenido) | Media | **Corregido**: redirección y eliminada la página |
 | 4 | Títulos recortados en el `:` (p. ej. «HTML5 semántico: estructura», «JavaScript moderno: origen») | Media | **Corregido**: títulos completos o cortados en un límite natural |
 | 5 | Schema `Person` + `ProfessionalService` + `OfferCatalog` repetidos en las 92 páginas; coordenadas `geo` no verificadas | Media | **Corregido**: entidades completas solo en `/`, `/about/`, `/contact/` (y EN); `WebPage` en cada página que referencia por `@id`; `geo` eliminado |
-| 6 | Teléfono ausente del schema y de la web (NAP incompleto) | Media | **Corregido**: WhatsApp +34 644 525 838 visible en pie y contacto y en `telephone`/`contactPoint` |
+| 6 | Teléfono ausente del schema y de la web (NAP incompleto) | Media | **Corregido**: WhatsApp +34 682 832 409 visible en pie y contacto y en `telephone`/`contactPoint` |
 | 7 | Enlaces internos sin barra final (`/blog`, `/contact`, `/pricing`…): redirecciones innecesarias y 404 en el servidor de pruebas | Media | **Corregido** en plantillas y en los artículos del blog (nuevo `localizeHref`) |
 | 8 | Selector de idioma de la 404 apuntaba a `/404/` | Baja | **Corregido** |
 | 9 | H1 genéricos («Precios claros…», «Hablemos de tu proyecto», «La persona que construirá tu web») sin intención de búsqueda | Media | **Corregido** (ver mapa) |

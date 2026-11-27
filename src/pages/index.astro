@@ -34,7 +34,7 @@ const projectImages: Record<string, { src: string; w: number; h: number }> = {
 };
 const shortTitle = (x: string) => x.split(" — ")[0];
 
-const WA = "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto";
+const WA = "https://wa.me/34682832409?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto";
 
 const t = isEn
   ? {
@@ -155,14 +155,14 @@ const faqSchema = {
         
         <!-- Badge de disponibilidad y sello de autor -->
         <div class="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6 flex-wrap">
-          <span class="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 border border-white/15 text-[0.72rem] sm:text-xs font-mono font-semibold uppercase tracking-wider text-[#FFFCF0] shadow-sm backdrop-blur-md">
+          <span class="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 border border-white/15 text-xs sm:text-xs font-mono font-semibold uppercase tracking-wider text-[#FFFCF0] shadow-sm backdrop-blur-md">
             <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E4FF00] opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-[#E4FF00]"></span>
             </span>
             {isEn ? "Available 2026 · Direct engineering" : "Disponible 2026 · Trato directo de autor"}
           </span>
-          <span class="font-mono text-[0.72rem] sm:text-xs uppercase tracking-wider !text-[#E4FF00] font-bold" aria-hidden="true">{isEn ? "[valencia · remote_]" : "[xàtiva · valencia · remoto_]"}</span>
+          <span class="font-mono text-xs sm:text-xs uppercase tracking-wider !text-[#E4FF00] font-bold" aria-hidden="true">{isEn ? "[valencia · remote_]" : "[xàtiva · valencia · remoto_]"}</span>
         </div>
 
         <h1 id="hero-title" class="font-display text-[2.25rem] sm:text-5xl lg:text-[3.8rem] xl:text-[4.4rem] font-black leading-[1.06] sm:leading-[1.03] tracking-[-0.035em] text-[#FFFCF0]" data-split>
@@ -202,7 +202,7 @@ const faqSchema = {
 
         <!-- Enlace rápido a WhatsApp -->
         <div class="mt-4 sm:mt-5 flex items-center gap-2">
-          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[0.75rem] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#E4FF00] hover:text-[#FFFCF0] transition-colors py-1">
+          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs sm:text-xs font-mono font-bold uppercase tracking-wider text-[#E4FF00] hover:text-[#FFFCF0] transition-colors min-h-11">
             <span class="w-2 h-2 rounded-full bg-[#E4FF00] animate-pulse"></span>
             <span>{isEn ? "Prefer WhatsApp? Direct chat in 1 click →" : "¿Prefieres WhatsApp? Escríbeme en 1 clic →"}</span>
           </a>
@@ -210,7 +210,7 @@ const faqSchema = {
 
         <!-- Barra de 3 garantías tangibles -->
         <div class="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-white/10 w-full max-w-xl">
-          <ul class="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-[0.72rem] sm:text-xs font-mono uppercase tracking-wider text-[#FFFCF0]/75">
+          <ul class="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-xs sm:text-xs font-mono uppercase tracking-wider text-[#FFFCF0]/75">
             <li class="inline-flex items-center gap-1.5 font-medium">
               <span class="text-[#E4FF00] font-bold" aria-hidden="true">✓</span> {isEn ? "100% Code ownership (Git)" : "Código 100% tuyo (Git)"}
             </li>
@@ -241,12 +241,12 @@ const faqSchema = {
                     {isEn ? "Studio Spec & Live Systems" : "Sistemas en Producción · 2026"}
                   </span>
                 </div>
-                <span class="font-mono text-[0.72rem] text-[#E4FF00] uppercase tracking-wider font-semibold">
+                <span class="font-mono text-xs text-[#E4FF00] uppercase tracking-wider font-semibold">
                   {isEn ? "Direct author · No middlemen" : "Ingeniería directa · Sin comerciales"}
                 </span>
               </div>
             </div>
-            <span class="font-mono text-[0.7rem] px-2.5 py-1 rounded-full bg-[#0213F7]/20 border border-[#0213F7]/40 text-[#FFFCF0] uppercase tracking-wider hidden sm:inline-block">
+            <span class="font-mono text-xs px-2.5 py-1 rounded-full bg-[#0213F7]/20 border border-[#0213F7]/40 text-[#FFFCF0] uppercase tracking-wider hidden sm:inline-block">
               {isEn ? "● 100% Core Web Vitals" : "● 100% Core Web Vitals"}
             </span>
           </div>
@@ -267,13 +267,13 @@ const faqSchema = {
                   <p class="mt-1 text-xs text-[#FFFCF0]/75 leading-relaxed hidden sm:block">
                     {isEn ? "Mobile-first tactile menu, allergen management, and instant updates." : "Navegación táctil para móvil, gestión de alérgenos y cambios al momento sin cuotas forzadas."}
                   </p>
-                  <p class="mt-0.5 text-[0.72rem] text-[#FFFCF0]/65 font-mono sm:hidden">
+                  <p class="mt-0.5 text-xs text-[#FFFCF0]/65 font-mono sm:hidden">
                     {isEn ? "Tactile UX · Allergens · Zero fees" : "Táctil móvil · Alérgenos · Sin cuotas"}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
                   <span class="block font-mono text-xs sm:text-sm font-bold text-[#FFFCF0]">{isEn ? "From €290" : "Desde 290 €"}</span>
-                  <span class="block font-mono text-[0.68rem] sm:text-[0.7rem] text-[#FFFCF0]/60 uppercase">{isEn ? "3–5 days" : "3–5 días"}</span>
+                  <span class="block font-mono text-xs sm:text-xs text-[#FFFCF0]/60 uppercase">{isEn ? "3–5 days" : "3–5 días"}</span>
                 </div>
               </div>
             </a>
@@ -291,13 +291,13 @@ const faqSchema = {
                   <p class="mt-1 text-xs text-[#FFFCF0]/75 leading-relaxed hidden sm:block">
                     {isEn ? "Custom architecture, local Google positioning and high conversion design for SMEs." : "Diseño exclusivo, posicionamiento local en Google y enfoque directo a captación de clientes."}
                   </p>
-                  <p class="mt-0.5 text-[0.72rem] text-[#FFFCF0]/65 font-mono sm:hidden">
+                  <p class="mt-0.5 text-xs text-[#FFFCF0]/65 font-mono sm:hidden">
                     {isEn ? "Local SEO · High conversion · Clean code" : "SEO local · Alta conversión · Código limpio"}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
                   <span class="block font-mono text-xs sm:text-sm font-bold text-[#FFFCF0]">{isEn ? "From €490" : "Desde 490 €"}</span>
-                  <span class="block font-mono text-[0.68rem] sm:text-[0.7rem] text-[#FFFCF0]/60 uppercase">{isEn ? "1–2 weeks" : "1–2 semanas"}</span>
+                  <span class="block font-mono text-xs sm:text-xs text-[#FFFCF0]/60 uppercase">{isEn ? "1–2 weeks" : "1–2 semanas"}</span>
                 </div>
               </div>
             </a>
@@ -315,13 +315,13 @@ const faqSchema = {
                   <p class="mt-1 text-xs text-[#FFFCF0]/75 leading-relaxed hidden sm:block">
                     {isEn ? "PWA incident management (AVISA), offline tools and AI ordering systems (TranIA)." : "Sistemas PWA offline (AVISA), partes de trabajo, paneles y asistentes de pedidos con IA (TranIA)."}
                   </p>
-                  <p class="mt-0.5 text-[0.72rem] text-[#FFFCF0]/65 font-mono sm:hidden">
+                  <p class="mt-0.5 text-xs text-[#FFFCF0]/65 font-mono sm:hidden">
                     {isEn ? "Offline PWA · Dashboards · AI Agents" : "PWA offline · Paneles · Asistentes IA"}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
                   <span class="block font-mono text-xs sm:text-sm font-bold text-[#FFFCF0]">{isEn ? "From €950" : "Desde 950 €"}</span>
-                  <span class="block font-mono text-[0.68rem] sm:text-[0.7rem] text-[#FFFCF0]/60 uppercase">{isEn ? "3–6 weeks" : "3–6 semanas"}</span>
+                  <span class="block font-mono text-xs sm:text-xs text-[#FFFCF0]/60 uppercase">{isEn ? "3–6 weeks" : "3–6 semanas"}</span>
                 </div>
               </div>
             </a>
@@ -334,7 +334,7 @@ const faqSchema = {
               <span class="text-[#E4FF00] font-bold">✓</span>
               {isEn ? "100% proprietary code (Git)" : "Código y accesos 100% a tu nombre"}
             </span>
-            <a href="#proyectos" class="text-[#E4FF00] font-bold hover:underline inline-flex items-center gap-1">
+            <a href="#proyectos" class="text-[#E4FF00] font-bold hover:underline inline-flex min-h-11 items-center gap-1">
               {isEn ? "Inspect real projects ↓" : "Ver proyectos reales ↓"}
             </a>
           </div>
@@ -369,7 +369,7 @@ const faqSchema = {
               <span class="mt-2 text-xs sm:text-[0.92rem] leading-snug text-ink/75">{s.tagline}</span>
 
               {s.features && s.features.length > 0 && (
-                <ul class="mt-3 sm:mt-4 space-y-1 sm:space-y-1.5 border-t border-ink/10 pt-2.5 sm:pt-3 text-[0.75rem] sm:text-xs text-ink/80">
+                <ul class="mt-3 sm:mt-4 space-y-1 sm:space-y-1.5 border-t border-ink/10 pt-2.5 sm:pt-3 text-xs sm:text-xs text-ink/80">
                   {s.features.slice(0, 3).map((feat, fi) => (
                     <li class={`items-start gap-1.5 leading-snug ${fi >= 2 ? "hidden sm:flex" : "flex"}`}>
                       <span class="text-brand font-bold shrink-0" aria-hidden="true">✓</span>
@@ -381,7 +381,7 @@ const faqSchema = {
 
               <span class="mt-auto flex items-end justify-between gap-3 pt-6 border-t border-ink/10">
                 <span>
-                  <span class="label block text-[0.7rem] uppercase text-ink/60">{t.from}</span>
+                  <span class="label block text-xs uppercase text-ink/60">{t.from}</span>
                   <span class="num font-display text-[2.2rem] leading-none text-ink font-bold">{euro(s.creationPriceNumber)}</span>
                 </span>
                 <span class="text-[0.875rem] font-bold text-brand group-hover:underline underline-offset-4 transition-all">{t.more} <span aria-hidden="true">→</span></span>
@@ -420,7 +420,7 @@ const faqSchema = {
               <div>
                 <div class="flex items-center justify-between mb-4">
                   <span class="tag !bg-brand !text-white !border-transparent font-mono font-bold">{String(i + 1).padStart(2, "0")}</span>
-                  <span class="label font-mono text-[0.7rem] text-ink/60">Garantía #{i + 1}</span>
+                  <span class="label font-mono text-xs text-ink/60">Garantía #{i + 1}</span>
                 </div>
                 <h3 class="font-display text-[1.2rem] sm:text-[1.35rem] uppercase leading-tight font-bold text-ink">{w.t}</h3>
                 <p class="mt-2 sm:mt-3 text-xs sm:text-[0.95rem] leading-relaxed text-ink/75">{w.d}</p>

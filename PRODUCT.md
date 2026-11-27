@@ -16,7 +16,7 @@ jaumetur.es es el sitio comercial de Jaume Tur, desarrollador web titulado (CFGS
 Trato directo con la persona que programa, sin intermediarios ni agencia; código y cuentas del cliente en propiedad del cliente; precios publicados y alcance cerrado antes de empezar.
 
 ## Operating Context
-Sitio estático Astro 7 + Tailwind 4, bilingüe ES (por defecto) / EN, publicado en GitHub Pages (jaumetur.es). Contacto por formulario (Web3Forms), WhatsApp +34 644 525 838 y jaumetur3w@gmail.com. Analítica Plausible solo en producción.
+Sitio estático Astro 7 + Tailwind 4, bilingüe ES (por defecto) / EN, publicado en GitHub Pages (jaumetur.es). Contacto por formulario (Web3Forms), WhatsApp +34 682 832 409 y jaumetur3w@gmail.com. Analítica Plausible solo en producción.
 
 ## Capabilities and Constraints
 - Servicios y precios reales en src/data/services*.ts (desde 290 €, más cuota mensual con permanencia de un año).

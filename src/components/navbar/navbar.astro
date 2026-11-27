@@ -18,7 +18,7 @@ const to = (path: string) => withSlash(localizePath(path, locale));
 const is404 = rawPathname.includes("404");
 const spanishPath = is404 ? "/" : withSlash(localizePath(rawPathname, "es"));
 const englishPath = is404 ? "/en/" : withSlash(localizePath(rawPathname, "en"));
-const WA = "https://wa.me/34644525838?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto";
+const WA = "https://wa.me/34682832409?text=Hola%20Jaume,%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto";
 
 const links = [
   { n: "01", label: isEn ? "Projects" : "Proyectos", path: "/projectes", active: pathname.startsWith("/projectes") },
@@ -33,7 +33,7 @@ const links = [
   <div class="wrap flex items-center justify-between h-20 md:grid md:grid-cols-[1fr_auto_1fr] relative">
     
     <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico y gesto de firma -->
-    <a href={to("/")} class="group flex items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
+    <a href={to("/")} class="group flex min-h-11 items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
       <BrandMark size={32} class="shadow-xs transition-transform duration-200 group-hover:-rotate-3" />
       <span class="wordmark text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-[#E4FF00] inline-block animate-pulse font-mono font-normal">_</span></span>
     </a>
@@ -73,7 +73,7 @@ const links = [
           lang="es"
           aria-label="Versión en Español"
           class:list={[
-            "px-2.5 py-1 rounded-full transition-all duration-200",
+            "inline-flex min-h-10 items-center px-2.5 rounded-full transition-all duration-200",
             !isEn ? "active-lang" : ""
           ]}
         >
@@ -85,7 +85,7 @@ const links = [
           lang="en"
           aria-label="English version"
           class:list={[
-            "px-2.5 py-1 rounded-full transition-all duration-200",
+            "inline-flex min-h-10 items-center px-2.5 rounded-full transition-all duration-200",
             isEn ? "active-lang" : ""
           ]}
         >
@@ -102,7 +102,7 @@ const links = [
       <button
         id="nav-toggle"
         type="button"
-        class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-transparent border border-current/20 text-current cursor-pointer transition-transform duration-200 active:scale-95"
+        class="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-transparent border border-current/20 text-current cursor-pointer transition-transform duration-200 active:scale-95"
         aria-label={isEn ? "Toggle menu" : "Alternar menú"}
         aria-expanded="false"
         aria-controls="nav-panel"
@@ -131,7 +131,7 @@ const links = [
           {isEn ? "Studio Menu" : "Menú de Autor"}
         </span>
       </div>
-      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E4FF00]/15 text-[#E4FF00] border border-[#E4FF00]/30 text-[0.7rem] font-mono font-bold">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E4FF00]/15 text-[#E4FF00] border border-[#E4FF00]/30 text-xs font-mono font-bold">
         <span class="w-1.5 h-1.5 rounded-full bg-[#E4FF00] animate-pulse"></span>
         {isEn ? "Open 2026" : "Disponible 2026"}
       </span>

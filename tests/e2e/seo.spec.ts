@@ -163,12 +163,12 @@ test.describe("SEO técnico", () => {
 
   test("datos de contacto coherentes entre pie, contacto y JSON-LD (teléfono WhatsApp)", async ({ page }) => {
     await page.goto("/contact/");
-    await expect(page.locator("footer")).toContainText("+34 644 525 838");
-    await expect(page.locator("main")).toContainText("+34 644 525 838");
+    await expect(page.locator("footer")).toContainText("+34 682 832 409");
+    await expect(page.locator("main")).toContainText("+34 682 832 409");
     const business = await page.locator('script[type="application/ld+json"]').evaluateAll((ss) =>
       ss.map((s) => JSON.parse(s.textContent ?? "")).find((d) => d["@type"] === "ProfessionalService"),
     );
-    expect(business.telephone).toBe("+34644525838");
+    expect(business.telephone).toBe("+34682832409");
     expect(business.address.addressLocality).toBe("Xàtiva");
     expect(business.geo).toBeUndefined();
   });

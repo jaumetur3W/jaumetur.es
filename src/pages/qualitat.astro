@@ -91,7 +91,7 @@ const bundleBreakdown = [
 
             <div>
               <span class="text-sm font-normal text-ink block">{item.label}</span>
-              <span class="text-[11px] font-mono text-[#5d5d57] mt-1 inline-flex items-center gap-1">
+              <span class="text-xs font-mono text-[#5d5d57] mt-1 inline-flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#C8F169] ring-1 ring-ink/20" aria-hidden="true"></span>
                 <span>{isEn ? "Target" : "Objetivo"} {item.target}</span>
               </span>
@@ -111,7 +111,7 @@ const bundleBreakdown = [
       <div class="bg-white/70 rounded-sm border border-ink/20 overflow-hidden shadow-2xs">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm font-sans">
-            <thead class="bg-sand border-b border-ink/20 text-[11px] font-mono uppercase text-[#3d3d39]">
+            <thead class="bg-sand border-b border-ink/20 text-xs font-mono uppercase text-[#3d3d39]">
               <tr>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Key metric" : "Métrica clave"}</th>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Measured value" : "Valor medido"}</th>
@@ -125,17 +125,17 @@ const bundleBreakdown = [
                 <tr class="hover:bg-brand/20 transition-colors">
                   <td class="py-3.5 px-5 font-medium text-ink">
                     <span class="text-ink font-bold">{cwv.metric}</span>
-                    <span class="text-[11px] text-[#3d3d39] block font-normal font-sans">{cwv.name}</span>
+                    <span class="text-xs text-[#3d3d39] block font-normal font-sans">{cwv.name}</span>
                   </td>
                   <td class="py-3.5 px-5 font-medium text-ink text-base">{cwv.value}</td>
                   <td class="py-3.5 px-5 text-[#3d3d39]">{cwv.threshold}</td>
                   <td class="py-3.5 px-5">
                     {cwv.metric === "Speed Index" ? (
-                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-transparent text-ink border border-ink/60">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-transparent text-ink border border-ink/60">
                         <span>{cwv.status}</span>
                       </span>
                     ) : (
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#C8F169] text-[#111111] border border-ink/35">
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#C8F169] text-[#111111] border border-ink/35">
                         <span>✓ {cwv.status}</span>
                       </span>
                     )}
@@ -159,7 +159,7 @@ const bundleBreakdown = [
       <div class="bg-white/70 rounded-sm border border-ink/20 overflow-hidden shadow-2xs">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm font-sans">
-            <thead class="bg-sand border-b border-ink/20 text-[11px] font-mono uppercase text-[#3d3d39]">
+            <thead class="bg-sand border-b border-ink/20 text-xs font-mono uppercase text-[#3d3d39]">
               <tr>
                 <th class="py-3.5 px-5 font-semibold">{isEn ? "Target page" : "Página auditada"}</th>
                 <th class="py-3.5 px-4 font-semibold text-center">{isEn ? "Perf" : "Rend."}</th>
@@ -264,7 +264,7 @@ const bundleBreakdown = [
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs sm:text-sm">
-            <thead class="bg-sand border-b border-ink/20 text-[11px] font-mono uppercase text-[#3d3d39] font-semibold">
+            <thead class="bg-sand border-b border-ink/20 text-xs font-mono uppercase text-[#3d3d39] font-semibold">
               <tr>
                 <th class="py-3.5 px-5">{isEn ? "Resource" : "Recurso"}</th>
                 <th class="py-3.5 px-5">{isEn ? "Uncompressed size" : "Tamaño sin comprimir"}</th>
@@ -320,7 +320,7 @@ const bundleBreakdown = [
           class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#C8F169] hover:bg-[#111111] hover:text-white text-ink rounded-sm font-mono text-xs font-semibold transition shadow-xs">
           <Icon name="bx:bxl-github" class="w-4 h-4" />
           <span>{isEn ? "Examine source code on GitHub" : "Examinar el código en GitHub"}</span>
-          <span class="text-[10px]">↗</span>
+          <span class="text-xs">↗</span>
         </a>
         <a
           href={homePath}

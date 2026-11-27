@@ -40,4 +40,4 @@
 ## Oportunidades pendientes (requieren datos o contenido nuevo)
 - Verificar volúmenes reales antes de crear contenido nuevo (Keyword Planner con cuenta de Ads o herramienta de pago).
 - Posible página/artículo de «diseño web para restaurantes/bares en Xàtiva» solo si existen datos reales (casos, fotos, cliente) que lo respalden; no se ha creado para no inventar.
-- Google Business Profile: mantener coherencia de nombre, categoría y teléfono con la web (WhatsApp +34 644 525 838, ya visible en pie y contacto).
+- Google Business Profile: mantener coherencia de nombre, categoría y teléfono con la web (WhatsApp +34 682 832 409, ya visible en pie y contacto).

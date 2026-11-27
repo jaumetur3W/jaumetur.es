@@ -30,7 +30,7 @@ const isEn = Astro.url.pathname.startsWith("/en");
         <span id="build-status-label" class="font-bold text-ink">{isEn ? "Passing" : "Correcto"}</span>
       </span>
 
-      <span class="text-[10px] text-[#3d3d39] font-mono hidden sm:inline" id="build-commit-sha">#main</span>
+      <span class="text-xs text-[#3d3d39] font-mono hidden sm:inline" id="build-commit-sha">#main</span>
       <Icon name="bx:link-external" class="w-3 h-3 text-[#3d3d39] group-hover:text-ink transition-colors" />
     </a>
   )
@@ -51,36 +51,36 @@ const isEn = Astro.url.pathname.startsWith("/en");
           href="https://github.com/jaumetur3W/jaumetur.es/actions"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-[11px] text-ink hover:text-ink hover:underline"
+          class="inline-flex items-center gap-1 text-xs text-ink hover:text-ink hover:underline"
         >
           <span>GitHub Actions</span>
           <Icon name="bx:link-external" class="w-3 h-3" />
         </a>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-sm bg-sand border border-ink/15 text-[11px] mb-4">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-sm bg-sand border border-ink/15 text-xs mb-4">
         <div>
-          <span class="text-[#3d3d39] block text-[10px] uppercase font-semibold">{isEn ? "Status" : "Estado"}</span>
+          <span class="text-[#3d3d39] block text-xs uppercase font-semibold">{isEn ? "Status" : "Estado"}</span>
           <span id="card-build-status" class="font-bold text-ink flex items-center gap-1 mt-0.5">
             <Icon name="bx:check-circle" class="w-3.5 h-3.5" />
             <span>{isEn ? "Passing" : "Correcto"}</span>
           </span>
         </div>
         <div>
-          <span class="text-[#3d3d39] block text-[10px] uppercase font-semibold">{isEn ? "Branch" : "Rama"}</span>
+          <span class="text-[#3d3d39] block text-xs uppercase font-semibold">{isEn ? "Branch" : "Rama"}</span>
           <span id="card-build-branch" class="font-bold text-ink mt-0.5 block">main</span>
         </div>
         <div>
-          <span class="text-[#3d3d39] block text-[10px] uppercase font-semibold">{isEn ? "Latest commit" : "Último commit"}</span>
+          <span class="text-[#3d3d39] block text-xs uppercase font-semibold">{isEn ? "Latest commit" : "Último commit"}</span>
           <span id="card-build-sha" class="font-bold text-ink mt-0.5 block">HEAD</span>
         </div>
         <div>
-          <span class="text-[#3d3d39] block text-[10px] uppercase font-semibold">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
+          <span class="text-[#3d3d39] block text-xs uppercase font-semibold">{isEn ? "Execution time" : "Tiempo de ejecución"}</span>
           <span id="card-build-time" class="font-bold text-ink mt-0.5 block">&lt; 90s</span>
         </div>
       </div>
 
-      <p class="text-[11px] text-[#a3a39b] font-sans leading-relaxed">
+      <p class="text-xs text-[#a3a39b] font-sans leading-relaxed">
         {isEn ? "Atomic pipeline configured with GitHub Actions: cached dependencies, strict TypeScript checks, unit tests, and zero-downtime deployment." : "Pipeline atómico configurado con GitHub Actions: instalación en caché, verificación estática de TypeScript, pruebas unitarias y despliegue atómico sin interrupciones."}
       </p>
     </div>
