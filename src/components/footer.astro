@@ -85,7 +85,7 @@ const linkCls = "inline-flex min-h-11 items-center text-[0.95rem] text-ink/80 un
 
       <nav class="lg:col-span-3" aria-label={isEn ? "Services" : "Servicios"}>
         <h2 class="tag">{isEn ? "Services" : "Servicios"}</h2>
-        <ul class="mt-4">
+        <ul class="mt-4 grid gap-1">
           {services.map((s) => (
             <li><a href={to(`/pricing/${s.id}`)} class={linkCls}>{s.name}</a></li>
           ))}
@@ -94,7 +94,7 @@ const linkCls = "inline-flex min-h-11 items-center text-[0.95rem] text-ink/80 un
 
       <nav class="lg:col-span-2" aria-label={isEn ? "Site" : "Sitio"}>
         <h2 class="tag">{isEn ? "Site" : "Sitio"}</h2>
-        <ul class="mt-4">
+        <ul class="mt-4 grid gap-1">
           {navLinks.map((item) => (
             <li><a href={to(item.path)} class={linkCls}>{item.title}</a></li>
           ))}
@@ -103,7 +103,7 @@ const linkCls = "inline-flex min-h-11 items-center text-[0.95rem] text-ink/80 un
 
       <nav class="lg:col-span-2" aria-label={isEn ? "Free tools" : "Herramientas"}>
         <h2 class="tag">{isEn ? "Tools" : "Herramientas"}</h2>
-        <ul class="mt-4">
+        <ul class="mt-4 grid gap-1">
           {toolLinks.map((item) => (
             <li><a href={to(item.path)} class={linkCls}>{item.title}</a></li>
           ))}
@@ -123,7 +123,7 @@ const linkCls = "inline-flex min-h-11 items-center text-[0.95rem] text-ink/80 un
             <button
               type="button"
               data-open-cookie-settings
-              class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-white hover:decoration-brand"
+              class="inline-flex min-h-11 items-center underline decoration-transparent decoration-2 underline-offset-4 hover:text-ink hover:decoration-ink"
             >
               {isEn ? "Cookie settings" : "Configurar cookies"}
             </button>
