@@ -35,7 +35,7 @@ const links = [
     <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico y gesto de firma -->
     <a href={to("/")} class="group flex min-h-11 items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
       <BrandMark size={32} class="shadow-xs transition-transform duration-200 group-hover:-rotate-3" />
-      <span class="wordmark text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-[#E4FF00] inline-block animate-pulse font-mono font-normal">_</span></span>
+      <span class="wordmark text-[1.15rem] min-[360px]:text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-[#E4FF00] inline-block animate-pulse font-mono font-normal">_</span></span>
     </a>
 
     <!-- Centro: Navegación transparente y limpia en escritorio (sin fondos ni cápsulas) -->
@@ -73,7 +73,7 @@ const links = [
           lang="es"
           aria-label="Versión en Español"
           class:list={[
-            "inline-flex min-h-10 items-center px-2.5 rounded-full transition-all duration-200",
+            "inline-flex min-h-11 items-center px-2.5 rounded-full transition-all duration-200",
             !isEn ? "active-lang" : ""
           ]}
         >
@@ -85,7 +85,7 @@ const links = [
           lang="en"
           aria-label="English version"
           class:list={[
-            "inline-flex min-h-10 items-center px-2.5 rounded-full transition-all duration-200",
+            "inline-flex min-h-11 items-center px-2.5 rounded-full transition-all duration-200",
             isEn ? "active-lang" : ""
           ]}
         >

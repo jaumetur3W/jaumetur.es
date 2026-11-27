@@ -148,7 +148,12 @@ const faqSchema = {
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
   <!-- 1. Hero editorial & arquitectónico: fondo oscuro mineral, azul cobalto y acento amarillo ácido -->
   <section class="band-ink relative isolate overflow-hidden pt-20 pb-16 sm:pt-32 sm:pb-28 lg:pt-28 lg:pb-24 border-b border-white/10" aria-labelledby="hero-title">
-    <div class="w-full max-w-[94rem] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+    <!-- Marca de agua ambiental de estudio en el Hero (degradado suave sin robar protagonismo) -->
+    <div class="pointer-events-none absolute -right-16 top-1/2 -translate-y-1/2 w-[24rem] h-[24rem] sm:w-[38rem] sm:h-[38rem] opacity-[0.04] sm:opacity-[0.06] select-none -z-0 overflow-hidden" aria-hidden="true">
+      <img src="/img/mascot/present-transparent.webp" alt="" width="608" height="608" class="w-full h-full object-contain [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]" />
+    </div>
+
+    <div class="w-full max-w-[94rem] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16 relative z-10">
       
       <!-- Columna izquierda: titular rotundo, garantías y llamada a la acción en píldora (SIEMPRE PRIMERO EN MÓVIL) -->
       <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start order-1 lg:order-1 pt-2 lg:pt-0 z-10 w-full">
@@ -390,16 +395,20 @@ const faqSchema = {
           </li>
         ))}
         <li class="svc-card">
-          <div class="flex h-full flex-col justify-between p-6 sm:p-7 rounded-3xl shadow-xl border border-white/10 bg-gradient-to-br from-[#050505] to-[#121212] text-white" data-tilt>
-            <div>
+          <div class="flex h-full flex-col justify-between p-6 sm:p-7 rounded-3xl shadow-xl border border-white/10 bg-gradient-to-br from-[#050505] to-[#121212] text-white relative overflow-hidden" data-tilt>
+            <!-- Marca de agua ambiental en fondo de tarjeta (sin robar protagonismo) -->
+            <div class="pointer-events-none absolute -right-6 -bottom-8 w-40 h-40 opacity-[0.06] select-none -z-0" aria-hidden="true">
+              <img src="/img/mascot/think-transparent.webp" alt="" width="160" height="160" class="w-full h-full object-contain [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_80%)]" />
+            </div>
+            <div class="relative z-10">
               <div class="flex items-center justify-between mb-3">
                 <p class="tag !bg-[#E4FF00] !text-[#050505] !border-transparent font-mono font-bold">100% a medida</p>
-                <img src="/img/mascot/think-transparent.webp" alt="Asistente de alcance" width="48" height="48" class="w-12 h-12 object-contain select-none -my-1.5 drop-shadow-md" />
+                <img src="/img/mascot/think-transparent.webp" alt="Asistente de alcance" width="48" height="48" class="w-12 h-12 object-contain select-none -my-1.5 drop-shadow-md transition-transform hover:scale-110" />
               </div>
               <p class="font-display text-[1.6rem] uppercase leading-[1.02] text-white font-extrabold">{isEn ? "Not sure which one?" : "¿Dudas con el alcance?"}</p>
               <p class="mt-3 text-[0.95rem] leading-snug text-neutral-300">{isEn ? "Tell me about your business and I'll recommend the leanest architecture that solves your problem." : "Cuéntame tu negocio y te recomiendo el plan más austero y eficiente. Sin pagar por lo que no usas."}</p>
             </div>
-            <a href={to("/contact")} class="btn btn-brand btn-sm mt-8 self-start">{t.cta1} <span aria-hidden="true">→</span></a>
+            <a href={to("/contact")} class="btn btn-brand btn-sm mt-8 self-start relative z-10">{t.cta1} <span aria-hidden="true">→</span></a>
           </div>
         </li>
       </ul>
@@ -504,17 +513,24 @@ const faqSchema = {
           <p class="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-[#FFFCF0]/85 hidden sm:block">{t.launchText}</p>
           <p class="mt-3 max-w-2xl text-[0.875rem] leading-relaxed text-[#FFFCF0]/60 hidden sm:block">{t.launchNote}</p>
         </div>
-        <div class="flex flex-col items-center lg:items-end justify-center lg:col-span-4 gap-4">
-          <img src="/img/mascot/celebrate-transparent.webp" alt="Partner emblem" width="76" height="76" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-xl select-none" />
-          <a href={to("/contact?servei=lanzamiento")} class="btn btn-brand w-full sm:w-auto !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-brand/35 transition-all">{t.launchCta} <span aria-hidden="true">→</span></a>
+        <div class="flex flex-col items-center lg:items-end justify-center lg:col-span-4 gap-4 relative">
+          <!-- Halo de luz suave para la mascota -->
+          <div class="absolute -inset-4 bg-[radial-gradient(ellipse_at_center,rgba(228,255,0,0.15)_0%,transparent_70%)] blur-lg pointer-events-none" aria-hidden="true"></div>
+          <img src="/img/mascot/celebrate-transparent.webp" alt="Partner emblem" width="88" height="88" class="relative w-18 h-18 sm:w-22 sm:h-22 object-contain drop-shadow-2xl select-none transition-transform hover:scale-110" />
+          <a href={to("/contact?servei=lanzamiento")} class="btn btn-brand w-full sm:w-auto !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-brand/35 transition-all relative z-10">{t.launchCta} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 7. Quién + preguntas (fondo negro) -->
-  <section class="band-ink section" aria-labelledby="about-title">
-    <div class="wrap grid items-center gap-8 lg:grid-cols-12">
+  <section class="band-ink section relative overflow-hidden" aria-labelledby="about-title">
+    <!-- Marca de agua ambiental de estudio en Quién soy (degradado suave sin robar protagonismo) -->
+    <div class="pointer-events-none absolute -left-12 -bottom-16 w-80 h-80 sm:w-[28rem] sm:h-[28rem] opacity-[0.04] sm:opacity-[0.06] select-none -z-0 overflow-hidden" aria-hidden="true">
+      <img src="/img/mascot/wink-transparent.webp" alt="" width="448" height="448" class="w-full h-full object-contain [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_75%)]" />
+    </div>
+
+    <div class="wrap grid items-center gap-8 lg:grid-cols-12 relative z-10">
       <div class="lg:col-span-3 relative flex justify-center lg:justify-start">
         <div class="relative inline-block">
           <img src="/img/jaume-tur-desarrollador-web.webp" alt="Jaume Tur" width="320" height="320" loading="lazy" decoding="async" class="mx-auto -mb-6 block w-40 sm:w-56 lg:w-72 rounded-2xl" />

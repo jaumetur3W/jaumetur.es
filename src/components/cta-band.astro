@@ -11,6 +11,11 @@ const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer"
 ---
 
 <section class="band-lime section py-20 sm:py-28 relative overflow-hidden" aria-labelledby="cta-band-title">
+  <!-- Marca de agua ambiental de cierre con degradado suave (sin robar protagonismo) -->
+  <div class="pointer-events-none absolute -right-10 -bottom-16 w-72 h-72 sm:w-96 sm:h-96 opacity-[0.05] sm:opacity-[0.07] select-none -z-0 overflow-hidden" aria-hidden="true">
+    <img src="/img/mascot/wink-transparent.webp" alt="" width="384" height="384" class="w-full h-full object-contain [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]" />
+  </div>
+
   <div class="wrap grid items-end gap-8 lg:grid-cols-12 relative z-10">
     <div class="lg:col-span-8">
       <span class="note mb-3 !text-[#E4FF00] font-mono text-xs uppercase tracking-wider" aria-hidden="true">Contacto directo ↓</span>
