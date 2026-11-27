@@ -29,9 +29,9 @@ export const projectBrand: Record<string, ProjectBrand> = {
   trania: { logo: "/img/projects/trania-logo.svg", w: 320, h: 90, bg: "#0f1417", fg: "#ffffff", accent: "#c6f535", onAccent: "#0f1417", font: "sans", radius: "1rem", pattern: "grid" },
   worksy: { logo: "/img/projects/worksy-logo.svg", w: 400, h: 90, bg: "#f1f5f9", fg: "#0f172a", accent: "#2563eb", onAccent: "#ffffff", font: "sans", radius: "1.25rem", pattern: "none" },
   "dashboard-telemetria": { logo: "/img/projects/dashboard-logo.svg", w: 320, h: 100, bg: "#0a1118", fg: "#ffffff", accent: "#22d3ee", onAccent: "#06222b", font: "mono", radius: "0.6rem", pattern: "grid" },
-  "pipeline-cicd": { logo: "/img/projects/pipeline-logo.svg", w: 320, h: 100, bg: "#0d1117", fg: "#e6edf3", accent: "#2da44e", onAccent: "#ffffff", font: "mono", radius: "0.5rem", pattern: "dots" },
+  "pipeline-cicd": { logo: "/img/projects/pipeline-logo.svg", w: 320, h: 100, bg: "#0d1117", fg: "#e6edf3", accent: "#2da44e", onAccent: "#04120a", font: "mono", radius: "0.5rem", pattern: "dots" },
   "forma-espacio": { logo: "/img/projects/arq-logo.svg", w: 320, h: 90, bg: "#f5f3ee", fg: "#191919", accent: "#9c4a35", onAccent: "#ffffff", font: "helvetica", radius: "0rem", pattern: "rule" },
-  fincarural: { logo: "/img/projects/fincarural-logo.svg", w: 340, h: 100, bg: "#f5f2ea", fg: "#2e3d2c", accent: "#b8694b", onAccent: "#ffffff", font: "serif", radius: "1.1rem", pattern: "none" },
+  fincarural: { logo: "/img/projects/fincarural-logo.svg", w: 340, h: 100, bg: "#f5f2ea", fg: "#2e3d2c", accent: "#b8694b", onAccent: "#1a0f0a", font: "serif", radius: "1.1rem", pattern: "none" },
 };
 
 export const fallbackBrand: ProjectBrand = {

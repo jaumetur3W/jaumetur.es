@@ -122,7 +122,7 @@ const bundleBreakdown = [
             </thead>
             <tbody class="divide-y divide-ink/15 font-mono">
               {coreWebVitals.map((cwv) => (
-                <tr class="hover:bg-brand/20 transition-colors">
+                <tr class="hover:bg-[#E4FF00]/20 transition-colors">
                   <td class="py-3.5 px-5 font-medium text-ink">
                     <span class="text-ink font-bold">{cwv.metric}</span>
                     <span class="text-xs text-[#3d3d39] block font-normal font-sans">{cwv.name}</span>
@@ -174,7 +174,7 @@ const bundleBreakdown = [
             </thead>
             <tbody class="divide-y divide-ink/15 font-mono text-xs">
               {auditedPages.map((row) => (
-                <tr class="hover:bg-brand/20 transition-colors">
+                <tr class="hover:bg-[#E4FF00]/20 transition-colors">
                   <td class="py-3.5 px-5 font-medium text-ink font-sans">{row.page}</td>
                   <td class="py-3.5 px-4 text-center font-bold text-ink">{row.perf}</td>
                   <td class="py-3.5 px-4 text-center font-semibold text-ink">{row.a11y}</td>
@@ -274,7 +274,7 @@ const bundleBreakdown = [
             </thead>
             <tbody class="divide-y divide-ink/15 font-mono text-xs">
               {bundleBreakdown.map((item) => (
-                <tr class="hover:bg-brand/20">
+                <tr class="hover:bg-[#E4FF00]/20">
                   <td class="py-3.5 px-5 font-normal text-ink">{item.asset}</td>
                   <td class="py-3.5 px-5 text-[#3d3d39]">{item.size}</td>
                   <td class="py-3.5 px-5 font-semibold text-ink">{item.gzipped}</td>

@@ -216,8 +216,8 @@ const breadcrumb = {
   .pj-folder-tab b { font-family: var(--font-mono); }
   .pj-folder-body { overflow: hidden; background: var(--paper); border: 1px solid var(--ink); border-radius: 0 var(--pj-r) var(--pj-r) var(--pj-r); border-color: var(--pj-fg); box-shadow: 6px 6px 0 var(--pj-accent); }
   
-  .pj-folder-note { position: absolute; right: 0.5rem; bottom: -2rem; font-size: 1.4rem; color: var(--pj-accent); }
-  .pj-crumbs [aria-current] { color: var(--pj-accent); }
+  .pj-folder-note { position: absolute; right: 0.5rem; bottom: -2rem; font-size: 1.4rem; color: color-mix(in srgb, var(--pj-accent) 55%, var(--pj-fg)); }
+  .pj-crumbs [aria-current] { color: color-mix(in srgb, var(--pj-accent) 55%, var(--pj-fg)); }
 
   .pj-stat { padding: 1.75rem 0; background: var(--pj-accent); color: var(--pj-on); }
   .pj-stat-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 2rem; }

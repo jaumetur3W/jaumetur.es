@@ -350,6 +350,8 @@
   .sheet .label { color: rgba(255, 255, 255, 0.65); }
   .sheet h2, .sheet h3 { color: #FFFFFF; }
   .sheet p { color: rgba(255, 255, 255, 0.82); }
+  /* Botón oscuro sobre hoja oscura: pasa a amarillo para que se distinga */
+  .sheet .btn-dark { --btn-bg: #E4FF00; --btn-fg: #050505; --btn-hover-bg: #FFFCF0; --btn-hover-fg: #050505; border-color: #E4FF00; }
 
   /* ---- Tarjetas interactivas de proyectos y servicios ----
      Pasan de fondo blanco con texto negro a fondo negro (#111) con texto blanco (#fff) */

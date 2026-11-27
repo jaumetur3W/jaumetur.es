@@ -100,7 +100,7 @@ const breadcrumb = {
         <table class="w-full min-w-[46rem] border-collapse text-left text-[0.95rem]">
           <caption class="sr-only">{isEn ? "Services with creation price, monthly fee, delivery time and first-year total" : "Servicios con precio de creación, cuota mensual, plazo y total del primer año"}</caption>
           <thead>
-            <tr class="border-b-[1.5px] border-ink bg-brand">
+            <tr class="border-b-[1.5px] border-ink bg-ink text-[#FFFCF0]">
               <th scope="col" class="px-4 py-3 font-mono text-xs font-bold uppercase tracking-wider">{isEn ? "Service" : "Servicio"}</th>
               <th scope="col" class="px-4 py-3 text-right font-mono text-xs font-bold uppercase tracking-wider">{t.from}</th>
               <th scope="col" class="px-4 py-3 text-right font-mono text-xs font-bold uppercase tracking-wider">{isEn ? "Maintenance" : "Mantenimiento"}</th>
@@ -160,7 +160,7 @@ const breadcrumb = {
             </div>
           </article>
         ))}
-        <div class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl border border-ink/20 shadow-md bg-brand text-ink" data-tilt>
+        <div class="flex flex-col justify-between p-6 sm:p-7 rounded-2xl border border-ink/20 shadow-md bg-brand text-white" data-tilt>
           <p class="font-display text-[1.4rem] uppercase leading-[1.02] font-extrabold">{t.ctaTitle}</p>
           <p class="mt-3 text-[0.95rem] leading-snug font-medium">{t.ctaText}</p>
           <a href={to("/contact")} class="btn btn-dark btn-sm mt-6 self-start">{t.cta} <span aria-hidden="true">→</span></a>

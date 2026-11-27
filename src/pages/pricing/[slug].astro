@@ -126,7 +126,7 @@ const breadcrumb = {
         <div class="sheet px-6 pb-12 pt-7 lg:col-span-5">
           <p class="label">{t.from}</p>
           <p class="num font-display text-[4rem] font-extrabold leading-none">{euro(service.creationPriceNumber)}</p>
-          <dl class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[#111111]/50 pt-5 text-[0.95rem]">
+          <dl class="mt-5 grid gap-2.5 border-t-2 border-dotted border-white/35 pt-5 text-[0.95rem]">
             <div class="leader-row"><dt>{isEn ? "Maintenance" : "Mantenimiento"}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{monthly(service.monthlyFeeNumber)}</dd></div>
             <div class="leader-row"><dt>{t.deliver}</dt><span class="leader" aria-hidden="true"></span><dd class="num text-right font-bold">{s.timeline}</dd></div>
             <div class="leader-row"><dt>{t.firstYear}</dt><span class="leader" aria-hidden="true"></span><dd class="num font-bold">{euro(service.creationPriceNumber + 12 * service.monthlyFeeNumber)}</dd></div>
@@ -239,7 +239,7 @@ const breadcrumb = {
   <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: to(`/contact?servei=${service.id}`), label: s.ctaText }} secondary={{ href: to("/pricing"), label: t.services }} />
 
   <nav aria-label={t.other} class="wrap grid gap-6 border-t border-ink/20 py-10 sm:grid-cols-2">
-    <a href={to(`/pricing/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:bg-brand">{p.name}</span></a>
-    <a href={to(`/pricing/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:bg-brand">{n.name}</span></a>
+    <a href={to(`/pricing/${prev.id}`)} class="group block min-h-11"><span class="label">← {t.prev}</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:bg-[#E4FF00]">{p.name}</span></a>
+    <a href={to(`/pricing/${next.id}`)} class="group block min-h-11 sm:text-right"><span class="label">{t.next} →</span><span class="mt-1 block font-display text-[1.4rem] font-bold leading-tight group-hover:bg-[#E4FF00]">{n.name}</span></a>
   </nav>
 </Layout>
