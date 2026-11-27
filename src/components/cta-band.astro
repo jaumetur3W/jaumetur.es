@@ -17,7 +17,10 @@ const ext = (e?: boolean) => (e ? { target: "_blank", rel: "noopener noreferrer"
       <h2 id="cta-band-title" class="h-section font-bold text-white">{title}</h2>
       {text && <p class="mt-4 max-w-xl text-lg font-medium leading-relaxed text-slate-300">{text}</p>}
     </div>
-    <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
+    <div class="flex flex-wrap items-center gap-4 lg:col-span-4 lg:justify-end">
+      <div class="hidden sm:flex items-center -mr-1">
+        <img src="/img/mascot/point-transparent.webp" alt="Asistente indicando contacto" width="56" height="56" class="w-14 h-14 object-contain select-none -scale-x-100 drop-shadow-md" />
+      </div>
       <a href={primary.href} class="btn btn-brand !min-h-[3.25rem] !px-8 text-sm font-extrabold uppercase tracking-wider shadow-lg hover:shadow-brand/35 transition-all" {...ext(primary.external)}>{primary.label} <span aria-hidden="true">→</span></a>
       {secondary && <a href={secondary.href} class="btn btn-white !min-h-[3.25rem] !px-8 text-sm font-bold uppercase tracking-wider !bg-white/10 !text-white !border-white/20 hover:!bg-white/20 transition-all" {...ext(secondary.external)}>{secondary.label}</a>}
     </div>

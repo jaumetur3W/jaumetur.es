@@ -173,31 +173,28 @@ const links = [
 </header>
 
 <style>
+  #site-header,
+  #site-header.is-scrolled,
+  #site-header[data-tone="dark"],
+  #site-header[data-tone="dark"].is-scrolled {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+
   #site-header {
     --nav-fg: #050505;
     --nav-accent: #0213F7;
     color: var(--nav-fg);
-    background: transparent;
-  }
-
-  /* Estado al hacer scroll: totalmente transparente con leve desenfoque para no solapar texto */
-  #site-header.is-scrolled {
-    background: transparent;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(5, 5, 5, 0.08);
-    box-shadow: none;
   }
 
   /* Modo oscuro dinámico cuando la barra cruza secciones negras */
   #site-header[data-tone="dark"] {
     --nav-fg: #FFFCF0;
     --nav-accent: #E4FF00;
-  }
-  #site-header[data-tone="dark"].is-scrolled {
-    background: transparent;
-    border-bottom-color: rgba(255, 252, 240, 0.1);
-    box-shadow: none;
   }
   #site-header[data-tone="dark"] .wordmark {
     color: #FFFFFF;
