@@ -12,7 +12,7 @@ badge: "Web App · Mobile PWA"
 statLabel: "Verified Metric"
 statValue: "Angular 18 · PWA 24/7"
 verificationMethod: "Verified source code on GitHub (FRONT-PROJECT-JJAUX) and live production deployment on Vercel"
-liveUrl: "https://jaumetur.es/avisa/"
+liveUrl: "https://jaumetur.es/avisa/app"
 githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX"
 stack: ["Angular 18", "TypeScript 5.4", "PWA Service Worker", "RxJS", "Reactive Forms", "Vercel Edge"]
 order: 1
@@ -82,6 +82,6 @@ Configured with `@angular/service-worker` and `manifest.webmanifest`, enabling d
 
 ## 4. Source Code & Public Deployment
 
-- **Live Application:** Fully deployed and operational on our own Google Cloud server: [jaumetur.es/avisa](https://jaumetur.es/avisa/).
+- **Live Application:** Fully deployed and operational on our own Google Cloud server: [jaumetur.es/avisa/app](https://jaumetur.es/avisa/app).
 - **GitHub Repository:** The complete source code and commit history is openly available: [github.com/jautur/FRONT-PROJECT-JJAUX](https://github.com/jautur/FRONT-PROJECT-JJAUX).
 - **Brand Identity:** Official brand logo featuring an arch motif and crimson neon highlights over a dark technical theme.

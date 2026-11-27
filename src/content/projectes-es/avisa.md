@@ -12,7 +12,7 @@ badge: "Aplicación web · PWA Móvil"
 statLabel: "Métrica verificada"
 statValue: "Angular 18 · PWA 24/7"
 verificationMethod: "Código fuente verificado en GitHub (FRONT-PROJECT-JJAUX) y despliegue real en Vercel"
-liveUrl: "https://jaumetur.es/avisa/"
+liveUrl: "https://jaumetur.es/avisa/app"
 githubUrl: "https://github.com/jautur/FRONT-PROJECT-JJAUX"
 stack: ["Angular 18", "TypeScript 5.4", "PWA Service Worker", "RxJS", "Reactive Forms", "Vercel Edge"]
 order: 1
@@ -101,6 +101,6 @@ front-project-jjaux/
 
 ## 5. Resultados y acceso público
 
-- **Demostración en línea:** La aplicación está completamente desplegada y operativa en un servidor propio en Google Cloud: [jaumetur.es/avisa](https://jaumetur.es/avisa/).
+- **Demostración en línea:** La aplicación está completamente desplegada y operativa en un servidor propio en Google Cloud: [jaumetur.es/avisa/app](https://jaumetur.es/avisa/app).
 - **Código fuente:** El repositorio oficial con el historial completo de commits está disponible en GitHub: [github.com/jautur/FRONT-PROJECT-JJAUX](https://github.com/jautur/FRONT-PROJECT-JJAUX).
 - **Identidad visual:** Logotipo corporativo oficial con isotipo de arco y acabado carmesí sobre fondo oscuro técnico.

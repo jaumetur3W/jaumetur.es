@@ -35,7 +35,7 @@ A nivel de ingeniería frontend, los requisitos críticos eran:
 - **Formularios reactivos con tipado estricto:** Validación de presupuestos, descripciones técnicas y datos de contacto sin fugas de tipos.
 
 <div class="callout callout-tip">
-  <strong>Demostración del proyecto:</strong> Puedes explorar la plataforma funcional directamente en la <a href="https://jaumetur.es/avisa/" target="_blank" rel="noopener noreferrer">aplicación desplegada en jaumetur.es/avisa</a> o consultar el código fuente en <a href="https://github.com/jautur/FRONT-PROJECT-JJAUX" target="_blank" rel="noopener noreferrer">GitHub</a>.
+  <strong>Demostración del proyecto:</strong> Puedes explorar la plataforma funcional directamente en la <a href="https://jaumetur.es/avisa/app" target="_blank" rel="noopener noreferrer">aplicación desplegada en jaumetur.es/avisa/app</a> o consultar el código fuente en <a href="https://github.com/jautur/FRONT-PROJECT-JJAUX" target="_blank" rel="noopener noreferrer">GitHub</a>.
 </div>
 
 ---
