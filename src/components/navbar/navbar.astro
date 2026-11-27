@@ -38,21 +38,21 @@ const links = [
       <span class="wordmark text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-brand inline-block animate-pulse font-mono font-normal">_</span></span>
     </a>
 
-    <!-- Centro: Píldora de navegación flotante en escritorio -->
+    <!-- Centro: Navegación transparente y limpia en escritorio (sin fondos ni cápsulas) -->
     <nav
       id="nav-center-menu"
       aria-label={isEn ? "Main navigation" : "Navegación principal"}
       class="hidden md:flex items-center justify-center px-4"
     >
-      <ul class="nav-pill-track flex items-center gap-1 bg-white/80 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-ink/10 shadow-xs transition-all duration-300">
+      <ul class="nav-pill-track flex items-center gap-1 sm:gap-2 bg-transparent p-0 border-0 shadow-none">
         {links.map((l) => (
           <li class="shrink-0">
             <a
               href={to(l.path)}
               aria-current={l.active ? "page" : undefined}
               class:list={[
-                "nav-top-link relative inline-flex items-center py-1.5 px-4 text-[0.875rem] font-semibold tracking-wide transition-all duration-200 whitespace-nowrap rounded-full",
-                l.active ? "bg-ink text-paper font-bold shadow-xs active-pill" : "text-ink/75 hover:text-ink hover:bg-ink/5"
+                "nav-top-link relative inline-flex items-center py-2 px-3.5 text-[0.92rem] tracking-wide transition-all duration-200 whitespace-nowrap rounded-lg",
+                l.active ? "font-bold active-pill" : "font-semibold"
               ]}
             >
               <span>{l.label}</span>
@@ -62,11 +62,11 @@ const links = [
       </ul>
     </nav>
 
-    <!-- Derecha: Selector de Idioma [ES · EN] + CTA 'Hablamos' + Hamburguesa (Solo Móvil) -->
+    <!-- Derecha: Selector de Idioma [ES · EN] transparente + CTA 'Hablamos' + Hamburguesa (Solo Móvil) -->
     <div class="flex items-center justify-end gap-2 sm:gap-3 shrink-0 justify-self-end">
       
-      <!-- Selector de Idioma compacto y directo en 1 clic -->
-      <div class="lang-switch-pill flex items-center bg-white/80 backdrop-blur-md border border-ink/10 rounded-full p-0.5 text-xs font-mono font-bold shadow-xs transition-colors">
+      <!-- Selector de Idioma transparente en 1 clic -->
+      <div class="lang-switch-pill flex items-center bg-transparent border border-current/20 rounded-full p-0.5 text-xs font-mono font-bold transition-colors">
         <a
           href={spanishPath}
           hreflang="es"
@@ -74,7 +74,7 @@ const links = [
           aria-label="Versión en Español"
           class:list={[
             "px-2.5 py-1 rounded-full transition-all duration-200",
-            !isEn ? "bg-ink text-paper shadow-xs" : "text-ink/60 hover:text-ink hover:bg-ink/5"
+            !isEn ? "active-lang" : ""
           ]}
         >
           ES
@@ -86,7 +86,7 @@ const links = [
           aria-label="English version"
           class:list={[
             "px-2.5 py-1 rounded-full transition-all duration-200",
-            isEn ? "bg-ink text-paper shadow-xs" : "text-ink/60 hover:text-ink hover:bg-ink/5"
+            isEn ? "active-lang" : ""
           ]}
         >
           EN
@@ -98,11 +98,11 @@ const links = [
         {isEn ? "Let's talk" : "Hablamos"} <span aria-hidden="true">→</span>
       </a>
 
-      <!-- Botón Hamburguesa animado (EXCLUSIVO MÓVIL) -->
+      <!-- Botón Hamburguesa animado (EXCLUSIVO MÓVIL, transparente) -->
       <button
         id="nav-toggle"
         type="button"
-        class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/80 backdrop-blur-md border border-ink/10 text-ink cursor-pointer transition-transform duration-200 active:scale-95 shadow-xs"
+        class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-transparent border border-current/20 text-current cursor-pointer transition-transform duration-200 active:scale-95"
         aria-label={isEn ? "Toggle menu" : "Alternar menú"}
         aria-expanded="false"
         aria-controls="nav-panel"
@@ -177,15 +177,16 @@ const links = [
     --nav-fg: #110200;
     --nav-accent: #D4612A;
     color: var(--nav-fg);
+    background: transparent;
   }
 
-  /* Estado cuando el usuario hace scroll hacia abajo: barra con desenfoque de cristal */
+  /* Estado al hacer scroll: totalmente transparente con leve desenfoque para no solapar texto */
   #site-header.is-scrolled {
-    background: rgba(255, 247, 240, 0.88);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(17, 2, 0, 0.08);
-    box-shadow: 0 4px 20px -4px rgba(17, 2, 0, 0.04);
+    background: transparent;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(17, 2, 0, 0.06);
+    box-shadow: none;
   }
 
   /* Modo oscuro dinámico cuando la barra cruza secciones negras */
@@ -194,39 +195,92 @@ const links = [
     --nav-accent: #EF8E35;
   }
   #site-header[data-tone="dark"].is-scrolled {
-    background: rgba(17, 2, 0, 0.92);
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 24px -4px rgba(0, 0, 0, 0.4);
+    background: transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
   }
   #site-header[data-tone="dark"] .wordmark {
     color: #FFFFFF;
   }
-  #site-header[data-tone="dark"] .nav-pill-track,
-  #site-header[data-tone="dark"] .lang-switch-pill,
+
+  /* Contenedores de enlaces e idioma: 100% transparentes sin cápsulas */
+  #site-header .nav-pill-track,
+  #site-header[data-tone="dark"] .nav-pill-track {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  #site-header .lang-switch-pill,
+  #site-header[data-tone="dark"] .lang-switch-pill {
+    background: transparent !important;
+    border-color: rgba(128, 128, 128, 0.25);
+    box-shadow: none !important;
+  }
+  #site-header #nav-toggle,
   #site-header[data-tone="dark"] #nav-toggle {
-    background: rgba(36, 12, 10, 0.85);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: transparent !important;
+    border-color: rgba(128, 128, 128, 0.25);
+    box-shadow: none !important;
+  }
+
+  /* Enlaces de navegación limpios */
+  #site-header .nav-top-link {
+    color: var(--nav-fg);
+    opacity: 0.85;
+    background: transparent;
+  }
+  #site-header .nav-top-link:hover {
+    color: var(--nav-accent);
+    opacity: 1;
+    background: transparent;
+  }
+  #site-header .nav-top-link.active-pill {
+    background: transparent !important;
+    color: var(--nav-accent) !important;
+    opacity: 1;
+    font-weight: 800;
   }
   #site-header[data-tone="dark"] .nav-top-link {
-    color: rgba(255, 247, 240, 0.75);
+    color: rgba(255, 247, 240, 0.85);
   }
   #site-header[data-tone="dark"] .nav-top-link:hover {
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.1);
+    color: #EF8E35;
+    background: transparent;
   }
   #site-header[data-tone="dark"] .nav-top-link.active-pill {
-    background: #FFFFFF;
-    color: #110200;
+    background: transparent !important;
+    color: #EF8E35 !important;
+  }
+
+  /* Selector de idioma transparente */
+  #site-header .lang-switch-pill a {
+    color: var(--nav-fg);
+    opacity: 0.7;
+    background: transparent;
+  }
+  #site-header .lang-switch-pill a:hover {
+    opacity: 1;
+    color: var(--nav-accent);
+  }
+  #site-header .lang-switch-pill a.active-lang {
+    background: transparent !important;
+    color: var(--nav-accent) !important;
+    font-weight: 800;
+    opacity: 1;
   }
   #site-header[data-tone="dark"] .lang-switch-pill a {
     color: rgba(255, 247, 240, 0.7);
   }
   #site-header[data-tone="dark"] .lang-switch-pill a:hover {
-    color: #FFFFFF;
+    color: #EF8E35;
   }
-  #site-header[data-tone="dark"] .lang-switch-pill a.bg-ink {
-    background: #FFFFFF;
-    color: #110200;
+  #site-header[data-tone="dark"] .lang-switch-pill a.active-lang {
+    background: transparent !important;
+    color: #EF8E35 !important;
+  }
+
+  #site-header .burger-line {
+    background: var(--nav-fg);
   }
   #site-header[data-tone="dark"] .burger-line {
     background: #FFFFFF;
