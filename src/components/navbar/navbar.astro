@@ -32,10 +32,10 @@ const links = [
 <header id="site-header" data-tone="light" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
   <div class="wrap flex items-center justify-between h-20 md:grid md:grid-cols-[1fr_auto_1fr] relative">
     
-    <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico -->
+    <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico y gesto de firma -->
     <a href={to("/")} class="group flex items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
       <BrandMark size={32} class="shadow-xs transition-transform duration-200 group-hover:-rotate-3" />
-      <span class="wordmark text-[1.4rem]">jaumetur<i>.</i>es</span>
+      <span class="wordmark text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-brand inline-block animate-pulse font-mono font-normal">_</span></span>
     </a>
 
     <!-- Centro: Píldora de navegación flotante en escritorio -->

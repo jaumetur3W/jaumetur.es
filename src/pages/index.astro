@@ -146,90 +146,90 @@ const faqSchema = {
 ---
 
 <Layout fresh title={t.title} description={t.desc} jsonLd={[faqSchema]}>
-  <!-- 1. Hero editorial & arquitectónico: mensaje claro, garantías y panel de especialización de estudio -->
-  <section class="band-paper relative isolate overflow-hidden pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-24 lg:pb-20" aria-labelledby="hero-title">
-    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[80vh] lg:min-h-[88vh]">
+  <!-- 1. Hero editorial & arquitectónico (Mailchimp + Brandemia): fondo oscuro mineral, acento ámbar y prueba de producto -->
+  <section class="band-ink relative isolate overflow-hidden pt-24 pb-20 sm:pt-32 sm:pb-28 lg:pt-28 lg:pb-24 border-b border-white/10" aria-labelledby="hero-title">
+    <div class="w-full max-w-[94rem] mx-auto px-5 sm:px-8 lg:px-12 xl:px-16 grid items-center gap-12 lg:grid-cols-12 lg:gap-12 xl:gap-16 min-h-[82vh] lg:min-h-[88vh]">
       
-      <!-- Columna izquierda: mensaje contundente, beneficios y llamada a la acción -->
+      <!-- Columna izquierda: titular rotundo, énfasis tipográfico y llamada a la acción en píldora -->
       <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center items-start order-2 lg:order-1 pt-4 lg:pt-0 z-10">
         
-        <!-- Badge de disponibilidad en vivo -->
+        <!-- Badge de disponibilidad y sello de autor -->
         <div class="flex items-center gap-3 mb-6 flex-wrap">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-ink/10 text-xs font-mono font-semibold uppercase tracking-wider text-ink shadow-sm">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-semibold uppercase tracking-wider text-[#FFF7F0] shadow-sm backdrop-blur-md">
             <span class="relative flex h-2.5 w-2.5">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-600"></span>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-            {isEn ? "Open for 2026 projects" : "Disponible 2026 · Trato directo"}
+            {isEn ? "Available 2026 · Direct engineering" : "Disponible 2026 · Trato directo de autor"}
           </span>
-          <span class="note text-xs tracking-wider !text-brand" aria-hidden="true">{isEn ? "Valencia & Remote" : "Xàtiva · Valencia · Remoto"}</span>
+          <span class="font-mono text-xs uppercase tracking-wider !text-[#EF8E35] font-bold" aria-hidden="true">{isEn ? "[valencia · remote_]" : "[xàtiva · valencia · remoto_]"}</span>
         </div>
 
-        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.6rem] xl:text-[4.2rem] font-extrabold leading-[1.04] tracking-[-0.04em] text-ink" data-split>
+        <h1 id="hero-title" class="font-display text-4xl sm:text-6xl lg:text-[3.8rem] xl:text-[4.4rem] font-black leading-[1.03] tracking-[-0.04em] text-[#FFF7F0]" data-split>
           {isEn ? (
             <>
               Custom websites and apps<br />
-              <span class="text-brand inline-block">built to stand out.</span>
+              <span class="text-[#EF8E35] italic font-serif font-normal inline-block">built to perform & drive revenue.</span>
             </>
           ) : (
             <>
               Webs y aplicaciones a medida<br />
-              <span class="text-brand inline-block">para negocios que van en serio.</span>
+              <span class="text-[#EF8E35] italic font-serif font-normal inline-block">para negocios que van en serio.</span>
             </>
           )}
         </h1>
 
-        <p class="mt-6 text-lg sm:text-xl text-ink/85 max-w-xl leading-relaxed">
+        <p class="mt-6 text-lg sm:text-xl text-[#FFF7F0]/85 max-w-xl leading-relaxed">
           {t.lede}
         </p>
 
-        <!-- Botones de acción principales -->
+        <!-- Botones de acción principales: píldora sólida de máximo contraste -->
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href={to("/contact")} class="btn btn-brand !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-extrabold shadow-lg hover:shadow-xl transition-all" data-cursor={isEn ? "Quote" : "Presupuesto"}>
+          <a href={to("/contact")} class="btn !rounded-full !bg-[#EF8E35] !text-[#110200] hover:!bg-[#D4612A] hover:!text-white !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-extrabold shadow-xl hover:shadow-2xl transition-all" data-cursor={isEn ? "Quote" : "Presupuesto"}>
             {t.cta1} <span aria-hidden="true">→</span>
           </a>
-          <a href="#servicios" class="btn btn-white !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-bold border border-ink/15 hover:border-ink/30 transition-all">
+          <a href="#servicios" class="btn !rounded-full !bg-white/10 !text-[#FFF7F0] border border-white/20 hover:!bg-white/20 !min-h-[3.6rem] !px-8 text-sm tracking-wider uppercase font-bold transition-all">
             {t.cta2}
           </a>
         </div>
 
         <!-- Enlace rápido a WhatsApp -->
-        <div class="mt-4 flex items-center gap-2">
-          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-teal-800 hover:text-brand transition-colors py-1">
-            <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span>
+        <div class="mt-5 flex items-center gap-2">
+          <a href={WA} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#EF8E35] hover:text-[#FFF7F0] transition-colors py-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span>{isEn ? "Prefer WhatsApp? Direct chat in 1 click →" : "¿Prefieres WhatsApp? Escríbeme en 1 clic →"}</span>
           </a>
         </div>
 
         <!-- Barra de 3 garantías tangibles -->
-        <div class="mt-8 pt-5 border-t border-ink/10 w-full max-w-xl">
-          <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono uppercase tracking-wider text-ink/80">
+        <div class="mt-8 pt-5 border-t border-white/10 w-full max-w-xl">
+          <ul class="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono uppercase tracking-wider text-[#FFF7F0]/75">
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "100% Code ownership (Git)" : "Código 100% tuyo (Git)"}
+              <span class="text-emerald-400 font-bold" aria-hidden="true">✓</span> {isEn ? "100% Code ownership (Git)" : "Código 100% tuyo (Git)"}
             </li>
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed guaranteed quote" : "Precio cerrado antes de empezar"}
+              <span class="text-emerald-400 font-bold" aria-hidden="true">✓</span> {isEn ? "Fixed guaranteed quote" : "Precio cerrado antes de empezar"}
             </li>
             <li class="inline-flex items-center gap-1.5 font-medium">
-              <span class="text-teal-600 font-bold" aria-hidden="true">✓</span> {isEn ? "No captive platforms" : "Sin ataduras a plataformas"}
+              <span class="text-emerald-400 font-bold" aria-hidden="true">✓</span> {isEn ? "Direct engineering" : "Sin intermediarios ni comerciales"}
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Columna derecha: Ficha técnica y catálogo de soluciones de estudio (reemplaza imagen y clichés) -->
+      <!-- Columna derecha: Ficha técnica y catálogo de soluciones de estudio (estilo oscuro grafito / Mailchimp) -->
       <div class="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-1 lg:order-2 w-full max-w-2xl mx-auto lg:ml-auto">
-        <div class="bg-white rounded-3xl border border-ink/10 shadow-xl p-6 sm:p-8 lg:p-9 relative overflow-hidden">
+        <div class="bg-[#180402] rounded-3xl border border-white/15 shadow-2xl p-6 sm:p-8 lg:p-9 relative overflow-hidden backdrop-blur-md">
           
-          <!-- Cabecera de la ficha: Identificador de estudio -->
-          <div class="flex items-center justify-between pb-5 border-b border-ink/10 flex-wrap gap-2">
+          <!-- Cabecera de la ficha: Identificador de estudio y telemetría de sistemas vivos -->
+          <div class="flex items-center justify-between pb-5 border-b border-white/10 flex-wrap gap-2">
             <div class="flex items-center gap-2.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-brand"></span>
-              <span class="font-mono text-xs uppercase tracking-widest font-bold text-ink">
-                {isEn ? "Studio Spec & Services · 2026" : "Especialización & Servicios · 2026"}
+              <span class="w-2.5 h-2.5 rounded-full bg-[#EF8E35] animate-pulse"></span>
+              <span class="font-mono text-xs uppercase tracking-widest font-bold text-[#FFF7F0]">
+                {isEn ? "Studio Spec & Live Systems · 2026" : "Especialización & Sistemas en Vivo · 2026"}
               </span>
             </div>
-            <span class="font-mono text-[0.75rem] text-ink/60 uppercase tracking-wider">
+            <span class="font-mono text-[0.75rem] text-[#EF8E35] uppercase tracking-wider font-semibold">
               {isEn ? "Direct engineering · No middlemen" : "Ingeniería directa · Sin comerciales"}
             </span>
           </div>
@@ -238,64 +238,64 @@ const faqSchema = {
           <div class="mt-5 space-y-3.5">
             
             <!-- Item 1: Cartas y hostelería -->
-            <a href="#servicios" class="group block p-4 rounded-2xl bg-paper/70 hover:bg-white border border-ink/5 hover:border-brand/40 hover:shadow-md transition-all duration-200">
+            <a href="#servicios" class="group block p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-[#EF8E35]/40 hover:shadow-lg transition-all duration-200">
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="font-mono text-xs font-bold text-brand uppercase tracking-wider">01</span>
-                    <h2 class="font-display text-base font-bold text-ink group-hover:text-brand transition-colors">
+                    <span class="font-mono text-xs font-bold text-[#EF8E35] uppercase tracking-wider">01</span>
+                    <h2 class="font-display text-base font-bold text-[#FFF7F0] group-hover:text-[#EF8E35] transition-colors">
                       {isEn ? "Digital QR Menus & Local Commerce" : "Cartas Digitales QR & Hostelería"}
                     </h2>
                   </div>
-                  <p class="mt-1 text-xs text-ink/75 leading-relaxed">
+                  <p class="mt-1 text-xs text-[#FFF7F0]/75 leading-relaxed">
                     {isEn ? "Mobile-first tactile menu, allergen management, and instant updates." : "Navegación táctil para móvil, gestión de alérgenos y cambios al momento sin cuotas forzadas."}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
-                  <span class="block font-mono text-xs sm:text-sm font-bold text-ink">{isEn ? "From €290" : "Desde 290 €"}</span>
-                  <span class="block font-mono text-[0.7rem] text-ink/60 uppercase">{isEn ? "3–5 days" : "3–5 días"}</span>
+                  <span class="block font-mono text-xs sm:text-sm font-bold text-[#FFF7F0]">{isEn ? "From €290" : "Desde 290 €"}</span>
+                  <span class="block font-mono text-[0.7rem] text-[#FFF7F0]/60 uppercase">{isEn ? "3–5 days" : "3–5 días"}</span>
                 </div>
               </div>
             </a>
 
             <!-- Item 2: Webs corporativas y captación -->
-            <a href="#servicios" class="group block p-4 rounded-2xl bg-paper/70 hover:bg-white border border-ink/5 hover:border-brand/40 hover:shadow-md transition-all duration-200">
+            <a href="#servicios" class="group block p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-[#EF8E35]/40 hover:shadow-lg transition-all duration-200">
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="font-mono text-xs font-bold text-brand uppercase tracking-wider">02</span>
-                    <h2 class="font-display text-base font-bold text-ink group-hover:text-brand transition-colors">
-                      {isEn ? "Corporate Websites & Landing Pages" : "Webs Corporativas & Landing Pages"}
+                    <span class="font-mono text-xs font-bold text-[#EF8E35] uppercase tracking-wider">02</span>
+                    <h2 class="font-display text-base font-bold text-[#FFF7F0] group-hover:text-[#EF8E35] transition-colors">
+                      {isEn ? "Corporate Websites & High Conversion" : "Webs Corporativas & Alta Conversión"}
                     </h2>
                   </div>
-                  <p class="mt-1 text-xs text-ink/75 leading-relaxed">
+                  <p class="mt-1 text-xs text-[#FFF7F0]/75 leading-relaxed">
                     {isEn ? "Custom architecture, local Google positioning and high conversion design for SMEs." : "Diseño exclusivo, posicionamiento local en Google y enfoque directo a captación de clientes."}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
-                  <span class="block font-mono text-xs sm:text-sm font-bold text-ink">{isEn ? "From €490" : "Desde 490 €"}</span>
-                  <span class="block font-mono text-[0.7rem] text-ink/60 uppercase">{isEn ? "1–2 weeks" : "1–2 semanas"}</span>
+                  <span class="block font-mono text-xs sm:text-sm font-bold text-[#FFF7F0]">{isEn ? "From €490" : "Desde 490 €"}</span>
+                  <span class="block font-mono text-[0.7rem] text-[#FFF7F0]/60 uppercase">{isEn ? "1–2 weeks" : "1–2 semanas"}</span>
                 </div>
               </div>
             </a>
 
-            <!-- Item 3: Software a medida -->
-            <a href="#servicios" class="group block p-4 rounded-2xl bg-paper/70 hover:bg-white border border-ink/5 hover:border-brand/40 hover:shadow-md transition-all duration-200">
+            <!-- Item 3: Software a medida y productos reales (AVISA / TranIA) -->
+            <a href="#servicios" class="group block p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.09] border border-white/10 hover:border-[#EF8E35]/40 hover:shadow-lg transition-all duration-200">
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="font-mono text-xs font-bold text-brand uppercase tracking-wider">03</span>
-                    <h2 class="font-display text-base font-bold text-ink group-hover:text-brand transition-colors">
-                      {isEn ? "Custom Web Apps & Internal Tools" : "Aplicaciones Web & Software a Medida"}
+                    <span class="font-mono text-xs font-bold text-[#EF8E35] uppercase tracking-wider">03</span>
+                    <h2 class="font-display text-base font-bold text-[#FFF7F0] group-hover:text-[#EF8E35] transition-colors">
+                      {isEn ? "Custom Web Apps & AI Systems" : "Aplicaciones Web & Software a Medida"}
                     </h2>
                   </div>
-                  <p class="mt-1 text-xs text-ink/75 leading-relaxed">
-                    {isEn ? "Work orders, employee timesheets and business management portals (e.g. AVISA, Worksy, Trania)." : "Partes de trabajo, control de fichajes, reservas y paneles privados (ej. AVISA, Worksy, Trania)."}
+                  <p class="mt-1 text-xs text-[#FFF7F0]/75 leading-relaxed">
+                    {isEn ? "PWA incident management (AVISA), offline tools and AI ordering systems (TranIA)." : "Sistemas PWA offline (AVISA), partes de trabajo, paneles y asistentes de pedidos con IA (TranIA)."}
                   </p>
                 </div>
                 <div class="text-right shrink-0">
-                  <span class="block font-mono text-xs sm:text-sm font-bold text-ink">{isEn ? "From €950" : "Desde 950 €"}</span>
-                  <span class="block font-mono text-[0.7rem] text-ink/60 uppercase">{isEn ? "3–6 weeks" : "3–6 semanas"}</span>
+                  <span class="block font-mono text-xs sm:text-sm font-bold text-[#FFF7F0]">{isEn ? "From €950" : "Desde 950 €"}</span>
+                  <span class="block font-mono text-[0.7rem] text-[#FFF7F0]/60 uppercase">{isEn ? "3–6 weeks" : "3–6 semanas"}</span>
                 </div>
               </div>
             </a>
@@ -303,12 +303,12 @@ const faqSchema = {
           </div>
 
           <!-- Pie de la ficha: Compromiso y salto a demos reales -->
-          <div class="mt-5 pt-4 border-t border-ink/10 flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
-            <span class="text-ink/80 flex items-center gap-1.5">
-              <span class="text-teal-600 font-bold">✓</span>
-              {isEn ? "100% proprietary code" : "Código y accesos 100% a tu nombre"}
+          <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-2 text-xs font-mono">
+            <span class="text-[#FFF7F0]/80 flex items-center gap-1.5">
+              <span class="text-emerald-400 font-bold">✓</span>
+              {isEn ? "100% proprietary code (Git)" : "Código y accesos 100% a tu nombre"}
             </span>
-            <a href="#proyectos" class="text-brand font-bold hover:underline inline-flex items-center gap-1">
+            <a href="#proyectos" class="text-[#EF8E35] font-bold hover:underline inline-flex items-center gap-1">
               {isEn ? "Inspect real projects ↓" : "Ver proyectos reales ↓"}
             </a>
           </div>
@@ -316,45 +316,6 @@ const faqSchema = {
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- 4. Proyectos: muchas piezas medianas en marcos pequeños -->
-  <section id="proyectos" class="band-ink section scroll-mt-20 py-20 sm:py-28" aria-labelledby="proj-title">
-    <div class="wrap">
-      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
-          <p class="lede mt-3">{t.projLede}</p>
-          <span class="note mt-3 !text-[#EF8E35] font-mono text-xs uppercase tracking-wider" aria-hidden="true">{isEn ? "100% auditable in production" : "100% auditables en producción"}</span>
-        </div>
-        <a href={to("/projectes")} class="btn btn-brand shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
-      </div>
-
-      <ul class="folders mt-16" data-stagger>
-        {flagshipProjects.map((p, i) => {
-          const img = projectImages[p.id];
-          return (
-            <li class="folder-slot">
-              <a href={to(`/projectes/${p.id}`)} class="folder" data-cursor={isEn ? "Open" : "Abrir"} aria-label={`${shortTitle(p.data.title)}: ${isEn ? "open case study" : "abrir caso de estudio"}`}>
-                <span class="folder-tab"><b>{String(i + 1).padStart(2, "0")}</b> · {shortTitle(p.data.title)}</span>
-                <span class="folder-sheet" aria-hidden="true">
-                  <img src={img.src} width={img.w} height={img.h} alt="" loading="lazy" decoding="async" />
-                </span>
-                <span class="folder-body">
-                  <span class="folder-status">{getStatus(p.id) === "live" && <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1" aria-hidden="true"></span>}{statusLabel(p.id, isEn)}</span>
-                  <span class="tag">{p.data.badge}</span>
-                  <span class="folder-title">{shortTitle(p.data.title)}</span>
-                  <span class="folder-text">{p.data.subtitle}</span>
-                  <span class="folder-meta">{p.data.stack?.slice(0, 3).join(" · ")}</span>
-                  <span class="folder-open">{t.viewStudy} <span aria-hidden="true">→</span></span>
-                </span>
-              </a>
-              <span class="folder-note font-hand" aria-hidden="true">{statusNote(p.id, isEn)}</span>
-            </li>
-          );
-        })}
-      </ul>
     </div>
   </section>
 
@@ -415,36 +376,74 @@ const faqSchema = {
       </ul>
     </div>
   
-  <!-- 3. Por qué: tres compromisos de valor -->
-  <div class="mt-16 sm:mt-24">
-    <div class="wrap">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div>
-          <span class="note mb-2 block text-lg" aria-hidden="true">{isEn ? "direct value ↓" : "compromiso directo ↓"}</span>
-          <h2 id="why-title" class="h-section max-w-3xl text-ink" data-reveal>{t.whyTitle}</h2>
+    <!-- 3. Por qué: tres compromisos de valor -->
+    <div class="mt-16 sm:mt-24">
+      <div class="wrap">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <span class="note mb-2 block text-lg" aria-hidden="true">{isEn ? "direct value ↓" : "compromiso directo ↓"}</span>
+            <h2 id="why-title" class="h-section max-w-3xl text-ink" data-reveal>{t.whyTitle}</h2>
+          </div>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3" data-stagger>
+          {t.why.map((w, i) => (
+            <div class="bg-white p-6 sm:p-7 rounded-2xl border border-ink/10 shadow-sm hover:shadow-md hover:border-brand/40 flex flex-col justify-between transition-all" data-tilt>
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="tag !bg-brand !text-white !border-transparent font-mono font-bold">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="label font-mono text-[0.7rem] text-ink/60">Garantía #{i + 1}</span>
+                </div>
+                <h3 class="font-display text-[1.35rem] uppercase leading-tight font-bold text-ink">{w.t}</h3>
+                <p class="mt-3 text-[0.95rem] leading-relaxed text-ink/75">{w.d}</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-ink/10 flex items-center justify-between text-xs font-mono text-ink/70">
+                <span>{i === 0 ? "100% Personal" : i === 1 ? "100% Propietario" : "Sin Sorpresas"}</span>
+                <span class="text-brand font-bold">✓</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <div class="grid gap-5 md:grid-cols-3" data-stagger>
-        {t.why.map((w, i) => (
-          <div class="bg-white p-6 sm:p-7 rounded-2xl border border-ink/10 shadow-sm hover:shadow-md hover:border-brand/40 flex flex-col justify-between transition-all" data-tilt>
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="tag !bg-brand !text-white !border-transparent font-mono font-bold">{String(i + 1).padStart(2, "0")}</span>
-                <span class="label font-mono text-[0.7rem] text-ink/60">Garantía #{i + 1}</span>
-              </div>
-              <h3 class="font-display text-[1.35rem] uppercase leading-tight font-bold text-ink">{w.t}</h3>
-              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink/75">{w.d}</p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-ink/10 flex items-center justify-between text-xs font-mono text-ink/70">
-              <span>{i === 0 ? "100% Personal" : i === 1 ? "100% Propietario" : "Sin Sorpresas"}</span>
-              <span class="text-brand font-bold">✓</span>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
-  </div>
+  </section>
 
+  <!-- 4. Proyectos: muchas piezas medianas en marcos pequeños -->
+  <section id="proyectos" class="band-ink section scroll-mt-20 py-20 sm:py-28" aria-labelledby="proj-title">
+    <div class="wrap">
+      <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <h2 id="proj-title" class="h-section" data-reveal>{t.projTitle}</h2>
+          <p class="lede mt-3">{t.projLede}</p>
+          <span class="note mt-3 !text-[#EF8E35] font-mono text-xs uppercase tracking-wider" aria-hidden="true">{isEn ? "100% auditable in production" : "100% auditables en producción"}</span>
+        </div>
+        <a href={to("/projectes")} class="btn btn-brand shrink-0">{t.allProjects} <span aria-hidden="true">→</span></a>
+      </div>
+
+      <ul class="folders mt-16" data-stagger>
+        {flagshipProjects.map((p, i) => {
+          const img = projectImages[p.id];
+          return (
+            <li class="folder-slot">
+              <a href={to(`/projectes/${p.id}`)} class="folder" data-cursor={isEn ? "Open" : "Abrir"} aria-label={`${shortTitle(p.data.title)}: ${isEn ? "open case study" : "abrir caso de estudio"}`}>
+                <span class="folder-tab"><b>{String(i + 1).padStart(2, "0")}</b> · {shortTitle(p.data.title)}</span>
+                <span class="folder-sheet" aria-hidden="true">
+                  <img src={img.src} width={img.w} height={img.h} alt="" loading="lazy" decoding="async" />
+                </span>
+                <span class="folder-body">
+                  <span class="folder-status">{getStatus(p.id) === "live" && <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1" aria-hidden="true"></span>}{statusLabel(p.id, isEn)}</span>
+                  <span class="tag">{p.data.badge}</span>
+                  <span class="folder-title">{shortTitle(p.data.title)}</span>
+                  <span class="folder-text">{p.data.subtitle}</span>
+                  <span class="folder-meta">{p.data.stack?.slice(0, 3).join(" · ")}</span>
+                  <span class="folder-open">{t.viewStudy} <span aria-hidden="true">→</span></span>
+                </span>
+              </a>
+              <span class="folder-note font-hand" aria-hidden="true">{statusNote(p.id, isEn)}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   </section>
 
   <!-- 5. Proceso + oferta de lanzamiento -->
