@@ -45,6 +45,8 @@ const projectImages: Record<string, string> = {
 };
 const cover = projectImages[entry.id];
 const brand = getBrand(entry.id);
+// Luminancia del fondo del hero: decide el tono inicial del menú (claro u oscuro) sin esperar a medirlo
+const navLum = (() => { const h = brand.bg.replace("#", ""); const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)); return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255; })();
 const deco = getDeco(entry.id);
 const num = (idx < 0 ? 0 : idx) + 1;
 const status = getStatus(entry.id);
@@ -97,7 +99,7 @@ const breadcrumb = {
 };
 ---
 
-<Layout fresh title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
+<Layout fresh navTone={navLum < 0.45 ? "dark" : "light"} title={`${shortTitle(d.title)} — ${t.titleSuffix}`} description={d.subtitle} image={cover ?? "/opengraph.jpg"} jsonLd={[schemaData, breadcrumb]}>
  <div class="pj" data-pj={entry.id} style={`--pj-bg:${brand.bg};--pj-fg:${brand.fg};--pj-accent:${brand.accent};--pj-on:${brand.onAccent};--pj-r:${brand.radius};`}>
   <header class="pj-hero">
     <div class="pj-deco-wrap" aria-hidden="true" set:html={deco} />

@@ -1,4 +1,6 @@
 ---
+interface Props { tone?: "light" | "dark" }
+const { tone = "light" } = Astro.props;
 import { localizePath, localeFromPath, stripLocale } from "@/i18n";
 import BrandMark from "@/components/brand-mark.astro";
 
@@ -29,7 +31,7 @@ const links = [
 ---
 
 <!-- Header flotante y adaptativo con desenfoque de cristal en scroll -->
-<header id="site-header" data-tone="light" class="tone-boot fixed top-0 left-0 right-0 z-50">
+<header id="site-header" data-tone={tone} class="tone-boot fixed top-0 left-0 right-0 z-50">
   <div class="wrap flex items-center justify-between h-20 md:grid md:grid-cols-[1fr_auto_1fr] relative">
     
     <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico y gesto de firma -->
@@ -377,6 +379,17 @@ const links = [
       if (!ticking) { ticking = true; requestAnimationFrame(updateTone); }
     };
 
+    // El primer cálculo puede ocurrir antes de que la página tenga su maquetación final (CSS, fuentes, imágenes,
+    // caché, equipos lentos). Se repite durante los primeros segundos y cada vez que cambia el alto del documento.
+    var settled = false;
+    var settleTone = function () {
+      if (settled) return;
+      settled = true;
+      var n = 0;
+      var iv = setInterval(function () { updateTone(); if (++n >= 20) clearInterval(iv); }, 200);
+      if (window.ResizeObserver) new ResizeObserver(requestTone).observe(document.body);
+    };
+
     // 3. Inicialización interactiva del menú
     function initNav() {
       var header = document.getElementById("site-header");
@@ -386,6 +399,7 @@ const links = [
 
       onScroll();
       updateTone();
+      settleTone();
 
       if (toggleBtn.dataset.bound === "true") return;
       toggleBtn.dataset.bound = "true";
