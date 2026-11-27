@@ -17,6 +17,8 @@ La marca **Jaume Tur** representa enginyeria frontend d'alt rendiment:
 
 ## 2. Monograma Oficial "JT" & Logotip
 
+> **Actualització (27/11/2026):** el logotip de la web és ara el **ninot de la marca amb la J** (`/img/mascot/brand-j-transparent.webp`), al navegador, al peu, al favicon i a les icones d'app. El nom es escriu `jaumetur.es`, sense barra baixa. Els actius `jt.LOGO-*` i `jt-monogram*.svg` d'aquí sota queden com a històric i ja no s'utilitzen al web.
+
 El símbol oficial és un monograma geomètric que fusiona les inicials **J** i **T** en una estructura contínua amb un node de connexió de dades d'accent cian:
 
 ### Actius Vectorials i d'Alta Definició a `/public/img` i `/public`:

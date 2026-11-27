@@ -29,13 +29,13 @@ const links = [
 ---
 
 <!-- Header flotante y adaptativo con desenfoque de cristal en scroll -->
-<header id="site-header" data-tone="light" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+<header id="site-header" data-tone="light" class="tone-boot fixed top-0 left-0 right-0 z-50">
   <div class="wrap flex items-center justify-between h-20 md:grid md:grid-cols-[1fr_auto_1fr] relative">
     
     <!-- Izquierda: Marca tipográfica con Isotipo JT dinámico y gesto de firma -->
     <a href={to("/")} class="group flex min-h-11 items-center gap-2.5 select-none shrink-0 justify-self-start transition-transform hover:scale-[1.02]" aria-label={isEn ? "jaumetur.es — home" : "jaumetur.es — inicio"}>
-      <BrandMark size={32} class="shadow-xs transition-transform duration-200 group-hover:-rotate-3" />
-      <span class="wordmark text-[1.15rem] min-[360px]:text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es<span class="text-[#E4FF00] inline-block animate-pulse font-mono font-normal">_</span></span>
+      <BrandMark size={34} class="transition-transform duration-200 group-hover:-rotate-3" />
+      <span class="wordmark text-[1.15rem] min-[360px]:text-[1.4rem] font-bold tracking-tight">jaumetur<i>.</i>es</span>
     </a>
 
     <!-- Centro: Navegación transparente y limpia en escritorio (sin fondos ni cápsulas) -->
@@ -188,6 +188,9 @@ const links = [
     box-shadow: none !important;
   }
 
+  /* Hasta calcular el tono inicial no hay transiciones: así el menú nace ya con el color correcto, sin parpadeo */
+  #site-header.tone-boot, #site-header.tone-boot * { transition: none !important; }
+
   #site-header {
     --nav-fg: #050505;
     --nav-accent: #0213F7;
@@ -333,6 +336,8 @@ const links = [
     };
     var bgUnder = function (el) {
       while (el && el !== document.documentElement) {
+        var declared = el.getAttribute && el.getAttribute("data-nav-tone");
+        if (declared) return declared === "dark" ? { r: 5, g: 5, b: 5, a: 1 } : { r: 255, g: 252, b: 240, a: 1 };
         var c = parseRgb(getComputedStyle(el).backgroundColor);
         if (c && c.a > 0.5) return c;
         el = el.parentElement;
@@ -364,6 +369,8 @@ const links = [
         if (votes[t] > (votes[best] || 0)) best = t;
       });
       if (header.dataset.tone !== best) header.dataset.tone = best;
+      // Tras el primer cálculo ya pueden animarse los cambios por scroll
+      if (header.classList.contains("tone-boot")) requestAnimationFrame(function () { header.classList.remove("tone-boot"); });
     };
 
     var requestTone = function () {
@@ -426,7 +433,9 @@ const links = [
       window.__navEventsBound = true;
       window.addEventListener("scroll", function () { onScroll(); requestTone(); }, { passive: true });
       window.addEventListener("resize", function () { onScroll(); requestTone(); });
-      window.addEventListener("load", function () { onScroll(); requestTone(); });
+      window.addEventListener("load", function () { onScroll(); updateTone(); });
+      window.addEventListener("pageshow", function () { updateTone(); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { updateTone(); });
       document.addEventListener("DOMContentLoaded", initNav);
     }
 

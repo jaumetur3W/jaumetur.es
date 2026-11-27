@@ -35,6 +35,6 @@ export const projectBrand: Record<string, ProjectBrand> = {
 };
 
 export const fallbackBrand: ProjectBrand = {
-  logo: "/img/jt.LOGO-02-128.webp", w: 128, h: 128, bg: "#fafaf6", fg: "#111111", accent: "#C8F169", onAccent: "#111111", font: "sans", radius: "1.25rem", pattern: "none",
+  logo: "/img/mascot/brand-j-transparent.webp", w: 128, h: 160, bg: "#fafaf6", fg: "#111111", accent: "#C8F169", onAccent: "#111111", font: "sans", radius: "1.25rem", pattern: "none",
 };
 export const getBrand = (id: string): ProjectBrand => projectBrand[id] ?? fallbackBrand;

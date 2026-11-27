@@ -810,7 +810,7 @@ pre.astro-code span[style*="color:#6e7781"] {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1.2;
@@ -872,10 +872,10 @@ pre.astro-code span[style*="color:#6e7781"] {
   transition: box-shadow 300ms var(--ease-out), transform 300ms var(--ease-out);
 }
 .folder:hover .folder-body { box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 8px 8px 0 var(--brand); transform: translateY(-2px); }
-.folder-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--brand); color: #050505; }
+.folder-status { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 2px solid var(--brand); color: #050505; }
 .folder-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; color: #050505; }
 .folder-text { font-size: 0.95rem; line-height: 1.45; color: #525252; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.folder-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.02em; color: #737373; margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
+.folder-meta { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; color: #737373; margin-top: auto; padding-top: 0.4rem; overflow-wrap: anywhere; }
 .folder-open { font-weight: 700; font-size: 0.9rem; color: var(--brand); border-bottom: 2px solid var(--brand); }
 .folder-slot .tag { background: #FFFCF0; color: #050505; border: 1px solid rgba(5, 5, 5, 0.12); }
 .folder-slot:nth-child(1) .tag { background: rgba(2, 19, 247, 0.12); color: #0213F7; border-color: rgba(2, 19, 247, 0.3); }

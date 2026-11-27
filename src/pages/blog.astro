@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Container from "@/components/container.astro";
-import { Icon } from "astro-icon/components";
-import { localeFromPath, localizePath, localizeHref } from "@/i18n";
+import { localeFromPath, localizeHref } from "@/i18n";
 
 const isEn = localeFromPath(Astro.url.pathname) === "en";
 const href = (path: string) => localizeHref(path, isEn ? "en" : "es");
@@ -18,96 +16,102 @@ publishedBlogEntries.sort(function (a, b) {
   return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
 });
 
-// Extract all unique categories
-const allCategory = isEn ? "All" : "Todas";
-const categories = [allCategory, ...new Set(publishedBlogEntries.map((post) => post.data.category))];
+// Cada artículo tiene su propia categoría; para filtrar se agrupan en pocos temas.
+const GROUPS: { id: string; label: string; cats: string[] }[] = [
+  { id: "frontend", label: isEn ? "Frontend" : "Frontend", cats: ["Angular", "TypeScript", "JavaScript", "CSS", "Estándares web", "Accesibilidad"] },
+  { id: "backend", label: isEn ? "Backend & DevOps" : "Backend y DevOps", cats: ["Backend", "DevOps y herramientas", "Sistemas y DevOps", "CI/CD"] },
+  { id: "web", label: isEn ? "Performance & web" : "Rendimiento y web", cats: ["Rendimiento", "Desarrollo web"] },
+  { id: "negocio", label: isEn ? "Business & SEO" : "Negocio y SEO", cats: ["SEO local", "Estrategia digital", "UI/UX", "Análisis de demo"] },
+  { id: "casos", label: isEn ? "Case studies & career" : "Casos y carrera", cats: ["Caso de estudio", "Carrera"] },
+];
+const groupOf = (category: string) => GROUPS.find((g) => g.cats.includes(category))?.id ?? "web";
+const countIn = (id: string) => publishedBlogEntries.filter((p) => groupOf(p.data.category) === id).length;
+const filters = [{ id: "ALL", label: isEn ? "All" : "Todas", count: publishedBlogEntries.length }, ...GROUPS.map((g) => ({ id: g.id, label: g.label, count: countIn(g.id) })).filter((g) => g.count > 0)];
 
-// Category icon helper
-const getCategoryIcon = (category: string) => {
-  const cat = category.toLowerCase();
-  if (cat.includes("angular")) return "simple-icons:angular";
-  if (cat.includes("rendiment") || cat.includes("performance") || cat.includes("rendimiento")) return "bx:bxs-zap";
-  if (cat.includes("ci/cd") || cat.includes("devops")) return "bx:git-repo-forked";
-  if (cat.includes("accessibilitat") || cat.includes("accesibilidad") || cat.includes("wcag")) return "bx:accessibility";
-  if (cat.includes("typescript")) return "simple-icons:typescript";
-  if (cat.includes("carrera") || cat.includes("portfolio")) return "bx:briefcase";
-  if (cat.includes("cas d'estudi") || cat.includes("caso") || cat.includes("case study")) return "bx:search-alt";
-  return "bx:file-blank";
-};
 ---
 
 <Layout
   title={isEn ? "Web Development Blog & Engineering Resources | Jaume Tur" : "Blog de Desarrollo Web y Recursos Técnicos | Jaume Tur"}
   description={isEn ? "Technical articles, practical guides, and architecture insights on frontend apps, performance, and CI/CD." : "Artículos técnicos, guías prácticas y casos de estudio sobre diseño web, aplicaciones frontend, backend, rendimiento y automatización CI/CD."}
 >
-  <header class="relative pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-36">
+  <header class="relative isolate overflow-hidden pt-28 pb-10 sm:pt-32 sm:pb-12 lg:pt-36">
+    <div class="pointer-events-none absolute -right-10 top-10 -z-10 hidden h-[26rem] w-[26rem] opacity-[0.07] sm:block" aria-hidden="true">
+      <img src="/img/mascot/think-transparent.webp" alt="" width="416" height="416" class="h-full w-full object-contain [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]" />
+    </div>
     <div class="wrap">
-      <h1 class="h-page max-w-4xl font-extrabold tracking-tight text-ink" data-split>
+      <p class="label">Blog · {publishedBlogEntries.length} {isEn ? "articles" : "artículos"}</p>
+      <h1 class="h-page mt-3 max-w-4xl font-extrabold tracking-tight text-ink" data-split>
         {isEn ? "Web development blog: guides, patterns and architecture." : "Blog de desarrollo web: guías, patrones y arquitectura."}
       </h1>
-      <p class="lede mt-6 text-lg sm:text-xl text-ink/80 leading-relaxed max-w-3xl">
+      <p class="lede mt-5 text-lg text-ink/80 leading-relaxed max-w-2xl">
         {isEn
-          ? "Technical guides, frontend architecture patterns and performance deep dives based on real production projects."
-          : "Guías técnicas, patrones de arquitectura frontend y análisis de rendimiento basados en proyectos reales de producción."}
+          ? "Technical guides and case studies based on real production projects."
+          : "Guías técnicas y casos de estudio basados en proyectos reales de producción."}
       </p>
 
-      <div class="mt-9 max-w-md">
-        <label for="blog-search-input" class="field-label">
-          {isEn ? "Search articles" : "Buscar artículos"}
-        </label>
-        <input
-          id="blog-search-input"
-          type="search"
-          autocomplete="off"
-          placeholder={isEn ? "Astro, SEO, Angular, TypeScript…" : "Astro, SEO, Angular, TypeScript…"}
-          class="field"
-        />
-      </div>
-
-      <div class="mt-6 flex flex-wrap items-center gap-2" id="category-filters" role="group" aria-label={isEn ? "Category filters" : "Filtros por categoría"}>
-        {categories.map((cat, idx) => (
-          <button
-            type="button"
-            data-category={cat}
-            class={`filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors ${
-              idx === 0
-                ? "border-[#C8F169] bg-[#C8F169] text-[#111111] active"
-                : "border-ink/35 bg-transparent text-ink hover:border-ink hover:bg-white/70"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      <div class="mt-8 grid gap-4 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-4">
+          <label for="blog-search-input" class="field-label">{isEn ? "Search articles" : "Buscar artículos"}</label>
+          <input id="blog-search-input" type="search" autocomplete="off" placeholder="Astro, SEO, Angular, TypeScript…" class="field" />
+        </div>
+        <div class="flex flex-wrap items-center gap-2 lg:col-span-8 lg:justify-end" id="category-filters" role="group" aria-label={isEn ? "Category filters" : "Filtros por categoría"}>
+          {filters.map((fl, idx) => (
+            <button
+              type="button"
+              data-group={fl.id}
+              aria-pressed={idx === 0 ? "true" : "false"}
+              class="filter-btn inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-ink/35 px-4 text-[0.92rem] font-semibold text-ink transition-colors hover:border-ink hover:bg-white/70"
+            >
+              {fl.label}
+              <span class="font-mono text-xs opacity-60">{fl.count}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
-    <div class="section-divider mt-10 sm:mt-14" data-divider aria-hidden="true"><div class="divider-line"></div></div>
   </header>
 
-  <section class="section" aria-label={isEn ? "Articles" : "Artículos"}>
+  <section class="pb-16 sm:pb-24" aria-label={isEn ? "Articles" : "Artículos"}>
     <div class="wrap">
-      <div id="posts-container" class="border-b border-ink/20">
-        {publishedBlogEntries.map((post) => {
+      <p id="results-count" class="label mb-4 min-h-4" aria-live="polite"></p>
+      <div id="posts-container" class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {publishedBlogEntries.map((post, i) => {
           const wordsCount = post.body ? post.body.trim().split(/\s+/).length : 600;
           const readingMinutes = Math.max(1, Math.round(wordsCount / 200));
+          const featured = i === 0;
           return (
             <article
-              class="post-card flex"
+              class:list={["post-card group", featured && "post-card--featured sm:col-span-2 lg:col-span-3"]}
               data-title={post.data.title.toLowerCase()}
-              data-category={post.data.category}
+              data-group={groupOf(post.data.category)}
               data-snippet={post.data.snippet.toLowerCase()}
               data-tags={post.data.tags.join(" ").toLowerCase()}
             >
-              <a href={href(`/blog/${post.id}/`)} class="item w-full lg:grid-cols-12 lg:items-start">
-                <span class="lg:col-span-3">
-                  <time class="label block" datetime={post.data.publishDate.toISOString()}>
-                    {post.data.publishDate.toLocaleDateString(isEn ? "en-US" : "es-ES", { year: "numeric", month: "short", day: "numeric" })}
-                  </time>
-                  <span class="label mt-1 block">{post.data.category} · ~{readingMinutes} min</span>
-                </span>
-                <span class="lg:col-span-9">
-                  <span class="block font-display text-[1.6rem] font-bold leading-[1.08] sm:text-[2rem]">{post.data.title}</span>
-                  <span class="muted mt-2 block max-w-3xl leading-relaxed">{post.data.snippet}</span>
-                </span>
+              <a href={href(`/blog/${post.id}/`)} class="post-link block h-full">
+                <div data-nav-tone="dark" class="post-cover overflow-hidden rounded-sm border border-ink/20 bg-sand">
+                  <img
+                    src={post.data.image.src}
+                    alt=""
+                    width="640"
+                    height="360"
+                    loading={i < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                    class="aspect-[16/9] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div class="post-text">
+                  <p class="label flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <span class="rounded-full border border-ink/30 bg-white/60 px-2 py-0.5 text-ink">{post.data.category}</span>
+                    <time datetime={post.data.publishDate.toISOString()}>
+                      {post.data.publishDate.toLocaleDateString(isEn ? "en-US" : "es-ES", { year: "numeric", month: "short", day: "numeric" })}
+                    </time>
+                    <span>· ~{readingMinutes} min</span>
+                    {featured && <span class="post-new rounded-full bg-[#E4FF00] px-2 py-0.5 font-bold text-[#050505]">{isEn ? "Latest" : "Último"}</span>}
+                  </p>
+                  <h2 class="post-title mt-3 font-display font-bold leading-[1.1] decoration-[3px] underline-offset-4 group-hover:underline">{post.data.title}</h2>
+                  <p class="muted post-snippet mt-3 leading-relaxed">{post.data.snippet}</p>
+                  <span class="link-arrow mt-4 min-h-11" aria-hidden="true">{isEn ? "Read article" : "Leer artículo"} →</span>
+                </div>
               </a>
             </article>
           );
@@ -123,7 +127,10 @@ const getCategoryIcon = (category: string) => {
     </div>
   </section>
 
-  <section class="section border-t border-ink/20" aria-labelledby="blog-cta-title">
+  <section class="section relative isolate overflow-hidden border-t border-ink/20" aria-labelledby="blog-cta-title">
+    <div class="pointer-events-none absolute -bottom-10 right-0 -z-10 hidden h-80 w-80 opacity-[0.08] sm:block" aria-hidden="true">
+      <img src="/img/mascot/point-transparent.webp" alt="" width="320" height="320" class="h-full w-full -scale-x-100 object-contain [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]" />
+    </div>
     <div class="wrap grid items-end gap-8 lg:grid-cols-12">
       <div class="lg:col-span-7">
         <h2 id="blog-cta-title" class="h-section">
@@ -140,68 +147,62 @@ const getCategoryIcon = (category: string) => {
     </div>
   </section>
 
-  <!-- Client-side Category Filter & Search Script -->
+  <style>
+    .filter-btn[aria-pressed="true"] { background: #050505; color: #fffcf0; border-color: #050505; }
+    .filter-btn[aria-pressed="true"] span { opacity: 0.75; }
+
+    .post-title { font-size: 1.4rem; }
+    .post-snippet { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.95rem; }
+    .post-text { padding-top: 1rem; }
+    .post-card--featured .post-title { font-size: 1.7rem; }
+
+    /* Artículo destacado: portada grande a la izquierda y texto a la derecha (escritorio y sin filtros) */
+    @media (min-width: 1024px) {
+      #posts-container:not([data-filtering]) .post-card--featured .post-link { display: grid; grid-template-columns: 7fr 5fr; gap: 2.5rem; align-items: center; }
+      #posts-container:not([data-filtering]) .post-card--featured .post-text { padding-top: 0; }
+      #posts-container:not([data-filtering]) .post-card--featured .post-title { font-size: 2.4rem; }
+      #posts-container:not([data-filtering]) .post-card--featured .post-snippet { -webkit-line-clamp: 5; font-size: 1.05rem; }
+    }
+    #posts-container[data-filtering] .post-card--featured { grid-column: auto; }
+    #posts-container[data-filtering] .post-card--featured .post-title { font-size: 1.4rem; }
+    #posts-container[data-filtering] .post-new { display: none; }
+  </style>
+
   <script is:inline>
-    (function() {
-      const searchInput = document.getElementById("blog-search-input");
-      const filterButtons = document.querySelectorAll(".filter-btn");
-      const postCards = document.querySelectorAll(".post-card");
-      const noResults = document.getElementById("no-posts-found");
-      if (!postCards.length) return;
+    (function () {
+      var searchInput = document.getElementById("blog-search-input");
+      var buttons = document.querySelectorAll(".filter-btn");
+      var cards = document.querySelectorAll(".post-card");
+      var noResults = document.getElementById("no-posts-found");
+      var container = document.getElementById("posts-container");
+      var counter = document.getElementById("results-count");
+      if (!cards.length) return;
+      var total = cards.length;
+      var isEn = document.documentElement.lang === "en";
+      var category = "ALL";
+      var query = "";
 
-      let currentCategory = "ALL";
-      let currentQuery = "";
-
-      function filterPosts() {
-        let visibleCount = 0;
-
-        postCards.forEach(function(card) {
-          const cardCategory = (card.getAttribute("data-category") || "").toLowerCase();
-          const cardTitle = (card.getAttribute("data-title") || "").toLowerCase();
-          const cardSnippet = (card.getAttribute("data-snippet") || "").toLowerCase();
-          const cardTags = (card.getAttribute("data-tags") || "").toLowerCase();
-          const searchable = `${cardTitle} ${cardSnippet} ${cardTags}`;
-
-          const matchesCategory = currentCategory === "ALL" || cardCategory === currentCategory.toLowerCase();
-          const matchesQuery = !currentQuery || searchable.includes(currentQuery);
-
-          if (matchesCategory && matchesQuery) {
-            card.style.display = "flex";
-            visibleCount++;
-          } else {
-            card.style.display = "none";
-          }
+      function apply() {
+        var visible = 0;
+        cards.forEach(function (card) {
+          var okCat = category === "ALL" || card.getAttribute("data-group") === category;
+          var haystack = (card.getAttribute("data-title") || "") + " " + (card.getAttribute("data-snippet") || "") + " " + (card.getAttribute("data-tags") || "");
+          var show = okCat && (!query || haystack.indexOf(query) !== -1);
+          card.style.display = show ? "" : "none";
+          if (show) visible++;
         });
-
-        if (noResults) {
-          if (visibleCount === 0) {
-            noResults.classList.remove("hidden");
-          } else {
-            noResults.classList.add("hidden");
-          }
-        }
+        var filtering = category !== "ALL" || query !== "";
+        if (filtering) container.setAttribute("data-filtering", ""); else container.removeAttribute("data-filtering");
+        if (noResults) noResults.classList.toggle("hidden", visible !== 0);
+        if (counter) counter.textContent = filtering ? visible + (isEn ? " of " : " de ") + total + (isEn ? " articles" : " artículos") : "";
       }
 
-      if (searchInput) {
-        searchInput.addEventListener("input", function(e) {
-          currentQuery = (e.target.value || "").trim().toLowerCase();
-          filterPosts();
-        });
-      }
-
-      filterButtons.forEach(function(btn) {
-        btn.addEventListener("click", function() {
-          const rawCat = btn.getAttribute("data-category") || "Todas";
-          currentCategory = (rawCat === "Todas" || rawCat === "All") ? "ALL" : rawCat;
-
-          filterButtons.forEach(function(b) {
-            const isCurrent = b === btn;
-            b.className = isCurrent
-              ? "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-[#C8F169] bg-[#C8F169] text-[#111111] active"
-              : "filter-btn inline-flex min-h-11 cursor-pointer items-center rounded-sm border px-3.5 text-[0.92rem] font-semibold transition-colors border-ink/35 bg-transparent text-ink hover:border-ink hover:bg-white/70";
-          });
-
-          filterPosts();
+      if (searchInput) searchInput.addEventListener("input", function (e) { query = (e.target.value || "").trim().toLowerCase(); apply(); });
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          category = btn.getAttribute("data-group") || "ALL";
+          buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
+          apply();
         });
       });
     })();

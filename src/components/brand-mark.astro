@@ -1,56 +1,22 @@
 ---
 interface Props {
+  /** Alto del logo en píxeles (el ancho sale de la proporción del muñeco). */
   size?: number;
   class?: string;
 }
 
-const { size = 32, class: className = "" } = Astro.props;
+const { size = 40, class: className = "" } = Astro.props;
+// El archivo mide 503×629 px; se mantiene la proporción para evitar saltos de maquetación.
+const width = Math.round((size * 503) / 629);
 ---
 
-<!-- Monograma Isotipo Geométrico JT — Sistema Editorial Suave -->
-<svg
-  width={size}
+<!-- Logo: el muñeco de la marca sosteniendo la J -->
+<img
+  src="/img/mascot/brand-j-transparent.webp"
+  alt=""
+  width={width}
   height={size}
-  viewBox="0 0 40 40"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  class:list={["shrink-0 select-none", className]}
+  decoding="async"
+  class:list={["shrink-0 select-none object-contain", className]}
   aria-hidden="true"
->
-  <!-- Contenedor squircle con borde nítido de tinta -->
-  <rect
-    x="1.5"
-    y="1.5"
-    width="37"
-    height="37"
-    rx="10"
-    fill="currentColor"
-    class="text-ink"
-  />
-  
-  <!-- Estructura geométrica JT en trazo continuo -->
-  <!-- Barra superior horizontal de la T -->
-  <path
-    d="M10 12.5H30"
-    stroke="var(--color-paper, #FFFCF0)"
-    stroke-width="3"
-    stroke-linecap="round"
-  />
-  
-  <!-- Asta vertical y curva de la J -->
-  <path
-    d="M20 12.5V23.5C20 26.5 17.5 28.5 14.5 28.5C12 28.5 10 27 10 25"
-    stroke="var(--color-paper, #FFFCF0)"
-    stroke-width="3"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-
-  <!-- Nodo de código / terminal acento (Amarillo ácido) -->
-  <circle
-    cx="27.5"
-    cy="23.5"
-    r="3"
-    fill="var(--color-acid, #E4FF00)"
-  />
-</svg>
+/>

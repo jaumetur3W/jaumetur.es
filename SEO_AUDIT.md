@@ -44,7 +44,7 @@ Valores de una sola ejecución en esta máquina; **no son datos de campo (CrUX)*
 `WebSite` (todas) · `WebPage` (todas las indexables) · `ProfessionalService` con `OfferCatalog` + `ContactPoint` (inicio, sobre mí, contacto) · `Person` (ídem) · `Service` + `BreadcrumbList` (servicios) · `ItemList` (servicios, proyectos) · `CreativeWork` + `BreadcrumbList` (casos) · `BlogPosting` + `BreadcrumbList` (artículos) · `FAQPage` (inicio). `LocalBusiness`/dirección postal: solo localidad (Xàtiva) — no hay dirección física pública verificable, no se inventa.
 
 ## Imágenes
-Todas WebP, con `alt` donde aportan contenido, `alt=""` en decorativas (enlazadas con texto adyacente) y `width`/`height`. Renombradas `1.webp`→`jaume-tur-desarrollador-web.webp` y `3.webp`→`jaume-tur-contacto.webp`. Sin cambios: nombres de las portadas de blog (descriptivos, en catalán) y `2.webp`, `4.webp`… (avatares sin valor SEO).
+Todas WebP, con `alt` donde aportan contenido, `alt=""` en decorativas (enlazadas con texto adyacente) y `width`/`height`. Las fotos personales y los avatares con la cara se retiraron el 27/11/2026; cuando haya una foto real se añadirá en «Sobre mí».
 
 ## Recomendaciones (requieren datos o decisión)
 1. Verificar y reclamar la ficha de Google Business Profile y mantener nombre/teléfono idénticos a la web.
